@@ -1,107 +1,167 @@
-import { Image } from "expo-image";
-import { Platform, StyleSheet } from "react-native";
+import { useState } from "react";
+import {
+  KeyboardAvoidingView,
+  Platform,
+  Pressable,
+  ScrollView,
+  Text,
+  TextInput,
+  View,
+} from "react-native";
 
-import { HelloWave } from "@/components/hello-wave";
-import ParallaxScrollView from "@/components/parallax-scroll-view";
-import { ThemedText } from "@/components/themed-text";
-import { ThemedView } from "@/components/themed-view";
-import { Link } from "expo-router";
+type Message = {
+  id: number;
+  text: string;
+  sender: "user" | "assistant";
+};
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: "#A1CEDC", dark: "#1D3D47" }}
-      headerImage={
-        <Image
-          source={require("@/assets/images/partial-react-logo.png")}
-          style={styles.reactLogo}
-        />
-      }
-    >
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit{" "}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText>{" "}
-          to see changes. Press{" "}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: "cmd + d",
-              android: "cmd + m",
-              web: "F12",
-            })}
-          </ThemedText>{" "}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction
-              title="Action"
-              icon="cube"
-              onPress={() => alert("Action pressed")}
-            />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert("Share pressed")}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert("Delete pressed")}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      id: 1,
+      sender: "assistant",
+      text: "Hello! I'm your IT Troubleshooting Assistant.",
+    },
+    {
+      id: 2,
+      sender: "assistant",
+      text: "Tell me what problem you're experiencing and I'll help you troubleshoot it.",
+    },
+  ]);
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">
-            npm run reset-project
-          </ThemedText>{" "}
-          to get a fresh <ThemedText type="defaultSemiBold">app</ThemedText>{" "}
-          directory. This will move the current{" "}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{" "}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+  const [input, setInput] = useState("");
+
+  const handleSend = () => {
+    if (!input.trim()) return;
+
+    const userMessage: Message = {
+      id: Date.now(),
+      sender: "user",
+      text: input.trim(),
+    };
+
+    setMessages((current) => [...current, userMessage]);
+    setInput("");
+
+    // Static response for now
+    setTimeout(() => {
+      const assistantMessage: Message = {
+        id: Date.now() + 1,
+        sender: "assistant",
+        text: "I understand. Let me help you troubleshoot that problem.",
+      };
+
+      setMessages((current) => [...current, assistantMessage]);
+    }, 500);
+  };
+
+  return (
+    <KeyboardAvoidingView
+      className="flex-1 bg-gray-50"
+      behavior={Platform.OS === "ios" ? "padding" : undefined}
+    >
+      {/* Header */}
+      <View className="border-b border-gray-200 bg-white px-5 pb-4 pt-14">
+        <Text className="text-2xl font-bold text-gray-900">IT Assistant</Text>
+
+        <Text className="mt-1 text-sm text-gray-500">
+          Troubleshooting Assistant
+        </Text>
+      </View>
+
+      {/* Chat Messages */}
+      <ScrollView
+        className="flex-1 px-4"
+        contentContainerStyle={{
+          paddingTop: 20,
+          paddingBottom: 20,
+        }}
+        showsVerticalScrollIndicator={false}
+      >
+        {messages.map((message) => {
+          const isUser = message.sender === "user";
+
+          return (
+            <View
+              key={message.id}
+              className={`mb-4 flex-row ${
+                isUser ? "justify-end" : "justify-start"
+              }`}
+            >
+              <View
+                className={`max-w-[82%] rounded-2xl px-4 py-3 ${
+                  isUser
+                    ? "rounded-br-md bg-blue-600"
+                    : "rounded-bl-md bg-white"
+                }`}
+              >
+                <Text
+                  className={`text-base leading-6 ${
+                    isUser ? "text-white" : "text-gray-800"
+                  }`}
+                >
+                  {message.text}
+                </Text>
+              </View>
+            </View>
+          );
+        })}
+      </ScrollView>
+
+      {/* Quick Suggestions */}
+      <View className="border-t border-gray-200 bg-white px-4 pb-2 pt-3">
+        <Text className="mb-2 text-xs font-semibold uppercase text-gray-400">
+          Common problems
+        </Text>
+
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ gap: 8 }}
+        >
+          <Pressable
+            className="rounded-full border border-gray-200 bg-gray-50 px-4 py-2"
+            onPress={() => setInput("My computer has no internet connection")}
+          >
+            <Text className="text-sm text-gray-700">No Internet</Text>
+          </Pressable>
+
+          <Pressable
+            className="rounded-full border border-gray-200 bg-gray-50 px-4 py-2"
+            onPress={() => setInput("My printer is not working")}
+          >
+            <Text className="text-sm text-gray-700">Printer Problem</Text>
+          </Pressable>
+
+          <Pressable
+            className="rounded-full border border-gray-200 bg-gray-50 px-4 py-2"
+            onPress={() => setInput("I cannot access the shared folder")}
+          >
+            <Text className="text-sm text-gray-700">Shared Folder</Text>
+          </Pressable>
+        </ScrollView>
+      </View>
+
+      {/* Input */}
+      <View className="flex-row items-end gap-2 bg-white px-4 pb-5 pt-2">
+        <TextInput
+          value={input}
+          onChangeText={setInput}
+          placeholder="Describe your problem..."
+          placeholderTextColor="#9CA3AF"
+          multiline
+          className="max-h-28 flex-1 rounded-2xl border border-gray-200 bg-gray-50 px-4 py-3 text-base text-gray-900"
+        />
+
+        <Pressable
+          onPress={handleSend}
+          className={`h-12 w-12 items-center justify-center rounded-full ${
+            input.trim() ? "bg-blue-600" : "bg-gray-300"
+          }`}
+        >
+          <Text className="text-lg font-bold text-white">↑</Text>
+        </Pressable>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: "absolute",
-  },
-});
