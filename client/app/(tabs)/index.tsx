@@ -125,7 +125,7 @@ export default function HomeScreen() {
   return (
     <KeyboardAvoidingView
       className="flex-1 bg-slate-50"
-      behavior={Platform.OS === "ios" ? "padding" : undefined}
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
     >
       <ChatHeader
