@@ -1,0 +1,1746 @@
+[
+  {
+    "id": "KBM-001",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Keyboard Language",
+    "problem": "How to change the keyboard language",
+    "description": "The user wants to switch the active keyboard input language, for example from English to another language, either because they type in multiple languages or because the wrong language is currently active.",
+    "symptoms": [
+      "Typing produces characters from the wrong language or layout",
+      "The user does not know how to switch between installed languages",
+      "A language indicator may show an unexpected language code in the taskbar",
+      "Certain keys produce unexpected characters or accents"
+    ],
+    "possible_causes": [
+      "The desired language has not yet been added to Windows",
+      "The user does not know the keyboard shortcut or menu location to switch languages",
+      "The language switch shortcut was pressed accidentally, changing the active language unintentionally",
+      "Multiple languages are installed and the wrong one is currently selected"
+    ],
+    "diagnostic_questions": [
+      "Is the language you want to switch to already installed on this computer?",
+      "Do you see a language indicator, such as 'ENG' or 'FRA', in the taskbar?",
+      "Do you know the keyboard shortcut used to switch languages, often Windows key + Space?",
+      "Are you trying to switch temporarily for one document, or change the default permanently?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the taskbar, usually near the clock, for a language indicator showing the current active language",
+        "reason": "This confirms whether multiple languages are already installed and simply need to be switched between"
+      },
+      {
+        "step": 2,
+        "action": "Click the language indicator in the taskbar, or press Windows key + Space, to see a list of installed languages and switch between them",
+        "reason": "This is the fastest way to change the active language when more than one is already installed"
+      },
+      {
+        "step": 3,
+        "action": "If the desired language is not listed, go to Settings > Time & Language > Language & region to add it first",
+        "reason": "A language must be added to Windows before it can be selected as the active input language"
+      },
+      {
+        "step": 4,
+        "action": "After adding the new language, return to the taskbar language indicator or use Windows key + Space to switch to it",
+        "reason": "This activates the newly added language for typing"
+      },
+      {
+        "step": 5,
+        "action": "If the language keeps switching unexpectedly, check Settings > Time & Language > Language & region > Advanced keyboard settings for the language switching hotkey configuration",
+        "reason": "This reveals and allows adjustment of the specific shortcut that may be getting triggered accidentally"
+      }
+    ],
+    "possible_solutions": [
+      "Use the taskbar language indicator or Windows key + Space to switch between installed languages",
+      "Add the desired language under Settings > Time & Language before switching to it",
+      "Adjust or review the language switching hotkey if it changes unexpectedly"
+    ],
+    "prevention": [
+      "Add all regularly used languages in advance",
+      "Learn the Windows key + Space shortcut for quick switching",
+      "Be aware of the language switching hotkey to avoid accidental changes"
+    ],
+    "keywords": ["change keyboard language", "switch input language windows", "windows key space language switch", "add keyboard language"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": ["Change keyboard layout", "Add keyboard language", "Remove keyboard language"]
+  },
+
+  {
+    "id": "KBM-002",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Keyboard Layout",
+    "problem": "How to change the keyboard layout",
+    "description": "The user wants to change the physical key mapping used by Windows, such as switching between QWERTY and a different layout, or between regional layout variants like US and UK English, often because typed characters do not match the physical keys pressed.",
+    "symptoms": [
+      "Pressing a key produces a different character than what is printed on it",
+      "Certain punctuation or special characters appear in the wrong position",
+      "The layout does not match the physical keyboard being used",
+      "This is especially noticeable with symbols like @ or quotation marks"
+    ],
+    "possible_causes": [
+      "Windows is set to a keyboard layout that does not match the physical keyboard hardware",
+      "The wrong regional variant of a language was selected, such as US English instead of UK English",
+      "A layout was changed accidentally through a keyboard shortcut",
+      "The correct layout was never added for the installed language"
+    ],
+    "diagnostic_questions": [
+      "What physical keyboard are you using, and what layout is printed on its keys?",
+      "Which characters specifically appear incorrect when typed?",
+      "Do you know what keyboard layout is currently selected in Windows?",
+      "Is this a new keyboard, or has it worked correctly before?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Go to Settings > Time & Language > Language & region, select the relevant language, and click Options to view the currently installed keyboard layouts",
+        "reason": "This shows exactly which layout is currently configured for that language, which can then be compared against the physical keyboard"
+      },
+      {
+        "step": 2,
+        "action": "If the correct layout is not listed, click 'Add a keyboard' within that language's options to add the matching layout",
+        "reason": "This makes the correct layout available for selection to match the physical keyboard hardware"
+      },
+      {
+        "step": 3,
+        "action": "Switch to the newly added, correct layout using the taskbar language and layout indicator",
+        "reason": "This activates the layout that matches the physical keyboard, correcting the character mismatch"
+      },
+      {
+        "step": 4,
+        "action": "Test typing a few special characters and symbols to confirm the layout now matches the physical keys",
+        "reason": "This verifies the correct layout has been successfully applied"
+      },
+      {
+        "step": 5,
+        "action": "If multiple layouts are no longer needed, remove the incorrect one from the same Language & region settings to avoid future accidental switching",
+        "reason": "This simplifies future language switching by leaving only the correct, needed layout available"
+      }
+    ],
+    "possible_solutions": [
+      "Add the correct keyboard layout matching the physical keyboard",
+      "Switch to the correct layout using the taskbar indicator",
+      "Remove unnecessary or incorrect layouts to avoid confusion"
+    ],
+    "prevention": [
+      "Confirm the correct layout is selected when setting up a new keyboard",
+      "Remove unused layouts to prevent accidental switching",
+      "Test special characters after changing language or layout settings"
+    ],
+    "keywords": ["change keyboard layout", "wrong characters typed keyboard", "qwerty layout mismatch", "keyboard layout settings windows"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["Change keyboard language", "Add keyboard language", "Remap keyboard keys"]
+  },
+
+  {
+    "id": "KBM-003",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Keyboard Language",
+    "problem": "How to add a keyboard language",
+    "description": "The user wants to add a new language to Windows so they can type in that language, either for occasional use or as an additional regularly used input option.",
+    "symptoms": [
+      "The desired language does not appear in the language switching list",
+      "The user cannot type in a specific language they need",
+      "Only one language is currently available for typing",
+      "The user is unsure where to find the option to add a new language"
+    ],
+    "possible_causes": [
+      "The language was simply never added to Windows",
+      "The user is unfamiliar with the Windows Settings location for language management",
+      "A language pack download did not complete successfully"
+    ],
+    "diagnostic_questions": [
+      "What specific language do you need to add?",
+      "Do you have an internet connection available, since some language packs need to download?",
+      "Have you tried looking under Settings > Time & Language?",
+      "Do you need just the keyboard layout, or also the full language pack with spell check and translated menus?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Time & Language > Language & region",
+        "reason": "This is the central location in Windows for managing all installed languages"
+      },
+      {
+        "step": 2,
+        "action": "Click 'Add a language' and search for or select the desired language from the list",
+        "reason": "This begins the process of installing the new language and its associated keyboard layout"
+      },
+      {
+        "step": 3,
+        "action": "Follow the prompts to select any additional language features desired, such as speech or handwriting support, then click Install",
+        "reason": "This allows customizing exactly which language components are installed based on the user's needs"
+      },
+      {
+        "step": 4,
+        "action": "Ensure the computer has an internet connection during this process, since language packs are typically downloaded rather than being pre-installed",
+        "reason": "Without internet access, the language files cannot be downloaded and the installation will fail or be incomplete"
+      },
+      {
+        "step": 5,
+        "action": "Once installed, use the taskbar language indicator or Windows key + Space to switch to and start using the newly added language",
+        "reason": "This activates the new language for immediate use"
+      }
+    ],
+    "possible_solutions": [
+      "Add the language through Settings > Time & Language > Language & region",
+      "Ensure an internet connection is available during installation",
+      "Switch to the newly added language using the taskbar indicator"
+    ],
+    "prevention": [
+      "Add commonly needed languages in advance of when they are needed",
+      "Keep a stable internet connection available when installing language packs"
+    ],
+    "keywords": ["add keyboard language windows", "install new language windows", "add language and region settings", "cannot type in language"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["Change keyboard language", "Remove keyboard language", "Change keyboard layout"]
+  },
+
+  {
+    "id": "KBM-004",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Keyboard Language",
+    "problem": "How to remove a keyboard language",
+    "description": "The user wants to remove a previously added language from Windows, typically to simplify the language switching list or because the language is no longer needed.",
+    "symptoms": [
+      "Too many languages appear in the switching list, making it inconvenient to find the right one",
+      "An old or unused language remains installed and cluttering the settings",
+      "The user accidentally switches to an unwanted language while cycling through options"
+    ],
+    "possible_causes": [
+      "A language was added previously but is no longer used",
+      "Multiple similar language variants were added by mistake",
+      "The user is unfamiliar with where to remove a previously added language"
+    ],
+    "diagnostic_questions": [
+      "Which specific language do you want to remove?",
+      "Do you use this language for anything else, such as region-specific formatting or apps?",
+      "Are you trying to remove just one variant, or all installed languages except your primary one?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Time & Language > Language & region",
+        "reason": "This is the central location in Windows for managing all installed languages"
+      },
+      {
+        "step": 2,
+        "action": "Locate the language you want to remove in the list of installed languages",
+        "reason": "This confirms exactly which language and its associated components will be removed"
+      },
+      {
+        "step": 3,
+        "action": "Click on the three-dot menu or select the language, then choose 'Remove'",
+        "reason": "This directly uninstalls the selected language and its associated keyboard layout from the system"
+      },
+      {
+        "step": 4,
+        "action": "Confirm the removal if prompted",
+        "reason": "This finalizes the removal process"
+      },
+      {
+        "step": 5,
+        "action": "Check the taskbar language switching list afterward to confirm the language no longer appears",
+        "reason": "This verifies the removal was successful and the switching list is now simplified as intended"
+      }
+    ],
+    "possible_solutions": [
+      "Remove the unwanted language through Settings > Time & Language > Language & region",
+      "Confirm removal to simplify the language switching list"
+    ],
+    "prevention": [
+      "Only add languages that are genuinely needed",
+      "Periodically review installed languages and remove unused ones"
+    ],
+    "keywords": ["remove keyboard language windows", "uninstall language windows", "delete language from list", "simplify language switching"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": ["Add keyboard language", "Change keyboard language", "Change keyboard layout"]
+  },
+
+  {
+    "id": "KBM-005",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Accessibility",
+    "problem": "How to enable the On-Screen Keyboard",
+    "description": "The user wants to turn on the On-Screen Keyboard, a virtual keyboard displayed on the screen that can be clicked or tapped to type, either because the physical keyboard is unavailable or for accessibility reasons.",
+    "symptoms": [
+      "No physical keyboard is available or working",
+      "The user needs an alternative input method for accessibility purposes",
+      "The user is using a touch-screen device without an attached keyboard",
+      "The user does not know how to turn on this built-in Windows feature"
+    ],
+    "possible_causes": [
+      "The feature is simply turned off by default and needs to be manually enabled",
+      "The user is unfamiliar with the Windows Ease of Access or Accessibility settings location"
+    ],
+    "diagnostic_questions": [
+      "Are you trying to enable this because your physical keyboard is not working, or for another reason such as accessibility?",
+      "Do you need it to appear every time you start the computer, or just for this session?",
+      "Are you using a touch-screen device?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Accessibility (or Ease of Access on older Windows versions) > Keyboard",
+        "reason": "This is the central location where the On-Screen Keyboard feature can be turned on"
+      },
+      {
+        "step": 2,
+        "action": "Toggle on the switch labeled 'On-Screen Keyboard'",
+        "reason": "This directly enables the virtual keyboard, which should appear on screen immediately"
+      },
+      {
+        "step": 3,
+        "action": "If the physical keyboard is not working and Settings cannot be easily navigated with a mouse alone, try the keyboard shortcut Windows key + Ctrl + O on some systems, or access it through the login screen's Ease of Access icon",
+        "reason": "This provides an alternative way to enable the On-Screen Keyboard when normal navigation is difficult without a working physical keyboard"
+      },
+      {
+        "step": 4,
+        "action": "Once enabled, the On-Screen Keyboard should appear on the screen and can be used by clicking or tapping its keys",
+        "reason": "This confirms the feature is active and ready to use as an alternative input method"
+      },
+      {
+        "step": 5,
+        "action": "To turn it off later, return to the same Accessibility > Keyboard settings and toggle the switch off",
+        "reason": "This provides the reverse process for when the on-screen keyboard is no longer needed"
+      }
+    ],
+    "possible_solutions": [
+      "Enable the On-Screen Keyboard through Settings > Accessibility > Keyboard",
+      "Use the Ease of Access icon on the login screen if the physical keyboard is unavailable",
+      "Toggle the setting off when no longer needed"
+    ],
+    "prevention": [
+      "Know the location of this setting in advance in case a physical keyboard fails unexpectedly",
+      "Test the On-Screen Keyboard shortcut occasionally to confirm it works when needed"
+    ],
+    "keywords": ["enable on-screen keyboard windows", "virtual keyboard windows", "turn on on screen keyboard", "accessibility keyboard settings"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": ["Enable Sticky Keys", "Enable Filter Keys", "Enable Toggle Keys"]
+  },
+
+  {
+    "id": "KBM-006",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Accessibility",
+    "problem": "How to enable Sticky Keys",
+    "description": "The user wants to turn on Sticky Keys, an accessibility feature that allows modifier keys like Ctrl, Alt, and Shift to be pressed one at a time instead of held down simultaneously, useful for users who have difficulty pressing multiple keys together.",
+    "symptoms": [
+      "The user has difficulty holding down multiple keys at once for keyboard shortcuts",
+      "The user does not know how to enable this accessibility feature",
+      "Sticky Keys may have turned on unexpectedly and the user wants to understand or control it"
+    ],
+    "possible_causes": [
+      "The feature is simply turned off by default and needs to be manually enabled for accessibility needs",
+      "The user is unfamiliar with the Windows Accessibility settings location"
+    ],
+    "diagnostic_questions": [
+      "Are you trying to enable this intentionally for accessibility reasons?",
+      "Do you want a sound or visual notification when Sticky Keys is active?",
+      "Do you want it to turn on automatically with a shortcut, such as pressing Shift five times?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Accessibility (or Ease of Access) > Keyboard",
+        "reason": "This is the central location where the Sticky Keys feature can be turned on"
+      },
+      {
+        "step": 2,
+        "action": "Toggle on the switch labeled 'Sticky Keys'",
+        "reason": "This directly enables the feature, allowing modifier keys to be pressed sequentially rather than simultaneously"
+      },
+      {
+        "step": 3,
+        "action": "Review the additional Sticky Keys options, such as enabling a keyboard shortcut to turn it on and off quickly, or adding audio and visual feedback",
+        "reason": "These options allow the feature to be customized to the user's specific preferences and needs"
+      },
+      {
+        "step": 4,
+        "action": "Test the feature by pressing a modifier key like Ctrl once, then pressing another key like C, to confirm the combination registers correctly",
+        "reason": "This verifies Sticky Keys is working as expected for keyboard shortcuts"
+      }
+    ],
+    "possible_solutions": [
+      "Enable Sticky Keys through Settings > Accessibility > Keyboard",
+      "Customize additional options like shortcut activation and feedback",
+      "Test keyboard shortcuts to confirm the feature works as expected"
+    ],
+    "prevention": [
+      "Review accessibility needs when setting up a new computer for someone who may benefit from this feature",
+      "Be aware of the Shift-five-times shortcut that can toggle this feature unexpectedly"
+    ],
+    "keywords": ["enable sticky keys windows", "sticky keys accessibility", "turn on sticky keys", "modifier key accessibility"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": ["Disable Sticky Keys", "Enable Filter Keys", "Enable On-Screen Keyboard"]
+  },
+
+  {
+    "id": "KBM-007",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Accessibility",
+    "problem": "How to disable Sticky Keys",
+    "description": "The user wants to turn off Sticky Keys, often because it activated unexpectedly, typically triggered by accidentally pressing the Shift key five times in a row, and is now interfering with normal keyboard shortcut use.",
+    "symptoms": [
+      "A pop-up appeared asking if the user wants to turn on Sticky Keys",
+      "Keyboard shortcuts that require holding multiple keys no longer work as expected",
+      "A notification sound plays when pressing modifier keys",
+      "The feature turned on unexpectedly without the user intentionally enabling it"
+    ],
+    "possible_causes": [
+      "The Shift key was accidentally pressed five times in quick succession, triggering the automatic Sticky Keys prompt",
+      "The feature was previously enabled intentionally or by another user of the computer",
+      "The keyboard shortcut for toggling Sticky Keys is enabled and was triggered unintentionally"
+    ],
+    "diagnostic_questions": [
+      "Did a pop-up appear asking about turning on Sticky Keys right before this started happening?",
+      "Do you use keyboard shortcuts that involve pressing Shift multiple times quickly, such as in certain games or applications?",
+      "Is this happening on a shared computer where someone else may have enabled it?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "If a pop-up notification appears asking about Sticky Keys, click 'No' or dismiss it to avoid turning the feature on",
+        "reason": "This directly prevents the feature from activating in the moment it is triggered"
+      },
+      {
+        "step": 2,
+        "action": "If Sticky Keys is already active, open Settings and go to Accessibility (or Ease of Access) > Keyboard",
+        "reason": "This is the central location where the Sticky Keys feature can be turned off"
+      },
+      {
+        "step": 3,
+        "action": "Toggle off the switch labeled 'Sticky Keys'",
+        "reason": "This directly disables the feature, returning keyboard shortcuts to their normal behavior requiring simultaneous key presses"
+      },
+      {
+        "step": 4,
+        "action": "In the same settings area, find and toggle off the option that allows the shortcut (pressing Shift five times) to turn Sticky Keys on",
+        "reason": "This prevents the feature from being triggered accidentally again in the future, especially useful for users who frequently press Shift in quick succession during normal use"
+      },
+      {
+        "step": 5,
+        "action": "Test your normal keyboard shortcuts, such as Ctrl+C or Alt+Tab, to confirm they now require simultaneous key presses as expected",
+        "reason": "This verifies the feature has been fully disabled and normal keyboard behavior has been restored"
+      }
+    ],
+    "possible_solutions": [
+      "Dismiss the Sticky Keys pop-up notification when it appears",
+      "Disable Sticky Keys through Settings > Accessibility > Keyboard",
+      "Turn off the Shift-five-times shortcut to prevent future accidental activation"
+    ],
+    "prevention": [
+      "Disable the Shift-five-times shortcut if it is not needed",
+      "Be mindful when pressing Shift multiple times quickly during gameplay or typing"
+    ],
+    "keywords": ["disable sticky keys windows", "turn off sticky keys", "sticky keys popup shift five times", "stop sticky keys activating"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": ["Enable Sticky Keys", "Disable Filter Keys", "Enable Toggle Keys"]
+  },
+
+  {
+    "id": "KBM-008",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Accessibility",
+    "problem": "How to enable Filter Keys",
+    "description": "The user wants to turn on Filter Keys, an accessibility feature that tells Windows to ignore brief or repeated keystrokes, or to slow down the repeat rate, useful for users with hand tremors or who have difficulty typing precisely.",
+    "symptoms": [
+      "The user has difficulty avoiding accidental repeated keystrokes while typing",
+      "The user does not know how to enable this accessibility feature",
+      "Filter Keys may have activated unexpectedly and the user wants to understand or control it"
+    ],
+    "possible_causes": [
+      "The feature is simply turned off by default and needs to be manually enabled for accessibility needs",
+      "The user is unfamiliar with the Windows Accessibility settings location"
+    ],
+    "diagnostic_questions": [
+      "Are you trying to enable this intentionally to reduce accidental repeated keystrokes?",
+      "Do you know how sensitive you want the filtering to be?",
+      "Do you want it to turn on automatically with a shortcut, such as holding the right Shift key for eight seconds?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Accessibility (or Ease of Access) > Keyboard",
+        "reason": "This is the central location where the Filter Keys feature can be turned on"
+      },
+      {
+        "step": 2,
+        "action": "Toggle on the switch labeled 'Filter Keys'",
+        "reason": "This directly enables the feature, causing Windows to ignore brief or repeated keystrokes as configured"
+      },
+      {
+        "step": 3,
+        "action": "Adjust the repeat keys and filter keys settings within this section to customize sensitivity, such as how long a key must be held before it registers",
+        "reason": "This allows the feature to be tuned to the specific needs of the user, since different people benefit from different sensitivity levels"
+      },
+      {
+        "step": 4,
+        "action": "Test typing normally to confirm the feature is filtering out unwanted repeated keystrokes without interfering with intentional typing",
+        "reason": "This verifies the feature is properly configured and helping rather than hindering normal use"
+      }
+    ],
+    "possible_solutions": [
+      "Enable Filter Keys through Settings > Accessibility > Keyboard",
+      "Adjust sensitivity settings to match the user's specific needs",
+      "Test typing to confirm proper configuration"
+    ],
+    "prevention": [
+      "Review accessibility needs when setting up a computer for someone who may benefit from this feature",
+      "Adjust sensitivity gradually to find the most comfortable setting"
+    ],
+    "keywords": ["enable filter keys windows", "filter keys accessibility", "ignore repeated keystrokes", "turn on filter keys"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": ["Disable Filter Keys", "Enable Sticky Keys", "Change keyboard repeat rate"]
+  },
+
+  {
+    "id": "KBM-009",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Accessibility",
+    "problem": "How to disable Filter Keys",
+    "description": "The user wants to turn off Filter Keys, often because it activated unexpectedly, typically triggered by accidentally holding down the right Shift key, and is now causing normal typing to feel delayed or unresponsive.",
+    "symptoms": [
+      "A pop-up appeared asking if the user wants to turn on Filter Keys",
+      "Typing feels delayed, with keys not registering immediately",
+      "Held-down keys do not repeat as expected",
+      "The feature turned on unexpectedly without the user intentionally enabling it"
+    ],
+    "possible_causes": [
+      "The right Shift key was accidentally held down for several seconds, triggering the automatic Filter Keys prompt",
+      "The feature was previously enabled intentionally or by another user of the computer",
+      "The keyboard shortcut for toggling Filter Keys is enabled and was triggered unintentionally"
+    ],
+    "diagnostic_questions": [
+      "Did a pop-up appear asking about turning on Filter Keys right before this started happening?",
+      "Does typing feel noticeably delayed or unresponsive compared to normal?",
+      "Is this happening on a shared computer where someone else may have enabled it?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "If a pop-up notification appears asking about Filter Keys, click 'No' or dismiss it to avoid turning the feature on",
+        "reason": "This directly prevents the feature from activating in the moment it is triggered"
+      },
+      {
+        "step": 2,
+        "action": "If Filter Keys is already active, open Settings and go to Accessibility (or Ease of Access) > Keyboard",
+        "reason": "This is the central location where the Filter Keys feature can be turned off"
+      },
+      {
+        "step": 3,
+        "action": "Toggle off the switch labeled 'Filter Keys'",
+        "reason": "This directly disables the feature, returning typing to its normal immediate response without filtering delays"
+      },
+      {
+        "step": 4,
+        "action": "In the same settings area, find and toggle off the option that allows the shortcut (holding the right Shift key) to turn Filter Keys on",
+        "reason": "This prevents the feature from being triggered accidentally again in the future"
+      },
+      {
+        "step": 5,
+        "action": "Test typing normally to confirm keys now register immediately without delay, as expected",
+        "reason": "This verifies the feature has been fully disabled and normal keyboard responsiveness has been restored"
+      }
+    ],
+    "possible_solutions": [
+      "Dismiss the Filter Keys pop-up notification when it appears",
+      "Disable Filter Keys through Settings > Accessibility > Keyboard",
+      "Turn off the right Shift key hold shortcut to prevent future accidental activation"
+    ],
+    "prevention": [
+      "Disable the right Shift key hold shortcut if it is not needed",
+      "Be mindful of resting fingers on the right Shift key for extended periods"
+    ],
+    "keywords": ["disable filter keys windows", "turn off filter keys", "typing feels delayed filter keys", "stop filter keys activating"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": ["Enable Filter Keys", "Disable Sticky Keys", "Enable Toggle Keys"]
+  },
+
+  {
+    "id": "KBM-010",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Accessibility",
+    "problem": "How to enable Toggle Keys",
+    "description": "The user wants to turn on Toggle Keys, an accessibility feature that plays a sound whenever Caps Lock, Num Lock, or Scroll Lock is pressed, providing audible feedback for these often easily overlooked keys.",
+    "symptoms": [
+      "The user often accidentally leaves Caps Lock or Num Lock on without realizing it",
+      "The user wants audible confirmation when these toggle-style keys are pressed",
+      "The user does not know how to enable this accessibility feature"
+    ],
+    "possible_causes": [
+      "The feature is simply turned off by default and needs to be manually enabled",
+      "The user is unfamiliar with the Windows Accessibility settings location"
+    ],
+    "diagnostic_questions": [
+      "Are you trying to enable this to get audible feedback when pressing Caps Lock, Num Lock, or Scroll Lock?",
+      "Do you often accidentally leave Caps Lock on without noticing?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Accessibility (or Ease of Access) > Keyboard",
+        "reason": "This is the central location where the Toggle Keys feature can be turned on"
+      },
+      {
+        "step": 2,
+        "action": "Toggle on the switch labeled 'Toggle Keys'",
+        "reason": "This directly enables the feature, causing a sound to play whenever Caps Lock, Num Lock, or Scroll Lock is pressed"
+      },
+      {
+        "step": 3,
+        "action": "Test the feature by pressing Caps Lock and listening for the confirmation sound",
+        "reason": "This verifies the feature is active and working as expected"
+      },
+      {
+        "step": 4,
+        "action": "Ensure your computer's volume is turned up and not muted, since the feedback for Toggle Keys is audio-based",
+        "reason": "Without audible sound output, this feature would not provide any noticeable feedback"
+      }
+    ],
+    "possible_solutions": [
+      "Enable Toggle Keys through Settings > Accessibility > Keyboard",
+      "Confirm the computer's volume is on to hear the audible feedback",
+      "Test by pressing Caps Lock to confirm the sound plays"
+    ],
+    "prevention": [
+      "Keep this feature enabled if accidentally leaving Caps Lock on is a recurring issue",
+      "Ensure volume settings allow system sounds to be heard"
+    ],
+    "keywords": ["enable toggle keys windows", "toggle keys sound caps lock", "audible feedback caps lock", "turn on toggle keys"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": ["Enable Sticky Keys", "Enable Filter Keys", "Enable On-Screen Keyboard"]
+  },
+
+  {
+    "id": "KBM-011",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Keyboard Behavior",
+    "problem": "How to change the keyboard repeat rate",
+    "description": "The user wants to adjust how quickly a character repeats when a key is held down, either speeding it up for faster repeated input, or slowing it down to reduce accidental repeated characters.",
+    "symptoms": [
+      "Holding down a key produces repeated characters too quickly or too slowly",
+      "The user finds the current repeat speed uncomfortable for their typing style",
+      "The user does not know where to find this setting"
+    ],
+    "possible_causes": [
+      "The repeat rate is simply set to Windows' default value, which may not suit the user's preference",
+      "The user is unfamiliar with the Control Panel or Settings location for this option"
+    ],
+    "diagnostic_questions": [
+      "Do you want the repeated characters to appear faster or slower than they currently do?",
+      "Have you checked the Keyboard settings in Control Panel?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Control Panel and go to Keyboard (this can be found by searching for 'keyboard' in the Start menu)",
+        "reason": "This opens the classic Keyboard Properties dialog, which contains the repeat rate setting"
+      },
+      {
+        "step": 2,
+        "action": "Under the Speed tab, locate the 'Repeat rate' slider and adjust it toward Fast or Slow according to preference",
+        "reason": "This directly controls how quickly a character repeats when its key is held down"
+      },
+      {
+        "step": 3,
+        "action": "Click into the test box provided and hold down a key to preview the new repeat rate before applying it",
+        "reason": "This allows the user to fine-tune the setting to their exact preference before committing to the change"
+      },
+      {
+        "step": 4,
+        "action": "Click Apply or OK to save the new repeat rate setting",
+        "reason": "This confirms and applies the adjusted setting system-wide"
+      },
+      {
+        "step": 5,
+        "action": "Test typing normally, holding down a key briefly, to confirm the new repeat rate feels comfortable",
+        "reason": "This verifies the change was successfully applied and meets the user's expectations"
+      }
+    ],
+    "possible_solutions": [
+      "Adjust the Repeat rate slider under Control Panel > Keyboard > Speed tab",
+      "Use the built-in test box to preview changes before applying",
+      "Fine-tune the setting until it feels comfortable for typing"
+    ],
+    "prevention": [
+      "Adjust this setting soon after setting up a new computer if the default does not feel comfortable",
+      "Revisit this setting if switching to a different keyboard with different key feel"
+    ],
+    "keywords": ["change keyboard repeat rate", "key repeat speed windows", "keyboard properties speed tab", "held key repeats too fast"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": ["Change keyboard repeat delay", "Enable Filter Keys", "Remap keyboard keys"]
+  },
+
+  {
+    "id": "KBM-012",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Keyboard Behavior",
+    "problem": "How to change the keyboard repeat delay",
+    "description": "The user wants to adjust how long a key must be held down before it begins repeating, either shortening the delay for faster response, or lengthening it to reduce accidental repeated characters when briefly pressing keys.",
+    "symptoms": [
+      "Characters begin repeating too quickly or too slowly after a key is held down",
+      "The user finds the current delay uncomfortable for their typing style",
+      "The user does not know where to find this setting"
+    ],
+    "possible_causes": [
+      "The repeat delay is simply set to Windows' default value, which may not suit the user's preference",
+      "The user is unfamiliar with the Control Panel or Settings location for this option"
+    ],
+    "diagnostic_questions": [
+      "Do you want repeating to start sooner or later after holding down a key?",
+      "Have you checked the Keyboard settings in Control Panel?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Control Panel and go to Keyboard (this can be found by searching for 'keyboard' in the Start menu)",
+        "reason": "This opens the classic Keyboard Properties dialog, which contains the repeat delay setting"
+      },
+      {
+        "step": 2,
+        "action": "Under the Speed tab, locate the 'Repeat delay' slider and adjust it toward Short or Long according to preference",
+        "reason": "This directly controls how long a key must be held before it starts repeating"
+      },
+      {
+        "step": 3,
+        "action": "Click into the test box provided and hold down a key to preview the new repeat delay before applying it",
+        "reason": "This allows the user to fine-tune the setting to their exact preference before committing to the change"
+      },
+      {
+        "step": 4,
+        "action": "Click Apply or OK to save the new repeat delay setting",
+        "reason": "This confirms and applies the adjusted setting system-wide"
+      },
+      {
+        "step": 5,
+        "action": "Test typing normally, holding down a key briefly, to confirm the new delay feels comfortable",
+        "reason": "This verifies the change was successfully applied and meets the user's expectations"
+      }
+    ],
+    "possible_solutions": [
+      "Adjust the Repeat delay slider under Control Panel > Keyboard > Speed tab",
+      "Use the built-in test box to preview changes before applying",
+      "Fine-tune the setting until it feels comfortable for typing"
+    ],
+    "prevention": [
+      "Adjust this setting soon after setting up a new computer if the default does not feel comfortable",
+      "Consider a longer delay if accidental repeated characters are a frequent problem"
+    ],
+    "keywords": ["change keyboard repeat delay", "key repeat delay windows", "keyboard properties speed tab", "keys repeat too soon"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": ["Change keyboard repeat rate", "Enable Filter Keys", "Remap keyboard keys"]
+  },
+
+  {
+    "id": "KBM-013",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Laptop Keyboard",
+    "problem": "How to configure Function (Fn) keys",
+    "description": "The user wants to change how the Function (Fn) keys behave, such as switching whether F1 through F12 act as standard function keys by default or as special media and hardware control keys by default.",
+    "symptoms": [
+      "Pressing F1 through F12 performs media or hardware actions instead of standard function key actions, or vice versa",
+      "The user has to hold the Fn key to get the behavior they actually want most often",
+      "Software that relies on function keys, such as F5 to refresh, does not work as expected without holding Fn"
+    ],
+    "possible_causes": [
+      "The laptop's default Fn key behavior does not match the user's preference or common usage pattern",
+      "A BIOS/UEFI setting controls the default Fn key mode and is set to the non-preferred option",
+      "A manufacturer-specific keyboard utility is overriding the standard behavior"
+    ],
+    "diagnostic_questions": [
+      "Do you use the media/hardware functions (like volume or brightness) more often, or standard function keys (like F5 or F11) more often?",
+      "Do you know if your laptop has a dedicated Fn Lock key or indicator light?",
+      "Have you checked your laptop's BIOS/UEFI settings for an Fn key behavior option?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check for a dedicated 'Fn Lock' or padlock icon key on the keyboard, often combined with the Escape key, and try pressing it along with Fn",
+        "reason": "Many laptops include a simple toggle specifically for switching the default Fn key behavior without needing to go into settings"
+      },
+      {
+        "step": 2,
+        "action": "If a physical Fn Lock key is not available or does not work as expected, restart the computer and enter BIOS/UEFI settings by pressing the appropriate key during startup, such as F2 or Delete",
+        "reason": "Many laptop manufacturers include a setting specifically for default Fn key behavior within the firmware settings"
+      },
+      {
+        "step": 3,
+        "action": "Look for a setting often labeled something like 'Action Keys Mode', 'Fn Key Lock', or 'Hotkey Mode' within the BIOS/UEFI settings, and change it to the preferred default behavior",
+        "reason": "This directly changes which behavior, function keys or media keys, is the default when pressed without holding Fn"
+      },
+      {
+        "step": 4,
+        "action": "Save the BIOS/UEFI changes and restart the computer normally",
+        "reason": "This applies the new default Fn key behavior going forward"
+      },
+      {
+        "step": 5,
+        "action": "If the laptop manufacturer provides a dedicated keyboard or hotkey utility software, check within that program for an equivalent setting, since some manufacturers manage this through software instead of BIOS/UEFI",
+        "reason": "Some manufacturers provide this configuration option through their own utility rather than the firmware settings"
+      },
+      {
+        "step": 6,
+        "action": "Test pressing a function key, such as F5, without holding Fn to confirm it now performs the expected default behavior",
+        "reason": "This verifies the change was successfully applied"
+      }
+    ],
+    "possible_solutions": [
+      "Use a dedicated Fn Lock key if available on the keyboard",
+      "Change the default Fn key behavior in BIOS/UEFI settings",
+      "Adjust the setting through a manufacturer-provided keyboard utility if available"
+    ],
+    "prevention": [
+      "Configure Fn key behavior to match your most common usage pattern early on",
+      "Know the location of the Fn Lock key or BIOS setting for future adjustments"
+    ],
+    "keywords": ["configure function keys laptop", "fn key behavior bios", "f keys act as media keys", "fn lock toggle"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["Remap keyboard keys", "Change keyboard repeat rate"]
+  },
+
+  {
+    "id": "KBM-014",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Key Remapping",
+    "problem": "How to remap keyboard keys",
+    "description": "The user wants to change what action or character a specific key produces, such as swapping Caps Lock and Ctrl, or disabling an unwanted key entirely, since Windows does not offer this as a simple built-in setting.",
+    "symptoms": [
+      "A specific key produces an unwanted or inconvenient action",
+      "The user wants a rarely used key repurposed for something more useful",
+      "The user does not know that Windows requires a separate tool or registry change for this",
+      "A key press does not match what the user expects or wants"
+    ],
+    "possible_causes": [
+      "Windows does not include a simple built-in graphical option for remapping individual keys",
+      "The user is unaware of Microsoft's official PowerToys utility, which includes a keyboard remapping feature",
+      "A manufacturer-specific keyboard utility may already offer remapping but the user has not found it"
+    ],
+    "diagnostic_questions": [
+      "Which specific key do you want to remap, and what do you want it to do instead?",
+      "Do you have Microsoft PowerToys or a similar remapping utility already installed?",
+      "Does your keyboard or laptop manufacturer provide its own software with remapping features?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if your keyboard or laptop manufacturer provides a dedicated software utility that includes key remapping features",
+        "reason": "Many gaming and productivity keyboards, as well as some laptops, include manufacturer software specifically designed for this purpose"
+      },
+      {
+        "step": 2,
+        "action": "If no manufacturer tool is available, download and install Microsoft PowerToys, an official free utility from Microsoft that includes a Keyboard Manager feature",
+        "reason": "PowerToys is a trusted, officially supported tool specifically designed to remap keys and shortcuts without needing risky registry edits"
+      },
+      {
+        "step": 3,
+        "action": "Open PowerToys, navigate to the Keyboard Manager section, and enable it",
+        "reason": "This activates the remapping feature within the utility"
+      },
+      {
+        "step": 4,
+        "action": "Use the 'Remap a key' option to select the key you want to change and assign it a new key or action",
+        "reason": "This directly configures the desired remapping through a simple graphical interface"
+      },
+      {
+        "step": 5,
+        "action": "Test the remapped key to confirm it now performs the newly assigned action",
+        "reason": "This verifies the remapping was successfully applied and is working as intended"
+      },
+      {
+        "step": 6,
+        "action": "If PowerToys is not preferred, be aware that manual registry-based remapping is also possible but carries more risk and should only be attempted with care and proper backups",
+        "reason": "This provides an alternative for advanced users while highlighting that it is a higher-risk approach compared to using an established utility"
+      }
+    ],
+    "possible_solutions": [
+      "Use a manufacturer-provided keyboard utility if available",
+      "Install Microsoft PowerToys and use its Keyboard Manager feature",
+      "Use manual registry remapping only with caution and proper backups as an advanced alternative"
+    ],
+    "prevention": [
+      "Use established, trusted tools like PowerToys rather than obscure third-party remapping software",
+      "Document any custom remapping in case it needs to be reproduced on a new computer"
+    ],
+    "keywords": ["remap keyboard keys windows", "powertoys keyboard manager", "swap caps lock and ctrl", "disable a keyboard key"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["Configure Function (Fn) keys", "Change keyboard repeat rate"]
+  },
+
+  {
+    "id": "KBM-015",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Mouse Behavior",
+    "problem": "How to adjust mouse pointer speed",
+    "description": "The user wants to change how quickly the on-screen mouse pointer moves relative to physical mouse movement, either speeding it up for faster navigation across large or multiple monitors, or slowing it down for more precise control.",
+    "symptoms": [
+      "The mouse pointer moves too quickly or too slowly across the screen relative to hand movement",
+      "The user finds it difficult to precisely position the pointer",
+      "The user does not know where to find this setting"
+    ],
+    "possible_causes": [
+      "The pointer speed is simply set to Windows' default value, which may not suit the user's preference or screen setup",
+      "The user is unfamiliar with the Settings location for mouse pointer speed"
+    ],
+    "diagnostic_questions": [
+      "Do you want the pointer to move faster or slower than it currently does?",
+      "Are you using multiple monitors or a very large single monitor, which might require faster pointer speed to comfortably cover the space?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Bluetooth & devices > Mouse",
+        "reason": "This is the central location in Windows for adjusting mouse-related settings, including pointer speed"
+      },
+      {
+        "step": 2,
+        "action": "Locate the 'Mouse pointer speed' slider and adjust it toward faster or slower according to preference",
+        "reason": "This directly controls how far the on-screen pointer moves relative to physical mouse movement"
+      },
+      {
+        "step": 3,
+        "action": "Test the new speed by moving the mouse across the screen to see if it feels comfortable",
+        "reason": "This allows immediate feedback to fine-tune the setting to the exact preferred speed"
+      },
+      {
+        "step": 4,
+        "action": "Adjust further if needed, since this setting typically applies immediately without needing to click Apply or restart",
+        "reason": "This allows continued fine-tuning until the ideal speed is found"
+      },
+      {
+        "step": 5,
+        "action": "If using a gaming or specialty mouse with its own manufacturer software, also check that software for a separate, often more precise, sensitivity setting (DPI)",
+        "reason": "Some mice have hardware-level sensitivity settings that work alongside or instead of the Windows pointer speed setting"
+      }
+    ],
+    "possible_solutions": [
+      "Adjust the Mouse pointer speed slider under Settings > Bluetooth & devices > Mouse",
+      "Test and fine-tune the speed until it feels comfortable",
+      "Check manufacturer software for additional DPI sensitivity settings on specialty mice"
+    ],
+    "prevention": [
+      "Adjust pointer speed soon after setting up a new computer or monitor configuration",
+      "Revisit this setting after switching to a different mouse or a larger display"
+    ],
+    "keywords": ["adjust mouse pointer speed", "mouse sensitivity windows", "change mouse speed settings", "pointer moves too fast slow"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": ["Change mouse pointer size", "Change double-click speed", "Change mouse scroll speed"]
+  },
+
+  {
+    "id": "KBM-016",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Mouse Appearance",
+    "problem": "How to change the mouse pointer size",
+    "description": "The user wants to make the on-screen mouse pointer larger or smaller than its default size, often to improve visibility on a high-resolution display or for personal preference.",
+    "symptoms": [
+      "The mouse pointer is difficult to see on the screen",
+      "The user finds the default pointer size uncomfortable, especially on a high-resolution or large display",
+      "The user does not know where to find this setting"
+    ],
+    "possible_causes": [
+      "The pointer is simply set to Windows' default size, which may be too small for the user's display resolution or eyesight",
+      "The user is unfamiliar with the Settings location for pointer size and appearance"
+    ],
+    "diagnostic_questions": [
+      "Do you want the pointer to be larger or smaller than it currently is?",
+      "Are you using a very high-resolution display where the default pointer size might appear especially small?",
+      "Would you also like to change the pointer's color while adjusting its size?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Accessibility (or Ease of Access) > Mouse pointer and touch",
+        "reason": "This is the central location in Windows for adjusting the mouse pointer's size and appearance"
+      },
+      {
+        "step": 2,
+        "action": "Locate the 'Pointer size' slider and adjust it toward a larger or smaller value according to preference",
+        "reason": "This directly controls the physical size of the pointer displayed on screen"
+      },
+      {
+        "step": 3,
+        "action": "Observe the live preview of the pointer as you adjust the slider to see the change in real time",
+        "reason": "This allows immediate visual feedback to select the most comfortable size"
+      },
+      {
+        "step": 4,
+        "action": "Move the mouse on the desktop to see the new pointer size in actual use",
+        "reason": "This confirms the change has been applied and looks and feels appropriate during normal use"
+      }
+    ],
+    "possible_solutions": [
+      "Adjust the Pointer size slider under Settings > Accessibility > Mouse pointer and touch",
+      "Use the live preview to select a comfortable size",
+      "Test the new size during normal desktop use"
+    ],
+    "prevention": [
+      "Adjust pointer size when setting up a new high-resolution display",
+      "Revisit this setting if visibility becomes an issue over time"
+    ],
+    "keywords": ["change mouse pointer size", "make cursor bigger windows", "mouse pointer size settings", "cursor too small high resolution"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": ["Change mouse pointer color", "Adjust mouse pointer speed", "Enable pointer trails"]
+  },
+
+  {
+    "id": "KBM-017",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Mouse Appearance",
+    "problem": "How to change the mouse pointer color",
+    "description": "The user wants to change the color of the on-screen mouse pointer, either for better visibility against certain backgrounds or simply for personal preference.",
+    "symptoms": [
+      "The default white or black pointer is hard to see against certain backgrounds",
+      "The user wants a more visually distinct or personalized pointer color",
+      "The user does not know where to find this setting"
+    ],
+    "possible_causes": [
+      "The pointer is simply set to Windows' default color, which may not offer enough contrast in certain situations",
+      "The user is unfamiliar with the Settings location for pointer color and appearance"
+    ],
+    "diagnostic_questions": [
+      "What color would you like the pointer to be?",
+      "Are you trying to improve visibility, or just personalize the appearance?",
+      "Would you also like to adjust the pointer's size at the same time?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Accessibility (or Ease of Access) > Mouse pointer and touch",
+        "reason": "This is the central location in Windows for adjusting the mouse pointer's color and appearance"
+      },
+      {
+        "step": 2,
+        "action": "Under 'Pointer style', choose from the available preset color options, such as white, black, or inverted",
+        "reason": "This provides a quick way to select a common, high-contrast pointer color"
+      },
+      {
+        "step": 3,
+        "action": "For a fully custom color, select the 'Custom' pointer style option and use the color picker to choose a specific color",
+        "reason": "This allows for a personalized color choice beyond the standard preset options"
+      },
+      {
+        "step": 4,
+        "action": "Observe the live preview of the pointer as you make selections to see the change in real time",
+        "reason": "This allows immediate visual feedback to select the most suitable color"
+      },
+      {
+        "step": 5,
+        "action": "Move the mouse on the desktop to see the new pointer color in actual use against your typical desktop background",
+        "reason": "This confirms the change has been applied and provides good visibility in real conditions"
+      }
+    ],
+    "possible_solutions": [
+      "Select a preset pointer color under Settings > Accessibility > Mouse pointer and touch",
+      "Use the Custom option and color picker for a specific personalized color",
+      "Test the new color against your typical desktop background"
+    ],
+    "prevention": [
+      "Choose a pointer color with good contrast against commonly used backgrounds",
+      "Revisit this setting if switching to a very different desktop theme or wallpaper"
+    ],
+    "keywords": ["change mouse pointer color", "custom cursor color windows", "mouse pointer style settings", "high contrast cursor"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": ["Change mouse pointer size", "Adjust mouse pointer speed", "Enable pointer trails"]
+  },
+
+  {
+    "id": "KBM-018",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Mouse Behavior",
+    "problem": "How to change the double-click speed",
+    "description": "The user wants to adjust how quickly two clicks must occur to be recognized as a double-click rather than two separate single clicks, either speeding it up or slowing it down to match their clicking style.",
+    "symptoms": [
+      "Double-clicks are not being recognized, registering as two separate single clicks instead",
+      "Single clicks are sometimes mistakenly registered as a double-click",
+      "The user finds the current double-click timing uncomfortable"
+    ],
+    "possible_causes": [
+      "The double-click speed is simply set to Windows' default value, which may not match the user's natural clicking speed",
+      "The user is unfamiliar with the Control Panel location for this setting",
+      "A physical mouse button issue is causing inconsistent click timing, separate from the software setting"
+    ],
+    "diagnostic_questions": [
+      "Do double-clicks fail to register, or do single clicks sometimes register as double-clicks?",
+      "Have you checked the Mouse Properties in Control Panel?",
+      "Does this happen with all mouse buttons, or just the primary button?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Control Panel and go to Mouse (this can be found by searching for 'mouse' in the Start menu)",
+        "reason": "This opens the classic Mouse Properties dialog, which contains the double-click speed setting"
+      },
+      {
+        "step": 2,
+        "action": "Under the Buttons tab, locate the 'Double-click speed' slider and adjust it toward Slow or Fast according to preference",
+        "reason": "This directly controls the maximum time allowed between two clicks for them to be recognized as a double-click"
+      },
+      {
+        "step": 3,
+        "action": "Double-click the folder icon provided next to the slider to test the new speed",
+        "reason": "This allows immediate testing of the new setting before committing to it, since the test folder will open or close based on successful double-click recognition"
+      },
+      {
+        "step": 4,
+        "action": "Adjust the slider further and retest until double-clicking feels natural and reliably recognized",
+        "reason": "This fine-tunes the setting to exactly match the user's natural clicking speed"
+      },
+      {
+        "step": 5,
+        "action": "If double-click recognition remains inconsistent even after adjusting this setting, consider testing the mouse hardware itself, since a failing mouse button can cause similar symptoms",
+        "reason": "This helps distinguish between a software timing setting issue and an underlying hardware problem with the mouse button itself"
+      }
+    ],
+    "possible_solutions": [
+      "Adjust the Double-click speed slider under Control Panel > Mouse > Buttons tab",
+      "Use the test folder icon to verify the new speed works reliably",
+      "Test the mouse hardware separately if issues persist after adjusting this setting"
+    ],
+    "prevention": [
+      "Adjust this setting soon after setting up a new computer or mouse",
+      "Periodically test double-click reliability, especially with an aging mouse"
+    ],
+    "keywords": ["change double click speed", "double click not registering", "mouse properties buttons tab", "adjust double click timing"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": ["Adjust mouse pointer speed", "Change primary mouse button", "Tap-to-click not working"]
+  },
+
+  {
+    "id": "KBM-019",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Mouse Behavior",
+    "problem": "How to change the mouse scroll speed",
+    "description": "The user wants to adjust how many lines or how much distance the screen scrolls each time the mouse wheel is turned, either speeding it up for faster navigation through long documents, or slowing it down for more controlled scrolling.",
+    "symptoms": [
+      "Scrolling with the mouse wheel moves too much or too little content per turn",
+      "The user finds scrolling too fast to control precisely, or too slow for efficient navigation",
+      "The user does not know where to find this setting"
+    ],
+    "possible_causes": [
+      "The scroll speed is simply set to Windows' default value, which may not match the user's preference",
+      "The user is unfamiliar with the Settings location for mouse scroll speed"
+    ],
+    "diagnostic_questions": [
+      "Do you want scrolling to move more or fewer lines per wheel turn?",
+      "Have you checked the Mouse settings in Windows Settings?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Bluetooth & devices > Mouse",
+        "reason": "This is the central location in Windows for adjusting mouse-related settings, including scroll speed"
+      },
+      {
+        "step": 2,
+        "action": "Locate the setting for 'Choose how many lines to scroll each time' and either enter a specific number of lines or select the option to scroll one full screen at a time",
+        "reason": "This directly controls how much content moves per turn of the mouse wheel"
+      },
+      {
+        "step": 3,
+        "action": "Test the new setting by scrolling through a document or webpage to see if the speed feels comfortable",
+        "reason": "This allows immediate feedback to fine-tune the setting to the exact preferred speed"
+      },
+      {
+        "step": 4,
+        "action": "Adjust the number of lines further if needed, since this setting typically applies immediately",
+        "reason": "This allows continued fine-tuning until the ideal scroll speed is found"
+      }
+    ],
+    "possible_solutions": [
+      "Adjust the scroll lines setting under Settings > Bluetooth & devices > Mouse",
+      "Test scrolling through content to fine-tune the speed",
+      "Consider the 'one screen at a time' option for faster large-document navigation"
+    ],
+    "prevention": [
+      "Adjust scroll speed soon after setting up a new computer or mouse",
+      "Revisit this setting if it feels uncomfortable during extended document review"
+    ],
+    "keywords": ["change mouse scroll speed", "mouse wheel scroll lines", "scrolling too fast slow windows", "adjust scroll settings"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": ["Adjust mouse pointer speed", "Two-finger scrolling not working", "Change double-click speed"]
+  },
+
+  {
+    "id": "KBM-020",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Mouse Behavior",
+    "problem": "How to change the primary mouse button",
+    "description": "The user, often left-handed, wants to swap which mouse button acts as the primary (usually select and drag) button and which acts as the secondary (usually context menu) button.",
+    "symptoms": [
+      "The user finds it more comfortable to use the right button as the primary button",
+      "Left-handed users may want to swap buttons for a more natural grip and use",
+      "The user does not know where to find this setting"
+    ],
+    "possible_causes": [
+      "Windows defaults to the left button as primary, which does not suit every user's hand preference",
+      "The user is unfamiliar with the Settings location for swapping mouse buttons"
+    ],
+    "diagnostic_questions": [
+      "Are you left-handed and looking to swap the primary button to the right side?",
+      "Have you checked the Mouse settings in Windows Settings?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Bluetooth & devices > Mouse",
+        "reason": "This is the central location in Windows for adjusting mouse-related settings, including which button is primary"
+      },
+      {
+        "step": 2,
+        "action": "Locate the 'Primary mouse button' setting and change it from Left to Right, or vice versa, according to preference",
+        "reason": "This directly swaps which physical button performs the primary select and drag actions versus the secondary context menu actions"
+      },
+      {
+        "step": 3,
+        "action": "Test the new configuration by clicking with each button to confirm the primary and secondary functions have swapped as expected",
+        "reason": "This verifies the change was successfully applied"
+      },
+      {
+        "step": 4,
+        "action": "If using a gaming or specialty mouse with its own manufacturer software, check that software as well, since some devices manage button assignments independently from Windows settings",
+        "reason": "Some mice have their own software-level button configuration that may need to be adjusted separately or could conflict with the Windows setting"
+      }
+    ],
+    "possible_solutions": [
+      "Change the Primary mouse button setting under Settings > Bluetooth & devices > Mouse",
+      "Test both buttons to confirm the swap was applied correctly",
+      "Check manufacturer software for additional button configuration on specialty mice"
+    ],
+    "prevention": [
+      "Configure this setting early when setting up a new computer for a left-handed user",
+      "Check both Windows and manufacturer software settings to avoid conflicting configurations"
+    ],
+    "keywords": ["change primary mouse button", "left handed mouse settings", "swap mouse buttons windows", "right button as primary"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": ["Adjust mouse pointer speed", "Change double-click speed"]
+  },
+
+  {
+    "id": "KBM-021",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Mouse Appearance",
+    "problem": "How to enable pointer trails",
+    "description": "The user wants to turn on pointer trails, a visual effect that shows a brief fading trail behind the mouse pointer as it moves, which can help some users track the pointer's position more easily on the screen.",
+    "symptoms": [
+      "The user has difficulty visually tracking the mouse pointer, especially on certain displays",
+      "The user wants to enable this visual accessibility aid",
+      "The user does not know where to find this setting"
+    ],
+    "possible_causes": [
+      "Pointer trails are simply turned off by default and need to be manually enabled",
+      "The user is unfamiliar with the Settings location for pointer trails"
+    ],
+    "diagnostic_questions": [
+      "Are you trying to enable this to help track the pointer more easily, such as on certain screen types?",
+      "Have you checked the Mouse pointer and touch settings under Accessibility?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Accessibility (or Ease of Access) > Mouse pointer and touch",
+        "reason": "This is the central location in Windows for adjusting pointer-related visual effects, including pointer trails"
+      },
+      {
+        "step": 2,
+        "action": "Toggle on the option for pointer trails, if available directly in this menu",
+        "reason": "This directly enables the visual trail effect behind the moving mouse pointer"
+      },
+      {
+        "step": 3,
+        "action": "If this specific option is not present in newer Windows versions under this menu, search for 'mouse' in the Start menu and open the classic Mouse Properties dialog instead",
+        "reason": "Pointer trails is sometimes located in the classic Control Panel mouse settings rather than the newer Settings app, depending on the Windows version"
+      },
+      {
+        "step": 4,
+        "action": "Under the Pointer Options tab in the classic dialog, check the box for 'Display pointer trails' and adjust the length slider as desired",
+        "reason": "This enables the feature and allows customizing how long the visual trail appears"
+      },
+      {
+        "step": 5,
+        "action": "Move the mouse across the screen to confirm the trail effect is now visible and adjust the length further if needed",
+        "reason": "This verifies the feature is working and allows fine-tuning to the preferred trail length"
+      }
+    ],
+    "possible_solutions": [
+      "Enable pointer trails under Settings > Accessibility > Mouse pointer and touch",
+      "Use the classic Mouse Properties dialog under the Pointer Options tab if not found in Settings",
+      "Adjust the trail length slider to the preferred setting"
+    ],
+    "prevention": [
+      "Know both possible locations for this setting since it varies by Windows version",
+      "Test pointer visibility needs when setting up a new display"
+    ],
+    "keywords": ["enable pointer trails windows", "mouse trail effect", "display pointer trails", "cursor trail settings"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": ["Change mouse pointer size", "Change mouse pointer color"]
+  },
+
+  {
+    "id": "KBM-022",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Touchpad",
+    "problem": "How to enable the touchpad",
+    "description": "The user wants to turn the laptop's built-in touchpad back on, either because it was previously disabled, or because it appears to not be working and needs to be confirmed as enabled in settings.",
+    "symptoms": [
+      "The touchpad does not respond to touch at all",
+      "No touchpad settings appear active or available",
+      "The user is unsure whether the touchpad is disabled in software or has a hardware problem"
+    ],
+    "possible_causes": [
+      "The touchpad was intentionally disabled through Windows Settings",
+      "The touchpad was disabled through a keyboard shortcut, often Fn plus a specific function key",
+      "The touchpad driver has an issue preventing it from being recognized"
+    ],
+    "diagnostic_questions": [
+      "Do you know if the touchpad was intentionally turned off recently, by you or someone else?",
+      "Have you tried a keyboard shortcut, often Fn plus a key showing a touchpad icon, to toggle it?",
+      "Does the touchpad appear in Device Manager, even if not working?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check for a physical keyboard shortcut, often Fn combined with a specific function key showing a touchpad icon, and try pressing it to toggle the touchpad",
+        "reason": "Many laptops have a simple hardware shortcut to toggle the touchpad, and this is a very common, easily overlooked cause of an apparently disabled touchpad"
+      },
+      {
+        "step": 2,
+        "action": "Open Settings and go to Bluetooth & devices > Touchpad",
+        "reason": "This is the central location in Windows for checking and enabling the touchpad in software"
+      },
+      {
+        "step": 3,
+        "action": "Confirm the toggle switch at the top of this settings page is turned on",
+        "reason": "This directly enables the touchpad if it was disabled through Windows settings"
+      },
+      {
+        "step": 4,
+        "action": "If the touchpad still does not respond, check Device Manager under 'Mice and other pointing devices' for the touchpad's status",
+        "reason": "This confirms whether Windows detects the touchpad hardware at all, which helps distinguish between a settings issue and a driver or hardware issue"
+      },
+      {
+        "step": 5,
+        "action": "If the touchpad shows a warning icon in Device Manager, update or reinstall its driver",
+        "reason": "A missing or corrupted driver can prevent the touchpad from being enabled even when the software setting itself is correctly turned on"
+      }
+    ],
+    "possible_solutions": [
+      "Use the Fn plus touchpad icon keyboard shortcut to toggle it on",
+      "Enable the touchpad toggle under Settings > Bluetooth & devices > Touchpad",
+      "Update or reinstall the touchpad driver if a hardware or driver issue is suspected"
+    ],
+    "prevention": [
+      "Be aware of the touchpad toggle keyboard shortcut on your specific laptop",
+      "Keep touchpad drivers updated"
+    ],
+    "keywords": ["enable touchpad windows", "turn on touchpad laptop", "touchpad not working settings", "fn touchpad toggle"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["Disable touchpad", "Touchpad Driver Missing", "Touchpad disabled after connecting a mouse"]
+  },
+
+  {
+    "id": "KBM-023",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Touchpad",
+    "problem": "How to disable the touchpad",
+    "description": "The user wants to turn off the laptop's built-in touchpad, often because they prefer using an external mouse and want to prevent accidental touchpad input while typing.",
+    "symptoms": [
+      "The cursor jumps unexpectedly while typing due to accidental palm contact with the touchpad",
+      "The user prefers using an external mouse exclusively and finds the touchpad an unnecessary distraction",
+      "The user does not know where to find the option to turn off the touchpad"
+    ],
+    "possible_causes": [
+      "The touchpad is simply enabled by default and needs to be manually turned off",
+      "The user is unfamiliar with the Settings location for disabling the touchpad"
+    ],
+    "diagnostic_questions": [
+      "Are you trying to disable it to prevent accidental palm contact while typing?",
+      "Do you use an external mouse regularly and want to avoid the touchpad interfering?",
+      "Do you want it disabled only when a mouse is connected, or turned off entirely?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Bluetooth & devices > Touchpad",
+        "reason": "This is the central location in Windows for disabling the touchpad in software"
+      },
+      {
+        "step": 2,
+        "action": "Toggle off the switch at the top of this settings page",
+        "reason": "This directly disables the touchpad, preventing it from responding to any touch input"
+      },
+      {
+        "step": 3,
+        "action": "If you want the touchpad to only disable automatically when an external mouse is connected, rather than being permanently off, look for a related option often labeled something like 'Leave touchpad on when a mouse is connected' and turn it off instead",
+        "reason": "This provides a more flexible configuration, keeping the touchpad available when no mouse is connected while automatically disabling it once one is"
+      },
+      {
+        "step": 4,
+        "action": "Alternatively, use the physical keyboard shortcut, often Fn plus a key showing a touchpad icon, to quickly toggle the touchpad off",
+        "reason": "This provides a fast way to disable the touchpad without navigating through Settings each time"
+      },
+      {
+        "step": 5,
+        "action": "Test by touching the touchpad to confirm it no longer responds as expected",
+        "reason": "This verifies the touchpad has been successfully disabled"
+      }
+    ],
+    "possible_solutions": [
+      "Turn off the touchpad toggle under Settings > Bluetooth & devices > Touchpad",
+      "Configure automatic disabling when an external mouse is connected",
+      "Use the Fn plus touchpad icon keyboard shortcut for quick toggling"
+    ],
+    "prevention": [
+      "Configure automatic touchpad disabling when a mouse is connected to avoid needing to do this manually each time",
+      "Be aware of the touchpad toggle keyboard shortcut for quick access"
+    ],
+    "keywords": ["disable touchpad windows", "turn off touchpad laptop", "prevent accidental touchpad clicks", "touchpad settings disable"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": ["Enable touchpad", "Touchpad disabled after connecting a mouse", "Tap-to-click not working"]
+  },
+
+  {
+    "id": "KBM-024",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Touchpad",
+    "problem": "Touchpad gestures are not working",
+    "description": "The laptop's touchpad responds to basic movement and clicking, but multi-finger gestures, such as swiping between virtual desktops or pinch-to-zoom, do not perform their expected actions.",
+    "symptoms": [
+      "Basic touchpad movement and single-finger clicking work normally",
+      "Multi-finger swipes or pinches do not trigger their expected system actions",
+      "Gesture settings may appear greyed out or unavailable",
+      "This may have worked before and stopped, or may have never worked"
+    ],
+    "possible_causes": [
+      "Gestures are turned off in Windows touchpad settings",
+      "The generic Windows touchpad driver is active instead of the manufacturer's precision touchpad driver, which is needed for full gesture support",
+      "The touchpad hardware does not support the specific gesture being attempted",
+      "A recent Windows update affected gesture functionality"
+    ],
+    "diagnostic_questions": [
+      "Does basic touchpad movement and clicking work normally, with only multi-finger gestures failing?",
+      "Have you checked if gestures are enabled in the Touchpad settings?",
+      "Does Device Manager show your touchpad as a 'Precision Touchpad' or a more generic name?",
+      "Did this work before and stop, or has it never worked on this computer?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Check under 'Mice and other pointing devices' to see if the touchpad is listed as a Precision Touchpad",
+        "expected_result": "Shows an entry specifically mentioning 'Precision Touchpad', indicating full gesture support is available",
+        "abnormal_result": "Shows only a generic 'HID-compliant mouse' or similar entry, indicating the full-featured driver needed for gestures is not installed"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Bluetooth & devices > Touchpad, and confirm gestures are enabled in this menu",
+        "reason": "Windows provides toggles for various gestures, such as three- and four-finger swipes, and these may simply be turned off"
+      },
+      {
+        "step": 2,
+        "action": "Enable any gesture options found here that are currently turned off",
+        "reason": "This directly activates the gesture functionality if it was simply disabled in settings"
+      },
+      {
+        "step": 3,
+        "action": "Check Device Manager to see if the touchpad is recognized as a 'Precision Touchpad', which is Microsoft's standard supporting full built-in gesture recognition",
+        "reason": "Full gesture support generally requires this specific type of driver rather than a generic mouse driver"
+      },
+      {
+        "step": 4,
+        "action": "If the touchpad is not shown as a Precision Touchpad, visit the laptop manufacturer's website and download the specific precision touchpad driver for your exact model",
+        "reason": "Installing the correct, complete touchpad driver is often necessary to unlock full gesture support"
+      },
+      {
+        "step": 5,
+        "action": "Install the downloaded driver and restart the computer",
+        "reason": "This properly installs the complete touchpad driver and ensures it is fully active after the restart"
+      },
+      {
+        "step": 6,
+        "action": "After restarting, check Settings > Bluetooth & devices > Touchpad again to confirm additional gesture options are now available and test them",
+        "reason": "This verifies the proper driver installation was successful and unlocked full gesture functionality"
+      },
+      {
+        "step": 7,
+        "action": "If gestures still do not work despite having the correct driver, check if a manufacturer-specific touchpad utility is installed and review its own separate gesture settings",
+        "reason": "Some manufacturers manage gestures through their own software layer in addition to or instead of standard Windows settings"
+      }
+    ],
+    "possible_solutions": [
+      "Enable gesture options under Settings > Bluetooth & devices > Touchpad",
+      "Install the manufacturer's Precision Touchpad driver if a generic driver is currently active",
+      "Check a manufacturer-specific touchpad utility for additional gesture settings"
+    ],
+    "prevention": [
+      "Install the correct Precision Touchpad driver when setting up a new laptop",
+      "Keep touchpad drivers updated",
+      "Periodically verify gesture settings remain enabled after major Windows updates"
+    ],
+    "keywords": ["touchpad gestures not working", "precision touchpad driver missing", "swipe gestures not working laptop", "multi finger gestures touchpad"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Tap-to-click not working", "Two-finger scrolling not working", "Touchpad Driver Missing"]
+  },
+
+  {
+    "id": "KBM-025",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Touchpad",
+    "problem": "Tap-to-click is not working on the touchpad",
+    "description": "The user tries to tap the touchpad with a single finger to perform a click, similar to physically pressing the touchpad button, but nothing happens, requiring a physical press instead.",
+    "symptoms": [
+      "Tapping the touchpad surface does not register as a click",
+      "Physically pressing down on the touchpad still works normally",
+      "The touchpad otherwise moves the cursor correctly",
+      "This may have worked before and stopped, or may have never worked"
+    ],
+    "possible_causes": [
+      "Tap-to-click is turned off in Windows touchpad settings",
+      "A manufacturer-specific touchpad utility has its own separate setting for this feature that is disabled",
+      "An outdated or generic touchpad driver does not support this feature",
+      "The touch sensitivity is set too low to register a light tap"
+    ],
+    "diagnostic_questions": [
+      "Does physically pressing down on the touchpad still work as a click?",
+      "Have you checked if 'Tap to click' is enabled in the Touchpad settings?",
+      "Did this work before and stop, or has it never worked on this computer?",
+      "Do you know if a manufacturer touchpad utility is installed with its own settings?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Bluetooth & devices > Touchpad, and check the 'Taps' section for a 'Tap with a single finger to single-click' toggle",
+        "reason": "This is the direct Windows setting controlling whether a light tap registers as a click, and it may simply be turned off"
+      },
+      {
+        "step": 2,
+        "action": "Enable this toggle if it is currently off",
+        "reason": "This directly activates the tap-to-click functionality if it was simply disabled in settings"
+      },
+      {
+        "step": 3,
+        "action": "Test by lightly tapping the touchpad to confirm it now registers as a click",
+        "reason": "This verifies the setting change successfully enabled the feature"
+      },
+      {
+        "step": 4,
+        "action": "If a manufacturer-specific touchpad utility is installed, check within that program for its own separate tap-to-click setting, since it may override or conflict with the Windows setting",
+        "reason": "Some manufacturers manage certain touchpad features through their own software layer, which can sometimes override the standard Windows settings"
+      },
+      {
+        "step": 5,
+        "action": "If tapping still does not register even with the setting enabled, check if the touchpad's overall sensitivity setting is set very low, and increase it slightly",
+        "reason": "Very low sensitivity can sometimes prevent light taps from being properly registered as intentional clicks"
+      },
+      {
+        "step": 6,
+        "action": "Update the touchpad driver to the latest manufacturer version if the feature remains unavailable or unreliable",
+        "reason": "An outdated or generic driver may not fully support or properly recognize tap-to-click gestures"
+      }
+    ],
+    "possible_solutions": [
+      "Enable 'Tap with a single finger to single-click' under Settings > Bluetooth & devices > Touchpad",
+      "Check and adjust a manufacturer-specific touchpad utility's settings",
+      "Increase touchpad sensitivity if taps are not registering",
+      "Update the touchpad driver to the latest version"
+    ],
+    "prevention": [
+      "Verify tap-to-click settings after any Windows update",
+      "Keep touchpad drivers updated",
+      "Check manufacturer utility settings when troubleshooting touchpad behavior"
+    ],
+    "keywords": ["tap to click not working", "touchpad tap click disabled", "single finger tap not registering", "enable tap to click windows"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["Touchpad gestures not working", "Two-finger scrolling not working", "Enable touchpad"]
+  },
+
+  {
+    "id": "KBM-026",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Touchpad",
+    "problem": "Two-finger scrolling is not working on the touchpad",
+    "description": "The user tries to scroll through a document or webpage by swiping two fingers up or down on the touchpad, but nothing happens, even though normal single-finger cursor movement works correctly.",
+    "symptoms": [
+      "Swiping two fingers on the touchpad does not scroll the content",
+      "Single-finger cursor movement and clicking work normally",
+      "This may have worked before and stopped, or may have never worked",
+      "Using a scroll bar with the cursor still works as an alternative"
+    ],
+    "possible_causes": [
+      "Two-finger scrolling is turned off in Windows touchpad settings",
+      "The generic Windows touchpad driver is active instead of the manufacturer's precision touchpad driver needed for this gesture",
+      "A manufacturer-specific touchpad utility has its own separate setting for this feature that is disabled",
+      "Sensor issues on part of the touchpad surface preventing proper two-finger detection"
+    ],
+    "diagnostic_questions": [
+      "Does single-finger cursor movement and clicking work normally on the touchpad?",
+      "Have you checked if two-finger scrolling is enabled in the Touchpad settings?",
+      "Does Device Manager show your touchpad as a 'Precision Touchpad'?",
+      "Did this work before and stop, or has it never worked on this computer?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Bluetooth & devices > Touchpad, and check the 'Scroll & zoom' section for a two-finger scrolling toggle",
+        "reason": "This is the direct Windows setting controlling whether the two-finger swipe gesture scrolls content, and it may simply be turned off"
+      },
+      {
+        "step": 2,
+        "action": "Enable this toggle if it is currently off",
+        "reason": "This directly activates the two-finger scrolling functionality if it was simply disabled in settings"
+      },
+      {
+        "step": 3,
+        "action": "Test by placing two fingers on the touchpad and swiping up or down within a document or webpage",
+        "reason": "This verifies the setting change successfully enabled the feature"
+      },
+      {
+        "step": 4,
+        "action": "Check Device Manager to see if the touchpad is recognized as a 'Precision Touchpad' rather than a generic pointing device",
+        "reason": "Full gesture support, including two-finger scrolling, generally requires this specific type of driver"
+      },
+      {
+        "step": 5,
+        "action": "If the touchpad is not shown as a Precision Touchpad, visit the laptop manufacturer's website and download the specific precision touchpad driver for your exact model",
+        "reason": "Installing the correct, complete touchpad driver is often necessary to unlock full gesture support, including two-finger scrolling"
+      },
+      {
+        "step": 6,
+        "action": "Install the downloaded driver and restart the computer, then retest two-finger scrolling",
+        "reason": "This properly installs the complete touchpad driver, ensuring it is fully active and supports the gesture after the restart"
+      },
+      {
+        "step": 7,
+        "action": "If a manufacturer-specific touchpad utility is installed, check within that program for its own separate scrolling settings",
+        "reason": "Some manufacturers manage certain touchpad features through their own software layer, which may need separate configuration"
+      }
+    ],
+    "possible_solutions": [
+      "Enable two-finger scrolling under Settings > Bluetooth & devices > Touchpad",
+      "Install the manufacturer's Precision Touchpad driver if a generic driver is currently active",
+      "Check a manufacturer-specific touchpad utility for additional scrolling settings"
+    ],
+    "prevention": [
+      "Install the correct Precision Touchpad driver when setting up a new laptop",
+      "Keep touchpad drivers updated",
+      "Periodically verify scrolling settings remain enabled after major Windows updates"
+    ],
+    "keywords": ["two finger scrolling not working", "touchpad scroll not working", "precision touchpad scroll gesture", "enable two finger scroll windows"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Touchpad gestures not working", "Tap-to-click not working", "Change mouse scroll speed"]
+  },
+
+  {
+    "id": "KBM-027",
+    "category": "Keyboard and Mouse Settings",
+    "subcategory": "Touchpad",
+    "problem": "Touchpad is disabled after connecting a mouse",
+    "description": "The user connects an external mouse to their laptop, and the built-in touchpad automatically stops working, which may be intentional default behavior but is unwanted in this case, such as when the user wants to use both devices together.",
+    "symptoms": [
+      "The touchpad works normally until an external mouse is connected",
+      "As soon as the mouse is connected, the touchpad stops responding",
+      "Disconnecting the mouse restores normal touchpad function",
+      "The user wants to use both the touchpad and mouse at the same time"
+    ],
+    "possible_causes": [
+      "A setting is enabled that automatically disables the touchpad whenever an external mouse is detected",
+      "This is a common default behavior on many laptops, intended to prevent accidental touchpad interference while using a mouse"
+    ],
+    "diagnostic_questions": [
+      "Do you want to use the touchpad and an external mouse at the same time, or is this happening unexpectedly?",
+      "Have you checked the Touchpad settings for an option related to disabling it when a mouse is connected?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings and go to Bluetooth & devices > Touchpad",
+        "reason": "This is the central location in Windows where the automatic disabling behavior can be found and adjusted"
+      },
+      {
+        "step": 2,
+        "action": "Look for a setting often labeled something like 'Leave touchpad on when a mouse is connected' and turn it on",
+        "reason": "This directly overrides the default automatic disabling behavior, allowing both the touchpad and an external mouse to function simultaneously"
+      },
+      {
+        "step": 3,
+        "action": "With the mouse still connected, test the touchpad to confirm it now responds alongside the mouse",
+        "reason": "This verifies the setting change successfully allows both input devices to work at the same time"
+      },
+      {
+        "step": 4,
+        "action": "If this specific option is not available in Windows Settings, check if a manufacturer-specific touchpad utility is installed, since some laptops manage this behavior through their own software instead",
+        "reason": "Some manufacturers control the automatic disable-on-mouse-connect behavior through their own utility rather than the standard Windows settings"
+      },
+      {
+        "step": 5,
+        "action": "Within the manufacturer utility, if present, look for and disable any option that automatically turns off the touchpad when an external mouse is detected",
+        "reason": "This achieves the same result through the manufacturer's own control panel if the standard Windows option is not available or effective"
+      }
+    ],
+    "possible_solutions": [
+      "Enable 'Leave touchpad on when a mouse is connected' under Settings > Bluetooth & devices > Touchpad",
+      "Check a manufacturer-specific touchpad utility for an equivalent setting",
+      "Test both devices together after adjusting the relevant setting"
+    ],
+    "prevention": [
+      "Adjust this setting proactively if you regularly use both a touchpad and an external mouse together",
+      "Be aware this is often a default, intentional behavior rather than a malfunction"
+    ],
+    "keywords": ["touchpad disabled after connecting mouse", "leave touchpad on with mouse connected", "touchpad stops working with usb mouse", "use touchpad and mouse together"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": ["Enable touchpad", "Disable touchpad", "Touchpad gestures not working"]
+  }
+]

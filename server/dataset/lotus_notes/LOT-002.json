@@ -1,0 +1,2164 @@
+[
+  {
+    "id": "NOTES-031",
+    "category": "Lotus Notes",
+    "subcategory": "Mail File Issues",
+    "problem": "Mail File Quota Exceeded",
+    "description": "The user is unable to send or receive new mail because their mail file has reached or exceeded the storage quota set by the Domino administrator.",
+    "symptoms": [
+      "Warning message that the mailbox is over quota",
+      "New incoming mail is bounced back to senders as undeliverable",
+      "User cannot send mail, sometimes with an over-quota error",
+      "Mail file size shown in properties is at or above the assigned limit"
+    ],
+    "possible_causes": [
+      "Mail file quota set too low for the user's mail volume",
+      "Large attachments accumulated in the mail file over time",
+      "Old mail not archived or deleted regularly",
+      "Quota warning threshold not acted on before hitting the hard limit"
+    ],
+    "diagnostic_questions": [
+      "Does the user receive an over-quota warning when opening Notes?",
+      "How large is the mail file compared to the assigned quota?",
+      "Are there large attachments or old messages that could be archived?",
+      "Has the quota been recently lowered by policy, or has usage grown?"
+    ],
+    "commands": [
+      {
+        "command": "File > Mail File Properties (Notes client)",
+        "purpose": "Check current mail file size versus assigned quota and warning threshold",
+        "expected_result": "Shows mail file size below the quota and warning threshold",
+        "abnormal_result": "Size shown at or above the quota limit, confirming the cause of the block"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check mail file size and quota in File > Mail File Properties.",
+        "reason": "Confirms whether the user is actually at or over the assigned limit."
+      },
+      {
+        "step": 2,
+        "action": "Archive or delete old emails and large attachments to reduce mail file size.",
+        "reason": "Frees space so the mail file drops below the quota."
+      },
+      {
+        "step": 3,
+        "action": "Empty the Trash folder after deleting items.",
+        "reason": "Deleted documents still count against quota until the Trash is emptied."
+      },
+      {
+        "step": 4,
+        "action": "If usage is consistently high, request a quota increase from the Domino administrator.",
+        "reason": "Some users legitimately need a higher quota based on job function."
+      }
+    ],
+    "possible_solutions": [
+      "Archive old mail to a local or server archive",
+      "Delete large attachments and empty Trash",
+      "Request a quota increase from the administrator",
+      "Set up an automatic archive policy for future mail growth"
+    ],
+    "prevention": [
+      "Archive mail on a regular schedule",
+      "Monitor mail file size periodically",
+      "Set realistic quotas based on user role",
+      "Educate users to remove large attachments after saving them locally"
+    ],
+    "keywords": ["mail file quota exceeded", "notes mailbox full", "over quota lotus notes", "cannot send mail quota"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["NOTES-032", "NOTES-030"]
+  },
+  {
+    "id": "NOTES-032",
+    "category": "Lotus Notes",
+    "subcategory": "Mail File Issues",
+    "problem": "Mail File Size Too Large",
+    "description": "A user's mail file has grown very large over time, causing performance issues, slow replication, and difficulty backing up or maintaining the database, even if it has not yet hit a hard quota.",
+    "symptoms": [
+      "Mail file size significantly larger than typical for the organization",
+      "Slow opening, searching, and replication of the mail file",
+      "Backups of the mail file take unusually long",
+      "User is approaching but has not yet exceeded quota"
+    ],
+    "possible_causes": [
+      "Years of accumulated mail without archiving",
+      "Large attachments stored directly in the mail file instead of a shared location",
+      "Duplicate or unnecessary replicas increasing effective size",
+      "No archive policy configured for the user"
+    ],
+    "diagnostic_questions": [
+      "When was the mail file last archived, if ever?",
+      "Does the user regularly receive or send large attachments?",
+      "Is an archive policy currently configured for this user?",
+      "How does the file size compare to the organization's typical mail file size?"
+    ],
+    "commands": [
+      {
+        "command": "File > Mail File Properties (Notes client)",
+        "purpose": "View current mail file size and compare to organizational norms",
+        "expected_result": "Size within expected range for normal usage",
+        "abnormal_result": "Size well above typical range, confirming the file needs archiving or cleanup"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Review mail file size and identify the largest folders or documents.",
+        "reason": "Pinpoints where the bulk of the size is coming from before taking action."
+      },
+      {
+        "step": 2,
+        "action": "Set up or run an archive to move older mail out of the active file.",
+        "reason": "Reduces active file size while preserving historical mail for reference."
+      },
+      {
+        "step": 3,
+        "action": "Encourage the user to detach and store large attachments outside of Notes.",
+        "reason": "Attachments are often the largest contributor to mail file bloat."
+      },
+      {
+        "step": 4,
+        "action": "Compact the mail file after cleanup using administrator tools.",
+        "reason": "Reclaims unused space left behind after documents are deleted or archived."
+      }
+    ],
+    "possible_solutions": [
+      "Configure and run a scheduled archive policy",
+      "Manually archive and delete old mail",
+      "Move large attachments to shared storage",
+      "Have the administrator compact the mail file"
+    ],
+    "prevention": [
+      "Set up automatic archive policies for all users",
+      "Educate users on managing large attachments",
+      "Periodically review mail file sizes organization-wide",
+      "Schedule regular database compaction"
+    ],
+    "keywords": ["mail file too large", "notes mail file bloated", "large mail database notes", "slow mail file size"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-031", "NOTES-030"]
+  },
+  {
+    "id": "NOTES-033",
+    "category": "Lotus Notes",
+    "subcategory": "Mail File Issues",
+    "problem": "User Mail File Missing",
+    "description": "When the user attempts to open their mail, Notes reports that the mail file cannot be found, or the mail icon/bookmark leads to an error indicating the database does not exist at the expected path.",
+    "symptoms": [
+      "Error stating the database does not exist or cannot be found",
+      "Mail bookmark or icon fails to open anything",
+      "New Notes installation shows no mail file configured",
+      "Mail file exists on server but local replica or path reference is broken"
+    ],
+    "possible_causes": [
+      "Mail file was moved, renamed, or deleted on the server",
+      "Local replica was deleted or corrupted and bookmark still points to it",
+      "Incorrect mail file path configured in the user's Person document",
+      "User's Notes client was recently reinstalled without reconfiguring mail"
+    ],
+    "diagnostic_questions": [
+      "Does this happen only locally, or also when accessing mail via webmail/other devices?",
+      "Was the Notes client recently reinstalled or the computer replaced?",
+      "Has the user's mail file been moved to a different server recently?",
+      "What is the exact error message shown when trying to open mail?"
+    ],
+    "commands": [
+      {
+        "command": "File > Application > Open (Notes client)",
+        "purpose": "Manually browse the server for the user's mail file to verify it exists and locate its path",
+        "expected_result": "Mail file is found on the expected server and path",
+        "abnormal_result": "Mail file cannot be located, indicating it was moved, renamed, or deleted"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Verify the mail file exists on the server by browsing via File > Application > Open.",
+        "reason": "Confirms whether the issue is a broken local reference or an actual missing server file."
+      },
+      {
+        "step": 2,
+        "action": "Check the user's Person document in the Domino Directory for the correct mail server and file path.",
+        "reason": "An incorrect path in the Person document will cause Notes to look in the wrong location."
+      },
+      {
+        "step": 3,
+        "action": "If the local replica is broken, delete it and create a fresh replica from the server copy.",
+        "reason": "A corrupted local replica reference can be resolved by re-replicating from the authoritative server file."
+      },
+      {
+        "step": 4,
+        "action": "If the server file is genuinely missing, restore it from the most recent backup.",
+        "reason": "Backup restoration is required when the mail file no longer exists anywhere."
+      }
+    ],
+    "possible_solutions": [
+      "Correct the mail file path in the Person document",
+      "Recreate the local replica from the server",
+      "Restore the mail file from backup if deleted",
+      "Reconfigure the Notes client's mail location settings"
+    ],
+    "prevention": [
+      "Avoid manually moving or renaming mail files without updating the Person document",
+      "Maintain regular backups of mail files",
+      "Follow proper procedures when reinstalling Notes clients",
+      "Document any server migrations affecting mail file locations"
+    ],
+    "keywords": ["mail file missing notes", "database does not exist notes", "cannot find mail file", "notes mail bookmark broken"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["NOTES-034", "NOTES-035"]
+  },
+  {
+    "id": "NOTES-034",
+    "category": "Lotus Notes",
+    "subcategory": "Mail File Issues",
+    "problem": "Mail File Cannot Be Created",
+    "description": "When provisioning a new user or restoring mail access, the administrator or system fails to create a new mail file, returning an error during the mail file creation process.",
+    "symptoms": [
+      "Error during user registration indicating mail file creation failed",
+      "New user has a Person document but no mail file on the server",
+      "Administrator receives an access denied or path error when creating the mail file",
+      "Mail file creation process hangs or times out"
+    ],
+    "possible_causes": [
+      "Insufficient disk space on the target mail server",
+      "Administrator lacks sufficient rights on the target server's mail directory",
+      "Mail template (mail10.ntf or similar) is missing, corrupted, or wrong version",
+      "Naming conflict with an existing file at the target path"
+    ],
+    "diagnostic_questions": [
+      "What exact error message appears during mail file creation?",
+      "Is there sufficient free disk space on the target mail server?",
+      "Does the administrator account have Manager access on the mail directory?",
+      "Is the correct, uncorrupted mail template available on the server?"
+    ],
+    "commands": [
+      {
+        "command": "load convert -m",
+        "purpose": "Refresh or repair a mail file's design against the current mail template from the Domino server console",
+        "expected_result": "Mail file design updates successfully against the template",
+        "abnormal_result": "Errors indicating the template or file could not be accessed, pointing to permissions or corruption"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check available disk space on the target mail server.",
+        "reason": "Insufficient space is a common and easily overlooked cause of failed database creation."
+      },
+      {
+        "step": 2,
+        "action": "Confirm the administrator account has Manager access rights on the server's mail directory.",
+        "reason": "Creating a new database requires sufficient server access rights."
+      },
+      {
+        "step": 3,
+        "action": "Verify the mail template file is present and not corrupted on the server.",
+        "reason": "Mail file creation depends on a valid template to build the initial database structure."
+      },
+      {
+        "step": 4,
+        "action": "Retry the mail file creation using the Domino Administrator client's registration or file creation tools.",
+        "reason": "Once the underlying cause is resolved, a fresh attempt should succeed."
+      }
+    ],
+    "possible_solutions": [
+      "Free up disk space on the mail server",
+      "Grant proper administrator rights on the target directory",
+      "Replace or repair a corrupted mail template",
+      "Retry mail file creation through Domino Administrator"
+    ],
+    "prevention": [
+      "Monitor server disk space proactively",
+      "Maintain proper administrator access rights documentation",
+      "Keep mail templates up to date and verified",
+      "Test mail file creation in a staging environment after template updates"
+    ],
+    "keywords": ["mail file cannot be created", "new user mail file error", "notes registration mail file failed", "mail template error notes"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-033", "NOTES-041"]
+  },
+  {
+    "id": "NOTES-035",
+    "category": "Lotus Notes",
+    "subcategory": "Mail File Issues",
+    "problem": "Mail File Moved to Another Server",
+    "description": "A user's mail file was migrated or moved to a different Domino server, but the client, Person document, or bookmarks still point to the old server, causing errors or inability to access mail.",
+    "symptoms": [
+      "Notes attempts to connect to the old mail server and fails",
+      "Error indicating the server cannot be contacted or the database is not found there",
+      "Mail works from webmail on the new server but not from the desktop client",
+      "Local replication fails after the server move"
+    ],
+    "possible_causes": [
+      "Person document not updated with the new mail server after migration",
+      "Local Notes client location document still references the old server",
+      "Local replica stub still points to the old server path",
+      "Replication or migration process incomplete"
+    ],
+    "diagnostic_questions": [
+      "Was a mail file migration or server consolidation recently performed?",
+      "Does the Person document reflect the new mail server name?",
+      "Can the user access mail through webmail on the new server?",
+      "Is the local replica configured to point to the old server?"
+    ],
+    "commands": [
+      {
+        "command": "File > Application > Properties (Notes client)",
+        "purpose": "Check which server the current mail replica or bookmark is pointing to",
+        "expected_result": "Shows the correct, current mail server",
+        "abnormal_result": "Shows the old server, confirming the bookmark or replica needs to be updated"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the Person document has been updated with the new mail server name.",
+        "reason": "This is the authoritative source Notes uses to locate the user's mail file."
+      },
+      {
+        "step": 2,
+        "action": "Update or recreate the mail bookmark to point to the new server location.",
+        "reason": "Old bookmarks retain references to the previous server even after the Person document is updated."
+      },
+      {
+        "step": 3,
+        "action": "Delete the outdated local replica and create a new one from the current server.",
+        "reason": "Ensures the local copy replicates against the correct, current source database."
+      },
+      {
+        "step": 4,
+        "action": "Refresh the user's Notes client location document if it manually references the old server.",
+        "reason": "Some configurations hardcode server names in the location document, overriding directory lookups."
+      }
+    ],
+    "possible_solutions": [
+      "Update the Person document with the new server",
+      "Recreate mail bookmarks and local replicas",
+      "Update location document server references",
+      "Re-run directory synchronization if changes have not propagated"
+    ],
+    "prevention": [
+      "Follow a complete migration checklist including Person document updates",
+      "Communicate server moves to affected users in advance",
+      "Verify client-side access after any server migration",
+      "Allow directory replication to fully propagate before considering a migration complete"
+    ],
+    "keywords": ["mail file moved server", "notes mail server migration issue", "cannot connect old mail server", "notes bookmark wrong server"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-033", "NOTES-045"]
+  },
+  {
+    "id": "NOTES-036",
+    "category": "Lotus Notes",
+    "subcategory": "Mail Routing",
+    "problem": "Mail Routing Delayed",
+    "description": "Emails sent from or to Notes users take significantly longer than usual to arrive, ranging from several minutes to hours, without an outright failure.",
+    "symptoms": [
+      "Emails arrive noticeably later than expected",
+      "Delay affects internal mail, external mail, or both",
+      "Message tracking shows the mail sitting in a queue for an extended period",
+      "Delay may be intermittent or consistently affecting all mail"
+    ],
+    "possible_causes": [
+      "Router task on the Domino server is overloaded or backed up",
+      "Mail.box is congested with a large volume of messages",
+      "Network latency or connectivity issues between mail servers",
+      "A downstream relay or gateway server is slow or unresponsive",
+      "Transfer or routing schedule settings causing batched delivery"
+    ],
+    "diagnostic_questions": [
+      "Does the delay affect all mail, or only mail to/from specific servers or domains?",
+      "Has message tracking been checked to see where the delay is occurring?",
+      "Has mail volume increased significantly recently?",
+      "Are there known network issues between the sending and receiving servers?"
+    ],
+    "commands": [
+      {
+        "command": "tell router show queues",
+        "purpose": "Show current mail queues and pending message counts on the Domino server console",
+        "expected_result": "Queues are empty or processing normally with low counts",
+        "abnormal_result": "Large or growing queue counts indicating a routing bottleneck"
+      },
+      {
+        "command": "show tasks",
+        "purpose": "Verify the Router task is running on the Domino server console",
+        "expected_result": "Router task is listed as active",
+        "abnormal_result": "Router task is missing or not responding, requiring a restart"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Use message tracking to identify where in the routing path the delay is occurring.",
+        "reason": "Pinpoints whether the bottleneck is local, at a relay, or on the receiving end."
+      },
+      {
+        "step": 2,
+        "action": "Check mail queues on the server console for backlog.",
+        "reason": "A large backlog indicates the router cannot keep pace with incoming volume."
+      },
+      {
+        "step": 3,
+        "action": "Confirm the Router task is active and responsive.",
+        "reason": "A stalled or crashed router task will cause mail to back up without being delivered."
+      },
+      {
+        "step": 4,
+        "action": "Check network connectivity and latency between affected mail servers.",
+        "reason": "Slow or unstable network links directly cause routing delays between servers."
+      },
+      {
+        "step": 5,
+        "action": "Review scheduled transfer and routing intervals for affected mail routes.",
+        "reason": "Some routes may be configured for scheduled rather than immediate delivery, causing apparent delay."
+      }
+    ],
+    "possible_solutions": [
+      "Restart the Router task if it is unresponsive",
+      "Increase server resources if consistently overloaded",
+      "Resolve underlying network connectivity issues",
+      "Adjust scheduled routing intervals to more frequent delivery",
+      "Escalate to network team if latency is between sites"
+    ],
+    "prevention": [
+      "Monitor mail queues and router performance proactively",
+      "Set up alerts for queue backlog thresholds",
+      "Maintain adequate server resources for mail volume",
+      "Regularly review routing topology and schedules"
+    ],
+    "keywords": ["mail routing delayed notes", "domino mail slow delivery", "email delayed lotus notes", "mail queue backlog domino"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": ["NOTES-037", "NOTES-038", "NOTES-039"]
+  },
+  {
+    "id": "NOTES-037",
+    "category": "Lotus Notes",
+    "subcategory": "Mail Routing",
+    "problem": "Mail Routing Stopped",
+    "description": "Mail has completely stopped moving between Domino servers or out to the internet; messages remain queued indefinitely and no mail is being delivered.",
+    "symptoms": [
+      "No mail is being delivered internally or externally",
+      "Mail.box shows a growing number of undelivered messages",
+      "Users report no new mail arriving for an extended period",
+      "Server console shows routing errors or no router activity"
+    ],
+    "possible_causes": [
+      "Router task has crashed or was manually stopped",
+      "Mail.box database is corrupted and cannot be processed",
+      "Connection document misconfiguration between servers",
+      "DNS or network failure preventing server-to-server communication",
+      "Server is out of disk space, halting mail processing"
+    ],
+    "diagnostic_questions": [
+      "Is the Router task showing as running on the server console?",
+      "Is there sufficient free disk space on the mail server?",
+      "Were any Connection documents recently changed?",
+      "Can the server successfully ping or resolve other mail servers by name?"
+    ],
+    "commands": [
+      {
+        "command": "show tasks",
+        "purpose": "Check whether the Router task is currently running on the server",
+        "expected_result": "Router is listed as an active task",
+        "abnormal_result": "Router is not listed, confirming it has stopped and needs to be restarted"
+      },
+      {
+        "command": "load router",
+        "purpose": "Manually restart the Router task from the server console",
+        "expected_result": "Router starts successfully and begins processing mail.box",
+        "abnormal_result": "Router fails to start or immediately errors, indicating a deeper mail.box or configuration issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the server console to confirm whether the Router task is running.",
+        "reason": "A stopped Router task is the most direct and common cause of mail routing halting entirely."
+      },
+      {
+        "step": 2,
+        "action": "Restart the Router task using the load router command if it is not running.",
+        "reason": "Restarting typically resolves a crashed or manually stopped router."
+      },
+      {
+        "step": 3,
+        "action": "Check available disk space on the server.",
+        "reason": "A server that has run out of disk space will halt mail processing entirely until space is freed."
+      },
+      {
+        "step": 4,
+        "action": "Verify network connectivity and DNS resolution to other mail servers.",
+        "reason": "The router cannot deliver mail to servers it cannot reach or resolve by name."
+      },
+      {
+        "step": 5,
+        "action": "If mail.box appears corrupted, create a new mail.box and have the router use it.",
+        "reason": "A corrupted mail.box can prevent the router from processing any queued messages."
+      }
+    ],
+    "possible_solutions": [
+      "Restart the Router task",
+      "Free up disk space on the mail server",
+      "Fix DNS or network connectivity issues",
+      "Recreate a corrupted mail.box database",
+      "Correct misconfigured Connection documents"
+    ],
+    "prevention": [
+      "Monitor Router task status with automated alerts",
+      "Maintain adequate free disk space with monitoring thresholds",
+      "Test Connection document changes before deploying broadly",
+      "Keep DNS records for mail servers accurate and monitored"
+    ],
+    "keywords": ["mail routing stopped notes", "router task not running", "domino mail not delivering", "no mail delivery lotus notes"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": ["NOTES-038", "NOTES-036", "NOTES-039"]
+  },
+  {
+    "id": "NOTES-038",
+    "category": "Lotus Notes",
+    "subcategory": "Mail Routing",
+    "problem": "Router Task Not Running",
+    "description": "The Domino Router task, responsible for moving mail between databases and servers, is not running on the server, either having crashed, been stopped manually, or failed to start at server boot.",
+    "symptoms": [
+      "Router does not appear in the list of active server tasks",
+      "Mail accumulates in mail.box without being processed",
+      "Server console log shows the Router task terminated or an error on startup",
+      "No routing activity visible in statistics or message tracking"
+    ],
+    "possible_causes": [
+      "Router task crashed due to a corrupted mail.box or configuration issue",
+      "Router was manually stopped for maintenance and not restarted",
+      "Server configuration document excludes Router from ServerTasks",
+      "Resource exhaustion (memory or disk) preventing the task from starting"
+    ],
+    "diagnostic_questions": [
+      "Does the server console log show any error related to the Router task?",
+      "Was any maintenance performed recently that may have stopped the task?",
+      "Is Router included in the ServerTasks setting in the Server document or NOTES.INI?",
+      "Are there signs of resource exhaustion, such as low memory or disk space?"
+    ],
+    "commands": [
+      {
+        "command": "load router",
+        "purpose": "Attempt to manually start the Router task from the server console",
+        "expected_result": "Router task starts and appears in the active task list",
+        "abnormal_result": "Task fails to start or immediately crashes, pointing to a configuration or database issue"
+      },
+      {
+        "command": "show stat mail.*",
+        "purpose": "View mail-related statistics to confirm whether routing activity is occurring",
+        "expected_result": "Statistics show active message delivery counts",
+        "abnormal_result": "Statistics show no delivery activity, confirming the Router is not processing mail"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the server console log for errors related to the Router task around the time it stopped.",
+        "reason": "Log entries typically indicate the specific cause of the crash or failure to start."
+      },
+      {
+        "step": 2,
+        "action": "Attempt to manually start the Router with the load router command.",
+        "reason": "Determines whether the task can start cleanly or fails immediately, narrowing down the cause."
+      },
+      {
+        "step": 3,
+        "action": "Verify the ServerTasks line in the Server document or NOTES.INI includes Router.",
+        "reason": "If Router was removed from the startup task list, it will not start automatically on reboot."
+      },
+      {
+        "step": 4,
+        "action": "Check for resource exhaustion such as low disk space or memory on the server.",
+        "reason": "The Router task, like other server tasks, can fail to start if system resources are critically low."
+      }
+    ],
+    "possible_solutions": [
+      "Manually restart the Router task",
+      "Add Router back to ServerTasks configuration if missing",
+      "Resolve underlying resource exhaustion issues",
+      "Repair or recreate a corrupted mail.box preventing Router startup"
+    ],
+    "prevention": [
+      "Set up monitoring alerts for critical task status including Router",
+      "Document and follow proper procedures for planned maintenance restarts",
+      "Regularly review Server document task configuration",
+      "Monitor server resource usage proactively"
+    ],
+    "keywords": ["router task not running domino", "notes router crashed", "mail.box not processed", "domino router task stopped"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-037", "NOTES-039"]
+  },
+  {
+    "id": "NOTES-039",
+    "category": "Lotus Notes",
+    "subcategory": "Mail Routing",
+    "problem": "Mail.box Full",
+    "description": "The mail.box database used for transient mail routing has become full or unable to accept new messages, causing new outgoing and incoming mail to fail or queue indefinitely.",
+    "symptoms": [
+      "Error indicating mail.box is full or cannot accept new documents",
+      "Mail delivery halts for all or many users on the server",
+      "Server console shows mail.box size warnings",
+      "New messages fail to enter the routing queue at all"
+    ],
+    "possible_causes": [
+      "Mail.box has reached its maximum configured size",
+      "A single mail.box is overwhelmed by high mail volume with no additional mail.box files configured",
+      "Router task is not processing messages out of mail.box fast enough",
+      "Disk space on the server volume hosting mail.box is exhausted"
+    ],
+    "diagnostic_questions": [
+      "What is the current size of mail.box compared to its configured limit?",
+      "Is only one mail.box configured, or are multiple mail.box files in use?",
+      "Is the Router task actively processing messages out of mail.box?",
+      "Is there adequate free disk space on the volume hosting mail.box?"
+    ],
+    "commands": [
+      {
+        "command": "show stat mail.box.*",
+        "purpose": "Display mail.box size and document count statistics from the server console",
+        "expected_result": "Size and count within normal operating range",
+        "abnormal_result": "Size at or near maximum, confirming mail.box is full"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check current mail.box size and configured maximum via server statistics.",
+        "reason": "Confirms whether mail.box has actually reached its size limit."
+      },
+      {
+        "step": 2,
+        "action": "Confirm the Router task is actively running and processing messages.",
+        "reason": "A stalled Router will cause mail.box to fill up as new messages arrive but none leave."
+      },
+      {
+        "step": 3,
+        "action": "Check available disk space on the volume hosting mail.box.",
+        "reason": "Insufficient disk space prevents mail.box from growing to accept new mail."
+      },
+      {
+        "step": 4,
+        "action": "Configure additional mail.box files to distribute mail routing load if volume is consistently high.",
+        "reason": "Multiple mail.box databases allow the server to process a higher volume of mail concurrently."
+      }
+    ],
+    "possible_solutions": [
+      "Free up disk space on the server",
+      "Restart the Router task if stalled",
+      "Configure additional mail.box databases for load distribution",
+      "Increase the maximum size setting for mail.box if appropriate"
+    ],
+    "prevention": [
+      "Monitor mail.box size and disk space proactively",
+      "Configure multiple mail.box files on high-volume servers",
+      "Set alerts for mail.box approaching its size limit",
+      "Review mail volume trends periodically to plan capacity"
+    ],
+    "keywords": ["mail.box full domino", "mail.box size limit notes", "cannot route mail mail.box full", "domino mailbox database full"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-037", "NOTES-038", "NOTES-040"]
+  },
+  {
+    "id": "NOTES-040",
+    "category": "Lotus Notes",
+    "subcategory": "Mail Routing",
+    "problem": "Mail.box Corrupted",
+    "description": "The mail.box database has become corrupted, causing the Router task to fail, crash repeatedly, or be unable to process any queued mail.",
+    "symptoms": [
+      "Router task crashes repeatedly, often referencing mail.box",
+      "Server console shows database corruption errors for mail.box",
+      "Mail stops routing entirely despite Router appearing to run",
+      "Fixup or database repair tools report structural errors in mail.box"
+    ],
+    "possible_causes": [
+      "Improper server shutdown while mail.box was actively in use",
+      "Disk-level errors affecting the mail.box file",
+      "A software or Domino version bug affecting mail.box integrity",
+      "File system corruption unrelated to Domino itself"
+    ],
+    "diagnostic_questions": [
+      "Did the server shut down improperly or crash recently?",
+      "Does the console log show explicit corruption or structure errors for mail.box?",
+      "Are there other signs of disk-level problems on the server?",
+      "Has this happened before, suggesting a recurring underlying issue?"
+    ],
+    "commands": [
+      {
+        "command": "load fixup mail.box",
+        "purpose": "Run the Domino Fixup task against mail.box to repair structural corruption",
+        "expected_result": "Fixup completes and reports the database has been repaired",
+        "abnormal_result": "Fixup reports it cannot fully repair the database, requiring recreation of mail.box"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Stop the Router task before attempting any repair on mail.box.",
+        "reason": "Prevents further writes to the corrupted database while repair is in progress."
+      },
+      {
+        "step": 2,
+        "action": "Run the Fixup task against mail.box to attempt a structural repair.",
+        "reason": "Fixup is the standard Domino tool for correcting many types of database corruption."
+      },
+      {
+        "step": 3,
+        "action": "If Fixup cannot fully resolve the corruption, rename the corrupted mail.box and let the server create a new one.",
+        "reason": "A fresh mail.box allows routing to resume immediately while the corrupted file is investigated separately."
+      },
+      {
+        "step": 4,
+        "action": "Restart the Router task once a healthy mail.box is in place.",
+        "reason": "Confirms routing resumes normally after the corruption has been addressed."
+      }
+    ],
+    "possible_solutions": [
+      "Run Fixup to repair the corrupted mail.box",
+      "Recreate mail.box if repair is unsuccessful",
+      "Investigate underlying disk health if corruption recurs",
+      "Restore from backup if no other repair option succeeds"
+    ],
+    "prevention": [
+      "Ensure clean server shutdowns whenever possible",
+      "Use a UPS to prevent power-related corruption",
+      "Monitor disk health on servers hosting mail.box",
+      "Keep Domino server software patched to current recommended levels"
+    ],
+    "keywords": ["mail.box corrupted domino", "mail.box repair fixup", "router crash mail.box", "domino database corruption mail"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": ["NOTES-039", "NOTES-037"]
+  },
+  {
+    "id": "NOTES-041",
+    "category": "Lotus Notes",
+    "subcategory": "Domino Directory",
+    "problem": "User Not Found in Domino Directory",
+    "description": "The system or an administrator cannot locate a user's entry when searching the Domino Directory, preventing mail routing, authentication, or other directory-dependent functions for that user.",
+    "symptoms": [
+      "Search for the user in the Domino Directory returns no results",
+      "Mail addressed to the user bounces as an unknown recipient",
+      "User cannot authenticate or access directory-dependent services",
+      "Person document appears missing entirely for the user"
+    ],
+    "possible_causes": [
+      "Person document was never created or was accidentally deleted",
+      "Directory replication has not propagated the Person document to this server",
+      "User was registered on a different Domino domain",
+      "Directory Assistance is misconfigured for a secondary directory"
+    ],
+    "diagnostic_questions": [
+      "Was this user recently registered, renamed, or migrated?",
+      "Does the user appear in the Domino Directory on other servers?",
+      "Has directory replication completed successfully and recently?",
+      "Is Directory Assistance configured and functioning if a secondary directory is used?"
+    ],
+    "commands": [
+      {
+        "command": "tell replica sync names.nsf",
+        "purpose": "Force replication of the Domino Directory (names.nsf) from the server console",
+        "expected_result": "Replication completes and the Person document becomes visible",
+        "abnormal_result": "Replication errors occur, or the document still does not appear, indicating a deeper directory issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Search for the user's Person document on the server where they were originally registered.",
+        "reason": "Confirms whether the document exists at all or only appears missing on this particular server."
+      },
+      {
+        "step": 2,
+        "action": "Force replication of the Domino Directory between servers.",
+        "reason": "Resolves cases where the Person document exists but has not yet replicated to all servers."
+      },
+      {
+        "step": 3,
+        "action": "Check Directory Assistance configuration if the user is expected to come from a secondary directory.",
+        "reason": "Misconfigured Directory Assistance can prevent lookups from finding valid users in another directory."
+      },
+      {
+        "step": 4,
+        "action": "If the Person document was deleted, restore it from backup or re-register the user.",
+        "reason": "A genuinely missing Person document must be recreated for the user to be found and function normally."
+      }
+    ],
+    "possible_solutions": [
+      "Force Domino Directory replication",
+      "Restore a deleted Person document from backup",
+      "Correct Directory Assistance configuration",
+      "Re-register the user if no document can be recovered"
+    ],
+    "prevention": [
+      "Monitor directory replication schedules and success",
+      "Restrict Person document deletion rights appropriately",
+      "Regularly back up the Domino Directory",
+      "Document Directory Assistance configurations clearly"
+    ],
+    "keywords": ["user not found domino directory", "person document missing notes", "unknown recipient domino", "directory lookup failed notes"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-042", "NOTES-043"]
+  },
+  {
+    "id": "NOTES-042",
+    "category": "Lotus Notes",
+    "subcategory": "Domino Directory",
+    "problem": "Domino Directory Replication Issue",
+    "description": "Changes made to the Domino Directory on one server, such as new users or updated group memberships, are not appearing on other servers in the domain within the expected time frame.",
+    "symptoms": [
+      "New or updated Person, Group, or Server documents visible on one server but not others",
+      "Users report inconsistent access depending on which server they connect to",
+      "Replication history shows errors or long gaps for names.nsf",
+      "Group membership changes take unusually long to take effect organization-wide"
+    ],
+    "possible_causes": [
+      "Replication schedule between servers is too infrequent or disabled",
+      "Network connectivity issues between servers hosting directory replicas",
+      "Replication conflicts or access control restrictions on names.nsf",
+      "A server involved in replication is down or unreachable"
+    ],
+    "diagnostic_questions": [
+      "When was the last successful replication of names.nsf between the affected servers?",
+      "Are there any replication errors logged on either server?",
+      "Is network connectivity stable between the servers involved?",
+      "Do both servers have appropriate ACL access to replicate names.nsf?"
+    ],
+    "commands": [
+      {
+        "command": "tell replica sync names.nsf",
+        "purpose": "Manually trigger replication of the Domino Directory between servers",
+        "expected_result": "Replication completes successfully with changes visible on both servers",
+        "abnormal_result": "Replication fails or reports access errors, indicating a connectivity or permissions issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the replication history on both servers for names.nsf.",
+        "reason": "Identifies when replication last succeeded and any errors that occurred."
+      },
+      {
+        "step": 2,
+        "action": "Manually trigger replication with tell replica sync names.nsf.",
+        "reason": "Forces an immediate attempt, which either resolves the issue or surfaces a specific error."
+      },
+      {
+        "step": 3,
+        "action": "Verify network connectivity between the servers.",
+        "reason": "Replication cannot occur if the servers cannot reach each other."
+      },
+      {
+        "step": 4,
+        "action": "Check the ACL on names.nsf to confirm both servers have appropriate replication access.",
+        "reason": "Insufficient access rights will silently block replication of directory changes."
+      }
+    ],
+    "possible_solutions": [
+      "Force manual replication between affected servers",
+      "Resolve underlying network connectivity issues",
+      "Correct ACL or replication settings on names.nsf",
+      "Adjust replication schedule to run more frequently"
+    ],
+    "prevention": [
+      "Monitor directory replication success across all servers",
+      "Set up alerts for replication failures",
+      "Maintain stable network links between directory servers",
+      "Review ACLs on names.nsf periodically"
+    ],
+    "keywords": ["domino directory replication issue", "names.nsf not replicating", "directory changes not syncing", "domino replication failure"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-50 minutes",
+    "related_problems": ["NOTES-041", "NOTES-043"]
+  },
+  {
+    "id": "NOTES-043",
+    "category": "Lotus Notes",
+    "subcategory": "Domino Directory",
+    "problem": "Person Document Missing",
+    "description": "A specific user's Person document does not exist in the Domino Directory, even though the user should have one based on their employment or account status, preventing mail delivery and access.",
+    "symptoms": [
+      "Directory search for the user returns nothing",
+      "Mail to the user bounces with an unknown recipient error",
+      "Administrator cannot find the user when assigning group membership or ACLs",
+      "User cannot log into Notes or web-based mail access"
+    ],
+    "possible_causes": [
+      "Person document was accidentally or intentionally deleted",
+      "User registration process failed partway through",
+      "Directory replication has not yet delivered the document to this server",
+      "Document exists but ACL restrictions prevent it from appearing in searches"
+    ],
+    "diagnostic_questions": [
+      "Was the user recently registered, or has the account existed for some time?",
+      "Has anyone recently performed cleanup or deletions in the Domino Directory?",
+      "Does the Person document appear on any other server in the domain?",
+      "Could ACL restrictions be hiding the document from certain views or users?"
+    ],
+    "commands": [
+      {
+        "command": "tell replica sync names.nsf",
+        "purpose": "Force directory replication in case the document exists elsewhere but has not yet replicated",
+        "expected_result": "Person document appears after successful replication",
+        "abnormal_result": "Document still does not appear anywhere, confirming it was deleted or never created"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Search for the Person document across all servers in the domain.",
+        "reason": "Determines whether the document exists anywhere or is truly missing entirely."
+      },
+      {
+        "step": 2,
+        "action": "Force directory replication to rule out a propagation delay.",
+        "reason": "The document may exist on another server and simply has not replicated yet."
+      },
+      {
+        "step": 3,
+        "action": "Check deletion logs or recent administrative activity in the Domino Directory.",
+        "reason": "Helps confirm whether the document was intentionally or accidentally removed."
+      },
+      {
+        "step": 4,
+        "action": "If confirmed missing, restore the document from backup or re-register the user.",
+        "reason": "Recreating the Person document is necessary to restore mail delivery and directory-based access."
+      }
+    ],
+    "possible_solutions": [
+      "Restore the Person document from backup",
+      "Re-register the user to recreate the document",
+      "Force replication if the document exists on another server",
+      "Review and adjust ACL restrictions if visibility was the issue"
+    ],
+    "prevention": [
+      "Restrict delete rights on the Domino Directory to trusted administrators",
+      "Maintain regular backups of names.nsf",
+      "Audit directory changes periodically",
+      "Confirm full registration completion for all new users"
+    ],
+    "keywords": ["person document missing notes", "user not in directory", "recreate person document domino", "missing user account notes"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-041", "NOTES-042"]
+  },
+  {
+    "id": "NOTES-044",
+    "category": "Lotus Notes",
+    "subcategory": "Domino Directory",
+    "problem": "Incorrect Mail Server Assignment",
+    "description": "A user's Person document lists an incorrect mail server, causing mail routing failures, inability to open mail from the client, or confusion during troubleshooting since the client looks in the wrong place.",
+    "symptoms": [
+      "Notes client attempts to connect to the wrong server for mail",
+      "Mail addressed to the user is routed to a server that does not host their file",
+      "Error indicating the mail file or server cannot be found",
+      "Mismatch between where the mail file actually resides and what is configured"
+    ],
+    "possible_causes": [
+      "Manual data entry error when creating or updating the Person document",
+      "Mail file was migrated but the Person document was not updated to match",
+      "Incorrect information carried over during a bulk directory import or update",
+      "Duplicate or conflicting Person documents with different server values"
+    ],
+    "diagnostic_questions": [
+      "What mail server is currently listed in the user's Person document?",
+      "What server actually hosts the user's mail file?",
+      "Was a migration or bulk update recently performed on directory records?",
+      "Are there multiple Person documents for this user with conflicting information?"
+    ],
+    "commands": [
+      {
+        "command": "File > Application > Properties (Notes client)",
+        "purpose": "Confirm which server the client is currently attempting to use for mail",
+        "expected_result": "Matches the server where the mail file actually resides",
+        "abnormal_result": "Client is pointing to a different server than expected, confirming the Person document mismatch"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Identify the server that actually hosts the user's mail file.",
+        "reason": "Establishes the correct value that the Person document should contain."
+      },
+      {
+        "step": 2,
+        "action": "Open the user's Person document and correct the Mail Server field.",
+        "reason": "Directly fixes the source of the incorrect routing and client lookup behavior."
+      },
+      {
+        "step": 3,
+        "action": "Check for and resolve any duplicate Person documents for the same user.",
+        "reason": "Conflicting documents can cause inconsistent behavior depending on which one is used."
+      },
+      {
+        "step": 4,
+        "action": "Have the user refresh their local bookmark or recreate their mail replica after the correction.",
+        "reason": "Ensures the client picks up the corrected server assignment."
+      }
+    ],
+    "possible_solutions": [
+      "Correct the Mail Server field in the Person document",
+      "Remove duplicate or conflicting Person documents",
+      "Update local client bookmarks and replicas to match",
+      "Re-run directory synchronization after correction"
+    ],
+    "prevention": [
+      "Use scripted or validated processes for bulk directory updates",
+      "Double-check Person document fields during migrations",
+      "Periodically audit mail server assignments against actual file locations",
+      "Restrict manual Person document edits to trained administrators"
+    ],
+    "keywords": ["incorrect mail server person document", "wrong mail server notes", "mail server mismatch domino", "person document mail server wrong"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["NOTES-045", "NOTES-035"]
+  },
+  {
+    "id": "NOTES-045",
+    "category": "Lotus Notes",
+    "subcategory": "Domino Directory",
+    "problem": "Incorrect Mail File Path",
+    "description": "The Mail File field in a user's Person document points to a path that does not match the actual location of the mail file on the server, causing errors when opening mail.",
+    "symptoms": [
+      "Error stating the database at the specified path cannot be found",
+      "Mail works when opened directly but not through standard client lookup",
+      "Inconsistent mail access errors after a server reorganization",
+      "Administrator finds the mail file exists but at a different path than listed"
+    ],
+    "possible_causes": [
+      "Mail file was moved to a different directory on the same server without updating the Person document",
+      "Typo or formatting error entered manually in the Mail File field",
+      "Bulk migration script updated server but not path information",
+      "Legacy path format incompatible with current server directory structure"
+    ],
+    "diagnostic_questions": [
+      "What path is currently listed in the Mail File field of the Person document?",
+      "What is the actual current path of the mail file on the server?",
+      "Was any file reorganization performed on the mail server recently?",
+      "Does the mail file open correctly when accessed directly by its actual path?"
+    ],
+    "commands": [
+      {
+        "command": "File > Application > Open (Notes client)",
+        "purpose": "Browse the server directly to find the actual current path of the user's mail file",
+        "expected_result": "Mail file is located, confirming its actual path",
+        "abnormal_result": "Mail file cannot be found at all, suggesting a different issue such as a missing file"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Browse the server directly to confirm the actual current path of the mail file.",
+        "reason": "Establishes the correct value that needs to be entered in the Person document."
+      },
+      {
+        "step": 2,
+        "action": "Compare the actual path to the Mail File field in the Person document.",
+        "reason": "Identifies the specific discrepancy causing the lookup failure."
+      },
+      {
+        "step": 3,
+        "action": "Update the Mail File field in the Person document to match the correct path.",
+        "reason": "Directly resolves the mismatch so the client can locate the file correctly."
+      },
+      {
+        "step": 4,
+        "action": "Have the user recreate their bookmark or local replica after the path correction.",
+        "reason": "Ensures the client uses the newly corrected path rather than a cached incorrect one."
+      }
+    ],
+    "possible_solutions": [
+      "Correct the Mail File path in the Person document",
+      "Recreate affected bookmarks and local replicas",
+      "Standardize path formatting across all Person documents",
+      "Re-verify paths after any server-side file reorganization"
+    ],
+    "prevention": [
+      "Update Person documents immediately after any mail file relocation",
+      "Use consistent naming and path conventions",
+      "Validate paths as part of any migration checklist",
+      "Periodically audit mail file paths against Person document entries"
+    ],
+    "keywords": ["incorrect mail file path notes", "mail file path wrong domino", "database path error notes", "person document mail file path"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["NOTES-044", "NOTES-033"]
+  },
+  {
+    "id": "NOTES-046",
+    "category": "Lotus Notes",
+    "subcategory": "User & Group Administration",
+    "problem": "User Renamed But Changes Not Applied",
+    "description": "A user was renamed in the Domino Directory (such as after a legal name change or marriage), but the new name is not reflected consistently across mail, group membership, or access control lists.",
+    "symptoms": [
+      "User's old name still appears in the address book or mail headers",
+      "Access to certain databases fails under the new name",
+      "Group memberships still reference the old name",
+      "Mail sent under the new name is not recognized by some recipients or systems"
+    ],
+    "possible_causes": [
+      "Rename request was only partially processed by the administrator",
+      "Directory replication has not propagated the rename to all servers",
+      "ACLs and group documents were not updated to reflect the new name",
+      "User's local Notes ID has not been updated with the new name via the rename process"
+    ],
+    "diagnostic_questions": [
+      "Was the rename processed through the proper Domino Administrator rename tool?",
+      "Has directory replication completed since the rename was submitted?",
+      "Have ACLs and group documents been reviewed for the old name?",
+      "Has the user's ID file been updated as part of the rename process?"
+    ],
+    "commands": [
+      {
+        "command": "tell replica sync names.nsf",
+        "purpose": "Force replication of directory changes related to the rename across servers",
+        "expected_result": "New name propagates and is visible on all servers",
+        "abnormal_result": "Old name persists after replication, indicating the rename process itself was not completed correctly"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Verify the rename was submitted and completed using the Domino Administrator rename functionality.",
+        "reason": "Ensures the rename was handled properly rather than through a manual, incomplete edit."
+      },
+      {
+        "step": 2,
+        "action": "Force replication of the Domino Directory to propagate the new name.",
+        "reason": "Confirms whether the issue is a replication delay rather than an incomplete rename."
+      },
+      {
+        "step": 3,
+        "action": "Review and update any group documents or ACLs still listing the user's old name.",
+        "reason": "Rename processes do not always automatically update every reference across all databases."
+      },
+      {
+        "step": 4,
+        "action": "Confirm the user's Notes ID file has been updated with the new name.",
+        "reason": "The client-side ID must match the directory for consistent recognition across systems."
+      }
+    ],
+    "possible_solutions": [
+      "Complete or reprocess the rename through Domino Administrator",
+      "Force directory replication across all servers",
+      "Manually update remaining group and ACL references",
+      "Update the user's local ID file with the new name"
+    ],
+    "prevention": [
+      "Always use the official rename process rather than manual edits",
+      "Follow up renames with a directory-wide replication check",
+      "Maintain a checklist for post-rename ACL and group review",
+      "Communicate rename completion timelines to affected users"
+    ],
+    "keywords": ["user renamed notes not applied", "domino rename incomplete", "old name still showing notes", "rename user domino directory"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "25-45 minutes",
+    "related_problems": ["NOTES-047", "NOTES-042"]
+  },
+  {
+    "id": "NOTES-047",
+    "category": "Lotus Notes",
+    "subcategory": "User & Group Administration",
+    "problem": "Deleted User Still Appears",
+    "description": "A user account that was deleted or deactivated in the Domino Directory continues to appear in address book lookups, group memberships, or type-ahead searches within Notes.",
+    "symptoms": [
+      "Deleted user still appears when addressing mail",
+      "User still shows as a member of one or more groups",
+      "Directory search still returns the supposedly deleted user",
+      "Inconsistent visibility of the deleted user across different servers"
+    ],
+    "possible_causes": [
+      "Person document deletion has not yet replicated to all servers",
+      "User was removed from the directory but not from group membership lists",
+      "Local directory cache or type-ahead cache on the client has not refreshed",
+      "Deletion process was incomplete or only marked the document rather than removing it"
+    ],
+    "diagnostic_questions": [
+      "Was the user deletion processed and confirmed by the administrator?",
+      "Has directory replication completed since the deletion?",
+      "Is the user still listed as a member in any group documents?",
+      "Does the user still appear on all servers, or only some?"
+    ],
+    "commands": [
+      {
+        "command": "tell replica sync names.nsf",
+        "purpose": "Force replication of the deletion across all servers in the domain",
+        "expected_result": "Deleted user no longer appears after replication completes",
+        "abnormal_result": "User still appears after replication, indicating the deletion did not fully process or group references remain"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the Person document was actually deleted rather than just marked inactive.",
+        "reason": "Distinguishes between a genuine deletion issue and expected behavior for a deactivated but retained account."
+      },
+      {
+        "step": 2,
+        "action": "Force directory replication across all servers.",
+        "reason": "Ensures the deletion has fully propagated rather than lingering due to a replication delay."
+      },
+      {
+        "step": 3,
+        "action": "Search all group documents for lingering references to the deleted user.",
+        "reason": "Group membership entries are not always automatically cleaned up when a Person document is deleted."
+      },
+      {
+        "step": 4,
+        "action": "Clear the local client's address book cache or type-ahead cache if the user still appears only locally.",
+        "reason": "Cached directory data on the client can persist after the server-side deletion is complete."
+      }
+    ],
+    "possible_solutions": [
+      "Force directory replication to propagate the deletion",
+      "Remove the user from any remaining group documents",
+      "Clear local client directory caches",
+      "Reprocess the deletion if it was not fully completed"
+    ],
+    "prevention": [
+      "Use a standardized deactivation/deletion checklist including group cleanup",
+      "Verify replication completion after directory deletions",
+      "Periodically audit groups for stale or invalid members",
+      "Automate group membership cleanup where possible during offboarding"
+    ],
+    "keywords": ["deleted user still appears notes", "user still in group after deletion", "domino directory stale entry", "removed user still listed notes"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-046", "NOTES-049"]
+  },
+  {
+    "id": "NOTES-048",
+    "category": "Lotus Notes",
+    "subcategory": "User & Group Administration",
+    "problem": "Group Document Missing",
+    "description": "A Group document expected to exist in the Domino Directory, used for mail distribution or access control, cannot be found when searched for or referenced.",
+    "symptoms": [
+      "Mail addressed to the group name bounces as an unknown recipient",
+      "Group cannot be selected when setting ACLs or access rights",
+      "Group name appears in older references but not in current directory search",
+      "Administrator confirms the group was created but it is not visible"
+    ],
+    "possible_causes": [
+      "Group document was accidentally deleted",
+      "Group was created on a different server and has not yet replicated",
+      "Group was never actually saved successfully during creation",
+      "ACL restrictions on the Domino Directory are hiding the group from certain views"
+    ],
+    "diagnostic_questions": [
+      "Was the group recently created, renamed, or intentionally deleted?",
+      "Does the group appear when searched for on other servers in the domain?",
+      "Has directory replication completed recently between relevant servers?",
+      "Could ACL restrictions be limiting visibility of the group document?"
+    ],
+    "commands": [
+      {
+        "command": "tell replica sync names.nsf",
+        "purpose": "Force replication in case the group exists elsewhere and has not yet propagated",
+        "expected_result": "Group document appears after successful replication",
+        "abnormal_result": "Group still does not appear anywhere, confirming it needs to be recreated"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Search for the group document across all servers in the domain.",
+        "reason": "Determines whether the group exists anywhere or is genuinely missing."
+      },
+      {
+        "step": 2,
+        "action": "Force directory replication to rule out a propagation delay.",
+        "reason": "The group document may already exist on another server and simply has not synced yet."
+      },
+      {
+        "step": 3,
+        "action": "Check with the administrator who created the group to confirm it was saved successfully.",
+        "reason": "Helps identify whether the original creation process failed or was never completed."
+      },
+      {
+        "step": 4,
+        "action": "If confirmed missing, recreate the group document with the correct membership.",
+        "reason": "Restores the group's functionality for mail and access control purposes."
+      }
+    ],
+    "possible_solutions": [
+      "Force directory replication if the group exists elsewhere",
+      "Recreate the group document if genuinely missing",
+      "Restore from backup if available",
+      "Review and adjust ACL visibility restrictions if applicable"
+    ],
+    "prevention": [
+      "Verify successful save after creating important group documents",
+      "Restrict delete rights on group documents to trusted administrators",
+      "Maintain regular backups of the Domino Directory",
+      "Audit critical distribution and access groups periodically"
+    ],
+    "keywords": ["group document missing domino", "distribution group not found notes", "group not in directory", "recreate group domino directory"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["NOTES-049", "NOTES-041"]
+  },
+  {
+    "id": "NOTES-049",
+    "category": "Lotus Notes",
+    "subcategory": "User & Group Administration",
+    "problem": "Group Membership Incorrect",
+    "description": "A group's membership list in the Domino Directory contains incorrect entries, such as missing users who should be included, users who should have been removed, or duplicate entries.",
+    "symptoms": [
+      "A user expected to receive group mail does not receive it",
+      "A user who should no longer be in the group still receives mail or access",
+      "Group membership list shows duplicate or malformed entries",
+      "Access control based on the group behaves inconsistently"
+    ],
+    "possible_causes": [
+      "Manual updates to the group were made incorrectly or incompletely",
+      "Offboarding or onboarding processes did not update relevant groups",
+      "Nested group memberships are not resolving as expected",
+      "Directory replication delay causing outdated membership on some servers"
+    ],
+    "diagnostic_questions": [
+      "When was the group membership last reviewed or updated?",
+      "Is the affected user missing directly, or expected to be included via a nested group?",
+      "Has this group been consistently checked as part of onboarding/offboarding procedures?",
+      "Does the membership list differ between servers, suggesting a replication issue?"
+    ],
+    "commands": [
+      {
+        "command": "tell replica sync names.nsf",
+        "purpose": "Ensure group membership changes have fully replicated across servers",
+        "expected_result": "Membership list is consistent across all servers after replication",
+        "abnormal_result": "Membership still differs between servers, indicating a deeper replication issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open the group document and review the current membership list carefully.",
+        "reason": "Provides a clear baseline of who is currently listed versus who should be listed."
+      },
+      {
+        "step": 2,
+        "action": "Check for nested groups and confirm their memberships resolve as expected.",
+        "reason": "Incorrect assumptions about nested group inheritance are a common source of membership confusion."
+      },
+      {
+        "step": 3,
+        "action": "Add or remove members directly to correct the list.",
+        "reason": "Directly resolves the specific discrepancy identified."
+      },
+      {
+        "step": 4,
+        "action": "Force directory replication after making changes to ensure consistency across servers.",
+        "reason": "Prevents temporary inconsistency where some servers still show the old membership."
+      }
+    ],
+    "possible_solutions": [
+      "Manually correct the group membership list",
+      "Review and fix nested group configurations",
+      "Force replication after membership updates",
+      "Establish a periodic group membership review process"
+    ],
+    "prevention": [
+      "Include group membership updates in onboarding/offboarding checklists",
+      "Periodically audit group memberships for accuracy",
+      "Avoid overly complex nested group structures where possible",
+      "Assign clear ownership for maintaining key distribution groups"
+    ],
+    "keywords": ["group membership incorrect domino", "group missing user notes", "distribution list wrong members", "nested group not resolving notes"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["NOTES-048", "NOTES-047"]
+  },
+  {
+    "id": "NOTES-050",
+    "category": "Lotus Notes",
+    "subcategory": "User & Group Administration",
+    "problem": "Mail-In Database Configuration Issue",
+    "description": "A mail-in database, used to route mail into a shared application rather than a personal mailbox, is not receiving mail correctly due to misconfiguration of its Mail-In Database document.",
+    "symptoms": [
+      "Mail addressed to the mail-in database bounces or is undeliverable",
+      "Mail is delivered but does not appear inside the target database as expected",
+      "Error indicating the mail-in name cannot be resolved",
+      "Duplicate or conflicting mail-in database documents exist for the same name"
+    ],
+    "possible_causes": [
+      "Mail-In Database document has an incorrect server or file path reference",
+      "The target database's ACL does not grant sufficient rights for mail delivery",
+      "Mail-In Database document was not fully replicated to relevant routing servers",
+      "The database design does not include a mail delivery agent or form to process incoming mail properly"
+    ],
+    "diagnostic_questions": [
+      "What server and path does the Mail-In Database document currently reference?",
+      "Does that path match the actual current location of the target database?",
+      "Does the ACL of the target database grant at least Author access to the server or router?",
+      "Has the Mail-In Database document replicated to the servers responsible for routing this mail?"
+    ],
+    "commands": [
+      {
+        "command": "tell replica sync names.nsf",
+        "purpose": "Ensure the Mail-In Database document has replicated to all relevant routing servers",
+        "expected_result": "Document is present and consistent across servers",
+        "abnormal_result": "Document is missing or inconsistent on some servers, explaining delivery failures from those routes"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open the Mail-In Database document and verify the server and file path match the actual target database location.",
+        "reason": "An incorrect path is one of the most common causes of failed delivery to mail-in databases."
+      },
+      {
+        "step": 2,
+        "action": "Check the ACL of the target database to confirm the server or router has sufficient rights to add documents.",
+        "reason": "Insufficient ACL rights will cause mail to be rejected or silently fail to deliver."
+      },
+      {
+        "step": 3,
+        "action": "Force directory replication to ensure the Mail-In Database document is available on all routing servers.",
+        "reason": "A document that has not replicated will cause failures specifically from servers that route through the affected path."
+      },
+      {
+        "step": 4,
+        "action": "Verify the target database's design includes proper handling for incoming mail, such as a Memo form.",
+        "reason": "Even with correct routing, mail cannot be processed if the database lacks the expected form or agent."
+      }
+    ],
+    "possible_solutions": [
+      "Correct the server/path in the Mail-In Database document",
+      "Adjust ACL rights on the target database",
+      "Force replication of the Mail-In Database document",
+      "Update the database design to properly handle incoming mail"
+    ],
+    "prevention": [
+      "Validate Mail-In Database documents when creating new shared mail applications",
+      "Include mail-in databases in periodic ACL reviews",
+      "Test mail-in delivery after any database migration",
+      "Document mail-in configurations for future reference"
+    ],
+    "keywords": ["mail-in database not working", "mail in database configuration notes", "shared mailbox domino not receiving", "mail-in document misconfigured"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-45 minutes",
+    "related_problems": ["NOTES-036", "NOTES-044"]
+  },
+  {
+    "id": "NOTES-051",
+    "category": "Lotus Notes",
+    "subcategory": "Workspace & UI Customization",
+    "problem": "Workspace Cannot Be Customized",
+    "description": "The user is unable to rearrange icons, create new workspace pages, or otherwise customize their Notes workspace, with changes either not saving or being blocked entirely.",
+    "symptoms": [
+      "Dragging icons or creating new workspace pages has no effect",
+      "Right-click customization options are missing or grayed out",
+      "Changes made to workspace layout revert after restarting Notes",
+      "Error message when attempting to modify workspace settings"
+    ],
+    "possible_causes": [
+      "Desktop6.ndk or workspace file is corrupted or read-only",
+      "Policy settings restrict workspace customization for the user",
+      "Notes client is running with insufficient permissions on its data folder",
+      "User is running in a locked-down kiosk or shared workstation configuration"
+    ],
+    "diagnostic_questions": [
+      "Does this happen for all customization attempts, or only specific ones like adding pages?",
+      "Is the user on a shared or kiosk-style workstation with restricted settings?",
+      "Are there any organizational policies known to restrict workspace changes?",
+      "Does the issue persist after restarting the Notes client?"
+    ],
+    "commands": [
+      {
+        "command": "attrib desktop6.ndk",
+        "purpose": "Check the file attributes of the workspace data file to see if it is marked Read-only",
+        "expected_result": "File is not marked Read-only",
+        "abnormal_result": "File is marked Read-only, preventing workspace changes from being saved"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check whether the desktop6.ndk file in the Notes data directory is set to Read-only.",
+        "reason": "A read-only workspace file will prevent any changes from being saved."
+      },
+      {
+        "step": 2,
+        "action": "Verify the user account has write permissions to the Notes data folder.",
+        "reason": "Insufficient file system permissions can silently block workspace customization."
+      },
+      {
+        "step": 3,
+        "action": "Check with the administrator whether a policy document restricts workspace customization for this user.",
+        "reason": "Some organizational policies intentionally lock down workspace changes for standardized environments."
+      },
+      {
+        "step": 4,
+        "action": "If the workspace file appears corrupted, close Notes, rename desktop6.ndk, and let Notes recreate it.",
+        "reason": "Recreating the file resolves corruption-related issues, though it resets the workspace layout."
+      }
+    ],
+    "possible_solutions": [
+      "Remove the Read-only attribute from the workspace file",
+      "Grant proper file system permissions to the Notes data folder",
+      "Adjust or remove restrictive policy settings if appropriate",
+      "Recreate a corrupted workspace file"
+    ],
+    "prevention": [
+      "Avoid applying Read-only attributes to Notes data files",
+      "Clearly document intentional policy restrictions for users",
+      "Maintain proper file permissions during Notes deployment",
+      "Back up desktop6.ndk before making bulk configuration changes"
+    ],
+    "keywords": ["workspace cannot be customized notes", "cannot rearrange icons notes", "workspace changes not saving", "desktop6.ndk read only"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["NOTES-052", "NOTES-056"]
+  },
+  {
+    "id": "NOTES-052",
+    "category": "Lotus Notes",
+    "subcategory": "Workspace & UI Customization",
+    "problem": "Preferences Not Saving",
+    "description": "Changes the user makes in File > Preferences, such as mail settings, calendar options, or general client preferences, do not persist after closing and reopening Notes.",
+    "symptoms": [
+      "Preference changes appear to save but revert on next launch",
+      "Settings such as font, spell check, or mail options reset repeatedly",
+      "No error is shown when saving preferences, but the change is lost",
+      "Issue may affect only certain preference categories or all of them"
+    ],
+    "possible_causes": [
+      "Notes.ini or preference file is Read-only or has restricted permissions",
+      "Policy settings are enforcing specific preference values on each login",
+      "Local Notes data directory has file system corruption",
+      "User profile or roaming profile is not saving changes back to storage correctly"
+    ],
+    "diagnostic_questions": [
+      "Do all preference changes fail to save, or only specific settings?",
+      "Is the user on a roaming or virtual desktop environment?",
+      "Are there known policy documents that enforce specific preference values?",
+      "Does the Notes data folder have proper write permissions for this user?"
+    ],
+    "commands": [
+      {
+        "command": "attrib notes.ini",
+        "purpose": "Check whether the notes.ini file is marked Read-only, which would block preference changes from being written",
+        "expected_result": "File is not marked Read-only",
+        "abnormal_result": "File is marked Read-only, explaining why preference changes fail to persist"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check whether notes.ini and related preference files are set to Read-only.",
+        "reason": "A read-only configuration file will accept changes in the UI but fail to persist them."
+      },
+      {
+        "step": 2,
+        "action": "Verify the user has full write permissions to their local Notes data directory.",
+        "reason": "Permission restrictions can silently prevent preference files from being updated."
+      },
+      {
+        "step": 3,
+        "action": "Check with the administrator for any policy documents that might be re-enforcing default preferences on each login.",
+        "reason": "Enforced policies will overwrite user preference changes automatically, appearing as if they are not saving."
+      },
+      {
+        "step": 4,
+        "action": "If using a roaming or virtual desktop setup, confirm the profile is correctly syncing changes back to central storage.",
+        "reason": "Improper roaming profile sync can cause local changes to be lost when the session ends."
+      }
+    ],
+    "possible_solutions": [
+      "Remove Read-only attributes from configuration files",
+      "Correct file system permissions on the Notes data folder",
+      "Adjust or clarify policy-enforced preference settings",
+      "Fix roaming profile synchronization issues"
+    ],
+    "prevention": [
+      "Avoid applying Read-only attributes to Notes configuration files",
+      "Clearly communicate any policy-enforced preferences to users",
+      "Test preference persistence after any roaming profile changes",
+      "Maintain proper file permissions during client deployment"
+    ],
+    "keywords": ["notes preferences not saving", "settings revert notes client", "notes.ini read only preferences", "mail preferences reset notes"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["NOTES-051", "NOTES-058"]
+  },
+  {
+    "id": "NOTES-053",
+    "category": "Lotus Notes",
+    "subcategory": "Workspace & UI Customization",
+    "problem": "Toolbar Missing",
+    "description": "The action toolbar at the top of the Notes client, normally containing icons for common actions like New Memo or Reply, is not displayed at all.",
+    "symptoms": [
+      "No toolbar visible below the menu bar",
+      "Toolbar was present previously and disappeared after an update or crash",
+      "Menu options to show the toolbar do not restore it",
+      "Issue may occur only in specific views or across the entire client"
+    ],
+    "possible_causes": [
+      "Toolbar display setting was toggled off, intentionally or accidentally",
+      "Corrupted user preferences related to toolbar display",
+      "A client update or patch reset or broke toolbar rendering",
+      "Display or graphics driver issue affecting UI element rendering"
+    ],
+    "diagnostic_questions": [
+      "Was the toolbar visible before a recent update, crash, or configuration change?",
+      "Does toggling the toolbar option in the View menu have any effect?",
+      "Does this occur in all views and windows, or only specific ones?",
+      "Are other UI elements, such as the status bar, also missing or misrendering?"
+    ],
+    "commands": [
+      {
+        "command": "View > Toolbar > Show Action Bar (Notes client menu)",
+        "purpose": "Manually toggle the toolbar visibility setting from the client menu",
+        "expected_result": "Toolbar reappears after selecting the option",
+        "abnormal_result": "Toolbar remains hidden despite toggling the setting, indicating a deeper configuration or rendering issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the View menu and toggle the toolbar or action bar display option.",
+        "reason": "This directly addresses the most common and simplest cause, an accidentally disabled display setting."
+      },
+      {
+        "step": 2,
+        "action": "Restart the Notes client after toggling the setting.",
+        "reason": "Some UI state changes require a client restart to take full effect."
+      },
+      {
+        "step": 3,
+        "action": "If the issue persists, reset the user's local preferences related to toolbar and UI layout.",
+        "reason": "Corrupted UI preference data can prevent the toolbar from rendering even when enabled."
+      },
+      {
+        "step": 4,
+        "action": "Update graphics drivers if other UI rendering issues are also present.",
+        "reason": "In rare cases, outdated or faulty graphics drivers affect how UI elements like toolbars render."
+      }
+    ],
+    "possible_solutions": [
+      "Toggle toolbar visibility from the View menu",
+      "Restart the Notes client after changing display settings",
+      "Reset corrupted local UI preferences",
+      "Update graphics drivers if broader rendering issues exist"
+    ],
+    "prevention": [
+      "Document standard UI settings for new client deployments",
+      "Test UI elements after client updates or patches",
+      "Keep graphics drivers reasonably current",
+      "Back up user preference files before major changes"
+    ],
+    "keywords": ["notes toolbar missing", "action bar not showing notes", "toolbar disappeared lotus notes", "notes client ui missing"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["NOTES-054", "NOTES-051"]
+  },
+  {
+    "id": "NOTES-054",
+    "category": "Lotus Notes",
+    "subcategory": "Workspace & UI Customization",
+    "problem": "Toolbar Buttons Not Working",
+    "description": "The action toolbar is visible in the Notes client, but clicking on its buttons, such as New Memo, Reply, or Forward, produces no response or an error instead of performing the expected action.",
+    "symptoms": [
+      "Toolbar buttons appear normal but clicking them does nothing",
+      "Some buttons work while others are unresponsive",
+      "An error message appears when specific toolbar buttons are clicked",
+      "Keyboard shortcuts for the same actions may work even when the button does not"
+    ],
+    "possible_causes": [
+      "Corrupted design elements in the mail or application template affecting toolbar actions",
+      "A conflicting or outdated add-in interfering with toolbar button scripts",
+      "Local desktop or workspace corruption affecting button-to-action mapping",
+      "Recent template upgrade introduced a design defect affecting specific buttons"
+    ],
+    "diagnostic_questions": [
+      "Do all toolbar buttons fail, or only specific ones?",
+      "Do the equivalent menu options or keyboard shortcuts work for the same actions?",
+      "Was a mail template update or add-in installed recently before this started?",
+      "Does the issue occur in all databases, or only specific ones like mail?"
+    ],
+    "commands": [
+      {
+        "command": "load design mail.nsf",
+        "purpose": "Refresh the design of the mail database from its template to correct any design-level toolbar issues",
+        "expected_result": "Design refresh completes and toolbar buttons function correctly afterward",
+        "abnormal_result": "Buttons remain non-functional after the refresh, pointing to a client-side or add-in issue instead"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Test whether the equivalent menu option or keyboard shortcut performs the same action successfully.",
+        "reason": "Determines whether the underlying function works and the issue is isolated to the toolbar button itself."
+      },
+      {
+        "step": 2,
+        "action": "Refresh the design of the affected database, such as mail.nsf, against its current template.",
+        "reason": "Corrupted or outdated design elements are a common cause of specific toolbar buttons failing to trigger their action."
+      },
+      {
+        "step": 3,
+        "action": "Temporarily disable any recently installed Notes add-ins or plugins.",
+        "reason": "Add-ins can interfere with standard toolbar button behavior if they conflict with client scripting."
+      },
+      {
+        "step": 4,
+        "action": "If the issue is isolated to one workstation, reset the local desktop/workspace files.",
+        "reason": "Local corruption specific to one machine would explain why the issue does not affect other users."
+      }
+    ],
+    "possible_solutions": [
+      "Refresh the affected database design against its template",
+      "Disable or remove conflicting add-ins",
+      "Reset local workspace files on the affected machine",
+      "Reinstall or repair the Notes client if the issue is widespread"
+    ],
+    "prevention": [
+      "Test toolbar functionality after any template updates",
+      "Vet add-ins before wide deployment",
+      "Maintain a rollback plan for template design changes",
+      "Keep client installations consistent across the organization"
+    ],
+    "keywords": ["notes toolbar buttons not working", "action bar button no response", "notes template design issue toolbar", "toolbar click does nothing notes"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-053", "NOTES-030"]
+  },
+  {
+    "id": "NOTES-055",
+    "category": "Lotus Notes",
+    "subcategory": "Workspace & UI Customization",
+    "problem": "Sidebar Missing",
+    "description": "The Notes client sidebar, which normally hosts panels such as Contacts, Feeds, or other sidebar applications, is not visible at all in the client window.",
+    "symptoms": [
+      "No sidebar panel visible on the side of the Notes window",
+      "Sidebar was previously visible and disappeared after an update or restart",
+      "Toggling the sidebar option from the menu has no visible effect",
+      "Sidebar applications cannot be accessed because the sidebar itself is hidden"
+    ],
+    "possible_causes": [
+      "Sidebar display setting was disabled, intentionally or accidentally",
+      "Sidebar panel width was resized to zero or an unusably small size",
+      "Corrupted sidebar configuration data in local preferences",
+      "A recent client update reset or broke sidebar display behavior"
+    ],
+    "diagnostic_questions": [
+      "Was the sidebar visible before a recent update, restart, or configuration change?",
+      "Does selecting the option to show the sidebar from the View menu restore it?",
+      "Could the sidebar simply be resized very narrow rather than fully hidden?",
+      "Does this affect all sidebar panels, or the sidebar container itself?"
+    ],
+    "commands": [
+      {
+        "command": "View > Show > Sidebar Panels (Notes client menu)",
+        "purpose": "Manually toggle sidebar visibility from the client menu",
+        "expected_result": "Sidebar reappears after selecting the option",
+        "abnormal_result": "Sidebar remains hidden despite toggling, indicating a deeper configuration issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the View menu and toggle the option to show sidebar panels.",
+        "reason": "Addresses the most common and simplest cause, an accidentally disabled sidebar display setting."
+      },
+      {
+        "step": 2,
+        "action": "Try dragging from the far edge of the window inward to check if the sidebar is simply resized to zero width.",
+        "reason": "A sidebar collapsed to zero width can appear identical to a fully hidden sidebar."
+      },
+      {
+        "step": 3,
+        "action": "Restart the Notes client after adjusting sidebar settings.",
+        "reason": "Some layout changes require a restart to fully take effect."
+      },
+      {
+        "step": 4,
+        "action": "If the issue persists, reset local sidebar/workspace configuration data.",
+        "reason": "Corrupted local configuration can prevent the sidebar from displaying even when enabled."
+      }
+    ],
+    "possible_solutions": [
+      "Toggle sidebar visibility from the View menu",
+      "Resize the sidebar panel back to a usable width",
+      "Restart the Notes client after adjusting settings",
+      "Reset corrupted local sidebar configuration"
+    ],
+    "prevention": [
+      "Document standard sidebar configuration for client deployments",
+      "Test sidebar visibility after client updates",
+      "Back up user preference files before major changes",
+      "Train users on how to safely resize rather than accidentally hide the sidebar"
+    ],
+    "keywords": ["notes sidebar missing", "sidebar not showing lotus notes", "sidebar disappeared notes client", "notes client sidebar hidden"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["NOTES-056", "NOTES-053"]
+  },
+  {
+    "id": "NOTES-056",
+    "category": "Lotus Notes",
+    "subcategory": "Workspace & UI Customization",
+    "problem": "Sidebar Applications Not Loading",
+    "description": "The Notes sidebar itself is visible, but individual sidebar applications or panels, such as Contacts or Feeds, fail to load their content, showing a blank area or a loading indicator that never completes.",
+    "symptoms": [
+      "Sidebar is visible but panels show blank or empty content",
+      "A loading spinner or indicator persists indefinitely for a sidebar panel",
+      "Error message appears when a specific sidebar panel attempts to load",
+      "Some sidebar panels load correctly while others fail"
+    ],
+    "possible_causes": [
+      "Underlying data source for the sidebar panel, such as a feed URL or Contacts database, is unavailable",
+      "Corrupted sidebar panel configuration or plugin",
+      "Network connectivity issue preventing the panel from reaching its data source",
+      "Outdated or incompatible sidebar plugin after a client update"
+    ],
+    "diagnostic_questions": [
+      "Which specific sidebar panel or application is failing to load?",
+      "Does the panel rely on an external source, such as a web feed, that might be unavailable?",
+      "Do other sidebar panels load successfully?",
+      "Was this panel working before a recent client or plugin update?"
+    ],
+    "commands": [
+      {
+        "command": "ping <data source hostname>",
+        "purpose": "Check basic network connectivity to the external source a sidebar panel depends on, such as a feed server",
+        "expected_result": "Successful replies indicating the source is reachable",
+        "abnormal_result": "Request timeouts or failures, indicating a network or availability issue with the data source"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Identify which sidebar panel is failing and what data source it relies on.",
+        "reason": "Different panels have different dependencies, so isolating the specific one narrows the cause quickly."
+      },
+      {
+        "step": 2,
+        "action": "Check network connectivity to the panel's underlying data source if it is external.",
+        "reason": "Panels dependent on feeds or external databases will fail to load if that source is unreachable."
+      },
+      {
+        "step": 3,
+        "action": "Remove and re-add the affected sidebar panel or plugin.",
+        "reason": "Resets any corrupted local configuration specific to that panel."
+      },
+      {
+        "step": 4,
+        "action": "Update or reinstall the sidebar plugin if it appears outdated or incompatible with the current client version.",
+        "reason": "Plugin incompatibility after an update is a common cause of a previously working panel failing to load."
+      }
+    ],
+    "possible_solutions": [
+      "Resolve connectivity to the panel's external data source",
+      "Remove and re-add the affected sidebar panel",
+      "Update or reinstall an outdated sidebar plugin",
+      "Reconfigure the panel's settings if source URLs have changed"
+    ],
+    "prevention": [
+      "Test sidebar panel functionality after client or plugin updates",
+      "Monitor availability of external data sources used by sidebar panels",
+      "Keep sidebar plugins updated and compatible with the client version",
+      "Document sidebar panel dependencies for easier troubleshooting"
+    ],
+    "keywords": ["sidebar panel not loading notes", "notes sidebar blank content", "sidebar application error notes", "contacts panel not loading notes"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["NOTES-055", "NOTES-057"]
+  },
+  {
+    "id": "NOTES-057",
+    "category": "Lotus Notes",
+    "subcategory": "Workspace & UI Customization",
+    "problem": "Welcome Page Not Loading",
+    "description": "When Notes starts, the configured Welcome Page fails to display, showing a blank area, an error, or defaulting unexpectedly to a different page instead of the user's normal startup screen.",
+    "symptoms": [
+      "Blank white area where the Welcome Page should appear",
+      "Error message referencing the Welcome Page or its underlying design",
+      "Notes opens directly to the workspace instead of the configured Welcome Page",
+      "Welcome Page loads partially, with some elements missing"
+    ],
+    "possible_causes": [
+      "Welcome Page design element is corrupted in the user's mail or bookmark database",
+      "Custom Welcome Page configuration references a source that is no longer available",
+      "Local desktop/workspace corruption affecting startup page rendering",
+      "A recent client or template update altered Welcome Page behavior unexpectedly"
+    ],
+    "diagnostic_questions": [
+      "Is the user using a standard or custom-configured Welcome Page?",
+      "Did this begin after a recent client update or template change?",
+      "Does switching to a different, standard Welcome Page option work correctly?",
+      "Does the issue affect only this user, or multiple users on the same configuration?"
+    ],
+    "commands": [
+      {
+        "command": "File > Preferences > Basic Notes Client Configuration (Notes client)",
+        "purpose": "Access and review the currently configured Welcome Page setting",
+        "expected_result": "Setting shows a valid, expected Welcome Page option",
+        "abnormal_result": "Setting references a missing, custom, or invalid page source"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the currently configured Welcome Page option in Basic Notes Client Configuration preferences.",
+        "reason": "Confirms what the client is attempting to load and whether the configuration itself looks valid."
+      },
+      {
+        "step": 2,
+        "action": "Temporarily switch to a standard, built-in Welcome Page option to test.",
+        "reason": "Determines whether the issue is with the specific custom page or with Welcome Page rendering in general."
+      },
+      {
+        "step": 3,
+        "action": "If using a custom Welcome Page, verify its underlying source or design element still exists and is accessible.",
+        "reason": "Custom Welcome Pages often depend on specific databases or design elements that can become unavailable."
+      },
+      {
+        "step": 4,
+        "action": "Reset local desktop/workspace files if the issue persists even with a standard Welcome Page.",
+        "reason": "Points to local corruption affecting the client's ability to render any Welcome Page."
+      }
+    ],
+    "possible_solutions": [
+      "Switch to a standard, working Welcome Page option",
+      "Repair or reconfigure a broken custom Welcome Page source",
+      "Reset local workspace files to resolve rendering corruption",
+      "Update the client if a known bug affects Welcome Page behavior"
+    ],
+    "prevention": [
+      "Test Welcome Page functionality after client or template updates",
+      "Keep custom Welcome Page sources properly maintained",
+      "Document custom Welcome Page configurations for support reference",
+      "Provide a standard fallback option for users experiencing issues"
+    ],
+    "keywords": ["welcome page not loading notes", "notes startup page blank", "notes welcome page error", "custom welcome page broken notes"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["NOTES-058", "NOTES-060"]
+  },
+  {
+    "id": "NOTES-058",
+    "category": "Lotus Notes",
+    "subcategory": "Workspace & UI Customization",
+    "problem": "Recent Documents Missing",
+    "description": "The Recent Documents list, normally used to quickly reopen recently viewed or edited items, appears empty or fails to update with newly opened documents.",
+    "symptoms": [
+      "Recent Documents panel or menu shows no entries",
+      "List does not update after opening new documents",
+      "List previously worked and stopped updating after an update or crash",
+      "Recent Documents appears empty only for certain databases"
+    ],
+    "possible_causes": [
+      "Local recent documents tracking file is corrupted",
+      "Preference setting for tracking recent documents was disabled",
+      "Notes client crashed and lost unsaved tracking data",
+      "A client update reset tracking preferences to default"
+    ],
+    "diagnostic_questions": [
+      "Did the Recent Documents list work previously and stop at a specific point?",
+      "Is the feature enabled in the client's preference settings?",
+      "Has the Notes client crashed or been forcibly closed recently?",
+      "Does the issue affect Recent Documents for all databases or only specific ones?"
+    ],
+    "commands": [
+      {
+        "command": "File > Preferences > Basic Notes Client Configuration (Notes client)",
+        "purpose": "Check whether Recent Documents tracking is enabled in client preferences",
+        "expected_result": "Recent Documents tracking option is enabled",
+        "abnormal_result": "Tracking option is disabled, explaining why the list remains empty"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check client preferences to confirm Recent Documents tracking is enabled.",
+        "reason": "This is the simplest and most common cause of an empty Recent Documents list."
+      },
+      {
+        "step": 2,
+        "action": "Open a few new documents and check if they appear in the list afterward.",
+        "reason": "Confirms whether the feature has started tracking again or remains broken."
+      },
+      {
+        "step": 3,
+        "action": "Restart the Notes client to rule out a temporary session issue.",
+        "reason": "A simple restart can resolve tracking issues caused by an unstable prior session."
+      },
+      {
+        "step": 4,
+        "action": "If the issue persists, reset local workspace/preference files related to document tracking.",
+        "reason": "Corrupted local tracking data can prevent the list from updating even when the feature is enabled."
+      }
+    ],
+    "possible_solutions": [
+      "Enable Recent Documents tracking in preferences",
+      "Restart the Notes client",
+      "Reset corrupted local tracking preference files",
+      "Reinstall or repair the client if the issue is widespread"
+    ],
+    "prevention": [
+      "Verify default preference settings during client deployment",
+      "Encourage regular, clean shutdowns of the Notes client",
+      "Test key preference features after client updates",
+      "Back up user preference files periodically"
+    ],
+    "keywords": ["recent documents missing notes", "recent documents not updating lotus notes", "recent documents list empty", "notes client recent items"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["NOTES-052", "NOTES-057"]
+  },
+  {
+    "id": "NOTES-059",
+    "category": "Lotus Notes",
+    "subcategory": "Workspace & UI Customization",
+    "problem": "Startup Database Incorrect",
+    "description": "When Notes launches, it opens to the wrong database, such as an old application or the workspace instead of the user's mail file or configured startup view.",
+    "symptoms": [
+      "Notes opens to an unexpected database on startup",
+      "User must manually navigate to mail or their intended starting point every time",
+      "Startup behavior changed unexpectedly after an update or reconfiguration",
+      "Different startup behavior between the desktop client and any mobile or web access"
+    ],
+    "possible_causes": [
+      "Startup database preference was changed intentionally or accidentally",
+      "Bookmark or startup configuration references an outdated or incorrect database",
+      "Client location document specifies an incorrect startup database",
+      "A policy setting enforces a startup database that is not appropriate for this user"
+    ],
+    "diagnostic_questions": [
+      "What database does Notes currently open on startup, and what should it open instead?",
+      "Was this configuration recently changed by the user or an administrator?",
+      "Does the current Location document specify a startup database setting?",
+      "Is there an organizational policy that may be enforcing this startup behavior?"
+    ],
+    "commands": [
+      {
+        "command": "File > Preferences > Basic Notes Client Configuration (Notes client)",
+        "purpose": "Review and adjust the configured startup database setting",
+        "expected_result": "Startup database is correctly set to the user's intended database, such as their mail file",
+        "abnormal_result": "Startup database is set to an incorrect or outdated database reference"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the startup database setting in Basic Notes Client Configuration preferences.",
+        "reason": "This preference directly controls what database opens automatically when Notes launches."
+      },
+      {
+        "step": 2,
+        "action": "Update the setting to point to the correct, intended startup database.",
+        "reason": "Directly resolves the issue by correcting the configuration to the user's expectation."
+      },
+      {
+        "step": 3,
+        "action": "Check the current Location document for any startup database override.",
+        "reason": "Location documents can specify settings that take precedence depending on client configuration."
+      },
+      {
+        "step": 4,
+        "action": "Confirm with the administrator whether a policy is enforcing this startup behavior intentionally.",
+        "reason": "If enforced by policy, the fix may require a policy adjustment rather than a local client change."
+      }
+    ],
+    "possible_solutions": [
+      "Correct the startup database setting in client preferences",
+      "Update the Location document if it overrides startup behavior",
+      "Adjust the relevant policy document if enforced organization-wide",
+      "Recreate the bookmark or shortcut used to launch Notes if it specifies a database directly"
+    ],
+    "prevention": [
+      "Document standard startup configurations for new client deployments",
+      "Review policy documents periodically for outdated startup enforcement",
+      "Communicate any intentional startup database changes to affected users",
+      "Test startup behavior after any client or policy configuration change"
+    ],
+    "keywords": ["notes opens wrong database startup", "startup database incorrect notes", "notes not opening mail on startup", "wrong default database notes client"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["NOTES-060", "NOTES-057"]
+  },
+  {
+    "id": "NOTES-060",
+    "category": "Lotus Notes",
+    "subcategory": "Workspace & UI Customization",
+    "problem": "Home Page Customization Lost",
+    "description": "A user's previously customized Home Page or Welcome Page layout, such as added widgets, links, or a personalized arrangement, has reverted to a default state, losing all prior customization.",
+    "symptoms": [
+      "Home Page appears in its default layout instead of the user's customized version",
+      "Previously added links, widgets, or panels are missing",
+      "Customization loss coincided with a client update, crash, or profile change",
+      "User confirms they had personalized the page before and did not intentionally reset it"
+    ],
+    "possible_causes": [
+      "Client update reset Home Page design to a new default template",
+      "Local desktop/workspace file corruption caused loss of customization data",
+      "User profile or roaming profile failed to preserve Home Page settings",
+      "Home Page customization was stored locally and lost due to a machine change or reimage"
+    ],
+    "diagnostic_questions": [
+      "Did the loss of customization coincide with a specific event, such as an update or new computer?",
+      "Was the customization stored locally, or as part of a roaming/synced profile?",
+      "Is this affecting only one user, or multiple users after a recent rollout?",
+      "Does the user recall specific widgets or links that are now missing?"
+    ],
+    "commands": [
+      {
+        "command": "File > Application > Properties (Notes client)",
+        "purpose": "Check the properties of the Home Page database to confirm its current design version and source",
+        "expected_result": "Home Page reflects the expected customized design",
+        "abnormal_result": "Home Page shows a default or reset design version, confirming the customization was lost"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Determine whether the customization loss coincided with a specific event like an update or new machine.",
+        "reason": "Narrows down whether the cause is client-side corruption, an update reset, or a profile/machine change."
+      },
+      {
+        "step": 2,
+        "action": "Check whether a local backup of the previous desktop/workspace files exists that can be restored.",
+        "reason": "A backup may allow full recovery of the previous customization without manual recreation."
+      },
+      {
+        "step": 3,
+        "action": "If using a roaming profile, verify the Home Page customization is included in the profile sync configuration.",
+        "reason": "Ensures the setting is properly preserved across machines and sessions going forward."
+      },
+      {
+        "step": 4,
+        "action": "If no backup is available, manually recreate the customization based on the user's description of prior widgets and links.",
+        "reason": "Restores functional customization for the user even without a technical recovery path."
+      }
+    ],
+    "possible_solutions": [
+      "Restore from a local backup of desktop/workspace files if available",
+      "Reconfigure roaming profile settings to include Home Page customization",
+      "Manually recreate the lost customization with the user",
+      "Document the new customization for easier recovery in the future"
+    ],
+    "prevention": [
+      "Back up desktop/workspace files before major client updates",
+      "Use roaming or centrally managed profiles for customization where possible",
+      "Communicate known customization risks before planned updates",
+      "Encourage users to document significant Home Page customizations"
+    ],
+    "keywords": ["home page customization lost notes", "welcome page reset to default", "notes home page widgets missing", "lost personalization notes client"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["NOTES-057", "NOTES-059"]
+  }
+]

@@ -1,0 +1,2899 @@
+[
+  {
+    "id": "PRN-001",
+    "category": "Printer",
+    "subcategory": "Printer Offline",
+    "problem": "Printer Shows Offline in Windows",
+    "description": "The printer is connected but Windows shows its status as 'Offline', so print jobs will not go through.",
+    "symptoms": [
+      "Printer icon shows 'Offline' in Devices and Printers",
+      "Print jobs stay in the queue and never print",
+      "Printer appears greyed out"
+    ],
+    "possible_causes": [
+      "Printer is turned off or in sleep mode",
+      "USB or network cable is loose",
+      "Windows is using the wrong printer port",
+      "Print spooler service has a stuck job",
+      "Printer was manually set to 'Use Printer Offline' mode",
+      "Printer driver is corrupted",
+      "Network printer changed IP address"
+    ],
+    "diagnostic_questions": [
+      "Is the printer turned on and showing ready on its own screen?",
+      "Is this a USB or a network/WiFi printer?",
+      "Did this happen suddenly or after a Windows update?",
+      "Can other devices on the network print to it?",
+      "Was the printer moved to a different location recently?"
+    ],
+    "commands": [
+      {
+        "command": "ping <printer_ip>",
+        "purpose": "Check if the computer can reach the printer over the network",
+        "expected_result": "Replies received with low response time",
+        "abnormal_result": "Request timed out means the printer is unreachable on the network"
+      },
+      {
+        "command": "powershell Get-Printer",
+        "purpose": "List installed printers and their status in Windows",
+        "expected_result": "Printer listed with status 'Normal'",
+        "abnormal_result": "Status shows 'Offline' or 'Error'"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the printer's own screen or lights to confirm it is powered on and not showing an error",
+        "reason": "A printer that is off or in an error state will always show offline in Windows"
+      },
+      {
+        "step": 2,
+        "action": "Right-click the printer in 'Devices and Printers' and uncheck 'Use Printer Offline'",
+        "reason": "Windows sometimes locks the printer in offline mode manually or after a failed job"
+      },
+      {
+        "step": 3,
+        "action": "Restart the Print Spooler service (services.msc > Print Spooler > Restart)",
+        "reason": "A frozen spooler service can cause Windows to report the wrong status"
+      },
+      {
+        "step": 4,
+        "action": "For network printers, ping the printer's IP address",
+        "reason": "Confirms whether the real problem is a network connection issue"
+      },
+      {
+        "step": 5,
+        "action": "Remove and re-add the printer if the above steps fail",
+        "reason": "Resets the printer port and driver binding"
+      }
+    ],
+    "possible_solutions": [
+      "Uncheck 'Use Printer Offline' in printer settings",
+      "Restart the Print Spooler service",
+      "Reconnect the USB cable or restart the printer's network connection",
+      "Update the printer's IP address in the printer port settings if it changed",
+      "Reinstall the printer driver"
+    ],
+    "prevention": [
+      "Set the printer to a static IP address so it does not change",
+      "Keep printer firmware and drivers updated",
+      "Avoid unplugging the printer while jobs are printing"
+    ],
+    "keywords": [
+      "printer offline",
+      "offline printer windows",
+      "printer not responding",
+      "use printer offline"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": [
+      "PRN-007",
+      "PRN-011",
+      "PRN-012"
+    ]
+  },
+  {
+    "id": "PRN-002",
+    "category": "Printer",
+    "subcategory": "Printer Offline",
+    "problem": "Network Printer Offline After IP Address Change",
+    "description": "A network printer that used to work now shows offline because its IP address changed, usually after a router restart.",
+    "symptoms": [
+      "Printer was working before but now shows offline",
+      "Printer's screen shows a different IP than before",
+      "Print jobs fail silently or queue up"
+    ],
+    "possible_causes": [
+      "Router assigned a new IP address via DHCP",
+      "Printer was reset to factory settings",
+      "Static IP conflict with another device",
+      "Printer port in Windows points to the old IP"
+    ],
+    "diagnostic_questions": [
+      "Did you recently restart your router or modem?",
+      "Do you know if the printer uses DHCP or a static IP?",
+      "Has any other device on the network changed recently?",
+      "Can you check the IP address shown on the printer's screen?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "View the computer's network settings and default gateway",
+        "expected_result": "Shows a valid IP address on the same subnet as the printer",
+        "abnormal_result": "No IP address or wrong subnet means a network configuration problem"
+      },
+      {
+        "command": "ping <old_printer_ip>",
+        "purpose": "Test if the old saved IP still responds",
+        "expected_result": "Reply received",
+        "abnormal_result": "Timeout confirms the IP address has changed"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Print a network configuration page from the printer menu to see its current IP",
+        "reason": "Confirms the printer's real current address"
+      },
+      {
+        "step": 2,
+        "action": "Compare this IP with the one saved in the Windows printer port settings",
+        "reason": "Identifies if the mismatch is the cause"
+      },
+      {
+        "step": 3,
+        "action": "Update the port IP in Printer Properties > Ports > Configure Port",
+        "reason": "Points Windows to the correct current address"
+      },
+      {
+        "step": 4,
+        "action": "Set a static IP or a DHCP reservation on the router for the printer",
+        "reason": "Prevents the IP from changing again in the future"
+      }
+    ],
+    "possible_solutions": [
+      "Update the printer port IP address in Windows",
+      "Assign a static IP or DHCP reservation to the printer on the router",
+      "Reinstall the printer using the new IP address"
+    ],
+    "prevention": [
+      "Configure a DHCP reservation for the printer's MAC address on the router",
+      "Write down the printer's static IP for reference"
+    ],
+    "keywords": [
+      "network printer offline",
+      "printer ip changed",
+      "printer wrong ip address"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "PRN-001",
+      "PRN-004",
+      "NET-010"
+    ]
+  },
+  {
+    "id": "PRN-003",
+    "category": "Printer",
+    "subcategory": "Cannot Print",
+    "problem": "Cannot Print Because a Job is Stuck in the Queue",
+    "description": "The user cannot print anything because an old print job is stuck in the print queue and blocking all new jobs.",
+    "symptoms": [
+      "New print jobs never start printing",
+      "Print queue shows a job stuck at 0% or 'Deleting'",
+      "Cancelling the job in the queue does not remove it"
+    ],
+    "possible_causes": [
+      "A print job was sent while the printer was off or disconnected",
+      "Print Spooler service crashed while processing a job",
+      "Corrupted spool file",
+      "Printer ran out of paper or ink during a job and was never cleared"
+    ],
+    "diagnostic_questions": [
+      "Is there a job visible in the print queue that will not go away?",
+      "Did the printer lose power or connection while printing?",
+      "Have you tried restarting the computer?",
+      "Are other users on the same network also unable to print to this printer?"
+    ],
+    "commands": [
+      {
+        "command": "net stop spooler",
+        "purpose": "Stop the Print Spooler service so stuck files can be deleted",
+        "expected_result": "Service stops without error",
+        "abnormal_result": "Access denied means you need to run Command Prompt as Administrator"
+      },
+      {
+        "command": "del %systemroot%\\System32\\spool\\PRINTERS\\*.*",
+        "purpose": "Delete leftover spool files that are stuck",
+        "expected_result": "Files are deleted with no errors",
+        "abnormal_result": "'File in use' means the spooler service is still running"
+      },
+      {
+        "command": "net start spooler",
+        "purpose": "Restart the Print Spooler service after clearing stuck files",
+        "expected_result": "Service starts and print queue is empty",
+        "abnormal_result": "Service fails to start, indicating a deeper spooler corruption"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open the print queue and try to cancel the stuck job",
+        "reason": "This is the simplest fix if it works"
+      },
+      {
+        "step": 2,
+        "action": "If cancelling does not work, stop the Print Spooler service",
+        "reason": "The spooler must be stopped before its files can be deleted"
+      },
+      {
+        "step": 3,
+        "action": "Delete all files inside the PRINTERS spool folder",
+        "reason": "Removes the corrupted job data that Windows keeps retrying"
+      },
+      {
+        "step": 4,
+        "action": "Start the Print Spooler service again",
+        "reason": "Restores normal printing after the queue is cleared"
+      },
+      {
+        "step": 5,
+        "action": "Send a new test print to confirm the fix worked",
+        "reason": "Verifies the issue is resolved"
+      }
+    ],
+    "possible_solutions": [
+      "Stop the Print Spooler service, delete spool files, then restart the service",
+      "Restart the computer if the service will not stop",
+      "Update or reinstall the printer driver if the problem repeats often"
+    ],
+    "prevention": [
+      "Do not send print jobs while the printer is off or disconnected",
+      "Keep printer firmware updated to avoid spooler crashes",
+      "Regularly clear old completed jobs from the queue"
+    ],
+    "keywords": [
+      "print queue stuck",
+      "spooler stuck job",
+      "cannot print stuck job",
+      "clear print queue"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-15 minutes",
+    "related_problems": [
+      "PRN-011",
+      "PRN-012"
+    ]
+  },
+  {
+    "id": "PRN-004",
+    "category": "Printer",
+    "subcategory": "Cannot Print",
+    "problem": "Cannot Print Due to Corrupted or Missing Driver",
+    "description": "The printer shows as installed but nothing happens when printing, or Windows shows a driver-related error.",
+    "symptoms": [
+      "Print job disappears from the queue without printing",
+      "Windows shows 'Printer driver is unavailable'",
+      "Print test page fails with an error"
+    ],
+    "possible_causes": [
+      "Printer driver files are corrupted",
+      "Driver is outdated and incompatible with a recent Windows update",
+      "Wrong driver model installed for the printer",
+      "Driver was partially uninstalled"
+    ],
+    "diagnostic_questions": [
+      "What is the exact model of the printer?",
+      "Did this happen after a Windows update?",
+      "Have you tried printing a test page from printer properties?",
+      "Is the driver installed from the manufacturer's website or Windows Update?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PrinterDriver",
+        "purpose": "List installed printer drivers and their versions",
+        "expected_result": "Shows the correct driver name matching the printer model",
+        "abnormal_result": "Missing entry or 'Generic' driver name suggests a wrong or missing driver"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Devices and Printers, right-click the printer, and select 'Printer Properties' then 'Print Test Page'",
+        "reason": "Confirms whether the driver itself is the source of the failure"
+      },
+      {
+        "step": 2,
+        "action": "Uninstall the current printer and its driver completely",
+        "reason": "Removes any corrupted driver files"
+      },
+      {
+        "step": 3,
+        "action": "Download the latest driver directly from the manufacturer's website for the exact printer model",
+        "reason": "Ensures compatibility with the current Windows version"
+      },
+      {
+        "step": 4,
+        "action": "Install the new driver and add the printer again",
+        "reason": "Creates a clean, working printer installation"
+      },
+      {
+        "step": 5,
+        "action": "Print a test page to confirm the fix",
+        "reason": "Verifies the driver now works correctly"
+      }
+    ],
+    "possible_solutions": [
+      "Reinstall the correct manufacturer driver for the exact printer model",
+      "Use Windows Update to check for a newer driver",
+      "Use the printer manufacturer's official installation tool instead of a generic driver"
+    ],
+    "prevention": [
+      "Only install drivers from the manufacturer's official website",
+      "Avoid using 'Generic / Text Only' drivers for regular printing",
+      "Keep a backup copy of the correct driver installer"
+    ],
+    "keywords": [
+      "printer driver corrupted",
+      "driver unavailable",
+      "cannot print driver error",
+      "wrong printer driver"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "PRN-005",
+      "PRN-006"
+    ]
+  },
+  {
+    "id": "PRN-005",
+    "category": "Printer",
+    "subcategory": "Printer Not Found",
+    "problem": "Windows Cannot Find USB Printer",
+    "description": "Windows does not detect a printer connected directly by USB cable, so it cannot be added or used.",
+    "symptoms": [
+      "Printer does not appear in 'Add a Printer' search",
+      "No sound or notification when USB cable is plugged in",
+      "Device Manager shows an unknown device or no printer entry"
+    ],
+    "possible_causes": [
+      "Faulty or low-quality USB cable",
+      "USB port on the computer is not working",
+      "Printer is not powered on",
+      "Driver did not install automatically",
+      "USB port disabled in Device Manager or BIOS"
+    ],
+    "diagnostic_questions": [
+      "Does the printer power on and show ready on its screen?",
+      "Have you tried a different USB cable or port?",
+      "Does the printer get detected on another computer?",
+      "Is there a yellow warning icon in Device Manager?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class Printer",
+        "purpose": "Check if Windows detects the printer hardware at all",
+        "expected_result": "Printer appears with status 'OK'",
+        "abnormal_result": "Printer missing or shows 'Error' or 'Unknown' status"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the printer is powered on and not showing an error on its display",
+        "reason": "A powered-off printer will never be detected"
+      },
+      {
+        "step": 2,
+        "action": "Try a different USB cable and a different USB port on the computer",
+        "reason": "Rules out a faulty cable or port as the cause"
+      },
+      {
+        "step": 3,
+        "action": "Open Device Manager and look for the printer under 'Unknown devices' or with a warning icon",
+        "reason": "Shows if Windows sees the hardware but lacks a driver"
+      },
+      {
+        "step": 4,
+        "action": "Manually install the printer driver from the manufacturer's website",
+        "reason": "Provides the correct driver when automatic detection fails"
+      },
+      {
+        "step": 5,
+        "action": "Test the printer on another computer if possible",
+        "reason": "Determines if the problem is the printer itself or the computer"
+      }
+    ],
+    "possible_solutions": [
+      "Use a known-good USB cable and port",
+      "Manually install the correct driver instead of relying on auto-detect",
+      "Update USB controller drivers in Device Manager",
+      "Restart the computer after connecting the printer"
+    ],
+    "prevention": [
+      "Use good quality, short USB cables",
+      "Avoid USB hubs for printers when possible; connect directly to the computer",
+      "Keep printer drivers updated"
+    ],
+    "keywords": [
+      "printer not detected usb",
+      "usb printer not found",
+      "windows cannot find printer"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "PRN-004",
+      "PRN-006"
+    ]
+  },
+  {
+    "id": "PRN-006",
+    "category": "Printer",
+    "subcategory": "Printer Not Found",
+    "problem": "Network or WiFi Printer Not Found During Setup",
+    "description": "The printer cannot be found when adding it as a network printer, even though it appears connected to WiFi.",
+    "symptoms": [
+      "'Add Printer' wizard does not list the network printer",
+      "Printer shows connected to WiFi on its own screen",
+      "Other devices also cannot find the printer"
+    ],
+    "possible_causes": [
+      "Printer and computer are on different WiFi networks or bands",
+      "Router's AP isolation or client isolation setting is blocking discovery",
+      "Firewall is blocking printer discovery protocols",
+      "Printer is on a guest network",
+      "Network discovery is turned off in Windows"
+    ],
+    "diagnostic_questions": [
+      "Are the computer and printer connected to the exact same WiFi network name?",
+      "Is this a dual-band router with separate 2.4GHz and 5GHz networks?",
+      "Is 'Network Discovery' turned on in Windows network settings?",
+      "Does the router have a 'Guest Network' or 'AP Isolation' feature enabled?"
+    ],
+    "commands": [
+      {
+        "command": "ping <printer_ip>",
+        "purpose": "Test basic connectivity between computer and printer",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout means they cannot reach each other on the network"
+      },
+      {
+        "command": "arp -a",
+        "purpose": "List devices the computer can currently see on the local network",
+        "expected_result": "Printer's IP and MAC address appear in the list",
+        "abnormal_result": "Printer missing from the list suggests it is on a different network segment"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the printer's screen to confirm the exact WiFi network name it is connected to",
+        "reason": "Printers on a different SSID or band will not be discoverable"
+      },
+      {
+        "step": 2,
+        "action": "Turn on Network Discovery in Windows (Control Panel > Network and Sharing Center)",
+        "reason": "Required for Windows to browse and find network devices"
+      },
+      {
+        "step": 3,
+        "action": "Check the router settings for AP isolation or guest network isolation and disable it for this device",
+        "reason": "Isolation settings block devices from seeing each other even on the same WiFi"
+      },
+      {
+        "step": 4,
+        "action": "Add the printer manually using its IP address instead of searching",
+        "reason": "Bypasses discovery problems entirely"
+      },
+      {
+        "step": 5,
+        "action": "Temporarily disable the firewall to test if it is blocking discovery",
+        "reason": "Confirms whether the firewall is the cause before making permanent changes"
+      }
+    ],
+    "possible_solutions": [
+      "Connect both devices to the same WiFi network and band",
+      "Disable AP/client isolation on the router",
+      "Add the printer manually by IP address",
+      "Turn on Network Discovery in Windows"
+    ],
+    "prevention": [
+      "Keep printers on the main network, not the guest network",
+      "Label router SSIDs clearly if using separate 2.4GHz and 5GHz names",
+      "Document the printer's static IP for manual setup"
+    ],
+    "keywords": [
+      "wifi printer not found",
+      "network printer not found",
+      "add printer wizard empty"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "PRN-002",
+      "PRN-007",
+      "NET-003"
+    ]
+  },
+  {
+    "id": "PRN-007",
+    "category": "Printer",
+    "subcategory": "Network Printer Unavailable",
+    "problem": "Network Printer Was Working But Is Now Unavailable",
+    "description": "A printer that previously worked over the network suddenly becomes unavailable for all users.",
+    "symptoms": [
+      "All users get 'Printer unavailable' or connection timeout errors",
+      "Printer's own screen appears normal and ready",
+      "Problem affects everyone on the network, not just one computer"
+    ],
+    "possible_causes": [
+      "Printer lost its network connection",
+      "Print server or the sharing computer is turned off",
+      "Router or switch port failure",
+      "Printer's IP address changed",
+      "Printer went into a low-power sleep mode that dropped its network link"
+    ],
+    "diagnostic_questions": [
+      "Did the problem start after a power outage or router restart?",
+      "Is this printer shared through a specific computer acting as a print server?",
+      "Can you ping the printer's IP address from an affected computer?",
+      "Did anyone move the printer or router recently?"
+    ],
+    "commands": [
+      {
+        "command": "ping <printer_ip> -t",
+        "purpose": "Continuously test if the printer is reachable over time",
+        "expected_result": "Continuous replies",
+        "abnormal_result": "Intermittent or complete timeouts indicate a network stability problem"
+      },
+      {
+        "command": "tracert <printer_ip>",
+        "purpose": "Trace the network path to the printer to find where it breaks",
+        "expected_result": "Path completes to the printer's IP",
+        "abnormal_result": "Path stops at a certain hop, showing where the connection fails"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Ping the printer's IP address from an affected computer",
+        "reason": "Confirms whether the issue is network connectivity or something else"
+      },
+      {
+        "step": 2,
+        "action": "Check the physical network cable or WiFi signal on the printer itself",
+        "reason": "A loose cable or weak signal is a very common cause"
+      },
+      {
+        "step": 3,
+        "action": "If the printer is shared through a specific PC, confirm that PC is powered on and logged in",
+        "reason": "Shared printers depend on the host computer being available"
+      },
+      {
+        "step": 4,
+        "action": "Restart the printer and the network switch or router it connects through",
+        "reason": "Resolves many temporary network glitches"
+      },
+      {
+        "step": 5,
+        "action": "Re-add or reconnect the printer on affected computers if the IP address changed",
+        "reason": "Ensures computers are pointing to the printer's current address"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the printer and networking equipment",
+      "Confirm the host PC for a shared printer is on and connected",
+      "Update the printer's IP if it changed",
+      "Replace faulty network cables"
+    ],
+    "prevention": [
+      "Use wired Ethernet for shared office printers instead of WiFi when possible",
+      "Set a static IP or DHCP reservation for the printer",
+      "Keep the host PC for shared printers always powered on"
+    ],
+    "keywords": [
+      "network printer unavailable",
+      "printer unreachable",
+      "shared printer not working"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "PRN-002",
+      "PRN-008",
+      "NET-010"
+    ]
+  },
+  {
+    "id": "PRN-008",
+    "category": "Printer",
+    "subcategory": "Cannot Ping Printer",
+    "problem": "Cannot Ping the Printer's IP Address",
+    "description": "Pinging the printer's IP address fails with request timed out, meaning there is no basic network connection to it.",
+    "symptoms": [
+      "ping command shows 'Request timed out' or 'Destination host unreachable'",
+      "Printer cannot be added or used as a network device",
+      "Other network devices ping successfully"
+    ],
+    "possible_causes": [
+      "Printer is powered off or disconnected from the network",
+      "Wrong IP address is being used",
+      "Printer and computer are on different subnets or VLANs",
+      "Firewall on the printer or computer is blocking ICMP ping",
+      "Faulty network cable or switch port"
+    ],
+    "diagnostic_questions": [
+      "Is the printer powered on and connected with a cable or WiFi light showing?",
+      "Are you sure the IP address you are pinging is correct and current?",
+      "Are the printer and computer on the same network range, for example both starting with 192.168.1.x?",
+      "Have you tried pinging from a different computer on the same network?"
+    ],
+    "commands": [
+      {
+        "command": "ping <printer_ip>",
+        "purpose": "Test basic Layer 3 network connectivity to the printer",
+        "expected_result": "Replies with time and TTL values",
+        "abnormal_result": "Request timed out or Destination host unreachable means no connection"
+      },
+      {
+        "command": "ipconfig",
+        "purpose": "Check the computer's own IP address and subnet",
+        "expected_result": "IP is in the same subnet range as the printer",
+        "abnormal_result": "Different subnet range explains why ping fails"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Print a network status page from the printer to confirm its real current IP address",
+        "reason": "The saved or assumed IP address may be outdated"
+      },
+      {
+        "step": 2,
+        "action": "Compare the printer's IP subnet with the computer's IP subnet using ipconfig",
+        "reason": "Devices on different subnets cannot communicate without a router"
+      },
+      {
+        "step": 3,
+        "action": "Check the physical Ethernet cable or WiFi connection status light on the printer",
+        "reason": "A disconnected cable is a very common simple cause"
+      },
+      {
+        "step": 4,
+        "action": "Try pinging from another device on the same network",
+        "reason": "Determines if the problem is with one computer or the printer itself"
+      },
+      {
+        "step": 5,
+        "action": "Check if a firewall is blocking ICMP ping requests, and try printing anyway since some devices block ping but still allow printing",
+        "reason": "Some printers intentionally block ping for security while still working normally"
+      }
+    ],
+    "possible_solutions": [
+      "Reconnect the network cable or fix the WiFi connection on the printer",
+      "Correct the IP address being used",
+      "Move the printer to the same subnet/VLAN as the computers",
+      "Restart the printer's network interface"
+    ],
+    "prevention": [
+      "Use DHCP reservations to keep printer IPs stable and known",
+      "Document the correct printer IP address for the office",
+      "Regularly check that critical printers stay connected to the network"
+    ],
+    "keywords": [
+      "cannot ping printer",
+      "printer request timed out",
+      "printer unreachable network"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "PRN-002",
+      "PRN-007",
+      "NET-001"
+    ]
+  },
+  {
+    "id": "PRN-009",
+    "category": "Printer",
+    "subcategory": "Printer Driver Missing",
+    "problem": "Printer Driver Missing After Windows Update",
+    "description": "After a Windows update, the printer no longer works because its driver was removed or is no longer recognized.",
+    "symptoms": [
+      "Printer disappears from Devices and Printers, or shows with a warning icon",
+      "Error message says 'No driver found' when trying to print",
+      "Print test page option is greyed out"
+    ],
+    "possible_causes": [
+      "Windows Update removed an incompatible driver",
+      "Windows automatically replaced the manufacturer driver with a generic one",
+      "Driver files were corrupted during the update process"
+    ],
+    "diagnostic_questions": [
+      "Did the problem start right after installing Windows updates?",
+      "Was the driver originally installed from the manufacturer's website or from Windows Update?",
+      "Does the printer still appear in Device Manager, even with a warning?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PrinterDriver",
+        "purpose": "Check which printer drivers are currently installed",
+        "expected_result": "Correct manufacturer driver is listed",
+        "abnormal_result": "Driver missing entirely or replaced with a generic Microsoft driver"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Devices and Printers to see if the printer still exists with a warning icon",
+        "reason": "Determines if this is a missing driver or a fully removed printer"
+      },
+      {
+        "step": 2,
+        "action": "Go to the manufacturer's website and download the latest driver for the exact printer model and current Windows version",
+        "reason": "Ensures a compatible, official driver is used"
+      },
+      {
+        "step": 3,
+        "action": "Uninstall any broken printer entry before installing the new driver",
+        "reason": "Prevents conflicts between old and new driver files"
+      },
+      {
+        "step": 4,
+        "action": "Install the new driver and add the printer again",
+        "reason": "Restores full printing functionality"
+      },
+      {
+        "step": 5,
+        "action": "Pause Windows Update driver installations for this device if the problem repeats after future updates",
+        "reason": "Prevents Windows from overwriting the working driver again"
+      }
+    ],
+    "possible_solutions": [
+      "Reinstall the driver from the manufacturer's website",
+      "Use 'Update Driver' in Device Manager and browse to the manually downloaded driver",
+      "Roll back the recent Windows update if it keeps breaking the printer"
+    ],
+    "prevention": [
+      "Disable automatic driver updates for printers in Windows Update advanced options",
+      "Keep a backup copy of the correct driver installer",
+      "Check manufacturer compatibility before major Windows updates"
+    ],
+    "keywords": [
+      "driver missing after update",
+      "no driver found printer",
+      "windows update broke printer"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "PRN-004",
+      "PRN-010"
+    ]
+  },
+  {
+    "id": "PRN-010",
+    "category": "Printer",
+    "subcategory": "Wrong Printer Driver Installed",
+    "problem": "Wrong Printer Driver Installed Causes Garbled or Failed Prints",
+    "description": "The wrong driver model was installed for the printer, causing garbled text, wrong paper sizes, or failed printing.",
+    "symptoms": [
+      "Printed pages show random symbols or garbled text",
+      "Print jobs use the wrong paper size or layout",
+      "Some printer features like duplex or color are missing from settings"
+    ],
+    "possible_causes": [
+      "Driver for a different but similar model was installed",
+      "Generic 'Text Only' or 'PostScript' driver installed instead of the correct manufacturer driver",
+      "Universal print driver used instead of model-specific driver"
+    ],
+    "diagnostic_questions": [
+      "What is the exact model number printed on the printer itself?",
+      "What driver name shows in the printer properties window?",
+      "Did the garbled printing start right after installing a new driver?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-Printer | Select Name, DriverName",
+        "purpose": "Show which driver is bound to which installed printer",
+        "expected_result": "Driver name matches the exact printer model",
+        "abnormal_result": "Driver name is generic or matches a different model number"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the exact model number on the printer's label",
+        "reason": "Confirms the precise driver needed, since similar model numbers often use different drivers"
+      },
+      {
+        "step": 2,
+        "action": "Open Printer Properties and check the currently assigned driver name",
+        "reason": "Confirms the mismatch"
+      },
+      {
+        "step": 3,
+        "action": "Remove the printer and the incorrect driver completely",
+        "reason": "Prevents Windows from reusing the wrong cached driver"
+      },
+      {
+        "step": 4,
+        "action": "Download and install the correct model-specific driver from the manufacturer",
+        "reason": "Matches the driver exactly to the hardware"
+      },
+      {
+        "step": 5,
+        "action": "Print a test page to confirm normal output",
+        "reason": "Verifies the correct driver resolved the garbled printing"
+      }
+    ],
+    "possible_solutions": [
+      "Install the correct model-specific driver instead of a generic or similar one",
+      "Remove the incorrect driver completely before reinstalling",
+      "Use the manufacturer's official installer instead of Windows' automatic suggestion"
+    ],
+    "prevention": [
+      "Always confirm the exact model number before installing a driver",
+      "Avoid choosing 'similar' printer models from a list when the exact one is not shown",
+      "Keep documentation of the correct driver version for each office printer"
+    ],
+    "keywords": [
+      "wrong printer driver",
+      "garbled printing",
+      "wrong driver model printer"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "PRN-004",
+      "PRN-009"
+    ]
+  },
+  {
+    "id": "PRN-011",
+    "category": "Printer",
+    "subcategory": "Print Queue Stuck",
+    "problem": "Print Queue Stuck With Multiple Pending Jobs",
+    "description": "Several print jobs are stuck in the queue and none of them will print or cancel normally.",
+    "symptoms": [
+      "Multiple jobs listed in the print queue, all stuck at 0%",
+      "Trying to cancel jobs does not remove them",
+      "Printer is on and ready but does nothing"
+    ],
+    "possible_causes": [
+      "Print Spooler service is overloaded or frozen",
+      "Corrupted spool files from an earlier failed job",
+      "Printer was disconnected while jobs were queued",
+      "Antivirus software interfering with the spooler"
+    ],
+    "diagnostic_questions": [
+      "How many jobs are stuck in the queue?",
+      "Did the printer lose connection or power while these jobs were queued?",
+      "Have you tried restarting the Print Spooler service?",
+      "Is any antivirus or security software newly installed?"
+    ],
+    "commands": [
+      {
+        "command": "net stop spooler",
+        "purpose": "Stop the spooler service to safely clear stuck jobs",
+        "expected_result": "Service stops cleanly",
+        "abnormal_result": "Access denied error requires running as Administrator"
+      },
+      {
+        "command": "del %systemroot%\\System32\\spool\\PRINTERS\\*.*",
+        "purpose": "Remove all stuck spool files",
+        "expected_result": "All files deleted",
+        "abnormal_result": "Files remain locked, meaning the spooler service did not fully stop"
+      },
+      {
+        "command": "net start spooler",
+        "purpose": "Restart the spooler service with a clean queue",
+        "expected_result": "Service starts and queue is empty",
+        "abnormal_result": "Service fails to start, indicating deeper corruption or a missing dependency"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Stop the Print Spooler service",
+        "reason": "Prevents Windows from continuously retrying the stuck jobs while you clear them"
+      },
+      {
+        "step": 2,
+        "action": "Delete all files in the spool PRINTERS folder",
+        "reason": "Removes the corrupted job files causing the freeze"
+      },
+      {
+        "step": 3,
+        "action": "Restart the Print Spooler service",
+        "reason": "Restores normal print queue function"
+      },
+      {
+        "step": 4,
+        "action": "Send a single test print job to confirm the queue works again",
+        "reason": "Verifies the fix before resuming normal use"
+      },
+      {
+        "step": 5,
+        "action": "If the problem repeats often, check antivirus logs for spooler interference",
+        "reason": "Some security software mistakenly blocks spooler file access"
+      }
+    ],
+    "possible_solutions": [
+      "Clear the spool folder after stopping the Print Spooler service, then restart the service",
+      "Restart the computer if the service refuses to stop",
+      "Temporarily disable antivirus to test if it is causing the freeze"
+    ],
+    "prevention": [
+      "Avoid queuing many large jobs when the printer connection is unstable",
+      "Keep the Print Spooler service set to automatic startup",
+      "Regularly restart the print spooler on busy office print servers"
+    ],
+    "keywords": [
+      "print queue stuck",
+      "multiple jobs stuck printing",
+      "clear stuck print jobs"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "PRN-003",
+      "PRN-012"
+    ]
+  },
+  {
+    "id": "PRN-012",
+    "category": "Printer",
+    "subcategory": "Print Spooler Stopped",
+    "problem": "Print Spooler Service Has Stopped Running (Windows)",
+    "description": "Windows shows an error that the Print Spooler service is not running, so no printing is possible at all.",
+    "symptoms": [
+      "Error message: 'Print Spooler service is not running'",
+      "No printers are usable, even ones that worked before",
+      "Devices and Printers window may be slow or empty"
+    ],
+    "possible_causes": [
+      "Print Spooler service crashed due to a corrupted print job",
+      "A driver conflict caused the service to stop",
+      "Malware or a failed update disabled the service",
+      "Service is set to disabled instead of automatic"
+    ],
+    "diagnostic_questions": [
+      "Does the error message specifically mention the Print Spooler service?",
+      "Did this start after installing a new printer or driver?",
+      "Have you tried restarting the computer?",
+      "Is the Print Spooler listed as 'Disabled' in Windows Services?"
+    ],
+    "commands": [
+      {
+        "command": "services.msc",
+        "purpose": "Open the Windows Services manager to check the Print Spooler status",
+        "expected_result": "Print Spooler status is 'Running' and startup type is 'Automatic'",
+        "abnormal_result": "Status is 'Stopped' or startup type is 'Disabled'"
+      },
+      {
+        "command": "sc qc spooler",
+        "purpose": "Check the Print Spooler service configuration from command line",
+        "expected_result": "START_TYPE shows AUTO_START",
+        "abnormal_result": "START_TYPE shows DISABLED"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Services (services.msc) and find Print Spooler",
+        "reason": "Confirms the current state of the service"
+      },
+      {
+        "step": 2,
+        "action": "Set the Startup Type to 'Automatic' if it is set to 'Disabled'",
+        "reason": "Ensures the service starts with Windows"
+      },
+      {
+        "step": 3,
+        "action": "Click 'Start' to run the service manually",
+        "reason": "Restores printing immediately without restarting the computer"
+      },
+      {
+        "step": 4,
+        "action": "If it stops again right away, clear the spool folder first, then start it again",
+        "reason": "A corrupted job can cause the service to crash immediately after starting"
+      },
+      {
+        "step": 5,
+        "action": "Check Windows Event Viewer for Print Spooler errors if the problem repeats",
+        "reason": "Identifies the exact cause, such as a specific driver crashing the service"
+      }
+    ],
+    "possible_solutions": [
+      "Set Print Spooler startup type to Automatic and start the service",
+      "Clear the spool folder before restarting the service if it crashes immediately",
+      "Update or remove a recently added printer driver that may be causing crashes",
+      "Run a malware scan if the service was maliciously disabled"
+    ],
+    "prevention": [
+      "Keep Windows and printer drivers updated to avoid spooler crashes",
+      "Avoid installing printer drivers from untrusted sources",
+      "Periodically restart the Print Spooler service on shared print servers"
+    ],
+    "keywords": [
+      "print spooler not running",
+      "print spooler service stopped",
+      "spooler error windows"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": [
+      "PRN-003",
+      "PRN-011"
+    ]
+  },
+  {
+    "id": "PRN-013",
+    "category": "Printer",
+    "subcategory": "Print Spooler Stopped",
+    "problem": "CUPS Print Service Not Running (Linux)",
+    "description": "On Linux, printing fails because the CUPS printing service is not running or not responding.",
+    "symptoms": [
+      "Printing commands fail with 'connection refused' to CUPS",
+      "http://localhost:631 web interface does not load",
+      "lpstat command shows the scheduler is not running"
+    ],
+    "possible_causes": [
+      "CUPS service (cups.service) has crashed or was stopped",
+      "CUPS was not set to start on boot",
+      "Configuration file error preventing CUPS from starting",
+      "Port 631 blocked by firewall"
+    ],
+    "diagnostic_questions": [
+      "Which Linux distribution and desktop environment are you using?",
+      "Have you tried accessing the CUPS web interface at localhost:631?",
+      "Did printing work before, or is this a fresh installation?",
+      "Have you made any recent changes to /etc/cups/cupsd.conf?"
+    ],
+    "commands": [
+      {
+        "command": "systemctl status cups",
+        "purpose": "Check whether the CUPS service is active and running",
+        "expected_result": "Shows 'active (running)'",
+        "abnormal_result": "Shows 'inactive (dead)' or 'failed'"
+      },
+      {
+        "command": "sudo systemctl restart cups",
+        "purpose": "Restart the CUPS printing service",
+        "expected_result": "Service restarts without error",
+        "abnormal_result": "Error message pointing to a configuration problem"
+      },
+      {
+        "command": "lpstat -r",
+        "purpose": "Check if the CUPS scheduler is running from the command line",
+        "expected_result": "'scheduler is running'",
+        "abnormal_result": "'scheduler is not running'"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the CUPS service status with systemctl status cups",
+        "reason": "Confirms whether the service is actually stopped or crashed"
+      },
+      {
+        "step": 2,
+        "action": "Restart the service with sudo systemctl restart cups",
+        "reason": "Resolves most temporary crashes"
+      },
+      {
+        "step": 3,
+        "action": "Enable CUPS to start automatically on boot with sudo systemctl enable cups",
+        "reason": "Prevents the issue from recurring after a reboot"
+      },
+      {
+        "step": 4,
+        "action": "Check /etc/cups/cupsd.conf for recent changes or syntax errors if the service fails to start",
+        "reason": "A misconfigured file is a common cause of startup failure"
+      },
+      {
+        "step": 5,
+        "action": "Confirm the CUPS web interface loads at http://localhost:631",
+        "reason": "Verifies the print service is fully functional again"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the CUPS service with systemctl restart cups",
+      "Enable CUPS on boot with systemctl enable cups",
+      "Fix any syntax errors in cupsd.conf",
+      "Reinstall the cups package if the service is missing or broken"
+    ],
+    "prevention": [
+      "Keep the cups package updated through the system package manager",
+      "Avoid manually editing cupsd.conf without a backup",
+      "Check service status periodically on Linux print servers"
+    ],
+    "keywords": [
+      "cups not running linux",
+      "linux printer service down",
+      "cups service failed"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "PRN-012",
+      "LNX-005"
+    ]
+  },
+  {
+    "id": "PRN-014",
+    "category": "Printer",
+    "subcategory": "Paper Jam",
+    "problem": "Printer Reports a Paper Jam",
+    "description": "The printer displays a paper jam error, stopping all printing until the jammed paper is removed.",
+    "symptoms": [
+      "Printer screen shows 'Paper Jam' with an error code",
+      "Printing stops immediately",
+      "Paper is visibly stuck in the tray, rollers, or output area"
+    ],
+    "possible_causes": [
+      "Paper is torn or crumpled inside the printer",
+      "Wrong paper size or thickness being used",
+      "Paper tray guides are set too tight or too loose",
+      "Dirty or worn paper feed rollers",
+      "Foreign object stuck inside the printer"
+    ],
+    "diagnostic_questions": [
+      "Where exactly does the printer say the jam is located, for example tray 1 or the rear door?",
+      "What type and size of paper are you using?",
+      "Has this happened multiple times recently?",
+      "Have the paper guides in the tray been adjusted recently?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Turn off the printer before attempting to remove jammed paper",
+        "reason": "Prevents injury and avoids damaging internal parts while rollers may still move"
+      },
+      {
+        "step": 2,
+        "action": "Open the indicated door or tray shown on the printer's error screen",
+        "reason": "Printers usually indicate the general area of the jam"
+      },
+      {
+        "step": 3,
+        "action": "Gently pull the jammed paper in the direction of normal paper travel, not against it",
+        "reason": "Pulling against the paper path can tear paper or damage rollers"
+      },
+      {
+        "step": 4,
+        "action": "Check for small torn pieces of paper left behind and remove them",
+        "reason": "Leftover scraps cause repeated jams"
+      },
+      {
+        "step": 5,
+        "action": "Close all doors and trays fully, then power the printer back on",
+        "reason": "The printer needs doors properly closed to reset the jam sensor"
+      },
+      {
+        "step": 6,
+        "action": "Print a test page to confirm the jam is fully cleared",
+        "reason": "Verifies no paper remains and the printer works normally"
+      }
+    ],
+    "possible_solutions": [
+      "Remove jammed paper carefully in the direction of normal feed",
+      "Clean the paper feed rollers if jams happen frequently",
+      "Use the correct paper type and size for the printer",
+      "Adjust paper tray guides to fit the paper snugly but not tight"
+    ],
+    "prevention": [
+      "Store paper in a dry place to prevent curling or sticking together",
+      "Fan the paper stack before loading it into the tray",
+      "Do not overfill the paper tray",
+      "Clean feed rollers periodically"
+    ],
+    "keywords": [
+      "paper jam printer",
+      "printer stuck paper",
+      "clear paper jam"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": [
+      "PRN-015",
+      "PRN-028"
+    ]
+  },
+  {
+    "id": "PRN-015",
+    "category": "Printer",
+    "subcategory": "Paper Not Feeding",
+    "problem": "Printer Does Not Pull Paper From the Tray",
+    "description": "The printer shows 'Out of Paper' or tries to print but fails to pull any paper from a tray that is not empty.",
+    "symptoms": [
+      "'Load Paper' or 'Out of Paper' message even though the tray has paper",
+      "Printer makes feeding noises but no paper moves",
+      "Only pulls in multiple sheets at once instead of one"
+    ],
+    "possible_causes": [
+      "Worn out or dirty paper feed rollers",
+      "Paper tray not fully inserted",
+      "Paper stack is uneven, too full, or too low",
+      "Wrong paper weight or type not supported by the printer",
+      "Humidity causing paper sheets to stick together"
+    ],
+    "diagnostic_questions": [
+      "Is the paper tray fully and properly inserted into the printer?",
+      "How full is the paper tray, and is the paper stack neat and aligned?",
+      "Does the printer attempt to feed but fail, or show no movement at all?",
+      "How old are the feed rollers, and has the printer printed a very high page count?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Remove the paper tray, take out the paper, and reload it neatly aligned and not overfilled",
+        "reason": "Uneven or overfilled paper is the most common feeding problem"
+      },
+      {
+        "step": 2,
+        "action": "Fan the edges of the paper stack before loading it",
+        "reason": "Separates sheets that may be sticking together from humidity or static"
+      },
+      {
+        "step": 3,
+        "action": "Fully reinsert the paper tray until it clicks into place",
+        "reason": "A loosely inserted tray can prevent proper feeding"
+      },
+      {
+        "step": 4,
+        "action": "Clean the paper feed rollers with a lint-free cloth slightly dampened with water",
+        "reason": "Dust and paper residue on rollers reduce grip needed to pull paper"
+      },
+      {
+        "step": 5,
+        "action": "Try a fresh ream of paper to rule out a bad batch",
+        "reason": "Confirms whether the paper itself is the cause"
+      }
+    ],
+    "possible_solutions": [
+      "Reload paper neatly and not overfilled",
+      "Clean or replace worn feed rollers",
+      "Use manufacturer-recommended paper weight and type",
+      "Store paper properly to avoid humidity issues"
+    ],
+    "prevention": [
+      "Store paper in its original wrapper until use to avoid moisture absorption",
+      "Avoid overfilling paper trays",
+      "Clean feed rollers as part of regular printer maintenance"
+    ],
+    "keywords": [
+      "printer not feeding paper",
+      "paper tray not pulling paper",
+      "out of paper error but tray full"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-15 minutes",
+    "related_problems": [
+      "PRN-014",
+      "PRN-028"
+    ]
+  },
+  {
+    "id": "PRN-016",
+    "category": "Printer",
+    "subcategory": "Toner Low",
+    "problem": "Printer Shows Toner Low Warning",
+    "description": "The printer displays a low toner warning, and print quality may start to fade even though the printer still works.",
+    "symptoms": [
+      "'Toner Low' or 'Replace Toner Soon' message on printer display",
+      "Printed pages may start looking lighter than usual",
+      "Warning appears but printer still produces pages"
+    ],
+    "possible_causes": [
+      "Toner cartridge is genuinely low on toner",
+      "Toner level sensor is inaccurate near end of cartridge life",
+      "Toner is unevenly distributed inside the cartridge"
+    ],
+    "diagnostic_questions": [
+      "How old is the current toner cartridge, or roughly how many pages has it printed?",
+      "Is print quality still acceptable, or has it started fading?",
+      "Do you have a replacement cartridge available?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if print quality is still acceptable despite the warning",
+        "reason": "A low toner warning is often just an early alert, not an immediate failure"
+      },
+      {
+        "step": 2,
+        "action": "Remove the toner cartridge and gently rock it side to side to redistribute remaining toner",
+        "reason": "This can temporarily improve print quality and extend cartridge life a little"
+      },
+      {
+        "step": 3,
+        "action": "Reinsert the cartridge firmly and print a test page",
+        "reason": "Confirms if the redistribution helped"
+      },
+      {
+        "step": 4,
+        "action": "Order or prepare a replacement cartridge if quality drops noticeably",
+        "reason": "Prevents print interruptions once the toner truly runs out"
+      },
+      {
+        "step": 5,
+        "action": "Replace the cartridge following the manufacturer's instructions when print quality is no longer acceptable",
+        "reason": "Restores full print quality"
+      }
+    ],
+    "possible_solutions": [
+      "Rock the toner cartridge to redistribute remaining toner for temporary improvement",
+      "Replace the toner cartridge with a genuine or compatible one",
+      "Continue printing until quality becomes unacceptable if the warning appears early"
+    ],
+    "prevention": [
+      "Keep a spare toner cartridge in stock for critical printers",
+      "Monitor print quality rather than relying only on the warning light",
+      "Buy genuine or well-reviewed compatible cartridges to ensure accurate level reporting"
+    ],
+    "keywords": [
+      "toner low warning",
+      "replace toner soon",
+      "low toner printer"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5 minutes",
+    "related_problems": [
+      "PRN-017",
+      "PRN-019"
+    ]
+  },
+  {
+    "id": "PRN-017",
+    "category": "Printer",
+    "subcategory": "Toner Not Recognized",
+    "problem": "Printer Does Not Recognize the Toner Cartridge",
+    "description": "The printer displays an error that the toner cartridge is not recognized, missing, or incompatible, even after installing one.",
+    "symptoms": [
+      "Error message: 'Cartridge Not Recognized' or 'Non-Genuine Cartridge Detected'",
+      "Printer refuses to print at all",
+      "New cartridge was just installed"
+    ],
+    "possible_causes": [
+      "Cartridge chip contacts are dirty or not seated properly",
+      "Using a non-genuine or refilled cartridge not supported by the printer's firmware",
+      "Protective seal or tape not fully removed from the cartridge",
+      "Printer firmware update changed cartridge recognition rules"
+    ],
+    "diagnostic_questions": [
+      "Is this a genuine manufacturer cartridge or a refilled/compatible one?",
+      "Was the protective seal and tape fully removed before installing?",
+      "Did this error appear with a brand new cartridge or one that was working before?",
+      "Has the printer's firmware been updated recently?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Remove the toner cartridge and check that all protective tape and seals were removed",
+        "reason": "Leftover packaging material is a very common cause of this error"
+      },
+      {
+        "step": 2,
+        "action": "Clean the gold or copper chip contacts on the cartridge with a dry, lint-free cloth",
+        "reason": "Dirty contacts prevent the printer from reading the cartridge chip"
+      },
+      {
+        "step": 3,
+        "action": "Reinsert the cartridge firmly, making sure it clicks into place correctly",
+        "reason": "A loosely seated cartridge will not connect properly"
+      },
+      {
+        "step": 4,
+        "action": "If using a compatible or refilled cartridge, try a genuine cartridge to confirm compatibility",
+        "reason": "Some printers block third-party cartridges through firmware checks"
+      },
+      {
+        "step": 5,
+        "action": "Check the manufacturer's website for known firmware issues affecting cartridge recognition",
+        "reason": "Some firmware updates intentionally or accidentally block certain cartridges"
+      }
+    ],
+    "possible_solutions": [
+      "Remove all protective tape and reseat the cartridge properly",
+      "Clean the cartridge's chip contacts",
+      "Use a genuine manufacturer cartridge if compatible ones are being rejected",
+      "Check for a firmware update or downgrade related to cartridge compatibility"
+    ],
+    "prevention": [
+      "Always fully remove protective packaging before installing a new cartridge",
+      "Buy cartridges from reputable suppliers",
+      "Keep firmware updated but check compatibility notes before major updates"
+    ],
+    "keywords": [
+      "toner not recognized",
+      "cartridge not recognized error",
+      "non-genuine cartridge detected"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": [
+      "PRN-016",
+      "PRN-027"
+    ]
+  },
+  {
+    "id": "PRN-018",
+    "category": "Printer",
+    "subcategory": "Blank Pages",
+    "problem": "Printer Produces Completely Blank Pages",
+    "description": "The printer runs normally and feeds paper, but the printed page comes out completely blank with no text or image.",
+    "symptoms": [
+      "Pages feed through normally but have no printing on them",
+      "Print preview on the computer shows content correctly",
+      "Problem may affect all documents or just specific ones"
+    ],
+    "possible_causes": [
+      "Toner or ink cartridge is completely empty",
+      "Protective seal still on a new ink or toner cartridge",
+      "Wrong printer selected, sending jobs to a different device",
+      "Clogged print head nozzles (inkjet)",
+      "Toner drum unit not making proper contact"
+    ],
+    "diagnostic_questions": [
+      "Is this happening with every document or just certain files?",
+      "Is this a laser (toner) or inkjet (ink) printer?",
+      "Was a cartridge recently replaced?",
+      "Did you confirm the print job is going to the correct printer?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the print job was sent to the correct printer, especially if multiple printers are installed",
+        "reason": "Blank pages sometimes come from an idle or empty second printer receiving the job by mistake"
+      },
+      {
+        "step": 2,
+        "action": "Check ink or toner levels through the printer's control panel or software",
+        "reason": "An empty cartridge is the most common cause of blank pages"
+      },
+      {
+        "step": 3,
+        "action": "For new cartridges, confirm all protective tape and seals were removed",
+        "reason": "Sealed nozzles or toner gates prevent any printing"
+      },
+      {
+        "step": 4,
+        "action": "For inkjet printers, run the built-in print head cleaning utility",
+        "reason": "Clears clogged nozzles that block ink from reaching the page"
+      },
+      {
+        "step": 5,
+        "action": "For laser printers, remove and reseat the toner cartridge and drum unit",
+        "reason": "Ensures proper electrical and mechanical contact for toner transfer"
+      }
+    ],
+    "possible_solutions": [
+      "Replace an empty ink or toner cartridge",
+      "Remove protective seals from a new cartridge",
+      "Run print head cleaning cycle on inkjet printers",
+      "Reseat the toner cartridge and drum unit on laser printers",
+      "Confirm the correct printer is selected before printing"
+    ],
+    "prevention": [
+      "Print a test page periodically to catch empty cartridges early",
+      "Do not leave inkjet printers unused for long periods, which can dry out nozzles",
+      "Replace cartridges before they run completely dry"
+    ],
+    "keywords": [
+      "blank page printing",
+      "printer prints nothing",
+      "empty page printer"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-15 minutes",
+    "related_problems": [
+      "PRN-016",
+      "PRN-019",
+      "PRN-027"
+    ]
+  },
+  {
+    "id": "PRN-019",
+    "category": "Printer",
+    "subcategory": "Faded Printing",
+    "problem": "Printed Pages Come Out Faded or Light",
+    "description": "Printed documents appear too light, washed out, or streaky compared to normal print quality.",
+    "symptoms": [
+      "Text and images appear lighter than normal",
+      "Fading may be uniform across the page or only in certain areas",
+      "Print quality was normal before and gradually got worse"
+    ],
+    "possible_causes": [
+      "Toner or ink cartridge running low",
+      "Toner not evenly distributed inside the cartridge",
+      "Print density or quality setting set too low",
+      "Clogged inkjet nozzles causing reduced ink output",
+      "Worn transfer roller in laser printers"
+    ],
+    "diagnostic_questions": [
+      "Is the fading across the entire page or only in specific spots or streaks?",
+      "How full is the current toner or ink cartridge?",
+      "Have the print quality or density settings been changed recently?",
+      "Is this consistent on every print job or only certain documents?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the toner or ink level for the cartridge in use",
+        "reason": "Low toner or ink is the most common cause of fading"
+      },
+      {
+        "step": 2,
+        "action": "For laser printers, remove the toner cartridge and gently rock it to redistribute toner",
+        "reason": "Uneven toner distribution can cause fading even when levels seem adequate"
+      },
+      {
+        "step": 3,
+        "action": "Check and increase the print density or quality setting in the printer driver",
+        "reason": "A setting that is too low intentionally produces lighter output to save toner or ink"
+      },
+      {
+        "step": 4,
+        "action": "For inkjet printers, run a nozzle check and cleaning cycle",
+        "reason": "Clogged nozzles reduce the amount of ink reaching the page"
+      },
+      {
+        "step": 5,
+        "action": "Replace the cartridge if fading continues after these steps",
+        "reason": "Confirms the cartridge itself has reached the end of its usable life"
+      }
+    ],
+    "possible_solutions": [
+      "Rock or replace the toner cartridge",
+      "Increase print density/quality setting in printer preferences",
+      "Run inkjet nozzle cleaning cycle",
+      "Replace worn transfer rollers on laser printers if fading persists"
+    ],
+    "prevention": [
+      "Use genuine or high-quality cartridges for consistent output",
+      "Print test pages periodically to catch fading early",
+      "Avoid extremely low print quality settings for important documents"
+    ],
+    "keywords": [
+      "faded print quality",
+      "light printing",
+      "print too light"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-15 minutes",
+    "related_problems": [
+      "PRN-016",
+      "PRN-020",
+      "PRN-021"
+    ]
+  },
+  {
+    "id": "PRN-020",
+    "category": "Printer",
+    "subcategory": "Black Lines on Print",
+    "problem": "Black Vertical Lines on Laser Printed Pages",
+    "description": "Printed pages from a laser printer show one or more solid black or dark vertical lines running down the page.",
+    "symptoms": [
+      "Straight black or dark line appears in the same position on every page",
+      "Line may be thin or thick, and can appear anywhere across the page width",
+      "Rest of the print quality is otherwise normal"
+    ],
+    "possible_causes": [
+      "Scratch or damage on the drum unit surface",
+      "Toner buildup on the charging wire or roller",
+      "Foreign debris inside the toner cartridge path",
+      "Worn or damaged drum unit needing replacement"
+    ],
+    "diagnostic_questions": [
+      "Does the black line appear in the exact same position on every page?",
+      "How old is the current drum unit or toner cartridge?",
+      "Has the printer been recently moved, opened, or serviced?",
+      "Is the line present when printing from different applications and computers?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact position of the line across the page width",
+        "reason": "Helps identify which roller or component in the printer path is causing it"
+      },
+      {
+        "step": 2,
+        "action": "Remove the toner cartridge and drum unit and inspect for visible scratches or debris",
+        "reason": "A scratched drum is a very common cause of a consistent vertical line"
+      },
+      {
+        "step": 3,
+        "action": "Gently clean the drum unit and internal glass or lens area with a dry, lint-free cloth if the manufacturer allows it",
+        "reason": "Removes toner buildup that can cause streaking"
+      },
+      {
+        "step": 4,
+        "action": "Print a test page to see if the line moved, changed, or disappeared",
+        "reason": "Determines if cleaning resolved the issue or if a part needs replacement"
+      },
+      {
+        "step": 5,
+        "action": "Replace the drum unit if the line persists and matches a visible scratch",
+        "reason": "A damaged drum surface cannot be repaired and must be replaced"
+      }
+    ],
+    "possible_solutions": [
+      "Clean the drum unit and internal rollers carefully",
+      "Replace a scratched or worn drum unit",
+      "Replace the toner cartridge if debris inside is causing the issue"
+    ],
+    "prevention": [
+      "Handle drum units carefully and avoid touching the green or blue drum surface",
+      "Keep the printer in a clean, dust-free environment",
+      "Follow manufacturer-recommended maintenance schedules for drum replacement"
+    ],
+    "keywords": [
+      "black line on printed page",
+      "vertical line laser printer",
+      "streak on print"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "PRN-019",
+      "PRN-027"
+    ]
+  },
+  {
+    "id": "PRN-021",
+    "category": "Printer",
+    "subcategory": "Black Lines on Print",
+    "problem": "Streaky or Broken Lines on Inkjet Printed Pages",
+    "description": "An inkjet printer produces pages with broken, streaky, or missing lines, often looking like thin white gaps in text or images.",
+    "symptoms": [
+      "Text or images have thin white streaks or gaps",
+      "Print looks streaky especially in large colored or black areas",
+      "Quality may vary between print jobs"
+    ],
+    "possible_causes": [
+      "Clogged print head nozzles from dried ink",
+      "Print head not properly aligned",
+      "Low ink level in one or more cartridges",
+      "Air bubble trapped in the ink delivery system"
+    ],
+    "diagnostic_questions": [
+      "Has the printer been unused for a long period recently?",
+      "Are all ink cartridges showing adequate ink levels?",
+      "Does the streaking affect only one color or all colors?",
+      "Has the print head alignment been checked recently?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Run the printer's built-in nozzle check pattern from the maintenance menu",
+        "reason": "Shows exactly which nozzles are clogged or missing lines"
+      },
+      {
+        "step": 2,
+        "action": "Run the automatic print head cleaning cycle",
+        "reason": "Attempts to clear clogged nozzles using the printer's built-in cleaning function"
+      },
+      {
+        "step": 3,
+        "action": "Repeat the nozzle check after cleaning to confirm improvement",
+        "reason": "Verifies whether the cleaning cycle fixed the problem"
+      },
+      {
+        "step": 4,
+        "action": "Run the cleaning cycle up to two or three more times if needed, waiting between attempts",
+        "reason": "Stubborn clogs sometimes need multiple cleaning passes"
+      },
+      {
+        "step": 5,
+        "action": "Run the print head alignment utility if lines are present but not fully missing",
+        "reason": "Corrects misalignment that can look like streaking or doubled lines"
+      }
+    ],
+    "possible_solutions": [
+      "Run nozzle check and cleaning cycles from printer maintenance menu",
+      "Run print head alignment utility",
+      "Replace low or empty ink cartridges",
+      "Manually clean the print head if it is a removable/serviceable type"
+    ],
+    "prevention": [
+      "Print something at least once a week to prevent nozzles from drying out",
+      "Avoid using very old or cheap third-party ink that dries poorly",
+      "Keep the printer in a stable, non-dusty environment"
+    ],
+    "keywords": [
+      "inkjet streaky print",
+      "white lines in print",
+      "clogged nozzles printer"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "PRN-019",
+      "PRN-022"
+    ]
+  },
+  {
+    "id": "PRN-022",
+    "category": "Printer",
+    "subcategory": "Smudged Printing",
+    "problem": "Printed Pages Come Out Smudged or Smeared",
+    "description": "Freshly printed pages have ink or toner that smears, smudges, or rubs off easily when touched.",
+    "symptoms": [
+      "Ink or toner smears when touched shortly after printing",
+      "Smudges may appear as fingerprints or streaks",
+      "Pages may stick together when stacked"
+    ],
+    "possible_causes": [
+      "Toner not properly fused to the paper due to a faulty fuser unit",
+      "Wrong paper type being used for the printer",
+      "Ink still wet due to high humidity or fast handling",
+      "Dirty rollers inside the printer transferring excess ink or toner"
+    ],
+    "diagnostic_questions": [
+      "Is this a laser (toner) or inkjet (ink) printer?",
+      "Does the smearing happen immediately after printing or only after some time?",
+      "What type of paper is being used?",
+      "Is the room unusually humid?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether the printer is laser or inkjet, since causes differ",
+        "reason": "Laser smudging usually points to the fuser unit, inkjet smudging usually points to paper or handling"
+      },
+      {
+        "step": 2,
+        "action": "For laser printers, check if pages feel warm and properly fused, or if toner rubs off easily",
+        "reason": "A failing fuser unit does not melt toner onto the page correctly"
+      },
+      {
+        "step": 3,
+        "action": "Try a different, manufacturer-recommended paper type",
+        "reason": "Some glossy or coated papers are not compatible with the printer and cause smudging"
+      },
+      {
+        "step": 4,
+        "action": "Allow inkjet prints more time to dry before handling or stacking them",
+        "reason": "Wet ink smudges easily right after printing, especially in humid conditions"
+      },
+      {
+        "step": 5,
+        "action": "Clean internal rollers or have a technician inspect the fuser unit if smudging continues",
+        "reason": "Identifies and resolves hardware-level causes"
+      }
+    ],
+    "possible_solutions": [
+      "Replace a failing fuser unit on laser printers",
+      "Switch to manufacturer-recommended paper",
+      "Allow more drying time for inkjet prints",
+      "Clean internal paper path rollers"
+    ],
+    "prevention": [
+      "Use recommended paper types for the specific printer model",
+      "Store paper in a dry environment",
+      "Avoid stacking freshly printed inkjet pages immediately"
+    ],
+    "keywords": [
+      "smudged printing",
+      "ink smears printer",
+      "toner rubs off paper"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "PRN-021",
+      "PRN-028"
+    ]
+  },
+  {
+    "id": "PRN-023",
+    "category": "Printer",
+    "subcategory": "Scanner Not Detected",
+    "problem": "Scanner Not Detected Over USB Connection",
+    "description": "The scanning function of an all-in-one printer, or a standalone scanner, is not detected by the computer over USB.",
+    "symptoms": [
+      "Scanning software cannot find the scanner",
+      "Printer prints fine but scan option is missing or greyed out",
+      "Device Manager may show an unknown device or missing scanner entry"
+    ],
+    "possible_causes": [
+      "Scanner driver not installed, only the print driver was installed",
+      "Faulty USB cable or port",
+      "Scanner function disabled in device settings",
+      "Outdated scanning software (e.g. Windows Fax and Scan, or manufacturer app)"
+    ],
+    "diagnostic_questions": [
+      "Does printing work fine on this same device?",
+      "Was the full driver package installed, or only a basic print driver?",
+      "Have you tried a different USB cable or port?",
+      "Which scanning software are you using?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class Image",
+        "purpose": "Check if Windows detects the scanner hardware",
+        "expected_result": "Scanner listed with status 'OK'",
+        "abnormal_result": "Scanner missing or shown with an error status"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm printing works to rule out a basic connectivity problem",
+        "reason": "If printing works, the USB connection itself is likely fine and the issue is scan-specific"
+      },
+      {
+        "step": 2,
+        "action": "Reinstall the full driver package from the manufacturer, not just the basic print driver",
+        "reason": "Many manufacturers separate print and scan drivers in their download options"
+      },
+      {
+        "step": 3,
+        "action": "Check Device Manager under 'Imaging devices' for the scanner entry",
+        "reason": "Confirms whether Windows sees the scanner hardware at all"
+      },
+      {
+        "step": 4,
+        "action": "Try a different USB cable and port",
+        "reason": "Rules out a physical connection fault"
+      },
+      {
+        "step": 5,
+        "action": "Open the manufacturer's scanning software directly instead of Windows Fax and Scan",
+        "reason": "Manufacturer software often has better device detection than generic Windows tools"
+      }
+    ],
+    "possible_solutions": [
+      "Install the full driver and software package including the scan component",
+      "Use a different USB cable or port",
+      "Use the manufacturer's dedicated scanning application",
+      "Restart the computer after reinstalling drivers"
+    ],
+    "prevention": [
+      "Always install the complete driver package, not just the minimal print driver",
+      "Keep scanning software updated",
+      "Use a direct USB connection rather than a hub for scanners"
+    ],
+    "keywords": [
+      "scanner not detected usb",
+      "cannot scan usb printer",
+      "scan option missing"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "PRN-024",
+      "PRN-025"
+    ]
+  },
+  {
+    "id": "PRN-024",
+    "category": "Printer",
+    "subcategory": "Scanner Not Detected",
+    "problem": "Network Scanner Not Detected by Computer",
+    "description": "A network-connected all-in-one printer's scan function cannot be found by scanning software on the computer.",
+    "symptoms": [
+      "Scanning software does not list the device",
+      "Printing over the network works fine",
+      "Scanner worked before but stopped being detected"
+    ],
+    "possible_causes": [
+      "Computer and scanner are on different networks or subnets",
+      "Firewall blocking scanner discovery ports",
+      "Scanner's network scan feature disabled in its settings",
+      "Outdated scanner driver or software"
+    ],
+    "diagnostic_questions": [
+      "Is the printer's scan-to-computer or network scan feature enabled in its own settings menu?",
+      "Are the computer and printer on the same network?",
+      "Is a firewall or antivirus program active that might block device discovery?",
+      "Does printing over the network still work normally?"
+    ],
+    "commands": [
+      {
+        "command": "ping <printer_ip>",
+        "purpose": "Confirm basic network connectivity to the printer",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout indicates a network connectivity problem affecting both print and scan"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the printer's own menu to confirm network scanning is enabled",
+        "reason": "Many printers have this feature turned off by default"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the computer and printer are on the same network with ping",
+        "reason": "Devices on different networks cannot discover each other for scanning"
+      },
+      {
+        "step": 3,
+        "action": "Temporarily disable the firewall to test if it is blocking scanner discovery",
+        "reason": "Firewalls sometimes block the specific ports scanners use for discovery"
+      },
+      {
+        "step": 4,
+        "action": "Reinstall or update the scanner software from the manufacturer",
+        "reason": "Outdated software may not properly detect the device on the network"
+      },
+      {
+        "step": 5,
+        "action": "Add the scanner manually using its IP address in the scanning software if available",
+        "reason": "Bypasses automatic discovery problems"
+      }
+    ],
+    "possible_solutions": [
+      "Enable network scan feature on the printer itself",
+      "Ensure computer and printer are on the same network",
+      "Adjust firewall settings to allow scanner discovery",
+      "Update or reinstall scanner software"
+    ],
+    "prevention": [
+      "Keep scan-to-computer features enabled if regularly used",
+      "Document printer IP addresses for manual scanner setup",
+      "Keep scanning software updated"
+    ],
+    "keywords": [
+      "network scanner not found",
+      "cannot scan over network",
+      "scan to computer not working"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "PRN-023",
+      "PRN-025"
+    ]
+  },
+  {
+    "id": "PRN-025",
+    "category": "Printer",
+    "subcategory": "Scan to Folder Failed",
+    "problem": "Scan to Network Folder Fails or Shows an Error",
+    "description": "The printer's 'Scan to Folder' feature fails with an error when trying to save a scanned document to a shared network folder.",
+    "symptoms": [
+      "Printer shows an error like 'Cannot connect to server' or 'Access denied' when scanning to folder",
+      "Scan to USB or scan to email may still work fine",
+      "Feature worked before but now fails"
+    ],
+    "possible_causes": [
+      "Shared folder path, username, or password saved in the printer changed or is incorrect",
+      "Target computer or server is turned off or renamed",
+      "Shared folder permissions do not allow the printer's account to write files",
+      "Network connectivity issue between printer and target folder location"
+    ],
+    "diagnostic_questions": [
+      "What is the exact error message shown on the printer's screen?",
+      "Has the folder path, computer name, or password for the shared folder changed recently?",
+      "Is the target computer turned on and connected to the network?",
+      "Do other scan destinations, like scan to USB, work correctly?"
+    ],
+    "commands": [
+      {
+        "command": "ping <target_computer_ip_or_name>",
+        "purpose": "Check if the printer's target computer is reachable on the network",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout means the target computer is unreachable"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Read the exact error code or message on the printer's display",
+        "reason": "Different errors point to different causes such as authentication versus connectivity"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the target computer is powered on and the shared folder still exists at the same path",
+        "reason": "A renamed folder or offline computer is a very common cause"
+      },
+      {
+        "step": 3,
+        "action": "Verify the username and password saved in the printer's scan-to-folder settings are still correct",
+        "reason": "Changed account passwords will break saved scan destinations"
+      },
+      {
+        "step": 4,
+        "action": "Check the shared folder's permissions to ensure the account used by the printer has write access",
+        "reason": "Read-only permissions will block the printer from saving scanned files"
+      },
+      {
+        "step": 5,
+        "action": "Re-enter the folder path and credentials in the printer's settings and test with a new scan",
+        "reason": "Refreshes the saved configuration in case of a typo or outdated entry"
+      }
+    ],
+    "possible_solutions": [
+      "Update the saved folder path, username, or password in the printer's scan settings",
+      "Confirm the target computer is on and the shared folder exists",
+      "Grant write permission to the printer's account on the shared folder",
+      "Recreate the scan-to-folder destination from scratch"
+    ],
+    "prevention": [
+      "Use a service account with a password that does not expire for scan-to-folder features",
+      "Document the shared folder path and credentials for future reference",
+      "Test scan-to-folder periodically to catch failures early"
+    ],
+    "keywords": [
+      "scan to folder failed",
+      "scan to network folder error",
+      "cannot save scan to shared folder"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "PRN-024",
+      "NET-014"
+    ]
+  },
+  {
+    "id": "PRN-026",
+    "category": "Printer",
+    "subcategory": "Printer Not Powering On",
+    "problem": "Printer Does Not Turn On At All",
+    "description": "Pressing the power button on the printer does nothing; there are no lights, sounds, or display activity.",
+    "symptoms": [
+      "No lights, sounds, or display when pressing power button",
+      "Printer was working before and stopped suddenly",
+      "Power cable and outlet appear normal for other devices"
+    ],
+    "possible_causes": [
+      "Power cable not fully plugged in",
+      "Faulty power outlet or power strip",
+      "Blown internal fuse in the printer's power supply",
+      "Failed internal power supply board",
+      "Power button itself is faulty"
+    ],
+    "diagnostic_questions": [
+      "Have you tried a different power outlet?",
+      "Is the power cable firmly connected at both the printer and the wall?",
+      "Does the power outlet work for other devices?",
+      "Did the printer show any unusual behavior, smell, or sound before it stopped turning on?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check that the power cable is firmly connected to both the printer and the wall outlet",
+        "reason": "A loose connection is the simplest and most common cause"
+      },
+      {
+        "step": 2,
+        "action": "Test the same outlet with another device, such as a phone charger",
+        "reason": "Confirms whether the outlet itself is providing power"
+      },
+      {
+        "step": 3,
+        "action": "Try a different power cable if one is available and compatible",
+        "reason": "Rules out a damaged cable as the cause"
+      },
+      {
+        "step": 4,
+        "action": "Try a different wall outlet or power strip for the printer",
+        "reason": "Isolates whether the problem is the outlet or the printer"
+      },
+      {
+        "step": 5,
+        "action": "If the printer still does not power on, this typically indicates an internal power supply failure requiring professional repair or replacement",
+        "reason": "Internal power supply issues are not safely user-serviceable"
+      }
+    ],
+    "possible_solutions": [
+      "Reconnect or replace the power cable",
+      "Use a confirmed working power outlet",
+      "Replace the internal power supply through authorized service if the printer is otherwise in good condition",
+      "Replace the printer if repair cost is not worthwhile"
+    ],
+    "prevention": [
+      "Use a surge protector to protect the printer's power supply",
+      "Avoid overloading power strips shared with the printer",
+      "Keep the printer in a stable electrical environment away from moisture"
+    ],
+    "keywords": [
+      "printer wont turn on",
+      "printer no power",
+      "printer dead no lights"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "10-30 minutes (longer if repair needed)",
+    "related_problems": [
+      "PRN-027",
+      "PRN-030"
+    ]
+  },
+  {
+    "id": "PRN-027",
+    "category": "Printer",
+    "subcategory": "Drum Unit Error",
+    "problem": "Printer Displays a Drum Unit Error",
+    "description": "The printer's display shows a drum unit error, drum life warning, or drum replacement message, and printing may be blocked.",
+    "symptoms": [
+      "Error message mentions 'Drum' along with a code or 'Replace Soon' warning",
+      "Print quality may show spots, streaks, or ghosting before the error appears",
+      "Printer may refuse to print until the error is cleared"
+    ],
+    "possible_causes": [
+      "Drum unit has reached its rated page life and needs replacement",
+      "Drum unit not seated properly in the printer",
+      "Drum unit counter needs to be reset after replacement",
+      "Drum unit surface damaged or contaminated with toner"
+    ],
+    "diagnostic_questions": [
+      "Does the error include a specific code, and what does the printer manual say it means?",
+      "How old is the current drum unit, or how many pages has it printed roughly?",
+      "Was the drum unit recently removed, cleaned, or replaced?",
+      "Is print quality still acceptable, or has it visibly degraded?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the exact error code against the printer's manual or manufacturer website",
+        "reason": "Different codes mean different specific problems, such as end-of-life versus improper installation"
+      },
+      {
+        "step": 2,
+        "action": "Remove and reseat the drum unit, making sure it clicks fully into place",
+        "reason": "An improperly seated drum is a common and easy-to-fix cause"
+      },
+      {
+        "step": 3,
+        "action": "Inspect the drum surface for visible damage, scratches, or heavy toner buildup if accessible",
+        "reason": "Physical damage confirms the drum needs replacement rather than just reseating"
+      },
+      {
+        "step": 4,
+        "action": "Replace the drum unit if it has reached its rated life or is damaged",
+        "reason": "Worn drum units cannot be repaired and directly affect print quality"
+      },
+      {
+        "step": 5,
+        "action": "Reset the drum counter through the printer's menu after installing a new drum, if required by the model",
+        "reason": "Some printers require a manual reset so they recognize the new component's fresh life cycle"
+      }
+    ],
+    "possible_solutions": [
+      "Reseat the drum unit fully",
+      "Replace the drum unit if it has reached end of life",
+      "Reset the drum life counter in the printer menu after replacement",
+      "Clean the drum unit gently if buildup is causing the error, following manufacturer instructions"
+    ],
+    "prevention": [
+      "Replace drum units proactively based on their rated page life",
+      "Handle drum units carefully to avoid scratching the sensitive surface",
+      "Keep a spare drum unit on hand for high-volume printers"
+    ],
+    "keywords": [
+      "drum unit error",
+      "replace drum message",
+      "drum life end printer"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "PRN-020",
+      "PRN-016"
+    ]
+  },
+  {
+    "id": "PRN-028",
+    "category": "Printer",
+    "subcategory": "Fuser Unit Error",
+    "problem": "Printer Displays a Fuser Unit Error",
+    "description": "The printer shows a fuser error code and stops printing, often related to overheating or a fuser that has reached the end of its life.",
+    "symptoms": [
+      "Error message mentions 'Fuser' along with a code",
+      "Printer may need to be powered off and on to clear the error temporarily",
+      "Toner may not stick properly to paper before the error appears (smudging)"
+    ],
+    "possible_causes": [
+      "Fuser unit has reached its rated page life",
+      "Fuser overheated due to a paper jam left too long inside the printer",
+      "Fuser unit not seated correctly after maintenance",
+      "Internal fuser component (heating element or thermistor) has failed"
+    ],
+    "diagnostic_questions": [
+      "Does the error include a specific numeric or lettered code?",
+      "Has there been a recent paper jam near the fuser area?",
+      "How old is the printer and has the fuser ever been replaced?",
+      "Does the error clear temporarily after turning the printer off and on?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Turn off the printer, wait a few minutes for it to cool down, then turn it back on",
+        "reason": "Clears temporary overheating errors and allows the printer to reset its fuser status"
+      },
+      {
+        "step": 2,
+        "action": "Check the exact error code against the printer manual",
+        "reason": "Confirms whether this is an end-of-life warning or a hardware failure"
+      },
+      {
+        "step": 3,
+        "action": "Check for any leftover paper or debris near the fuser area, usually toward the rear of the printer",
+        "reason": "Trapped paper can cause overheating and trigger fuser errors"
+      },
+      {
+        "step": 4,
+        "action": "If the fuser has reached its rated page count, replace the fuser unit following the manufacturer's maintenance kit instructions",
+        "reason": "Fuser units are wear parts that must be replaced periodically"
+      },
+      {
+        "step": 5,
+        "action": "Contact professional service if the error persists after cooling down and checking for debris, since this may indicate a failed heating element",
+        "reason": "Internal fuser electrical components are not safely user-repairable"
+      }
+    ],
+    "possible_solutions": [
+      "Power cycle the printer to clear a temporary fuser error",
+      "Remove any paper debris near the fuser area",
+      "Replace the fuser unit if it has reached its rated page life",
+      "Seek professional repair for internal fuser component failures"
+    ],
+    "prevention": [
+      "Replace the fuser unit as part of scheduled maintenance kits",
+      "Clear paper jams promptly to avoid overheating the fuser",
+      "Keep the printer in a well-ventilated area"
+    ],
+    "keywords": [
+      "fuser error",
+      "fuser unit replace message",
+      "printer overheating error"
+    ],
+    "difficulty": "Intermediate to Advanced",
+    "estimated_fix_time": "15-30 minutes (longer if part replacement needed)",
+    "related_problems": [
+      "PRN-014",
+      "PRN-022",
+      "PRN-027"
+    ]
+  },
+  {
+    "id": "PRN-029",
+    "category": "Printer",
+    "subcategory": "Wrong Default Printer",
+    "problem": "Documents Print to the Wrong Printer",
+    "description": "Print jobs go to a different printer than the one the user intended, usually because the wrong default printer is set.",
+    "symptoms": [
+      "Documents come out on an unexpected printer",
+      "User selected the right printer but the job still prints elsewhere",
+      "Multiple printers are installed on the computer"
+    ],
+    "possible_causes": [
+      "Windows 'Let Windows manage my default printer' feature changed the default automatically",
+      "Wrong printer manually set as default",
+      "Application has its own separate default printer setting overriding Windows",
+      "User did not check the printer name before clicking print"
+    ],
+    "diagnostic_questions": [
+      "How many printers are installed on this computer?",
+      "Is 'Let Windows manage my default printer' turned on in Settings?",
+      "Does the wrong printer happen in all applications or just one specific program?",
+      "Did this start after installing a new printer?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-Printer | Where-Object {$_.Default -eq $true}",
+        "purpose": "Show which printer is currently set as the Windows default",
+        "expected_result": "Lists the printer the user expects as default",
+        "abnormal_result": "Lists an unexpected or unwanted printer as default"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Settings > Bluetooth & devices > Printers & scanners and check the current default printer",
+        "reason": "Confirms exactly which printer Windows currently treats as default"
+      },
+      {
+        "step": 2,
+        "action": "Turn off 'Let Windows manage my default printer'",
+        "reason": "This Windows feature automatically switches the default to the most recently used printer, which often causes confusion"
+      },
+      {
+        "step": 3,
+        "action": "Manually set the correct printer as default",
+        "reason": "Ensures print jobs go to the intended printer by default"
+      },
+      {
+        "step": 4,
+        "action": "Check the specific application's own print settings if the wrong printer only happens in one program",
+        "reason": "Some applications remember their own last-used printer separate from Windows"
+      },
+      {
+        "step": 5,
+        "action": "Always double-check the selected printer name in the print dialog before clicking print, especially in offices with multiple printers",
+        "reason": "Prevents accidental printing to the wrong device going forward"
+      }
+    ],
+    "possible_solutions": [
+      "Turn off 'Let Windows manage my default printer' and manually set the correct one",
+      "Check and correct the default printer setting inside specific applications",
+      "Always verify the printer name in the print dialog before printing"
+    ],
+    "prevention": [
+      "Disable automatic default printer switching in shared or office computers",
+      "Label printers clearly by location or department to avoid confusion",
+      "Train users to check the printer name before printing, especially with multiple printers"
+    ],
+    "keywords": [
+      "wrong printer printing",
+      "default printer keeps changing",
+      "documents print to wrong printer"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": [
+      "PRN-007"
+    ]
+  },
+  {
+    "id": "PRN-030",
+    "category": "Printer",
+    "subcategory": "Cannot Access Printer Web Interface",
+    "problem": "Cannot Open Printer's Built-in Web Page",
+    "description": "Typing the printer's IP address into a web browser does not load its built-in configuration web page (EWS).",
+    "symptoms": [
+      "Browser shows 'This site can't be reached' or times out",
+      "Printer works fine for printing but its settings page will not load",
+      "Page loaded before but not anymore"
+    ],
+    "possible_causes": [
+      "Wrong or outdated IP address being used",
+      "Printer's web server feature is disabled in its settings",
+      "Computer and printer are on different networks",
+      "Firewall or browser security setting blocking the connection",
+      "Printer's embedded web server crashed and needs a restart"
+    ],
+    "diagnostic_questions": [
+      "Are you using the printer's current IP address, confirmed from its own screen or a printed configuration page?",
+      "Are the computer and printer on the same network?",
+      "Have you tried a different web browser?",
+      "Is the printer's web server feature (sometimes called EWS or Embedded Web Server) enabled in its settings menu?"
+    ],
+    "commands": [
+      {
+        "command": "ping <printer_ip>",
+        "purpose": "Confirm basic network connectivity before troubleshooting the web page specifically",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout means the network connection itself is the real problem, not the web page"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Print a network configuration page from the printer to get its confirmed current IP address",
+        "reason": "Using an outdated IP is the most common cause of this problem"
+      },
+      {
+        "step": 2,
+        "action": "Ping the printer's IP address to confirm basic connectivity",
+        "reason": "Rules out a general network issue before focusing on the web page specifically"
+      },
+      {
+        "step": 3,
+        "action": "Try accessing the address using both http:// and https:// prefixes",
+        "reason": "Some printers only support one protocol for their web interface"
+      },
+      {
+        "step": 4,
+        "action": "Check the printer's control panel menu to confirm the embedded web server feature is enabled",
+        "reason": "Some printers allow this feature to be turned off for security"
+      },
+      {
+        "step": 5,
+        "action": "Restart the printer to reset its embedded web server if it was working before and suddenly stopped",
+        "reason": "Clears a temporary crash of the printer's internal web service"
+      }
+    ],
+    "possible_solutions": [
+      "Use the printer's current confirmed IP address",
+      "Enable the embedded web server feature in the printer's settings",
+      "Try both http and https, and a different browser",
+      "Restart the printer to reset its web server"
+    ],
+    "prevention": [
+      "Document the printer's static IP for easy web interface access",
+      "Keep the embedded web server feature enabled if regularly used for management",
+      "Bookmark the printer's web interface address once confirmed working"
+    ],
+    "keywords": [
+      "cannot access printer web page",
+      "printer ews not loading",
+      "printer ip address not opening"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "PRN-002",
+      "PRN-031"
+    ]
+  },
+  {
+    "id": "PRN-031",
+    "category": "Printer",
+    "subcategory": "Firmware Update Failed",
+    "problem": "Printer Firmware Update Fails or Gets Stuck",
+    "description": "An attempt to update the printer's firmware fails partway through, gets stuck, or leaves the printer in an error state.",
+    "symptoms": [
+      "Firmware update progress bar freezes or stops",
+      "Printer shows an error code after a failed update attempt",
+      "Printer may become unresponsive or stuck in update mode"
+    ],
+    "possible_causes": [
+      "Printer lost power or network connection during the update",
+      "Wrong firmware file used for the printer model",
+      "Update file was corrupted during download",
+      "Insufficient printer memory to complete the update"
+    ],
+    "diagnostic_questions": [
+      "Did the printer lose power or network connection during the update?",
+      "Was the firmware file downloaded from the official manufacturer website for the exact model?",
+      "What error message or code, if any, is shown now?",
+      "Is the printer still turning on and showing any display activity?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Do not turn off the printer if it shows any activity, even if it seems stuck, unless instructed by the manufacturer's recovery steps",
+        "reason": "Interrupting an in-progress update can cause permanent damage requiring professional repair"
+      },
+      {
+        "step": 2,
+        "action": "Check the manufacturer's website for a specific firmware recovery or emergency mode procedure for this model",
+        "reason": "Many manufacturers have a documented recovery process for failed updates"
+      },
+      {
+        "step": 3,
+        "action": "If the printer is completely unresponsive, try a power cycle by unplugging for 60 seconds and plugging back in",
+        "reason": "Sometimes allows the printer to boot into a recovery mode"
+      },
+      {
+        "step": 4,
+        "action": "Re-download the firmware file directly from the manufacturer's official website to rule out a corrupted download",
+        "reason": "Ensures the retry uses a clean, correct file"
+      },
+      {
+        "step": 5,
+        "action": "Retry the firmware update using a stable wired network connection instead of WiFi",
+        "reason": "Reduces the risk of the update failing again due to connection drops"
+      },
+      {
+        "step": 6,
+        "action": "Contact manufacturer support or authorized service if the printer remains unresponsive",
+        "reason": "A failed firmware update can sometimes require specialized recovery tools"
+      }
+    ],
+    "possible_solutions": [
+      "Follow the manufacturer's specific firmware recovery procedure",
+      "Retry the update with a freshly downloaded firmware file over a stable connection",
+      "Power cycle the printer to attempt a recovery boot",
+      "Contact manufacturer support for unresponsive printers"
+    ],
+    "prevention": [
+      "Always use a stable wired connection for firmware updates",
+      "Never turn off the printer during an active firmware update",
+      "Only download firmware from the official manufacturer website",
+      "Ensure adequate power supply stability during updates"
+    ],
+    "keywords": [
+      "firmware update failed printer",
+      "printer stuck updating firmware",
+      "firmware update error"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-60 minutes (or professional service)",
+    "related_problems": [
+      "PRN-030"
+    ]
+  },
+  {
+    "id": "PRN-032",
+    "category": "Printer",
+    "subcategory": "Access Denied to Shared Printer",
+    "problem": "Access Denied Error When Connecting to a Shared Printer",
+    "description": "A user gets an 'Access Denied' or permission error when trying to connect to or print from a printer shared by another computer.",
+    "symptoms": [
+      "Error message: 'Windows cannot connect to the printer. Access is denied.'",
+      "Other users can access the shared printer without issue",
+      "Problem appeared after a password change or new user account"
+    ],
+    "possible_causes": [
+      "User does not have permission on the shared printer's security settings",
+      "Password for the account used to access the shared computer expired or changed",
+      "Sharing computer's firewall blocking access",
+      "Print and Document sharing not enabled on the host computer"
+    ],
+    "diagnostic_questions": [
+      "Can other users successfully print to this shared printer?",
+      "Did a password change recently on the host computer or user account?",
+      "Is the printer physically shared from another computer, and is that computer on and logged in?",
+      "Is 'File and Printer Sharing' enabled on the host computer's network settings?"
+    ],
+    "commands": [
+      {
+        "command": "net use \\\\<host_computer>\\<printer_share_name>",
+        "purpose": "Attempt to manually connect to the shared printer resource and view the resulting error",
+        "expected_result": "'Command completed successfully'",
+        "abnormal_result": "Specific error code indicating permission, network, or name resolution failure"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the host computer sharing the printer is powered on, logged in, and connected to the network",
+        "reason": "A shared printer is unavailable if the hosting computer is off or logged out"
+      },
+      {
+        "step": 2,
+        "action": "Check the printer's sharing permissions on the host computer (Printer Properties > Security tab)",
+        "reason": "Confirms whether the affected user or group has print permission"
+      },
+      {
+        "step": 3,
+        "action": "Add the affected user or the 'Everyone' group with Print permission if missing",
+        "reason": "Grants the necessary access to use the shared printer"
+      },
+      {
+        "step": 4,
+        "action": "Confirm 'File and Printer Sharing' is turned on in the host computer's network and sharing settings",
+        "reason": "This must be enabled for any sharing to work at all"
+      },
+      {
+        "step": 5,
+        "action": "Remove and re-add the shared printer connection on the affected computer after fixing permissions",
+        "reason": "Refreshes the connection with the corrected access rights"
+      }
+    ],
+    "possible_solutions": [
+      "Grant the user or group Print permission in the printer's Security tab on the host computer",
+      "Enable File and Printer Sharing on the host computer",
+      "Confirm the host computer is on and logged in",
+      "Re-add the printer connection on the client computer"
+    ],
+    "prevention": [
+      "Use a dedicated print server instead of sharing from a regular user's computer when possible",
+      "Document required permissions for shared office printers",
+      "Keep host computer credentials stable to avoid access issues"
+    ],
+    "keywords": [
+      "access denied shared printer",
+      "cannot connect to shared printer",
+      "printer permission error"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "PRN-033",
+      "NET-011"
+    ]
+  },
+  {
+    "id": "PRN-033",
+    "category": "Printer",
+    "subcategory": "Print Server Offline",
+    "problem": "Dedicated Print Server is Offline or Unreachable",
+    "description": "A dedicated print server (hardware box or server computer) that manages network printers is unreachable, so all connected printers stop working for everyone.",
+    "symptoms": [
+      "All users lose access to multiple printers at once, not just one",
+      "Print server's own network address does not respond to ping",
+      "Print server device may have no lights or an error light on"
+    ],
+    "possible_causes": [
+      "Print server hardware has lost power or crashed",
+      "Print server lost its network connection",
+      "Print server software/service on a server computer has stopped",
+      "Network switch or cable connecting the print server has failed"
+    ],
+    "diagnostic_questions": [
+      "Are multiple printers affected at the same time, or just one?",
+      "Is the print server a physical hardware device or a service running on a server computer?",
+      "Can you ping the print server's IP address?",
+      "Was there a recent power outage, server reboot, or network change?"
+    ],
+    "commands": [
+      {
+        "command": "ping <print_server_ip>",
+        "purpose": "Check basic network connectivity to the print server",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout indicates the print server is offline or unreachable"
+      },
+      {
+        "command": "services.msc (on the server) - check Print Spooler service",
+        "purpose": "Confirm the print server software is running if it is a Windows server",
+        "expected_result": "Print Spooler service status is 'Running'",
+        "abnormal_result": "Service is 'Stopped', explaining why all shared printers are down"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Ping the print server's IP address to confirm basic connectivity",
+        "reason": "Determines if this is a network issue or a service/software issue"
+      },
+      {
+        "step": 2,
+        "action": "Check the physical power and network cable connections on a hardware print server",
+        "reason": "Rules out simple physical connection problems first"
+      },
+      {
+        "step": 3,
+        "action": "If it is a software print server on a computer, confirm the computer is on and check the Print Spooler service status",
+        "reason": "The print server service itself may have crashed even if the computer is on"
+      },
+      {
+        "step": 4,
+        "action": "Restart the print server device or the Print Spooler service on the server computer",
+        "reason": "Resolves most temporary crashes or freezes"
+      },
+      {
+        "step": 5,
+        "action": "Check the network switch the print server connects to for port errors or failure",
+        "reason": "A failed switch port can isolate the print server from the rest of the network"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the print server hardware or software service",
+      "Check and reseat network cables",
+      "Replace a failed network switch port",
+      "Restore power to the print server if it lost power"
+    ],
+    "prevention": [
+      "Use a UPS to protect the print server from power outages",
+      "Set up monitoring/alerts for print server availability",
+      "Document print server location and access credentials for quick troubleshooting"
+    ],
+    "keywords": [
+      "print server offline",
+      "print server unreachable",
+      "all printers down at once"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "PRN-032",
+      "NET-002"
+    ]
+  },
+  {
+    "id": "PRN-034",
+    "category": "Printer",
+    "subcategory": "Secure Print PIN Incorrect",
+    "problem": "Secure Print Job Rejected Due to Incorrect PIN",
+    "description": "A print job sent using secure/PIN print is held at the printer, but entering the PIN at the printer's panel is rejected as incorrect.",
+    "symptoms": [
+      "Printer says 'Incorrect PIN' or 'Access Denied' when entering the code",
+      "Print job remains held in the secure print queue",
+      "User is certain they are entering the correct PIN"
+    ],
+    "possible_causes": [
+      "User is entering a PIN from a previous, different print job",
+      "PIN was mistyped when originally setting up the secure print job",
+      "Print job expired and was removed from the secure queue before printing",
+      "Multiple secure jobs exist and the wrong job is being selected"
+    ],
+    "diagnostic_questions": [
+      "Are you sure the PIN matches exactly what was set when sending the print job?",
+      "Is there more than one secure print job listed at the printer for your account?",
+      "How long ago was the print job sent, since some printers expire secure jobs after a time limit?",
+      "Did you set the PIN yourself, or does your organization use a fixed PIN?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "At the printer, list all secure/held print jobs under the user's name or account",
+        "reason": "Confirms which specific job is being selected, since multiple jobs can cause confusion"
+      },
+      {
+        "step": 2,
+        "action": "Re-send the print job from the computer, carefully noting the exact PIN entered during setup",
+        "reason": "Rules out a simple typo made during the original job submission"
+      },
+      {
+        "step": 3,
+        "action": "Enter the newly confirmed PIN at the printer promptly",
+        "reason": "Some secure print jobs expire after a set time and are removed automatically"
+      },
+      {
+        "step": 4,
+        "action": "Check with the system administrator if the organization uses a fixed or assigned PIN rather than a user-chosen one",
+        "reason": "Using a personal guess instead of the assigned PIN will always fail"
+      },
+      {
+        "step": 5,
+        "action": "Delete old or expired secure print jobs from the queue if they are cluttering the list",
+        "reason": "Keeps the secure print queue clean and avoids selecting the wrong job"
+      }
+    ],
+    "possible_solutions": [
+      "Re-send the print job and carefully re-enter the correct PIN",
+      "Confirm with the administrator if a fixed organizational PIN is required",
+      "Select the correct job if multiple secure jobs are listed",
+      "Clear expired secure print jobs from the queue"
+    ],
+    "prevention": [
+      "Use a consistent, memorable PIN format for secure printing",
+      "Print secure jobs promptly rather than leaving them held for long periods",
+      "Document organizational PIN policy for new employees"
+    ],
+    "keywords": [
+      "secure print pin incorrect",
+      "print release wrong pin",
+      "held print job pin error"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": [
+      "PRN-011",
+      "PRN-033"
+    ]
+  },
+  {
+    "id": "PRN-035",
+    "category": "Printer",
+    "subcategory": "Memory Full Error",
+    "problem": "Printer Displays a Memory Full Error",
+    "description": "The printer shows a 'Memory Full' error and stops processing a print job, usually with large or complex documents.",
+    "symptoms": [
+      "Error message: 'Memory Full' or 'Job Too Large'",
+      "Large documents with many images or high-resolution graphics fail to print",
+      "Simple text documents print without issue"
+    ],
+    "possible_causes": [
+      "Document is too large or complex for the printer's available memory",
+      "Print resolution or quality setting set higher than necessary",
+      "Printer's installed memory is at or near its minimum for the model",
+      "Complex fonts or many embedded images in the document"
+    ],
+    "diagnostic_questions": [
+      "Does this happen only with specific large or image-heavy documents?",
+      "What print quality or resolution setting is currently selected?",
+      "How much memory does the printer have installed, if known?",
+      "Does printing the document in smaller sections work?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Lower the print quality or resolution setting in the printer driver, for example from 'Best' to 'Normal'",
+        "reason": "Reduces the amount of data the printer must process and store for the job"
+      },
+      {
+        "step": 2,
+        "action": "Print the document in smaller sections, such as a few pages at a time, instead of all at once",
+        "reason": "Reduces the memory needed for any single print job"
+      },
+      {
+        "step": 3,
+        "action": "Simplify the document by reducing image resolution or removing unnecessary embedded graphics before printing",
+        "reason": "Directly reduces the complexity and size of data sent to the printer"
+      },
+      {
+        "step": 4,
+        "action": "Check if the printer supports a memory upgrade and consider adding more memory if this happens often",
+        "reason": "Some printer models allow additional RAM to handle larger jobs"
+      },
+      {
+        "step": 5,
+        "action": "Update the printer driver and firmware to the latest version",
+        "reason": "Manufacturers sometimes improve memory handling efficiency through updates"
+      }
+    ],
+    "possible_solutions": [
+      "Lower print quality/resolution settings for large jobs",
+      "Print large documents in smaller batches",
+      "Simplify or compress images in the document before printing",
+      "Upgrade printer memory if the model supports it"
+    ],
+    "prevention": [
+      "Use appropriate print quality settings for the type of document being printed",
+      "Compress images before inserting them into documents meant for printing",
+      "Consider memory upgrades for printers regularly handling large jobs"
+    ],
+    "keywords": [
+      "printer memory full error",
+      "job too large printer",
+      "print job memory error"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "PRN-031"
+    ]
+  },
+  {
+    "id": "PRN-036",
+    "category": "Printer",
+    "subcategory": "Internal Printer Error",
+    "problem": "Printer Displays a Generic Internal Error Code",
+    "description": "The printer shows a generic internal error, sometimes just a numeric or lettered code, and stops functioning until it is cleared.",
+    "symptoms": [
+      "Display shows an error code with little or no description, such as 'Error 50' or 'Service Error'",
+      "Printer becomes completely unresponsive to print jobs",
+      "Error may or may not clear with a simple power cycle"
+    ],
+    "possible_causes": [
+      "Temporary internal software glitch",
+      "Overheating of an internal component",
+      "Failing internal hardware component such as a formatter board or motor",
+      "Firmware bug triggered by a specific type of print job"
+    ],
+    "diagnostic_questions": [
+      "What is the exact error code or message shown on the display?",
+      "Does turning the printer off and on clear the error, even temporarily?",
+      "Does the error happen with every print job or only specific ones?",
+      "How old is the printer, and has this error appeared before?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Write down the exact error code shown on the display",
+        "reason": "Specific codes usually map to specific documented causes in the manufacturer's service manual"
+      },
+      {
+        "step": 2,
+        "action": "Turn the printer off, wait at least 30-60 seconds, and turn it back on",
+        "reason": "Clears temporary internal glitches, which are a common cause of generic errors"
+      },
+      {
+        "step": 3,
+        "action": "Search the manufacturer's support site for the exact error code and printer model",
+        "reason": "Manufacturers often publish specific meanings and fixes for numeric error codes"
+      },
+      {
+        "step": 4,
+        "action": "Check if the error happens only with certain jobs, which may point to a driver or specific file issue rather than hardware",
+        "reason": "Helps narrow down whether this is a software trigger or a hardware fault"
+      },
+      {
+        "step": 5,
+        "action": "Contact manufacturer support or a qualified technician if the error persists after power cycling and following documented steps",
+        "reason": "Persistent generic internal errors often indicate a hardware component needs professional inspection or replacement"
+      }
+    ],
+    "possible_solutions": [
+      "Power cycle the printer to clear a temporary error",
+      "Look up the specific error code on the manufacturer's support site for exact guidance",
+      "Update firmware if a known bug matches the error code",
+      "Seek professional repair for persistent hardware-related internal errors"
+    ],
+    "prevention": [
+      "Keep the printer's firmware updated to fix known bugs",
+      "Ensure the printer has proper ventilation to avoid overheating",
+      "Follow manufacturer maintenance schedules to catch failing components early"
+    ],
+    "keywords": [
+      "printer internal error",
+      "printer error code",
+      "generic printer error unresponsive"
+    ],
+    "difficulty": "Intermediate to Advanced",
+    "estimated_fix_time": "15-45 minutes (or professional service)",
+    "related_problems": [
+      "PRN-031",
+      "PRN-033"
+    ]
+  }
+]

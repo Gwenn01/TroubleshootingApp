@@ -1,0 +1,2365 @@
+[
+  {
+    "id": "WIN-002",
+    "category": "Windows Operating System",
+    "subcategory": "Boot Problems",
+    "problem": "Windows won't boot at all",
+    "description": "The computer does not start Windows normally. It may show a black screen, an error message, or simply never reach the login or desktop screen no matter how long it is left running.",
+    "symptoms": [
+      "Computer powers on but Windows never loads",
+      "Black screen with just a mouse cursor, or nothing at all",
+      "Error message about a missing operating system",
+      "Computer restarts on its own before reaching the desktop"
+    ],
+    "possible_causes": [
+      "Corrupted or missing system boot files",
+      "The hard drive or SSD has failed or is not detected",
+      "A recent update or driver installation broke startup",
+      "The boot order in BIOS/UEFI is set to the wrong device",
+      "Loose internal cables (for desktop computers)",
+      "Malware damaging critical startup files",
+      "A failing power supply not providing stable power"
+    ],
+    "diagnostic_questions": [
+      "What exactly do you see on the screen when you try to turn it on?",
+      "Did anything happen right before this started, like a power outage, update, or new hardware?",
+      "Does the computer make any beep sounds or show any error codes?",
+      "Have you tried restarting more than once?",
+      "Is this a desktop or laptop computer?"
+    ],
+    "commands": [
+      {
+        "command": "bootrec /fixmbr",
+        "purpose": "Repair the master boot record from Windows Recovery Environment",
+        "expected_result": "Command completes successfully with 'The operation completed successfully'",
+        "abnormal_result": "An error appears, meaning the boot record damage may be more serious or the drive is not accessible"
+      },
+      {
+        "command": "bootrec /rebuildbcd",
+        "purpose": "Scan for Windows installations and rebuild the boot configuration data",
+        "expected_result": "Finds the Windows installation and offers to add it to the boot list",
+        "abnormal_result": "Reports 'Total identified Windows installations: 0', meaning Windows files cannot be found or the drive has a problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note exactly what appears on screen, including any error codes or messages",
+        "reason": "The exact symptom points to very different causes, such as a hardware failure versus a software boot problem"
+      },
+      {
+        "step": 2,
+        "action": "Check that all internal cables (power and data) are firmly connected, if this is a desktop computer that was recently moved or opened",
+        "reason": "A loose drive cable can make Windows appear to fail to boot when the real issue is the drive not being detected at all"
+      },
+      {
+        "step": 3,
+        "action": "Enter the BIOS/UEFI settings and confirm the correct drive is set as the first boot device",
+        "reason": "If the boot order changed, the computer may be trying to start from the wrong device"
+      },
+      {
+        "step": 4,
+        "action": "Boot from Windows installation media or a recovery drive to access Windows Recovery Environment",
+        "reason": "This gives access to repair tools that are not available from a normal broken boot"
+      },
+      {
+        "step": 5,
+        "action": "Run Startup Repair from the recovery environment",
+        "reason": "This automated tool detects and fixes many common boot problems without manual commands"
+      },
+      {
+        "step": 6,
+        "action": "If Startup Repair does not fix it, run bootrec /fixmbr and bootrec /rebuildbcd from the recovery command prompt",
+        "reason": "These commands directly repair the boot files that tell the computer how to start Windows"
+      },
+      {
+        "step": 7,
+        "action": "If the drive is not detected at all in BIOS or recovery tools, this points to a failed or disconnected drive rather than a software issue",
+        "reason": "Software repair tools cannot fix a drive that the computer cannot even see"
+      }
+    ],
+    "possible_solutions": [
+      "Reconnect loose internal cables",
+      "Correct the boot device order in BIOS/UEFI",
+      "Run Startup Repair from Windows Recovery Environment",
+      "Rebuild the boot configuration using bootrec commands",
+      "Replace a failed hard drive or SSD",
+      "Reinstall Windows if boot files cannot be repaired"
+    ],
+    "prevention": [
+      "Avoid sudden power loss during Windows updates",
+      "Use a UPS (battery backup) for desktop computers",
+      "Keep a Windows recovery drive prepared in advance",
+      "Avoid interrupting the computer during shutdown or updates"
+    ],
+    "keywords": ["windows won't boot", "computer won't start", "startup repair", "bootrec fixmbr", "no operating system found"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-90 minutes",
+    "related_problems": ["Automatic Repair loop", "Corrupted system files", "Disk problems"]
+  },
+
+  {
+    "id": "WIN-003",
+    "category": "Windows Operating System",
+    "subcategory": "Boot Problems",
+    "problem": "Computer is stuck on the Windows loading screen",
+    "description": "When starting the computer, the Windows logo and spinning dots appear as normal, but the computer stays on this screen for a very long time or forever, never reaching the login screen.",
+    "symptoms": [
+      "Windows logo with spinning dots stays on screen for many minutes",
+      "No error message appears, the computer just does not move forward",
+      "Fans and hard disk light may still show activity",
+      "Restarting leads back to the same stuck screen"
+    ],
+    "possible_causes": [
+      "A recent Windows update did not finish installing correctly",
+      "A driver is preventing Windows from finishing startup",
+      "Corrupted system files",
+      "A failing hard drive struggling to read needed files",
+      "Startup program or service causing a hang",
+      "Malware interfering with the boot process"
+    ],
+    "diagnostic_questions": [
+      "How long have you waited on this screen before assuming it is stuck?",
+      "Did this happen right after a Windows update was installing?",
+      "Did you add any new hardware or drivers recently?",
+      "Is the hard disk activity light blinking, indicating something is still happening, or is it completely idle?",
+      "Has this happened before, or is this the first time?"
+    ],
+    "commands": [
+      {
+        "command": "chkdsk C: /f /r",
+        "purpose": "Check the drive for errors that could be preventing Windows from reading needed startup files, run from Recovery Environment",
+        "expected_result": "No errors found on the disk",
+        "abnormal_result": "Bad sectors or file errors found, which explains why Windows cannot finish loading"
+      },
+      {
+        "command": "sfc /scannow",
+        "purpose": "Scan and repair corrupted system files, run from Recovery Environment command prompt with correct offline path if needed",
+        "expected_result": "No integrity violations found, or found issues successfully repaired",
+        "abnormal_result": "Corrupt files found that could not be fixed, requiring further repair steps"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Wait at least 15-20 minutes to rule out a slow but genuinely completing update installation",
+        "reason": "Major Windows updates can sometimes take a long time to finish, especially on older or slower drives"
+      },
+      {
+        "step": 2,
+        "action": "Force a restart by holding the power button, then try starting normally again",
+        "reason": "This tests if the previous startup attempt was a temporary glitch"
+      },
+      {
+        "step": 3,
+        "action": "If it happens again, force a restart three times in a row during the stuck screen to trigger Windows Automatic Repair environment",
+        "reason": "Windows automatically detects repeated failed boots and offers recovery options"
+      },
+      {
+        "step": 4,
+        "action": "From the recovery environment, try Startup Repair first",
+        "reason": "This automated tool can fix many common causes of a stuck boot process"
+      },
+      {
+        "step": 5,
+        "action": "If Startup Repair does not help, try booting into Safe Mode",
+        "reason": "Safe Mode loads only essential drivers, helping determine if a specific driver or startup program is causing the hang"
+      },
+      {
+        "step": 6,
+        "action": "If Safe Mode works, uninstall recently added drivers or software from Safe Mode",
+        "reason": "This removes the likely cause while keeping the rest of the system intact"
+      },
+      {
+        "step": 7,
+        "action": "Run chkdsk and sfc /scannow from the recovery command prompt",
+        "reason": "These check for and repair disk errors and corrupted system files that could be blocking startup"
+      }
+    ],
+    "possible_solutions": [
+      "Allow more time for a genuine update to finish",
+      "Run Startup Repair from Windows Recovery Environment",
+      "Boot into Safe Mode and remove a recently added driver or program",
+      "Repair disk errors using chkdsk",
+      "Repair system files using sfc /scannow",
+      "Roll back a recent Windows update if it caused the problem"
+    ],
+    "prevention": [
+      "Avoid interrupting Windows updates once they begin installing",
+      "Keep drivers updated from trusted sources only",
+      "Maintain regular backups in case a repair is not possible",
+      "Keep the hard drive healthy with regular checks"
+    ],
+    "keywords": ["stuck on windows loading screen", "spinning dots frozen", "windows logo stuck", "startup repair"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-60 minutes",
+    "related_problems": ["Windows won't boot", "Automatic Repair loop", "Windows Update failed"]
+  },
+
+  {
+    "id": "WIN-004",
+    "category": "Windows Operating System",
+    "subcategory": "System Crash",
+    "problem": "Blue Screen of Death (BSOD) appears during startup or use",
+    "description": "The computer suddenly displays a blue screen with white text and an error code, then restarts on its own. This can happen during Windows startup or at random times while using the computer.",
+    "symptoms": [
+      "Blue screen with an error code such as 'CRITICAL_PROCESS_DIED' or 'PAGE_FAULT_IN_NONPAGED_AREA'",
+      "Computer restarts automatically after the blue screen",
+      "May happen once, or repeatedly every time the computer starts",
+      "Sometimes shows a QR code or 'stop code' at the bottom of the screen"
+    ],
+    "possible_causes": [
+      "A faulty or incompatible driver",
+      "Corrupted system files",
+      "Failing RAM or hard drive",
+      "A bad Windows update",
+      "Overheating hardware",
+      "Incompatible or corrupted software recently installed"
+    ],
+    "diagnostic_questions": [
+      "What is the exact stop code or error name shown on the blue screen?",
+      "Does this happen during startup, or randomly while using the computer?",
+      "Did you install anything new right before this started, such as a driver, update, or hardware?",
+      "How often does this happen?"
+    ],
+    "commands": [
+      {
+        "command": "mdsched.exe",
+        "purpose": "Run Windows Memory Diagnostic to check for faulty RAM",
+        "expected_result": "No memory problems detected",
+        "abnormal_result": "Memory errors found, pointing to faulty RAM as the cause"
+      },
+      {
+        "command": "sfc /scannow",
+        "purpose": "Repair corrupted system files that could be causing instability",
+        "expected_result": "No integrity violations found or issues repaired",
+        "abnormal_result": "Corrupt files found that cannot be repaired automatically"
+      },
+      {
+        "command": "verifier",
+        "purpose": "Open Driver Verifier to stress-test drivers and identify which one is causing crashes",
+        "expected_result": "Tool runs and helps narrow down a faulty driver over several restarts",
+        "abnormal_result": "System crashes more frequently while testing, which helps pinpoint the exact problem driver"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact stop code or error name shown on the blue screen",
+        "reason": "This code points toward the likely cause, such as memory, driver, or disk related problems"
+      },
+      {
+        "step": 2,
+        "action": "Think about what was recently installed or changed, such as new hardware, drivers, or software",
+        "reason": "Most blue screens are triggered by a recent change rather than appearing out of nowhere"
+      },
+      {
+        "step": 3,
+        "action": "If the crash happens during startup, boot into Safe Mode",
+        "reason": "Safe Mode avoids loading non-essential drivers, which helps confirm if a driver is the cause"
+      },
+      {
+        "step": 4,
+        "action": "From Safe Mode, uninstall recently added drivers or roll back a recent Windows update",
+        "reason": "This removes the most likely cause of a sudden crash pattern"
+      },
+      {
+        "step": 5,
+        "action": "Run the Windows Memory Diagnostic tool to test for faulty RAM",
+        "reason": "Bad memory is one of the most common hardware causes of blue screens"
+      },
+      {
+        "step": 6,
+        "action": "Run sfc /scannow to check for corrupted system files",
+        "reason": "Damaged system files can cause instability that leads to crashes"
+      },
+      {
+        "step": 7,
+        "action": "Check the computer for overheating by inspecting fans and vents for dust buildup",
+        "reason": "Overheating can cause sudden crashes as a safety measure to protect the hardware"
+      },
+      {
+        "step": 8,
+        "action": "Update all drivers, especially graphics and chipset, to the latest stable versions",
+        "reason": "Outdated or buggy drivers are one of the most common overall causes of blue screens"
+      }
+    ],
+    "possible_solutions": [
+      "Roll back or update the driver causing the crash",
+      "Replace faulty RAM",
+      "Repair corrupted system files",
+      "Clean dust to fix overheating",
+      "Uninstall a recently installed incompatible program",
+      "Reinstall Windows if the cause cannot be found"
+    ],
+    "prevention": [
+      "Keep drivers updated from official sources",
+      "Avoid installing unverified or pirated software",
+      "Clean the computer regularly to prevent overheating",
+      "Create restore points before major driver or software changes"
+    ],
+    "keywords": ["blue screen of death", "BSOD error code", "critical process died", "stop code", "computer crashes randomly"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-90 minutes",
+    "related_problems": ["Windows won't boot", "Corrupted system files", "Disk problems", "High RAM usage"]
+  },
+
+  {
+    "id": "WIN-005",
+    "category": "Windows Operating System",
+    "subcategory": "Display After Login",
+    "problem": "Black screen appears after logging into Windows",
+    "description": "The user enters their password and the login screen disappears, but instead of the desktop appearing, the screen stays completely black, sometimes with just a mouse cursor visible.",
+    "symptoms": [
+      "Screen goes black right after entering the password",
+      "Mouse cursor may still move on the black screen",
+      "No taskbar, icons, or desktop background appear",
+      "Ctrl+Alt+Delete may or may not bring up a menu"
+    ],
+    "possible_causes": [
+      "The graphics driver crashed or failed to load",
+      "Windows Explorer (the process that draws the desktop) is not starting",
+      "A second monitor or display setting is confusing the display output",
+      "A corrupted user profile",
+      "A stuck Windows update installing in the background",
+      "A startup program interfering with the desktop loading"
+    ],
+    "diagnostic_questions": [
+      "Does the mouse cursor move on the black screen, or is the whole computer frozen?",
+      "Does pressing Ctrl+Alt+Delete bring up any menu?",
+      "Are you using more than one monitor?",
+      "Did this start after a Windows update or driver installation?",
+      "Have you waited several minutes in case an update is finishing?"
+    ],
+    "commands": [
+      {
+        "command": "taskmgr",
+        "purpose": "Open Task Manager using Ctrl+Shift+Esc to check if Explorer.exe is running",
+        "expected_result": "Task Manager opens and Explorer.exe is listed as running",
+        "abnormal_result": "Explorer.exe is missing from the process list, confirming the desktop process failed to start"
+      },
+      {
+        "command": "explorer.exe",
+        "purpose": "Manually restart the Windows Explorer process from Task Manager's Run new task option",
+        "expected_result": "The desktop, taskbar, and icons appear normally",
+        "abnormal_result": "Explorer.exe fails to start or crashes again immediately, pointing to a deeper corruption issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Wait a few minutes in case Windows is finishing an update installation in the background",
+        "reason": "Some updates cause a temporary black screen while final setup steps complete"
+      },
+      {
+        "step": 2,
+        "action": "Try pressing Ctrl+Alt+Delete to see if a menu appears",
+        "reason": "This confirms whether the computer is truly frozen or just failing to display the desktop"
+      },
+      {
+        "step": 3,
+        "action": "Open Task Manager using Ctrl+Shift+Esc and check if Explorer.exe is running",
+        "reason": "Explorer.exe controls the desktop and taskbar, and if it is not running, nothing will display"
+      },
+      {
+        "step": 4,
+        "action": "If Explorer.exe is missing, go to File > Run new task in Task Manager and type explorer.exe",
+        "reason": "This manually restarts the process responsible for showing the desktop"
+      },
+      {
+        "step": 5,
+        "action": "If using multiple monitors, try pressing Windows key + P to cycle through display modes",
+        "reason": "Sometimes the display output is being sent to a monitor that is not currently active or connected"
+      },
+      {
+        "step": 6,
+        "action": "Update or roll back the graphics driver from Device Manager if accessible through Task Manager",
+        "reason": "A crashed graphics driver is a common cause of a black screen after login"
+      },
+      {
+        "step": 7,
+        "action": "If the problem is specific to one user account, try logging in with a different account to test for profile corruption",
+        "reason": "This helps determine if the issue is a broken user profile rather than a system-wide problem"
+      },
+      {
+        "step": 8,
+        "action": "Boot into Safe Mode if the black screen happens every time, to remove recently added startup programs or drivers",
+        "reason": "Safe Mode bypasses non-essential drivers and startup items that could be causing the black screen"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the Explorer.exe process manually",
+      "Update or roll back the graphics driver",
+      "Switch display output mode using Windows key + P",
+      "Fix a corrupted user profile by creating a new one",
+      "Remove a problematic startup program from Safe Mode",
+      "Wait for a background update to finish"
+    ],
+    "prevention": [
+      "Keep graphics drivers updated",
+      "Avoid forcefully powering off during Windows updates",
+      "Maintain a backup local administrator account for troubleshooting",
+      "Regularly check for and install Windows updates in a controlled manner"
+    ],
+    "keywords": ["black screen after login", "explorer.exe not running", "black screen with cursor", "windows desktop not loading"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-45 minutes",
+    "related_problems": ["User profile cannot be loaded", "Driver problems", "Windows Explorer not responding"]
+  },
+
+  {
+    "id": "WIN-006",
+    "category": "Windows Operating System",
+    "subcategory": "Login Issues",
+    "problem": "Login failed even with the correct password",
+    "description": "The user enters what they believe is the correct username and password at the Windows login screen, but receives an error message saying the login information is incorrect.",
+    "symptoms": [
+      "Message saying 'The password is incorrect' or 'Login attempt failed'",
+      "Password appears to be typed correctly but is still rejected",
+      "May happen with a local account or a Microsoft account",
+      "Account may show as locked after several attempts"
+    ],
+    "possible_causes": [
+      "Caps Lock or Num Lock is on, changing what is actually typed",
+      "The user is mistakenly trying a different account's password",
+      "The password was recently changed on another device (for Microsoft accounts) and not yet updated locally",
+      "A keyboard layout mismatch causing wrong characters to be typed",
+      "The account is locked out after too many failed attempts",
+      "Account corruption or a Windows update sync issue with Microsoft accounts"
+    ],
+    "diagnostic_questions": [
+      "Is Caps Lock or Num Lock currently turned on?",
+      "Is this a local Windows account or a Microsoft (online) account?",
+      "Did you recently change this password on another device or website?",
+      "Have you tried typing the password into a text box first to check for typing mistakes?",
+      "How many times have you tried logging in so far?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if Caps Lock or Num Lock is on, since this is often indicated by a small icon on the login screen",
+        "reason": "An accidentally enabled Caps Lock is one of the most common reasons a correct password gets rejected"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the correct keyboard layout is selected on the login screen",
+        "reason": "A mismatched keyboard layout can cause certain keys to produce different characters than expected"
+      },
+      {
+        "step": 3,
+        "action": "Type the password into a visible text field, such as the search bar temporarily, to check it is being typed correctly (only if it is safe and private to do so)",
+        "reason": "This helps rule out simple typing mistakes"
+      },
+      {
+        "step": 4,
+        "action": "If this is a Microsoft account, check if the password was changed recently on another device or through a browser",
+        "reason": "Microsoft accounts sync passwords online, and a recent change elsewhere may not have updated on this specific computer yet, especially without internet access"
+      },
+      {
+        "step": 5,
+        "action": "Confirm you are logging into the correct account if multiple accounts exist on the computer",
+        "reason": "It is common to accidentally try the password for a different account than the one selected"
+      },
+      {
+        "step": 6,
+        "action": "Wait a period of time if the account appears locked after several failed attempts",
+        "reason": "Some account lockout policies require a waiting period or administrator action before allowing further attempts"
+      },
+      {
+        "step": 7,
+        "action": "Use the 'Reset password' or 'I forgot my password' link on the login screen if available",
+        "reason": "This provides an official recovery path when the correct password truly cannot be recalled or is out of sync"
+      }
+    ],
+    "possible_solutions": [
+      "Turn off Caps Lock or Num Lock before typing the password",
+      "Select the correct keyboard layout",
+      "Update the password using an internet connection if it was changed on another device",
+      "Select the correct user account before entering the password",
+      "Use the official password reset option",
+      "Contact an administrator to unlock the account"
+    ],
+    "prevention": [
+      "Use a password manager to avoid typing mistakes",
+      "Keep track of which account type is used, local or Microsoft",
+      "Update passwords consistently across devices",
+      "Set up a password reset method in advance, such as a recovery email or phone number"
+    ],
+    "keywords": ["login failed", "password incorrect", "cannot log in windows", "caps lock password issue"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-20 minutes",
+    "related_problems": ["Forgot Windows password", "User profile cannot be loaded", "Active Directory login issues"]
+  },
+
+  {
+    "id": "WIN-007",
+    "category": "Windows Operating System",
+    "subcategory": "Login Issues",
+    "problem": "Forgot Windows password and cannot log in",
+    "description": "The user cannot remember their Windows password at all and has no way to log in normally, needing a way to reset it or regain access to the computer.",
+    "symptoms": [
+      "User cannot recall the password for their account",
+      "No other working account is available on the computer",
+      "Login screen only offers the option to enter a password with no visible reset link",
+      "User may not know if the account is local or a Microsoft account"
+    ],
+    "possible_causes": [
+      "Simply forgetting the password over time",
+      "Confusion between multiple accounts and their passwords",
+      "The account is a Microsoft account, and password reset requires internet access",
+      "The account is a local account with no recovery method set up",
+      "A previous password change was not properly remembered or recorded"
+    ],
+    "diagnostic_questions": [
+      "Is this a local Windows account or a Microsoft account (an email address used to sign in)?",
+      "Do you have access to another administrator account on this same computer?",
+      "Do you have internet access available right now to reset a Microsoft account password?",
+      "Did you ever set up a password reset disk for this account?",
+      "Is there any written record or password manager where this password might be saved?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Determine whether the account is a Microsoft account (usually an email address) or a local account",
+        "reason": "The recovery process is completely different depending on the account type"
+      },
+      {
+        "step": 2,
+        "action": "If it is a Microsoft account, use another device with internet access to visit the Microsoft account password reset page",
+        "reason": "Microsoft account passwords can be reset online and will sync to the computer the next time it connects to the internet"
+      },
+      {
+        "step": 3,
+        "action": "If it is a local account and another administrator account exists on the computer, log in with that account",
+        "reason": "An administrator account can reset another local account's password through Windows settings"
+      },
+      {
+        "step": 4,
+        "action": "If a password reset disk was created in advance for this account, use it at the login screen",
+        "reason": "This is the officially supported way to reset a forgotten local account password without losing data"
+      },
+      {
+        "step": 5,
+        "action": "If no other administrator account or reset disk is available, the built-in Administrator account may be enabled using Windows Recovery Environment by an experienced technician",
+        "reason": "This advanced option can regain access, though it requires care to avoid affecting encrypted files"
+      },
+      {
+        "step": 6,
+        "action": "As a last resort, consider a full reinstall of Windows if no recovery method is available and the data is not critical or is backed up separately",
+        "reason": "This is the final option when access truly cannot be recovered through normal means"
+      }
+    ],
+    "possible_solutions": [
+      "Reset a Microsoft account password online using another device",
+      "Use another administrator account to reset a local password",
+      "Use a previously created password reset disk",
+      "Enable and use the built-in Administrator account through recovery tools",
+      "Reinstall Windows as a last resort if data loss is acceptable"
+    ],
+    "prevention": [
+      "Set up a password reset disk in advance for local accounts",
+      "Add a recovery email or phone number to a Microsoft account",
+      "Use a password manager to securely store passwords",
+      "Keep a second administrator account available on important computers"
+    ],
+    "keywords": ["forgot windows password", "cannot remember password", "reset windows password", "locked out of computer"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-60 minutes",
+    "related_problems": ["Login failed", "User profile cannot be loaded", "BitLocker recovery"]
+  },
+
+  {
+    "id": "WIN-008",
+    "category": "Windows Operating System",
+    "subcategory": "User Profiles",
+    "problem": "User profile cannot be loaded",
+    "description": "After entering the correct password, Windows shows a message saying the user profile could not be loaded, and either logs the user in with a temporary profile or does not let them log in at all.",
+    "symptoms": [
+      "Message saying 'The User Profile Service failed the logon'",
+      "Message saying 'You have been logged on with a temporary profile'",
+      "Desktop appears empty or missing personal files and settings",
+      "Problem may affect one specific user account only"
+    ],
+    "possible_causes": [
+      "The user profile has become corrupted",
+      "Incorrect permissions on the profile folder",
+      "The profile registry entry is damaged or duplicated",
+      "Insufficient disk space preventing the profile from loading properly",
+      "A failed or interrupted Windows update affecting the profile",
+      "Third-party software conflicting with profile loading"
+    ],
+    "diagnostic_questions": [
+      "Does this happen with only one user account, or with every account on the computer?",
+      "Did this start after a specific event, such as a power outage, forced shutdown, or update?",
+      "Are you being logged in with a temporary profile, or not logged in at all?",
+      "How much free space is left on the main drive?"
+    ],
+    "commands": [
+      {
+        "command": "regedit",
+        "purpose": "Open the Registry Editor to check for duplicated or corrupted profile entries under ProfileList",
+        "expected_result": "Shows one clean entry per user account with a normal-looking security identifier",
+        "abnormal_result": "Shows duplicate entries, or entries with '.bak' at the end, indicating profile corruption"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Restart the computer once, since this issue can sometimes be a temporary glitch",
+        "reason": "A simple restart resolves some cases where the profile service failed to start correctly"
+      },
+      {
+        "step": 2,
+        "action": "Check if the message specifically mentions being logged in with a 'temporary profile'",
+        "reason": "This confirms the original profile is inaccessible, and Windows is trying to keep the user working with a blank temporary one instead"
+      },
+      {
+        "step": 3,
+        "action": "Log in with another administrator account if available, and check the affected user's profile folder under C:\\Users",
+        "reason": "This lets you inspect whether the profile folder still exists and appears intact"
+      },
+      {
+        "step": 4,
+        "action": "Open Registry Editor and navigate to the ProfileList key to look for duplicate or corrupted entries for the affected user, following an official Microsoft guide carefully",
+        "reason": "A common technical cause of this problem is a duplicated profile registry entry ending in '.bak', which needs careful correction"
+      },
+      {
+        "step": 5,
+        "action": "Check available disk space on the main drive",
+        "reason": "A completely full drive can prevent Windows from properly loading or writing to a user profile"
+      },
+      {
+        "step": 6,
+        "action": "If the profile cannot be repaired, create a new user profile and manually copy over important files, such as Documents, Desktop, and Pictures, from the old profile folder",
+        "reason": "This preserves the user's personal files while giving them a fresh, working profile"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the computer to clear a temporary glitch",
+      "Fix duplicated profile entries in the Registry Editor",
+      "Free up disk space if the drive is full",
+      "Create a new user profile and transfer files from the old one",
+      "Restore from a recent backup if available"
+    ],
+    "prevention": [
+      "Avoid forced shutdowns during updates or profile changes",
+      "Keep enough free disk space at all times",
+      "Regularly back up important user files separately from the profile folder",
+      "Address failed updates promptly rather than ignoring them"
+    ],
+    "keywords": ["user profile cannot be loaded", "temporary profile", "user profile service failed logon", "profile corrupted"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": ["Login failed", "Black screen after login", "Disk problems"]
+  },
+
+  {
+    "id": "WIN-009",
+    "category": "Windows Operating System",
+    "subcategory": "Performance",
+    "problem": "Windows takes a long time to shut down",
+    "description": "When the user selects Shut Down, the computer takes an unusually long time, sometimes several minutes, to actually turn off, instead of shutting down within a few seconds.",
+    "symptoms": [
+      "Shutdown screen with spinning dots stays on screen for a long time",
+      "Screen may go black but the computer does not fully power off",
+      "Fan continues running long after Shut Down was selected",
+      "Problem may happen every time or only occasionally"
+    ],
+    "possible_causes": [
+      "A program or background process is not closing properly",
+      "Windows Update is installing updates during shutdown",
+      "A driver is not responding to the shutdown signal",
+      "Fast Startup setting causing conflicts",
+      "Too many background services trying to close at once",
+      "A stuck network connection or shared drive trying to disconnect"
+    ],
+    "diagnostic_questions": [
+      "How long does shutdown usually take compared to how long it takes now?",
+      "Does this happen every time, or only sometimes?",
+      "Do you see any message about installing updates during shutdown?",
+      "Were you doing anything specific, like watching a video or using a printer, right before shutting down?"
+    ],
+    "commands": [
+      {
+        "command": "powercfg /lastwake",
+        "purpose": "Check what woke the computer last time, useful if shutdown seems related to power state issues",
+        "expected_result": "Shows expected wake source information",
+        "abnormal_result": "Shows an unexpected device or driver frequently interrupting power states"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Wait to see if a Windows Update is installing during shutdown, since this is normal and just needs to finish",
+        "reason": "Updates that install during shutdown can take extra time, but this is expected behavior rather than a problem"
+      },
+      {
+        "step": 2,
+        "action": "Close all open programs manually before shutting down and see if this speeds things up",
+        "reason": "A program not responding to the close request can delay the entire shutdown process"
+      },
+      {
+        "step": 3,
+        "action": "Check Event Viewer for shutdown-related warnings that might name a specific slow service or driver",
+        "reason": "Windows often logs exactly which component delayed the shutdown process"
+      },
+      {
+        "step": 4,
+        "action": "Turn off Fast Startup in Power Options and test if shutdown speed improves",
+        "reason": "Fast Startup can sometimes cause conflicts that ironically slow down or complicate shutdown and startup"
+      },
+      {
+        "step": 5,
+        "action": "Update graphics and network drivers, since these are common causes of shutdown delays",
+        "reason": "Outdated or buggy drivers can fail to properly release control during shutdown"
+      },
+      {
+        "step": 6,
+        "action": "Disconnect any mapped network drives or shared folders before shutting down if this seems related",
+        "reason": "Windows can take extra time trying to properly disconnect from network resources during shutdown"
+      },
+      {
+        "step": 7,
+        "action": "Run a malware scan if the slowdown started suddenly and unexpectedly",
+        "reason": "Some malware interferes with normal shutdown processes"
+      }
+    ],
+    "possible_solutions": [
+      "Allow pending updates to finish installing",
+      "Close programs manually before shutting down",
+      "Turn off Fast Startup",
+      "Update outdated drivers",
+      "Disconnect network drives before shutdown",
+      "Remove malware causing shutdown delays"
+    ],
+    "prevention": [
+      "Keep drivers updated regularly",
+      "Avoid leaving too many programs open before shutting down",
+      "Install Windows updates promptly instead of letting them build up",
+      "Periodically restart the computer to avoid buildup of background issues"
+    ],
+    "keywords": ["slow shutdown", "windows takes long to shut down", "shutdown stuck", "fast startup issue"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Slow startup", "High CPU usage", "Driver problems"]
+  },
+
+  {
+    "id": "WIN-010",
+    "category": "Windows Operating System",
+    "subcategory": "System Freeze",
+    "problem": "Windows freezes and becomes unresponsive",
+    "description": "The computer stops responding to mouse clicks and keyboard input entirely, with the screen staying frozen in place, sometimes requiring a forced restart to recover.",
+    "symptoms": [
+      "Mouse cursor does not move, or moves but nothing responds to clicks",
+      "Keyboard input has no effect",
+      "The screen stays exactly the same, sometimes with a frozen image",
+      "May happen randomly or during specific activities like gaming or heavy multitasking"
+    ],
+    "possible_causes": [
+      "A program has stopped responding and is blocking the whole system",
+      "Not enough RAM available for current tasks",
+      "Overheating causing the system to lock up",
+      "A driver conflict or crash",
+      "Failing hard drive or RAM",
+      "Malware causing system instability",
+      "Corrupted system files"
+    ],
+    "diagnostic_questions": [
+      "Does this happen during a specific activity, like gaming, printing, or opening a certain program?",
+      "Does the mouse cursor move at all when this happens?",
+      "How long does the freeze typically last before you have to restart?",
+      "Is the computer hot to the touch, or is the fan unusually loud, when this happens?",
+      "Has this happened before, and if so, how often?"
+    ],
+    "commands": [
+      {
+        "command": "taskmgr",
+        "purpose": "Try to open Task Manager during a freeze to check if the system is truly locked or if one program is just stuck",
+        "expected_result": "Task Manager opens and shows a program marked as 'Not Responding'",
+        "abnormal_result": "Task Manager itself will not open at all, indicating a deeper system-wide freeze rather than a single stuck program"
+      },
+      {
+        "command": "eventvwr.msc",
+        "purpose": "Check Event Viewer after a restart for error logs recorded around the time of the freeze",
+        "expected_result": "Shows relevant error or warning entries pointing to a cause",
+        "abnormal_result": "No clear errors logged, suggesting a hardware-level freeze that Windows could not record"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Try pressing Ctrl+Shift+Esc to open Task Manager during the freeze",
+        "reason": "This helps determine if only one program is stuck, or the whole system is truly frozen"
+      },
+      {
+        "step": 2,
+        "action": "If Task Manager opens and shows a specific program as 'Not Responding', end that program's task",
+        "reason": "This can restore normal function without needing to restart the whole computer"
+      },
+      {
+        "step": 3,
+        "action": "If nothing responds at all, wait a short time in case the system is just extremely busy, before forcing a restart",
+        "reason": "Occasionally heavy background tasks can cause a temporary, genuine freeze that resolves on its own"
+      },
+      {
+        "step": 4,
+        "action": "After restarting, check Event Viewer for any error messages logged around the time of the freeze",
+        "reason": "This can point to a specific driver, hardware component, or service involved in the freeze"
+      },
+      {
+        "step": 5,
+        "action": "Check if freezes happen during a specific activity, such as gaming or video editing, and monitor temperatures during that activity if possible",
+        "reason": "Overheating during demanding tasks is a common cause of freezing"
+      },
+      {
+        "step": 6,
+        "action": "Run the Windows Memory Diagnostic tool to test for faulty RAM",
+        "reason": "Failing memory can cause random freezes, especially under load"
+      },
+      {
+        "step": 7,
+        "action": "Update graphics and chipset drivers to their latest versions",
+        "reason": "Outdated drivers are a very common cause of system freezes, especially during graphics-intensive tasks"
+      },
+      {
+        "step": 8,
+        "action": "Run a full malware scan and check the hard drive for errors using chkdsk",
+        "reason": "Both malware and failing storage can cause unpredictable freezing"
+      }
+    ],
+    "possible_solutions": [
+      "End the specific unresponsive program using Task Manager",
+      "Clean dust and improve cooling to prevent overheating",
+      "Replace faulty RAM",
+      "Update graphics and chipset drivers",
+      "Remove malware",
+      "Repair disk errors using chkdsk"
+    ],
+    "prevention": [
+      "Keep the computer clean and well-ventilated",
+      "Keep drivers updated",
+      "Avoid running too many demanding programs at once",
+      "Monitor system temperatures during heavy use"
+    ],
+    "keywords": ["windows freezes", "computer not responding", "system frozen", "screen frozen", "unresponsive computer"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-50 minutes",
+    "related_problems": ["High CPU usage", "Blue screen errors", "Overheating computer", "Disk problems"]
+  },
+
+  {
+    "id": "WIN-011",
+    "category": "Windows Operating System",
+    "subcategory": "Performance",
+    "problem": "High CPU usage is slowing down the computer",
+    "description": "Task Manager shows the CPU usage staying very high, often near 100%, even when the user is not running demanding programs, causing the whole computer to feel slow and unresponsive.",
+    "symptoms": [
+      "Task Manager shows CPU usage constantly near 100%",
+      "Fan runs loudly and continuously",
+      "Programs are slow to open or respond",
+      "Computer feels hot to the touch"
+    ],
+    "possible_causes": [
+      "A specific program or process using excessive CPU resources",
+      "Malware running hidden processes in the background",
+      "A Windows update or system maintenance task running in the background",
+      "Too many programs running at the same time",
+      "A driver issue causing a process to use excessive CPU",
+      "Outdated hardware unable to keep up with current software demands"
+    ],
+    "diagnostic_questions": [
+      "Does this happen all the time, or only during specific activities?",
+      "Have you checked Task Manager to see which specific process is using the most CPU?",
+      "Did this start suddenly, or has it been building up over time?",
+      "Have you installed any new software recently?"
+    ],
+    "commands": [
+      {
+        "command": "taskmgr",
+        "purpose": "Open Task Manager and sort processes by CPU usage to identify the exact cause",
+        "expected_result": "Shows a clear picture of which process is using the most CPU",
+        "abnormal_result": "An unfamiliar or oddly named process is using a very high percentage of CPU, which may indicate malware"
+      },
+      {
+        "command": "resmon",
+        "purpose": "Open Resource Monitor for more detailed information about CPU usage by process and service",
+        "expected_result": "Shows a detailed breakdown of what is using CPU resources",
+        "abnormal_result": "A system process or unknown service consistently shows unusually high usage"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Task Manager and sort the Processes tab by CPU usage from highest to lowest",
+        "reason": "This immediately shows which specific program or process is responsible for the high usage"
+      },
+      {
+        "step": 2,
+        "action": "Identify whether the top process is a program you recognize and use intentionally",
+        "reason": "This helps decide whether the high usage is expected (a demanding program you are using) or unexpected (something unfamiliar)"
+      },
+      {
+        "step": 3,
+        "action": "If the top process is unfamiliar or oddly named, research it briefly or treat it as a potential malware concern",
+        "reason": "Malware often disguises itself as a normal-sounding process to use system resources without detection"
+      },
+      {
+        "step": 4,
+        "action": "Run a full antivirus scan if malware is suspected",
+        "reason": "This can detect and remove hidden malicious processes consuming CPU resources"
+      },
+      {
+        "step": 5,
+        "action": "Check if Windows Update or a system maintenance task is running in the background",
+        "reason": "These legitimate background tasks can temporarily cause high CPU usage until they finish"
+      },
+      {
+        "step": 6,
+        "action": "Close unnecessary programs and browser tabs that may be contributing to overall CPU load",
+        "reason": "Reducing the number of active programs directly reduces total CPU demand"
+      },
+      {
+        "step": 7,
+        "action": "Update the driver related to the high-usage process if it appears to be a system or hardware-related service",
+        "reason": "A malfunctioning driver can cause an associated system process to use excessive CPU"
+      },
+      {
+        "step": 8,
+        "action": "Consider whether the computer's hardware is simply older and struggling to keep up with current software, and if an upgrade may be needed",
+        "reason": "Sometimes consistently high CPU usage with normal programs indicates the hardware itself is outdated"
+      }
+    ],
+    "possible_solutions": [
+      "Close or uninstall the specific program causing high usage",
+      "Remove malware found during a scan",
+      "Wait for legitimate background tasks like updates to finish",
+      "Update a driver linked to a high-usage system process",
+      "Upgrade hardware if it is simply outdated",
+      "Reduce the number of programs running simultaneously"
+    ],
+    "prevention": [
+      "Regularly monitor Task Manager to catch problems early",
+      "Keep antivirus software active and updated",
+      "Avoid installing unnecessary background programs",
+      "Keep drivers and Windows updated"
+    ],
+    "keywords": ["high CPU usage", "CPU at 100 percent", "computer slow high CPU", "task manager high usage process"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Slow computer", "Malware symptoms", "High RAM usage", "Overheating computer"]
+  },
+
+  {
+    "id": "WIN-012",
+    "category": "Windows Operating System",
+    "subcategory": "Performance",
+    "problem": "High RAM (memory) usage is slowing down the computer",
+    "description": "Task Manager shows memory usage staying very high, often close to the maximum available, causing programs to slow down, freeze briefly, or the whole system to feel sluggish.",
+    "symptoms": [
+      "Task Manager shows memory usage near 90-100%",
+      "Programs take a long time to switch between or respond",
+      "Computer may briefly freeze when opening new programs",
+      "System may show low memory warnings"
+    ],
+    "possible_causes": [
+      "Too many programs or browser tabs open at once",
+      "A memory leak in a specific program that keeps using more memory over time",
+      "Not enough physical RAM installed for current usage needs",
+      "Background programs and startup items using more memory than needed",
+      "Malware consuming memory resources"
+    ],
+    "diagnostic_questions": [
+      "How many programs and browser tabs do you typically have open at the same time?",
+      "Does memory usage increase gradually the longer the computer stays on, or is it high right from startup?",
+      "How much total RAM does the computer have installed?",
+      "Have you noticed one specific program using an unusually large or growing amount of memory?"
+    ],
+    "commands": [
+      {
+        "command": "taskmgr",
+        "purpose": "Open Task Manager and sort processes by memory usage to find the biggest consumers",
+        "expected_result": "Shows a clear list of which programs are using the most memory",
+        "abnormal_result": "A single process shows memory usage that keeps growing over time without the user doing anything new, suggesting a memory leak"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Task Manager and sort the Processes tab by memory usage from highest to lowest",
+        "reason": "This shows exactly which programs are using the most memory right now"
+      },
+      {
+        "step": 2,
+        "action": "Close unnecessary programs and browser tabs that are not currently needed",
+        "reason": "This is the fastest way to free up memory and improve responsiveness immediately"
+      },
+      {
+        "step": 3,
+        "action": "Watch if a specific program's memory usage keeps climbing steadily over time without the user doing anything new in it",
+        "reason": "This pattern suggests a memory leak, where a program fails to release memory it no longer needs"
+      },
+      {
+        "step": 4,
+        "action": "If a memory leak is suspected in a specific program, close and reopen that program periodically, and check for updates to it",
+        "reason": "Updates often fix known memory leak bugs, and restarting the program releases the leaked memory temporarily"
+      },
+      {
+        "step": 5,
+        "action": "Check the Startup tab in Task Manager and disable unnecessary startup programs",
+        "reason": "Fewer background programs running from startup means more memory available for active use"
+      },
+      {
+        "step": 6,
+        "action": "Run a full antivirus scan to rule out malware consuming memory",
+        "reason": "Some malware runs memory-intensive hidden processes"
+      },
+      {
+        "step": 7,
+        "action": "Check the total amount of RAM installed and compare it to what is typically recommended for the programs being used",
+        "reason": "If the computer simply does not have enough physical RAM for the workload, adding more RAM may be the real long-term solution"
+      }
+    ],
+    "possible_solutions": [
+      "Close unnecessary programs and browser tabs",
+      "Restart a program experiencing a memory leak",
+      "Update software with known memory leak issues",
+      "Disable unnecessary startup programs",
+      "Remove malware consuming memory",
+      "Add more physical RAM to the computer"
+    ],
+    "prevention": [
+      "Avoid keeping excessive tabs and programs open at once",
+      "Keep software updated to fix known memory leak bugs",
+      "Restart the computer regularly to clear accumulated memory usage",
+      "Monitor memory usage periodically to catch issues early"
+    ],
+    "keywords": ["high RAM usage", "memory usage 100 percent", "computer slow low memory", "memory leak program"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Slow computer", "High CPU usage", "Malware symptoms"]
+  },
+
+  {
+    "id": "WIN-013",
+    "category": "Windows Operating System",
+    "subcategory": "Performance",
+    "problem": "High disk usage is slowing down the computer",
+    "description": "Task Manager shows disk usage staying at or near 100% even when the user is not actively saving or opening large files, making the whole computer feel slow and unresponsive.",
+    "symptoms": [
+      "Task Manager shows disk usage constantly at or near 100%",
+      "Programs take a long time to open or respond",
+      "Hard disk activity light stays on constantly (for computers with an indicator light)",
+      "Computer feels generally sluggish, especially when opening files"
+    ],
+    "possible_causes": [
+      "Windows Search indexing running in the background",
+      "A background antivirus scan in progress",
+      "Windows Update downloading or installing in the background",
+      "A failing or very old, slow hard drive",
+      "Too many programs trying to read or write files at the same time",
+      "Superfetch/SysMain service causing excessive disk activity on some systems"
+    ],
+    "diagnostic_questions": [
+      "Does this happen all the time, or does it improve after leaving the computer running for a while?",
+      "Is this a traditional hard drive (HDD) or a solid state drive (SSD)?",
+      "Have you checked Task Manager to see which specific process is causing the high disk usage?",
+      "Has this problem been happening for a long time, or did it start recently?"
+    ],
+    "commands": [
+      {
+        "command": "taskmgr",
+        "purpose": "Open Task Manager and sort processes by disk usage to identify the cause",
+        "expected_result": "Shows a clear picture of which process is using the disk the most",
+        "abnormal_result": "A system process shows very high, sustained disk usage even when idle, pointing to a specific service issue"
+      },
+      {
+        "command": "services.msc",
+        "purpose": "Check the status of the Windows Search and SysMain services, which are common causes of high disk usage",
+        "expected_result": "Services are running normally with reasonable resource use",
+        "abnormal_result": "One of these services correlates directly with spikes in disk activity"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Task Manager and sort the Processes tab by disk usage to see what is causing the activity",
+        "reason": "This identifies the exact process responsible for the high disk usage"
+      },
+      {
+        "step": 2,
+        "action": "Check if Windows Search indexing, an antivirus scan, or Windows Update is currently running",
+        "reason": "These are common legitimate causes of temporary high disk usage that will resolve once they finish"
+      },
+      {
+        "step": 3,
+        "action": "If indexing is the cause and happens frequently, consider adjusting indexing options to index fewer locations",
+        "reason": "Reducing what Windows Search indexes lowers ongoing disk activity"
+      },
+      {
+        "step": 4,
+        "action": "If the SysMain (Superfetch) service seems to be causing high disk usage, especially on an older hard drive, consider disabling it as a test",
+        "reason": "This service can cause excessive disk activity on some systems, particularly older or slower drives"
+      },
+      {
+        "step": 5,
+        "action": "Check if this is a traditional hard drive (HDD) rather than an SSD",
+        "reason": "Older hard drives are naturally much slower and more easily overwhelmed, making high disk usage symptoms more noticeable"
+      },
+      {
+        "step": 6,
+        "action": "Run chkdsk to check for disk errors that could be slowing down normal read and write operations",
+        "reason": "A drive struggling with errors will show high usage while accomplishing very little actual work"
+      },
+      {
+        "step": 7,
+        "action": "Run a full antivirus and malware scan",
+        "reason": "Some malware causes excessive, unnecessary disk activity"
+      },
+      {
+        "step": 8,
+        "action": "Consider upgrading from a hard disk drive to a solid state drive if the computer is old and disk usage remains consistently high",
+        "reason": "This is often the most effective long-term fix for a computer with an old, slow, overwhelmed hard drive"
+      }
+    ],
+    "possible_solutions": [
+      "Wait for legitimate background tasks like indexing or updates to finish",
+      "Adjust Windows Search indexing settings",
+      "Disable the SysMain service if it is causing problems",
+      "Repair disk errors using chkdsk",
+      "Remove malware causing excessive disk activity",
+      "Upgrade to an SSD for significantly better performance"
+    ],
+    "prevention": [
+      "Keep the hard drive healthy with regular checks",
+      "Avoid running too many disk-intensive programs at once",
+      "Keep antivirus software updated and scheduled during idle times",
+      "Consider an SSD upgrade for aging computers"
+    ],
+    "keywords": ["high disk usage", "disk usage 100 percent", "hard drive slow", "windows search indexing slow"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Slow computer", "Disk problems", "High CPU usage"]
+  },
+
+  {
+    "id": "WIN-014",
+    "category": "Windows Operating System",
+    "subcategory": "Windows Update",
+    "problem": "Windows Update fails to install and shows an error",
+    "description": "The user tries to install available Windows updates, but the installation fails partway through or immediately, showing an error code and leaving the update not installed.",
+    "symptoms": [
+      "Error message with a code, such as '0x80070002' or similar, when trying to update",
+      "Update downloads but fails during installation",
+      "Update seems to install, but the same update reappears as available afterward",
+      "Windows Update page shows 'There were some problems installing updates'"
+    ],
+    "possible_causes": [
+      "Corrupted Windows Update components or cache",
+      "Insufficient free disk space for the update to install",
+      "A pending restart that has not been completed",
+      "Corrupted system files interfering with the update process",
+      "Third-party antivirus software blocking the update",
+      "A conflict with a specific driver or piece of software"
+    ],
+    "diagnostic_questions": [
+      "What is the exact error code shown when the update fails?",
+      "How much free space is currently on the main drive?",
+      "Has the computer been restarted recently, since some updates need a restart to complete?",
+      "Does this happen with every update, or just a specific one?"
+    ],
+    "commands": [
+      {
+        "command": "net stop wuauserv",
+        "purpose": "Stop the Windows Update service before clearing its cache",
+        "expected_result": "Service stops successfully",
+        "abnormal_result": "Service fails to stop, which may require a restart before continuing"
+      },
+      {
+        "command": "ren C:\\Windows\\SoftwareDistribution SoftwareDistribution.old",
+        "purpose": "Rename the Windows Update cache folder so Windows creates a fresh one, clearing out any corrupted update files",
+        "expected_result": "Folder renames successfully with no errors",
+        "abnormal_result": "Access denied error, meaning the Windows Update service was not fully stopped first"
+      },
+      {
+        "command": "net start wuauserv",
+        "purpose": "Restart the Windows Update service after clearing the cache",
+        "expected_result": "Service starts successfully",
+        "abnormal_result": "Service fails to start, which may indicate a deeper service configuration problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the exact error code shown and note it for reference",
+        "reason": "Specific error codes point toward specific known causes and solutions"
+      },
+      {
+        "step": 2,
+        "action": "Restart the computer, since a pending restart from a previous update can block new ones from installing",
+        "reason": "This is a simple step that resolves a surprisingly large number of update failures"
+      },
+      {
+        "step": 3,
+        "action": "Check available free disk space and free up space if it is low",
+        "reason": "Windows Updates, especially major feature updates, require a significant amount of free space to install successfully"
+      },
+      {
+        "step": 4,
+        "action": "Run the built-in Windows Update Troubleshooter from Settings",
+        "reason": "This automated tool detects and fixes many common update problems without manual intervention"
+      },
+      {
+        "step": 5,
+        "action": "Stop the Windows Update service, rename the SoftwareDistribution folder, then restart the service",
+        "reason": "This clears out potentially corrupted update files and forces Windows to download them fresh"
+      },
+      {
+        "step": 6,
+        "action": "Run sfc /scannow to repair any corrupted system files that might be interfering with the update process",
+        "reason": "System file corruption can prevent updates from installing correctly"
+      },
+      {
+        "step": 7,
+        "action": "Temporarily disable third-party antivirus software and try the update again",
+        "reason": "Some antivirus programs mistakenly block parts of the update process"
+      },
+      {
+        "step": 8,
+        "action": "If a specific update consistently fails, search for that update's specific known issues, since some updates have documented problems affecting certain hardware or software combinations",
+        "reason": "Some update failures are caused by widely known compatibility issues that Microsoft addresses in later releases"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the computer to complete a pending update",
+      "Free up disk space",
+      "Run the Windows Update Troubleshooter",
+      "Clear the Windows Update cache",
+      "Repair system files with sfc /scannow",
+      "Temporarily disable third-party antivirus during the update"
+    ],
+    "prevention": [
+      "Keep enough free disk space available at all times",
+      "Install updates promptly rather than letting many build up",
+      "Restart the computer regularly to complete pending updates",
+      "Keep antivirus software updated to avoid compatibility conflicts"
+    ],
+    "keywords": ["windows update failed", "update error code", "windows update stuck", "software distribution folder"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-50 minutes",
+    "related_problems": ["Slow startup", "Corrupted system files", "Disk problems"]
+  },
+
+  {
+    "id": "WIN-015",
+    "category": "Windows Operating System",
+    "subcategory": "Activation",
+    "problem": "Windows activation error appears",
+    "description": "Windows shows a message saying it is not activated, or displays an activation error, sometimes with a watermark on the desktop or a notice that certain personalization features are unavailable.",
+    "symptoms": [
+      "Message saying 'Windows is not activated'",
+      "Watermark in the corner of the desktop mentioning activation",
+      "Certain personalization settings, like changing the background, are greyed out",
+      "Error code shown when trying to activate manually"
+    ],
+    "possible_causes": [
+      "The product key was not properly entered or transferred",
+      "A recent major hardware change caused the digital license to no longer match",
+      "The trial period for Windows has expired",
+      "A recent Windows reinstall did not carry over the original activation",
+      "Network issues preventing the computer from contacting Microsoft's activation servers",
+      "Using an invalid or already-used product key"
+    ],
+    "diagnostic_questions": [
+      "Was this computer activated successfully before, or is this the first time setting it up?",
+      "Did you recently change major hardware, such as the motherboard or hard drive?",
+      "Do you have the original product key or proof of purchase for Windows?",
+      "Is the computer currently connected to the internet?",
+      "What exact error code appears when you try to activate?"
+    ],
+    "commands": [
+      {
+        "command": "slmgr /xpr",
+        "purpose": "Check the current activation status and expiration if applicable",
+        "expected_result": "Shows 'The machine is permanently activated'",
+        "abnormal_result": "Shows a message indicating the license is not activated or is in a grace period"
+      },
+      {
+        "command": "slmgr /ato",
+        "purpose": "Attempt to reactivate Windows using the currently installed product key",
+        "expected_result": "Activation completes successfully",
+        "abnormal_result": "An error code appears, providing more specific information about why activation failed"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the computer has an active internet connection",
+        "reason": "Windows activation requires contacting Microsoft's servers, which is not possible without internet access"
+      },
+      {
+        "step": 2,
+        "action": "Check the current activation status using slmgr /xpr",
+        "reason": "This confirms exactly what state the activation is in before attempting fixes"
+      },
+      {
+        "step": 3,
+        "action": "Try running the Activation Troubleshooter found in Settings under Update & Security > Activation",
+        "reason": "This built-in tool can automatically fix many common activation problems, especially after hardware changes"
+      },
+      {
+        "step": 4,
+        "action": "If a recent major hardware change caused this, and the computer was previously activated with the same Microsoft account, sign in with that account during troubleshooting",
+        "reason": "Digital licenses can often be relinked to the correct hardware through the associated Microsoft account"
+      },
+      {
+        "step": 5,
+        "action": "If you have a valid product key, enter it manually through Settings > Activation",
+        "reason": "Manually entering a valid key can resolve activation issues caused by a missing or incorrect key"
+      },
+      {
+        "step": 6,
+        "action": "Confirm the product key being used has not already been used on another computer beyond its allowed number of activations",
+        "reason": "Product keys, especially retail ones, are often limited to a specific number of activations"
+      },
+      {
+        "step": 7,
+        "action": "If none of these steps work, contact Microsoft support or the place of purchase for further verification of the license",
+        "reason": "Some activation issues require manual verification that only Microsoft support can resolve"
+      }
+    ],
+    "possible_solutions": [
+      "Confirm internet connectivity and retry activation",
+      "Run the Activation Troubleshooter",
+      "Sign in with the Microsoft account linked to the digital license",
+      "Enter a valid product key manually",
+      "Contact Microsoft support for further verification"
+    ],
+    "prevention": [
+      "Link Windows activation to a Microsoft account for easier recovery after hardware changes",
+      "Keep a record of the original product key",
+      "Avoid using unofficial or shared product keys",
+      "Reactivate promptly after major hardware changes"
+    ],
+    "keywords": ["windows not activated", "activation error", "windows watermark activation", "product key invalid"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Windows won't boot", "Corrupted system files"]
+  },
+
+  {
+    "id": "WIN-016",
+    "category": "Windows Operating System",
+    "subcategory": "Application Errors",
+    "problem": "A program shows an error about a missing DLL file",
+    "description": "When trying to open a specific program, Windows shows an error message saying a particular DLL file is missing, and the program fails to start.",
+    "symptoms": [
+      "Error message such as 'xxxxx.dll is missing from your computer'",
+      "The affected program will not open at all",
+      "Error may appear right when the computer starts, if the program runs at startup",
+      "Other programs may work normally"
+    ],
+    "possible_causes": [
+      "The DLL file was accidentally deleted or moved",
+      "A malware scan removed the DLL file, mistaking it for a threat",
+      "The program itself is corrupted or was not installed completely",
+      "A required software package, like Visual C++ Redistributable, is missing",
+      "The DLL file exists but is registered incorrectly",
+      "Windows system files related to the DLL are corrupted"
+    ],
+    "diagnostic_questions": [
+      "What is the exact name of the missing DLL file mentioned in the error?",
+      "Does this happen with one specific program, or many programs?",
+      "Did this start after a Windows update, antivirus scan, or manually deleting files?",
+      "Was this program working correctly before, or is this a fresh install?"
+    ],
+    "commands": [
+      {
+        "command": "sfc /scannow",
+        "purpose": "Scan and repair missing or corrupted Windows system files, which sometimes includes shared DLL files",
+        "expected_result": "No integrity violations found, or issues found and repaired",
+        "abnormal_result": "Corrupt files found that could not be repaired automatically"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact name of the missing DLL file from the error message",
+        "reason": "This tells you whether it is a common shared Windows system file or a file specific to one program"
+      },
+      {
+        "step": 2,
+        "action": "Check if this happens with just one program or several, which helps identify whether the file is shared or program-specific",
+        "reason": "A DLL missing across many programs usually points to a Windows system file problem, while one affecting only one program points to that program's installation"
+      },
+      {
+        "step": 3,
+        "action": "Reinstall the affected program completely, uninstalling it first and downloading a fresh copy from the official source",
+        "reason": "This restores any missing files that were part of the original program installation"
+      },
+      {
+        "step": 4,
+        "action": "If the DLL is related to Visual C++ Redistributable or a similar common software package, download and install the latest version from the official Microsoft website",
+        "reason": "Many programs rely on these shared packages, and a missing or outdated version causes DLL errors across multiple programs"
+      },
+      {
+        "step": 5,
+        "action": "Run sfc /scannow to check for and repair missing or corrupted Windows system files",
+        "reason": "This can restore shared system DLL files that may have been accidentally deleted or damaged"
+      },
+      {
+        "step": 6,
+        "action": "Check antivirus quarantine or history logs to see if the DLL file was removed as a false positive",
+        "reason": "Antivirus software sometimes mistakenly flags legitimate DLL files as threats and removes them"
+      },
+      {
+        "step": 7,
+        "action": "Avoid downloading DLL files individually from random websites, and instead reinstall the source program or Windows component",
+        "reason": "DLL files from unofficial sources can be outdated, incompatible, or contain malware"
+      }
+    ],
+    "possible_solutions": [
+      "Reinstall the affected program",
+      "Install or repair the Visual C++ Redistributable package",
+      "Repair Windows system files using sfc /scannow",
+      "Restore a falsely quarantined DLL file from antivirus history",
+      "Reinstall the related Windows feature or component"
+    ],
+    "prevention": [
+      "Avoid manually deleting files from program installation folders",
+      "Keep antivirus software properly configured to avoid false positives",
+      "Install software only from official, trusted sources",
+      "Keep Windows updated to maintain healthy system files"
+    ],
+    "keywords": ["missing DLL file", "dll not found error", "program will not open dll error", "visual c++ redistributable missing"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Corrupted system files", "Office program crashes", "Malware symptoms"]
+  },
+
+  {
+    "id": "WIN-017",
+    "category": "Windows Operating System",
+    "subcategory": "System Files",
+    "problem": "Corrupted system files are causing various problems",
+    "description": "The computer shows random errors, crashes, or unusual behavior across different programs and features, and a scan reveals that core Windows system files have become damaged or corrupted.",
+    "symptoms": [
+      "Random errors in different, unrelated programs",
+      "Certain Windows features do not work correctly",
+      "Blue screens or freezes without an obvious single cause",
+      "sfc /scannow reports finding corrupt files"
+    ],
+    "possible_causes": [
+      "Sudden power loss during a file write or update",
+      "Malware that damaged or altered system files",
+      "A failing hard drive causing data corruption",
+      "An interrupted or failed Windows update",
+      "Manually deleted or modified system files by mistake"
+    ],
+    "diagnostic_questions": [
+      "Have you noticed random, unrelated problems happening across different programs?",
+      "Did you experience any sudden power loss or forced shutdowns recently?",
+      "Have you run any system file scans yet, and what did they report?",
+      "Do you suspect malware might have been on the computer recently?"
+    ],
+    "commands": [
+      {
+        "command": "sfc /scannow",
+        "purpose": "Scan all protected system files and repair any that are corrupted or missing",
+        "expected_result": "Message says 'Windows Resource Protection did not find any integrity violations', or reports successful repairs",
+        "abnormal_result": "Message says corruption was found but could not be fixed, requiring further repair steps"
+      },
+      {
+        "command": "DISM /Online /Cleanup-Image /RestoreHealth",
+        "purpose": "Repair the underlying Windows system image, which sfc relies on to fix files correctly",
+        "expected_result": "Operation completes successfully, restoring health to the system image",
+        "abnormal_result": "The operation fails, possibly due to no internet connection needed to download replacement files, or deeper corruption"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Run sfc /scannow first to scan for and attempt to repair corrupted system files",
+        "reason": "This is the primary built-in tool for detecting and fixing this exact type of problem"
+      },
+      {
+        "step": 2,
+        "action": "If sfc /scannow reports it could not fix some files, run DISM /Online /Cleanup-Image /RestoreHealth",
+        "reason": "DISM repairs the underlying system image that sfc uses as a reference, which can allow sfc to succeed on a second attempt"
+      },
+      {
+        "step": 3,
+        "action": "After running DISM, run sfc /scannow again to see if it can now successfully repair the previously found issues",
+        "reason": "This two-step process resolves many cases where sfc alone was not enough"
+      },
+      {
+        "step": 4,
+        "action": "Ensure the computer has an internet connection when running DISM, since it may need to download replacement files from Microsoft",
+        "reason": "Without internet access, DISM may not be able to fully repair the system image in all cases"
+      },
+      {
+        "step": 5,
+        "action": "Run a full antivirus scan to rule out malware as the ongoing cause of file corruption",
+        "reason": "If malware is still present, it may continue to damage system files even after a repair"
+      },
+      {
+        "step": 6,
+        "action": "Check the hard drive for physical errors using chkdsk",
+        "reason": "A failing drive can continue to corrupt files even after a successful repair, since the underlying storage itself is unreliable"
+      },
+      {
+        "step": 7,
+        "action": "If corruption continues to reappear despite repairs, consider a full reinstall or repair install of Windows using installation media",
+        "reason": "This replaces all system files fresh, resolving persistent corruption that repeated targeted repairs cannot fix"
+      }
+    ],
+    "possible_solutions": [
+      "Repair files using sfc /scannow",
+      "Restore system image health using DISM",
+      "Remove malware causing ongoing corruption",
+      "Repair or replace a failing hard drive",
+      "Perform a repair install or full reinstall of Windows"
+    ],
+    "prevention": [
+      "Use a UPS to prevent sudden power loss",
+      "Keep antivirus software active and updated",
+      "Avoid manually editing or deleting system files",
+      "Address hard drive warning signs early"
+    ],
+    "keywords": ["corrupted system files", "sfc scannow found corruption", "DISM restorehealth", "windows resource protection"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-70 minutes",
+    "related_problems": ["Blue screen errors", "Windows won't boot", "Missing DLL file"]
+  },
+
+  {
+    "id": "WIN-018",
+    "category": "Windows Operating System",
+    "subcategory": "Recovery",
+    "problem": "Safe Mode will not start or has problems",
+    "description": "The user tries to start Windows in Safe Mode to troubleshoot a problem, but Safe Mode either fails to start, gets stuck, or shows the same problems that occur in normal mode.",
+    "symptoms": [
+      "Computer restarts back to normal mode instead of Safe Mode",
+      "Safe Mode gets stuck on its own loading screen",
+      "The problem being investigated also happens in Safe Mode",
+      "Menu to select Safe Mode does not appear when expected"
+    ],
+    "possible_causes": [
+      "Boot configuration data does not have Safe Mode properly available",
+      "Deep corruption in core Windows files affecting even Safe Mode",
+      "Hardware problems that affect all boot modes equally",
+      "Incorrect method used to try entering Safe Mode",
+      "A driver or service marked to always load, even in Safe Mode, is causing the problem"
+    ],
+    "diagnostic_questions": [
+      "What method are you using to try to enter Safe Mode?",
+      "Does the computer restart back to normal Windows, or get stuck somewhere new?",
+      "Is the same original problem also happening while in Safe Mode?",
+      "Can you access Windows Recovery Environment through installation media instead?"
+    ],
+    "commands": [
+      {
+        "command": "bcdedit /set {default} bootmenupolicy legacy",
+        "purpose": "Change the boot menu policy so pressing F8 during startup shows the legacy boot options menu, including Safe Mode",
+        "expected_result": "Command completes successfully",
+        "abnormal_result": "Access denied error, meaning this needs to be run from an elevated command prompt or recovery environment"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Try entering Safe Mode through Settings > Update & Security > Recovery > Advanced Startup, if Windows can start normally at all",
+        "reason": "This is the most reliable modern method for entering Safe Mode when Windows can boot into the login screen or desktop"
+      },
+      {
+        "step": 2,
+        "action": "If Windows cannot start normally, use Windows installation media or a recovery drive to access Windows Recovery Environment, then choose Troubleshoot > Advanced Options > Startup Settings",
+        "reason": "This method works even when the normal desktop or login screen cannot be reached"
+      },
+      {
+        "step": 3,
+        "action": "If the same problem occurs even in Safe Mode, this points toward a hardware issue or very deep system corruption rather than a specific driver or program",
+        "reason": "Safe Mode loads only essential drivers, so if problems persist there, third-party software is unlikely to be the cause"
+      },
+      {
+        "step": 4,
+        "action": "If Safe Mode gets stuck at its own loading screen, force a restart and try Safe Mode with Networking or Safe Mode with Command Prompt instead",
+        "reason": "Different Safe Mode variations load slightly different sets of drivers, which can help isolate the cause"
+      },
+      {
+        "step": 5,
+        "action": "From Recovery Environment, run sfc /scannow and chkdsk if Safe Mode itself cannot be reached normally",
+        "reason": "These repair tools can fix underlying corruption that might be preventing Safe Mode from working correctly"
+      },
+      {
+        "step": 6,
+        "action": "As a more advanced step, use bcdedit to ensure the boot menu policy allows access to legacy boot options if needed",
+        "reason": "In rare cases, boot configuration settings prevent the Safe Mode option from appearing correctly"
+      }
+    ],
+    "possible_solutions": [
+      "Access Safe Mode through Advanced Startup settings",
+      "Use installation media to reach Recovery Environment and Startup Settings",
+      "Try alternate Safe Mode variations like Networking or Command Prompt",
+      "Repair boot configuration data",
+      "Repair system files from Recovery Environment"
+    ],
+    "prevention": [
+      "Create a Windows recovery drive in advance while the computer is working normally",
+      "Keep Windows installation media available for troubleshooting",
+      "Avoid deep system file modifications without proper backups"
+    ],
+    "keywords": ["safe mode will not start", "safe mode stuck", "cannot enter safe mode", "startup settings missing"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-50 minutes",
+    "related_problems": ["Windows won't boot", "Automatic Repair loop", "Corrupted system files"]
+  },
+
+  {
+    "id": "WIN-019",
+    "category": "Windows Operating System",
+    "subcategory": "Recovery",
+    "problem": "Restore point failed to complete or could not be created",
+    "description": "The user tries to use System Restore to go back to an earlier point in time, or tries to create a new restore point, but the process fails partway through with an error message.",
+    "symptoms": [
+      "Error message saying 'System Restore did not complete successfully'",
+      "Restore process starts but fails and reverts changes automatically",
+      "Attempting to create a new restore point shows an error",
+      "Message may mention a specific error code or unexpected reason for failure"
+    ],
+    "possible_causes": [
+      "System Restore is turned off or has too little disk space allocated to it",
+      "Antivirus software is interfering with the restore process",
+      "Corrupted system files preventing the restore from completing",
+      "The restore point itself is damaged or incomplete",
+      "A disk error is interrupting the restore process midway"
+    ],
+    "diagnostic_questions": [
+      "What exact error message or code appears when the restore fails?",
+      "Is this happening when trying to restore to an existing point, or when trying to create a new one?",
+      "Is System Restore currently turned on for this drive?",
+      "Did you try restoring in Safe Mode, or only in normal Windows mode?"
+    ],
+    "commands": [
+      {
+        "command": "vssadmin list shadowstorage",
+        "purpose": "Check how much disk space is allocated for System Restore points",
+        "expected_result": "Shows a reasonable amount of allocated space",
+        "abnormal_result": "Shows very little or no space allocated, which can prevent restore points from being created or used properly"
+      },
+      {
+        "command": "chkdsk C: /f /r",
+        "purpose": "Check the drive for errors that could be interrupting the restore process",
+        "expected_result": "No errors found",
+        "abnormal_result": "Errors found, which could explain why restore point creation or usage fails partway through"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message or code shown during the failure",
+        "reason": "This helps identify whether the problem is related to space, corruption, or interference from another program"
+      },
+      {
+        "step": 2,
+        "action": "Try performing the System Restore again while in Safe Mode",
+        "reason": "Safe Mode avoids loading third-party antivirus and other programs that might be interfering with the restore process"
+      },
+      {
+        "step": 3,
+        "action": "Temporarily disable third-party antivirus software and try the restore again",
+        "reason": "Some antivirus programs actively interfere with System Restore operations, mistaking file changes for suspicious activity"
+      },
+      {
+        "step": 4,
+        "action": "Check how much disk space is allocated to System Restore, and increase it if it is very low",
+        "reason": "Insufficient allocated space can prevent restore points from being properly created or fully used"
+      },
+      {
+        "step": 5,
+        "action": "Run chkdsk to check for and repair any disk errors that could be interrupting the restore process",
+        "reason": "A drive with errors may not reliably read or write the data needed to complete a restore"
+      },
+      {
+        "step": 6,
+        "action": "If a specific restore point consistently fails, try selecting an older, different restore point instead",
+        "reason": "The most recent restore point may itself be damaged or incomplete, while an older one may work correctly"
+      },
+      {
+        "step": 7,
+        "action": "If System Restore continues to fail entirely, consider other recovery options such as Reset This PC, which is a different, more thorough recovery method",
+        "reason": "When System Restore itself is unreliable, other built-in recovery tools may succeed where it cannot"
+      }
+    ],
+    "possible_solutions": [
+      "Retry the restore in Safe Mode",
+      "Temporarily disable antivirus software during the restore",
+      "Increase disk space allocated to System Restore",
+      "Repair disk errors using chkdsk",
+      "Try an older, different restore point",
+      "Use Reset This PC as an alternative recovery method"
+    ],
+    "prevention": [
+      "Allocate sufficient disk space for System Restore",
+      "Create restore points regularly, especially before major changes",
+      "Keep the hard drive healthy with periodic checks",
+      "Test restore points periodically to confirm they work"
+    ],
+    "keywords": ["system restore failed", "restore point error", "system restore did not complete", "cannot create restore point"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["System Restore not working", "Disk problems", "Corrupted system files"]
+  },
+
+  {
+    "id": "WIN-020",
+    "category": "Windows Operating System",
+    "subcategory": "Recovery",
+    "problem": "System Restore is not working or restore points are missing",
+    "description": "The user opens System Restore hoping to fix a problem, but finds either that no restore points are listed at all, or that System Restore appears to be turned off entirely.",
+    "symptoms": [
+      "System Restore shows no restore points available",
+      "Message stating System Protection is turned off for the drive",
+      "Previously known restore points have disappeared",
+      "Restore point creation was never set up on this computer"
+    ],
+    "possible_causes": [
+      "System Protection was never turned on for this drive",
+      "Disk space allocated for restore points is too small, causing old points to be deleted quickly",
+      "Restore points were manually deleted, such as through Disk Cleanup",
+      "A recent Windows feature update reset System Protection settings",
+      "The drive itself has very little free space, preventing new restore points from being created"
+    ],
+    "diagnostic_questions": [
+      "Have you ever seen restore points listed on this computer before, or has this always been the case?",
+      "Have you recently used Disk Cleanup with the 'clean up system restore and shadow copies' option?",
+      "Was there a recent major Windows update or feature update installed?",
+      "How much free space is currently on the main drive?"
+    ],
+    "commands": [
+      {
+        "command": "vssadmin list shadows",
+        "purpose": "List any existing shadow copies, which are related to restore points, to confirm if any exist at all",
+        "expected_result": "Shows one or more shadow copies if restore points exist",
+        "abnormal_result": "Shows no shadow copies found, confirming there are no restore points currently available"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open System Properties and check if System Protection is turned on for the main drive",
+        "reason": "If this setting is off, no restore points will ever be created automatically"
+      },
+      {
+        "step": 2,
+        "action": "If System Protection is off, turn it on and allocate a reasonable amount of disk space to it",
+        "reason": "This enables Windows to begin automatically creating restore points going forward"
+      },
+      {
+        "step": 3,
+        "action": "Manually create a new restore point immediately after turning on System Protection",
+        "reason": "This ensures at least one current restore point exists right away, rather than waiting for the next automatic trigger"
+      },
+      {
+        "step": 4,
+        "action": "Check if Disk Cleanup was recently used with the system restore cleanup option selected",
+        "reason": "This specific Disk Cleanup option deliberately deletes all but the most recent restore point, or all of them"
+      },
+      {
+        "step": 5,
+        "action": "Check available free disk space, since very low free space can prevent Windows from creating or keeping restore points",
+        "reason": "Windows needs a reasonable amount of free space to maintain restore point history"
+      },
+      {
+        "step": 6,
+        "action": "Increase the disk space allocated specifically to System Restore if it is set very low",
+        "reason": "A larger allocation allows more restore points to be kept before older ones are automatically deleted"
+      },
+      {
+        "step": 7,
+        "action": "Going forward, schedule restore points to be created before major changes, such as installing new software or drivers",
+        "reason": "This builds a more reliable safety net for future troubleshooting needs"
+      }
+    ],
+    "possible_solutions": [
+      "Turn on System Protection for the main drive",
+      "Manually create a new restore point",
+      "Increase disk space allocated to System Restore",
+      "Free up general disk space to allow restore points to be kept",
+      "Avoid using Disk Cleanup's restore point removal option unless truly needed"
+    ],
+    "prevention": [
+      "Keep System Protection turned on at all times",
+      "Allocate sufficient disk space for restore points",
+      "Create manual restore points before major system changes",
+      "Avoid unnecessarily clearing restore point history"
+    ],
+    "keywords": ["no restore points available", "system protection off", "restore points missing", "system restore not working"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["Restore point failed", "Disk problems"]
+  },
+
+  {
+    "id": "WIN-021",
+    "category": "Windows Operating System",
+    "subcategory": "Boot Problems",
+    "problem": "Computer is stuck in an Automatic Repair loop",
+    "description": "The computer repeatedly tries to fix itself using Automatic Repair, shows a 'Diagnosing your PC' or 'Repairing your PC' screen, then either fails and restarts back into the same loop, or shows an error saying repair could not fix the problem.",
+    "symptoms": [
+      "Repeated cycle of 'Preparing Automatic Repair' and 'Diagnosing your PC' screens",
+      "Message saying 'Automatic Repair couldn't repair your PC'",
+      "Computer restarts on its own back into the same repair screen",
+      "Normal Windows desktop is never reached"
+    ],
+    "possible_causes": [
+      "Corrupted boot configuration data",
+      "Corrupted or missing critical system files",
+      "A failing hard drive with bad sectors affecting boot files",
+      "A driver or update that broke the startup process",
+      "Incorrect BIOS/UEFI settings related to boot mode"
+    ],
+    "diagnostic_questions": [
+      "Did this start after a specific event, such as a power outage, forced shutdown, or update installation?",
+      "Have you tried accessing Advanced Options from this repair screen?",
+      "Does the message give any specific error code or additional detail?",
+      "Do you have access to Windows installation media or a recovery drive?"
+    ],
+    "commands": [
+      {
+        "command": "bootrec /fixmbr",
+        "purpose": "Repair the master boot record from Command Prompt in the recovery environment",
+        "expected_result": "Command completes successfully",
+        "abnormal_result": "An error occurs, suggesting deeper boot corruption or a drive access problem"
+      },
+      {
+        "command": "bootrec /fixboot",
+        "purpose": "Repair the boot sector, which can fix problems preventing normal startup",
+        "expected_result": "Command completes successfully",
+        "abnormal_result": "Access denied or similar error, sometimes requiring additional steps to resolve"
+      },
+      {
+        "command": "chkdsk C: /f /r",
+        "purpose": "Check the drive for file system errors and bad sectors that could be causing the repair loop",
+        "expected_result": "No errors found",
+        "abnormal_result": "Bad sectors or file system errors found, explaining the ongoing boot failures"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Let Automatic Repair try to run its course at least once or twice before intervening",
+        "reason": "In some cases, it succeeds on a repeated attempt, though this is not always the case"
+      },
+      {
+        "step": 2,
+        "action": "From the repair screen, select Advanced Options to access Troubleshoot > Advanced Options",
+        "reason": "This provides access to more specific and powerful repair tools than the automatic process alone"
+      },
+      {
+        "step": 3,
+        "action": "Open Command Prompt from Advanced Options and run bootrec /fixmbr followed by bootrec /fixboot",
+        "reason": "These commands directly repair core boot files that Automatic Repair may not fully fix on its own"
+      },
+      {
+        "step": 4,
+        "action": "Run chkdsk C: /f /r from the same Command Prompt to check for and repair disk errors",
+        "reason": "Underlying disk errors are a common reason Automatic Repair keeps failing repeatedly"
+      },
+      {
+        "step": 5,
+        "action": "Run sfc /scannow from the recovery Command Prompt to check for corrupted system files (may require specifying the offline Windows directory)",
+        "reason": "This can catch and fix system file problems contributing to the repeated repair failures"
+      },
+      {
+        "step": 6,
+        "action": "Check BIOS/UEFI settings to confirm the boot mode (UEFI or Legacy) matches how Windows was originally installed",
+        "reason": "A mismatched boot mode setting can cause persistent boot failures that look like this repair loop"
+      },
+      {
+        "step": 7,
+        "action": "If all repair attempts fail, consider using System Restore from Advanced Options if a restore point exists from before the problem started",
+        "reason": "This can undo whatever recent change caused the boot loop, without needing a full reinstall"
+      },
+      {
+        "step": 8,
+        "action": "As a final option, back up any accessible data and perform a clean reinstall of Windows",
+        "reason": "This guarantees a fresh, working system when repeated repair attempts cannot resolve deep corruption"
+      }
+    ],
+    "possible_solutions": [
+      "Repair boot files using bootrec commands",
+      "Repair disk errors using chkdsk",
+      "Repair system files using sfc /scannow",
+      "Correct BIOS/UEFI boot mode settings",
+      "Use System Restore to undo a recent problematic change",
+      "Perform a clean reinstall of Windows as a last resort"
+    ],
+    "prevention": [
+      "Avoid forced shutdowns during updates",
+      "Use a UPS to prevent power loss related boot corruption",
+      "Keep a recovery drive prepared in advance",
+      "Address disk health warnings before they cause boot failures"
+    ],
+    "keywords": ["automatic repair loop", "preparing automatic repair", "diagnosing your pc stuck", "automatic repair couldn't repair your pc"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-90 minutes",
+    "related_problems": ["Windows won't boot", "Corrupted system files", "Disk problems"]
+  },
+
+  {
+    "id": "WIN-022",
+    "category": "Windows Operating System",
+    "subcategory": "Encryption",
+    "problem": "BitLocker recovery screen appears asking for a recovery key",
+    "description": "During startup, instead of reaching the normal login screen, the computer shows a blue BitLocker recovery screen asking the user to enter a long recovery key to unlock the drive.",
+    "symptoms": [
+      "Blue screen asking for a BitLocker recovery key before Windows can start",
+      "Normal login screen does not appear until the correct key is entered",
+      "May happen after a hardware change, BIOS update, or unexpected shutdown",
+      "User may not know where to find the recovery key"
+    ],
+    "possible_causes": [
+      "A change to the computer's hardware or boot configuration triggered BitLocker's security check",
+      "A BIOS/UEFI firmware update changed system measurements BitLocker uses for validation",
+      "The Trusted Platform Module (TPM) was reset or is behaving unexpectedly",
+      "An unexpected or forced shutdown interrupted a process BitLocker was monitoring",
+      "Someone tried to access the drive from a different computer or boot from external media"
+    ],
+    "diagnostic_questions": [
+      "Do you have the BitLocker recovery key saved anywhere, such as in a Microsoft account, printed copy, USB drive, or company IT records?",
+      "Did anything change recently, such as a BIOS update, hardware change, or unusual shutdown?",
+      "Is this a personal computer or a company-managed computer?",
+      "Have you seen this recovery screen before on this computer?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Look for the recovery key ID shown on the BitLocker recovery screen",
+        "reason": "This ID helps identify exactly which saved recovery key matches this specific drive"
+      },
+      {
+        "step": 2,
+        "action": "Check a Microsoft account online from another device for a saved BitLocker recovery key, if this is a personal computer signed in with a Microsoft account",
+        "reason": "Windows often automatically backs up BitLocker recovery keys to the linked Microsoft account"
+      },
+      {
+        "step": 3,
+        "action": "Check any printed copies, saved text files, or USB drives where the recovery key might have been saved when BitLocker was first turned on",
+        "reason": "Users are prompted to save this key during setup, and it may exist in one of these common locations"
+      },
+      {
+        "step": 4,
+        "action": "For a company-managed computer, contact the IT department, since recovery keys for work computers are often stored in Active Directory or a management system",
+        "reason": "Company IT departments typically retain BitLocker recovery keys centrally for exactly this situation"
+      },
+      {
+        "step": 5,
+        "action": "Enter the correct recovery key exactly as provided to unlock the drive and continue startup",
+        "reason": "Once the correct key is entered, Windows will proceed to load normally"
+      },
+      {
+        "step": 6,
+        "action": "After regaining access, check what caused BitLocker to trigger the recovery screen, such as a recent BIOS update or hardware change",
+        "reason": "Understanding the cause helps prevent unnecessary recovery prompts in the future"
+      },
+      {
+        "step": 7,
+        "action": "If the recovery key truly cannot be found anywhere, understand that without it, the data on the drive cannot be recovered, since this is the intended security design of BitLocker",
+        "reason": "This is an important expectation to set, since BitLocker is specifically designed to make data inaccessible without the correct key"
+      }
+    ],
+    "possible_solutions": [
+      "Retrieve the recovery key from the linked Microsoft account",
+      "Locate a saved printed, digital, or USB copy of the recovery key",
+      "Contact company IT department for a work computer's recovery key",
+      "Enter the correct key to unlock and continue startup",
+      "Accept data loss if the key genuinely cannot be recovered, and reinstall Windows"
+    ],
+    "prevention": [
+      "Always save the BitLocker recovery key in multiple safe locations when first enabling it",
+      "Link BitLocker-protected computers to a Microsoft account or company management system",
+      "Avoid unnecessary BIOS/UEFI changes on encrypted computers without preparation",
+      "Keep IT departments informed of BitLocker status on company computers"
+    ],
+    "keywords": ["bitlocker recovery key", "bitlocker screen at startup", "drive locked bitlocker", "enter recovery key to continue"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-40 minutes (depending on key availability)",
+    "related_problems": ["Windows won't boot", "Forgot Windows password"]
+  },
+
+  {
+    "id": "WIN-023",
+    "category": "Windows Operating System",
+    "subcategory": "System Tools",
+    "problem": "Windows Explorer is not responding or keeps crashing",
+    "description": "File Explorer, the program used to browse files and folders, freezes, shows 'Not Responding', or restarts unexpectedly, sometimes also causing the taskbar and desktop icons to disappear briefly.",
+    "symptoms": [
+      "File Explorer window freezes or shows 'Not Responding'",
+      "Taskbar and desktop icons disappear and reappear",
+      "Opening a specific folder causes a crash",
+      "Screen flickers as Explorer restarts itself"
+    ],
+    "possible_causes": [
+      "A corrupted or problematic shell extension (add-on) installed by another program",
+      "A specific folder or file causing Explorer to crash when accessed, often due to corruption",
+      "Outdated or corrupted graphics drivers",
+      "Too many files in a single folder causing performance issues",
+      "Corrupted system files",
+      "A conflict with third-party software integrated into File Explorer"
+    ],
+    "diagnostic_questions": [
+      "Does this happen all the time, or only when opening a specific folder or file?",
+      "Did this start after installing any new software recently, such as a cloud storage or backup tool?",
+      "Does it happen when browsing all folders, or just certain ones like Downloads or a network drive?",
+      "How many files are typically in the folder where the crash happens?"
+    ],
+    "commands": [
+      {
+        "command": "taskmgr",
+        "purpose": "Restart the Windows Explorer process manually if it becomes unresponsive",
+        "expected_result": "Restarting the process restores the taskbar and desktop functionality",
+        "abnormal_result": "Explorer.exe crashes again immediately after restarting, pointing to a persistent underlying cause"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Task Manager and restart the Explorer.exe process to restore normal function temporarily",
+        "reason": "This provides an immediate fix to get the desktop and taskbar working again while investigating the root cause"
+      },
+      {
+        "step": 2,
+        "action": "Note if the crash happens with all folders, or only a specific one",
+        "reason": "A crash limited to one specific folder points to a corrupted file or folder issue rather than a system-wide problem"
+      },
+      {
+        "step": 3,
+        "action": "Check if the problem started after installing any recent software, especially cloud storage, backup, or file management tools",
+        "reason": "These types of programs commonly add shell extensions that integrate deeply with File Explorer and can cause instability"
+      },
+      {
+        "step": 4,
+        "action": "Use a shell extension viewing and disabling tool to identify and disable recently added, non-Microsoft shell extensions",
+        "reason": "Disabling a problematic third-party shell extension often immediately resolves ongoing Explorer crashes"
+      },
+      {
+        "step": 5,
+        "action": "Clear the File Explorer history and thumbnail cache through Folder Options",
+        "reason": "A corrupted cache can occasionally cause Explorer instability, and clearing it forces a fresh rebuild"
+      },
+      {
+        "step": 6,
+        "action": "Update the graphics driver, since File Explorer relies on it for rendering thumbnails and icons",
+        "reason": "Outdated or corrupted graphics drivers are a known cause of File Explorer crashes, especially in folders with many images"
+      },
+      {
+        "step": 7,
+        "action": "Run sfc /scannow to repair any corrupted system files that could be affecting Explorer's stability",
+        "reason": "This addresses potential deeper system file corruption contributing to the crashes"
+      },
+      {
+        "step": 8,
+        "action": "If a specific folder consistently causes a crash, try accessing it from Command Prompt instead to see if specific files inside are corrupted",
+        "reason": "This can help isolate a single problematic file within a folder rather than the whole folder being at fault"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the Explorer.exe process",
+      "Disable a problematic third-party shell extension",
+      "Clear File Explorer history and thumbnail cache",
+      "Update the graphics driver",
+      "Repair system files using sfc /scannow",
+      "Identify and remove a specific corrupted file causing crashes"
+    ],
+    "prevention": [
+      "Be selective about installing software that adds shell extensions",
+      "Keep graphics drivers updated",
+      "Regularly clear thumbnail cache if working with many image files",
+      "Keep system files healthy through regular maintenance"
+    ],
+    "keywords": ["file explorer not responding", "explorer.exe crashing", "windows explorer keeps restarting", "shell extension crash"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Black screen after login", "Driver problems", "Corrupted system files"]
+  },
+
+  {
+    "id": "WIN-024",
+    "category": "Windows Operating System",
+    "subcategory": "System Tools",
+    "problem": "Task Manager will not open",
+    "description": "The user tries to open Task Manager using Ctrl+Shift+Esc, right-clicking the taskbar, or searching for it, but nothing happens, or an error message appears saying it has been disabled.",
+    "symptoms": [
+      "Nothing happens when pressing Ctrl+Shift+Esc",
+      "Right-click menu on the taskbar does not show a Task Manager option",
+      "Error message saying 'Task Manager has been disabled by your administrator'",
+      "Searching for Task Manager shows no results or an error"
+    ],
+    "possible_causes": [
+      "Task Manager has been intentionally disabled through Group Policy or registry settings, common on managed business computers",
+      "Malware has disabled Task Manager to prevent the user from stopping malicious processes",
+      "A corrupted user profile is preventing the program from launching",
+      "Corrupted system files affecting the Task Manager executable"
+    ],
+    "diagnostic_questions": [
+      "Is this a personal computer, or a company-managed computer that might have restrictions?",
+      "Do you see any specific error message, such as one mentioning an administrator restriction?",
+      "Have you noticed any other unusual behavior that might suggest malware, such as pop-ups or slow performance?",
+      "Does this happen for all user accounts on the computer, or just one?"
+    ],
+    "commands": [
+      {
+        "command": "gpedit.msc",
+        "purpose": "Open Local Group Policy Editor to check if Task Manager has been disabled through policy settings",
+        "expected_result": "Navigating to the relevant policy shows it set to 'Not Configured' or 'Disabled', meaning Task Manager should be allowed",
+        "abnormal_result": "The policy is set to 'Enabled', meaning it is intentionally blocking Task Manager access"
+      },
+      {
+        "command": "reg query HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableTaskMgr",
+        "purpose": "Check the specific registry value that controls whether Task Manager is disabled",
+        "expected_result": "The value does not exist, or is set to 0, meaning Task Manager is allowed",
+        "abnormal_result": "The value is set to 1, confirming Task Manager has been deliberately disabled"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note if this is a personal or company-managed computer",
+        "reason": "On company computers, Task Manager being disabled is often an intentional IT policy rather than a malfunction"
+      },
+      {
+        "step": 2,
+        "action": "If on a company computer, contact the IT department, since this restriction may be intentional and require administrator action to change",
+        "reason": "Attempting to bypass an intentional company policy is not appropriate without proper authorization"
+      },
+      {
+        "step": 3,
+        "action": "On a personal computer, check Local Group Policy Editor for a setting related to 'Remove Task Manager' under User Configuration > Administrative Templates > System > Ctrl+Alt+Del Options",
+        "reason": "This policy, if enabled, directly blocks access to Task Manager"
+      },
+      {
+        "step": 4,
+        "action": "If found enabled, set this policy to 'Not Configured' or 'Disabled' to restore Task Manager access",
+        "reason": "This directly reverses the setting blocking the program"
+      },
+      {
+        "step": 5,
+        "action": "Check the registry value DisableTaskMgr under the Policies\\System key if Group Policy Editor is not available (such as on Home editions of Windows)",
+        "reason": "This registry value controls the same restriction and can be changed directly if needed"
+      },
+      {
+        "step": 6,
+        "action": "If neither of these settings show the restriction and it appeared suddenly and unexpectedly, run a full malware scan",
+        "reason": "Some malware specifically disables Task Manager to prevent the user from detecting or stopping malicious processes"
+      },
+      {
+        "step": 7,
+        "action": "Try logging in with a different user account to see if the problem is specific to one profile",
+        "reason": "This helps determine if the issue is a system-wide policy or something specific to a corrupted user profile"
+      }
+    ],
+    "possible_solutions": [
+      "Contact IT department if this is an intentional company restriction",
+      "Change the relevant Group Policy setting to allow Task Manager",
+      "Modify the DisableTaskMgr registry value",
+      "Remove malware that disabled Task Manager",
+      "Test with a different user profile"
+    ],
+    "prevention": [
+      "Keep antivirus software active to prevent malware from disabling system tools",
+      "Understand company IT policies before assuming a malfunction",
+      "Avoid making unnecessary Group Policy or registry changes"
+    ],
+    "keywords": ["task manager disabled", "task manager will not open", "task manager disabled by administrator", "ctrl shift esc not working"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["CMD not opening", "Malware symptoms", "Registry errors"]
+  },
+
+  {
+    "id": "WIN-025",
+    "category": "Windows Operating System",
+    "subcategory": "System Tools",
+    "problem": "Command Prompt (CMD) will not open",
+    "description": "The user tries to open the Command Prompt program to run diagnostic or repair commands, but it fails to open, closes immediately, or shows an error message saying it has been disabled.",
+    "symptoms": [
+      "Command Prompt window flashes briefly and closes immediately",
+      "Error message saying the prompt has been disabled by an administrator",
+      "Searching for 'cmd' shows no results or the option is missing",
+      "Right-click 'Open Command Prompt here' option is missing"
+    ],
+    "possible_causes": [
+      "Command Prompt has been intentionally disabled through Group Policy, common on managed business computers",
+      "Malware has disabled Command Prompt to prevent troubleshooting and removal",
+      "A corrupted user profile is affecting how programs launch",
+      "The user is trying to run a command that requires administrator rights without opening it as administrator first"
+    ],
+    "diagnostic_questions": [
+      "Is this a personal computer, or a company-managed computer?",
+      "Does the window open briefly and then close, or does it never open at all?",
+      "Do you see any specific error message about administrator restrictions?",
+      "Are you trying to open it normally, or as an administrator?"
+    ],
+    "commands": [
+      {
+        "command": "reg query HKCU\\Software\\Policies\\Microsoft\\Windows\\System /v DisableCMD",
+        "purpose": "Check the registry value that controls whether Command Prompt is disabled",
+        "expected_result": "The value does not exist, meaning Command Prompt is allowed",
+        "abnormal_result": "The value is set to 1 or 2, confirming Command Prompt has been deliberately disabled"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note if this is a company-managed computer where restrictions may be intentional IT policy",
+        "reason": "Command Prompt is a common tool restricted on business computers for security reasons"
+      },
+      {
+        "step": 2,
+        "action": "If on a company computer, contact the IT department for authorized access rather than attempting to bypass the restriction",
+        "reason": "This restriction is likely intentional and should be handled through proper channels"
+      },
+      {
+        "step": 3,
+        "action": "On a personal computer, check Local Group Policy Editor under User Configuration > Administrative Templates > System for a setting called 'Prevent access to the command prompt'",
+        "reason": "This is the specific policy setting that, if enabled, blocks Command Prompt from opening"
+      },
+      {
+        "step": 4,
+        "action": "Set this policy to 'Not Configured' or 'Disabled' if found enabled",
+        "reason": "This directly restores the ability to open Command Prompt"
+      },
+      {
+        "step": 5,
+        "action": "Check the DisableCMD registry value if Group Policy Editor is not available on this edition of Windows",
+        "reason": "This registry value achieves the same restriction and may need to be corrected directly"
+      },
+      {
+        "step": 6,
+        "action": "If the window opens briefly and closes, try running it as administrator, since some commands or scripts close immediately without elevated permissions",
+        "reason": "This is a different, simpler cause than the prompt being disabled outright"
+      },
+      {
+        "step": 7,
+        "action": "If this restriction appeared suddenly and unexpectedly with no known cause, run a full malware scan",
+        "reason": "Some malware disables Command Prompt specifically to prevent users from running diagnostic or removal commands"
+      }
+    ],
+    "possible_solutions": [
+      "Contact IT department for an intentional company restriction",
+      "Change the relevant Group Policy setting to allow Command Prompt",
+      "Modify the DisableCMD registry value",
+      "Run Command Prompt as administrator if it closes immediately",
+      "Remove malware that disabled Command Prompt"
+    ],
+    "prevention": [
+      "Keep antivirus software active and updated",
+      "Understand company IT restrictions before assuming a malfunction",
+      "Avoid unnecessary Group Policy changes on personal computers"
+    ],
+    "keywords": ["cmd will not open", "command prompt disabled", "command prompt closes immediately", "prevent access to command prompt"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Task Manager not opening", "Malware symptoms", "Registry errors"]
+  },
+
+  {
+    "id": "WIN-026",
+    "category": "Windows Operating System",
+    "subcategory": "Registry",
+    "problem": "Registry errors are causing system problems",
+    "description": "The computer shows unusual behavior, error messages mentioning the registry, or a diagnostic tool reports registry errors, suggesting the Windows Registry has become damaged or contains invalid entries.",
+    "symptoms": [
+      "Error messages specifically mentioning 'registry' when opening certain programs or Windows features",
+      "Settings that do not save properly or keep reverting",
+      "Certain Windows features behave unexpectedly or fail to start",
+      "A registry cleaning tool reports finding many errors"
+    ],
+    "possible_causes": [
+      "Leftover registry entries from improperly uninstalled software",
+      "Manual registry edits that were done incorrectly",
+      "Malware that has modified registry entries",
+      "A failed or interrupted software installation leaving incomplete registry data",
+      "General accumulation of outdated entries over a long period of use"
+    ],
+    "diagnostic_questions": [
+      "What exact error message mentions the registry, and when does it appear?",
+      "Did you or anyone else recently make manual changes to the registry?",
+      "Did you recently uninstall software, and did the uninstall complete without errors?",
+      "Have you used any third-party registry cleaning tools recently?"
+    ],
+    "commands": [
+      {
+        "command": "sfc /scannow",
+        "purpose": "Check for and repair corrupted system files, which can sometimes resolve issues that appear registry-related but are actually deeper system file problems",
+        "expected_result": "No integrity violations found, or issues successfully repaired",
+        "abnormal_result": "Corruption found that could not be repaired, suggesting more serious underlying damage"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message and when it appears, such as during startup or when opening a specific program",
+        "reason": "This helps pinpoint whether the issue is isolated to one program or affects the whole system"
+      },
+      {
+        "step": 2,
+        "action": "If a recent manual registry change was made, undo that specific change if it can be identified",
+        "reason": "Manual registry edits are one of the most direct and identifiable causes of new registry-related problems"
+      },
+      {
+        "step": 3,
+        "action": "Use System Restore to return to a point before the problem started, if a suitable restore point is available",
+        "reason": "This safely reverts registry changes without needing to manually identify and fix each individual entry"
+      },
+      {
+        "step": 4,
+        "action": "Run sfc /scannow to check for and repair corrupted system files, since some symptoms that seem registry-related are actually caused by file corruption",
+        "reason": "This addresses a related but different type of system-level problem that can produce similar symptoms"
+      },
+      {
+        "step": 5,
+        "action": "Uninstall and reinstall the specific program associated with the error, if the problem is limited to one application",
+        "reason": "This replaces any incomplete or corrupted registry entries left behind by a previous faulty installation or uninstallation"
+      },
+      {
+        "step": 6,
+        "action": "Run a full antivirus scan to rule out malware that may have modified registry entries",
+        "reason": "Some malware directly edits the registry to achieve persistence or disable security features"
+      },
+      {
+        "step": 7,
+        "action": "Avoid using aggressive third-party registry cleaning tools, since they can sometimes remove entries that are actually needed, causing new problems",
+        "reason": "These tools are not always reliable and can occasionally cause more harm than good if used carelessly"
+      },
+      {
+        "step": 8,
+        "action": "As a last resort for severe, widespread registry corruption, consider a full reinstall of Windows",
+        "reason": "This guarantees a completely clean, correctly structured registry when other targeted repairs are not sufficient"
+      }
+    ],
+    "possible_solutions": [
+      "Undo a recent manual registry change",
+      "Use System Restore to revert to a working state",
+      "Repair system files using sfc /scannow",
+      "Reinstall the specific program causing registry-related errors",
+      "Remove malware that modified the registry",
+      "Reinstall Windows for severe, widespread corruption"
+    ],
+    "prevention": [
+      "Avoid manual registry edits unless you fully understand the change being made",
+      "Always back up the registry before making manual changes",
+      "Use official uninstall methods rather than simply deleting program folders",
+      "Keep antivirus software active and updated",
+      "Avoid aggressive third-party registry cleaning tools"
+    ],
+    "keywords": ["registry error", "windows registry corrupted", "registry cleaner", "settings not saving registry"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-60 minutes",
+    "related_problems": ["Corrupted system files", "Malware symptoms", "System Restore not working"]
+  }
+]

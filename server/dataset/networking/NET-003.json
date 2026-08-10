@@ -1,0 +1,2591 @@
+[
+  {
+    "id": "NET-072",
+    "category": "Networking",
+    "subcategory": "Router Problems",
+    "problem": "Router Offline",
+    "description": "The router is completely unreachable, either from its admin interface or from any connected device, effectively taking the entire network down.",
+    "symptoms": [
+      "No devices can connect to the network at all, wired or wireless",
+      "Router's status lights are off, unusual, or all red",
+      "Cannot access the router's admin page even from a directly connected device"
+    ],
+    "possible_causes": [
+      "Router lost power or the power supply has failed",
+      "Router has crashed or frozen and needs a restart",
+      "Router hardware failure",
+      "Router firmware corruption from a failed update"
+    ],
+    "diagnostic_questions": [
+      "Are any of the router's status lights on at all?",
+      "Is the power cable and adapter firmly connected, and does the outlet work?",
+      "Was any recent firmware update or configuration change in progress when this happened?",
+      "Does a power cycle (unplug for 30 seconds, then plug back in) restore any activity?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check that the router's power cable and adapter are firmly connected and the outlet is working",
+        "reason": "A simple power issue is the most common and easily fixed cause of a completely offline router"
+      },
+      {
+        "step": 2,
+        "action": "Observe the router's status lights for any signs of life, even unusual patterns",
+        "reason": "Light patterns can indicate whether the router is booting, in an error state, or has no power at all"
+      },
+      {
+        "step": 3,
+        "action": "Perform a power cycle by unplugging the router for at least 30 seconds, then plugging it back in",
+        "reason": "Resolves the majority of temporary freezes or crashes causing a total outage"
+      },
+      {
+        "step": 4,
+        "action": "Connect a device directly to the router via Ethernet cable and attempt to access its admin page by IP address",
+        "reason": "Tests whether the router is at least partially responsive, even if WiFi or other ports are affected"
+      },
+      {
+        "step": 5,
+        "action": "If the router shows no signs of life after a power cycle and confirmed working power source, consider it a hardware failure requiring replacement",
+        "reason": "A router that does not respond at all to power, even briefly, typically indicates a failed internal component"
+      }
+    ],
+    "possible_solutions": [
+      "Power cycle the router",
+      "Verify power supply and outlet are functioning correctly",
+      "Replace the router if it shows no signs of life after power cycling with confirmed good power",
+      "Perform a firmware recovery procedure if a failed update is suspected and the manufacturer provides one"
+    ],
+    "prevention": [
+      "Use a surge protector or UPS to protect the router from power issues",
+      "Keep firmware updated carefully, avoiding interruptions during updates",
+      "Keep a spare router on hand for critical networks"
+    ],
+    "keywords": [
+      "router offline completely",
+      "router dead no lights",
+      "entire network down router"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": [
+      "NET-001",
+      "NET-073"
+    ]
+  },
+  {
+    "id": "NET-073",
+    "category": "Networking",
+    "subcategory": "Router Problems",
+    "problem": "Router Not Responding",
+    "description": "The router has power and status lights appear normal, but it does not respond to ping, its admin web interface, or any management access attempts.",
+    "symptoms": [
+      "Router lights appear normal, suggesting it is powered on",
+      "Cannot ping the router's IP address",
+      "Admin web interface will not load, times out, or hangs"
+    ],
+    "possible_causes": [
+      "Router's software has frozen despite appearing powered on",
+      "High CPU or memory load on the router preventing it from responding",
+      "Network interface on the router experiencing an issue while the device itself is fine",
+      "Recent configuration change causing an unresponsive state"
+    ],
+    "diagnostic_questions": [
+      "Do the router's status lights look completely normal, suggesting it is powered and functioning at some level?",
+      "Can any device at all reach the router, or is this a complete failure to respond?",
+      "Was a configuration change made just before this started?",
+      "Have you tried a power cycle already?"
+    ],
+    "commands": [
+      {
+        "command": "ping <router_ip>",
+        "purpose": "Test basic network-level connectivity to the router",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout despite the router appearing powered on, suggesting a software-level freeze rather than a power issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Ping the router's IP address to confirm it is indeed not responding at the network level",
+        "reason": "Distinguishes a true unresponsiveness issue from simply not being able to load the web interface for another reason"
+      },
+      {
+        "step": 2,
+        "action": "Perform a power cycle even though the lights appear normal, since a frozen router can still show normal-looking lights",
+        "reason": "A software freeze often does not affect status lights, making a restart necessary despite appearances"
+      },
+      {
+        "step": 3,
+        "action": "After restarting, immediately test both ping and the admin web interface",
+        "reason": "Confirms whether the restart fully resolved the unresponsiveness"
+      },
+      {
+        "step": 4,
+        "action": "If the router becomes responsive again but this happens repeatedly, consider that a recent configuration change or firmware bug may be causing periodic freezes",
+        "reason": "Identifies a pattern that may require reverting a recent change or updating firmware to a stable version"
+      },
+      {
+        "step": 5,
+        "action": "Perform a factory reset if the unresponsiveness continues after multiple restarts and firmware updates, then reconfigure from scratch",
+        "reason": "Clears any deeply corrupted configuration state that simple restarts cannot fix"
+      }
+    ],
+    "possible_solutions": [
+      "Power cycle the router",
+      "Perform a factory reset if the problem persists after restarts",
+      "Revert any recent configuration changes made before the issue started",
+      "Update to the latest stable firmware version"
+    ],
+    "prevention": [
+      "Avoid making multiple configuration changes at once without testing between them",
+      "Keep firmware updated to stable, well-tested versions",
+      "Document configuration changes to allow easy rollback if problems arise"
+    ],
+    "keywords": [
+      "router not responding",
+      "cant access router admin page",
+      "router ping timeout but powered on"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-060",
+      "NET-072"
+    ]
+  },
+  {
+    "id": "NET-074",
+    "category": "Networking",
+    "subcategory": "Router Problems",
+    "problem": "Router Restart Loop",
+    "description": "The router continuously reboots on its own in a repeating cycle, never staying online long enough for normal network use.",
+    "symptoms": [
+      "Router's lights cycle through a boot sequence repeatedly without ever settling into normal operation",
+      "Network connectivity is intermittent, matching the reboot cycle",
+      "Problem persists even after waiting a significant amount of time"
+    ],
+    "possible_causes": [
+      "Firmware corruption, often from an interrupted or failed update",
+      "Power supply providing insufficient or unstable power to the router",
+      "Overheating triggering repeated automatic protective restarts",
+      "Failing hardware component, such as memory or the main processor"
+    ],
+    "diagnostic_questions": [
+      "Roughly how long is each cycle before the router restarts again?",
+      "Was there a recent firmware update, especially one that may have been interrupted?",
+      "Does the router feel unusually hot to the touch?",
+      "Is the power adapter the original one that came with the router, or a replacement?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if the router feels excessively hot, which could indicate overheating-triggered restarts",
+        "reason": "Some routers have thermal protection that forces a restart when internal temperatures get too high"
+      },
+      {
+        "step": 2,
+        "action": "Ensure the router has proper ventilation and is not enclosed in a hot or cramped space",
+        "reason": "Improving airflow can resolve restart loops caused by overheating"
+      },
+      {
+        "step": 3,
+        "action": "Verify the power adapter is the correct original or manufacturer-approved replacement, providing stable and sufficient power",
+        "reason": "An incorrect or failing power adapter can cause the router to brown out and restart repeatedly"
+      },
+      {
+        "step": 4,
+        "action": "Attempt a firmware recovery or reflash procedure if the manufacturer provides one, especially if a firmware update may have been interrupted",
+        "reason": "Corrupted firmware from a failed update is a common cause of persistent restart loops"
+      },
+      {
+        "step": 5,
+        "action": "Perform a full factory reset if firmware recovery does not resolve the issue",
+        "reason": "Clears potentially corrupted configuration data that could be triggering the restart loop"
+      },
+      {
+        "step": 6,
+        "action": "Consider the router hardware may be failing if none of the above resolves the loop, and plan for replacement",
+        "reason": "Persistent restart loops despite good power, ventilation, and firmware are often a sign of failing internal hardware"
+      }
+    ],
+    "possible_solutions": [
+      "Improve router ventilation if overheating is suspected",
+      "Use the correct, stable power adapter",
+      "Perform a firmware recovery/reflash procedure",
+      "Factory reset the router",
+      "Replace the router if hardware failure is suspected"
+    ],
+    "prevention": [
+      "Keep routers in well-ventilated locations away from direct heat sources",
+      "Use only manufacturer-approved power adapters",
+      "Avoid interrupting firmware updates, ensuring stable power during the process"
+    ],
+    "keywords": [
+      "router keeps restarting",
+      "router boot loop",
+      "router reboots continuously"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-60 minutes",
+    "related_problems": [
+      "NET-072",
+      "NET-078"
+    ]
+  },
+  {
+    "id": "NET-075",
+    "category": "Networking",
+    "subcategory": "Router Problems",
+    "problem": "Router Configuration Error",
+    "description": "An incorrect setting in the router's configuration is causing network problems, ranging from partial feature failures to a complete loss of connectivity for all devices.",
+    "symptoms": [
+      "Specific network features stop working after a configuration change, such as port forwarding or WiFi",
+      "Problem correlates directly with a recent change made in the router's admin settings",
+      "May affect just one feature or cascade into broader connectivity issues"
+    ],
+    "possible_causes": [
+      "Incorrect value entered in a specific configuration field",
+      "Conflicting settings between different sections of the router's configuration",
+      "A configuration change was saved but not properly applied, requiring a restart",
+      "Backup configuration was restored incorrectly or from an incompatible router model"
+    ],
+    "diagnostic_questions": [
+      "What specific configuration change was made just before the problem started?",
+      "Is the issue affecting one specific feature, or has it caused broader connectivity problems?",
+      "Do you have a record of the previous, working configuration to compare against?",
+      "Would reverting the specific recent change be possible to test as a fix?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Identify the exact configuration change that was made immediately before the problem started",
+        "reason": "Pinpoints the most likely specific cause rather than searching broadly through the entire configuration"
+      },
+      {
+        "step": 2,
+        "action": "Revert that specific change back to its previous known-working value",
+        "reason": "Directly tests whether this particular change was the source of the problem"
+      },
+      {
+        "step": 3,
+        "action": "Restart the router after making configuration changes, even if not always strictly required",
+        "reason": "Ensures all changes are fully applied and eliminates any partially-applied configuration state as a factor"
+      },
+      {
+        "step": 4,
+        "action": "Compare the current configuration against a backup or documented previous configuration if available",
+        "reason": "Helps identify any other unintended changes that may have been made alongside the suspected one"
+      },
+      {
+        "step": 5,
+        "action": "If the exact cause cannot be identified, consider a factory reset and careful reconfiguration from scratch using documented correct values",
+        "reason": "Provides a clean baseline when troubleshooting a complex or unclear configuration issue"
+      }
+    ],
+    "possible_solutions": [
+      "Revert the specific recent configuration change that caused the problem",
+      "Restart the router after configuration changes",
+      "Restore from a known-good configuration backup if available",
+      "Factory reset and reconfigure carefully if the issue cannot be isolated"
+    ],
+    "prevention": [
+      "Keep a backup of working router configurations before making changes",
+      "Change one setting at a time and test before moving to the next",
+      "Document all configuration changes with dates and reasons"
+    ],
+    "keywords": [
+      "router configuration broke network",
+      "wrong router setting",
+      "router settings error after change"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "NET-061",
+      "NET-078"
+    ]
+  },
+  {
+    "id": "NET-076",
+    "category": "Networking",
+    "subcategory": "Router Problems",
+    "problem": "Router Firmware Outdated",
+    "description": "The router is running an old firmware version, which can cause security vulnerabilities, missing features, compatibility issues, and unresolved bugs that newer firmware would fix.",
+    "symptoms": [
+      "Router's admin page shows an old firmware version number when checked",
+      "Known compatibility issues with newer devices or features",
+      "Persistent minor bugs or instability that firmware updates might resolve"
+    ],
+    "possible_causes": [
+      "Router has never been updated since initial setup",
+      "Automatic firmware updates are disabled or unavailable on this model",
+      "User is unaware that updates are available or how to check"
+    ],
+    "diagnostic_questions": [
+      "When was the last time this router's firmware was updated, if ever?",
+      "Does the router support checking for and installing updates directly through its admin page?",
+      "Are there any specific known issues or missing features you are hoping a firmware update might resolve?",
+      "Is this router still supported by the manufacturer with active firmware updates?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Log into the router's admin interface and check the current firmware version against the manufacturer's website for the latest available version",
+        "reason": "Establishes exactly how outdated the current firmware is and what update path is available"
+      },
+      {
+        "step": 2,
+        "action": "Review the release notes for available firmware updates to understand what bugs, features, or security fixes are included",
+        "reason": "Helps confirm whether updating is likely to resolve any current issues being experienced"
+      },
+      {
+        "step": 3,
+        "action": "Back up the current router configuration before proceeding with any firmware update",
+        "reason": "Protects against configuration loss in case the update process resets settings"
+      },
+      {
+        "step": 4,
+        "action": "Download and install the latest firmware directly from the manufacturer's official website, following their specific update procedure",
+        "reason": "Ensures a safe, correctly matched firmware update for this exact router model"
+      },
+      {
+        "step": 5,
+        "action": "Avoid interrupting the update process, including not powering off the router during the update",
+        "reason": "Interrupting a firmware update is a common cause of serious router problems, including bricking the device"
+      },
+      {
+        "step": 6,
+        "action": "Verify normal operation and reconfigure any settings that may have reset after the update",
+        "reason": "Confirms the update was successful and restores full functionality"
+      }
+    ],
+    "possible_solutions": [
+      "Update the router to the latest firmware from the manufacturer's official website",
+      "Back up configuration before updating",
+      "Follow the manufacturer's specific update procedure carefully",
+      "Consider replacing the router if it is no longer receiving firmware updates from the manufacturer"
+    ],
+    "prevention": [
+      "Check for firmware updates on a regular schedule, such as every few months",
+      "Enable automatic updates if the router supports it and this is acceptable for the environment",
+      "Subscribe to manufacturer security bulletins for critical update notifications"
+    ],
+    "keywords": [
+      "router firmware update needed",
+      "outdated router firmware",
+      "how to update router firmware"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-031",
+      "NET-078"
+    ]
+  },
+  {
+    "id": "NET-077",
+    "category": "Networking",
+    "subcategory": "Router Problems",
+    "problem": "Router Overheating",
+    "description": "The router becomes excessively hot during normal operation, which can lead to instability, random restarts, or reduced performance and lifespan.",
+    "symptoms": [
+      "Router feels very hot to the touch, more than mild warmth",
+      "Performance degrades or connections drop especially after extended periods of operation or in warm environments",
+      "May be accompanied by random restarts or WiFi range/speed reduction"
+    ],
+    "possible_causes": [
+      "Poor ventilation around the router's physical location",
+      "Router placed in an enclosed space, cabinet, or stacked with other heat-generating equipment",
+      "Dust accumulation blocking vents and airflow",
+      "Router placed in direct sunlight or a naturally warm area of the building"
+    ],
+    "diagnostic_questions": [
+      "Where exactly is the router physically located, and how much open space is around it?",
+      "Is the router enclosed in a cabinet, or stacked closely with other devices?",
+      "Has the router ever been cleaned of dust, and how long has it been in its current location?",
+      "Does the room or area tend to be warm, especially during certain times of day or seasons?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Relocate the router to a more open area with better airflow, away from enclosed cabinets or stacks of other equipment",
+        "reason": "Directly addresses the most common cause of router overheating"
+      },
+      {
+        "step": 2,
+        "action": "Power off the router and gently clean any visible dust from its vents using compressed air",
+        "reason": "Dust buildup restricts airflow and traps heat inside the device"
+      },
+      {
+        "step": 3,
+        "action": "Ensure the router is not placed in direct sunlight or an unusually warm part of the room",
+        "reason": "External heat sources add to the router's own generated heat, worsening the overheating problem"
+      },
+      {
+        "step": 4,
+        "action": "Consider adding a small fan nearby for additional passive airflow if the location cannot be easily changed",
+        "reason": "Provides supplemental cooling without requiring relocation"
+      },
+      {
+        "step": 5,
+        "action": "Monitor whether symptoms like restarts or performance issues improve after addressing ventilation and dust",
+        "reason": "Confirms whether overheating was indeed the root cause of any related instability"
+      }
+    ],
+    "possible_solutions": [
+      "Relocate the router to a well-ventilated, open area",
+      "Clean dust from vents regularly",
+      "Avoid enclosing the router in cabinets or stacking it with other equipment",
+      "Add supplemental cooling if relocation is not possible"
+    ],
+    "prevention": [
+      "Choose router placement with good airflow from the start",
+      "Perform periodic dust cleaning as routine maintenance",
+      "Avoid placing routers near heat sources like sunlit windows or other warm equipment"
+    ],
+    "keywords": [
+      "router overheating hot",
+      "router getting too hot",
+      "router thermal issues"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-074"
+    ]
+  },
+  {
+    "id": "NET-078",
+    "category": "Networking",
+    "subcategory": "Router Problems",
+    "problem": "WAN Port Down",
+    "description": "The router's WAN (internet-facing) port shows as down or inactive, meaning the router cannot receive any internet connection from the modem or ISP line.",
+    "symptoms": [
+      "Router's WAN/internet status light is off or red",
+      "All devices on the network lose internet access simultaneously, though local network communication may still work",
+      "Router admin page shows the WAN interface as down or disconnected"
+    ],
+    "possible_causes": [
+      "Cable between the modem and the router's WAN port is unplugged or damaged",
+      "Modem itself is offline or not providing a signal",
+      "WAN port on the router has failed",
+      "Incorrect WAN connection type configured, such as PPPoE settings that no longer match the ISP's requirements"
+    ],
+    "diagnostic_questions": [
+      "Is the cable between the modem and the router's WAN port firmly connected at both ends?",
+      "Is the modem itself showing normal, working status lights?",
+      "Have you tried a different cable for the WAN connection?",
+      "Has anything changed with your ISP account or service recently that might affect the connection type or credentials?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check that the cable between the modem and the router's WAN port is firmly connected at both ends",
+        "reason": "A loose or disconnected cable is the most common and simplest cause of a down WAN port"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the modem itself is powered on and showing normal status lights, restarting it if needed",
+        "reason": "A problem with the modem, rather than the router, would also present as a down WAN connection"
+      },
+      {
+        "step": 3,
+        "action": "Try a different cable for the WAN connection between the modem and router",
+        "reason": "Rules out a damaged cable as the specific cause"
+      },
+      {
+        "step": 4,
+        "action": "Check the router's WAN connection type settings (such as DHCP, PPPoE, or Static) against what the ISP requires",
+        "reason": "An incorrect connection type or outdated credentials can prevent the WAN port from establishing a link even with good cabling"
+      },
+      {
+        "step": 5,
+        "action": "Contact the ISP to confirm the line is active if the modem shows a valid signal but the router still cannot establish a WAN connection",
+        "reason": "Rules out an ISP-side account or line issue as the underlying cause"
+      }
+    ],
+    "possible_solutions": [
+      "Reseat or replace the WAN cable between modem and router",
+      "Restart the modem",
+      "Verify WAN connection type and credentials match ISP requirements",
+      "Try a different port on the router if a spare WAN-capable port exists, or consider hardware failure"
+    ],
+    "prevention": [
+      "Use quality cables for the WAN connection",
+      "Keep a record of correct ISP connection settings for reference",
+      "Periodically verify modem and router WAN status as routine maintenance"
+    ],
+    "keywords": [
+      "wan port down",
+      "internet port not working router",
+      "router wan light off"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-001",
+      "NET-073"
+    ]
+  },
+  {
+    "id": "NET-079",
+    "category": "Networking",
+    "subcategory": "Router Problems",
+    "problem": "LAN Port Not Working",
+    "description": "One specific LAN (local) port on the router does not provide network connectivity to a device plugged into it, while other ports work normally.",
+    "symptoms": [
+      "Device plugged into a specific LAN port shows no connection or an unplugged cable message",
+      "Other devices plugged into different LAN ports on the same router work fine",
+      "Link light for that specific port does not illuminate"
+    ],
+    "possible_causes": [
+      "The specific physical port has failed or been damaged",
+      "Cable being used for that port is faulty",
+      "Port-specific configuration, such as being administratively disabled, if the router supports this",
+      "Device plugged into that port has its own connection issue, unrelated to the port itself"
+    ],
+    "diagnostic_questions": [
+      "Does the problem follow the specific port, or does it follow the specific device or cable when moved around?",
+      "Have you tried a different, known-working cable in this same port?",
+      "Have you tried plugging a different, known-working device into this same port?",
+      "Does the router's admin interface show anything unusual about this specific port's status?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Try a different, known-working cable in the suspected faulty port",
+        "reason": "Rules out a bad cable as the cause before suspecting the port itself"
+      },
+      {
+        "step": 2,
+        "action": "Try connecting a different, known-working device to this same port",
+        "reason": "Confirms whether the problem follows the port regardless of what is plugged into it"
+      },
+      {
+        "step": 3,
+        "action": "Try the original device and cable in a different LAN port on the router",
+        "reason": "Confirms whether the problem follows the device/cable instead, which would rule out the port itself"
+      },
+      {
+        "step": 4,
+        "action": "Check the router's admin interface, if available, for any port-specific status or configuration options",
+        "reason": "Some routers allow individual ports to be disabled or configured differently, which could explain the behavior"
+      },
+      {
+        "step": 5,
+        "action": "Consider the port has failed if the problem consistently stays with that specific port regardless of cable or device used",
+        "reason": "Confirms a hardware-level port failure requiring a workaround or router replacement"
+      }
+    ],
+    "possible_solutions": [
+      "Use a different LAN port on the router as a workaround for a failed port",
+      "Replace the router if multiple ports fail over time, indicating broader hardware issues",
+      "Use a switch connected to a working port to regain the lost port capacity"
+    ],
+    "prevention": [
+      "Avoid forcing connectors into ports, which can cause physical damage over time",
+      "Periodically test all LAN ports on critical routers",
+      "Keep a small switch on hand as a quick workaround for a failed router port"
+    ],
+    "keywords": [
+      "lan port not working",
+      "router port dead",
+      "one ethernet port not working on router"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-011",
+      "NET-020"
+    ]
+  },
+  {
+    "id": "NET-080",
+    "category": "Networking",
+    "subcategory": "Router Problems",
+    "problem": "DHCP Disabled on Router",
+    "description": "The router's built-in DHCP server feature has been turned off, either intentionally or accidentally, so it no longer automatically assigns IP addresses to connecting devices.",
+    "symptoms": [
+      "New devices connecting to the router fail to obtain an IP address automatically",
+      "Devices show an APIPA (169.254.x.x) address or no address at all",
+      "Existing devices with a valid lease may continue working until their lease expires"
+    ],
+    "possible_causes": [
+      "DHCP was intentionally disabled, perhaps because another device on the network is meant to handle DHCP instead",
+      "DHCP was accidentally turned off during other configuration changes",
+      "Router experienced a factory reset or firmware update that changed this setting"
+    ],
+    "diagnostic_questions": [
+      "Was DHCP intentionally disabled on this router, for example because a different server or router is meant to handle it?",
+      "Is there possibly another DHCP server on the network that should be the one active, avoiding a conflict?",
+      "Did this setting change after a recent router configuration change, reset, or update?",
+      "Do you want this router to handle DHCP, or should it remain disabled in favor of another device?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Log into the router's admin interface and check the DHCP server settings section",
+        "reason": "Directly confirms whether DHCP is currently enabled or disabled on this router"
+      },
+      {
+        "step": 2,
+        "action": "Determine whether this router should be the one providing DHCP, or if another device on the network is intended to handle it",
+        "reason": "Prevents accidentally creating a DHCP conflict by enabling it on multiple devices at once"
+      },
+      {
+        "step": 3,
+        "action": "Enable the DHCP server setting and configure an appropriate address range if this router should be providing DHCP",
+        "reason": "Restores automatic IP address assignment for connecting devices"
+      },
+      {
+        "step": 4,
+        "action": "Save the changes and restart the router if required for the setting to take effect",
+        "reason": "Ensures the DHCP service actually starts running with the new configuration"
+      },
+      {
+        "step": 5,
+        "action": "Test with a new device connecting to confirm it now receives a valid IP address automatically",
+        "reason": "Verifies the DHCP service is functioning correctly after being re-enabled"
+      }
+    ],
+    "possible_solutions": [
+      "Enable the DHCP server setting in the router's admin interface",
+      "Configure an appropriate DHCP address range if not already set",
+      "Confirm no other device is also running DHCP to avoid a conflict",
+      "Restart the router if needed to apply the change"
+    ],
+    "prevention": [
+      "Document intended DHCP server responsibility clearly, especially in networks with multiple routers or servers",
+      "Avoid disabling DHCP unless there is a specific, documented reason",
+      "Review DHCP settings after firmware updates or factory resets"
+    ],
+    "keywords": [
+      "dhcp disabled on router",
+      "router not assigning ip addresses",
+      "enable dhcp server router"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-043",
+      "NET-048"
+    ]
+  },
+  {
+    "id": "NET-081",
+    "category": "Networking",
+    "subcategory": "Router Problems",
+    "problem": "NAT Configuration Error",
+    "description": "Network Address Translation (NAT) settings on the router are misconfigured, causing issues with port forwarding, certain applications, or devices being unable to properly communicate with the internet.",
+    "symptoms": [
+      "Port forwarding rules do not work as expected for hosting a game server, camera, or other service",
+      "Certain applications report connectivity or NAT-related errors",
+      "Double NAT may be detected when checking network status on gaming consoles or similar devices"
+    ],
+    "possible_causes": [
+      "Port forwarding rule configured with an incorrect internal IP address or port",
+      "Double NAT situation from having two routers each performing NAT translation",
+      "NAT type setting (open, moderate, strict) causing compatibility issues for specific applications",
+      "Firewall rules conflicting with intended NAT/port forwarding configuration"
+    ],
+    "diagnostic_questions": [
+      "What specific application or service is having the NAT-related issue?",
+      "Are there multiple routers in the network path, potentially causing a double NAT situation?",
+      "What is the exact port forwarding configuration currently set up, including internal IP and ports?",
+      "Has this configuration ever worked correctly before, or is this a new setup?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Verify the internal device's IP address has not changed since the port forwarding rule was configured",
+        "reason": "Port forwarding rules point to a specific internal IP, and if that device's address changed, the rule will no longer work correctly"
+      },
+      {
+        "step": 2,
+        "action": "Check for a double NAT situation by reviewing the full network path from the modem to the final router",
+        "reason": "Having two devices both performing NAT translation is a common source of confusing connectivity issues, especially for gaming and hosting services"
+      },
+      {
+        "step": 3,
+        "action": "If double NAT is found, consider setting one router to bridge mode, or use only one device for NAT/routing duties",
+        "reason": "Eliminates the double translation layer that causes many NAT-related application problems"
+      },
+      {
+        "step": 4,
+        "action": "Correct the port forwarding rule's internal IP address and port to match the current, correct values for the target device",
+        "reason": "Directly fixes rules that have become outdated due to IP address changes"
+      },
+      {
+        "step": 5,
+        "action": "Use a static IP or DHCP reservation for the target device to prevent this rule from breaking again in the future",
+        "reason": "Ensures the port forwarding rule remains valid even after the device restarts or renews its lease"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the port forwarding rule's internal IP and port values",
+      "Set the target device to a static IP or DHCP reservation",
+      "Resolve double NAT by using bridge mode on one of the routers",
+      "Review and adjust firewall rules that may conflict with intended NAT behavior"
+    ],
+    "prevention": [
+      "Use DHCP reservations for any device with port forwarding rules",
+      "Document all port forwarding configurations clearly",
+      "Avoid unnecessary double NAT setups by using bridge mode where appropriate"
+    ],
+    "keywords": [
+      "nat configuration error",
+      "port forwarding not working",
+      "double nat detected"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": [
+      "NET-035",
+      "NET-085"
+    ]
+  },
+  {
+    "id": "NET-082",
+    "category": "Networking",
+    "subcategory": "Switch Problems",
+    "problem": "Switch Not Powering On",
+    "description": "The network switch shows no signs of power at all, no lights, no fan noise, meaning none of the connected devices through it have network access.",
+    "symptoms": [
+      "No status or port lights illuminate on the switch",
+      "No fan noise or hum from the device, if it normally has one",
+      "All devices connected through this switch lose network access simultaneously"
+    ],
+    "possible_causes": [
+      "Power cable or adapter not properly connected",
+      "Power outlet or power strip not providing power",
+      "Internal power supply failure within the switch",
+      "For PoE switches, a power draw issue if many high-power devices are connected"
+    ],
+    "diagnostic_questions": [
+      "Is the power cable firmly connected at both the switch and the wall outlet or power strip?",
+      "Does the outlet or power strip work for other devices?",
+      "Has this switch worked before, or is this a new installation?",
+      "If this is a PoE switch, are there many high-power devices connected that might be causing an overload?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check that the power cable is firmly connected at both the switch and the power source",
+        "reason": "A loose connection is the simplest and most common cause of a switch showing no power at all"
+      },
+      {
+        "step": 2,
+        "action": "Test the power outlet or power strip with another device to confirm it is providing power",
+        "reason": "Rules out the power source itself as the problem"
+      },
+      {
+        "step": 3,
+        "action": "Try a different power cable if one compatible is available",
+        "reason": "Rules out a damaged cable as the cause"
+      },
+      {
+        "step": 4,
+        "action": "For PoE switches, disconnect some high-power devices temporarily to see if the switch powers on with a reduced load",
+        "reason": "An overloaded PoE switch may fail to power on properly if its total power budget is exceeded"
+      },
+      {
+        "step": 5,
+        "action": "Consider the switch has an internal power supply failure if it shows no signs of life with confirmed good power and cable",
+        "reason": "Indicates a hardware fault requiring repair or replacement"
+      }
+    ],
+    "possible_solutions": [
+      "Reconnect or replace the power cable",
+      "Use a confirmed working power outlet",
+      "Reduce PoE load if overload is suspected on a PoE switch",
+      "Replace the switch if it shows no signs of life with confirmed good power"
+    ],
+    "prevention": [
+      "Use a surge protector or UPS for critical switches",
+      "Avoid overloading PoE switches beyond their rated capacity",
+      "Keep a spare switch on hand for critical network segments"
+    ],
+    "keywords": [
+      "switch not turning on",
+      "switch no power no lights",
+      "network switch dead"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-072"
+    ]
+  },
+  {
+    "id": "NET-083",
+    "category": "Networking",
+    "subcategory": "Switch Problems",
+    "problem": "Switch Port Down",
+    "description": "A specific port on the network switch shows as down or inactive, so the device connected to it has no network connectivity, while other ports work normally.",
+    "symptoms": [
+      "Specific switch port's link light does not illuminate",
+      "Device connected to that port shows a disconnected or unplugged status",
+      "Other ports on the same switch work normally for their connected devices"
+    ],
+    "possible_causes": [
+      "Cable connected to this port is damaged or not fully seated",
+      "The specific physical port has failed",
+      "Port has been administratively disabled through switch management, if it is a managed switch",
+      "Speed/duplex mismatch between the connected device and this specific port"
+    ],
+    "diagnostic_questions": [
+      "Have you tried a different, known-working cable in this port?",
+      "Have you tried connecting a different, known-working device to this port?",
+      "If this is a managed switch, does its management interface show anything about this port's status or configuration?",
+      "Does moving the original cable/device to a different port resolve the issue?"
+    ],
+    "commands": [
+      {
+        "command": "show interface status (on a managed switch CLI)",
+        "purpose": "Check the administrative and operational status of the specific port",
+        "expected_result": "Port shows as 'connected' or 'up' with correct speed/duplex",
+        "abnormal_result": "Port shows as 'disabled', 'down', or 'notconnect', pointing to either an administrative or physical layer issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Try a different, known-working cable in the affected port",
+        "reason": "Rules out a damaged cable as the cause before suspecting the port itself"
+      },
+      {
+        "step": 2,
+        "action": "Try connecting a different, known-working device to the affected port",
+        "reason": "Confirms whether the problem follows the port itself regardless of what is connected"
+      },
+      {
+        "step": 3,
+        "action": "On a managed switch, check the port's configuration to confirm it has not been administratively disabled",
+        "reason": "A port can be intentionally or accidentally shut down through switch management commands"
+      },
+      {
+        "step": 4,
+        "action": "Re-enable the port through the switch's management interface if it was administratively disabled",
+        "reason": "Directly restores connectivity if this was the specific cause"
+      },
+      {
+        "step": 5,
+        "action": "Consider the port has failed physically if it remains down despite good cabling, a working device, and correct administrative configuration",
+        "reason": "Confirms a hardware-level fault requiring a workaround using a different port"
+      }
+    ],
+    "possible_solutions": [
+      "Enable the port if administratively disabled on a managed switch",
+      "Use a different, working port as a workaround for a failed one",
+      "Replace damaged cables",
+      "Replace the switch if multiple ports fail over time"
+    ],
+    "prevention": [
+      "Document administratively disabled ports and the reasons for the change",
+      "Periodically audit port status on managed switches",
+      "Label switch ports clearly for easier troubleshooting"
+    ],
+    "keywords": [
+      "switch port down",
+      "switch port not working",
+      "port link light off switch"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-011",
+      "NET-084"
+    ]
+  },
+  {
+    "id": "NET-084",
+    "category": "Networking",
+    "subcategory": "Switch Problems",
+    "problem": "Switch Port Disabled",
+    "description": "A specific port on a managed switch has been administratively disabled, meaning it will not pass traffic regardless of what is physically connected to it.",
+    "symptoms": [
+      "Port shows as 'disabled' or 'shutdown' in the switch's management interface",
+      "Device plugged into this port gets no link at all, as if the cable were unplugged",
+      "Other similarly configured ports work normally"
+    ],
+    "possible_causes": [
+      "Port was intentionally disabled by an administrator, perhaps for security or unused port management",
+      "Port was accidentally disabled during other configuration changes",
+      "Automated port security feature triggered a shutdown due to a policy violation"
+    ],
+    "diagnostic_questions": [
+      "Was this port intentionally disabled as part of standard unused port security practices?",
+      "Do you have access to the switch's management interface to check the port's configuration status?",
+      "Has anyone made recent configuration changes to this switch?",
+      "Could a port security violation, such as an unauthorized MAC address, have triggered an automatic shutdown?"
+    ],
+    "commands": [
+      {
+        "command": "show interface status (on a managed switch CLI)",
+        "purpose": "Check whether the port is administratively disabled versus experiencing a different type of failure",
+        "expected_result": "Port shows as enabled, even if not currently connected",
+        "abnormal_result": "Port explicitly shows as 'disabled' or 'admin down', confirming it was intentionally or accidentally turned off"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Log into the switch's management interface and check the specific port's administrative status",
+        "reason": "Directly confirms whether this port has been deliberately disabled"
+      },
+      {
+        "step": 2,
+        "action": "Check switch logs for any port security violations or automated shutdown events on this port",
+        "reason": "Some ports are configured to automatically shut down in response to a security policy violation, which would explain the disabled state"
+      },
+      {
+        "step": 3,
+        "action": "Determine whether this port should legitimately be enabled based on current business need",
+        "reason": "Prevents accidentally re-enabling a port that was intentionally secured or disabled for a valid reason"
+      },
+      {
+        "step": 4,
+        "action": "Re-enable the port through the switch's configuration if it should be active",
+        "reason": "Restores connectivity for the device that needs to use this port"
+      },
+      {
+        "step": 5,
+        "action": "If a port security violation caused the shutdown, address the underlying cause, such as removing an unauthorized device, before re-enabling",
+        "reason": "Simply re-enabling without addressing the trigger may cause the same automatic shutdown to happen again"
+      }
+    ],
+    "possible_solutions": [
+      "Re-enable the port through the switch's management interface",
+      "Investigate and resolve any port security violation before re-enabling",
+      "Document the change and reason for future reference"
+    ],
+    "prevention": [
+      "Maintain clear documentation of intentionally disabled ports and their reasons",
+      "Review port security violation logs regularly on managed switches",
+      "Use a consistent process for enabling/disabling ports during changes"
+    ],
+    "keywords": [
+      "switch port administratively disabled",
+      "port shutdown status switch",
+      "re-enable disabled switch port"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-15 minutes",
+    "related_problems": [
+      "NET-083",
+      "NET-085"
+    ]
+  },
+  {
+    "id": "NET-085",
+    "category": "Networking",
+    "subcategory": "Switch Problems",
+    "problem": "Port Security Violation",
+    "description": "A managed switch's port security feature has detected an unauthorized device or a violation of its configured rules, resulting in the port being disabled or restricted.",
+    "symptoms": [
+      "Switch logs show a port security violation event",
+      "Affected port becomes disabled (err-disabled) or restricts traffic from the unauthorized device",
+      "New or replacement device connected to this port cannot communicate"
+    ],
+    "possible_causes": [
+      "A device with a MAC address not in the port's allowed list was connected",
+      "More devices than the configured maximum were connected to the port, such as through an unauthorized switch or hub",
+      "A device's network card was replaced, resulting in a new MAC address not matching what was previously learned/allowed",
+      "Intentional security policy correctly detecting an unauthorized connection attempt"
+    ],
+    "diagnostic_questions": [
+      "What does the switch log show as the specific reason for the violation, such as the offending MAC address?",
+      "Was a device's network card recently replaced, or was a new device connected to this port?",
+      "What is the port's configured maximum number of allowed MAC addresses?",
+      "Is this violation expected given a legitimate hardware change, or does it indicate an actual unauthorized connection attempt?"
+    ],
+    "commands": [
+      {
+        "command": "show port-security interface <port> (on a managed switch CLI)",
+        "purpose": "View the specific port security configuration and violation details for the affected port",
+        "expected_result": "Shows the configured maximum MAC addresses and any violation details",
+        "abnormal_result": "Shows the port in an err-disabled or restricted state along with the specific violating MAC address"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the switch's port security logs for the specific violation details, including the offending MAC address",
+        "reason": "Identifies exactly what triggered the security violation for proper investigation"
+      },
+      {
+        "step": 2,
+        "action": "Determine whether the violation reflects a legitimate change, such as a replaced network card, or a genuine unauthorized connection attempt",
+        "reason": "Ensures the correct response, whether that is authorizing a legitimate device or investigating a security concern"
+      },
+      {
+        "step": 3,
+        "action": "If legitimate, update the port's allowed MAC address list or clear the existing secure MAC addresses to allow the new device to be learned",
+        "reason": "Restores connectivity for the legitimate device while maintaining port security"
+      },
+      {
+        "step": 4,
+        "action": "Re-enable the port if it is in an err-disabled state, either manually or by waiting for an automatic recovery timer if configured",
+        "reason": "Port security violations often place the port in a shutdown state that requires explicit re-enabling"
+      },
+      {
+        "step": 5,
+        "action": "If the violation appears to be a genuine unauthorized access attempt, investigate further and involve appropriate security personnel",
+        "reason": "Port security violations can be an important early indicator of a physical security or network security issue"
+      }
+    ],
+    "possible_solutions": [
+      "Update the allowed MAC address list for a legitimate device change",
+      "Re-enable the port after clearing or addressing the violation",
+      "Investigate further if the violation suggests an unauthorized access attempt",
+      "Adjust port security settings if the maximum MAC count needs revision"
+    ],
+    "prevention": [
+      "Document expected devices and their MAC addresses per port where port security is used",
+      "Establish a clear process for handling legitimate hardware changes on secured ports",
+      "Review port security violation logs regularly as part of network security monitoring"
+    ],
+    "keywords": [
+      "port security violation switch",
+      "err-disabled port",
+      "mac address violation switch port"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-084",
+      "NET-098"
+    ]
+  },
+  {
+    "id": "NET-086",
+    "category": "Networking",
+    "subcategory": "Switch Problems",
+    "problem": "Switch Loop Detected",
+    "description": "A network loop has been created, often by an accidental duplicate cable connection between switches, causing severe network slowdowns or a complete network outage.",
+    "symptoms": [
+      "Network becomes extremely slow or completely unresponsive across a wide area",
+      "Switch port lights flash rapidly and continuously",
+      "Switch logs show loop detection or spanning tree topology change messages"
+    ],
+    "possible_causes": [
+      "A cable was accidentally connected between two ports on the same switch or between two switches, creating a physical loop",
+      "Spanning Tree Protocol (STP) is disabled or misconfigured, allowing a loop to form without automatic prevention",
+      "A user connected an unmanaged switch or hub in a way that created an unintended loop"
+    ],
+    "diagnostic_questions": [
+      "Was any new cable connected recently, especially involving multiple switches or a small unmanaged switch/hub?",
+      "Do the affected switches have Spanning Tree Protocol enabled?",
+      "Are switch port lights flashing rapidly and continuously, suggesting a broadcast storm from a loop?",
+      "Can you identify any recently added network equipment that might have inadvertently created a loop?"
+    ],
+    "commands": [
+      {
+        "command": "show spanning-tree (on a managed switch CLI)",
+        "purpose": "Check the current spanning tree status and identify any recent topology changes indicating a loop",
+        "expected_result": "Stable topology with no frequent recent changes",
+        "abnormal_result": "Frequent topology change notifications or a port stuck in a blocking/looping state, indicating an active loop condition"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Identify any recently connected cables, especially ones connecting multiple switches or involving an unmanaged switch/hub",
+        "reason": "Physical loops are almost always caused by a specific recent cabling change that needs to be located and undone"
+      },
+      {
+        "step": 2,
+        "action": "Disconnect suspected loop-causing cables one at a time, checking if network performance improves after each disconnection",
+        "reason": "Systematically isolates and removes the specific connection causing the loop"
+      },
+      {
+        "step": 3,
+        "action": "Verify Spanning Tree Protocol is enabled on all managed switches in the network",
+        "reason": "STP is specifically designed to detect and automatically block loops, preventing this type of outage from occurring or recurring"
+      },
+      {
+        "step": 4,
+        "action": "Enable STP if it was found to be disabled, following proper change management for a production network",
+        "reason": "Provides ongoing automatic protection against future accidental loops"
+      },
+      {
+        "step": 5,
+        "action": "Educate users or restrict the ability to connect unauthorized switches or hubs to the network if this was the root cause",
+        "reason": "Prevents recurrence from the same type of accidental misconfiguration"
+      }
+    ],
+    "possible_solutions": [
+      "Locate and remove the cable causing the physical loop",
+      "Enable Spanning Tree Protocol on all managed switches if not already active",
+      "Restrict unauthorized connection of switches/hubs to the network",
+      "Educate users about the risks of unauthorized network equipment"
+    ],
+    "prevention": [
+      "Always enable Spanning Tree Protocol on managed switches",
+      "Label and document all inter-switch cabling clearly",
+      "Restrict physical access to network infrastructure where possible"
+    ],
+    "keywords": [
+      "network loop detected",
+      "switch broadcast storm from loop",
+      "spanning tree loop network slow"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "NET-087",
+      "NET-088"
+    ]
+  },
+  {
+    "id": "NET-087",
+    "category": "Networking",
+    "subcategory": "Switch Problems",
+    "problem": "MAC Address Table Full",
+    "description": "The switch's MAC address table, used to track which devices are connected to which ports, has reached its maximum capacity, causing it to flood traffic and degrade performance.",
+    "symptoms": [
+      "Network performance degrades significantly across the switch",
+      "Switch behaves as if it were an unmanaged hub, flooding traffic to all ports instead of switching efficiently",
+      "Switch logs, if available, may show MAC address table capacity warnings"
+    ],
+    "possible_causes": [
+      "Genuinely large number of devices connected through this switch, exceeding its table capacity",
+      "A network loop or misconfiguration causing MAC addresses to be learned and relearned rapidly, artificially filling the table",
+      "MAC address spoofing attack deliberately flooding the table with fake addresses",
+      "Switch hardware limitation being reached in a growing network"
+    ],
+    "diagnostic_questions": [
+      "Approximately how many devices are actually connected through this switch and any switches downstream of it?",
+      "Has the network recently grown significantly in the number of connected devices?",
+      "Is there any possibility of a loop or misconfiguration that could be causing addresses to be learned unusually rapidly?",
+      "Does the switch's specification list a maximum MAC address table size that might explain this at the current device count?"
+    ],
+    "commands": [
+      {
+        "command": "show mac address-table count (on a managed switch CLI)",
+        "purpose": "Check the current number of learned MAC addresses against the switch's maximum capacity",
+        "expected_result": "Current count is comfortably below the switch's maximum table size",
+        "abnormal_result": "Current count is at or very near the maximum, confirming the table is full or nearly full"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the current MAC address table count against the switch's documented maximum capacity",
+        "reason": "Confirms whether this is genuinely a capacity issue versus another type of problem with similar symptoms"
+      },
+      {
+        "step": 2,
+        "action": "Investigate whether a network loop might be causing addresses to be learned and relearned abnormally, artificially inflating the table",
+        "reason": "A loop can cause the table to fill with duplicate or rapidly changing entries even without a genuinely large number of real devices"
+      },
+      {
+        "step": 3,
+        "action": "Resolve any identified loop first, then recheck the MAC address table count",
+        "reason": "Fixing a loop often immediately resolves an artificially inflated table without requiring hardware changes"
+      },
+      {
+        "step": 4,
+        "action": "If the table is genuinely full due to legitimate device count, consider segmenting the network with additional switches or upgrading to higher-capacity hardware",
+        "reason": "Provides a real, lasting solution when the network has simply outgrown the current switch's capacity"
+      },
+      {
+        "step": 5,
+        "action": "Investigate for signs of a MAC flooding attack if no loop or legitimate growth explains the full table",
+        "reason": "MAC address table flooding is a known attack technique used to force a switch into an insecure flooding behavior"
+      }
+    ],
+    "possible_solutions": [
+      "Segment the network with additional switches to distribute the MAC address load",
+      "Investigate and resolve any network loop artificially filling the table",
+      "Upgrade to a switch with a larger MAC address table capacity if genuinely needed",
+      "Investigate for MAC spoofing attacks if malicious activity is suspected"
+    ],
+    "prevention": [
+      "Plan switch capacity with future network growth in mind",
+      "Monitor MAC address table utilization on critical switches",
+      "Segment large networks appropriately across multiple switches"
+    ],
+    "keywords": [
+      "mac address table full",
+      "switch flooding traffic hub behavior",
+      "cam table full switch"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": [
+      "NET-086",
+      "NET-098"
+    ]
+  },
+  {
+    "id": "NET-088",
+    "category": "Networking",
+    "subcategory": "Switch Problems",
+    "problem": "Broadcast Storm",
+    "description": "An excessive, self-perpetuating flood of broadcast traffic overwhelms the network, causing severe slowdowns or a complete outage across all connected devices.",
+    "symptoms": [
+      "Network becomes extremely slow or entirely unresponsive very suddenly",
+      "Switch port activity lights flash rapidly and continuously across many or all ports",
+      "High CPU utilization reported on switches and routers if this can be checked"
+    ],
+    "possible_causes": [
+      "Network loop, often from an accidental duplicate cable connection, causing traffic to circulate endlessly",
+      "Spanning Tree Protocol disabled or misconfigured, failing to prevent the loop",
+      "Malfunctioning network device sending excessive broadcast traffic",
+      "Misconfigured application or service generating abnormal broadcast traffic"
+    ],
+    "diagnostic_questions": [
+      "Did this start suddenly, and can you correlate it with any recent cabling or equipment changes?",
+      "Are switch port lights flashing unusually rapidly across many ports?",
+      "Is Spanning Tree Protocol enabled on the switches in this network?",
+      "Has any new or malfunctioning device been added to the network recently?"
+    ],
+    "commands": [
+      {
+        "command": "show interface counters (on a managed switch CLI)",
+        "purpose": "Check broadcast traffic statistics on switch interfaces to identify abnormally high broadcast rates",
+        "expected_result": "Broadcast traffic within normal expected ranges for the network",
+        "abnormal_result": "Extremely high and rapidly increasing broadcast packet counts, confirming an active storm condition"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Identify any recently connected cables or equipment that might have created a network loop",
+        "reason": "A physical loop is the most common cause of a broadcast storm and needs to be located and removed immediately"
+      },
+      {
+        "step": 2,
+        "action": "Systematically disconnect suspected loop-causing connections to stop the storm as quickly as possible",
+        "reason": "Immediately halting the storm is the priority to restore network functionality"
+      },
+      {
+        "step": 3,
+        "action": "Verify Spanning Tree Protocol is properly enabled and functioning on all managed switches once the immediate storm is resolved",
+        "reason": "STP is designed specifically to detect and prevent loops from causing broadcast storms"
+      },
+      {
+        "step": 4,
+        "action": "Investigate switch port statistics to identify which specific port or device was the source of the excessive broadcast traffic",
+        "reason": "Helps confirm the root cause and identify if a specific malfunctioning device needs to be addressed"
+      },
+      {
+        "step": 5,
+        "action": "Implement storm control features on switches that support them, limiting the rate of broadcast traffic any single port can generate",
+        "reason": "Provides an additional layer of automatic protection against future broadcast storms"
+      }
+    ],
+    "possible_solutions": [
+      "Locate and remove the physical loop causing the storm",
+      "Ensure Spanning Tree Protocol is enabled and functioning correctly",
+      "Identify and address any malfunctioning device generating excessive broadcast traffic",
+      "Enable storm control features on switches if available"
+    ],
+    "prevention": [
+      "Always enable Spanning Tree Protocol on managed switches",
+      "Enable storm control as a proactive protective measure",
+      "Restrict unauthorized connection of switches/hubs to the network"
+    ],
+    "keywords": [
+      "broadcast storm network",
+      "network suddenly extremely slow all devices",
+      "switch lights flashing rapidly"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "NET-086",
+      "NET-087"
+    ]
+  },
+  {
+    "id": "NET-089",
+    "category": "Networking",
+    "subcategory": "Switch Problems",
+    "problem": "Incorrect VLAN Assignment",
+    "description": "A switch port has been assigned to the wrong VLAN, causing the connected device to lose access to resources it should have, or gain unintended access to a different network segment.",
+    "symptoms": [
+      "Device connected to a specific port cannot reach expected network resources",
+      "Device may unexpectedly be able to reach resources meant for a different department or network segment",
+      "Device receives an IP address from the wrong DHCP scope corresponding to the incorrect VLAN"
+    ],
+    "possible_causes": [
+      "Port was configured with the wrong VLAN ID during initial setup or a recent change",
+      "A configuration copy-paste error assigned the wrong VLAN to this specific port",
+      "Port was moved to a different physical location without updating its VLAN assignment accordingly",
+      "Device was moved to a different port without the receiving port matching the required VLAN"
+    ],
+    "diagnostic_questions": [
+      "What VLAN should this port be assigned to, based on its intended purpose or department?",
+      "What VLAN is the port currently actually assigned to?",
+      "Was this port's configuration recently changed, or was the connected device recently moved?",
+      "Does the resulting network behavior, such as receiving an IP from the wrong DHCP scope, match what would be expected from the wrong VLAN assignment?"
+    ],
+    "commands": [
+      {
+        "command": "show interface <port> switchport (on a managed switch CLI)",
+        "purpose": "Check the current VLAN assignment for the specific port",
+        "expected_result": "Port is assigned to the correct, intended VLAN",
+        "abnormal_result": "Port is assigned to an unexpected or incorrect VLAN, confirming the misconfiguration"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Determine the correct, intended VLAN for this port based on its physical location or the connected device's role",
+        "reason": "Establishes the correct target configuration before making any changes"
+      },
+      {
+        "step": 2,
+        "action": "Check the port's current VLAN assignment using the switch's management interface or CLI",
+        "reason": "Confirms the actual current configuration to compare against the intended one"
+      },
+      {
+        "step": 3,
+        "action": "Correct the port's VLAN assignment to the proper VLAN ID",
+        "reason": "Directly resolves the misconfiguration causing the connectivity or access issue"
+      },
+      {
+        "step": 4,
+        "action": "Have the connected device release and renew its IP address, or restart its network connection, after the VLAN change",
+        "reason": "Ensures the device picks up the correct network configuration matching its new, correct VLAN"
+      },
+      {
+        "step": 5,
+        "action": "Verify the device can now reach its expected resources and no longer has unintended access to the previous VLAN's resources",
+        "reason": "Confirms the fix fully resolved both the access problem and any unintended security exposure"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the port's VLAN assignment to the proper VLAN ID",
+      "Have the affected device release and renew its network configuration",
+      "Verify both intended access is restored and unintended access is removed"
+    ],
+    "prevention": [
+      "Maintain clear documentation of intended VLAN assignments per port or port group",
+      "Use a consistent labeling or naming convention for VLANs to reduce assignment errors",
+      "Audit VLAN assignments periodically, especially after office moves or reconfigurations"
+    ],
+    "keywords": [
+      "wrong vlan assigned port",
+      "incorrect vlan switch port",
+      "device on wrong vlan"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "NET-090",
+      "NET-093"
+    ]
+  },
+  {
+    "id": "NET-090",
+    "category": "Networking",
+    "subcategory": "Switch Problems",
+    "problem": "Trunk Port Misconfigured",
+    "description": "A switch port configured as a trunk, meant to carry traffic for multiple VLANs between switches, has an incorrect configuration, disrupting connectivity for one or more VLANs across the trunk link.",
+    "symptoms": [
+      "Some VLANs work correctly across the trunk link while others do not",
+      "Devices in certain VLANs cannot reach resources on the other side of the trunk connection",
+      "Switch logs may show VLAN mismatch or trunk negotiation errors"
+    ],
+    "possible_causes": [
+      "Trunk port not configured to allow all the necessary VLANs",
+      "Mismatched trunk encapsulation type between the two connected switches",
+      "Native VLAN mismatch between the two ends of the trunk link",
+      "One end configured as a trunk while the other end is configured as a regular access port"
+    ],
+    "diagnostic_questions": [
+      "Which specific VLANs are having problems across this trunk connection, and which are working fine?",
+      "Are both ends of this trunk link configured consistently as trunk ports?",
+      "What VLANs are currently allowed on this trunk port's configuration?",
+      "Is the native VLAN configured identically on both ends of the trunk link?"
+    ],
+    "commands": [
+      {
+        "command": "show interface trunk (on a managed switch CLI)",
+        "purpose": "View the current trunk configuration, including allowed VLANs and native VLAN, for the port",
+        "expected_result": "All required VLANs are listed as allowed, and the native VLAN matches the other end of the trunk",
+        "abnormal_result": "Missing VLANs from the allowed list, or a native VLAN mismatch compared to the connected switch"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the trunk port configuration on both ends of the link to confirm both are indeed configured as trunk ports",
+        "reason": "A trunk connected to a regular access port will not function correctly for multiple VLANs"
+      },
+      {
+        "step": 2,
+        "action": "Compare the list of allowed VLANs on both ends of the trunk to identify any missing VLANs causing the specific connectivity gaps",
+        "reason": "A VLAN not included in the allowed list on either end will not pass traffic across the trunk"
+      },
+      {
+        "step": 3,
+        "action": "Add any missing VLANs to the trunk's allowed VLAN list on both ends as needed",
+        "reason": "Directly restores connectivity for the specific VLANs that were being blocked"
+      },
+      {
+        "step": 4,
+        "action": "Verify the native VLAN configuration matches exactly on both ends of the trunk link",
+        "reason": "A native VLAN mismatch can cause subtle and confusing connectivity issues, particularly for untagged traffic"
+      },
+      {
+        "step": 5,
+        "action": "Confirm the trunk encapsulation type, if applicable to the switch platform, matches on both ends",
+        "reason": "Some switches support multiple trunk encapsulation types, and a mismatch will prevent the trunk from functioning at all"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the allowed VLAN list on the trunk port to include all necessary VLANs",
+      "Align the native VLAN configuration on both ends of the trunk",
+      "Ensure both ends of the link are consistently configured as trunk ports",
+      "Match trunk encapsulation type on both ends if applicable"
+    ],
+    "prevention": [
+      "Document intended trunk configurations, including allowed VLANs and native VLAN, for each inter-switch link",
+      "Use a consistent native VLAN across the entire network",
+      "Verify trunk configuration whenever adding a new switch to the network"
+    ],
+    "keywords": [
+      "trunk port misconfigured",
+      "vlan not working across trunk",
+      "native vlan mismatch trunk"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": [
+      "NET-089",
+      "NET-091"
+    ]
+  },
+  {
+    "id": "NET-091",
+    "category": "Networking",
+    "subcategory": "Switch Problems",
+    "problem": "STP Blocking Port",
+    "description": "Spanning Tree Protocol has placed a specific port into a blocking state, preventing it from forwarding traffic, which may be expected behavior or may indicate an underlying topology problem.",
+    "symptoms": [
+      "Specific switch port shows as 'blocking' in Spanning Tree Protocol status",
+      "Device connected to this port has no network connectivity, or connectivity is significantly delayed after connection",
+      "This may be entirely normal and expected if the network has a genuinely redundant topology"
+    ],
+    "possible_causes": [
+      "This is the normal, expected function of STP preventing a loop in a genuinely redundant network design",
+      "Unexpected redundant path was created, and STP is correctly blocking it to prevent a loop, though the redundancy itself may not have been intended",
+      "STP topology change causing a previously forwarding port to now be in a blocking state",
+      "STP misconfiguration causing an incorrect port to be blocked instead of the intended redundant one"
+    ],
+    "diagnostic_questions": [
+      "Is this network intentionally designed with redundant links between switches, where some blocking is expected?",
+      "Did this port's status change recently, and can you correlate it with any network changes?",
+      "Is the device connected to this specific port supposed to have active connectivity right now?",
+      "Do you have a documented network topology diagram to compare current STP behavior against the intended design?"
+    ],
+    "commands": [
+      {
+        "command": "show spanning-tree interface <port> (on a managed switch CLI)",
+        "purpose": "Check the specific Spanning Tree Protocol state and role for this port",
+        "expected_result": "Port state matches the intended design, whether forwarding or intentionally blocking as part of redundancy",
+        "abnormal_result": "An unexpected port is blocking when it should be forwarding, or vice versa, compared to the intended topology"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Determine whether this network has an intentionally redundant topology where some ports are expected to be in a blocking state",
+        "reason": "Blocking is often completely normal and correct STP behavior, not necessarily a fault to be fixed"
+      },
+      {
+        "step": 2,
+        "action": "Compare the current STP topology against any documented intended design to confirm whether the right ports are blocking",
+        "reason": "Helps distinguish between expected redundancy behavior and an actual misconfiguration"
+      },
+      {
+        "step": 3,
+        "action": "If an unintended redundant path was accidentally created, such as through an unplanned extra cable connection, consider whether to formalize it as intentional redundancy or remove the extra link",
+        "reason": "Addresses the root cause of an unplanned topology change rather than just the resulting symptom"
+      },
+      {
+        "step": 4,
+        "action": "Check STP priority and cost settings if the wrong port is blocking instead of the intended one within a genuinely redundant design",
+        "reason": "Incorrect STP parameters can cause the protocol to select a suboptimal port to block, even in an intentional redundant topology"
+      },
+      {
+        "step": 5,
+        "action": "Adjust STP priority or cost settings as needed to guide the protocol toward blocking the intended, less critical path",
+        "reason": "Ensures the more optimal or intended port remains forwarding for normal traffic"
+      }
+    ],
+    "possible_solutions": [
+      "Confirm blocking is expected behavior for intentional network redundancy, requiring no fix",
+      "Remove an accidental extra link if redundancy was not intended",
+      "Adjust STP priority/cost settings to correct which port blocks in an intentional redundant design"
+    ],
+    "prevention": [
+      "Document intended network topology, including any redundant links and expected STP behavior",
+      "Use consistent STP priority settings across planned redundant paths",
+      "Review STP topology after any changes to switch interconnections"
+    ],
+    "keywords": [
+      "stp blocking port",
+      "spanning tree port blocked",
+      "port not forwarding stp"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": [
+      "NET-086",
+      "NET-090"
+    ]
+  },
+  {
+    "id": "NET-092",
+    "category": "Networking",
+    "subcategory": "Switch Problems",
+    "problem": "Switch Overheating",
+    "description": "The network switch becomes excessively hot during operation, which can lead to performance issues, instability, or premature hardware failure.",
+    "symptoms": [
+      "Switch feels very hot to the touch",
+      "Ports may intermittently drop or the switch may become unstable, especially during warmer periods or heavy usage",
+      "Switch may be in an enclosed rack or cabinet with poor airflow"
+    ],
+    "possible_causes": [
+      "Poor ventilation around the switch's physical location, especially in enclosed racks or cabinets",
+      "Dust accumulation blocking vents and internal fans, if present",
+      "Switch operating near or beyond its rated capacity for an extended period",
+      "Failed or failing internal cooling fan, on switches equipped with active cooling"
+    ],
+    "diagnostic_questions": [
+      "Where is the switch physically located, and how much airflow does that space typically have?",
+      "Is the switch in an enclosed rack or cabinet, and if so, does that space have proper cooling?",
+      "Has the switch been cleaned of dust recently, and does it have an internal fan that should be running?",
+      "Is the switch operating near its maximum rated port count or throughput for extended periods?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the switch's physical location for adequate airflow and ventilation",
+        "reason": "Poor ventilation is one of the most common and easily addressed causes of network equipment overheating"
+      },
+      {
+        "step": 2,
+        "action": "Power off the switch and gently clean any visible dust from vents and, if accessible, internal fans using compressed air",
+        "reason": "Dust buildup significantly restricts airflow and traps heat inside the device over time"
+      },
+      {
+        "step": 3,
+        "action": "If the switch has an active cooling fan, listen and check if it is actually spinning and functioning correctly",
+        "reason": "A failed fan on a switch designed to rely on active cooling will lead directly to overheating"
+      },
+      {
+        "step": 4,
+        "action": "Ensure adequate spacing and airflow if the switch is mounted in a rack alongside other heat-generating equipment",
+        "reason": "Rack-mounted equipment needs proper spacing and, often, dedicated cooling to avoid a buildup of trapped heat"
+      },
+      {
+        "step": 5,
+        "action": "Consider relocating the switch or improving the room/rack's overall cooling if the issue persists after addressing dust and immediate airflow",
+        "reason": "A systemic cooling problem in the room or rack may require a broader environmental solution"
+      }
+    ],
+    "possible_solutions": [
+      "Improve ventilation around the switch's location",
+      "Clean dust from vents and internal fans regularly",
+      "Replace a failed internal cooling fan if applicable",
+      "Improve overall rack or room cooling for switches operating in enclosed spaces"
+    ],
+    "prevention": [
+      "Choose switch placement and rack design with proper airflow in mind",
+      "Perform periodic dust cleaning as routine maintenance for network equipment",
+      "Monitor equipment room or rack temperatures, especially in warmer climates"
+    ],
+    "keywords": [
+      "network switch overheating",
+      "switch too hot rack",
+      "switch unstable due to heat"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-077",
+      "NET-086"
+    ]
+  },
+  {
+    "id": "NET-093",
+    "category": "Networking",
+    "subcategory": "VLAN Problems",
+    "problem": "Wrong VLAN Assignment",
+    "description": "A device or port has been placed into an incorrect VLAN, resulting in the device being isolated from resources it needs or gaining access it should not have.",
+    "symptoms": [
+      "Device cannot reach network resources it should normally have access to",
+      "Device may unexpectedly reach resources belonging to a different department or network segment",
+      "Device's received IP address corresponds to the wrong VLAN's DHCP scope"
+    ],
+    "possible_causes": [
+      "Port VLAN assignment configured incorrectly during setup or a change",
+      "Device physically moved to a different port without updating VLAN configuration",
+      "Copy-paste or bulk configuration error affecting multiple ports",
+      "Confusion between similarly numbered or named VLANs during configuration"
+    ],
+    "diagnostic_questions": [
+      "What VLAN should this device be on, based on its role or department?",
+      "What VLAN is the device's port actually currently configured for?",
+      "Was this device recently moved to a different physical location or port?",
+      "Does the device's received IP address match what would be expected from the correct VLAN's DHCP scope?"
+    ],
+    "commands": [
+      {
+        "command": "show interface <port> switchport (on a managed switch CLI)",
+        "purpose": "Check the current VLAN assignment for the specific port the device is connected to",
+        "expected_result": "Port is assigned to the correct, intended VLAN for that device or location",
+        "abnormal_result": "Port is assigned to an unexpected or incorrect VLAN"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the correct, intended VLAN for this specific device based on its role, department, or physical location",
+        "reason": "Establishes the target configuration before making any changes"
+      },
+      {
+        "step": 2,
+        "action": "Check the actual current VLAN assignment on the switch port this device is connected to",
+        "reason": "Confirms the specific misconfiguration that needs correcting"
+      },
+      {
+        "step": 3,
+        "action": "Correct the port's VLAN assignment to the proper VLAN ID",
+        "reason": "Directly resolves the incorrect assignment causing the access issue"
+      },
+      {
+        "step": 4,
+        "action": "Have the device release and renew its IP address, or reconnect its network cable, to pick up the new VLAN's configuration",
+        "reason": "Ensures the device receives the correct network settings matching its corrected VLAN"
+      },
+      {
+        "step": 5,
+        "action": "Verify the device now has appropriate access to its intended resources and no longer has unintended access to the previous VLAN",
+        "reason": "Confirms the fix fully resolves both the functional and any potential security aspect of the misassignment"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the port's VLAN assignment to match the device's intended VLAN",
+      "Have the device renew its network configuration after the change",
+      "Verify both correct access and removal of unintended access"
+    ],
+    "prevention": [
+      "Maintain clear documentation mapping ports, locations, and intended VLANs",
+      "Use clear, consistent VLAN naming conventions to avoid confusion",
+      "Audit VLAN assignments periodically, especially after moves or changes"
+    ],
+    "keywords": [
+      "wrong vlan assignment device",
+      "device on incorrect vlan",
+      "fix vlan port assignment"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "NET-089",
+      "NET-094"
+    ]
+  },
+  {
+    "id": "NET-094",
+    "category": "Networking",
+    "subcategory": "VLAN Problems",
+    "problem": "VLAN Cannot Communicate",
+    "description": "Devices within the same VLAN, or across two VLANs that should be able to communicate, cannot reach each other at all.",
+    "symptoms": [
+      "Devices confirmed to be on the same VLAN cannot ping or otherwise reach each other",
+      "Two different VLANs that should have inter-VLAN routing configured cannot communicate",
+      "Problem may be isolated to specific device pairs or affect an entire VLAN broadly"
+    ],
+    "possible_causes": [
+      "Devices are actually on different VLANs despite an assumption they share the same one",
+      "Inter-VLAN routing not configured or misconfigured on the router/Layer 3 switch for cross-VLAN communication",
+      "Access control list (ACL) or firewall rule blocking traffic between the VLANs",
+      "VLAN interface (SVI) on the routing device is down or misconfigured"
+    ],
+    "diagnostic_questions": [
+      "Are the devices confirmed to genuinely be on the same VLAN, verified through the switch configuration rather than assumption?",
+      "If this is meant to be inter-VLAN communication, is a router or Layer 3 switch handling routing between these VLANs?",
+      "Are there any access control lists or firewall rules that might be intentionally or accidentally blocking this specific traffic?",
+      "Does the VLAN interface (SVI) for the relevant VLANs show as up and correctly configured on the routing device?"
+    ],
+    "commands": [
+      {
+        "command": "show ip interface brief (on a Layer 3 switch or router CLI)",
+        "purpose": "Check the status of VLAN interfaces (SVIs) responsible for inter-VLAN routing",
+        "expected_result": "Relevant VLAN interfaces show as 'up/up' with correct IP addresses",
+        "abnormal_result": "VLAN interface shows as down, or has an incorrect/missing IP address, explaining the lack of inter-VLAN communication"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Verify both devices are genuinely on the same VLAN by checking their actual switch port configurations, not just assumptions",
+        "reason": "A frequent root cause is devices believed to be on the same VLAN actually being on different ones"
+      },
+      {
+        "step": 2,
+        "action": "For intended inter-VLAN communication, confirm a router or Layer 3 switch is properly configured to route between the relevant VLANs",
+        "reason": "VLANs are isolated by design and require explicit routing configuration to communicate with each other"
+      },
+      {
+        "step": 3,
+        "action": "Check the status and configuration of the VLAN interfaces (SVIs) on the routing device for the relevant VLANs",
+        "reason": "A down or misconfigured VLAN interface will prevent that VLAN from being reachable through routing"
+      },
+      {
+        "step": 4,
+        "action": "Review any access control lists or firewall rules that might be applied between these VLANs",
+        "reason": "Intentional or accidental security rules are a common cause of blocked inter-VLAN traffic even when routing is otherwise correctly configured"
+      },
+      {
+        "step": 5,
+        "action": "Test connectivity directly from the routing device to devices in each VLAN to isolate whether the issue is in routing configuration or somewhere else in the path",
+        "reason": "Helps narrow down whether the problem is specifically with the routing configuration or a different part of the network path"
+      }
+    ],
+    "possible_solutions": [
+      "Correct VLAN assignment if devices are not actually on the same VLAN as assumed",
+      "Configure or correct inter-VLAN routing on the router/Layer 3 switch",
+      "Bring up or correct the VLAN interface (SVI) configuration",
+      "Adjust access control lists or firewall rules blocking intended traffic"
+    ],
+    "prevention": [
+      "Document intended inter-VLAN communication requirements and routing configuration",
+      "Regularly verify VLAN interface status on routing devices",
+      "Review ACL and firewall rules periodically for unintended blocks"
+    ],
+    "keywords": [
+      "vlan cannot communicate",
+      "inter vlan routing not working",
+      "devices same vlan cant reach each other"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "NET-093",
+      "NET-096"
+    ]
+  },
+  {
+    "id": "NET-095",
+    "category": "Networking",
+    "subcategory": "VLAN Problems",
+    "problem": "Native VLAN Mismatch",
+    "description": "The native VLAN configured on a trunk link does not match on both ends, causing subtle connectivity issues and potential security concerns for untagged traffic.",
+    "symptoms": [
+      "Switch logs may show native VLAN mismatch warnings on a trunk link",
+      "Untagged traffic behaves unexpectedly or fails to reach its intended destination across the trunk",
+      "Some VLANs work fine over the trunk while the native VLAN's traffic specifically has issues"
+    ],
+    "possible_causes": [
+      "Native VLAN configured differently on each end of a trunk link, such as VLAN 1 on one switch and VLAN 99 on the other",
+      "Default native VLAN left unchanged on one switch while intentionally changed on the other for security reasons",
+      "Configuration oversight during trunk setup between two switches"
+    ],
+    "diagnostic_questions": [
+      "What native VLAN is configured on each end of this specific trunk link?",
+      "Does the switch report any native VLAN mismatch warnings in its logs?",
+      "Was this trunk recently configured or modified on one or both ends?",
+      "Is there an intentional security practice of changing the native VLAN away from the default that might not have been applied consistently?"
+    ],
+    "commands": [
+      {
+        "command": "show interface trunk (on a managed switch CLI)",
+        "purpose": "View the native VLAN configuration for the trunk port on both connected switches",
+        "expected_result": "Native VLAN matches exactly on both ends of the trunk link",
+        "abnormal_result": "Different native VLAN values configured on each end, confirming the mismatch"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the native VLAN configuration on both ends of the specific trunk link in question",
+        "reason": "Directly identifies whether a mismatch exists and what the two conflicting values are"
+      },
+      {
+        "step": 2,
+        "action": "Determine which native VLAN value should be the correct, standardized one for this network",
+        "reason": "Establishes the target configuration before correcting either side"
+      },
+      {
+        "step": 3,
+        "action": "Update the native VLAN setting on the incorrectly configured end of the trunk to match the correct, standardized value",
+        "reason": "Directly resolves the mismatch causing the untagged traffic issues"
+      },
+      {
+        "step": 4,
+        "action": "Verify the switch no longer reports native VLAN mismatch warnings after the correction",
+        "reason": "Confirms the configuration change was successful and the mismatch is resolved"
+      },
+      {
+        "step": 5,
+        "action": "Review other trunk links in the network for the same native VLAN consistently, preventing similar issues elsewhere",
+        "reason": "A native VLAN mismatch on one link often indicates the same inconsistency may exist on other trunk connections in the network"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the native VLAN on the mismatched end of the trunk to match the other end",
+      "Standardize on a single native VLAN value across the entire network",
+      "Verify no mismatch warnings remain after the correction"
+    ],
+    "prevention": [
+      "Use a consistent native VLAN value across all trunk links network-wide",
+      "Document the standardized native VLAN choice clearly for all administrators",
+      "Verify native VLAN configuration whenever setting up a new trunk link"
+    ],
+    "keywords": [
+      "native vlan mismatch",
+      "trunk native vlan error",
+      "vlan 1 native mismatch switch"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-090",
+      "NET-096"
+    ]
+  },
+  {
+    "id": "NET-096",
+    "category": "Networking",
+    "subcategory": "VLAN Problems",
+    "problem": "Trunk Configuration Error",
+    "description": "A trunk link between two switches has a general configuration error beyond just native VLAN or allowed VLANs, preventing it from properly carrying multi-VLAN traffic.",
+    "symptoms": [
+      "Trunk link fails to pass traffic for any or most VLANs",
+      "Switches may not even establish a proper trunk negotiation between them",
+      "Port may fall back to acting as a regular access port instead of a trunk"
+    ],
+    "possible_causes": [
+      "Trunk encapsulation type mismatch between switch platforms that support multiple types",
+      "One end configured as 'access' mode while the other is configured as 'trunk' mode",
+      "Trunking protocol negotiation (such as DTP) failure or misconfiguration",
+      "Physical layer issue on the trunk link masking as a configuration problem"
+    ],
+    "diagnostic_questions": [
+      "Are both ends of this link explicitly and correctly configured as trunk ports?",
+      "If applicable to this switch platform, does the encapsulation type match on both ends?",
+      "Is there any automatic trunk negotiation protocol involved, and could it be failing?",
+      "Has basic physical connectivity (cable, link light) been confirmed on this specific link?"
+    ],
+    "commands": [
+      {
+        "command": "show interface <port> switchport (on a managed switch CLI)",
+        "purpose": "Check the administrative and operational trunk mode for the port",
+        "expected_result": "Both administrative and operational mode show as trunk with matching encapsulation",
+        "abnormal_result": "Mismatch between administrative and operational mode, or a mode showing as access instead of trunk, revealing the specific configuration problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm basic physical connectivity on the link first, including cable integrity and link lights",
+        "reason": "Rules out a physical layer problem before investigating deeper configuration issues"
+      },
+      {
+        "step": 2,
+        "action": "Check both the administrative and operational trunk mode on both ends of the link",
+        "reason": "Reveals whether the configuration intent (administrative) matches what is actually happening (operational), which can differ due to negotiation failures"
+      },
+      {
+        "step": 3,
+        "action": "Ensure both ends are explicitly configured as trunk ports rather than relying on automatic negotiation, if the platform allows this",
+        "reason": "Explicit configuration is generally more reliable and easier to troubleshoot than automatic trunk negotiation protocols"
+      },
+      {
+        "step": 4,
+        "action": "Verify encapsulation type compatibility if the switch platform supports multiple trunking encapsulation methods",
+        "reason": "A mismatch here will prevent the trunk from forming correctly even with otherwise correct configuration"
+      },
+      {
+        "step": 5,
+        "action": "Correct any identified configuration mismatches and verify the trunk comes up correctly, carrying traffic for all intended VLANs",
+        "reason": "Confirms the specific fix fully resolved the trunk formation and traffic-carrying issue"
+      }
+    ],
+    "possible_solutions": [
+      "Explicitly configure both ends of the link as trunk ports",
+      "Correct encapsulation type mismatches if applicable",
+      "Verify and correct any trunk negotiation protocol issues",
+      "Confirm physical link integrity"
+    ],
+    "prevention": [
+      "Use explicit trunk configuration rather than relying solely on automatic negotiation",
+      "Document trunk configuration standards for the network",
+      "Test new trunk links thoroughly before relying on them for production traffic"
+    ],
+    "keywords": [
+      "trunk configuration error",
+      "trunk not forming between switches",
+      "switchport trunk mismatch"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": [
+      "NET-090",
+      "NET-095"
+    ]
+  },
+  {
+    "id": "NET-097",
+    "category": "Networking",
+    "subcategory": "VLAN Problems",
+    "problem": "Access Port Misconfigured",
+    "description": "A switch port intended to be a simple access port for a single end device, such as a computer or printer, has an incorrect configuration causing connectivity issues.",
+    "symptoms": [
+      "Device connected to this port has no connectivity or unexpected VLAN behavior",
+      "Port may be incorrectly configured as a trunk instead of access mode",
+      "Port may be assigned to the wrong single VLAN for an access port"
+    ],
+    "possible_causes": [
+      "Port configured as trunk mode instead of the intended simple access mode",
+      "Port assigned to an incorrect VLAN for the connected device's needs",
+      "Port configuration copied from a different port type during setup without adjustment",
+      "Voice VLAN misconfiguration if this port is meant to support both a computer and a VoIP phone"
+    ],
+    "diagnostic_questions": [
+      "Is this port intended to be a simple single-device access port, or does it need special configuration like a voice VLAN for an IP phone?",
+      "What VLAN should this access port be assigned to?",
+      "Is the port currently configured as 'access' mode or 'trunk' mode?",
+      "If a voice VLAN is involved, is it configured correctly alongside the data VLAN?"
+    ],
+    "commands": [
+      {
+        "command": "show interface <port> switchport (on a managed switch CLI)",
+        "purpose": "Check the current mode (access vs trunk) and VLAN assignment for the port",
+        "expected_result": "Port mode shows as 'access' with the correct single VLAN assigned",
+        "abnormal_result": "Port mode shows as 'trunk' when access was intended, or the VLAN assignment is incorrect"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the port's intended purpose, specifically whether it should be a simple access port for one device",
+        "reason": "Establishes the correct target configuration, distinguishing from trunk ports meant for switch-to-switch links"
+      },
+      {
+        "step": 2,
+        "action": "Check the port's current mode and VLAN assignment through the switch's management interface",
+        "reason": "Reveals whether the port is incorrectly set to trunk mode or has the wrong VLAN assigned"
+      },
+      {
+        "step": 3,
+        "action": "Change the port mode to 'access' if it was incorrectly configured as a trunk",
+        "reason": "Ensures the port behaves as intended for a simple single-device connection"
+      },
+      {
+        "step": 4,
+        "action": "Correct the VLAN assignment to the proper single VLAN for this access port",
+        "reason": "Directly resolves connectivity issues stemming from an incorrect VLAN assignment"
+      },
+      {
+        "step": 5,
+        "action": "If a voice VLAN is needed for an attached IP phone, configure it correctly alongside the data VLAN according to the phone manufacturer's and switch's requirements",
+        "reason": "Voice VLANs have specific configuration requirements distinct from standard data-only access ports"
+      }
+    ],
+    "possible_solutions": [
+      "Change the port mode to access if incorrectly set to trunk",
+      "Correct the VLAN assignment for the access port",
+      "Configure voice VLAN correctly if applicable for an attached IP phone"
+    ],
+    "prevention": [
+      "Use a standard, documented configuration template for access ports",
+      "Clearly distinguish access port configuration from trunk port configuration in documentation",
+      "Verify voice VLAN configuration when deploying IP phones"
+    ],
+    "keywords": [
+      "access port misconfigured",
+      "port should be access not trunk",
+      "voice vlan not working phone"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "NET-089",
+      "NET-096"
+    ]
+  },
+  {
+    "id": "NET-098",
+    "category": "Networking",
+    "subcategory": "VLAN Problems",
+    "problem": "VLAN Not Created",
+    "description": "An attempt to assign a port or device to a specific VLAN fails, or traffic for that VLAN does not work, because the VLAN itself was never actually created on the switch.",
+    "symptoms": [
+      "Error when attempting to assign a port to a VLAN number that does not exist",
+      "Traffic for the intended VLAN does not work anywhere on the switch",
+      "VLAN is missing entirely from the switch's VLAN database when checked"
+    ],
+    "possible_causes": [
+      "VLAN was planned and referenced in documentation or configuration but never actually created on this specific switch",
+      "VLAN was created on some switches in the network but not consistently on all of them",
+      "VLAN was accidentally deleted during a cleanup or configuration change"
+    ],
+    "diagnostic_questions": [
+      "What VLAN number or name is expected to exist but appears to be missing?",
+      "Was this VLAN successfully created on other switches in the network, just not this particular one?",
+      "Is there any chance this VLAN was recently and accidentally deleted during other configuration work?",
+      "Do you have documentation specifying which VLANs should exist on which switches?"
+    ],
+    "commands": [
+      {
+        "command": "show vlan brief (on a managed switch CLI)",
+        "purpose": "List all VLANs currently defined in the switch's VLAN database",
+        "expected_result": "The expected VLAN appears in the list with its correct ID and name",
+        "abnormal_result": "The expected VLAN is missing entirely from the list, confirming it was never created or was deleted"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the switch's VLAN database to confirm the specific VLAN is indeed missing",
+        "reason": "Directly confirms the root cause before taking any corrective action"
+      },
+      {
+        "step": 2,
+        "action": "Check other switches in the network to see if the VLAN exists there, helping determine if this is an isolated gap or a broader inconsistency",
+        "reason": "Helps understand the scope of the issue and whether other switches need the same fix"
+      },
+      {
+        "step": 3,
+        "action": "Create the missing VLAN on this switch with the correct VLAN ID and name, matching what is used elsewhere in the network",
+        "reason": "Directly resolves the root cause by making the VLAN available for port assignment and traffic"
+      },
+      {
+        "step": 4,
+        "action": "Assign the intended ports to this newly created VLAN as originally planned",
+        "reason": "Completes the configuration now that the underlying VLAN exists"
+      },
+      {
+        "step": 5,
+        "action": "Verify traffic for this VLAN now works correctly, including across any trunk links to other switches",
+        "reason": "Confirms the VLAN is not only created but properly functioning end-to-end"
+      }
+    ],
+    "possible_solutions": [
+      "Create the missing VLAN with the correct ID and name",
+      "Ensure the VLAN is consistently created across all relevant switches in the network",
+      "Assign intended ports to the newly created VLAN"
+    ],
+    "prevention": [
+      "Maintain a master VLAN documentation list covering all switches where each VLAN should exist",
+      "Use a checklist when deploying new VLANs to ensure consistency across all switches",
+      "Be cautious when performing VLAN cleanup to avoid accidental deletions"
+    ],
+    "keywords": [
+      "vlan does not exist error",
+      "vlan not created on switch",
+      "missing vlan from database"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-089",
+      "NET-097"
+    ]
+  },
+  {
+    "id": "NET-099",
+    "category": "Networking",
+    "subcategory": "Firewall Problems",
+    "problem": "Firewall Blocking Internet",
+    "description": "A firewall, either on the local computer or on a network device, is blocking internet access entirely, even though the underlying network connection is otherwise working.",
+    "symptoms": [
+      "No internet access despite a valid IP address, gateway, and DNS configuration",
+      "Local network access may still work fine, isolating the problem to outbound/internet traffic",
+      "Disabling the firewall temporarily restores internet access"
+    ],
+    "possible_causes": [
+      "Overly restrictive firewall rule blocking all or most outbound traffic",
+      "Firewall software recently installed or updated with default overly strict settings",
+      "Firewall rule accidentally created or modified, blocking legitimate traffic",
+      "Corrupted firewall configuration causing unintended blocking behavior"
+    ],
+    "diagnostic_questions": [
+      "Does disabling the firewall temporarily restore internet access, confirming it as the cause?",
+      "Is this the Windows built-in firewall, or third-party security software?",
+      "Was any firewall software recently installed, updated, or reconfigured?",
+      "Does this affect all internet traffic, or just specific applications or ports?"
+    ],
+    "commands": [
+      {
+        "command": "netsh advfirewall show allprofiles",
+        "purpose": "Check the current status of the Windows Firewall across all profiles",
+        "expected_result": "Shows current firewall state and can help identify if it is unexpectedly blocking traffic",
+        "abnormal_result": "Firewall in an unexpected state or with overly restrictive default rules blocking normal outbound traffic"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Temporarily disable the firewall to confirm it is indeed the cause of the internet access problem",
+        "reason": "Directly verifies the firewall as the culprit before spending time on detailed rule investigation"
+      },
+      {
+        "step": 2,
+        "action": "If confirmed, review the firewall's outbound rules for anything overly restrictive or recently changed",
+        "reason": "Identifies the specific rule or setting causing the block"
+      },
+      {
+        "step": 3,
+        "action": "Check for recently installed or updated security software that may have introduced new default restrictive rules",
+        "reason": "New security software installations are a common trigger for unexpected internet blocking"
+      },
+      {
+        "step": 4,
+        "action": "Correct or remove the specific rule causing the block, or reset the firewall to a known-good default configuration if the exact rule cannot be identified",
+        "reason": "Directly resolves the blocking issue while preserving as much of the intended security posture as possible"
+      },
+      {
+        "step": 5,
+        "action": "Re-enable the firewall with the corrected configuration and verify internet access is restored",
+        "reason": "Confirms the fix while ensuring the device remains protected by an active, properly configured firewall"
+      }
+    ],
+    "possible_solutions": [
+      "Adjust or remove the overly restrictive firewall rule",
+      "Reset firewall settings to default if the cause cannot be isolated",
+      "Update firewall/security software to the latest version",
+      "Re-enable the firewall promptly after testing, replacing it with a proper corrected configuration"
+    ],
+    "prevention": [
+      "Test firewall rule changes carefully before wide deployment",
+      "Keep firewall software updated",
+      "Document intentional firewall rules and their purposes"
+    ],
+    "keywords": [
+      "firewall blocking internet",
+      "no internet after firewall enabled",
+      "disable firewall restores internet"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-001",
+      "NET-104"
+    ]
+  },
+  {
+    "id": "NET-100",
+    "category": "Networking",
+    "subcategory": "Firewall Problems",
+    "problem": "Firewall Blocking Printer",
+    "description": "A firewall on the computer or network is blocking communication with a printer, preventing print jobs, scanning, or the printer from even being discovered on the network.",
+    "symptoms": [
+      "Printer cannot be found during network setup, or existing print jobs fail to reach the printer",
+      "Printing works fine when the firewall is temporarily disabled",
+      "Scan-related network features may also be affected if applicable"
+    ],
+    "possible_causes": [
+      "Firewall blocking the specific ports or protocols used for printer discovery and communication",
+      "Printer's network discovery traffic blocked by network profile settings, such as the network being marked as 'Public' instead of 'Private'",
+      "Third-party security software with more restrictive default printer/network rules than the built-in firewall",
+      "Recently updated firewall or security software resetting previously allowed printer rules"
+    ],
+    "diagnostic_questions": [
+      "Does disabling the firewall temporarily allow the printer to be found or used, confirming the firewall as the cause?",
+      "Is the network connection currently set as 'Public' or 'Private' in Windows network settings?",
+      "Was any firewall or security software recently installed or updated?",
+      "Did printing work before, and if so, what changed around the time it stopped?"
+    ],
+    "commands": [
+      {
+        "command": "netsh advfirewall firewall show rule name=all | findstr /i print",
+        "purpose": "Search for existing firewall rules related to printing to see their current status",
+        "expected_result": "Relevant printing rules exist and are enabled",
+        "abnormal_result": "Printing-related rules are missing, disabled, or overly restrictive"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check whether the network connection is set to 'Private' rather than 'Public' in Windows network settings",
+        "reason": "Windows Firewall applies significantly more restrictive rules, including blocking printer discovery, on networks marked as Public"
+      },
+      {
+        "step": 2,
+        "action": "Change the network profile to 'Private' if this is a trusted home or office network",
+        "reason": "Allows the appropriate, less restrictive firewall rules for local device discovery and communication to apply"
+      },
+      {
+        "step": 3,
+        "action": "Check Windows Firewall's allowed apps list to confirm printing and network discovery related rules are enabled",
+        "reason": "Specific built-in rules govern printer discovery and communication, and these can become disabled unintentionally"
+      },
+      {
+        "step": 4,
+        "action": "If using third-party security software, check its specific settings for network/printer related blocking rules",
+        "reason": "Third-party firewalls often have their own separate rule sets that can be more restrictive than the built-in Windows Firewall"
+      },
+      {
+        "step": 5,
+        "action": "Add a specific allow rule for the printer's IP address or the relevant printing ports if the general settings above do not resolve the issue",
+        "reason": "Provides a targeted fix when broader profile and default rule adjustments are not sufficient"
+      }
+    ],
+    "possible_solutions": [
+      "Set the network profile to Private for trusted networks",
+      "Enable printing and network discovery rules in Windows Firewall",
+      "Adjust third-party security software's printer/network blocking settings",
+      "Add a specific firewall allow rule for the printer if needed"
+    ],
+    "prevention": [
+      "Set network profiles correctly when first connecting to a new network",
+      "Review firewall/security software settings after installation or major updates",
+      "Document specific firewall rules needed for critical network printers"
+    ],
+    "keywords": [
+      "firewall blocking printer",
+      "cant find printer firewall",
+      "printer not discovered network firewall"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "PRN-006",
+      "NET-099"
+    ]
+  },
+  {
+    "id": "NET-101",
+    "category": "Networking",
+    "subcategory": "Firewall Problems",
+    "problem": "Firewall Blocking Application",
+    "description": "A specific application cannot connect to the internet or a network resource because a firewall is blocking its network traffic, while other applications work normally.",
+    "symptoms": [
+      "The specific application shows a connection error, timeout, or cannot reach its servers",
+      "Other applications and general internet browsing work fine",
+      "Disabling the firewall allows the specific application to work normally"
+    ],
+    "possible_causes": [
+      "Firewall rule specifically blocking this application's executable or the ports it uses",
+      "Application not yet granted permission in the firewall's allowed apps list",
+      "New version of the application requires different or additional firewall permissions than before",
+      "Firewall profile settings blocking the application on the current network type"
+    ],
+    "diagnostic_questions": [
+      "Does this specific application fail while others work fine, confirming it is application-specific?",
+      "Does disabling the firewall temporarily resolve the issue for this application?",
+      "Is the application listed in the firewall's allowed apps/programs list, and if so, is it enabled for the correct network profile?",
+      "Was the application recently updated, which might explain a sudden change in its firewall requirements?"
+    ],
+    "commands": [
+      {
+        "command": "netsh advfirewall firewall show rule name=all | findstr /i \"<application_name>\"",
+        "purpose": "Search for existing firewall rules specifically related to this application",
+        "expected_result": "A rule exists allowing the application's necessary traffic",
+        "abnormal_result": "No rule exists for the application, or an existing rule is set to block rather than allow its traffic"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the problem is specific to this one application by testing other applications and general internet access",
+        "reason": "Verifies this is an application-specific firewall issue rather than a broader connectivity problem"
+      },
+      {
+        "step": 2,
+        "action": "Check the firewall's allowed apps list for an entry for this specific application",
+        "reason": "Determines whether the application has ever been granted the necessary firewall permission"
+      },
+      {
+        "step": 3,
+        "action": "Add or enable the application in the firewall's allowed list for the appropriate network profile (Private/Public)",
+        "reason": "Directly grants the necessary permission for the application to communicate through the firewall"
+      },
+      {
+        "step": 4,
+        "action": "If the application requires specific ports rather than a simple program-based rule, create a specific inbound/outbound port rule as needed",
+        "reason": "Some applications require explicit port-based rules rather than relying on a simple program-based allow entry"
+      },
+      {
+        "step": 5,
+        "action": "Restart the application after making firewall changes to ensure it properly establishes its network connections",
+        "reason": "Some applications cache connection failures and need a restart to retry successfully after a firewall change"
+      }
+    ],
+    "possible_solutions": [
+      "Add or enable the application in the firewall's allowed apps list",
+      "Create specific port rules if required by the application",
+      "Restart the application after firewall changes",
+      "Reinstall the application if its firewall rule entry appears corrupted"
+    ],
+    "prevention": [
+      "Review and update firewall permissions after major application updates",
+      "Document required firewall rules for critical business applications",
+      "Test application connectivity after any firewall software changes"
+    ],
+    "keywords": [
+      "firewall blocking specific application",
+      "app cant connect firewall",
+      "application blocked by firewall"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "NET-099"
+    ]
+  },
+  {
+    "id": "NET-102",
+    "category": "Networking",
+    "subcategory": "Firewall Problems",
+    "problem": "Firewall Blocking Ping",
+    "description": "A firewall is configured to block ICMP echo requests (ping), causing ping tests to fail even though the actual network connection and other services may be working completely normally.",
+    "symptoms": [
+      "ping to a specific device or server times out or shows 'Destination host unreachable'",
+      "The actual service on that device, such as a website or file share, works completely normally despite the failed ping",
+      "This may be entirely intentional security configuration rather than an actual problem"
+    ],
+    "possible_causes": [
+      "Firewall intentionally configured to block ICMP for security reasons, which is a common and often recommended practice",
+      "Default firewall profile blocking ICMP on certain network types, such as Public networks",
+      "Firewall rule change accidentally blocked ICMP that was previously allowed",
+      "Confusion about whether ping failure indicates a real problem when the actual service works fine"
+    ],
+    "diagnostic_questions": [
+      "Does the actual service on the target device, like a website or shared folder, work fine despite the failed ping?",
+      "Is this ICMP blocking intentional as part of a documented security policy?",
+      "Was ICMP working before, and did something change recently that might have accidentally blocked it?",
+      "Is understanding whether ping should work here more about troubleshooting methodology than an actual functional problem?"
+    ],
+    "commands": [
+      {
+        "command": "netsh advfirewall firewall show rule name=all | findstr /i icmp",
+        "purpose": "Check for existing firewall rules specifically related to ICMP traffic",
+        "expected_result": "Rules exist and are configured as intended, whether allowing or blocking ICMP based on policy",
+        "abnormal_result": "ICMP rules are missing, or configured opposite to what is intended by current policy"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether the actual service on the target device works fine despite the failed ping",
+        "reason": "If the real service works, this is very likely expected security behavior rather than an actual problem needing to be fixed"
+      },
+      {
+        "step": 2,
+        "action": "Check whether ICMP blocking is documented as an intentional security policy for this network or device",
+        "reason": "Many organizations intentionally block ping for security reasons, considering this normal and correct behavior"
+      },
+      {
+        "step": 3,
+        "action": "If ICMP should be allowed and previously was, check for a recent, possibly accidental firewall rule change that blocked it",
+        "reason": "Identifies whether this represents an unintended regression from previously working behavior"
+      },
+      {
+        "step": 4,
+        "action": "Add or correct a firewall rule to allow ICMP echo requests if it is determined that ping access should indeed be permitted",
+        "reason": "Directly resolves the issue if ping functionality is genuinely needed and was unintentionally blocked"
+      },
+      {
+        "step": 5,
+        "action": "Document the decision, whether to allow or continue blocking ICMP, for future reference and consistency",
+        "reason": "Prevents this question from repeatedly coming up as a false alarm in future troubleshooting"
+      }
+    ],
+    "possible_solutions": [
+      "Recognize that ICMP being blocked while the actual service works is often not a real problem",
+      "Add a firewall rule to allow ICMP if ping access is genuinely required",
+      "Document the organization's ICMP policy for future reference"
+    ],
+    "prevention": [
+      "Establish and document a clear organizational policy on ICMP/ping filtering",
+      "Train staff that a failed ping does not always indicate a real connectivity problem",
+      "Review firewall rule changes carefully to avoid accidentally affecting ICMP policy"
+    ],
+    "keywords": [
+      "firewall blocking ping icmp",
+      "ping fails but service works",
+      "icmp blocked by firewall"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-066",
+      "NET-068"
+    ]
+  },
+  {
+    "id": "NET-103",
+    "category": "Networking",
+    "subcategory": "Firewall Problems",
+    "problem": "Firewall Rules Misconfigured",
+    "description": "One or more firewall rules have been set up incorrectly, causing unintended blocking of legitimate traffic, unintended allowing of traffic that should be blocked, or general confusing network behavior.",
+    "symptoms": [
+      "Specific, seemingly inconsistent network behavior that does not match expectations",
+      "Some traffic types work while similar traffic types unexpectedly fail",
+      "Security concerns if rules are found to be unintentionally too permissive"
+    ],
+    "possible_causes": [
+      "Rule created with incorrect source, destination, port, or protocol values",
+      "Rule order/priority causing an unintended rule to take precedence over the intended one",
+      "Overly broad or overly narrow rule scope not matching the actual intended traffic pattern",
+      "Leftover or forgotten rules from previous troubleshooting or testing left in place"
+    ],
+    "diagnostic_questions": [
+      "What specific traffic or behavior is not working as expected?",
+      "Can you review the full current list of firewall rules to look for anything unexpected or overly broad/narrow?",
+      "Were any firewall rules recently added, removed, or reordered?",
+      "Is there any chance old testing or temporary rules were left in place and forgotten?"
+    ],
+    "commands": [
+      {
+        "command": "netsh advfirewall firewall show rule name=all",
+        "purpose": "List all current firewall rules for review",
+        "expected_result": "Rules match the intended, documented security policy",
+        "abnormal_result": "Unexpected, overly broad, overly narrow, or conflicting rules found during review"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Review the complete current list of firewall rules methodically, comparing against documented intended policy if available",
+        "reason": "Provides a full picture of the current configuration to identify inconsistencies or errors"
+      },
+      {
+        "step": 2,
+        "action": "Identify any rules with incorrect source, destination, port, or protocol values that do not match their intended purpose",
+        "reason": "Pinpoints specific rules that need correction"
+      },
+      {
+        "step": 3,
+        "action": "Check the order/priority of rules, since firewalls typically process rules in order and an earlier rule can override a later, more specific one",
+        "reason": "Rule order issues are a common and often overlooked source of unexpected firewall behavior"
+      },
+      {
+        "step": 4,
+        "action": "Remove or correct any identified problematic, outdated, or leftover testing rules",
+        "reason": "Cleans up the configuration and directly resolves the specific issues found during review"
+      },
+      {
+        "step": 5,
+        "action": "Test the affected traffic patterns after making corrections to confirm the intended behavior is now occurring",
+        "reason": "Verifies the fixes actually resolved the reported issue without introducing new problems"
+      }
+    ],
+    "possible_solutions": [
+      "Correct rules with incorrect source, destination, port, or protocol values",
+      "Reorder rules if priority conflicts are causing unintended behavior",
+      "Remove outdated or leftover testing rules",
+      "Document the corrected configuration clearly"
+    ],
+    "prevention": [
+      "Maintain clear, up-to-date documentation of intended firewall policy",
+      "Use a change control process for firewall rule modifications",
+      "Periodically audit firewall rules for accuracy and necessity"
+    ],
+    "keywords": [
+      "firewall rules misconfigured",
+      "firewall rule order wrong",
+      "unexpected firewall behavior"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": [
+      "NET-099",
+      "NET-101"
+    ]
+  },
+  {
+    "id": "NET-104",
+    "category": "Networking",
+    "subcategory": "Firewall Problems",
+    "problem": "Windows Firewall Disabled",
+    "description": "The built-in Windows Firewall has been turned off entirely, whether intentionally or accidentally, leaving the computer without this layer of network protection.",
+    "symptoms": [
+      "Windows Security Center shows the firewall as off or not monitored",
+      "No firewall-related connection issues occur, since nothing is being blocked, but the device has reduced protection",
+      "May trigger a security warning notification in Windows"
+    ],
+    "possible_causes": [
+      "Firewall was manually turned off by a user, sometimes to troubleshoot a connectivity issue and then forgotten",
+      "Third-party security software has taken over firewall duties and disabled the Windows Firewall as part of its normal operation",
+      "Malware or unauthorized software disabled the firewall",
+      "Group Policy on a managed device intentionally or unintentionally disabled it"
+    ],
+    "diagnostic_questions": [
+      "Was the Windows Firewall intentionally turned off recently, perhaps during troubleshooting?",
+      "Is third-party security software installed that might legitimately be managing firewall duties instead?",
+      "Does Windows Security Center show any other unusual security settings alongside the disabled firewall?",
+      "Is this a personal or a managed work/school computer that might have Group Policy affecting this setting?"
+    ],
+    "commands": [
+      {
+        "command": "netsh advfirewall show allprofiles state",
+        "purpose": "Check the current on/off state of the Windows Firewall across all network profiles",
+        "expected_result": "State shows as 'ON' for the relevant profiles",
+        "abnormal_result": "State shows as 'OFF' for one or more profiles, confirming the firewall is currently disabled"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if legitimate third-party security software is installed and intentionally managing firewall functions instead of the built-in Windows Firewall",
+        "reason": "Many third-party security suites disable the Windows Firewall as part of normal, expected operation while providing their own protection"
+      },
+      {
+        "step": 2,
+        "action": "If no legitimate third-party firewall is active, re-enable the Windows Firewall through Windows Security settings",
+        "reason": "Restores this important layer of network protection for the device"
+      },
+      {
+        "step": 3,
+        "action": "Run a full malware scan if the firewall was found disabled with no clear legitimate explanation",
+        "reason": "Unauthorized firewall disabling can be a sign of malware attempting to reduce the device's defenses"
+      },
+      {
+        "step": 4,
+        "action": "Check Group Policy settings if this is a managed work or school computer that might be intentionally controlling this setting",
+        "reason": "Administrators may have specific policies governing firewall state that should not be manually overridden"
+      },
+      {
+        "step": 5,
+        "action": "Confirm the firewall shows as properly enabled afterward using Windows Security settings or the netsh command",
+        "reason": "Verifies the protection has been successfully restored"
+      }
+    ],
+    "possible_solutions": [
+      "Re-enable the Windows Firewall if no other legitimate firewall solution is active",
+      "Verify third-party security software is functioning correctly if it is intentionally managing firewall duties",
+      "Run a malware scan if the firewall was disabled unexpectedly without explanation",
+      "Check Group Policy settings on managed devices if applicable"
+    ],
+    "prevention": [
+      "Avoid manually disabling the firewall except for brief, necessary troubleshooting, and remember to re-enable it afterward",
+      "Ensure only one firewall solution is actively managing protection to avoid conflicts",
+      "Run regular malware scans to catch unauthorized security setting changes"
+    ],
+    "keywords": [
+      "windows firewall disabled off",
+      "firewall turned off accidentally",
+      "how to enable windows firewall"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-15 minutes",
+    "related_problems": [
+      "NET-099",
+      "NET-103"
+    ]
+  }
+]

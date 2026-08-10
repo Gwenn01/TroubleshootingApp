@@ -1,0 +1,2997 @@
+[
+  {
+    "id": "GRN-001",
+    "category": "Windows Operating System",
+    "subcategory": "Startup and Performance",
+    "problem": "Windows takes a very long time to start up",
+    "description": "The computer takes several minutes to reach the desktop after pressing the power button, and the user has to wait a long time before they can use it normally.",
+    "symptoms": [
+      "Long time on the Windows logo screen",
+      "Desktop icons take a while to appear",
+      "Hard disk light stays on for a long time after login",
+      "Mouse or keyboard is slow to respond right after startup"
+    ],
+    "possible_causes": [
+      "Too many programs are set to start automatically with Windows",
+      "The hard disk is old, full, or failing",
+      "Windows updates are installing in the background",
+      "The computer has a virus or malware",
+      "Not enough RAM (memory) for the installed programs",
+      "The disk is a slow traditional hard drive instead of an SSD",
+      "Corrupted system files",
+      "Too many background services running"
+    ],
+    "diagnostic_questions": [
+      "How long does it take from power-on to a usable desktop?",
+      "Did this start suddenly, or has it always been slow?",
+      "Did you install any new software recently?",
+      "Is the hard disk light blinking constantly after startup?",
+      "How much free space is left on the main drive?",
+      "Is this a hard disk (HDD) or solid state drive (SSD)?",
+      "Has Windows Update run recently?"
+    ],
+    "commands": [
+      {
+        "command": "msconfig",
+        "purpose": "Open System Configuration to check startup settings and services",
+        "expected_result": "A window opens showing Boot, Services, and Startup tabs",
+        "abnormal_result": "Window does not open, which may mean system file corruption"
+      },
+      {
+        "command": "taskmgr",
+        "purpose": "Open Task Manager to see which programs start automatically and how much they slow down startup",
+        "expected_result": "Task Manager opens with a Startup tab showing a list of programs and their impact rating",
+        "abnormal_result": "Many programs listed as 'High impact', which explains the slow startup"
+      },
+      {
+        "command": "chkdsk C: /f /r",
+        "purpose": "Check the main drive for errors and bad sectors",
+        "expected_result": "Scan completes with no errors found",
+        "abnormal_result": "Bad sectors or file system errors reported, meaning the disk may be failing"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Ask the user how long startup takes and whether it changed recently",
+        "reason": "This helps tell the difference between a gradual slowdown (normal wear, too many apps) and a sudden problem (virus, failing disk, bad update)"
+      },
+      {
+        "step": 2,
+        "action": "Open Task Manager and check the Startup tab",
+        "reason": "Too many startup programs is one of the most common causes of slow boot times"
+      },
+      {
+        "step": 3,
+        "action": "Disable startup programs that are not needed every day (keep antivirus enabled)",
+        "reason": "Reducing the number of programs loading at once speeds up the time to a usable desktop"
+      },
+      {
+        "step": 4,
+        "action": "Check free disk space and delete unnecessary files if the drive is almost full",
+        "reason": "A drive with very little free space slows down the whole system, especially on traditional hard drives"
+      },
+      {
+        "step": 5,
+        "action": "Run a full antivirus scan",
+        "reason": "Malware often runs hidden processes at startup and slows the computer down"
+      },
+      {
+        "step": 6,
+        "action": "Run chkdsk to check the disk for errors",
+        "reason": "A failing or damaged disk can cause very slow read and write speeds during startup"
+      },
+      {
+        "step": 7,
+        "action": "If the computer still uses a traditional hard drive (HDD), consider upgrading to an SSD",
+        "reason": "SSDs are many times faster than HDDs and often fix slow startup problems completely"
+      }
+    ],
+    "possible_solutions": [
+      "Disable unnecessary startup programs using Task Manager",
+      "Free up disk space by removing temporary files and unused programs",
+      "Run a full malware scan and remove any threats found",
+      "Repair the disk using chkdsk",
+      "Add more RAM if the computer is low on memory",
+      "Replace an old hard drive with an SSD",
+      "Reset or reinstall Windows if the system files are badly damaged"
+    ],
+    "prevention": [
+      "Regularly review and limit startup programs",
+      "Keep at least 15-20% of the disk free at all times",
+      "Run antivirus scans on a regular schedule",
+      "Keep Windows and drivers updated",
+      "Avoid installing unnecessary software"
+    ],
+    "keywords": [
+      "slow startup",
+      "windows boot slow",
+      "computer takes long to start",
+      "slow login",
+      "high impact startup programs"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-45 minutes",
+    "related_problems": [
+      "Slow computer overall",
+      "High disk usage",
+      "Malware infection",
+      "Failing hard disk"
+    ]
+  },
+  {
+    "id": "GRN-002",
+    "category": "Linux",
+    "subcategory": "System Boot",
+    "problem": "Linux system fails to boot and drops to a rescue or emergency shell",
+    "description": "Instead of loading the normal desktop or login screen, the computer shows a black screen with text saying something like 'emergency mode' or 'you are in rescue mode', and asks for a root password to continue.",
+    "symptoms": [
+      "Black screen with white or green text instead of the login screen",
+      "Message mentioning 'emergency mode' or 'maintenance mode'",
+      "System asks for the root password to fix things",
+      "Normal graphical desktop never appears"
+    ],
+    "possible_causes": [
+      "A required disk or partition failed to mount (for example, listed in /etc/fstab but missing or renamed)",
+      "The file system has errors after an unclean shutdown",
+      "A recent update broke a system service needed for boot",
+      "A full disk with no free space on the root partition",
+      "Incorrect changes to system configuration files",
+      "A failing or disconnected hard drive"
+    ],
+    "diagnostic_questions": [
+      "Did anything change recently, such as adding a new drive, editing fstab, or installing updates?",
+      "Was the computer shut down properly last time, or did it lose power suddenly?",
+      "Can you read the error message on the screen? What does it say exactly?",
+      "Do you know the root password to get into the rescue shell?"
+    ],
+    "commands": [
+      {
+        "command": "journalctl -xb",
+        "purpose": "View the boot log to find out which service or step failed",
+        "expected_result": "A list of boot messages showing services starting successfully",
+        "abnormal_result": "Lines marked 'failed' or 'error' pointing to the specific service causing the problem"
+      },
+      {
+        "command": "mount -a",
+        "purpose": "Try to mount all file systems listed in /etc/fstab to see which one fails",
+        "expected_result": "Command completes with no output, meaning all drives mounted correctly",
+        "abnormal_result": "An error naming a specific device or mount point that cannot be found or mounted"
+      },
+      {
+        "command": "fsck /dev/sdXN",
+        "purpose": "Check and repair file system errors on a specific partition (replace sdXN with the real partition name)",
+        "expected_result": "Scan finds no errors, or repairs minor errors automatically",
+        "abnormal_result": "Serious errors reported that fsck cannot fix automatically, meaning possible drive failure"
+      },
+      {
+        "command": "df -h",
+        "purpose": "Check how much free space is left on each partition",
+        "expected_result": "Root partition (/) shows free space available",
+        "abnormal_result": "Root partition shows 100% used, which can prevent normal boot"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Read the on-screen error message carefully and note any file or device names mentioned",
+        "reason": "The rescue shell almost always tells you exactly which mount point or service failed"
+      },
+      {
+        "step": 2,
+        "action": "Log in with the root password when prompted",
+        "reason": "You need root access to view logs and fix system files"
+      },
+      {
+        "step": 3,
+        "action": "Run journalctl -xb and scroll to find the first 'failed' entry",
+        "reason": "The first failure is usually the real cause; later failures are often side effects"
+      },
+      {
+        "step": 4,
+        "action": "If the problem is a missing or bad entry in /etc/fstab, edit the file and comment out or fix the broken line",
+        "reason": "A bad fstab entry is one of the most common reasons Linux drops to emergency mode"
+      },
+      {
+        "step": 5,
+        "action": "If the problem is a file system error, run fsck on the affected partition while it is unmounted",
+        "reason": "fsck repairs common file system corruption caused by unclean shutdowns"
+      },
+      {
+        "step": 6,
+        "action": "If the root partition is full, delete large unnecessary files or logs to free space",
+        "reason": "A completely full root partition can stop essential services from starting"
+      },
+      {
+        "step": 7,
+        "action": "Reboot and confirm the system starts normally",
+        "reason": "Confirms the fix worked before considering the issue closed"
+      }
+    ],
+    "possible_solutions": [
+      "Fix or remove the bad line in /etc/fstab",
+      "Repair the file system using fsck",
+      "Free up space on the root partition",
+      "Roll back or reinstall a broken package or driver that broke boot",
+      "Restore from backup if the system cannot be repaired"
+    ],
+    "prevention": [
+      "Always double check /etc/fstab entries before saving changes",
+      "Use a UPS (battery backup) to avoid sudden power loss",
+      "Keep at least 10% free space on the root partition",
+      "Test updates on non-critical systems first when possible",
+      "Keep regular backups of important configuration files"
+    ],
+    "keywords": [
+      "linux emergency mode",
+      "rescue shell",
+      "boot failed linux",
+      "fstab error",
+      "journalctl boot failure"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-60 minutes",
+    "related_problems": [
+      "Disk full on Linux",
+      "File system corruption",
+      "Failed system update"
+    ]
+  },
+  {
+    "id": "GRN-003",
+    "category": "Ethernet",
+    "subcategory": "Wired Connection",
+    "problem": "Computer shows 'No Internet Access' with Ethernet cable plugged in",
+    "description": "The network cable is connected between the computer and the router or switch, but the computer cannot browse the internet, and Windows shows a warning icon on the network symbol.",
+    "symptoms": [
+      "Yellow warning triangle on the network icon",
+      "Message says 'No internet access' or 'Limited connectivity'",
+      "Websites will not load",
+      "Other devices on the same network work fine"
+    ],
+    "possible_causes": [
+      "The Ethernet cable is loose, damaged, or unplugged",
+      "The network port on the computer or router is faulty",
+      "The computer has an incorrect or missing IP address",
+      "The router or modem is not working properly",
+      "The network driver is outdated, missing, or corrupted",
+      "The network cable is plugged into the wrong port on the router or switch",
+      "A firewall or antivirus program is blocking the connection"
+    ],
+    "diagnostic_questions": [
+      "Is the small light on the network port lit up or blinking?",
+      "Does the cable feel loose when you check both ends?",
+      "Do other devices connected to the same router have internet?",
+      "Has this cable or port worked before, or is this a new setup?",
+      "Did you recently install any new software, driver, or antivirus program?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check the computer's current IP address, gateway, and DNS settings",
+        "expected_result": "Shows a valid IP address such as 192.168.x.x with a matching default gateway",
+        "abnormal_result": "IP address starts with 169.254, which means the computer could not get an address from the router (APIPA address)"
+      },
+      {
+        "command": "ping 192.168.1.1",
+        "purpose": "Test if the computer can reach the router (replace with your actual router IP)",
+        "expected_result": "Replies received with reply times in milliseconds",
+        "abnormal_result": "Request timed out or destination host unreachable, meaning no connection to the router"
+      },
+      {
+        "command": "ipconfig /release",
+        "purpose": "Release the current IP address so a new one can be requested",
+        "expected_result": "Command completes and shows the adapter with no IP address",
+        "abnormal_result": "Error message appears, which may mean the network adapter is disabled or broken"
+      },
+      {
+        "command": "ipconfig /renew",
+        "purpose": "Request a new IP address from the router",
+        "expected_result": "A valid IP address is assigned",
+        "abnormal_result": "Still shows a 169.254 address or fails completely, meaning the router or cable is not responding"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check both ends of the Ethernet cable are firmly plugged in",
+        "reason": "A loose cable is the single most common cause of this problem"
+      },
+      {
+        "step": 2,
+        "action": "Look at the small lights next to the network port on the computer and the router",
+        "reason": "No lights usually means no physical connection, which points to a cable or port problem"
+      },
+      {
+        "step": 3,
+        "action": "Try a different Ethernet cable and a different port on the router or switch",
+        "reason": "This helps rule out a damaged cable or a faulty port"
+      },
+      {
+        "step": 4,
+        "action": "Run ipconfig /all and check if the IP address starts with 169.254",
+        "reason": "This address means the computer could not get a proper address, pointing to a DHCP or connection problem"
+      },
+      {
+        "step": 5,
+        "action": "Run ipconfig /release then ipconfig /renew",
+        "reason": "This forces the computer to request a fresh IP address, which can fix many connection issues"
+      },
+      {
+        "step": 6,
+        "action": "Restart the router and modem by unplugging them for 30 seconds",
+        "reason": "This clears temporary problems on the router side"
+      },
+      {
+        "step": 7,
+        "action": "Update or reinstall the network adapter driver from Device Manager",
+        "reason": "A corrupted or outdated driver can prevent the network card from working correctly"
+      },
+      {
+        "step": 8,
+        "action": "Temporarily disable the antivirus or firewall to test if it is blocking the connection",
+        "reason": "Some security software can wrongly block network access"
+      }
+    ],
+    "possible_solutions": [
+      "Replace a damaged or loose Ethernet cable",
+      "Plug into a different port on the router or switch",
+      "Renew the IP address using ipconfig /release and /renew",
+      "Restart the router and modem",
+      "Update or reinstall the network adapter driver",
+      "Adjust firewall or antivirus settings blocking the network"
+    ],
+    "prevention": [
+      "Use good quality, undamaged Ethernet cables",
+      "Avoid bending or pinching cables behind furniture",
+      "Keep network drivers updated",
+      "Restart the router occasionally to clear temporary issues"
+    ],
+    "keywords": [
+      "no internet access ethernet",
+      "limited connectivity",
+      "ethernet not working",
+      "169.254 IP address",
+      "wired connection problem"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": [
+      "DHCP not assigning IP address",
+      "Router not working",
+      "Network driver issues"
+    ]
+  },
+  {
+    "id": "GRN-004",
+    "category": "Wi-Fi",
+    "subcategory": "Connectivity",
+    "problem": "Wi-Fi keeps disconnecting or dropping randomly",
+    "description": "The device connects to the Wi-Fi network successfully, but the connection drops every few minutes and then reconnects on its own, interrupting browsing, calls, or downloads.",
+    "symptoms": [
+      "Internet stops working for a few seconds or minutes at a time",
+      "Wi-Fi icon shows connected but no internet during the drop",
+      "Video calls freeze or disconnect",
+      "Reconnecting to Wi-Fi fixes it temporarily"
+    ],
+    "possible_causes": [
+      "Weak Wi-Fi signal due to distance or walls between device and router",
+      "Interference from other wireless devices, microwaves, or neighboring networks",
+      "Outdated or faulty Wi-Fi driver",
+      "Router overheating or needing a restart",
+      "Too many devices connected to the same router",
+      "Power saving settings turning off the Wi-Fi adapter",
+      "Router firmware that is outdated or buggy",
+      "IP address conflict with another device"
+    ],
+    "diagnostic_questions": [
+      "How far is the device from the router, and are there walls in between?",
+      "Does this happen on all devices or just this one?",
+      "Does it happen at a specific time of day, or randomly?",
+      "Have you recently added new devices to the Wi-Fi network?",
+      "Is the router hot to touch or in an enclosed space?",
+      "Has the router been restarted recently?"
+    ],
+    "commands": [
+      {
+        "command": "ping -t 8.8.8.8",
+        "purpose": "Continuously ping a stable internet address to see exactly when the connection drops",
+        "expected_result": "Steady replies with consistent response times",
+        "abnormal_result": "Repeated 'Request timed out' messages showing the connection is dropping"
+      },
+      {
+        "command": "netsh wlan show interfaces",
+        "purpose": "Check current Wi-Fi signal strength and connection details",
+        "expected_result": "Signal strength above 60 percent and a stable connection state",
+        "abnormal_result": "Signal strength below 30 percent, meaning the device is too far from the router or blocked by walls"
+      },
+      {
+        "command": "netsh wlan show wlanreport",
+        "purpose": "Generate a detailed Wi-Fi history report showing disconnect events",
+        "expected_result": "Report saved showing few or no disconnect events",
+        "abnormal_result": "Report shows frequent disconnect and reconnect events, confirming an unstable connection"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the Wi-Fi signal strength shown on the device",
+        "reason": "A weak signal is the most common reason for random disconnects"
+      },
+      {
+        "step": 2,
+        "action": "Move the device closer to the router temporarily to see if the problem stops",
+        "reason": "This confirms whether distance or walls are causing the weak signal"
+      },
+      {
+        "step": 3,
+        "action": "Restart the router by unplugging it for 30 seconds, then plugging it back in",
+        "reason": "This clears temporary glitches in the router's memory"
+      },
+      {
+        "step": 4,
+        "action": "Go into Wi-Fi adapter power management settings and disable 'Allow the computer to turn off this device to save power'",
+        "reason": "Windows sometimes turns off the Wi-Fi adapter briefly to save battery, causing drops"
+      },
+      {
+        "step": 5,
+        "action": "Update the Wi-Fi driver through Device Manager",
+        "reason": "Outdated drivers are a common cause of unstable wireless connections"
+      },
+      {
+        "step": 6,
+        "action": "Check how many devices are connected to the router and disconnect unused ones",
+        "reason": "Too many connected devices can overload the router and cause drops"
+      },
+      {
+        "step": 7,
+        "action": "Change the Wi-Fi channel in the router settings if neighboring networks are on the same channel",
+        "reason": "Wireless interference from nearby networks can cause frequent disconnects"
+      },
+      {
+        "step": 8,
+        "action": "Update the router firmware to the latest version",
+        "reason": "Manufacturers release firmware updates that fix stability bugs"
+      }
+    ],
+    "possible_solutions": [
+      "Move closer to the router or add a Wi-Fi extender",
+      "Restart the router and modem",
+      "Disable Wi-Fi adapter power saving",
+      "Update the Wi-Fi driver",
+      "Change the Wi-Fi channel to avoid interference",
+      "Update router firmware",
+      "Reduce the number of connected devices"
+    ],
+    "prevention": [
+      "Place the router in a central, open location, away from walls and metal objects",
+      "Keep router firmware updated",
+      "Avoid overloading the network with too many devices",
+      "Restart the router periodically"
+    ],
+    "keywords": [
+      "wifi keeps dropping",
+      "wifi disconnects randomly",
+      "weak wifi signal",
+      "unstable wireless connection"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": [
+      "Slow Wi-Fi speed",
+      "Router not working",
+      "Cannot connect to Wi-Fi network"
+    ]
+  },
+  {
+    "id": "GRN-005",
+    "category": "TCP/IP",
+    "subcategory": "Addressing",
+    "problem": "Computer has an IP address starting with 169.254 (APIPA)",
+    "description": "The computer shows it is connected to the network, but its IP address begins with 169.254, meaning it assigned itself an address because it could not reach a DHCP server, and internet access does not work.",
+    "symptoms": [
+      "No internet access even though the network shows as connected",
+      "IP address in ipconfig starts with 169.254",
+      "Cannot reach the router or other devices on the network",
+      "Problem may affect one device or many at once"
+    ],
+    "possible_causes": [
+      "The DHCP server (usually the router) is not responding",
+      "Physical connection problem (bad cable or Wi-Fi signal)",
+      "The router's DHCP service is turned off or has run out of available addresses",
+      "Network adapter driver problem",
+      "A duplicate IP address conflict on the network",
+      "Firewall blocking DHCP traffic"
+    ],
+    "diagnostic_questions": [
+      "Is this happening on one device or all devices on the network?",
+      "Is the device connected by Ethernet cable or Wi-Fi?",
+      "Has anyone changed router settings recently?",
+      "Does restarting the router or device change anything?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Confirm the exact IP address and check if DHCP is enabled",
+        "expected_result": "DHCP Enabled: Yes, with a normal IP address such as 192.168.x.x",
+        "abnormal_result": "IP Address shows 169.254.x.x, confirming APIPA is in use"
+      },
+      {
+        "command": "ipconfig /release",
+        "purpose": "Release the current self-assigned address",
+        "expected_result": "Adapter shows no IP address after the command",
+        "abnormal_result": "Error appears stating the operation failed, meaning the adapter itself may have a problem"
+      },
+      {
+        "command": "ipconfig /renew",
+        "purpose": "Ask the DHCP server (router) for a new valid IP address",
+        "expected_result": "A new address like 192.168.x.x is assigned",
+        "abnormal_result": "Still returns a 169.254 address, meaning the DHCP server is still unreachable"
+      },
+      {
+        "command": "ping [router IP address]",
+        "purpose": "Test basic connectivity to the router",
+        "expected_result": "Replies received from the router",
+        "abnormal_result": "Request timed out, meaning there is no physical or network connection to the router"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the exact IP address using ipconfig /all",
+        "reason": "This verifies the device really has a 169.254 self-assigned address"
+      },
+      {
+        "step": 2,
+        "action": "Check the physical connection (cable plugged in firmly, or Wi-Fi actually connected)",
+        "reason": "A 169.254 address usually means the device could not talk to the router at all"
+      },
+      {
+        "step": 3,
+        "action": "Restart the router",
+        "reason": "This resets the DHCP service in case it stopped working"
+      },
+      {
+        "step": 4,
+        "action": "Run ipconfig /release followed by ipconfig /renew",
+        "reason": "This forces a fresh request for an IP address after the router restarts"
+      },
+      {
+        "step": 5,
+        "action": "Test another device on the same network",
+        "reason": "If other devices also fail, the problem is with the router; if only one device fails, the problem is with that device"
+      },
+      {
+        "step": 6,
+        "action": "If only one device is affected, update or reinstall its network adapter driver",
+        "reason": "A broken driver can prevent proper communication with the DHCP server"
+      },
+      {
+        "step": 7,
+        "action": "Check the router's DHCP settings to make sure the address pool is not full and DHCP is turned on",
+        "reason": "A full or disabled DHCP pool prevents new devices from getting addresses"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the router to reset DHCP service",
+      "Renew the IP address using ipconfig commands",
+      "Fix or replace the network cable",
+      "Update the network adapter driver",
+      "Increase the DHCP address pool size on the router",
+      "Manually assign a static IP as a temporary workaround"
+    ],
+    "prevention": [
+      "Keep router firmware updated",
+      "Avoid setting duplicate static IP addresses on the network",
+      "Restart the router periodically",
+      "Make sure the DHCP pool is large enough for all devices"
+    ],
+    "keywords": [
+      "169.254 IP address",
+      "APIPA",
+      "DHCP not working",
+      "no internet self assigned IP"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "DHCP not assigning IP address",
+      "Router not working",
+      "No internet access ethernet"
+    ]
+  },
+  {
+    "id": "GRN-006",
+    "category": "DNS",
+    "subcategory": "Name Resolution",
+    "problem": "Websites do not load, but the internet connection itself works",
+    "description": "The user can browse to some websites by IP address, or apps like games work fine, but typing normal website addresses like www.example.com does not load anything, and the browser shows an error like 'This site can't be reached' or 'DNS server not responding'.",
+    "symptoms": [
+      "Browser error mentions DNS or 'server not found'",
+      "Some apps that do not rely on typed website names still work",
+      "Pinging an IP address works, but pinging a website name fails",
+      "Problem may affect all websites or just some"
+    ],
+    "possible_causes": [
+      "DNS server is down or not responding",
+      "Incorrect DNS settings on the computer or router",
+      "ISP (internet provider) DNS server having problems",
+      "Local DNS cache is corrupted",
+      "Firewall or antivirus blocking DNS traffic",
+      "Malware redirecting DNS requests"
+    ],
+    "diagnostic_questions": [
+      "Can you open any websites at all, or none?",
+      "Does the problem happen on all devices in the house, or just one?",
+      "Have you changed any network settings recently?",
+      "Does using mobile data work fine on the same website (to test if it's the website or your network)?"
+    ],
+    "commands": [
+      {
+        "command": "ping 8.8.8.8",
+        "purpose": "Test if the internet connection works using a raw IP address, bypassing DNS",
+        "expected_result": "Replies received successfully",
+        "abnormal_result": "Request timed out, meaning the whole internet connection is down, not just DNS"
+      },
+      {
+        "command": "ping www.google.com",
+        "purpose": "Test if DNS name resolution is working",
+        "expected_result": "Replies received, showing DNS successfully translated the name to an IP address",
+        "abnormal_result": "'Could not find host' or 'ping request could not find host', confirming a DNS problem"
+      },
+      {
+        "command": "ipconfig /flushdns",
+        "purpose": "Clear the local DNS cache which may contain bad or outdated entries",
+        "expected_result": "Message confirms the DNS cache was successfully flushed",
+        "abnormal_result": "Error message appears, which is uncommon but may indicate a deeper system issue"
+      },
+      {
+        "command": "nslookup www.google.com",
+        "purpose": "Directly query the DNS server to see if it responds and what server is being used",
+        "expected_result": "Returns a valid IP address from the DNS server",
+        "abnormal_result": "'DNS request timed out' or no response, confirming the DNS server itself is not working"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Ping a known IP address like 8.8.8.8 to check if the internet itself is working",
+        "reason": "This separates a full internet outage from a DNS-only problem"
+      },
+      {
+        "step": 2,
+        "action": "Ping a website by name, such as www.google.com",
+        "reason": "If the IP ping worked but the name ping fails, this confirms DNS is the issue"
+      },
+      {
+        "step": 3,
+        "action": "Flush the DNS cache using ipconfig /flushdns",
+        "reason": "This clears any corrupted or outdated cached DNS records"
+      },
+      {
+        "step": 4,
+        "action": "Change the DNS server settings to a public DNS service such as 8.8.8.8 and 8.8.4.4",
+        "reason": "This bypasses a potentially broken ISP or router DNS server"
+      },
+      {
+        "step": 5,
+        "action": "Restart the router and modem",
+        "reason": "This can fix temporary DNS relay problems on the router"
+      },
+      {
+        "step": 6,
+        "action": "Run a malware scan if the problem is unusual, such as being redirected to strange websites",
+        "reason": "Some malware changes DNS settings to redirect users to fake or harmful websites"
+      },
+      {
+        "step": 7,
+        "action": "Test on another device connected to the same network",
+        "reason": "This tells you whether the problem is with one device or the whole network"
+      }
+    ],
+    "possible_solutions": [
+      "Change DNS server to a public option like 8.8.8.8 or 1.1.1.1",
+      "Flush the local DNS cache",
+      "Restart the router and modem",
+      "Remove malware that may be hijacking DNS settings",
+      "Contact the internet provider if their DNS servers are down"
+    ],
+    "prevention": [
+      "Use a reliable public DNS server as a backup",
+      "Keep antivirus software active and updated",
+      "Avoid changing DNS settings unless necessary",
+      "Keep router firmware updated"
+    ],
+    "keywords": [
+      "DNS server not responding",
+      "website not loading",
+      "can't reach this site",
+      "DNS problem"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": [
+      "No internet access ethernet",
+      "Wi-Fi connected but no internet",
+      "Malware redirecting browser"
+    ]
+  },
+  {
+    "id": "GRN-007",
+    "category": "DHCP",
+    "subcategory": "Address Assignment",
+    "problem": "New devices cannot get an IP address from the router",
+    "description": "When a new device tries to connect to the network, it either fails to connect completely or connects but shows no internet access, while devices already connected continue to work fine.",
+    "symptoms": [
+      "New device cannot join the Wi-Fi or wired network",
+      "Existing devices already connected still work normally",
+      "New device shows a self-assigned 169.254 address",
+      "Router admin page may show 'DHCP pool full' or similar"
+    ],
+    "possible_causes": [
+      "The DHCP address pool on the router is full (maximum number of devices reached)",
+      "DHCP service is turned off on the router",
+      "IP address conflict with a manually configured static IP",
+      "Router needs a restart",
+      "MAC address filtering is blocking the new device"
+    ],
+    "diagnostic_questions": [
+      "How many devices are normally connected to this network?",
+      "Is this a brand new device or one that worked before and stopped?",
+      "Does the router have any device limit or parental control settings enabled?",
+      "Has anyone set a static IP address on any device recently?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check what IP address (if any) the new device received",
+        "expected_result": "A normal address like 192.168.x.x within the router's range",
+        "abnormal_result": "No IP address, or a 169.254 self-assigned address, meaning DHCP failed"
+      },
+      {
+        "command": "arp -a",
+        "purpose": "View a list of devices the computer has recently communicated with on the network",
+        "expected_result": "Shows a list of IP and MAC addresses on the local network",
+        "abnormal_result": "Empty or very short list, suggesting no communication with the router at all"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Log into the router's admin page and check the DHCP settings",
+        "reason": "This shows the size of the address pool and how many addresses are currently in use"
+      },
+      {
+        "step": 2,
+        "action": "Check if the DHCP address pool is full",
+        "reason": "Most home routers only support a limited number of devices by default, often 50 or fewer"
+      },
+      {
+        "step": 3,
+        "action": "Increase the DHCP address pool range if it is full",
+        "reason": "This allows more devices to receive an address at the same time"
+      },
+      {
+        "step": 4,
+        "action": "Check for any devices with manually set static IP addresses that might conflict",
+        "reason": "A static IP inside the DHCP range can block that address from being given to another device"
+      },
+      {
+        "step": 5,
+        "action": "Restart the router",
+        "reason": "This can clear old, unused address leases that are stuck in the system"
+      },
+      {
+        "step": 6,
+        "action": "Check MAC address filtering settings on the router",
+        "reason": "If enabled, this feature can block unknown devices from getting an IP address at all"
+      },
+      {
+        "step": 7,
+        "action": "Reduce the DHCP lease time if old devices are holding addresses too long without releasing them",
+        "reason": "Shorter lease times free up unused addresses more quickly"
+      }
+    ],
+    "possible_solutions": [
+      "Increase the DHCP address pool size in router settings",
+      "Remove or fix conflicting static IP addresses",
+      "Restart the router to clear old leases",
+      "Disable or correctly configure MAC address filtering",
+      "Reduce DHCP lease time to recycle unused addresses faster"
+    ],
+    "prevention": [
+      "Set the DHCP pool large enough for expected number of devices",
+      "Document any static IP addresses used on the network",
+      "Periodically restart the router",
+      "Review connected device lists regularly"
+    ],
+    "keywords": [
+      "DHCP pool full",
+      "cannot get IP address",
+      "new device no internet",
+      "DHCP not assigning address"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": [
+      "169.254 IP address problem",
+      "Router not working",
+      "IP address conflict"
+    ]
+  },
+  {
+    "id": "GRN-008",
+    "category": "Routers",
+    "subcategory": "Connectivity",
+    "problem": "Router is on but no devices can connect to the internet",
+    "description": "The router's power light is on and Wi-Fi appears to broadcast, but no device connected to it, wired or wireless, can reach the internet, even though local network features (like accessing the router page) may still work.",
+    "symptoms": [
+      "All devices show 'connected' but no internet on any of them",
+      "Router lights show power and Wi-Fi, but internet/WAN light is off or red",
+      "Cannot open the router's settings page, or can but it shows no connection",
+      "Problem affects every device on the network at once"
+    ],
+    "possible_causes": [
+      "The modem or internet connection from the provider is down",
+      "The cable between the modem and router is loose or faulty",
+      "The router needs a restart",
+      "An outage from the internet service provider (ISP)",
+      "Router firmware has crashed or become unstable",
+      "Incorrect WAN settings configured on the router"
+    ],
+    "diagnostic_questions": [
+      "Are all devices affected, or just some?",
+      "What color are the lights on the router, especially the internet or WAN light?",
+      "Is there a separate modem, and does it show normal lights?",
+      "Has the router or modem been moved, unplugged, or affected by a power outage recently?",
+      "Have you contacted your internet provider about any known outages?"
+    ],
+    "commands": [
+      {
+        "command": "ping 192.168.1.1",
+        "purpose": "Test connection between your computer and the router itself (use your actual router IP)",
+        "expected_result": "Replies received, confirming the local connection to the router works",
+        "abnormal_result": "Request timed out, meaning the problem is even before reaching the router"
+      },
+      {
+        "command": "ping 8.8.8.8",
+        "purpose": "Test if the router has a working connection to the internet",
+        "expected_result": "Replies received from the internet",
+        "abnormal_result": "Request timed out, meaning the router itself has no internet connection, even though the local network is fine"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the lights on the modem and router, especially the internet/WAN light",
+        "reason": "A red or off internet light usually means the connection from the provider is not reaching the router"
+      },
+      {
+        "step": 2,
+        "action": "Restart the modem first, wait one minute, then restart the router",
+        "reason": "Restarting in the correct order allows the modem to fully reconnect to the provider before the router tries to use it"
+      },
+      {
+        "step": 3,
+        "action": "Check that all cables between the wall socket, modem, and router are firmly connected",
+        "reason": "A loose cable can cause a complete loss of internet even if Wi-Fi still broadcasts"
+      },
+      {
+        "step": 4,
+        "action": "Ping the router's own IP address from a connected computer",
+        "reason": "This confirms whether the local network is working, even if the internet itself is down"
+      },
+      {
+        "step": 5,
+        "action": "Ping an external address like 8.8.8.8 from a connected computer",
+        "reason": "This tests whether the router can reach the internet at all"
+      },
+      {
+        "step": 6,
+        "action": "Check for an outage by calling the internet service provider or checking with a mobile device on cellular data",
+        "reason": "Sometimes the problem is completely outside the home, caused by an ISP outage"
+      },
+      {
+        "step": 7,
+        "action": "Reset the router to factory settings only if other steps fail",
+        "reason": "This is a last resort since it clears all custom settings, but can fix serious firmware problems"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the modem and router in the correct order",
+      "Reconnect any loose cables",
+      "Wait out an ISP outage and confirm with the provider",
+      "Update router firmware",
+      "Factory reset the router if firmware appears corrupted",
+      "Replace a faulty modem or router if hardware has failed"
+    ],
+    "prevention": [
+      "Use a surge protector to prevent power damage to networking equipment",
+      "Restart networking equipment periodically",
+      "Keep firmware updated",
+      "Keep the router in a ventilated area to avoid overheating"
+    ],
+    "keywords": [
+      "router not working",
+      "no internet all devices",
+      "WAN light red",
+      "internet down"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": [
+      "Modem not connecting",
+      "ISP outage",
+      "DHCP not assigning IP address"
+    ]
+  },
+  {
+    "id": "GRN-009",
+    "category": "Switches",
+    "subcategory": "Connectivity",
+    "problem": "Devices connected to a network switch cannot reach each other or the internet",
+    "description": "Multiple computers are plugged into a network switch, and either some or all of them cannot access the internet or other devices, even though they were working before or the switch shows power.",
+    "symptoms": [
+      "Some or all ports on the switch show no link light",
+      "Devices on the switch cannot ping each other or the router",
+      "Switch power light is on but port lights are off",
+      "Problem started after adding a new cable or device"
+    ],
+    "possible_causes": [
+      "The uplink cable from the switch to the router is unplugged or faulty",
+      "A faulty port on the switch",
+      "A bad cable on one specific device",
+      "The switch itself has failed or needs a restart",
+      "A network loop caused by connecting two switch ports together with a cable, causing a broadcast storm",
+      "VLAN misconfiguration on a managed switch"
+    ],
+    "diagnostic_questions": [
+      "Are all devices on the switch affected, or just one?",
+      "Is there a link light showing on the switch port for the affected device?",
+      "Was any new cable or device connected right before the problem started?",
+      "Is this a simple unmanaged switch, or a managed switch with VLAN settings?"
+    ],
+    "commands": [
+      {
+        "command": "ping [gateway IP address]",
+        "purpose": "Test if a device connected to the switch can reach the router",
+        "expected_result": "Replies received from the router",
+        "abnormal_result": "Request timed out, meaning the switch is not passing traffic correctly for that device"
+      },
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check if the device connected to the switch received a valid IP address",
+        "expected_result": "A valid address in the expected range",
+        "abnormal_result": "No IP address or a 169.254 address, meaning the switch is not passing DHCP traffic"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the link light on the switch port for the affected device",
+        "reason": "No light usually means no physical connection, pointing to a cable or port problem"
+      },
+      {
+        "step": 2,
+        "action": "Check the uplink cable connecting the switch to the router",
+        "reason": "If this cable is unplugged or bad, every device on the switch loses internet access, even if local ports look fine"
+      },
+      {
+        "step": 3,
+        "action": "Move the affected device to a different port on the switch",
+        "reason": "This helps identify if the problem is a bad port on the switch"
+      },
+      {
+        "step": 4,
+        "action": "Try a different cable for the affected device",
+        "reason": "This rules out a damaged cable as the cause"
+      },
+      {
+        "step": 5,
+        "action": "Check if any cable accidentally connects two ports on the same switch (a loop)",
+        "reason": "A network loop can cause a broadcast storm that slows down or breaks the entire network"
+      },
+      {
+        "step": 6,
+        "action": "Restart the switch by unplugging power for 30 seconds",
+        "reason": "This clears any temporary internal errors on the switch"
+      },
+      {
+        "step": 7,
+        "action": "If it is a managed switch, check VLAN and port settings for misconfiguration",
+        "reason": "Incorrect VLAN assignment can isolate a port from the rest of the network even though it appears physically connected"
+      }
+    ],
+    "possible_solutions": [
+      "Replace a faulty cable",
+      "Move the device to a working port",
+      "Reconnect the uplink cable to the router",
+      "Remove any accidental cable loop between switch ports",
+      "Restart the switch",
+      "Correct VLAN settings on a managed switch",
+      "Replace the switch if it has hardware failure"
+    ],
+    "prevention": [
+      "Label cables clearly to avoid accidental loops",
+      "Use quality cables and check them periodically",
+      "Keep documentation of VLAN configurations",
+      "Use switches with loop protection features when possible"
+    ],
+    "keywords": [
+      "switch not working",
+      "no link light",
+      "network switch problem",
+      "broadcast storm",
+      "VLAN misconfiguration"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": [
+      "No internet access ethernet",
+      "Router not working",
+      "IP address conflict"
+    ]
+  },
+  {
+    "id": "GRN-010",
+    "category": "Firewalls",
+    "subcategory": "Blocked Traffic",
+    "problem": "A specific program cannot connect to the internet even though the internet works normally",
+    "description": "One particular application, such as a game, business software, or printer utility, cannot connect to the internet or a network resource, while web browsers and other programs work fine.",
+    "symptoms": [
+      "One specific app shows a connection error or timeout",
+      "Web browsing and other apps work normally",
+      "Error messages like 'connection refused' or 'unable to connect to server'",
+      "Problem may have started after installing new security software"
+    ],
+    "possible_causes": [
+      "Windows Firewall is blocking the specific program",
+      "Third-party antivirus or security software firewall is blocking it",
+      "The program needs a specific port opened that is currently blocked",
+      "Router firewall settings are blocking outgoing or incoming traffic",
+      "Corporate or network firewall policy blocking the application"
+    ],
+    "diagnostic_questions": [
+      "Which specific program is having the problem?",
+      "Does the exact same problem happen on other computers on the same network?",
+      "Did this start right after installing new antivirus or security software?",
+      "Does the program need a specific port number to work (check its documentation)?",
+      "Is this a home network or a business/office network with a managed firewall?"
+    ],
+    "commands": [
+      {
+        "command": "netsh advfirewall show allprofiles",
+        "purpose": "Check the current state of Windows Firewall for all network profiles",
+        "expected_result": "Shows firewall state as ON or OFF for Domain, Private, and Public profiles",
+        "abnormal_result": "Unexpected settings that do not match what the user expects"
+      },
+      {
+        "command": "telnet [server address] [port number]",
+        "purpose": "Test if a specific port is open and reachable on a remote server",
+        "expected_result": "A blank screen or connection confirmation, meaning the port is open",
+        "abnormal_result": "'Could not open connection' error, meaning the port is blocked or the server is not listening"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Identify exactly which program is affected and what error message it shows",
+        "reason": "The exact error often points to whether it is a firewall, port, or server issue"
+      },
+      {
+        "step": 2,
+        "action": "Temporarily disable Windows Firewall to test if the program connects",
+        "reason": "This quickly confirms whether Windows Firewall is the cause; remember to turn it back on afterward"
+      },
+      {
+        "step": 3,
+        "action": "If disabling the firewall fixes it, add the specific program as an allowed app in Windows Firewall settings instead of leaving the firewall off",
+        "reason": "This keeps the computer protected while allowing the needed program to work"
+      },
+      {
+        "step": 4,
+        "action": "Check third-party antivirus software for its own separate firewall settings",
+        "reason": "Many antivirus programs have their own firewall that works independently from Windows Firewall"
+      },
+      {
+        "step": 5,
+        "action": "Check if the program needs specific ports opened, and confirm those ports are allowed in both the computer firewall and the router",
+        "reason": "Some programs, especially games and remote access tools, require specific ports to function properly"
+      },
+      {
+        "step": 6,
+        "action": "Test the same program on another computer on the same network",
+        "reason": "This helps determine if the problem is specific to one computer or affects the whole network"
+      },
+      {
+        "step": 7,
+        "action": "On business networks, check with the network administrator about firewall policies",
+        "reason": "Company firewalls often block certain apps or ports by policy, which a regular user cannot change"
+      }
+    ],
+    "possible_solutions": [
+      "Add the program as an allowed app in Windows Firewall",
+      "Adjust third-party antivirus firewall settings",
+      "Open the required port in the firewall and router settings",
+      "Request an exception from a corporate network administrator",
+      "Reinstall the program if its firewall rule became corrupted"
+    ],
+    "prevention": [
+      "Review firewall rules when installing new network-dependent software",
+      "Keep a record of which ports specific applications need",
+      "Avoid running two firewall or antivirus programs at the same time",
+      "Test new software on a single machine before wide deployment on business networks"
+    ],
+    "keywords": [
+      "firewall blocking program",
+      "connection refused",
+      "port blocked",
+      "app cannot connect internet"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": [
+      "VPN not connecting",
+      "Remote desktop not connecting",
+      "Email not sending or receiving"
+    ]
+  },
+  {
+    "id": "GRN-011",
+    "category": "Printers",
+    "subcategory": "Connectivity",
+    "problem": "Printer shows offline even though it is turned on",
+    "description": "The printer is powered on and appears ready, but the computer shows the printer as 'offline' in the printer list, and print jobs will not print or get stuck.",
+    "symptoms": [
+      "Printer icon shows 'offline' status on the computer",
+      "Print jobs stay stuck in the print queue",
+      "Printer's own screen shows it is ready and has paper and ink",
+      "Problem may affect one computer or all computers trying to print"
+    ],
+    "possible_causes": [
+      "The printer lost its network or USB connection",
+      "The printer's IP address changed (common with network printers)",
+      "The print spooler service on the computer has stopped or is stuck",
+      "The printer is set to 'Use Printer Offline' mode by mistake",
+      "The printer is out of paper, ink, or has a paper jam, and Windows misreports this as offline",
+      "Wi-Fi connection to the printer dropped"
+    ],
+    "diagnostic_questions": [
+      "Is this a USB printer, network printer, or wireless printer?",
+      "Does the printer's own screen show any errors, like paper jam or low ink?",
+      "Is this happening on one computer, or all computers that try to print?",
+      "Has the printer or router been restarted recently, or the network changed?"
+    ],
+    "commands": [
+      {
+        "command": "ping [printer IP address]",
+        "purpose": "Test if the computer can reach the network printer",
+        "expected_result": "Replies received from the printer",
+        "abnormal_result": "Request timed out, meaning the printer's IP address may have changed or the printer lost network connection"
+      },
+      {
+        "command": "services.msc",
+        "purpose": "Open the Services window to check the status of the Print Spooler service",
+        "expected_result": "Print Spooler service status shows 'Running'",
+        "abnormal_result": "Service is stopped, which prevents any printing from working"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the printer's own screen for any error messages, such as paper jam or out of ink",
+        "reason": "Physical printer errors can cause it to show as offline even though it is powered on"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the printer is properly connected, either by USB cable or to the Wi-Fi network",
+        "reason": "A dropped connection is one of the most common causes of the offline status"
+      },
+      {
+        "step": 3,
+        "action": "Go to printer settings on the computer and make sure 'Use Printer Offline' is not accidentally turned on",
+        "reason": "Windows sometimes gets stuck in this mode after a temporary disconnection"
+      },
+      {
+        "step": 4,
+        "action": "For network printers, ping the printer's IP address to confirm it is reachable",
+        "reason": "If the printer's IP address changed, the computer may still be trying to reach the old address"
+      },
+      {
+        "step": 5,
+        "action": "Restart the Print Spooler service using services.msc",
+        "reason": "A stuck print spooler service is a common software cause of printers showing offline"
+      },
+      {
+        "step": 6,
+        "action": "Remove the printer from the computer and add it again",
+        "reason": "This refreshes the connection details and often fixes an outdated IP address or driver issue"
+      },
+      {
+        "step": 7,
+        "action": "Restart both the printer and the computer",
+        "reason": "This clears temporary glitches on both the printer and the computer's printing system"
+      }
+    ],
+    "possible_solutions": [
+      "Turn off 'Use Printer Offline' mode in printer settings",
+      "Restart the Print Spooler service",
+      "Reconnect the printer to Wi-Fi or check the USB cable",
+      "Update the printer's IP address on the computer, or set a static IP on the printer",
+      "Remove and re-add the printer",
+      "Update or reinstall the printer driver"
+    ],
+    "prevention": [
+      "Set network printers to use a fixed (static) IP address",
+      "Keep printer firmware and drivers updated",
+      "Avoid moving the printer far from the Wi-Fi router",
+      "Regularly check for paper jams and low ink or toner"
+    ],
+    "keywords": [
+      "printer offline",
+      "printer not printing",
+      "print spooler stopped",
+      "printer shows offline but on"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": [
+      "Print jobs stuck in queue",
+      "Printer driver problems",
+      "Shared printer not accessible"
+    ]
+  },
+  {
+    "id": "GRN-012",
+    "category": "Shared Folders",
+    "subcategory": "Access Problems",
+    "problem": "Cannot access a shared folder on another computer",
+    "description": "The user tries to open a shared folder on another computer over the network, but gets an error message such as 'Access is denied', 'Network path was not found', or the folder simply does not appear.",
+    "symptoms": [
+      "Error message 'Access is denied' when opening the shared folder",
+      "Error message 'The network path was not found'",
+      "Shared folder does not appear when browsing the network",
+      "Problem may affect one user or several"
+    ],
+    "possible_causes": [
+      "File and printer sharing is turned off on the host computer",
+      "The user does not have permission to access the shared folder",
+      "The host computer is turned off, sleeping, or disconnected from the network",
+      "A firewall is blocking file sharing traffic",
+      "Incorrect username or password entered for the shared computer",
+      "Network discovery is turned off"
+    ],
+    "diagnostic_questions": [
+      "Is the computer that owns the shared folder turned on and connected to the network?",
+      "Do you know the exact folder path, such as \\\\ComputerName\\FolderName?",
+      "Does this happen for everyone trying to access the folder, or just you?",
+      "Have you successfully accessed this shared folder before?",
+      "What exact error message appears?"
+    ],
+    "commands": [
+      {
+        "command": "ping [host computer name or IP]",
+        "purpose": "Check if the computer sharing the folder is reachable on the network",
+        "expected_result": "Replies received from the host computer",
+        "abnormal_result": "Request timed out, meaning the host computer is off, asleep, or disconnected"
+      },
+      {
+        "command": "net use \\\\[computer name]\\[share name]",
+        "purpose": "Attempt to connect to the shared folder directly and see any detailed error",
+        "expected_result": "Command completes successfully, confirming the connection",
+        "abnormal_result": "Error such as 'System error 5 has occurred. Access is denied', pointing to a permissions problem"
+      },
+      {
+        "command": "net view \\\\[computer name]",
+        "purpose": "List all shared folders available on a specific computer",
+        "expected_result": "Shows a list of shared folder names",
+        "abnormal_result": "Error message, meaning either the computer is unreachable or sharing is disabled"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the host computer is turned on, awake, and connected to the same network",
+        "reason": "A shared folder is only available while the hosting computer is running and reachable"
+      },
+      {
+        "step": 2,
+        "action": "Ping the host computer's name or IP address from the computer having trouble",
+        "reason": "This confirms basic network connectivity before checking sharing settings"
+      },
+      {
+        "step": 3,
+        "action": "On the host computer, confirm that file and printer sharing is turned on in Network settings",
+        "reason": "If sharing is disabled, no other computer can access folders on it, no matter how they connect"
+      },
+      {
+        "step": 4,
+        "action": "Check the specific folder's sharing permissions and make sure the correct user or 'Everyone' has access",
+        "reason": "Even with sharing enabled overall, a specific folder may not be shared with the right person"
+      },
+      {
+        "step": 5,
+        "action": "Check both computers' firewall settings allow 'File and Printer Sharing'",
+        "reason": "Firewalls often block this type of traffic by default for security"
+      },
+      {
+        "step": 6,
+        "action": "Try accessing the folder using its IP address instead of computer name",
+        "reason": "This helps identify if the problem is with name resolution rather than the sharing itself"
+      },
+      {
+        "step": 7,
+        "action": "Enable Network Discovery on both computers",
+        "reason": "Without this setting, computers may not be able to see or browse each other on the network"
+      }
+    ],
+    "possible_solutions": [
+      "Turn on file and printer sharing on the host computer",
+      "Grant the correct permissions to the shared folder",
+      "Allow file sharing traffic through the firewall on both computers",
+      "Enable network discovery",
+      "Use the correct username and password when prompted",
+      "Access the share using its IP address if name resolution fails"
+    ],
+    "prevention": [
+      "Document shared folder permissions for future reference",
+      "Keep host computers awake or set proper wake settings if shares are needed regularly",
+      "Standardize firewall rules for sharing across office computers",
+      "Use a dedicated file server for frequently accessed shares"
+    ],
+    "keywords": [
+      "access denied shared folder",
+      "network path not found",
+      "cannot access shared drive",
+      "file sharing not working"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": [
+      "Active Directory login issues",
+      "Firewall blocking program",
+      "Network discovery disabled"
+    ]
+  },
+  {
+    "id": "GRN-013",
+    "category": "Active Directory",
+    "subcategory": "Login Issues",
+    "problem": "User cannot log in to a domain-joined computer",
+    "description": "An employee tries to log in to their work computer using their normal username and password, but gets an error saying the login failed, even though they are sure the password is correct.",
+    "symptoms": [
+      "Error message such as 'The trust relationship between this workstation and the primary domain failed'",
+      "Error message 'The username or password is incorrect'",
+      "Login screen shows 'domain not available' or similar",
+      "Other users on the same computer or network may or may not have the same problem"
+    ],
+    "possible_causes": [
+      "The user typed the wrong password, or Caps Lock is on",
+      "The account is locked out after too many failed attempts",
+      "The computer lost its trust relationship with the domain controller (common after reinstalling Windows or restoring an old backup)",
+      "The domain controller server is unreachable or down",
+      "The computer's network connection is not working",
+      "The user's account has expired or been disabled by an administrator",
+      "Time difference between the computer and the domain controller is too large"
+    ],
+    "diagnostic_questions": [
+      "What is the exact error message shown on the login screen?",
+      "Has this account worked before on this specific computer?",
+      "Can the user log in on a different computer with the same account?",
+      "Was the computer recently reimaged, reinstalled, or restored from an old backup?",
+      "Is the computer connected to the network right now?"
+    ],
+    "commands": [
+      {
+        "command": "ping [domain controller name or IP]",
+        "purpose": "Check if the computer can reach the domain controller server",
+        "expected_result": "Replies received from the domain controller",
+        "abnormal_result": "Request timed out, meaning the computer cannot reach the domain controller, likely a network problem"
+      },
+      {
+        "command": "nltest /sc_query:[domainname]",
+        "purpose": "Check the secure channel (trust relationship) status between the computer and the domain",
+        "expected_result": "Message shows the trust test completed successfully",
+        "abnormal_result": "Message shows a failure, confirming a broken trust relationship that needs to be repaired"
+      },
+      {
+        "command": "w32tm /query /status",
+        "purpose": "Check if the computer's clock is properly synced, since large time differences can block domain login",
+        "expected_result": "Shows a recent, successful time sync",
+        "abnormal_result": "Shows sync errors or a large time offset, which can cause authentication failures"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the exact error message shown on screen",
+        "reason": "Different error messages point to very different causes, such as wrong password versus broken trust relationship"
+      },
+      {
+        "step": 2,
+        "action": "Try logging in with a different, known-working domain account on the same computer",
+        "reason": "This helps determine if the problem is with the user's account or the computer itself"
+      },
+      {
+        "step": 3,
+        "action": "Confirm the computer has a working network connection to reach the domain controller",
+        "reason": "Without network access, the computer cannot verify domain login credentials"
+      },
+      {
+        "step": 4,
+        "action": "If the error mentions 'trust relationship failed', this usually means the computer needs to be removed and re-added to the domain",
+        "reason": "This error means the computer's security credentials no longer match what the domain controller has on record"
+      },
+      {
+        "step": 5,
+        "action": "Check with an administrator if the user's account might be locked, disabled, or expired",
+        "reason": "These account-level issues can only be fixed by someone with administrator access to Active Directory"
+      },
+      {
+        "step": 6,
+        "action": "Check the computer's date and time settings match the correct time zone and are accurate",
+        "reason": "Domain authentication can fail if the computer's clock is too far off from the domain controller's clock"
+      },
+      {
+        "step": 7,
+        "action": "If all else fails and the trust relationship is broken, log in with a local administrator account, disjoin and rejoin the computer to the domain, then restart",
+        "reason": "This resets the security relationship between the computer and the domain, resolving trust errors"
+      }
+    ],
+    "possible_solutions": [
+      "Reset the user's password if it was simply incorrect or expired",
+      "Unlock the account through an administrator if it was locked out",
+      "Fix network connectivity issues preventing contact with the domain controller",
+      "Rejoin the computer to the domain to repair a broken trust relationship",
+      "Correct the computer's date, time, and time zone settings"
+    ],
+    "prevention": [
+      "Avoid restoring very old backups of domain-joined computers",
+      "Keep computer clocks synced automatically",
+      "Set reasonable account lockout policies to avoid frequent lockouts",
+      "Document domain rejoin procedures for IT staff"
+    ],
+    "keywords": [
+      "trust relationship failed",
+      "cannot log in to domain",
+      "active directory login error",
+      "account locked out"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "Shared folder access denied",
+      "Computer clock wrong",
+      "Network connectivity issues"
+    ]
+  },
+  {
+    "id": "GRN-014",
+    "category": "Office Applications",
+    "subcategory": "Application Errors",
+    "problem": "Microsoft Word, Excel, or another Office program will not open or crashes immediately",
+    "description": "When the user tries to open a Microsoft Office application like Word or Excel, the program either does not open at all, shows an error message, or opens briefly and then closes by itself.",
+    "symptoms": [
+      "Program window flashes briefly and then disappears",
+      "Error message about the program 'has stopped working'",
+      "Program hangs on a loading screen and never fully opens",
+      "Other Office programs may or may not have the same problem"
+    ],
+    "possible_causes": [
+      "A corrupted Office program file or installation",
+      "A problematic add-in is causing the crash",
+      "Windows needs important updates",
+      "The Office license or activation has a problem",
+      "A corrupted user settings/profile for Office",
+      "Conflicting antivirus software",
+      "Not enough free disk space or memory"
+    ],
+    "diagnostic_questions": [
+      "Does this happen with just one Office program, or all of them (Word, Excel, PowerPoint, etc.)?",
+      "Did this start after a recent update or new add-in installation?",
+      "Does the program open in Safe Mode?",
+      "Is there any specific error message or error code shown?",
+      "Does this happen with every document, or a specific file?"
+    ],
+    "commands": [
+      {
+        "command": "winword /safe",
+        "purpose": "Open Word in Safe Mode, which disables add-ins, to see if the program opens without them",
+        "expected_result": "Word opens successfully in Safe Mode",
+        "abnormal_result": "Word still crashes even in Safe Mode, suggesting a deeper installation problem rather than an add-in"
+      },
+      {
+        "command": "sfc /scannow",
+        "purpose": "Scan and repair corrupted Windows system files that could be affecting Office",
+        "expected_result": "Scan completes and reports no integrity violations, or successfully repairs found issues",
+        "abnormal_result": "Scan reports it found corrupt files but could not fix them, requiring further repair steps"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Try opening a different Office program, such as Excel instead of Word",
+        "reason": "This tells you if the problem is with one specific program or the whole Office installation"
+      },
+      {
+        "step": 2,
+        "action": "Try opening the program in Safe Mode by holding Ctrl while opening it, or typing winword /safe in the Run box",
+        "reason": "If it opens fine in Safe Mode, a problematic add-in is likely the cause"
+      },
+      {
+        "step": 3,
+        "action": "If Safe Mode works, go to File > Options > Add-ins and disable recently added add-ins",
+        "reason": "This isolates and removes the specific add-in causing the crash"
+      },
+      {
+        "step": 4,
+        "action": "Check for and install any pending Windows updates",
+        "reason": "Sometimes Office compatibility problems are fixed by installing the latest Windows updates"
+      },
+      {
+        "step": 5,
+        "action": "Use the built-in Office repair tool (Control Panel > Programs > Microsoft Office > Change > Quick Repair)",
+        "reason": "This automatically fixes many common causes of Office crashes without needing to reinstall everything"
+      },
+      {
+        "step": 6,
+        "action": "If Quick Repair does not work, try the Online Repair option, which reinstalls Office components",
+        "reason": "Online Repair fixes deeper corruption that Quick Repair cannot resolve"
+      },
+      {
+        "step": 7,
+        "action": "Create a new Windows user profile and test if Office opens normally under that profile",
+        "reason": "This checks if the problem is caused by a corrupted user profile rather than Office itself"
+      },
+      {
+        "step": 8,
+        "action": "As a last resort, uninstall and reinstall Office completely",
+        "reason": "This replaces all Office files fresh, fixing almost any software-level corruption"
+      }
+    ],
+    "possible_solutions": [
+      "Disable a problematic add-in",
+      "Run Office Quick Repair or Online Repair",
+      "Install pending Windows updates",
+      "Create a new Windows user profile to test",
+      "Reinstall Microsoft Office completely",
+      "Check Office activation status and re-activate if needed"
+    ],
+    "prevention": [
+      "Only install trusted, necessary Office add-ins",
+      "Keep Windows and Office updated regularly",
+      "Avoid forcefully closing Office programs, which can corrupt settings",
+      "Keep enough free disk space for Office to function properly"
+    ],
+    "keywords": [
+      "word not opening",
+      "excel crashes",
+      "office program stopped working",
+      "office add-in problem"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "Windows update problems",
+      "Corrupted user profile",
+      "Slow computer overall"
+    ]
+  },
+  {
+    "id": "GRN-015",
+    "category": "Drivers",
+    "subcategory": "Device Malfunction",
+    "problem": "A device shows a warning icon in Device Manager and does not work properly",
+    "description": "A hardware device, such as a graphics card, network adapter, or sound card, is not working correctly, and when checked in Device Manager, it shows a yellow warning triangle or similar error symbol.",
+    "symptoms": [
+      "Yellow warning triangle next to a device name in Device Manager",
+      "The device (like sound, graphics, or network) is not working",
+      "Error message such as 'This device cannot start (Code 10)'",
+      "Device may appear as 'Unknown Device'"
+    ],
+    "possible_causes": [
+      "The driver for the device is missing, outdated, or corrupted",
+      "A recent Windows update replaced the driver with an incompatible one",
+      "Hardware conflict with another device",
+      "Physical hardware failure",
+      "The driver was not properly installed after a fresh Windows install",
+      "Corrupted system files affecting driver loading"
+    ],
+    "diagnostic_questions": [
+      "Which specific device is showing the error (graphics, sound, network, etc.)?",
+      "What error code appears if you double-click the device and check its properties?",
+      "Did this start after a Windows update or after installing new hardware?",
+      "Has this device ever worked correctly on this computer?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Open Device Manager to view all hardware devices and their status",
+        "expected_result": "All devices show as working normally, with no warning icons",
+        "abnormal_result": "Device shows a yellow warning triangle, red X, or question mark icon, indicating a problem"
+      },
+      {
+        "command": "sfc /scannow",
+        "purpose": "Repair corrupted Windows system files that might affect driver loading",
+        "expected_result": "No integrity violations found, or successful repair of found issues",
+        "abnormal_result": "Corrupt files found that cannot be repaired automatically"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Device Manager and find the device showing the warning icon",
+        "reason": "This confirms exactly which device has the problem and what error code it shows"
+      },
+      {
+        "step": 2,
+        "action": "Right-click the device and choose 'Update driver' to search automatically for updated software",
+        "reason": "This can fix problems caused by an outdated or slightly corrupted driver"
+      },
+      {
+        "step": 3,
+        "action": "If updating does not work, right-click and choose 'Uninstall device', then restart the computer",
+        "reason": "Windows will often reinstall a fresh, working version of the driver automatically on restart"
+      },
+      {
+        "step": 4,
+        "action": "Download the latest driver directly from the hardware manufacturer's website using another working computer if needed, and install it manually",
+        "reason": "Manufacturer drivers are often more up to date and reliable than the ones Windows finds automatically"
+      },
+      {
+        "step": 5,
+        "action": "Check if this problem started right after a Windows update, and if so, try rolling back the driver to the previous version",
+        "reason": "Some Windows updates install drivers that are not fully compatible with certain hardware"
+      },
+      {
+        "step": 6,
+        "action": "Check for hardware conflicts by looking at the device's resource settings in Device Manager properties",
+        "reason": "Rarely, two devices can conflict over the same system resources, causing one to fail"
+      },
+      {
+        "step": 7,
+        "action": "If the device still fails after driver reinstall, test the hardware in another computer if possible",
+        "reason": "This helps determine if the problem is the driver/software or the physical hardware itself"
+      }
+    ],
+    "possible_solutions": [
+      "Update the driver through Device Manager",
+      "Uninstall and let Windows reinstall the driver automatically",
+      "Download and install the latest driver from the manufacturer's website",
+      "Roll back to a previous driver version",
+      "Replace faulty hardware if the device fails on another computer too"
+    ],
+    "prevention": [
+      "Keep drivers updated through the manufacturer's official website",
+      "Create a system restore point before major driver updates",
+      "Avoid installing drivers from untrusted third-party websites",
+      "Check hardware compatibility before major Windows updates"
+    ],
+    "keywords": [
+      "device manager warning triangle",
+      "driver not working",
+      "code 10 error",
+      "unknown device"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": [
+      "No sound on computer",
+      "Display problems",
+      "USB device not recognized"
+    ]
+  },
+  {
+    "id": "GRN-016",
+    "category": "Boot Problems",
+    "subcategory": "Startup Failure",
+    "problem": "Computer turns on but does not display anything on the screen",
+    "description": "When the power button is pressed, the computer's fans spin and lights turn on, but the monitor stays black and shows no picture at all, not even the manufacturer's logo.",
+    "symptoms": [
+      "Computer fans and lights turn on normally",
+      "Monitor shows 'No signal' or stays completely black",
+      "No beep sounds, or a pattern of beep sounds is heard",
+      "Keyboard lights (Caps Lock, Num Lock) may or may not respond"
+    ],
+    "possible_causes": [
+      "The monitor cable is loose or connected to the wrong port",
+      "The monitor itself is turned off or set to the wrong input source",
+      "A loose or failing RAM (memory) stick",
+      "A failing graphics card",
+      "A loose power connection inside the computer",
+      "A failed motherboard component",
+      "The computer is not actually powering on, only the fans spinning while other parts fail"
+    ],
+    "diagnostic_questions": [
+      "Are the computer's fans spinning and lights on?",
+      "Is the monitor itself turned on, and is it set to the correct input source (HDMI, DisplayPort, etc.)?",
+      "Do you hear any beep sounds when the computer starts?",
+      "Was anything opened inside the computer recently, such as adding memory or cleaning dust?",
+      "Does this happen every time, or only sometimes?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the monitor itself is turned on and set to the correct input source",
+        "reason": "This is a very common and simple cause that is often overlooked"
+      },
+      {
+        "step": 2,
+        "action": "Check that the video cable is firmly connected at both the computer and monitor ends",
+        "reason": "A loose or wrong cable connection prevents any picture from displaying"
+      },
+      {
+        "step": 3,
+        "action": "Try a different video cable or a different port on the computer if available (such as switching from HDMI to DisplayPort)",
+        "reason": "This helps rule out a damaged cable or faulty port"
+      },
+      {
+        "step": 4,
+        "action": "Test the monitor on another computer, or test another monitor on this computer",
+        "reason": "This confirms whether the problem is with the monitor or the computer itself"
+      },
+      {
+        "step": 5,
+        "action": "Listen carefully for beep sounds during startup and note the pattern",
+        "reason": "Different beep patterns indicate different hardware problems, such as memory or graphics card issues"
+      },
+      {
+        "step": 6,
+        "action": "If comfortable opening the computer case, check that the RAM sticks and graphics card are firmly seated in their slots",
+        "reason": "Loose internal components are a common cause of a computer that powers on but shows no display"
+      },
+      {
+        "step": 7,
+        "action": "If there is more than one RAM stick, try starting the computer with only one stick installed at a time",
+        "reason": "This helps identify if a single faulty memory stick is preventing the computer from displaying anything"
+      },
+      {
+        "step": 8,
+        "action": "If the computer has a separate graphics card, try connecting the monitor directly to the motherboard's video port instead",
+        "reason": "This helps determine if a failing graphics card is the cause of the no-display problem"
+      }
+    ],
+    "possible_solutions": [
+      "Turn on the monitor or select the correct input source",
+      "Reconnect or replace the video cable",
+      "Reseat RAM sticks and the graphics card",
+      "Test with a single RAM stick to find a faulty one",
+      "Test using the motherboard's built-in video port instead of a graphics card",
+      "Replace failed hardware components such as RAM or graphics card"
+    ],
+    "prevention": [
+      "Handle internal components carefully to avoid loosening connections",
+      "Keep the inside of the computer free from dust buildup",
+      "Avoid moving the computer while it is powered on",
+      "Use a surge protector to prevent power-related hardware damage"
+    ],
+    "keywords": [
+      "computer no display",
+      "black screen on startup",
+      "no signal monitor",
+      "computer fans on no picture"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-50 minutes",
+    "related_problems": [
+      "Blue screen errors",
+      "RAM failure",
+      "Graphics card failure"
+    ]
+  },
+  {
+    "id": "GRN-017",
+    "category": "Blue Screen Errors",
+    "subcategory": "System Crash",
+    "problem": "Computer shows a blue screen error and restarts unexpectedly",
+    "description": "While using the computer normally, the screen suddenly turns blue with white text showing an error code and message, then the computer restarts on its own, sometimes losing unsaved work.",
+    "symptoms": [
+      "Sudden blue screen with white error text",
+      "Computer restarts automatically after the blue screen",
+      "Error code shown, such as 'MEMORY_MANAGEMENT' or 'IRQL_NOT_LESS_OR_EQUAL'",
+      "May happen randomly or only during specific activities like gaming or printing"
+    ],
+    "possible_causes": [
+      "A faulty or incompatible driver",
+      "Failing or faulty RAM (memory)",
+      "Overheating hardware components",
+      "Corrupted Windows system files",
+      "A failing hard disk or SSD",
+      "Incompatible or corrupted software",
+      "Power supply providing unstable power to components"
+    ],
+    "diagnostic_questions": [
+      "What is the exact error code or message shown on the blue screen (if you can note it before it restarts)?",
+      "Does this happen randomly, or during a specific activity like gaming, printing, or opening a certain program?",
+      "Did this start after installing new hardware, drivers, or software?",
+      "How often does this happen, once a week, once a day, or several times a day?",
+      "Is the computer feeling unusually hot when this happens?"
+    ],
+    "commands": [
+      {
+        "command": "wmic recoveros get autoreboot",
+        "purpose": "Check if the computer is set to automatically restart after a blue screen, which can be disabled to allow reading the error message",
+        "expected_result": "Shows current setting for auto reboot",
+        "abnormal_result": "Not applicable, this is just informational"
+      },
+      {
+        "command": "mdsched.exe",
+        "purpose": "Open Windows Memory Diagnostic tool to test RAM for errors",
+        "expected_result": "Tool completes and reports no memory problems found",
+        "abnormal_result": "Tool reports memory errors, confirming faulty RAM as a likely cause"
+      },
+      {
+        "command": "sfc /scannow",
+        "purpose": "Scan and repair corrupted Windows system files that could cause crashes",
+        "expected_result": "No integrity violations found, or issues successfully repaired",
+        "abnormal_result": "Corrupt files found that could not be repaired, requiring further steps like DISM or reinstall"
+      },
+      {
+        "command": "chkdsk C: /f /r",
+        "purpose": "Check the main drive for file system errors or bad sectors that could cause crashes",
+        "expected_result": "No errors found on the disk",
+        "abnormal_result": "Errors or bad sectors found, suggesting the disk may be failing"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Write down the exact error code shown on the blue screen the next time it happens",
+        "reason": "Different error codes point to very different causes, such as memory problems versus driver problems"
+      },
+      {
+        "step": 2,
+        "action": "Check the Reliability Monitor or Event Viewer for details about what happened right before the crash",
+        "reason": "Windows logs details that can point to the exact driver or program involved in the crash"
+      },
+      {
+        "step": 3,
+        "action": "If the crashes started after installing new hardware or a driver, try removing or rolling back that driver",
+        "reason": "Incompatible drivers are one of the most common causes of blue screen crashes"
+      },
+      {
+        "step": 4,
+        "action": "Run the Windows Memory Diagnostic tool to test for faulty RAM",
+        "reason": "Faulty memory is a very common hardware cause of random blue screens"
+      },
+      {
+        "step": 5,
+        "action": "Run sfc /scannow to check for and repair corrupted system files",
+        "reason": "Corrupted system files can cause instability leading to crashes"
+      },
+      {
+        "step": 6,
+        "action": "Run chkdsk to check the hard drive or SSD for errors",
+        "reason": "A failing storage drive can cause system files to become corrupted, leading to crashes"
+      },
+      {
+        "step": 7,
+        "action": "Check if the computer is overheating using built-in temperature monitoring tools or checking if fans and vents are clogged with dust",
+        "reason": "Overheating can cause the system to crash suddenly to protect the hardware"
+      },
+      {
+        "step": 8,
+        "action": "Update all drivers, especially graphics and chipset drivers, to their latest stable versions",
+        "reason": "Keeping drivers current fixes many known stability bugs"
+      },
+      {
+        "step": 9,
+        "action": "As a last resort, consider a clean reinstall of Windows if the cause cannot be found",
+        "reason": "This removes any deep software corruption that could not be fixed through repair tools"
+      }
+    ],
+    "possible_solutions": [
+      "Roll back or update the driver causing the crash",
+      "Replace faulty RAM found during memory diagnostics",
+      "Repair corrupted system files using sfc /scannow",
+      "Fix disk errors using chkdsk",
+      "Clean dust from the computer to fix overheating",
+      "Reinstall Windows if the problem cannot be resolved otherwise"
+    ],
+    "prevention": [
+      "Keep drivers updated from official manufacturer sources",
+      "Regularly clean dust from the computer to prevent overheating",
+      "Avoid installing software from untrusted sources",
+      "Perform regular disk checks and system file scans"
+    ],
+    "keywords": [
+      "blue screen error",
+      "BSOD",
+      "computer restarts randomly",
+      "memory management error",
+      "IRQL not less or equal"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-90 minutes",
+    "related_problems": [
+      "Computer no display on startup",
+      "Faulty RAM",
+      "Overheating computer",
+      "Driver problems"
+    ]
+  },
+  {
+    "id": "GRN-018",
+    "category": "Slow Computer",
+    "subcategory": "General Performance",
+    "problem": "Computer is generally slow when opening programs and switching between windows",
+    "description": "The computer takes a noticeably long time to open programs, switch between open windows, or respond to clicks, even though it used to work faster before.",
+    "symptoms": [
+      "Programs take a long time to open",
+      "Switching between windows feels delayed",
+      "Mouse cursor sometimes shows a spinning circle for several seconds",
+      "The computer becomes very slow, especially with several programs open at once"
+    ],
+    "possible_causes": [
+      "Too many programs running in the background",
+      "Not enough RAM (memory) for current usage",
+      "Hard disk nearly full or old and slow",
+      "Malware or virus running hidden processes",
+      "Too many browser tabs or extensions open",
+      "Overheating causing the processor to slow itself down",
+      "Outdated hardware no longer able to keep up with current software"
+    ],
+    "diagnostic_questions": [
+      "Did this slowness happen gradually over time, or did it start suddenly?",
+      "How much RAM does the computer have, and how many programs are usually open at once?",
+      "How much free space is left on the main drive?",
+      "Have you noticed any strange pop-ups or unfamiliar programs recently?",
+      "Does the computer feel hot or does the fan run loudly during normal use?"
+    ],
+    "commands": [
+      {
+        "command": "taskmgr",
+        "purpose": "Open Task Manager to check CPU, memory, and disk usage in real time",
+        "expected_result": "Usage percentages stay reasonable, generally under 80-90% during normal tasks",
+        "abnormal_result": "CPU, memory, or disk usage stuck near 100% even when idle, pointing to a specific problem process"
+      },
+      {
+        "command": "cleanmgr",
+        "purpose": "Open Disk Cleanup to remove temporary files and free up space",
+        "expected_result": "Tool shows space that can be freed, and cleans it after confirmation",
+        "abnormal_result": "Very little space can be freed, meaning the disk is genuinely full of needed files or programs"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Task Manager and check the Processes tab, sorting by CPU and then by Memory usage",
+        "reason": "This quickly identifies which program or process is using the most resources and slowing the system down"
+      },
+      {
+        "step": 2,
+        "action": "Close unnecessary programs and browser tabs that are not being used",
+        "reason": "Each open program uses memory and processing power, and closing unused ones frees up resources immediately"
+      },
+      {
+        "step": 3,
+        "action": "Check the Startup tab in Task Manager and disable unnecessary startup programs",
+        "reason": "Fewer background programs running means more resources available for the programs you actually want to use"
+      },
+      {
+        "step": 4,
+        "action": "Check available disk space and free up space if the drive is nearly full",
+        "reason": "A nearly full drive, especially an older hard disk, slows down the entire computer significantly"
+      },
+      {
+        "step": 5,
+        "action": "Run a full antivirus and malware scan",
+        "reason": "Hidden malicious programs often use significant system resources without the user's knowledge"
+      },
+      {
+        "step": 6,
+        "action": "Check how many browser tabs and extensions are open, and close or remove ones not needed",
+        "reason": "Web browsers with many tabs and extensions can use a large amount of memory"
+      },
+      {
+        "step": 7,
+        "action": "Check if the computer is overheating by monitoring temperatures or listening for unusually loud fan noise",
+        "reason": "Modern processors slow themselves down automatically to prevent damage when they get too hot"
+      },
+      {
+        "step": 8,
+        "action": "Consider upgrading RAM or switching to an SSD if the computer is old and the hardware is simply outdated",
+        "reason": "Sometimes the hardware itself can no longer keep up with current software demands, and an upgrade is the most effective fix"
+      }
+    ],
+    "possible_solutions": [
+      "Close unnecessary background programs and browser tabs",
+      "Disable unneeded startup programs",
+      "Free up disk space",
+      "Remove malware found during a scan",
+      "Clean dust from the computer to fix overheating",
+      "Upgrade RAM or switch from a hard disk to an SSD"
+    ],
+    "prevention": [
+      "Regularly restart the computer instead of leaving it on for weeks",
+      "Keep the number of startup programs to a minimum",
+      "Perform regular malware scans",
+      "Keep at least 15-20% of the disk free",
+      "Clean dust from vents and fans periodically"
+    ],
+    "keywords": [
+      "slow computer",
+      "programs slow to open",
+      "computer lagging",
+      "high CPU usage",
+      "high memory usage"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "20-50 minutes",
+    "related_problems": [
+      "Slow startup",
+      "Malware infection",
+      "Disk almost full",
+      "Overheating computer"
+    ]
+  },
+  {
+    "id": "GRN-019",
+    "category": "Virus or Malware Symptoms",
+    "subcategory": "Infection Signs",
+    "problem": "Computer shows strange pop-ups, redirects, or unusual behavior suggesting malware",
+    "description": "The computer is showing unexpected pop-up advertisements, the web browser redirects to unfamiliar websites, or unfamiliar programs and toolbars have appeared that the user never installed.",
+    "symptoms": [
+      "Frequent pop-up advertisements, even when the browser is closed",
+      "Browser homepage or search engine changed without permission",
+      "Unfamiliar toolbars or browser extensions appear",
+      "Computer runs unusually slow or the fan runs constantly",
+      "Antivirus software is disabled or missing without the user turning it off",
+      "Unknown programs appear in the installed programs list"
+    ],
+    "possible_causes": [
+      "Malware installed accidentally through a suspicious download or email attachment",
+      "A bundled unwanted program installed alongside legitimate software",
+      "Browser hijacker changing search and homepage settings",
+      "Adware displaying unwanted advertisements",
+      "Compromised browser extension",
+      "Outdated antivirus software failing to catch new threats"
+    ],
+    "diagnostic_questions": [
+      "When did you first notice this behavior?",
+      "Did you recently download and install any new software, especially free programs?",
+      "Did you click on any suspicious email links or attachments recently?",
+      "Is your antivirus software active and up to date?",
+      "Are the pop-ups appearing inside the browser, or even when the browser is closed?"
+    ],
+    "commands": [
+      {
+        "command": "msconfig",
+        "purpose": "Check for unfamiliar startup programs that may be part of a malware infection",
+        "expected_result": "Only recognized, trusted programs appear in the startup list",
+        "abnormal_result": "Unfamiliar or oddly named programs appear, which may indicate malware"
+      },
+      {
+        "command": "netstat -ano",
+        "purpose": "Check for unusual network connections that could indicate malware communicating with a remote server",
+        "expected_result": "Connections match known, trusted programs",
+        "abnormal_result": "Unusual connections to unfamiliar addresses from unknown processes"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Disconnect the computer from the internet temporarily if malware is confirmed or suspected to be actively spreading or stealing data",
+        "reason": "This stops the malware from communicating with its source or spreading further while it is being removed"
+      },
+      {
+        "step": 2,
+        "action": "Run a full scan using the computer's installed antivirus software",
+        "reason": "This is the first and most direct way to detect and remove common malware"
+      },
+      {
+        "step": 3,
+        "action": "If the built-in antivirus does not find anything but symptoms continue, run a scan using a dedicated malware removal tool",
+        "reason": "Different security tools can catch different types of threats that others may miss"
+      },
+      {
+        "step": 4,
+        "action": "Check the list of installed programs for anything unfamiliar and uninstall unwanted programs",
+        "reason": "Many unwanted programs, like adware, are technically installed as normal software and can be removed the same way"
+      },
+      {
+        "step": 5,
+        "action": "Check the web browser's extensions and remove any that are unfamiliar or were not intentionally installed",
+        "reason": "Malicious browser extensions are a common source of pop-ups and redirects"
+      },
+      {
+        "step": 6,
+        "action": "Reset the browser's homepage and search engine settings back to a trusted default",
+        "reason": "This removes changes made by browser hijacker malware"
+      },
+      {
+        "step": 7,
+        "action": "Change important passwords, such as email and banking, from a different, clean device after the malware is removed",
+        "reason": "Some malware steals saved passwords, so changing them limits damage after an infection"
+      },
+      {
+        "step": 8,
+        "action": "If symptoms continue after cleaning, consider a full reinstall of Windows as the most reliable option",
+        "reason": "Some malware hides very deeply in the system and can only be fully guaranteed removed with a fresh installation"
+      }
+    ],
+    "possible_solutions": [
+      "Run a full antivirus scan and remove detected threats",
+      "Use a dedicated malware removal tool for deeper scanning",
+      "Uninstall unwanted or unfamiliar programs",
+      "Remove suspicious browser extensions and reset browser settings",
+      "Change important account passwords after cleaning",
+      "Reinstall Windows if the infection cannot be fully removed"
+    ],
+    "prevention": [
+      "Only download software from official, trusted websites",
+      "Keep antivirus software active and updated",
+      "Be cautious with email attachments and links from unknown senders",
+      "Read installation screens carefully to avoid bundled unwanted software",
+      "Keep Windows and browsers updated with the latest security patches"
+    ],
+    "keywords": [
+      "malware symptoms",
+      "browser redirect",
+      "pop up ads",
+      "virus infection signs",
+      "browser hijacker"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "30-90 minutes",
+    "related_problems": [
+      "Slow computer",
+      "Antivirus disabled unexpectedly",
+      "Browser homepage changed"
+    ]
+  },
+  {
+    "id": "GRN-020",
+    "category": "Disk Problems",
+    "subcategory": "Failure Warning",
+    "problem": "Computer shows warnings about disk errors or the disk is making unusual noises",
+    "description": "The computer displays a warning message about a possible hard drive failure, or the user notices unusual clicking, grinding, or beeping noises coming from inside the computer.",
+    "symptoms": [
+      "Warning message such as 'S.M.A.R.T. failure predicted' or 'disk error'",
+      "Unusual clicking or grinding noise from the computer",
+      "Files disappear or become corrupted unexpectedly",
+      "Computer freezes often, especially when opening or saving files",
+      "Very slow file access, or the computer takes a long time to boot"
+    ],
+    "possible_causes": [
+      "The hard drive is physically failing due to age or wear",
+      "The drive has bad sectors developing on its surface",
+      "Sudden power loss or physical shock damaged the drive",
+      "Cable or connection problem giving false failure signs",
+      "Overheating affecting drive reliability",
+      "Manufacturing defect in the drive"
+    ],
+    "diagnostic_questions": [
+      "Did you hear any unusual noises, like clicking or grinding, coming from the computer?",
+      "Has the computer experienced any recent power loss or been dropped or bumped?",
+      "How old is the computer or the hard drive?",
+      "Are you able to back up important files right now?",
+      "Did the warning message give any error code or drive name?"
+    ],
+    "commands": [
+      {
+        "command": "wmic diskdrive get status",
+        "purpose": "Quickly check the basic health status reported by each disk drive",
+        "expected_result": "Status shows 'OK' for each listed drive",
+        "abnormal_result": "Status shows anything other than OK, such as 'Pred Fail', indicating a drive is failing"
+      },
+      {
+        "command": "chkdsk C: /f /r",
+        "purpose": "Scan the drive for file system errors and bad sectors, and attempt repairs",
+        "expected_result": "Scan completes with no errors found",
+        "abnormal_result": "Bad sectors found and marked, or the scan cannot complete, indicating serious drive damage"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Back up all important files immediately to another drive, cloud storage, or USB drive",
+        "reason": "If the drive is truly failing, data can be lost at any time, so backing up right away is the most urgent priority"
+      },
+      {
+        "step": 2,
+        "action": "Listen carefully for any unusual clicking, grinding, or beeping sounds from the computer",
+        "reason": "Clicking or grinding noises from a traditional hard drive are a strong sign of physical, mechanical failure"
+      },
+      {
+        "step": 3,
+        "action": "Check the drive's basic health status using built-in tools",
+        "reason": "This gives a quick indication of whether the drive itself is reporting problems"
+      },
+      {
+        "step": 4,
+        "action": "Run chkdsk to scan for and attempt to repair file system errors and bad sectors",
+        "reason": "This can fix minor issues, though it cannot repair serious physical damage"
+      },
+      {
+        "step": 5,
+        "action": "Check that all data and power cables to the drive are firmly connected (for desktop computers)",
+        "reason": "A loose connection can sometimes cause errors that look like drive failure but are actually just a cable problem"
+      },
+      {
+        "step": 6,
+        "action": "Monitor the drive's temperature if tools are available, since overheating can worsen drive problems",
+        "reason": "Excessive heat can accelerate wear and increase the chance of drive failure"
+      },
+      {
+        "step": 7,
+        "action": "If the drive shows clear signs of failure (bad health status, clicking noises, or repeated errors), plan to replace it as soon as possible",
+        "reason": "A failing drive will typically continue to get worse over time and can fail completely without warning"
+      }
+    ],
+    "possible_solutions": [
+      "Back up all data immediately",
+      "Repair minor file system errors using chkdsk",
+      "Reconnect loose cables if that was the cause",
+      "Replace the failing drive with a new one",
+      "Restore data and reinstall Windows on the new drive"
+    ],
+    "prevention": [
+      "Keep regular backups of important files at all times",
+      "Avoid moving or bumping the computer while it is running",
+      "Use a UPS (battery backup) to prevent sudden power loss",
+      "Replace hard drives proactively after several years of heavy use",
+      "Keep the computer in a cool, well-ventilated location"
+    ],
+    "keywords": [
+      "hard drive failing",
+      "disk error warning",
+      "clicking noise hard drive",
+      "SMART failure",
+      "bad sectors"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "30-60 minutes (plus backup time)",
+    "related_problems": [
+      "Slow startup",
+      "Files corrupted or missing",
+      "Computer freezes randomly"
+    ]
+  },
+  {
+    "id": "GRN-021",
+    "category": "USB Devices",
+    "subcategory": "Device Recognition",
+    "problem": "USB device is not recognized when plugged in",
+    "description": "The user plugs in a USB device, such as a flash drive, mouse, or external hard drive, but the computer does not recognize it, shows no response, or displays an error message.",
+    "symptoms": [
+      "No sound or notification when plugging in the USB device",
+      "Device does not appear in File Explorer or Device Manager",
+      "Error message such as 'USB device not recognized'",
+      "Device may work in one USB port but not another"
+    ],
+    "possible_causes": [
+      "The USB port itself is faulty or damaged",
+      "The USB device itself is faulty or damaged",
+      "A driver problem preventing the device from being recognized",
+      "The USB cable is damaged (for devices with a separate cable)",
+      "Insufficient power available for the device, especially with USB hubs",
+      "Outdated USB drivers or chipset drivers on the computer",
+      "The device requires software or drivers that are not installed"
+    ],
+    "diagnostic_questions": [
+      "Does the device work when plugged into a different USB port on the same computer?",
+      "Does the device work when plugged into a different computer?",
+      "Is the device brand new, or has it worked correctly before?",
+      "Are you using a USB hub, or plugging directly into the computer?",
+      "Does Windows make any sound or show any notification at all when you plug it in?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Open Device Manager to check if the USB device appears and if there are any warning icons",
+        "expected_result": "The device appears under the correct category with no warning icons",
+        "abnormal_result": "The device appears as 'Unknown Device' with a warning icon, or does not appear at all"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Try plugging the device into a different USB port on the same computer",
+        "reason": "This quickly tells you if the problem is with one specific port rather than the device itself"
+      },
+      {
+        "step": 2,
+        "action": "Try the device on a different computer if one is available",
+        "reason": "This helps determine if the problem is with the device itself or with the original computer"
+      },
+      {
+        "step": 3,
+        "action": "If using a USB hub, try plugging the device directly into the computer instead",
+        "reason": "Some USB hubs do not provide enough power for certain devices, especially external hard drives"
+      },
+      {
+        "step": 4,
+        "action": "Open Device Manager and check if the device appears, even with an error",
+        "reason": "If it appears with a warning icon, this points to a driver problem rather than a hardware problem"
+      },
+      {
+        "step": 5,
+        "action": "If the device shows a warning icon, right-click and choose 'Uninstall device', then unplug and replug it",
+        "reason": "This forces Windows to reinstall the driver fresh, which often fixes recognition problems"
+      },
+      {
+        "step": 6,
+        "action": "Update the computer's USB and chipset drivers from the manufacturer's website",
+        "reason": "Outdated chipset drivers can cause USB recognition problems across multiple devices"
+      },
+      {
+        "step": 7,
+        "action": "Check if the USB cable (if separate from the device) is damaged, and try a different cable if possible",
+        "reason": "A damaged cable can prevent proper data or power connection even if the device itself is fine"
+      },
+      {
+        "step": 8,
+        "action": "Restart the computer, since some USB controller issues are resolved simply by a fresh restart",
+        "reason": "This clears any temporary software glitches affecting the USB controller"
+      }
+    ],
+    "possible_solutions": [
+      "Try a different USB port or cable",
+      "Uninstall and let Windows reinstall the device driver",
+      "Update USB and chipset drivers",
+      "Plug directly into the computer instead of through a hub",
+      "Replace a faulty USB device or cable",
+      "Restart the computer to reset the USB controller"
+    ],
+    "prevention": [
+      "Avoid forcefully unplugging USB devices while in use",
+      "Use quality USB cables and hubs",
+      "Keep chipset and USB drivers updated",
+      "Safely eject USB storage devices before removing them"
+    ],
+    "keywords": [
+      "USB device not recognized",
+      "flash drive not showing up",
+      "USB port not working",
+      "external drive not detected"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": [
+      "Driver problems",
+      "Slow computer overall",
+      "External hard drive not showing"
+    ]
+  },
+  {
+    "id": "GRN-022",
+    "category": "Display Problems",
+    "subcategory": "Screen Issues",
+    "problem": "Screen resolution is wrong or display looks blurry",
+    "description": "After connecting a monitor or after a Windows update, the screen shows text and icons that look too big, too small, blurry, or stretched, instead of appearing sharp and correctly sized.",
+    "symptoms": [
+      "Text and icons appear blurry or fuzzy",
+      "Image looks stretched or does not fill the screen correctly",
+      "Icons and taskbar appear too large or too small",
+      "Problem may have started after connecting a new monitor or a Windows update"
+    ],
+    "possible_causes": [
+      "The screen resolution is not set to the monitor's native (recommended) resolution",
+      "Outdated or missing graphics driver",
+      "Incorrect display scaling settings",
+      "Using the wrong video cable or port for the monitor's best quality",
+      "Multiple monitors configured incorrectly"
+    ],
+    "diagnostic_questions": [
+      "Did this problem start after connecting a new monitor, updating Windows, or updating graphics drivers?",
+      "What is the exact model of the monitor, and do you know its recommended resolution?",
+      "Are you using more than one monitor at the same time?",
+      "Which cable type are you using to connect the monitor, such as HDMI, DisplayPort, or VGA?"
+    ],
+    "commands": [
+      {
+        "command": "dxdiag",
+        "purpose": "Open DirectX Diagnostic Tool to check current display driver details and version",
+        "expected_result": "Shows the graphics card name and a recent driver date",
+        "abnormal_result": "Shows a very old driver date or 'Microsoft Basic Display Adapter', meaning the proper graphics driver is not installed"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Right-click the desktop, choose Display Settings, and check the current resolution",
+        "reason": "This shows what resolution is currently being used compared to what the monitor supports"
+      },
+      {
+        "step": 2,
+        "action": "Change the resolution to the 'Recommended' option shown in Display Settings",
+        "reason": "The recommended resolution matches the monitor's native resolution, giving the sharpest, clearest image"
+      },
+      {
+        "step": 3,
+        "action": "Check and adjust the display scaling percentage if icons and text still look too big or small",
+        "reason": "Scaling settings control the size of text and icons separately from resolution, and wrong scaling can make things look wrong even at the correct resolution"
+      },
+      {
+        "step": 4,
+        "action": "Update the graphics driver to the latest version from the manufacturer's website",
+        "reason": "An outdated or generic driver may not fully support the monitor's native resolution or scaling"
+      },
+      {
+        "step": 5,
+        "action": "Try a different video cable or port, especially switching from VGA to HDMI or DisplayPort if available",
+        "reason": "Digital connections like HDMI and DisplayPort generally provide a sharper image than older analog VGA connections"
+      },
+      {
+        "step": 6,
+        "action": "If using multiple monitors, check that each one is individually set to its own correct resolution",
+        "reason": "Multi-monitor setups sometimes accidentally apply the wrong resolution to one of the screens"
+      },
+      {
+        "step": 7,
+        "action": "Restart the computer after making driver or resolution changes",
+        "reason": "This ensures all display settings are properly applied"
+      }
+    ],
+    "possible_solutions": [
+      "Set the screen resolution to the recommended setting",
+      "Adjust display scaling for correct text and icon size",
+      "Update the graphics driver",
+      "Switch to a digital video cable like HDMI or DisplayPort",
+      "Correct individual monitor settings in a multi-monitor setup"
+    ],
+    "prevention": [
+      "Keep graphics drivers updated",
+      "Use digital cables (HDMI, DisplayPort) instead of older analog VGA cables when possible",
+      "Check display settings after connecting a new monitor"
+    ],
+    "keywords": [
+      "blurry screen",
+      "wrong resolution",
+      "screen looks stretched",
+      "display scaling problem"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": [
+      "Driver problems",
+      "Computer no display on startup",
+      "Multiple monitor issues"
+    ]
+  },
+  {
+    "id": "GRN-023",
+    "category": "Audio Problems",
+    "subcategory": "No Sound",
+    "problem": "No sound is coming from the computer's speakers or headphones",
+    "description": "The user cannot hear any sound from the computer, whether from built-in speakers, external speakers, or headphones, even though the volume appears to be turned up.",
+    "symptoms": [
+      "No sound plays from any source, including videos, music, or system sounds",
+      "Volume icon may show a red X or muted symbol",
+      "Sound may work through one device (like speakers) but not another (like headphones)",
+      "Audio device may be missing from the list of playback devices"
+    ],
+    "possible_causes": [
+      "The volume is muted or turned down very low",
+      "The wrong playback device is selected as default",
+      "Speakers or headphones are not properly plugged in",
+      "The audio driver is missing, outdated, or corrupted",
+      "The audio service in Windows is not running",
+      "Hardware failure of the speakers, headphones, or sound card"
+    ],
+    "diagnostic_questions": [
+      "Is the volume turned up and not muted, both in Windows and on the speakers themselves if they have their own volume control?",
+      "Are you using built-in speakers, external speakers, or headphones?",
+      "Does sound work with one device but not another, such as headphones working but speakers not?",
+      "Did this happen suddenly, or after installing new software or updates?",
+      "Does the volume icon in the taskbar show any error or muted symbol?"
+    ],
+    "commands": [
+      {
+        "command": "services.msc",
+        "purpose": "Check if the Windows Audio service is running",
+        "expected_result": "Windows Audio service status shows 'Running'",
+        "abnormal_result": "Service is stopped, which will completely prevent any sound from working"
+      },
+      {
+        "command": "mmsys.cpl",
+        "purpose": "Open the Sound control panel to check playback devices and default settings",
+        "expected_result": "The correct speaker or headphone device is listed and set as default",
+        "abnormal_result": "The correct device is missing from the list, or a different unwanted device is set as default"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check that the volume is turned up and not muted, both in Windows and on any physical volume controls",
+        "reason": "This is the simplest and most common cause of no sound, and should always be checked first"
+      },
+      {
+        "step": 2,
+        "action": "Check that speakers or headphones are properly plugged into the correct port",
+        "reason": "A loose connection or wrong port is a common physical cause of no sound"
+      },
+      {
+        "step": 3,
+        "action": "Open the Sound settings and confirm the correct playback device is set as default",
+        "reason": "If the wrong device is selected, sound may be playing through a device the user is not using or listening to"
+      },
+      {
+        "step": 4,
+        "action": "Test with a different set of speakers or headphones if available",
+        "reason": "This helps determine if the problem is with the audio hardware or the computer itself"
+      },
+      {
+        "step": 5,
+        "action": "Check that the Windows Audio service is running in services.msc",
+        "reason": "If this core service has stopped, no sound can play from any application"
+      },
+      {
+        "step": 6,
+        "action": "Update or reinstall the audio driver through Device Manager",
+        "reason": "A corrupted or outdated audio driver is one of the most common software causes of no sound"
+      },
+      {
+        "step": 7,
+        "action": "Run the built-in Windows audio troubleshooter",
+        "reason": "This automated tool can detect and fix many common sound configuration problems"
+      },
+      {
+        "step": 8,
+        "action": "Test the speakers or headphones on a different device, such as a phone, to rule out a hardware fault",
+        "reason": "This confirms whether the hardware itself is working correctly"
+      }
+    ],
+    "possible_solutions": [
+      "Unmute and increase the volume",
+      "Select the correct playback device as default",
+      "Restart the Windows Audio service",
+      "Update or reinstall the audio driver",
+      "Run the Windows audio troubleshooter",
+      "Replace faulty speakers or headphones"
+    ],
+    "prevention": [
+      "Keep audio drivers updated",
+      "Avoid unplugging audio devices while sound is playing",
+      "Periodically check default audio device settings after connecting new equipment"
+    ],
+    "keywords": [
+      "no sound computer",
+      "speakers not working",
+      "headphones no sound",
+      "audio driver problem",
+      "muted volume"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": [
+      "Driver problems",
+      "USB device not recognized",
+      "Windows update problems"
+    ]
+  },
+  {
+    "id": "GRN-024",
+    "category": "VPN",
+    "subcategory": "Connection Failure",
+    "problem": "VPN will not connect or disconnects immediately after connecting",
+    "description": "The user tries to connect to a company or personal VPN, but the connection either fails with an error message, or connects briefly and then disconnects right away.",
+    "symptoms": [
+      "Error message when trying to connect, such as 'Cannot connect to the VPN'",
+      "VPN connects but disconnects again within seconds",
+      "Internet stops working entirely while the VPN is connected",
+      "VPN client shows a spinning or stuck 'connecting' status"
+    ],
+    "possible_causes": [
+      "Incorrect username, password, or VPN server address",
+      "The regular internet connection itself is not working properly",
+      "A firewall is blocking the VPN connection",
+      "The VPN server is down or overloaded",
+      "Outdated VPN client software",
+      "Incorrect VPN protocol or port settings",
+      "Expired VPN certificate or account access"
+    ],
+    "diagnostic_questions": [
+      "What exact error message or code appears when the connection fails?",
+      "Is the regular internet connection working normally without the VPN?",
+      "Have you successfully connected to this VPN before, or is this the first time?",
+      "Did anything change recently, such as a new computer, new password, or company policy change?",
+      "Are other people also having trouble connecting to the same VPN right now?"
+    ],
+    "commands": [
+      {
+        "command": "ping 8.8.8.8",
+        "purpose": "Confirm the regular internet connection is working before blaming the VPN",
+        "expected_result": "Replies received normally",
+        "abnormal_result": "Request timed out, meaning the base internet connection itself is the real problem, not the VPN"
+      },
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check network adapter details, including whether a VPN virtual adapter appears when connected",
+        "expected_result": "Shows a VPN adapter with a valid IP address while connected",
+        "abnormal_result": "No VPN adapter appears, or it has no valid address, meaning the VPN tunnel did not establish properly"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the regular internet connection works normally without the VPN turned on",
+        "reason": "A VPN cannot connect if there is no working internet connection to begin with"
+      },
+      {
+        "step": 2,
+        "action": "Double check the username, password, and server address are entered correctly",
+        "reason": "Simple typing mistakes are a very common cause of VPN connection failures"
+      },
+      {
+        "step": 3,
+        "action": "Check the exact error message or code shown, and note it for further troubleshooting",
+        "reason": "VPN error codes usually point to a specific cause, such as authentication failure or server unreachable"
+      },
+      {
+        "step": 4,
+        "action": "Restart the VPN client software completely, or restart the computer",
+        "reason": "This clears any temporary software glitches in the VPN client"
+      },
+      {
+        "step": 5,
+        "action": "Temporarily disable the firewall or antivirus to test if it is blocking the VPN connection",
+        "reason": "Some security software blocks VPN traffic by default, especially newly installed antivirus programs"
+      },
+      {
+        "step": 6,
+        "action": "Check if other people are also having trouble connecting to the same VPN server",
+        "reason": "If many users are affected, the problem is likely with the VPN server itself, not the individual computer"
+      },
+      {
+        "step": 7,
+        "action": "Update the VPN client software to the latest version",
+        "reason": "Outdated VPN software can have compatibility problems with current servers or security requirements"
+      },
+      {
+        "step": 8,
+        "action": "Try switching the VPN protocol if the client offers multiple options (such as switching between different tunnel types)",
+        "reason": "Some networks block certain VPN protocols, and switching to another can bypass the block"
+      }
+    ],
+    "possible_solutions": [
+      "Correct login credentials or server address",
+      "Fix the underlying internet connection first",
+      "Allow the VPN through the firewall or antivirus",
+      "Update the VPN client software",
+      "Switch to a different VPN protocol if available",
+      "Contact the VPN administrator if the server itself is down"
+    ],
+    "prevention": [
+      "Keep VPN client software updated",
+      "Store VPN login details securely to avoid typing mistakes",
+      "Test VPN connections after any firewall or antivirus changes",
+      "Maintain communication with VPN administrators about planned outages"
+    ],
+    "keywords": [
+      "VPN not connecting",
+      "VPN disconnects immediately",
+      "cannot connect to VPN",
+      "VPN error"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": [
+      "Firewall blocking program",
+      "No internet access ethernet",
+      "Remote desktop not connecting"
+    ]
+  },
+  {
+    "id": "GRN-025",
+    "category": "Remote Desktop",
+    "subcategory": "Connection Failure",
+    "problem": "Cannot connect to another computer using Remote Desktop",
+    "description": "The user tries to use Remote Desktop Connection to access another computer over the network or internet, but gets an error message saying the remote computer cannot be reached.",
+    "symptoms": [
+      "Error message such as 'Remote Desktop can't connect to the remote computer'",
+      "Connection attempt times out with no response",
+      "Login prompt appears but credentials are rejected",
+      "Connection works from some locations but not others"
+    ],
+    "possible_causes": [
+      "Remote Desktop is not enabled on the target computer",
+      "The target computer is turned off, asleep, or disconnected from the network",
+      "A firewall is blocking Remote Desktop traffic (port 3389)",
+      "Incorrect computer name, IP address, or credentials entered",
+      "The user account does not have permission to use Remote Desktop on the target computer",
+      "Network or router settings blocking the connection, especially over the internet"
+    ],
+    "diagnostic_questions": [
+      "Is the target computer turned on, and is Remote Desktop enabled in its settings?",
+      "Are you trying to connect within the same local network, or over the internet?",
+      "What exact error message appears when you try to connect?",
+      "Have you successfully connected to this computer with Remote Desktop before?",
+      "Does the user account you are using have administrator or Remote Desktop access on the target computer?"
+    ],
+    "commands": [
+      {
+        "command": "ping [target computer name or IP]",
+        "purpose": "Check if the target computer is reachable on the network",
+        "expected_result": "Replies received from the target computer",
+        "abnormal_result": "Request timed out, meaning the target computer is unreachable due to being off or a network problem"
+      },
+      {
+        "command": "telnet [target IP] 3389",
+        "purpose": "Test if the Remote Desktop port (3389) is open and reachable on the target computer",
+        "expected_result": "Connection succeeds or shows a blank screen, meaning the port is open",
+        "abnormal_result": "Connection failed, meaning the port is blocked by a firewall or Remote Desktop is not enabled"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the target computer is powered on, awake, and connected to the network",
+        "reason": "Remote Desktop cannot connect to a computer that is off, sleeping, or disconnected"
+      },
+      {
+        "step": 2,
+        "action": "On the target computer, check that Remote Desktop is enabled in System settings",
+        "reason": "This feature must be turned on manually before any remote connection attempt can succeed"
+      },
+      {
+        "step": 3,
+        "action": "Ping the target computer's name or IP address to confirm basic network connectivity",
+        "reason": "This rules out a simple network unreachability issue before checking Remote Desktop specific settings"
+      },
+      {
+        "step": 4,
+        "action": "Check that the Windows Firewall on the target computer allows Remote Desktop connections",
+        "reason": "The firewall may be blocking the specific port that Remote Desktop needs to work"
+      },
+      {
+        "step": 5,
+        "action": "Confirm the correct username and password are being used, and that the account has permission for Remote Desktop access",
+        "reason": "Even with a correct password, an account without the right permission will be rejected"
+      },
+      {
+        "step": 6,
+        "action": "If connecting over the internet rather than the same local network, check that port forwarding is correctly set up on the router for port 3389",
+        "reason": "Remote Desktop connections from outside the local network require the router to forward the correct port to the target computer"
+      },
+      {
+        "step": 7,
+        "action": "Restart the target computer if it has been running for a long time without restarting",
+        "reason": "Long uptime can sometimes cause the Remote Desktop service to become unresponsive"
+      }
+    ],
+    "possible_solutions": [
+      "Enable Remote Desktop on the target computer",
+      "Allow Remote Desktop through the Windows Firewall",
+      "Correct login credentials or grant the account Remote Desktop permission",
+      "Set up correct port forwarding on the router for internet-based connections",
+      "Restart the target computer to reset a stuck Remote Desktop service"
+    ],
+    "prevention": [
+      "Keep Remote Desktop settings documented for frequently accessed computers",
+      "Use strong, unique passwords for accounts with Remote Desktop access",
+      "Regularly review which accounts have Remote Desktop permission",
+      "Consider using a VPN for secure remote access over the internet instead of direct port forwarding"
+    ],
+    "keywords": [
+      "remote desktop cannot connect",
+      "RDP error",
+      "remote desktop not working",
+      "port 3389 blocked"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": [
+      "Firewall blocking program",
+      "VPN not connecting",
+      "Router not working"
+    ]
+  },
+  {
+    "id": "GRN-026",
+    "category": "Virtual Machines",
+    "subcategory": "Startup Issues",
+    "problem": "Virtual machine will not start or shows an error immediately",
+    "description": "The user tries to power on a virtual machine using software like VirtualBox, VMware, or Hyper-V, but it fails to start and shows an error message instead of booting normally.",
+    "symptoms": [
+      "Error message appears immediately when trying to start the virtual machine",
+      "Virtual machine window opens but stays black or frozen",
+      "Error mentions virtualization, memory, or a locked file",
+      "Virtual machine worked before but now fails to start"
+    ],
+    "possible_causes": [
+      "Hardware virtualization (VT-x/AMD-V) is disabled in the computer's BIOS/UEFI settings",
+      "Not enough free RAM or disk space to start the virtual machine",
+      "The virtual machine's configuration or disk file is corrupted",
+      "Another virtualization program is conflicting (running two hypervisors at once)",
+      "The virtual machine was not shut down properly last time, leaving a lock file",
+      "Outdated virtualization software"
+    ],
+    "diagnostic_questions": [
+      "What is the exact error message shown when trying to start the virtual machine?",
+      "Has this virtual machine worked before, or is this the first time you are starting it?",
+      "How much free RAM and disk space does the host computer currently have?",
+      "Are you running more than one virtualization program, such as both VirtualBox and Hyper-V?",
+      "Was the computer shut down properly after the last time you used this virtual machine?"
+    ],
+    "commands": [
+      {
+        "command": "systeminfo",
+        "purpose": "Check if Hyper-V or virtualization features are listed as enabled on the host computer",
+        "expected_result": "Shows virtualization-related features as enabled",
+        "abnormal_result": "Shows virtualization as disabled in firmware, which will prevent virtual machines from starting"
+      },
+      {
+        "command": "tasklist",
+        "purpose": "Check for other running virtualization software that might be conflicting",
+        "expected_result": "Shows only expected processes running",
+        "abnormal_result": "Shows another hypervisor's process running at the same time, which can cause conflicts"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Read the exact error message carefully and note any specific codes or file names mentioned",
+        "reason": "Virtualization software usually gives a specific reason for the failure, which points directly to the fix needed"
+      },
+      {
+        "step": 2,
+        "action": "Confirm that hardware virtualization (VT-x for Intel or AMD-V for AMD) is enabled in the computer's BIOS/UEFI settings",
+        "reason": "Virtual machines cannot run at all if this setting is turned off at the hardware level"
+      },
+      {
+        "step": 3,
+        "action": "Check how much free RAM and disk space the host computer has available",
+        "reason": "Virtual machines need enough free resources on the host computer to start and run properly"
+      },
+      {
+        "step": 4,
+        "action": "Check if more than one virtualization program is installed and might be running at the same time, such as both Hyper-V and VirtualBox",
+        "reason": "Most computers can only run one hypervisor actively at a time, and having two enabled can cause conflicts"
+      },
+      {
+        "step": 5,
+        "action": "If the error mentions a locked file, check if the virtual machine is already marked as running from a previous session that did not close properly, and reset its state",
+        "reason": "An improperly closed session can leave a lock file that prevents the virtual machine from starting again"
+      },
+      {
+        "step": 6,
+        "action": "Update the virtualization software, such as VirtualBox or VMware, to the latest version",
+        "reason": "Newer versions often fix bugs related to starting virtual machines, especially after a host operating system update"
+      },
+      {
+        "step": 7,
+        "action": "If the virtual disk file appears corrupted, try restoring from a recent snapshot or backup if one is available",
+        "reason": "A corrupted disk file may need to be repaired or replaced entirely to allow the virtual machine to start again"
+      }
+    ],
+    "possible_solutions": [
+      "Enable hardware virtualization (VT-x/AMD-V) in BIOS/UEFI settings",
+      "Free up RAM or disk space on the host computer",
+      "Disable one virtualization platform if two are conflicting",
+      "Remove lock files left by an improperly closed session",
+      "Update the virtualization software to the latest version",
+      "Restore the virtual machine from a backup or snapshot if the disk is corrupted"
+    ],
+    "prevention": [
+      "Always shut down virtual machines properly instead of force-closing the host program",
+      "Keep virtualization software updated",
+      "Monitor host computer resources before starting resource-heavy virtual machines",
+      "Take regular snapshots or backups of important virtual machines"
+    ],
+    "keywords": [
+      "virtual machine will not start",
+      "VT-x disabled",
+      "VirtualBox error",
+      "Hyper-V error",
+      "virtual machine locked file"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-50 minutes",
+    "related_problems": [
+      "Docker container will not start",
+      "Slow computer overall",
+      "BIOS settings issues"
+    ]
+  },
+  {
+    "id": "GRN-027",
+    "category": "Internet Browsers",
+    "subcategory": "Performance and Errors",
+    "problem": "Web browser is slow, freezing, or crashing frequently",
+    "description": "The user's web browser, such as Chrome, Firefox, or Edge, takes a long time to load pages, freezes when switching tabs, or closes unexpectedly while browsing.",
+    "symptoms": [
+      "Browser takes a long time to open or load web pages",
+      "Browser freezes or becomes unresponsive, especially with many tabs open",
+      "Browser closes suddenly or shows a 'not responding' message",
+      "High memory or CPU usage shown in Task Manager for the browser"
+    ],
+    "possible_causes": [
+      "Too many tabs or extensions open at the same time",
+      "A corrupted browser profile or cache",
+      "An outdated browser version",
+      "A problematic extension causing conflicts or high resource use",
+      "Not enough available RAM on the computer",
+      "Malware affecting browser performance",
+      "Outdated graphics driver affecting hardware-accelerated browsing"
+    ],
+    "diagnostic_questions": [
+      "How many tabs do you usually have open at once?",
+      "Does this happen with all websites, or specific ones?",
+      "Did this start after installing a new browser extension or update?",
+      "Does the same slowness happen in a different browser on the same computer?",
+      "Have you cleared the browser cache and cookies recently?"
+    ],
+    "commands": [
+      {
+        "command": "taskmgr",
+        "purpose": "Check how much CPU and memory the browser is using compared to other programs",
+        "expected_result": "Browser uses a reasonable amount of resources for the number of tabs open",
+        "abnormal_result": "Browser uses an extremely high percentage of CPU or memory even with few tabs open"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Close unnecessary tabs and see if performance improves",
+        "reason": "Each open tab uses memory, and too many tabs open at once is one of the most common causes of browser slowness"
+      },
+      {
+        "step": 2,
+        "action": "Disable browser extensions one at a time to identify if one of them is causing the problem",
+        "reason": "A poorly made or conflicting extension can significantly slow down or crash the browser"
+      },
+      {
+        "step": 3,
+        "action": "Clear the browser's cache and cookies",
+        "reason": "A large or corrupted cache can slow down page loading and cause unexpected browser behavior"
+      },
+      {
+        "step": 4,
+        "action": "Check for and install any pending browser updates",
+        "reason": "Browser updates often include performance improvements and important bug fixes"
+      },
+      {
+        "step": 5,
+        "action": "Check the browser's resource usage in Task Manager to see if it is using an unusually high amount of CPU or memory",
+        "reason": "This helps confirm whether the browser itself is the resource problem, or if something else on the computer is slowing things down"
+      },
+      {
+        "step": 6,
+        "action": "Try creating a new browser profile or user to test if the current profile has become corrupted",
+        "reason": "A damaged profile with corrupted settings files can cause persistent performance problems"
+      },
+      {
+        "step": 7,
+        "action": "Run a malware scan to rule out unwanted software affecting browser performance",
+        "reason": "Some malware specifically targets browsers, causing slowdowns, crashes, or unwanted redirects"
+      },
+      {
+        "step": 8,
+        "action": "Update the computer's graphics driver, since some browsers use hardware acceleration that depends on it",
+        "reason": "An outdated graphics driver can cause instability specifically in browser rendering"
+      }
+    ],
+    "possible_solutions": [
+      "Close unnecessary tabs and limit extensions",
+      "Clear browser cache and cookies",
+      "Update the browser to the latest version",
+      "Disable or remove a problematic extension",
+      "Create a new browser profile",
+      "Update the graphics driver",
+      "Remove malware affecting browser performance"
+    ],
+    "prevention": [
+      "Regularly clear cache and unused browsing data",
+      "Only install trusted, necessary browser extensions",
+      "Keep the browser updated automatically",
+      "Avoid keeping an excessive number of tabs open at once"
+    ],
+    "keywords": [
+      "browser slow",
+      "browser freezing",
+      "browser crashing",
+      "chrome not responding",
+      "high memory usage browser"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": [
+      "Slow computer overall",
+      "Malware infection",
+      "Driver problems"
+    ]
+  }
+]

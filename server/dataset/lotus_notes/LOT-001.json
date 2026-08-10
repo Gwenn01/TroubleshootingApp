@@ -1,0 +1,2603 @@
+[
+  {
+    "id": "NOTES-001",
+    "category": "Lotus Notes",
+    "subcategory": "Application Startup",
+    "problem": "Lotus Notes won't open",
+    "description": "The user double-clicks the Lotus Notes icon, but the program does not launch, shows no window, or closes immediately before the workspace appears.",
+    "symptoms": [
+      "Nothing happens when clicking the Lotus Notes icon",
+      "A brief splash screen appears then disappears",
+      "Error message appears before the workspace loads",
+      "Notes may appear in Task Manager as running with no visible window"
+    ],
+    "possible_causes": [
+      "A corrupted Notes user ID file or Notes.ini configuration file",
+      "A stuck background Notes process from a previous session",
+      "A corrupted local Notes data directory",
+      "Insufficient permissions to the Notes data folder",
+      "A recent Windows or Notes update causing compatibility issues",
+      "Conflicting antivirus software blocking Notes from launching"
+    ],
+    "diagnostic_questions": [
+      "Does this happen every time, or only sometimes?",
+      "Does Notes appear in Task Manager as a running process even though no window shows?",
+      "Did this start after a Windows update, Notes update, or computer restart?",
+      "Have you recently moved, renamed, or lost access to your Notes data folder?"
+    ],
+    "commands": [
+      {
+        "command": "taskkill /f /im notes.exe",
+        "purpose": "Force close any stuck Notes process that might be preventing a new window from opening",
+        "expected_result": "Process ends successfully, allowing a fresh attempt to open Notes",
+        "abnormal_result": "Error saying the process was not found, meaning Notes was not actually running in the background"
+      },
+      {
+        "command": "tasklist | findstr notes",
+        "purpose": "Check whether any Notes-related processes are still running in the background",
+        "expected_result": "No leftover Notes processes shown after a clean close",
+        "abnormal_result": "One or more notes.exe or nlnotes.exe processes still listed, indicating a stuck session"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Task Manager for any existing Notes processes (notes.exe, nlnotes.exe) and end them if found",
+        "reason": "A stuck background process from a previous crash can silently block a new Notes window from opening"
+      },
+      {
+        "step": 2,
+        "action": "Restart the computer completely rather than just closing and reopening Notes",
+        "reason": "A full restart clears any lingering locked files or memory issues that a simple close may not resolve"
+      },
+      {
+        "step": 3,
+        "action": "Confirm the user has full read and write permissions to their Notes data folder",
+        "reason": "Insufficient permissions to the data directory can silently prevent Notes from initializing"
+      },
+      {
+        "step": 4,
+        "action": "Check the Notes.ini file in the Notes program folder for obvious corruption, such as being unusually small or containing garbled text, using a text editor",
+        "reason": "A corrupted Notes.ini file, which stores essential configuration settings, can prevent Notes from starting at all"
+      },
+      {
+        "step": 5,
+        "action": "If a backup of Notes.ini exists from before the problem started, restore that backup copy",
+        "reason": "This directly replaces the damaged configuration file with a known working version"
+      },
+      {
+        "step": 6,
+        "action": "Temporarily disable antivirus software and try opening Notes again",
+        "reason": "Some antivirus programs mistakenly block Notes executable files or its data directory from being accessed"
+      },
+      {
+        "step": 7,
+        "action": "If the problem persists, reinstall the Lotus Notes client software, keeping the existing data directory and ID file intact",
+        "reason": "This replaces potentially corrupted program files while preserving the user's mail and configuration data"
+      },
+      {
+        "step": 8,
+        "action": "Contact the company's IT or Notes administrator if this is a managed corporate installation",
+        "reason": "Corporate Notes environments often have specific configuration policies that require administrator involvement to properly diagnose and fix"
+      }
+    ],
+    "possible_solutions": [
+      "End a stuck Notes process in Task Manager",
+      "Restart the computer completely",
+      "Restore a backup copy of a corrupted Notes.ini file",
+      "Grant proper permissions to the Notes data folder",
+      "Temporarily disable antivirus software to test",
+      "Reinstall the Notes client while preserving data and ID files",
+      "Contact IT/Notes administrator for corporate installations"
+    ],
+    "prevention": [
+      "Always fully close Notes before shutting down or restarting the computer",
+      "Keep a backup copy of the Notes.ini file",
+      "Keep antivirus exclusions configured for the Notes program and data folders",
+      "Avoid manually moving or renaming Notes data folders"
+    ],
+    "keywords": ["lotus notes won't open", "notes not launching", "notes.exe stuck", "notes startup failure"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Lotus Notes not responding", "ID file missing", "ID file corrupted"]
+  },
+
+  {
+    "id": "NOTES-002",
+    "category": "Lotus Notes",
+    "subcategory": "Application Performance",
+    "problem": "Lotus Notes is not responding",
+    "description": "While the user is working in Lotus Notes, such as reading mail or opening a database, the program freezes, the window shows 'Not Responding', and no clicks or keyboard input have any effect.",
+    "symptoms": [
+      "Window title bar shows 'Lotus Notes (Not Responding)'",
+      "Cannot click, type, or scroll within Notes",
+      "May happen while opening a large database or view",
+      "Freeze may last a long time or require force closing"
+    ],
+    "possible_causes": [
+      "A very large mail file or database view being indexed or opened",
+      "A slow or unstable network connection to the Domino server",
+      "Corrupted view indexes within a database",
+      "Insufficient system memory for the current workload",
+      "A stuck replication or synchronization process running in the background",
+      "Antivirus scanning the Notes data files during use"
+    ],
+    "diagnostic_questions": [
+      "Does this happen with all databases, or one specific mail file or application?",
+      "Are you connected to the company network or working remotely at the time?",
+      "Does this happen right after opening Notes, or after working for a while?",
+      "How large is your mail file, and has it been archived recently?"
+    ],
+    "commands": [
+      {
+        "command": "taskmgr",
+        "purpose": "Check Notes' CPU and memory usage while it appears frozen, to see if it is truly stuck or working intensively",
+        "expected_result": "High CPU usage suggests Notes is actively processing, while 0% usage over a long period suggests a true freeze",
+        "abnormal_result": "Notes remains stuck at 0% CPU for many minutes, confirming a genuine freeze rather than heavy processing"
+      },
+      {
+        "command": "ping [Domino server name]",
+        "purpose": "Check if the connection to the Domino mail server is responding normally",
+        "expected_result": "Replies received consistently from the server",
+        "abnormal_result": "Request timed out or high response times, indicating a network problem contributing to the freeze"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Task Manager to see if Notes is using high CPU, suggesting it is still actively working rather than truly frozen",
+        "reason": "This helps decide whether to keep waiting for a large operation to finish, or to consider a forced restart"
+      },
+      {
+        "step": 2,
+        "action": "Test the network connection to the Domino server using ping",
+        "reason": "A slow or unstable network connection is a very common cause of Notes appearing to freeze while trying to communicate with the server"
+      },
+      {
+        "step": 3,
+        "action": "If the freeze happens with one specific database or view, note this, since it may point to a corrupted view index in that specific database",
+        "reason": "This helps narrow the problem down to a specific database rather than the entire Notes client"
+      },
+      {
+        "step": 4,
+        "action": "Once Notes recovers or is closed and reopened, rebuild the view index for the affected database if it was involved",
+        "reason": "A corrupted or outdated view index can cause significant slowdowns or freezing when Notes tries to display it"
+      },
+      {
+        "step": 5,
+        "action": "Check if the mail file has grown very large and consider archiving older mail to reduce its size",
+        "reason": "An oversized mail file takes much longer to open, index, and process, increasing the likelihood of freezing"
+      },
+      {
+        "step": 6,
+        "action": "Check if a replication or synchronization task is running in the background at the same time",
+        "reason": "Background replication competing for the same resources can cause the visible Notes window to become unresponsive"
+      },
+      {
+        "step": 7,
+        "action": "Check antivirus settings to confirm the Notes data directory is properly excluded from real-time scanning",
+        "reason": "Antivirus software actively scanning large Notes database files during access can cause significant slowdowns or freezing"
+      },
+      {
+        "step": 8,
+        "action": "If freezing is frequent and severe, contact the Notes administrator to check server-side performance and the health of the user's mail file",
+        "reason": "Some causes, such as server load or mail file corruption, require administrator tools to properly diagnose and fix"
+      }
+    ],
+    "possible_solutions": [
+      "Wait for a large legitimate operation to finish processing",
+      "Fix an unstable network connection to the Domino server",
+      "Rebuild the view index for an affected database",
+      "Archive older mail to reduce mail file size",
+      "Exclude Notes data files from real-time antivirus scanning",
+      "Contact the Notes administrator for server-side or mail file issues"
+    ],
+    "prevention": [
+      "Archive mail regularly to keep the mail file size manageable",
+      "Maintain a stable network connection when using Notes",
+      "Keep antivirus exclusions properly configured for Notes data",
+      "Periodically rebuild view indexes for frequently used databases"
+    ],
+    "keywords": ["lotus notes not responding", "notes frozen", "notes hangs opening database", "notes stuck loading mail"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Lotus Notes running slowly", "Mail database unavailable", "Server not responding"]
+  },
+
+  {
+    "id": "NOTES-003",
+    "category": "Lotus Notes",
+    "subcategory": "Application Stability",
+    "problem": "Lotus Notes crashes unexpectedly",
+    "description": "While the user is working in Lotus Notes, the program suddenly closes completely without warning, sometimes showing a Windows error report, interrupting whatever task was being performed.",
+    "symptoms": [
+      "Notes closes suddenly with no warning message",
+      "A Windows error report dialog may appear mentioning nlnotes.exe or notes.exe",
+      "Crash may happen during a specific action, such as opening an attachment or a specific database",
+      "Unsaved draft emails or changes may be lost"
+    ],
+    "possible_causes": [
+      "A corrupted database or view being accessed",
+      "A problematic add-in or plugin installed in Notes",
+      "Outdated Notes client version with known bugs",
+      "Corrupted local replica of a database",
+      "Insufficient system memory for current operations",
+      "A damaged or corrupted local ID file"
+    ],
+    "diagnostic_questions": [
+      "Does the crash happen during a specific action, such as opening a particular email, attachment, or database?",
+      "Does this happen with all databases, or just one specific mail file or application?",
+      "Did this start after a recent Notes update or new plugin installation?",
+      "How often does this crash happen, and has it been getting more frequent?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note exactly what action was being performed right before the crash occurred",
+        "reason": "A specific trigger, like opening a certain attachment or database, helps narrow down the exact cause"
+      },
+      {
+        "step": 2,
+        "action": "Restart Notes and check if it reopens normally, then try to reproduce the same action carefully",
+        "reason": "This confirms whether the crash is consistently reproducible or was a one-time issue"
+      },
+      {
+        "step": 3,
+        "action": "If a specific database or attachment consistently causes the crash, avoid it for now and report it to the Notes administrator for further investigation",
+        "reason": "Isolating the exact trigger allows the underlying database or file to be repaired without risking repeated crashes"
+      },
+      {
+        "step": 4,
+        "action": "Check for and install any pending Notes client updates or fix packs",
+        "reason": "Known bugs causing crashes are often addressed in official updates released after the original version"
+      },
+      {
+        "step": 5,
+        "action": "Run a Fixup and Compact operation on the local mail file replica using File > Application > Properties, or through administrator tools if available",
+        "reason": "This repairs common local database corruption issues that can lead to crashes"
+      },
+      {
+        "step": 6,
+        "action": "Check if any recently installed plugins or add-ins might be related to the crashes, and disable or remove them if so",
+        "reason": "Third-party additions to Notes can introduce instability that leads to unexpected crashes"
+      },
+      {
+        "step": 7,
+        "action": "If crashes are related to a corrupted local ID file, contact the Notes administrator to reissue or restore the ID file from a backup",
+        "reason": "A damaged ID file can cause unpredictable instability that only proper reissuing can resolve"
+      },
+      {
+        "step": 8,
+        "action": "As a more involved step, reinstall the Notes client software while preserving the data directory and ID file",
+        "reason": "This replaces potentially corrupted program files that may be the underlying cause of repeated crashes"
+      }
+    ],
+    "possible_solutions": [
+      "Avoid the specific trigger and report it to IT",
+      "Install pending Notes updates or fix packs",
+      "Run Fixup and Compact on the local mail file",
+      "Disable or remove a problematic plugin",
+      "Have the Notes administrator reissue a corrupted ID file",
+      "Reinstall the Notes client while preserving data"
+    ],
+    "prevention": [
+      "Keep the Notes client updated with the latest fix packs",
+      "Regularly run Fixup and Compact maintenance on local databases",
+      "Be cautious with third-party Notes plugins",
+      "Report recurring crash triggers to IT promptly"
+    ],
+    "keywords": ["lotus notes crashes", "notes closes unexpectedly", "nlnotes.exe crash", "notes stopped working"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-50 minutes",
+    "related_problems": ["Lotus Notes won't open", "NSF file corrupted", "ID file corrupted"]
+  },
+
+  {
+    "id": "NOTES-004",
+    "category": "Lotus Notes",
+    "subcategory": "Login and Authentication",
+    "problem": "Cannot log in to Lotus Notes",
+    "description": "The user opens Lotus Notes and is prompted to enter their password, but the login process fails, either rejecting the password or showing an error before reaching the workspace.",
+    "symptoms": [
+      "Password prompt appears but login fails after entering the password",
+      "Error message about the ID file or password",
+      "Notes gets stuck on the login screen without proceeding",
+      "Login worked before but suddenly stopped working"
+    ],
+    "possible_causes": [
+      "The password was entered incorrectly",
+      "The Notes ID file has become corrupted",
+      "The ID file is pointing to the wrong location or is missing",
+      "The password has expired and needs to be changed",
+      "Caps Lock or an incorrect keyboard layout affecting the password entry",
+      "The user's account has been locked or disabled by an administrator"
+    ],
+    "diagnostic_questions": [
+      "What exact error message appears when trying to log in?",
+      "Have you successfully logged in on this computer before with this same password?",
+      "Is Caps Lock currently on when you type the password?",
+      "Did anyone from IT mention a recent password reset or account change?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Read the exact error message shown during the failed login attempt",
+        "reason": "Different error messages point to very different causes, such as an incorrect password versus a missing ID file"
+      },
+      {
+        "step": 2,
+        "action": "Check that Caps Lock is not accidentally on, and carefully retype the password",
+        "reason": "An accidentally enabled Caps Lock is one of the most common reasons a correct password appears to fail"
+      },
+      {
+        "step": 3,
+        "action": "Confirm the correct Notes ID file is being used, checking File > Security > User Security to see which ID is currently active",
+        "reason": "If the wrong ID file is selected, even the correct password for a different ID will not work"
+      },
+      {
+        "step": 4,
+        "action": "If the error specifically mentions the ID file cannot be found, check that the ID file still exists at its expected location and has not been moved or deleted",
+        "reason": "Notes needs to locate the physical ID file on the computer to process the login, and a missing file will always cause login to fail"
+      },
+      {
+        "step": 5,
+        "action": "If the password may have expired, contact the Notes or IT administrator to confirm and arrange a password reset if needed",
+        "reason": "An expired password requires a new one to be set, often through an administrator-assisted process"
+      },
+      {
+        "step": 6,
+        "action": "Confirm with the IT department whether the account has been locked or disabled, especially if this happened suddenly with no known cause",
+        "reason": "Administrative account restrictions can only be resolved by the administrator who applied them"
+      },
+      {
+        "step": 7,
+        "action": "If several incorrect password attempts have been made, be aware that additional attempts might trigger a temporary lockout, and pause before trying again",
+        "reason": "Repeated failed attempts can sometimes trigger security lockout mechanisms that make the situation worse"
+      }
+    ],
+    "possible_solutions": [
+      "Turn off Caps Lock and retype the password carefully",
+      "Select the correct Notes ID file if the wrong one is active",
+      "Locate a missing ID file or request a replacement from IT",
+      "Have IT reset an expired password",
+      "Contact IT to unlock a locked or disabled account"
+    ],
+    "prevention": [
+      "Keep track of password expiration schedules",
+      "Store the Notes ID file in a consistent, known location",
+      "Use a password manager to avoid typing mistakes",
+      "Report login issues to IT promptly rather than repeatedly retrying"
+    ],
+    "keywords": ["cannot login lotus notes", "notes login failed", "notes password rejected", "notes id file login error"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Incorrect password", "ID file missing", "Password expired"]
+  },
+
+  {
+    "id": "NOTES-005",
+    "category": "Lotus Notes",
+    "subcategory": "Login and Authentication",
+    "problem": "Incorrect password error when logging in to Lotus Notes",
+    "description": "The user enters their Notes password, believing it is correct, but receives a message specifically saying the password is incorrect or invalid.",
+    "symptoms": [
+      "Message specifically saying 'The password is not correct' or similar",
+      "Password appears to be typed correctly but is still rejected",
+      "Problem may happen consistently or only occasionally",
+      "May happen right after a recent password change"
+    ],
+    "possible_causes": [
+      "Simple typing mistake when entering the password",
+      "Caps Lock or Num Lock is on, changing what is actually typed",
+      "The password was recently changed and the user is using the old one",
+      "The wrong ID file is currently selected in Notes",
+      "A keyboard layout mismatch causing wrong characters to be typed",
+      "The ID file itself has become corrupted, causing password verification to fail even with the correct password"
+    ],
+    "diagnostic_questions": [
+      "Is Caps Lock or Num Lock currently turned on?",
+      "Was your password recently changed, either by you or by an administrator?",
+      "Have you tried typing the password into a plain text field first to check for typing mistakes?",
+      "Does this happen with every attempt, or only sometimes?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if Caps Lock or Num Lock is currently on before retyping the password",
+        "reason": "An accidentally enabled Caps Lock is one of the most common and simplest reasons a correct password gets rejected"
+      },
+      {
+        "step": 2,
+        "action": "Carefully retype the password slowly, paying close attention to each character, especially similar-looking ones like 'l' and '1' or 'O' and '0'",
+        "reason": "Simple typing mistakes are extremely common and easy to overlook, especially with complex passwords"
+      },
+      {
+        "step": 3,
+        "action": "Confirm whether the password was recently changed, either intentionally by the user or as part of a company-wide policy change",
+        "reason": "Using an old, no-longer-valid password is a common cause of this exact error after a recent change"
+      },
+      {
+        "step": 4,
+        "action": "Check which ID file is currently selected within Notes to confirm it matches the account you are trying to log into",
+        "reason": "Entering the correct password for the wrong ID file will still result in this exact error message"
+      },
+      {
+        "step": 5,
+        "action": "Confirm the correct keyboard layout is active, especially if the password contains numbers or special characters that can vary between layouts",
+        "reason": "A mismatched keyboard layout can cause certain keys to produce different characters than the user intends"
+      },
+      {
+        "step": 6,
+        "action": "If the password is definitely correct and none of the above explains the failure, contact the Notes administrator, since the ID file itself may be corrupted",
+        "reason": "In rare cases, ID file corruption can cause password verification to fail even when the password is genuinely correct, requiring administrator-level repair or reissuing"
+      },
+      {
+        "step": 7,
+        "action": "If a password reset is needed, follow the official company process, usually involving submitting a request to the Notes or IT administrator",
+        "reason": "Notes password resets typically require administrator action rather than a simple self-service option"
+      }
+    ],
+    "possible_solutions": [
+      "Turn off Caps Lock or Num Lock before retyping",
+      "Carefully retype the password to avoid mistakes",
+      "Use the most recently updated password if it was changed",
+      "Select the correct ID file before entering the password",
+      "Request administrator help if a corrupted ID file is suspected",
+      "Follow the official process to request a password reset"
+    ],
+    "prevention": [
+      "Use a password manager to avoid typing mistakes",
+      "Update saved passwords promptly after a change",
+      "Keep track of which ID file corresponds to which account",
+      "Report unusual persistent password issues to IT early"
+    ],
+    "keywords": ["incorrect password lotus notes", "notes password not correct", "notes password rejected", "wrong password notes login"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-20 minutes",
+    "related_problems": ["Cannot login", "Password expired", "ID file corrupted"]
+  },
+
+  {
+    "id": "NOTES-006",
+    "category": "Lotus Notes",
+    "subcategory": "ID File Management",
+    "problem": "Notes ID file is missing",
+    "description": "When trying to open Lotus Notes or switch users, the program shows an error saying it cannot find the user's ID file, which is required to log in and access the mail and applications.",
+    "symptoms": [
+      "Error message such as 'Notes cannot find your ID file'",
+      "Login prompt does not appear because the ID file cannot be located",
+      "Notes may prompt the user to browse for the ID file manually",
+      "Problem may follow a computer reinstall, profile change, or file relocation"
+    ],
+    "possible_causes": [
+      "The ID file was accidentally deleted or moved",
+      "The computer was recently reimaged or reinstalled without restoring the ID file",
+      "The Notes.ini file points to an incorrect or outdated ID file location",
+      "The user is logging in on a new computer without their ID file yet transferred",
+      "A backup or sync process moved the ID file to an unexpected location"
+    ],
+    "diagnostic_questions": [
+      "Was this computer recently reinstalled, reimaged, or significantly changed?",
+      "Do you have a backup copy of your Notes ID file saved elsewhere, such as on a USB drive or network location?",
+      "Is this the first time using Notes on this specific computer?",
+      "Do you know the exact file name and previous location of your ID file, often something like user.id?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the Notes data directory (commonly under the Notes program folder or a dedicated data folder) for a file typically named with a .id extension",
+        "reason": "The ID file may still exist but simply not be in the location Notes currently expects"
+      },
+      {
+        "step": 2,
+        "action": "If a backup copy of the ID file exists on a USB drive, network location, or previous computer backup, copy it to the expected Notes data directory",
+        "reason": "Restoring a valid backup copy is the fastest way to resolve a missing ID file without needing administrator involvement"
+      },
+      {
+        "step": 3,
+        "action": "When Notes prompts to browse for the ID file, use the browse option to manually locate it if it exists somewhere on the computer or an accessible drive",
+        "reason": "This allows Notes to find and use the ID file even if it is not in its default expected location"
+      },
+      {
+        "step": 4,
+        "action": "Check the Notes.ini file for a line indicating the expected ID file path, and correct it if it references an outdated or incorrect location",
+        "reason": "An incorrect path in Notes.ini will cause Notes to look in the wrong place even if the ID file exists elsewhere on the computer"
+      },
+      {
+        "step": 5,
+        "action": "If no backup copy can be found anywhere, contact the Notes administrator, since they can typically issue a new ID file or restore one from a central certifier/registration database",
+        "reason": "Organizations using Notes typically maintain a way to reissue lost ID files through their Domino administration system"
+      },
+      {
+        "step": 6,
+        "action": "Once a new or restored ID file is obtained, place it in the correct Notes data directory and update Notes.ini or the login prompt to point to it",
+        "reason": "This properly reconnects the user's account credentials to the Notes client on this computer"
+      },
+      {
+        "step": 7,
+        "action": "After resolving the immediate issue, create a secure backup copy of the ID file for future reference",
+        "reason": "This prevents a repeat of this same problem if the file is lost again in the future"
+      }
+    ],
+    "possible_solutions": [
+      "Locate the ID file if it still exists in a different folder",
+      "Restore a backup copy of the ID file from external storage",
+      "Correct the ID file path referenced in Notes.ini",
+      "Have the Notes administrator issue a replacement ID file",
+      "Create a secure backup once the ID file is recovered"
+    ],
+    "prevention": [
+      "Always keep a secure backup copy of the Notes ID file",
+      "Store the ID file backup in a password-protected, secure location",
+      "Inform IT before reimaging or replacing a computer that uses Notes",
+      "Avoid manually moving the ID file without updating Notes.ini accordingly"
+    ],
+    "keywords": ["notes id file missing", "cannot find id file", "lotus notes id file not found", "notes login browse id file"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Cannot login", "ID file corrupted", "Lotus Notes won't open"]
+  },
+
+  {
+    "id": "NOTES-007",
+    "category": "Lotus Notes",
+    "subcategory": "ID File Management",
+    "problem": "Notes ID file is corrupted",
+    "description": "The user's Notes ID file, which is required for logging in and identifying the user to the system, has become damaged, causing login failures or certificate errors even with the correct password.",
+    "symptoms": [
+      "Login fails with the correct password and correct ID file selected",
+      "Error message mentioning a corrupted or invalid ID file",
+      "Certificate or security-related error messages during login",
+      "Notes may crash specifically when trying to access security settings"
+    ],
+    "possible_causes": [
+      "The ID file was damaged during a file transfer or copy operation",
+      "The file was affected by a sudden power loss or forced shutdown while being accessed",
+      "A drive or storage error corrupted the file on disk",
+      "The file was incompletely restored from a backup",
+      "Malware or a failed disk sector affected the file"
+    ],
+    "diagnostic_questions": [
+      "Did anything unusual happen recently, such as a crash, power loss, or forced shutdown while Notes was open?",
+      "Was the ID file recently copied, transferred, or restored from a backup?",
+      "What is the exact error message shown when trying to log in?",
+      "Do you have access to a backup copy of the ID file from before this problem started?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message shown, since Notes often gives specific wording for ID file corruption versus other login problems",
+        "reason": "This confirms whether the ID file itself is truly the cause rather than a password or connectivity issue"
+      },
+      {
+        "step": 2,
+        "action": "Check if a backup copy of the ID file exists from before the corruption occurred, such as on a USB drive, network backup location, or a previous computer",
+        "reason": "Restoring a known good backup is the fastest and most reliable way to resolve a corrupted ID file"
+      },
+      {
+        "step": 3,
+        "action": "If a backup exists, replace the corrupted ID file with the backup copy in the correct Notes data directory",
+        "reason": "This directly restores a working, uncorrupted version of the file needed for login"
+      },
+      {
+        "step": 4,
+        "action": "If no backup is available, contact the Notes or Domino administrator to request the ID file be recovered from the central certifier or ID vault, if the organization uses ID vault functionality",
+        "reason": "Many organizations store a secure copy of user ID files centrally specifically for recovery situations like this"
+      },
+      {
+        "step": 5,
+        "action": "If ID vault recovery is not available, the administrator may need to issue a completely new ID file and reset the associated password",
+        "reason": "Without a backup or vault copy, a fresh ID file is the only remaining option to restore the user's access"
+      },
+      {
+        "step": 6,
+        "action": "Check the health of the storage drive where the ID file was stored, using disk checking tools, if corruption seems to have a physical cause",
+        "reason": "This helps prevent the same corruption from happening again to the newly restored or reissued ID file"
+      },
+      {
+        "step": 7,
+        "action": "Once a working ID file is restored or reissued, create a fresh, secure backup immediately",
+        "reason": "This provides protection against needing to repeat this recovery process if corruption happens again in the future"
+      }
+    ],
+    "possible_solutions": [
+      "Restore a backup copy of the ID file",
+      "Have the administrator recover the ID file from an ID vault",
+      "Request a newly issued ID file and password reset from the administrator",
+      "Check and repair the underlying storage drive if physical corruption is suspected",
+      "Create a fresh backup after recovery"
+    ],
+    "prevention": [
+      "Maintain a secure, up-to-date backup of the Notes ID file at all times",
+      "Use ID vault functionality if available in the organization's Domino environment",
+      "Use a UPS to prevent power loss related file corruption",
+      "Avoid interrupting file transfers or copies involving the ID file"
+    ],
+    "keywords": ["notes id file corrupted", "corrupted id file login error", "id vault recovery notes", "notes certificate error login"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-60 minutes",
+    "related_problems": ["ID file missing", "Cannot login", "Encryption error"]
+  },
+
+  {
+    "id": "NOTES-008",
+    "category": "Lotus Notes",
+    "subcategory": "Email Sending",
+    "problem": "Cannot send email from Lotus Notes",
+    "description": "The user composes an email and clicks send, but the email fails to send, shows an error, or remains stuck without actually reaching the recipient.",
+    "symptoms": [
+      "Error message when clicking Send, such as a routing or delivery failure",
+      "Email appears to send but the recipient never receives it",
+      "A delivery failure notice is received back from the mail system",
+      "Sending works for internal recipients but not external ones, or the other way around"
+    ],
+    "possible_causes": [
+      "No active connection to the Domino mail server",
+      "The recipient's email address is entered incorrectly",
+      "The mail router on the Domino server is experiencing a problem",
+      "The user's mail file has reached its storage quota limit",
+      "A large attachment exceeding the maximum allowed size",
+      "Outbound mail is being blocked by a company mail policy or spam filter"
+    ],
+    "diagnostic_questions": [
+      "What exact error message appears, if any, when trying to send?",
+      "Are you currently connected to the company network, either directly or through VPN?",
+      "Is the recipient's email address definitely correct?",
+      "Does this happen with all emails, or specifically ones with attachments or to specific recipients?"
+    ],
+    "commands": [
+      {
+        "command": "ping [Domino server name]",
+        "purpose": "Check if the computer can reach the Domino mail server",
+        "expected_result": "Replies received from the server",
+        "abnormal_result": "Request timed out, meaning there is no network path to the mail server, which would prevent sending"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the connection status shown in the bottom right corner of the Notes window to confirm you are connected to the mail server",
+        "reason": "Notes cannot send mail without an active connection to the Domino server, and this status indicator directly shows the current connection state"
+      },
+      {
+        "step": 2,
+        "action": "If working remotely, confirm the VPN connection is active and stable",
+        "reason": "Remote users typically need a working VPN connection to reach the internal Domino mail server"
+      },
+      {
+        "step": 3,
+        "action": "Double-check the recipient's email address for typing mistakes, especially for external addresses",
+        "reason": "An incorrectly typed address is one of the most common reasons an email fails to reach its intended recipient"
+      },
+      {
+        "step": 4,
+        "action": "Check the size of any attachments included in the email against the organization's known attachment size limit",
+        "reason": "Company mail systems often enforce maximum attachment sizes, and exceeding this limit will cause the send to fail"
+      },
+      {
+        "step": 5,
+        "action": "Check your mail file's current storage usage against its quota, since some Domino configurations block sending once quota limits are reached",
+        "reason": "A full mail file quota can specifically prevent new outgoing mail even while other Notes functions continue working"
+      },
+      {
+        "step": 6,
+        "action": "Check the Outbox folder to see if the email is stuck there rather than failing outright",
+        "reason": "A stuck message in the Outbox indicates a delivery attempt problem rather than a composition or addressing error"
+      },
+      {
+        "step": 7,
+        "action": "If sending fails specifically for certain external domains, this may indicate a company-level mail policy or filtering rule, which requires the Notes/Domino administrator to review",
+        "reason": "Organizations sometimes restrict outbound mail to certain domains for security or compliance reasons"
+      },
+      {
+        "step": 8,
+        "action": "Contact the Notes or Domino administrator if the mail router itself appears to be experiencing a wider problem affecting multiple users",
+        "reason": "Server-side mail routing issues require administrator access to the Domino server to diagnose and resolve"
+      }
+    ],
+    "possible_solutions": [
+      "Reconnect to the network or VPN before sending",
+      "Correct a mistyped recipient email address",
+      "Reduce attachment size to meet organizational limits",
+      "Free up mail file storage if quota has been reached",
+      "Report a stuck message in the Outbox to IT",
+      "Have the administrator check mail routing or policy restrictions"
+    ],
+    "prevention": [
+      "Regularly archive mail to avoid reaching storage quota",
+      "Double-check recipient addresses before sending important emails",
+      "Compress or link to large files rather than attaching them directly when possible",
+      "Maintain a stable VPN connection when working remotely"
+    ],
+    "keywords": ["cannot send email lotus notes", "notes email not sending", "email stuck notes", "notes send failure"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Email stuck in Outbox", "Cannot receive email", "Mail database unavailable"]
+  },
+
+  {
+    "id": "NOTES-009",
+    "category": "Lotus Notes",
+    "subcategory": "Email Receiving",
+    "problem": "Cannot receive email in Lotus Notes",
+    "description": "The user expects new emails to appear in their inbox, but new messages are not arriving, even though senders confirm they successfully sent the emails.",
+    "symptoms": [
+      "No new emails appearing in the inbox despite senders confirming they sent messages",
+      "Old emails are visible but nothing new arrives",
+      "Sender receives no bounce-back or error, suggesting the email was accepted by the server",
+      "Problem may affect all incoming mail or just from specific senders"
+    ],
+    "possible_causes": [
+      "No active connection to the Domino mail server",
+      "The mail file has reached its storage quota, preventing new mail from being delivered",
+      "A rule or filter is redirecting incoming mail to another folder",
+      "The Domino mail router is experiencing a delay or problem",
+      "The user's mail file has become corrupted or inaccessible",
+      "Incoming mail is being incorrectly filtered as spam or junk"
+    ],
+    "diagnostic_questions": [
+      "Are you currently connected to the company network or VPN?",
+      "Have you checked other folders, such as Junk or any custom rule-based folders, for the missing emails?",
+      "Is this happening with email from all senders, or specific ones only?",
+      "Do you know your current mail file storage usage compared to your quota?"
+    ],
+    "commands": [
+      {
+        "command": "ping [Domino server name]",
+        "purpose": "Check if the computer can reach the Domino mail server to receive new mail",
+        "expected_result": "Replies received from the server",
+        "abnormal_result": "Request timed out, meaning there is no network path to the mail server, which would prevent receiving new mail"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the connection status to confirm you are properly connected to the mail server",
+        "reason": "Notes cannot receive new mail without an active connection to the Domino server"
+      },
+      {
+        "step": 2,
+        "action": "Check other folders within the mail file, especially Junk Mail or any custom rule-based folders, for the missing messages",
+        "reason": "Mail rules or spam filtering may be automatically moving incoming mail out of the main inbox without the user realizing it"
+      },
+      {
+        "step": 3,
+        "action": "Review any mail rules configured under Tools > Rules to confirm none are unintentionally redirecting or deleting incoming mail",
+        "reason": "A misconfigured rule can silently divert legitimate incoming email away from the inbox"
+      },
+      {
+        "step": 4,
+        "action": "Check current mail file storage usage against the assigned quota",
+        "reason": "Once a mail file reaches its storage quota, the Domino server may reject or hold new incoming mail until space is freed"
+      },
+      {
+        "step": 5,
+        "action": "If storage is near or at the quota limit, archive or delete older emails to free up space",
+        "reason": "This resolves quota-related delivery blocks and allows new mail to be delivered again"
+      },
+      {
+        "step": 6,
+        "action": "Ask the sender to confirm the exact email address they used, and verify it matches your correct Notes email address",
+        "reason": "Mail sent to an incorrect or outdated address will never arrive, even though the sender believes it was sent correctly"
+      },
+      {
+        "step": 7,
+        "action": "Contact the Notes or Domino administrator to check if there is a delay or backlog in the mail router affecting delivery times",
+        "reason": "Server-side routing delays can cause a temporary but noticeable gap between when mail is sent and when it is actually delivered"
+      },
+      {
+        "step": 8,
+        "action": "If the problem is isolated to this one mail file, ask the administrator to check the health of the mail file itself using their administration tools",
+        "reason": "A corrupted or inaccessible mail file can specifically block incoming mail delivery even while other functions of Notes work normally"
+      }
+    ],
+    "possible_solutions": [
+      "Reconnect to the network or VPN",
+      "Check Junk Mail and rule-based folders for misdirected messages",
+      "Correct or remove a misconfigured mail rule",
+      "Free up mail file storage below the quota limit",
+      "Confirm the sender is using the correct email address",
+      "Have the administrator check for mail router delays or mail file health issues"
+    ],
+    "prevention": [
+      "Regularly archive mail to stay under the storage quota",
+      "Periodically review configured mail rules for accuracy",
+      "Keep your correct email address updated with frequent contacts",
+      "Report persistent delivery delays to IT promptly"
+    ],
+    "keywords": ["cannot receive email lotus notes", "notes not getting new mail", "email not arriving notes", "notes inbox not updating"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Cannot send email", "Mail database unavailable", "Server not responding"]
+  },
+
+  {
+    "id": "NOTES-010",
+    "category": "Lotus Notes",
+    "subcategory": "Email Sending",
+    "problem": "Email is stuck in the Outbox and will not send",
+    "description": "The user composes and sends an email, but instead of leaving the Outbox, it remains there indefinitely, never actually being delivered to the recipient.",
+    "symptoms": [
+      "Email remains visible in the Outbox folder",
+      "The stuck email may show a specific status or error icon",
+      "New emails may also begin backing up behind the stuck one",
+      "No error message appears, the email simply does not move"
+    ],
+    "possible_causes": [
+      "No active connection to the Domino mail server at the time of sending",
+      "A very large attachment causing a delivery delay or timeout",
+      "A router or transfer configuration issue on the Domino server",
+      "The specific message has become corrupted",
+      "The recipient's mail server or address is unreachable"
+    ],
+    "diagnostic_questions": [
+      "Are you currently connected to the company network or VPN?",
+      "Does the stuck email contain a large attachment?",
+      "Is this happening with just one email, or do multiple emails get stuck?",
+      "How long has this specific email been sitting in the Outbox?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the computer currently has an active connection to the Domino mail server",
+        "reason": "Without a working connection, any composed email will remain stuck in the Outbox indefinitely, unable to be transmitted"
+      },
+      {
+        "step": 2,
+        "action": "If not connected, reconnect to the network or VPN, then check if the stuck email sends automatically shortly afterward",
+        "reason": "Notes will typically attempt to send outbox items again once connectivity is restored"
+      },
+      {
+        "step": 3,
+        "action": "Open the stuck email in the Outbox and check its size, especially if it contains a large attachment",
+        "reason": "An oversized attachment can cause a send attempt to repeatedly time out rather than fail outright with a clear error"
+      },
+      {
+        "step": 4,
+        "action": "If the attachment is very large, consider removing it and resending with a smaller file, or a link to the file on a shared drive instead",
+        "reason": "This addresses the underlying delivery bottleneck directly by reducing the amount of data that needs to be transmitted"
+      },
+      {
+        "step": 5,
+        "action": "Try manually forcing a send by selecting the stuck message and using the Actions or Send menu option to resend it",
+        "reason": "This gives Notes another explicit attempt to process and deliver the specific message rather than waiting for automatic retry timing"
+      },
+      {
+        "step": 6,
+        "action": "If multiple messages are stuck and backing up, this may point to a broader mail routing problem rather than an issue with one specific email",
+        "reason": "A pattern affecting many messages suggests the cause is with the server or connection rather than a single problematic email"
+      },
+      {
+        "step": 7,
+        "action": "Contact the Notes or Domino administrator if the stuck message persists despite a stable connection, since they can check the server-side mail router for issues",
+        "reason": "Server-level routing or transfer configuration problems require administrator access to properly diagnose"
+      },
+      {
+        "step": 8,
+        "action": "As a last resort for a single stubbornly stuck message, delete it from the Outbox and recompose and resend it as a fresh new email",
+        "reason": "This bypasses whatever specific issue may have affected the original message, such as internal corruption"
+      }
+    ],
+    "possible_solutions": [
+      "Restore network or VPN connectivity to allow the stuck email to send",
+      "Remove or reduce the size of a large attachment",
+      "Manually force a resend of the stuck message",
+      "Report a widespread stuck-mail pattern to the Notes administrator",
+      "Delete and recompose a persistently stuck message"
+    ],
+    "prevention": [
+      "Maintain a stable network or VPN connection while sending important emails",
+      "Avoid attaching very large files directly to emails",
+      "Regularly check the Outbox for any lingering stuck messages",
+      "Report recurring Outbox issues to IT early"
+    ],
+    "keywords": ["email stuck in outbox notes", "lotus notes outbox not sending", "stuck outgoing mail notes", "large attachment stuck email"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Cannot send email", "Server not responding", "Cannot connect to Domino server"]
+  },
+
+  {
+    "id": "NOTES-011",
+    "category": "Lotus Notes",
+    "subcategory": "Database Access",
+    "problem": "Mail database is unavailable",
+    "description": "When the user tries to open their mail file, Notes shows a message saying the mail database is unavailable, preventing access to their inbox and other mail folders.",
+    "symptoms": [
+      "Error message such as 'Database is not available. Contact your system administrator'",
+      "Mail file icon may show as inaccessible or greyed out on the workspace",
+      "Other Notes databases may open normally while only mail is affected",
+      "Problem may affect one user or several people on the same server"
+    ],
+    "possible_causes": [
+      "The Domino server hosting the mail database is down or restarting",
+      "A network connectivity problem preventing access to the server",
+      "The mail database file has become corrupted on the server",
+      "The user does not currently have the correct access permissions",
+      "The mail file has been moved to a different server without updating the local connection information",
+      "A server-side maintenance task is temporarily locking the database"
+    ],
+    "diagnostic_questions": [
+      "Are other people also experiencing this same issue with their mail right now?",
+      "Are you able to access other Notes databases normally, just not mail?",
+      "Are you connected to the company network or VPN currently?",
+      "Has anything changed recently, such as a server migration or maintenance notice from IT?"
+    ],
+    "commands": [
+      {
+        "command": "ping [Domino server name]",
+        "purpose": "Check if the computer can reach the Domino server hosting the mail database",
+        "expected_result": "Replies received from the server",
+        "abnormal_result": "Request timed out, indicating a network connectivity problem to the server itself"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check with coworkers to see if others are experiencing the same 'database unavailable' error at the same time",
+        "reason": "This quickly indicates whether the problem is a wider server issue or something isolated to this one user"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the network or VPN connection is active and stable",
+        "reason": "A lost network connection to the Domino server will directly cause this exact error, since the database physically cannot be reached"
+      },
+      {
+        "step": 3,
+        "action": "Ping the Domino server by name to confirm basic network reachability",
+        "reason": "This helps distinguish between a network problem and a server-side database problem"
+      },
+      {
+        "step": 4,
+        "action": "Try opening a different, unrelated Notes database to see if only the mail file is affected, or if the entire server connection is down",
+        "reason": "This narrows down whether the issue is specific to the mail database or affects the whole server connection"
+      },
+      {
+        "step": 5,
+        "action": "Check for any recent communication from the IT department about scheduled server maintenance or migrations",
+        "reason": "Planned maintenance activities commonly cause temporary 'database unavailable' errors that resolve once the work is complete"
+      },
+      {
+        "step": 6,
+        "action": "If the problem is isolated to just this one user, contact the Notes or Domino administrator, since it may indicate a permissions issue or database-specific problem",
+        "reason": "An issue affecting only one person often points to something specific to that user's account or mail file rather than the whole server"
+      },
+      {
+        "step": 7,
+        "action": "Report the exact error message and the time it started to the administrator, since this information helps them quickly locate relevant server logs",
+        "reason": "Detailed information speeds up the diagnosis process on the administrator's side considerably"
+      }
+    ],
+    "possible_solutions": [
+      "Wait for scheduled server maintenance to complete",
+      "Restore network or VPN connectivity",
+      "Report the issue to the Notes/Domino administrator if isolated to one user",
+      "Have the administrator check and repair server-side database or permission issues"
+    ],
+    "prevention": [
+      "Stay informed of scheduled IT maintenance windows",
+      "Maintain a stable network connection when working with Notes",
+      "Report unusual mail access issues to IT promptly for faster diagnosis"
+    ],
+    "keywords": ["mail database unavailable notes", "database not available contact administrator", "cannot open mail notes", "domino server database error"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-45 minutes (may depend on server status)",
+    "related_problems": ["Cannot connect to Domino server", "Server not responding", "Database unavailable"]
+  },
+
+  {
+    "id": "NOTES-012",
+    "category": "Lotus Notes",
+    "subcategory": "Database Files",
+    "problem": "NSF file is corrupted",
+    "description": "The local NSF database file, which stores Notes data such as mail or application content, has become damaged, causing errors when trying to open or use it.",
+    "symptoms": [
+      "Error message mentioning database corruption when opening the NSF file",
+      "Notes crashes specifically when accessing this particular database",
+      "Views within the database show missing or garbled data",
+      "The file size may appear unusually small or large compared to what is expected"
+    ],
+    "possible_causes": [
+      "A sudden power loss or forced shutdown while the file was being written to",
+      "A failing or faulty hard drive affecting the stored file",
+      "An interrupted replication or synchronization process",
+      "The file was copied incompletely or incorrectly",
+      "A software crash occurring during an active database operation"
+    ],
+    "diagnostic_questions": [
+      "Did the computer experience a crash, power loss, or forced shutdown recently while this database was in use?",
+      "Is this a local replica, or the primary database on the server?",
+      "Do you have a recent backup of this NSF file available?",
+      "Does the error happen only with this specific database, or with others as well?"
+    ],
+    "commands": [
+      {
+        "command": "load fixup [filename].nsf",
+        "purpose": "Run the Domino Fixup task on the affected NSF file to repair structural corruption (typically run by an administrator on the server console, or via nfixup on a local file)",
+        "expected_result": "Fixup completes and reports the database structure has been repaired",
+        "abnormal_result": "Fixup reports it could not fully repair the database, indicating more severe corruption"
+      },
+      {
+        "command": "load compact -c [filename].nsf",
+        "purpose": "Compact the database after fixup to reclaim space and further stabilize its structure",
+        "expected_result": "Compact completes successfully, reducing file size and cleaning up internal structure",
+        "abnormal_result": "Compact fails or reports ongoing errors, suggesting corruption too severe for standard repair tools"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note exactly what error message appears and whether it happens consistently every time the database is accessed",
+        "reason": "This confirms the corruption is real and consistent, rather than a one-time temporary glitch"
+      },
+      {
+        "step": 2,
+        "action": "Check if this is a local replica of a database that also exists on the server",
+        "reason": "If a healthy copy exists on the server, the simplest fix may be to delete the corrupted local replica and create a fresh one rather than repairing it"
+      },
+      {
+        "step": 3,
+        "action": "If a healthy server copy is not available or this is a standalone local database, run the Fixup task on the file to attempt a structural repair",
+        "reason": "Fixup is specifically designed to repair common types of NSF file corruption automatically"
+      },
+      {
+        "step": 4,
+        "action": "After running Fixup, run a Compact operation on the same database",
+        "reason": "This further stabilizes and cleans the database structure following a repair, and can resolve residual issues left after Fixup alone"
+      },
+      {
+        "step": 5,
+        "action": "If the file remains corrupted after Fixup and Compact, contact the Notes or Domino administrator to attempt a more thorough recovery, potentially from a server-side backup",
+        "reason": "Administrators typically have access to more advanced recovery tools and backup systems than a standard user"
+      },
+      {
+        "step": 6,
+        "action": "Check the health of the hard drive where the file is stored, since drive errors can be an underlying cause of repeated file corruption",
+        "reason": "If the storage itself is failing, repaired files may become corrupted again unless the underlying hardware issue is addressed"
+      },
+      {
+        "step": 7,
+        "action": "Once a working version of the database is restored, create a fresh backup to protect against needing to repeat this recovery process",
+        "reason": "This provides a safety net if similar corruption occurs again in the future"
+      }
+    ],
+    "possible_solutions": [
+      "Delete a corrupted local replica and recreate it from a healthy server copy",
+      "Run Fixup and Compact tasks to repair the database structure",
+      "Restore from a server-side backup with administrator assistance",
+      "Repair or replace a failing hard drive causing repeated corruption",
+      "Create a fresh backup once the database is restored"
+    ],
+    "prevention": [
+      "Use a UPS to prevent power loss during database operations",
+      "Regularly back up important NSF files",
+      "Monitor hard drive health for early signs of failure",
+      "Avoid interrupting replication or synchronization processes"
+    ],
+    "keywords": ["nsf file corrupted", "notes database corruption", "fixup compact notes", "damaged nsf database"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-70 minutes",
+    "related_problems": ["Cannot open NSF file", "Lotus Notes crashes", "Replication failed"]
+  },
+
+  {
+    "id": "NOTES-013",
+    "category": "Lotus Notes",
+    "subcategory": "Database Files",
+    "problem": "Cannot open an NSF file",
+    "description": "The user tries to open a specific NSF database file within Notes, but receives an error message preventing access, even though the file appears to exist.",
+    "symptoms": [
+      "Error message when trying to open the database, such as 'You are not authorized to perform that operation'",
+      "Error stating the file cannot be found even though it exists",
+      "Notes shows the database icon but clicking it produces an error",
+      "File may open for some users but not others"
+    ],
+    "possible_causes": [
+      "The user does not have the correct access control list (ACL) permissions for this database",
+      "The NSF file has become corrupted",
+      "The file path or bookmark is pointing to an incorrect or outdated location",
+      "The database is currently locked by a maintenance operation on the server",
+      "The local file has been moved, renamed, or deleted"
+    ],
+    "diagnostic_questions": [
+      "What exact error message appears when trying to open the file?",
+      "Can other users open this same database successfully?",
+      "Is this a local file, or one located on the Domino server?",
+      "Have you been able to open this specific database before, or is this the first attempt?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Read the exact error message shown when trying to open the file",
+        "reason": "Different error wording points to very different causes, such as a permissions issue versus a missing or corrupted file"
+      },
+      {
+        "step": 2,
+        "action": "Check with other users to see if they can successfully open the same database",
+        "reason": "This helps determine if the problem is specific to this user's permissions or account, or a wider file or server issue"
+      },
+      {
+        "step": 3,
+        "action": "If the error mentions authorization or access, contact the database owner or Notes administrator to request the correct access control list (ACL) permissions",
+        "reason": "Database access in Notes is controlled by an ACL, and insufficient permissions will directly prevent opening the file even if it exists and is healthy"
+      },
+      {
+        "step": 4,
+        "action": "If this is a local file, check that it still exists at its expected location using File Explorer or the Notes File > Application > Open dialog",
+        "reason": "A moved, renamed, or deleted local file will cause Notes to be unable to open it through an outdated bookmark or shortcut"
+      },
+      {
+        "step": 5,
+        "action": "If the file exists but still cannot be opened, consider the possibility of corruption and attempt a Fixup and Compact operation, or involve the administrator for a server-based file",
+        "reason": "A corrupted database structure can prevent normal opening even when permissions are correct and the file is present"
+      },
+      {
+        "step": 6,
+        "action": "Check if the database is temporarily locked due to a server-side maintenance task, such as an index rebuild or backup operation currently in progress",
+        "reason": "Some maintenance operations temporarily restrict access to a database until they complete"
+      },
+      {
+        "step": 7,
+        "action": "If this is a server-based database and the issue persists, escalate to the Notes or Domino administrator with the exact error message and database name for further investigation",
+        "reason": "Server-side database issues typically require administrator-level tools and access to properly diagnose and resolve"
+      }
+    ],
+    "possible_solutions": [
+      "Request corrected ACL permissions from the database owner or administrator",
+      "Locate a moved or relocated local file",
+      "Repair a corrupted database using Fixup and Compact",
+      "Wait for a temporary server-side maintenance lock to clear",
+      "Escalate persistent access issues to the Notes/Domino administrator"
+    ],
+    "prevention": [
+      "Confirm proper ACL permissions are granted when a database is first shared",
+      "Keep local database files in consistent, known locations",
+      "Communicate planned maintenance windows to database users",
+      "Regularly back up important NSF files"
+    ],
+    "keywords": ["cannot open nsf file", "not authorized notes database", "notes database access denied", "nsf file not found"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["NSF file corrupted", "Database permission denied", "Access denied"]
+  },
+
+  {
+    "id": "NOTES-014",
+    "category": "Lotus Notes",
+    "subcategory": "Replication",
+    "problem": "Replication failed between local replica and server",
+    "description": "The user tries to synchronize their local replica of a database, such as their mail file, with the version on the server, but the replication process fails, showing an error instead of successfully updating.",
+    "symptoms": [
+      "Error message when attempting to replicate, such as a connection or access error",
+      "Replication history shows a failed status instead of successful",
+      "Local and server copies of data become increasingly out of sync over time",
+      "Replication may work for some databases but fail for others"
+    ],
+    "possible_causes": [
+      "No active network connection to the Domino server at the time of replication",
+      "Insufficient access permissions for replication on the specific database",
+      "A corrupted local replica preventing successful synchronization",
+      "The server-side database has been moved, renamed, or deleted",
+      "A replication conflict that requires manual resolution",
+      "The local replica ID does not match the server database's replica ID"
+    ],
+    "diagnostic_questions": [
+      "Are you connected to the company network or VPN at the time of replication?",
+      "What exact error message appears in the replication history or log?",
+      "Does replication fail for all databases, or just one specific one?",
+      "Has this database replicated successfully before, or is this the first attempt?"
+    ],
+    "commands": [
+      {
+        "command": "ping [Domino server name]",
+        "purpose": "Confirm the computer can reach the Domino server needed for replication",
+        "expected_result": "Replies received from the server",
+        "abnormal_result": "Request timed out, meaning no network path exists to the server, which would prevent replication entirely"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the network or VPN connection to the company network is active and stable",
+        "reason": "Replication cannot occur at all without a working connection to the Domino server"
+      },
+      {
+        "step": 2,
+        "action": "Check the replication history for this specific database to read the exact error message recorded",
+        "reason": "The replication history provides detailed, specific information about why the synchronization attempt failed"
+      },
+      {
+        "step": 3,
+        "action": "If the error relates to access permissions, contact the database owner or administrator to confirm your access control list (ACL) permissions allow replication",
+        "reason": "Insufficient permissions on either the local or server copy can prevent successful replication"
+      },
+      {
+        "step": 4,
+        "action": "Confirm the server-side database still exists at its expected location and has not been renamed, moved, or deleted",
+        "reason": "Replication requires both the local and server copies to be properly present and correctly referenced"
+      },
+      {
+        "step": 5,
+        "action": "Check if the local replica's replica ID matches the server database's replica ID, which can be viewed in the database properties",
+        "reason": "A mismatched replica ID means the two files are not actually recognized as replicas of each other, and replication will fail until this is corrected, often requiring a fresh replica to be created"
+      },
+      {
+        "step": 6,
+        "action": "If a replica ID mismatch or severe corruption is suspected, consider deleting the local replica and creating a completely fresh one from the server copy",
+        "reason": "This resets the relationship between the local and server copies, resolving many replication errors that are difficult to fix through other means"
+      },
+      {
+        "step": 7,
+        "action": "If replication conflicts are shown, review them under the database's Conflicts folder or view, if present, and resolve them manually by choosing which version of the conflicting documents to keep",
+        "reason": "Replication conflicts occur when the same document was changed differently in both copies, and Notes requires manual resolution to decide which change should be preserved"
+      },
+      {
+        "step": 8,
+        "action": "Contact the Notes or Domino administrator if the issue persists after these steps, providing the exact error message and database name",
+        "reason": "Persistent replication failures may require server-side investigation beyond what is accessible to a standard user"
+      }
+    ],
+    "possible_solutions": [
+      "Restore network or VPN connectivity before replicating",
+      "Request corrected access permissions for replication",
+      "Recreate a fresh local replica if the replica ID does not match",
+      "Manually resolve replication conflicts",
+      "Escalate persistent failures to the Notes/Domino administrator"
+    ],
+    "prevention": [
+      "Maintain a stable network connection during scheduled replication",
+      "Regularly check replication history for early signs of problems",
+      "Avoid manually copying database files in ways that create replica ID mismatches",
+      "Resolve replication conflicts promptly rather than letting them accumulate"
+    ],
+    "keywords": ["replication failed notes", "notes replicate error", "replica id mismatch", "domino replication conflict"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-50 minutes",
+    "related_problems": ["Local replica not updating", "Cannot connect to Domino server", "NSF file corrupted"]
+  },
+
+  {
+    "id": "NOTES-015",
+    "category": "Lotus Notes",
+    "subcategory": "Replication",
+    "problem": "Local replica is not updating with new changes",
+    "description": "The user's local replica of a database, such as their mail file, does not show recent changes made on the server, such as new emails or updated documents, even after replication appears to have run.",
+    "symptoms": [
+      "New emails or document changes made on the server do not appear locally",
+      "Replication appears to complete without errors, but data still looks outdated",
+      "Problem may affect all folders in the database, or just specific views",
+      "Replication history shows successful runs despite the missing updates"
+    ],
+    "possible_causes": [
+      "Scheduled replication is not configured to run frequently enough",
+      "Selective replication settings are excluding certain documents or folders",
+      "The local replica's view index has not been refreshed to display newly replicated data",
+      "A replication formula is unintentionally filtering out certain documents",
+      "The replication schedule has been accidentally disabled"
+    ],
+    "diagnostic_questions": [
+      "How is replication normally triggered, automatically on a schedule, or manually by the user?",
+      "Do you have any selective replication settings configured for this database?",
+      "Does replication show as completed successfully in the replication history, despite the missing updates?",
+      "Does this affect all folders and views, or just specific ones?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Manually trigger a replication for the affected database and monitor the replication history for completion and any errors",
+        "reason": "This provides a fresh, direct opportunity to see if replication actually transfers the missing updates when run right now"
+      },
+      {
+        "step": 2,
+        "action": "After replication completes, try pressing F9 or using View > Refresh within the affected view to force the local display to update",
+        "reason": "Sometimes data has actually replicated successfully, but the local view index simply has not refreshed to show it yet"
+      },
+      {
+        "step": 3,
+        "action": "Check the database's replication settings for any selective replication formulas that might be excluding certain documents",
+        "reason": "Selective replication is a deliberate feature that limits what gets synchronized, and an overly restrictive formula could be unintentionally blocking legitimate new data"
+      },
+      {
+        "step": 4,
+        "action": "Review the configured replication schedule to confirm it has not been accidentally disabled or set to an unexpectedly long interval",
+        "reason": "If scheduled replication is disabled or set to run very infrequently, updates will appear to lag significantly behind the server"
+      },
+      {
+        "step": 5,
+        "action": "Check if this problem is limited to specific folders or views within the database, which can point to a narrower, more specific configuration issue rather than a broad replication failure",
+        "reason": "Isolating the affected scope helps narrow down whether the issue is with overall replication or a specific selective formula or view"
+      },
+      {
+        "step": 6,
+        "action": "Confirm that the network or VPN connection remains stable throughout the entire replication process, since an interrupted replication may only partially complete",
+        "reason": "A replication that is interrupted partway through may report as finished, while actually only transferring part of the expected data"
+      },
+      {
+        "step": 7,
+        "action": "If the problem continues despite these checks, contact the Notes or Domino administrator to review the database's replication configuration on the server side",
+        "reason": "Server-side replication settings and formulas may require administrator access to fully review and correct"
+      }
+    ],
+    "possible_solutions": [
+      "Manually trigger replication and confirm completion",
+      "Refresh the local view to display already-replicated data",
+      "Correct an overly restrictive selective replication formula",
+      "Re-enable or adjust an accidentally disabled replication schedule",
+      "Ensure a stable connection throughout the entire replication process",
+      "Have the administrator review server-side replication configuration"
+    ],
+    "prevention": [
+      "Periodically verify the replication schedule remains correctly configured",
+      "Review selective replication formulas carefully when first set up",
+      "Maintain a stable network connection during scheduled replication windows",
+      "Manually refresh views if data seems outdated despite successful replication"
+    ],
+    "keywords": ["local replica not updating", "notes replication outdated data", "selective replication formula", "replication schedule disabled"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Replication failed", "Calendar not syncing", "Contacts missing"]
+  },
+
+  {
+    "id": "NOTES-016",
+    "category": "Lotus Notes",
+    "subcategory": "Server Connectivity",
+    "problem": "Cannot connect to the Domino server",
+    "description": "The user tries to access mail or a database hosted on the Domino server, but Notes shows a connection error, indicating it cannot reach the server at all.",
+    "symptoms": [
+      "Error message such as 'Server not responding' or 'Unable to connect'",
+      "Status bar shows a disconnected or failed connection state",
+      "All server-based databases are inaccessible, while local ones may still open",
+      "Problem may affect one user or many people at the same location"
+    ],
+    "possible_causes": [
+      "No active internet or network connection on the user's computer",
+      "The Domino server itself is down or undergoing maintenance",
+      "VPN connection is required but not currently active for remote users",
+      "A firewall or network configuration is blocking the connection to the server",
+      "Incorrect server connection settings in the Notes location document"
+    ],
+    "diagnostic_questions": [
+      "Are you working from the office, or remotely?",
+      "If remote, is your VPN connection currently active and stable?",
+      "Are other people also unable to connect to the same server right now?",
+      "Does your computer have a working internet or network connection overall, independent of Notes?"
+    ],
+    "commands": [
+      {
+        "command": "ping [Domino server name]",
+        "purpose": "Test basic network connectivity to the Domino server",
+        "expected_result": "Replies received from the server, confirming a network path exists",
+        "abnormal_result": "Request timed out, meaning the server cannot be reached from this network location"
+      },
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check the computer's current network configuration and confirm it has a valid IP address and connection",
+        "expected_result": "Shows a valid IP address and active network adapter",
+        "abnormal_result": "No valid IP address, or a self-assigned 169.254 address, indicating a broader network connectivity problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the computer has a working internet or network connection independent of Notes, such as by browsing a website",
+        "reason": "This determines if the problem is specific to reaching the Domino server, or a broader network issue affecting everything"
+      },
+      {
+        "step": 2,
+        "action": "If working remotely, confirm the VPN connection is active, since many organizations require VPN to reach internal Domino servers",
+        "reason": "Without an active VPN, remote computers typically cannot reach internal company servers like Domino at all"
+      },
+      {
+        "step": 3,
+        "action": "Ping the Domino server by its configured name to test basic network reachability",
+        "reason": "This directly confirms whether a network path currently exists to the server from this specific computer"
+      },
+      {
+        "step": 4,
+        "action": "Check with coworkers, especially those in the same office or using the same VPN, to see if they are experiencing the same connection issue",
+        "reason": "This quickly indicates whether the problem is isolated to this one user or affects the server more broadly"
+      },
+      {
+        "step": 5,
+        "action": "Check the Notes location document currently in use (shown in the status bar) to confirm the correct server name and connection settings are configured",
+        "reason": "An incorrect or outdated server name in the location document will prevent Notes from finding the correct server, even with a working network connection"
+      },
+      {
+        "step": 6,
+        "action": "Restart the Notes client completely to clear any temporary connection state issues",
+        "reason": "A fresh restart can resolve connection problems caused by a stuck or corrupted session state within Notes itself"
+      },
+      {
+        "step": 7,
+        "action": "If the problem affects multiple users, contact the Notes or Domino administrator immediately, since this likely indicates a server outage or network infrastructure problem",
+        "reason": "A widespread connectivity issue requires administrator-level investigation into the server and network infrastructure itself"
+      }
+    ],
+    "possible_solutions": [
+      "Restore a working internet or network connection",
+      "Reconnect the VPN for remote users",
+      "Correct the server name in the Notes location document",
+      "Restart the Notes client to clear a stuck connection state",
+      "Report a widespread outage to the Notes/Domino administrator"
+    ],
+    "prevention": [
+      "Maintain a stable VPN connection when working remotely",
+      "Keep location documents correctly configured with accurate server information",
+      "Stay informed of scheduled server maintenance windows",
+      "Report connectivity issues to IT promptly for faster resolution"
+    ],
+    "keywords": ["cannot connect to domino server", "notes server not responding", "notes vpn connection required", "unable to connect notes server"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Server not responding", "Mail database unavailable", "Database unavailable"]
+  },
+
+  {
+    "id": "NOTES-017",
+    "category": "Lotus Notes",
+    "subcategory": "Server Connectivity",
+    "problem": "Domino server is not responding",
+    "description": "The user is connected to the network normally, but the Domino server itself seems unresponsive, with requests to open databases or send mail taking a very long time or timing out completely.",
+    "symptoms": [
+      "Long delays when trying to open any server-based database",
+      "Error message after a long wait saying the server did not respond",
+      "Sending and receiving mail becomes extremely slow or fails",
+      "Other users on the same server report similar symptoms"
+    ],
+    "possible_causes": [
+      "The Domino server is experiencing very high load or resource usage",
+      "A specific server task or process has become stuck, affecting overall responsiveness",
+      "Network congestion between the user's location and the server",
+      "The server is undergoing maintenance or a restart",
+      "A hardware issue on the physical server affecting performance"
+    ],
+    "diagnostic_questions": [
+      "Are other users experiencing the same slowness or unresponsiveness with this server right now?",
+      "Does this happen with all databases on this server, or just specific ones?",
+      "Has the server administrator mentioned any planned maintenance or known issues?",
+      "Does the problem happen consistently, or does it come and go?"
+    ],
+    "commands": [
+      {
+        "command": "ping [Domino server name]",
+        "purpose": "Check basic network response time to the server to distinguish between a network delay and a true server performance issue",
+        "expected_result": "Fast, consistent reply times",
+        "abnormal_result": "Very slow or inconsistent reply times, or request timeouts, suggesting either network congestion or server-side overload"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check with other users to see if they are also experiencing slowness or unresponsiveness with the same server",
+        "reason": "This quickly confirms whether the issue is server-wide, affecting everyone, or isolated to this one user's connection"
+      },
+      {
+        "step": 2,
+        "action": "Ping the server to check basic network response times",
+        "reason": "This helps distinguish between a network path problem and the server itself being genuinely overloaded or stuck"
+      },
+      {
+        "step": 3,
+        "action": "Note whether the unresponsiveness affects all databases on the server, or seems limited to a specific one",
+        "reason": "A problem limited to one specific database may point to something more localized, such as a stuck task related to that database specifically, rather than the entire server"
+      },
+      {
+        "step": 4,
+        "action": "Check for any recent communication from IT about planned server maintenance, restarts, or known ongoing issues",
+        "reason": "Scheduled maintenance activities commonly cause temporary server unresponsiveness that resolves once the work is finished"
+      },
+      {
+        "step": 5,
+        "action": "Wait a reasonable amount of time, such as 10 to 15 minutes, in case the server is temporarily overloaded and will recover on its own",
+        "reason": "Server load spikes can sometimes resolve naturally as the underlying cause, such as a batch job, completes"
+      },
+      {
+        "step": 6,
+        "action": "If the problem continues or affects multiple users, immediately report it to the Notes or Domino administrator with specific details about when it started and which server is affected",
+        "reason": "Server performance issues require administrator-level access to the server console and logs to properly diagnose and resolve"
+      },
+      {
+        "step": 7,
+        "action": "Avoid repeatedly retrying the same failed operation many times in quick succession while waiting for the server issue to be addressed",
+        "reason": "Repeated retries can add additional, unnecessary load to an already struggling server, potentially worsening the situation for all users"
+      }
+    ],
+    "possible_solutions": [
+      "Wait for a temporary server load spike to resolve naturally",
+      "Wait out scheduled server maintenance",
+      "Report the issue immediately to the Notes/Domino administrator with specific details",
+      "Avoid excessive retry attempts that could add load to a struggling server"
+    ],
+    "prevention": [
+      "Stay informed of scheduled server maintenance windows",
+      "Report server slowness patterns to IT so they can monitor server load proactively",
+      "Avoid running unusually heavy tasks against the server during peak usage times"
+    ],
+    "keywords": ["domino server not responding", "notes server slow", "server unresponsive notes", "notes timeout server"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-45 minutes (may depend on server status)",
+    "related_problems": ["Cannot connect to Domino server", "Mail database unavailable", "Database unavailable"]
+  },
+
+  {
+    "id": "NOTES-018",
+    "category": "Lotus Notes",
+    "subcategory": "Database Access",
+    "problem": "Database is unavailable when trying to open it",
+    "description": "The user tries to open a specific database, whether mail or another application, but receives a message stating the database is unavailable, preventing any access to its contents.",
+    "symptoms": [
+      "Error message stating 'Database is not available'",
+      "Icon for the database may appear on the workspace but cannot be opened",
+      "Other server databases may work normally while this specific one fails",
+      "Problem may be temporary or persistent"
+    ],
+    "possible_causes": [
+      "The database has been temporarily taken offline for maintenance",
+      "The database file has been moved, renamed, or deleted on the server",
+      "A server-side task, such as a compact or fixup operation, is currently locking the database",
+      "The Domino server itself is experiencing connectivity or performance issues",
+      "The user's access rights to this specific database have been changed or removed"
+    ],
+    "diagnostic_questions": [
+      "Does this happen with only this one database, or with others as well?",
+      "Have you been able to access this database successfully in the past?",
+      "Do you know if any maintenance work was scheduled for this database or server?",
+      "Are other users able to access this same database right now?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Try opening a different, unrelated database on the same server to see if the problem is specific to this one database or affects the whole server connection",
+        "reason": "This narrows down whether the issue is isolated to a single database or represents a broader server connectivity problem"
+      },
+      {
+        "step": 2,
+        "action": "Check with other users to see if they can access this same specific database right now",
+        "reason": "This helps determine if the unavailability is affecting everyone, or possibly related to this specific user's permissions"
+      },
+      {
+        "step": 3,
+        "action": "Wait a short period and try again, since the database may be temporarily locked by a maintenance task, such as a compact or fixup operation, that will complete shortly",
+        "reason": "Server-side maintenance operations often only temporarily restrict access while they run"
+      },
+      {
+        "step": 4,
+        "action": "Check for any communication from IT regarding planned maintenance affecting this specific database or its host server",
+        "reason": "Scheduled maintenance is a very common and expected cause of temporary database unavailability"
+      },
+      {
+        "step": 5,
+        "action": "If the database was accessible before but suddenly stopped being available, contact the database owner or Notes administrator, since it may have been moved, renamed, or had its access permissions changed",
+        "reason": "These types of administrative changes on the server side can directly cause this exact error for standard users"
+      },
+      {
+        "step": 6,
+        "action": "Provide the administrator with the exact database name, the exact error message, and the approximate time the problem started",
+        "reason": "Detailed, specific information significantly speeds up the administrator's ability to diagnose the exact cause on the server"
+      },
+      {
+        "step": 7,
+        "action": "Once access is restored, confirm the database opens and displays data correctly, checking a few different views if possible",
+        "reason": "This confirms the issue is genuinely and fully resolved rather than only partially fixed"
+      }
+    ],
+    "possible_solutions": [
+      "Wait for a temporary server-side maintenance lock to clear",
+      "Wait out scheduled maintenance affecting the database",
+      "Have the administrator investigate a moved, renamed, or access-restricted database",
+      "Report detailed information to speed up administrator diagnosis"
+    ],
+    "prevention": [
+      "Stay informed of scheduled maintenance affecting frequently used databases",
+      "Report unavailability issues promptly with specific details",
+      "Confirm access changes with users in advance when possible"
+    ],
+    "keywords": ["database unavailable notes", "database not available error", "cannot open database notes", "notes database maintenance lock"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Mail database unavailable", "Cannot open NSF file", "Database permission denied"]
+  },
+
+  {
+    "id": "NOTES-019",
+    "category": "Lotus Notes",
+    "subcategory": "Access Permissions",
+    "problem": "Access denied when trying to open a database or perform an action",
+    "description": "The user attempts to open a database or perform a specific action, such as editing a document, but receives an error stating they do not have sufficient access rights to do so.",
+    "symptoms": [
+      "Error message such as 'You are not authorized to perform that operation'",
+      "Database opens but shows no documents, or only some documents",
+      "Cannot edit, create, or delete documents that should be editable",
+      "Error may appear consistently, or only for specific actions"
+    ],
+    "possible_causes": [
+      "The user's access control list (ACL) entry for this database does not grant sufficient rights",
+      "The user is not listed in the ACL at all and is defaulting to a very restricted access level",
+      "A recent change to the ACL removed or reduced the user's previous access",
+      "The user's group membership, which determines access through role-based ACL entries, was changed",
+      "The user is trying to perform an action reserved for a higher access level, such as Manager or Designer"
+    ],
+    "diagnostic_questions": [
+      "What exact action were you trying to perform when this error appeared, such as opening, editing, or deleting?",
+      "Have you had successful access to this database before, or is this your first time trying?",
+      "Do you know if you were recently added to or removed from any relevant security groups?",
+      "Are other users with a similar role able to access this database normally?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact action being performed and the exact wording of the error message",
+        "reason": "This helps distinguish between a complete access denial and a more limited restriction on a specific action, like editing versus just reading"
+      },
+      {
+        "step": 2,
+        "action": "Check with the database owner or Notes administrator about your current access control list (ACL) entry for this specific database",
+        "reason": "The ACL directly controls what each user or group can do within a database, and reviewing it confirms your exact current access level"
+      },
+      {
+        "step": 3,
+        "action": "Confirm whether you are individually listed in the ACL, or if your access depends on membership in a specific group",
+        "reason": "Group-based access can be affected by changes to group membership that are not always immediately obvious to the end user"
+      },
+      {
+        "step": 4,
+        "action": "If your access level appears lower than expected, or you are missing entirely from the ACL, request that the database owner or administrator add or update your entry appropriately",
+        "reason": "This directly resolves the root cause by granting the correct level of access needed for your role"
+      },
+      {
+        "step": 5,
+        "action": "Confirm with colleagues in a similar role whether they can access the database normally, to help clarify if this is an individual account issue or a broader change affecting a whole group",
+        "reason": "This helps the administrator prioritize and understand the scope of the access problem more efficiently"
+      },
+      {
+        "step": 6,
+        "action": "If access was recently working and suddenly stopped, ask if any recent ACL changes were made to the database, intentionally or by mistake",
+        "reason": "Recent administrative changes are a common and straightforward explanation for a sudden loss of previously working access"
+      },
+      {
+        "step": 7,
+        "action": "Once updated access is granted, close and reopen the database, since ACL changes sometimes require a fresh session to take full effect",
+        "reason": "This ensures the newly granted permissions are properly recognized and applied"
+      }
+    ],
+    "possible_solutions": [
+      "Request an updated ACL entry from the database owner or administrator",
+      "Confirm and correct group membership affecting access",
+      "Have a recent unintended ACL change reverted",
+      "Reopen the database after access changes to apply them properly"
+    ],
+    "prevention": [
+      "Review ACL entries carefully whenever a database is shared with new users",
+      "Communicate group membership changes that may affect database access",
+      "Document expected access levels for different user roles"
+    ],
+    "keywords": ["access denied notes", "not authorized notes database", "notes acl permissions", "database permission denied"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Database permission denied", "Cannot open NSF file", "Database unavailable"]
+  },
+
+  {
+    "id": "NOTES-020",
+    "category": "Lotus Notes",
+    "subcategory": "Application Interface",
+    "problem": "Notes workspace is missing or shows no database icons",
+    "description": "The user opens Notes and expects to see their usual workspace with database icons for mail and other applications, but the workspace appears empty, blank, or missing entirely.",
+    "symptoms": [
+      "Workspace tabs are empty with no database icons visible",
+      "Previously bookmarked databases no longer appear",
+      "Workspace looks reset to a default, blank state",
+      "May happen after a Notes update or reinstall"
+    ],
+    "possible_causes": [
+      "The desktop configuration file (desktop8.ndk or similar) has become corrupted",
+      "A recent Notes reinstall or update reset the workspace configuration",
+      "The user is logged in with a different Notes ID than usual, which has its own separate workspace",
+      "The workspace file was accidentally deleted or moved",
+      "A new Notes profile is being used for the first time"
+    ],
+    "diagnostic_questions": [
+      "Did this happen after a recent Notes update, reinstall, or computer change?",
+      "Are you logged in with your usual Notes ID, or possibly a different one?",
+      "Do you recall your workspace looking normal recently, or has it always looked empty on this computer?",
+      "Do you know if a workspace backup file exists from before this problem started?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm you are logged in with your correct, usual Notes ID by checking File > Security > User Security",
+        "reason": "Each ID file has its own separate workspace, and accidentally using a different or new ID would show an empty workspace that is not actually missing, just different"
+      },
+      {
+        "step": 2,
+        "action": "Check if this happened right after a Notes client update, reinstall, or migration to a new computer",
+        "reason": "These events can sometimes reset the workspace to its default empty state, especially if the previous workspace configuration file was not properly carried over"
+      },
+      {
+        "step": 3,
+        "action": "Check if a backup copy of the previous desktop configuration file exists, often named something like desktop8.ndk, in a backup location",
+        "reason": "Restoring a backup of this file can bring back the previous workspace layout and database icons directly"
+      },
+      {
+        "step": 4,
+        "action": "If no backup exists, manually re-add the important databases to the workspace using File > Application > Open, browsing to each needed database",
+        "reason": "This rebuilds a functional workspace from scratch, ensuring access to needed databases even without the original configuration file"
+      },
+      {
+        "step": 5,
+        "action": "For the mail file specifically, use File > Application > Open and connect to the mail server, then select your mail file to add it back to the workspace",
+        "reason": "This ensures the most critical database, the user's mail, is restored to the workspace as a priority"
+      },
+      {
+        "step": 6,
+        "action": "Once databases are manually re-added, create bookmarks for frequently used ones for easier future access, since some newer Notes versions favor bookmarks over the traditional workspace tabs",
+        "reason": "This provides a more resilient, easily recreated way to access important databases going forward"
+      },
+      {
+        "step": 7,
+        "action": "Contact the Notes administrator if you are unsure of the correct server names or paths needed to manually re-add specific company databases",
+        "reason": "They can provide the exact information needed to properly reconnect to each required corporate database"
+      }
+    ],
+    "possible_solutions": [
+      "Confirm the correct Notes ID is being used",
+      "Restore a backup copy of the desktop configuration file",
+      "Manually re-add important databases using File > Application > Open",
+      "Reconnect the mail file specifically as a priority",
+      "Recreate bookmarks for frequently used databases",
+      "Contact the administrator for correct server and database information"
+    ],
+    "prevention": [
+      "Keep a backup copy of the desktop configuration file",
+      "Document important database server names and paths",
+      "Use bookmarks in addition to workspace icons for redundancy",
+      "Confirm workspace data is properly migrated during computer changes"
+    ],
+    "keywords": ["notes workspace missing", "empty notes workspace", "notes database icons gone", "desktop8.ndk corrupted"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Lotus Notes won't open", "Cannot open NSF file"]
+  },
+
+  {
+    "id": "NOTES-021",
+    "category": "Lotus Notes",
+    "subcategory": "Login and Authentication",
+    "problem": "Notes password has expired",
+    "description": "When trying to log in, the user is informed that their Notes password has expired and must be changed before they can continue accessing Notes.",
+    "symptoms": [
+      "Message specifically stating the password has expired",
+      "Prompt to enter a new password appears during login",
+      "Login is blocked entirely until the password is changed",
+      "May happen suddenly based on a company-wide password expiration policy"
+    ],
+    "possible_causes": [
+      "The organization enforces a password expiration policy after a set number of days",
+      "The password was not changed proactively before reaching its expiration date",
+      "A password change was made on another computer, but this computer has not yet synced the new password information"
+    ],
+    "diagnostic_questions": [
+      "Does the message specifically mention that your password has expired, or is it a different error?",
+      "Do you know your organization's password expiration policy, such as every 90 days?",
+      "Have you changed your Notes password recently on a different computer?",
+      "Are you able to proceed with the password change prompt shown on screen?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Read the password expiration prompt carefully and follow the on-screen instructions to set a new password",
+        "reason": "Notes typically provides a direct, built-in process for changing an expired password right at the login screen"
+      },
+      {
+        "step": 2,
+        "action": "Choose a new password that meets your organization's password complexity requirements, such as minimum length and character variety",
+        "reason": "A new password that does not meet policy requirements will likely be rejected, requiring another attempt"
+      },
+      {
+        "step": 3,
+        "action": "After successfully setting the new password, confirm you can log in normally using it",
+        "reason": "This verifies the password change was fully successful and properly recognized by the system"
+      },
+      {
+        "step": 4,
+        "action": "If working on multiple computers with the same ID file, update the password on each computer, or ensure the ID file with the updated password is properly synced across them",
+        "reason": "Password changes made through Notes update the local ID file, and other computers with a separate copy of the older ID file will still use the old password until updated"
+      },
+      {
+        "step": 5,
+        "action": "If the password change process itself fails or shows an error, contact the Notes or IT administrator for assistance",
+        "reason": "In some cases, expired passwords require administrator-level action, especially if the standard self-service change process encounters an error"
+      },
+      {
+        "step": 6,
+        "action": "Going forward, consider setting a personal reminder a few days before your password is expected to expire, based on your organization's policy",
+        "reason": "This allows you to change the password proactively and avoid being unexpectedly blocked from logging in during an important task"
+      }
+    ],
+    "possible_solutions": [
+      "Follow the on-screen prompt to set a new password meeting policy requirements",
+      "Update the password consistently across multiple computers if applicable",
+      "Contact the Notes/IT administrator if the change process itself fails",
+      "Set a personal reminder to change passwords proactively before expiration"
+    ],
+    "prevention": [
+      "Change passwords proactively before their expiration date",
+      "Keep track of your organization's password expiration policy",
+      "Ensure the same updated ID file is used across all computers you log in from"
+    ],
+    "keywords": ["notes password expired", "must change password notes", "lotus notes password expiration", "expired password login notes"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": ["Incorrect password", "Cannot login"]
+  },
+
+  {
+    "id": "NOTES-022",
+    "category": "Lotus Notes",
+    "subcategory": "Application Features",
+    "problem": "Search is not working properly in Lotus Notes",
+    "description": "The user tries to search for specific emails or documents within a database, but the search returns no results, incorrect results, or an error, even though the content clearly exists.",
+    "symptoms": [
+      "Search returns zero results for content known to exist",
+      "Error message when trying to perform a search",
+      "Search results seem outdated, missing recently added items",
+      "Search works in some databases but not others"
+    ],
+    "possible_causes": [
+      "The full-text search index has not been created for this database",
+      "The search index exists but has become outdated or corrupted",
+      "The search index needs to be updated to include recently added documents",
+      "The search is being performed with incorrect search syntax or terms",
+      "A very large database causing search performance or reliability issues"
+    ],
+    "diagnostic_questions": [
+      "Does this happen with just one specific database, or with search across all databases?",
+      "Have you ever successfully searched in this database before?",
+      "Are you searching for very recently added or received items?",
+      "What exact search terms are you using, and does trying simpler terms change the result?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether a full-text search index has been created for this specific database by checking File > Application > Properties > Full Text tab",
+        "reason": "Notes requires a search index to be built before full-text searching can work effectively, and this is not always enabled by default"
+      },
+      {
+        "step": 2,
+        "action": "If no index exists, create one using the Create Index option in the same properties dialog",
+        "reason": "This builds the necessary search index, enabling full-text search to function correctly for this database going forward"
+      },
+      {
+        "step": 3,
+        "action": "If an index already exists but results seem outdated, manually update the index using the Update Index option",
+        "reason": "Indexes do not always update instantly with new content, and a manual update ensures the search reflects the most recent documents"
+      },
+      {
+        "step": 4,
+        "action": "Check if the search index is scheduled to update automatically, and adjust the schedule to run more frequently if search results often seem outdated",
+        "reason": "A more frequent update schedule ensures the search index stays closely aligned with the actual current content of the database"
+      },
+      {
+        "step": 5,
+        "action": "Try simplifying the search terms being used, removing any special characters or overly specific phrases",
+        "reason": "Incorrect search syntax can prevent Notes from finding results that would otherwise be located with a simpler search term"
+      },
+      {
+        "step": 6,
+        "action": "If the database is very large, be aware that search performance can be slower, and allow extra time for results to fully return",
+        "reason": "Extremely large databases naturally take longer to search thoroughly, which can sometimes appear as a search failure if results seem slow to arrive"
+      },
+      {
+        "step": 7,
+        "action": "If search continues to fail after confirming and updating the index, contact the Notes administrator, since the index itself may require a rebuild at the server level",
+        "reason": "Persistent search index problems sometimes require administrator tools to properly rebuild from scratch"
+      }
+    ],
+    "possible_solutions": [
+      "Create a full-text search index if one does not exist",
+      "Manually update an existing but outdated search index",
+      "Adjust the index update schedule to run more frequently",
+      "Simplify search terms and syntax",
+      "Have the administrator rebuild the index at the server level if needed"
+    ],
+    "prevention": [
+      "Enable full-text indexing for frequently searched databases",
+      "Set a reasonable automatic index update schedule",
+      "Use simple, clear search terms for best results",
+      "Periodically verify search functionality on important databases"
+    ],
+    "keywords": ["notes search not working", "full text search index notes", "search no results lotus notes", "update search index notes"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Lotus Notes running slowly", "Mail database unavailable"]
+  },
+
+  {
+    "id": "NOTES-023",
+    "category": "Lotus Notes",
+    "subcategory": "Calendar and Scheduling",
+    "problem": "Calendar is not syncing correctly",
+    "description": "The user's Notes calendar does not show meetings or appointments correctly, either missing recent invitations, showing outdated information, or not matching what is shown on another device or calendar application.",
+    "symptoms": [
+      "Recent meeting invitations do not appear on the calendar",
+      "Calendar entries are missing, duplicated, or show incorrect times",
+      "Changes made on a mobile device do not reflect in the desktop Notes calendar",
+      "Calendar looks different between the local replica and the server version"
+    ],
+    "possible_causes": [
+      "Replication between the local replica and server has not run recently or failed",
+      "A time zone mismatch causing meetings to display at incorrect times",
+      "Calendar profile settings are misconfigured",
+      "A specific calendar entry has become corrupted",
+      "Synchronization with an external calendar or mobile device is not properly configured"
+    ],
+    "diagnostic_questions": [
+      "Is this calendar issue happening in your local replica, or when connected directly to the server?",
+      "Are you comparing this to a calendar on a mobile device or another synced application?",
+      "Do you know if replication has run successfully recently for your mail file?",
+      "Have you noticed a consistent time difference, such as meetings appearing an hour off?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Manually trigger a replication of your mail file, since the calendar is typically part of the mail database",
+        "reason": "This ensures the most current calendar data from the server is pulled down to the local replica immediately"
+      },
+      {
+        "step": 2,
+        "action": "Check the replication history to confirm the replication completed successfully without errors",
+        "reason": "A failed or incomplete replication would directly explain why calendar changes are not appearing as expected"
+      },
+      {
+        "step": 3,
+        "action": "Check your Notes calendar profile settings under Preferences > Calendar and To Do, confirming the time zone setting matches your actual current location",
+        "reason": "A mismatched time zone setting is a common cause of meetings appearing to be at the wrong time, even though the underlying data is correct"
+      },
+      {
+        "step": 4,
+        "action": "If comparing against a mobile device or another calendar application, check that the synchronization method between Notes and that device is properly configured and currently working",
+        "reason": "Mismatches between Notes and external calendars often stem from a broken or misconfigured separate sync process, rather than a problem within Notes itself"
+      },
+      {
+        "step": 5,
+        "action": "For a specific calendar entry that seems corrupted or behaves unexpectedly, try opening it directly and checking its details for anything unusual, such as an incorrect date field",
+        "reason": "Individual corrupted entries can sometimes be identified and manually corrected or recreated"
+      },
+      {
+        "step": 6,
+        "action": "If problems persist across the whole calendar, consider rebuilding the calendar view index using the standard Notes view refresh or rebuild options",
+        "reason": "A corrupted or outdated calendar view index can cause entries to display incorrectly even when the underlying data is fine"
+      },
+      {
+        "step": 7,
+        "action": "Contact the Notes administrator if calendar synchronization problems continue, especially if they involve integration with external systems like a company-wide scheduling tool",
+        "reason": "Broader calendar synchronization issues, especially involving cross-system integration, often require administrator-level tools to properly diagnose"
+      }
+    ],
+    "possible_solutions": [
+      "Manually trigger and confirm successful replication",
+      "Correct the time zone setting in the calendar profile",
+      "Fix or reconfigure synchronization with an external calendar or mobile device",
+      "Manually correct a specific corrupted calendar entry",
+      "Rebuild the calendar view index",
+      "Contact the administrator for broader synchronization issues"
+    ],
+    "prevention": [
+      "Ensure replication runs regularly and successfully",
+      "Confirm time zone settings are correct, especially after travel",
+      "Regularly verify external calendar sync connections are working",
+      "Report calendar discrepancies to IT promptly"
+    ],
+    "keywords": ["notes calendar not syncing", "calendar entries missing notes", "notes calendar wrong time", "calendar replication issue"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Local replica not updating", "Replication failed", "Contacts missing"]
+  },
+
+  {
+    "id": "NOTES-024",
+    "category": "Lotus Notes",
+    "subcategory": "Contacts",
+    "problem": "Contacts are missing from the address book",
+    "description": "The user opens their Notes contacts (address book) expecting to see previously saved entries, but some or all contacts are missing, incomplete, or not appearing as expected.",
+    "symptoms": [
+      "Previously saved contacts no longer appear in the address book",
+      "Contacts appear with missing information, such as no email address",
+      "Recently added contacts do not show up",
+      "Contacts visible on another device are missing in the desktop Notes client"
+    ],
+    "possible_causes": [
+      "Replication between the local contacts replica and the server has not run recently or failed",
+      "Contacts were accidentally deleted",
+      "A corrupted local contacts (names.nsf) database",
+      "Contacts were saved to a different, unintended contacts database",
+      "Synchronization with a separate corporate directory or external contacts source is not functioning"
+    ],
+    "diagnostic_questions": [
+      "Are the missing contacts personal ones you added yourself, or ones from a shared/corporate directory?",
+      "Have you checked if replication has run successfully recently?",
+      "Do the missing contacts appear on another device or through webmail, if available?",
+      "Did you recently do anything that might have affected your contacts, such as an accidental deletion or a computer change?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether the missing contacts are personal entries you added yourself, versus entries that should be coming from a shared corporate directory",
+        "reason": "This distinguishes between a personal contacts database issue and a directory synchronization issue, which have very different causes and fixes"
+      },
+      {
+        "step": 2,
+        "action": "Manually trigger a replication of your local contacts (names.nsf) database if it is a replicated database",
+        "reason": "This ensures the most current contacts data from the server is properly synchronized to the local replica"
+      },
+      {
+        "step": 3,
+        "action": "Check the replication history for the contacts database to confirm it completed successfully",
+        "reason": "A failed replication would directly explain missing or outdated contact information"
+      },
+      {
+        "step": 4,
+        "action": "Check if the contacts might have been accidentally deleted by looking in the Trash or Deleted Documents folder within the contacts database, if available",
+        "reason": "Accidentally deleted contacts can sometimes be quickly recovered directly from a trash folder before it is permanently emptied"
+      },
+      {
+        "step": 5,
+        "action": "If personal contacts appear to be missing due to potential local database corruption, run a Fixup and Compact operation on the local names.nsf file",
+        "reason": "This can repair underlying database corruption that might be causing contacts to not display correctly"
+      },
+      {
+        "step": 6,
+        "action": "For missing corporate directory contacts, confirm with the Notes administrator that the directory synchronization or lookup service is functioning correctly on the server side",
+        "reason": "Corporate directory listings depend on a server-side process that is outside of the individual user's local contacts database"
+      },
+      {
+        "step": 7,
+        "action": "As a precaution going forward, periodically export important personal contacts to a backup file",
+        "reason": "This provides an additional safety net in case contacts are lost again due to accidental deletion or database issues"
+      }
+    ],
+    "possible_solutions": [
+      "Manually trigger and confirm successful contacts replication",
+      "Recover accidentally deleted contacts from the trash folder",
+      "Repair a corrupted local contacts database using Fixup and Compact",
+      "Have the administrator check corporate directory synchronization",
+      "Periodically back up personal contacts as a precaution"
+    ],
+    "prevention": [
+      "Ensure regular, successful replication of the contacts database",
+      "Periodically back up personal contacts",
+      "Be cautious when performing bulk deletions in the contacts database",
+      "Report corporate directory sync issues to IT promptly"
+    ],
+    "keywords": ["notes contacts missing", "address book empty notes", "names.nsf corrupted", "corporate directory not showing notes"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Calendar not syncing", "Local replica not updating", "NSF file corrupted"]
+  },
+
+  {
+    "id": "NOTES-025",
+    "category": "Lotus Notes",
+    "subcategory": "Archiving",
+    "problem": "Mail archiving fails or does not complete",
+    "description": "The user tries to archive older emails to reduce the size of their mail file, but the archiving process fails, shows an error, or does not actually move the expected messages to the archive.",
+    "symptoms": [
+      "Error message when trying to run the archive process",
+      "Archive process starts but does not complete",
+      "Emails remain in the main mail file even after archiving appears to run",
+      "Archive database is not created or cannot be found afterward"
+    ],
+    "possible_causes": [
+      "Insufficient disk space for creating or updating the archive database",
+      "Archive settings are misconfigured, such as an incorrect archive criteria or destination",
+      "The archive database itself has become corrupted",
+      "Interrupted archiving due to a crash or forced closure during the process",
+      "Insufficient permissions to create or write to the archive location"
+    ],
+    "diagnostic_questions": [
+      "What exact error message appears when archiving fails, if any?",
+      "Do you know how much free disk space is currently available on this computer?",
+      "Have you successfully archived mail before, or is this your first attempt?",
+      "Where is the archive database supposed to be located, and does that location still exist and is accessible?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check available free disk space on the computer, since archiving requires enough room to create or expand the archive database",
+        "reason": "Insufficient disk space is one of the most common and straightforward reasons an archiving process fails partway through"
+      },
+      {
+        "step": 2,
+        "action": "Free up disk space if it is low, then attempt the archiving process again",
+        "reason": "This directly addresses a lack of storage space, which is required for the archive operation to complete successfully"
+      },
+      {
+        "step": 3,
+        "action": "Review your archive settings under File > Preferences > Archive to confirm the criteria and destination location are correctly configured",
+        "reason": "Misconfigured settings, such as an invalid destination path, can prevent archiving from working correctly even with sufficient disk space"
+      },
+      {
+        "step": 4,
+        "action": "Confirm the archive database location still exists and that you have write permissions to it",
+        "reason": "If the intended archive folder has been moved, deleted, or permissions have changed, archiving will fail to create or update the archive file there"
+      },
+      {
+        "step": 5,
+        "action": "If the archive process was interrupted by a crash or forced closure previously, check the existing archive database for corruption using Fixup and Compact",
+        "reason": "An interrupted archiving operation can leave the archive database in a partially corrupted state that needs repair before further archiving can succeed"
+      },
+      {
+        "step": 6,
+        "action": "Try running the archive process again, allowing it to complete fully without interruption, ideally when the computer will not need to be restarted or closed",
+        "reason": "This avoids repeating the same interruption issue that may have caused the original failure"
+      },
+      {
+        "step": 7,
+        "action": "If archiving continues to fail despite these steps, contact the Notes administrator, since some archive configurations are managed at a company policy level and may need administrator adjustment",
+        "reason": "Corporate archive policies are sometimes centrally configured, and only an administrator can correct certain settings"
+      }
+    ],
+    "possible_solutions": [
+      "Free up disk space before archiving",
+      "Correct misconfigured archive settings and destination",
+      "Restore or recreate access to a missing archive location",
+      "Repair a corrupted archive database using Fixup and Compact",
+      "Allow the archive process to run uninterrupted",
+      "Contact the administrator for centrally managed archive policy issues"
+    ],
+    "prevention": [
+      "Regularly check and maintain adequate free disk space",
+      "Avoid interrupting the archiving process once started",
+      "Periodically verify archive settings remain correctly configured",
+      "Schedule archiving during times when the computer will not need to restart"
+    ],
+    "keywords": ["notes archive failed", "mail archiving not working", "archive database error notes", "archive disk space notes"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Lotus Notes running slowly", "NSF file corrupted", "Mail database unavailable"]
+  },
+
+  {
+    "id": "NOTES-026",
+    "category": "Lotus Notes",
+    "subcategory": "Email Attachments",
+    "problem": "Cannot open an email attachment",
+    "description": "The user receives an email with an attachment, but when trying to open it, Notes shows an error, the attachment fails to launch, or the associated program does not open the file correctly.",
+    "symptoms": [
+      "Error message when double-clicking the attachment",
+      "Attachment icon appears but nothing happens when opened",
+      "Associated program opens but shows the file as corrupted or unreadable",
+      "Attachment opens correctly for some file types but not others"
+    ],
+    "possible_causes": [
+      "The file type of the attachment is blocked by security policy",
+      "No program is installed on the computer that can open this specific file type",
+      "The attachment itself is corrupted",
+      "Antivirus software is blocking or quarantining the attachment",
+      "The attachment did not fully download or transfer correctly"
+    ],
+    "diagnostic_questions": [
+      "What is the file type of the attachment, such as .pdf, .docx, or .exe?",
+      "Does this happen with all attachments, or just this specific one or specific file types?",
+      "Is there a specific error message, or does nothing happen at all when trying to open it?",
+      "Do you have a program installed that is normally used to open this type of file?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the exact file type (extension) of the attachment to understand what program should normally be used to open it",
+        "reason": "This helps confirm whether an appropriate program is even available on the computer to handle this specific file type"
+      },
+      {
+        "step": 2,
+        "action": "Try saving the attachment to the computer first using right-click > Save As, then open the saved file directly rather than opening it straight from within Notes",
+        "reason": "Opening a saved local copy sometimes works even when direct opening from within the email fails, and also helps isolate whether the issue is with Notes or the file itself"
+      },
+      {
+        "step": 3,
+        "action": "Confirm that a program capable of opening this specific file type is installed on the computer, and install one if needed",
+        "reason": "Notes relies on other installed programs to actually open most attachment types, and a missing program will cause the attachment to fail to open properly"
+      },
+      {
+        "step": 4,
+        "action": "Check if certain file types, such as executable (.exe) or script files, are being blocked by a company security policy",
+        "reason": "Many organizations intentionally block potentially dangerous attachment types as a security measure, which is expected behavior rather than a malfunction"
+      },
+      {
+        "step": 5,
+        "action": "Check antivirus quarantine logs to see if the attachment was automatically flagged and blocked or removed as a security precaution",
+        "reason": "Antivirus software sometimes silently blocks or quarantines attachments it considers suspicious, which can appear to the user as the attachment simply failing to open"
+      },
+      {
+        "step": 6,
+        "action": "If the attachment appears corrupted, contact the original sender and ask them to resend it, ideally checking the file opens correctly on their end first",
+        "reason": "This confirms whether the problem originated with the file itself before it was even sent, which the sender can verify"
+      },
+      {
+        "step": 7,
+        "action": "If a legitimate business file type is being blocked by company policy and is genuinely needed, contact the Notes or IT administrator to discuss a possible policy exception",
+        "reason": "Legitimate business needs for otherwise-blocked file types typically require formal administrator review and approval"
+      }
+    ],
+    "possible_solutions": [
+      "Save the attachment locally before opening it",
+      "Install the appropriate program for the specific file type",
+      "Understand and work within company security policies blocking certain file types",
+      "Recover a mistakenly quarantined attachment from antivirus logs",
+      "Request the sender resend a corrupted attachment",
+      "Request a policy exception from IT for legitimate blocked file types"
+    ],
+    "prevention": [
+      "Keep appropriate programs installed for commonly received file types",
+      "Understand your organization's attachment security policies",
+      "Confirm large or unusual attachments with the sender before assuming a technical fault",
+      "Keep antivirus software properly configured to minimize false positives"
+    ],
+    "keywords": ["cannot open attachment notes", "notes attachment blocked", "attachment corrupted email", "notes attachment security policy"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Cannot receive email", "Encryption error"]
+  },
+
+  {
+    "id": "NOTES-027",
+    "category": "Lotus Notes",
+    "subcategory": "Security and Encryption",
+    "problem": "Encryption error when opening or sending mail",
+    "description": "The user tries to open an encrypted email, or send a message using encryption, but receives an error preventing the encryption or decryption process from completing successfully.",
+    "symptoms": [
+      "Error message such as 'You are not able to decrypt this document'",
+      "Encrypted email cannot be opened even though it was clearly sent to the correct recipient",
+      "Error when trying to send an email using encryption",
+      "Encryption-related errors mentioning certificates or public keys"
+    ],
+    "possible_causes": [
+      "The recipient's public key is missing from the sender's address book, preventing proper encryption",
+      "The local ID file used for decryption is corrupted or outdated",
+      "The email was encrypted using a certificate that has since expired or been replaced",
+      "The user is trying to open the encrypted email using a different ID file than the one it was originally encrypted for",
+      "A mismatch between the sender's and recipient's security certificates"
+    ],
+    "diagnostic_questions": [
+      "Are you trying to open an email someone sent you, or trying to send an encrypted email yourself?",
+      "What is the exact error message shown?",
+      "Have you successfully opened encrypted emails from this same sender before?",
+      "Has your Notes ID file been recently reissued, restored, or changed?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message and whether the problem is with sending or receiving encrypted mail",
+        "reason": "This distinguishes between an issue with your own ID and certificates versus an issue related to the sender's encryption setup"
+      },
+      {
+        "step": 2,
+        "action": "If trying to send an encrypted email, confirm that the recipient's public key (certificate) is present and current in your address book",
+        "reason": "Notes requires the recipient's public key to properly encrypt a message specifically for them, and a missing or outdated key will cause the encryption process to fail"
+      },
+      {
+        "step": 3,
+        "action": "If the recipient's key is missing or outdated, request an updated business card or public key from them, or look them up again in the corporate directory if available",
+        "reason": "This provides the current, correct key needed to successfully encrypt future messages to that recipient"
+      },
+      {
+        "step": 4,
+        "action": "If trying to open an encrypted email you received, confirm you are logged in with the correct ID file that the message was originally encrypted for",
+        "reason": "An encrypted email can only be decrypted using the specific matching private key from the correct ID file, and using a different or newly issued ID will cause decryption to fail"
+      },
+      {
+        "step": 5,
+        "action": "If your ID file was recently reissued or restored from a backup, be aware that older encrypted emails may only be decryptable with your previous key information, which should typically be included when an ID is properly reissued with key history",
+        "reason": "This explains a specific and common cause of being unable to open older encrypted emails after an ID file change"
+      },
+      {
+        "step": 6,
+        "action": "Contact the Notes or Domino administrator if a decryption failure persists, since they can check your ID file's key history and certificate status",
+        "reason": "Certificate and key history issues typically require administrator-level tools to properly diagnose and correct"
+      },
+      {
+        "step": 7,
+        "action": "If the issue is related to an expired certificate, work with the administrator to renew or reissue the necessary certificates",
+        "reason": "Expired certificates need to be formally renewed through the organization's certificate authority process, which is managed by the Domino administrator"
+      }
+    ],
+    "possible_solutions": [
+      "Obtain an updated public key or business card from the recipient before sending encrypted mail",
+      "Confirm you are using the correct ID file to decrypt received mail",
+      "Have the administrator check your ID's key history after a reissue",
+      "Renew expired certificates through the Domino administrator",
+      "Contact the administrator for persistent decryption failures"
+    ],
+    "prevention": [
+      "Regularly update contacts' public keys in your address book",
+      "Keep track of certificate expiration dates",
+      "Ensure key history is preserved when an ID file is reissued",
+      "Coordinate with IT before making major changes to your Notes ID"
+    ],
+    "keywords": ["notes encryption error", "cannot decrypt email notes", "public key missing notes", "certificate expired notes"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-50 minutes",
+    "related_problems": ["ID file corrupted", "Cannot open attachment", "ID file missing"]
+  },
+
+  {
+    "id": "NOTES-028",
+    "category": "Lotus Notes",
+    "subcategory": "Access Permissions",
+    "problem": "Database permission denied for a specific action",
+    "description": "The user can open a database but is denied permission when trying to perform a specific action within it, such as creating a new document, editing an existing one, or deleting content.",
+    "symptoms": [
+      "Error message such as 'You do not have sufficient access to perform this operation'",
+      "Certain buttons or menu options appear greyed out or missing",
+      "Can view documents but cannot edit or create new ones",
+      "Permission works for some documents within the database but not others"
+    ],
+    "possible_causes": [
+      "The user's access control list (ACL) role allows reading but not editing or creating documents",
+      "Specific documents have additional reader or author field restrictions beyond the general database ACL",
+      "The user's role was recently changed to a more restricted level",
+      "A form or view has design-level restrictions limiting certain actions to specific roles"
+    ],
+    "diagnostic_questions": [
+      "What specific action were you trying to perform when the permission was denied, such as creating, editing, or deleting?",
+      "Does this happen with all documents in the database, or just specific ones?",
+      "Have you been able to perform this same action successfully before?",
+      "Do you know what access level (such as Reader, Author, or Editor) you currently have in this database?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact action being denied and whether it happens with all documents or just specific ones",
+        "reason": "This helps distinguish between a general database-level ACL restriction and a more specific document-level reader/author field restriction"
+      },
+      {
+        "step": 2,
+        "action": "Check your current access level for the database, if visible, through File > Application > Access Control, or ask the administrator to confirm",
+        "reason": "This directly shows whether your assigned role, such as Reader or Author, actually supports the action you are trying to perform"
+      },
+      {
+        "step": 3,
+        "action": "If your role is Reader but you need to create or edit documents, request an upgrade to Author or Editor access from the database owner or administrator",
+        "reason": "Reader access intentionally only allows viewing, and creating or editing requires a higher assigned role"
+      },
+      {
+        "step": 4,
+        "action": "If the restriction happens only with specific documents, check if those documents have special Reader or Author field restrictions applied at the document level, separate from the general database ACL",
+        "reason": "Individual documents can have additional field-based access restrictions that override the general database-wide access level for that specific content"
+      },
+      {
+        "step": 5,
+        "action": "If document-level restrictions seem to be the cause, contact the document's creator or the database administrator to request being added to the appropriate reader or author field for that content",
+        "reason": "This directly addresses restrictions that exist beyond the general database ACL and require adjustment at the individual document or form design level"
+      },
+      {
+        "step": 6,
+        "action": "If your access level was recently reduced unexpectedly, ask the administrator if this was an intentional change or possibly an error",
+        "reason": "Understanding whether this is intentional helps determine the appropriate next step, whether requesting a policy exception or reporting a mistake"
+      },
+      {
+        "step": 7,
+        "action": "Once updated permissions are granted, close and reopen the database to ensure the new access level is properly recognized",
+        "reason": "This ensures the change takes full effect within your current Notes session"
+      }
+    ],
+    "possible_solutions": [
+      "Request an appropriate access level upgrade from the database owner or administrator",
+      "Request inclusion in document-level reader/author field restrictions where needed",
+      "Confirm whether a reduced access level was intentional or a mistake",
+      "Reopen the database after permission changes to apply them"
+    ],
+    "prevention": [
+      "Confirm the correct access level is assigned when first granted database access",
+      "Understand the difference between database-level ACL and document-level field restrictions",
+      "Communicate access needs clearly to database owners"
+    ],
+    "keywords": ["database permission denied notes", "insufficient access notes", "cannot edit document notes", "reader author fields notes"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Access denied", "Cannot open NSF file", "Database unavailable"]
+  },
+
+  {
+    "id": "NOTES-029",
+    "category": "Lotus Notes",
+    "subcategory": "Custom Applications",
+    "problem": "A company-specific application will not open within Notes",
+    "description": "The user tries to open a custom business application built on the Notes platform, such as a timesheet or approval system, but the application fails to open or shows an error specific to that application.",
+    "symptoms": [
+      "Error message specific to the custom application when trying to open it",
+      "Application icon exists but clicking it produces no response",
+      "Application opens but shows a blank or broken interface",
+      "Other standard Notes functions, like mail, continue to work normally"
+    ],
+    "possible_causes": [
+      "The custom application database has been moved, renamed, or is temporarily unavailable",
+      "The user lacks the correct access permissions specifically for this application",
+      "A recent update to the application introduced a bug or compatibility issue",
+      "The application relies on a specific Notes client version or configuration that is not currently met",
+      "The underlying database for the application has become corrupted"
+    ],
+    "diagnostic_questions": [
+      "What is the exact name of the custom application experiencing the problem?",
+      "Does this happen only with this specific application, while mail and other standard functions work fine?",
+      "Have you used this application successfully before, or is this your first time?",
+      "Do other coworkers who use the same application have the same problem right now?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the exact name of the custom application and note the specific error message, if any",
+        "reason": "Custom applications can have very specific issues, and precise details are essential for the administrator or application support team to diagnose the problem"
+      },
+      {
+        "step": 2,
+        "action": "Check if other coworkers who use the same application are currently experiencing the same issue",
+        "reason": "This helps determine if the problem is isolated to your account or computer, or represents a broader application-wide issue"
+      },
+      {
+        "step": 3,
+        "action": "Confirm your standard Notes functions, such as mail, continue to work normally",
+        "reason": "This helps isolate whether the problem is specific to this one application, or part of a wider Notes client or connectivity issue"
+      },
+      {
+        "step": 4,
+        "action": "Try opening the application from a bookmark or shortcut rather than a workspace icon, or vice versa, to rule out a broken specific link",
+        "reason": "Sometimes only one specific access point to the application is broken, while an alternative path still works correctly"
+      },
+      {
+        "step": 5,
+        "action": "Check if there has been a recent update or change announced for this specific application by the internal team responsible for it",
+        "reason": "Custom applications are often maintained by an internal development or business team who may be aware of recent, relevant changes"
+      },
+      {
+        "step": 6,
+        "action": "Contact the internal team or department responsible for maintaining this specific custom application, since they typically handle its unique support separate from general Notes/IT support",
+        "reason": "Custom business applications often have their own dedicated support contacts who understand the application's specific design and common issues"
+      },
+      {
+        "step": 7,
+        "action": "If the responsible team is unavailable or unknown, escalate through the general Notes or IT administrator, who can direct the issue appropriately or investigate underlying database health",
+        "reason": "The Notes administrator can at minimum check the general health and accessibility of the underlying database, even if they are not the application's primary business owner"
+      }
+    ],
+    "possible_solutions": [
+      "Report the specific application and error details to its responsible internal team",
+      "Try an alternative access point (bookmark versus workspace icon) to the application",
+      "Escalate through the general Notes/IT administrator if the responsible team is unknown",
+      "Wait for a known application issue to be resolved by its maintaining team"
+    ],
+    "prevention": [
+      "Keep a record of who is responsible for supporting each custom Notes application",
+      "Report custom application issues promptly with specific error details",
+      "Stay informed of planned updates to frequently used custom applications"
+    ],
+    "keywords": ["custom notes application not opening", "company application error notes", "business application notes broken", "notes app specific error"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-45 minutes (may require escalation)",
+    "related_problems": ["Database unavailable", "Access denied", "NSF file corrupted"]
+  },
+
+  {
+    "id": "NOTES-030",
+    "category": "Lotus Notes",
+    "subcategory": "Application Performance",
+    "problem": "Lotus Notes is running slowly overall",
+    "description": "The user finds that Lotus Notes generally feels sluggish, with delays when opening emails, switching folders, or performing everyday tasks, even without a specific error or crash occurring.",
+    "symptoms": [
+      "Noticeable delay when opening emails or switching between folders",
+      "Typing or scrolling within Notes feels laggy",
+      "Opening the application itself takes longer than usual",
+      "Slowness may be constant or worsen over the course of the day"
+    ],
+    "possible_causes": [
+      "A very large mail file that has not been archived recently",
+      "Outdated or fragmented local view indexes",
+      "A slow or degraded network connection to the Domino server",
+      "Insufficient system memory or an outdated computer for current Notes requirements",
+      "Antivirus software actively scanning Notes data files in real time",
+      "Too many databases or replicas configured to sync simultaneously"
+    ],
+    "diagnostic_questions": [
+      "How large is your mail file currently, and when was it last archived?",
+      "Does the slowness happen with all databases, or mainly with mail specifically?",
+      "Are you connected to the office network directly, or working remotely?",
+      "Does slowness happen consistently throughout the day, or does it seem to build up over time?"
+    ],
+    "commands": [
+      {
+        "command": "taskmgr",
+        "purpose": "Check overall CPU, memory, and disk usage to see if Notes or another process is consuming excessive resources",
+        "expected_result": "Reasonable resource usage consistent with normal Notes operation",
+        "abnormal_result": "Notes or a related process shows unusually high, sustained resource usage, pointing to a specific performance bottleneck"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the current size of your mail file and compare it to your organization's recommended size before performance issues typically begin",
+        "reason": "An oversized mail file is one of the most common and significant causes of general Notes slowness"
+      },
+      {
+        "step": 2,
+        "action": "Archive older emails to reduce your mail file size if it has grown very large",
+        "reason": "Reducing the active mail file size directly improves indexing, opening, and general performance"
+      },
+      {
+        "step": 3,
+        "action": "Check your network connection quality to the Domino server, especially if working remotely over VPN",
+        "reason": "A slow or unstable network connection can make Notes feel sluggish even when the client and databases themselves are healthy"
+      },
+      {
+        "step": 4,
+        "action": "Check Task Manager for overall CPU, memory, and disk usage while using Notes to identify if system resources are a limiting factor",
+        "reason": "This helps determine if the slowness is related to Notes itself, or a broader resource constraint on the computer"
+      },
+      {
+        "step": 5,
+        "action": "Confirm the Notes data directory is properly excluded from real-time antivirus scanning",
+        "reason": "Antivirus software actively scanning large Notes database files during normal use is a common but often overlooked cause of ongoing slowness"
+      },
+      {
+        "step": 6,
+        "action": "Review how many databases and replicas are configured to synchronize automatically, and consider reducing unnecessary ones",
+        "reason": "Excessive simultaneous replication activity can consume significant system and network resources, slowing down the overall Notes experience"
+      },
+      {
+        "step": 7,
+        "action": "Rebuild view indexes for frequently used, large databases, including your mail file",
+        "reason": "Outdated or fragmented view indexes can significantly slow down how quickly Notes can display folder contents and search results"
+      },
+      {
+        "step": 8,
+        "action": "If the computer itself is old or has limited memory, consider whether a hardware upgrade might be needed to meet current Notes client requirements",
+        "reason": "Notes client requirements can increase with newer versions, and older hardware may simply struggle to keep up regardless of software optimization"
+      },
+      {
+        "step": 9,
+        "action": "Contact the Notes administrator if slowness persists despite these steps, since server-side performance or configuration issues may also be contributing",
+        "reason": "Some performance factors, such as server load or network infrastructure, are outside what an individual user can diagnose or resolve alone"
+      }
+    ],
+    "possible_solutions": [
+      "Archive older emails to reduce mail file size",
+      "Improve network connection quality, especially for remote users",
+      "Exclude Notes data files from real-time antivirus scanning",
+      "Reduce unnecessary simultaneous database replication",
+      "Rebuild view indexes for large, frequently used databases",
+      "Upgrade computer hardware if it no longer meets current requirements",
+      "Contact the administrator for potential server-side performance factors"
+    ],
+    "prevention": [
+      "Archive mail regularly to keep file size manageable",
+      "Maintain a stable, reasonably fast network connection",
+      "Keep antivirus exclusions properly configured for Notes",
+      "Periodically review and clean up unnecessary database replicas",
+      "Keep computer hardware reasonably current for the Notes client version in use"
+    ],
+    "keywords": ["lotus notes slow", "notes running slowly", "notes performance issues", "notes sluggish mail file large"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-50 minutes",
+    "related_problems": ["Lotus Notes not responding", "Archive failed", "Search not working"]
+  }
+]

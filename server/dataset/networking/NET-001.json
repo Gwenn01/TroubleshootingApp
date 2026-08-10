@@ -1,0 +1,3637 @@
+[
+  {
+    "id": "NET-001",
+    "category": "Networking",
+    "subcategory": "Internet Connectivity",
+    "problem": "No Internet Connection",
+    "description": "The computer cannot reach the internet at all. This may show as 'No Internet' next to the network icon, and no websites or online apps work.",
+    "symptoms": [
+      "Network icon shows a red X or 'No Internet' warning",
+      "Browser shows 'This site can't be reached' for all websites",
+      "No apps that need internet will load or sync"
+    ],
+    "possible_causes": [
+      "Modem or router is powered off or malfunctioning",
+      "ISP outage in the area",
+      "Cable (Ethernet) unplugged or WiFi disconnected",
+      "Wrong network settings (IP, DNS, gateway)",
+      "Network adapter driver problem",
+      "Firewall or antivirus blocking all traffic"
+    ],
+    "diagnostic_questions": [
+      "Is only this computer affected, or all devices on the network?",
+      "Are the modem and router powered on with normal-looking lights?",
+      "Is this a wired or wireless connection?",
+      "Did this start suddenly or after any recent change, like a storm, move, or software install?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check the computer's current IP address, gateway, and DNS settings",
+        "expected_result": "Valid IP address, subnet, gateway, and DNS shown for the active adapter",
+        "abnormal_result": "No IP address, or an address starting with 169.254.x.x, meaning no valid network config was received"
+      },
+      {
+        "command": "ping 8.8.8.8",
+        "purpose": "Test raw internet connectivity to a known reliable IP address, bypassing DNS",
+        "expected_result": "Replies received",
+        "abnormal_result": "Request timed out, meaning there is no path to the internet at all"
+      },
+      {
+        "command": "ping google.com",
+        "purpose": "Test internet connectivity including DNS name resolution",
+        "expected_result": "Replies received with google.com resolved to an IP",
+        "abnormal_result": "'Ping request could not find host' means a DNS problem rather than a raw connectivity problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if other devices on the same network (phone, another computer) also have no internet",
+        "reason": "Determines if the problem is with this computer specifically or the whole network/ISP"
+      },
+      {
+        "step": 2,
+        "action": "Check the modem and router for normal status lights, especially the internet/WAN light",
+        "reason": "An abnormal or off WAN light usually points to an ISP-side or modem problem"
+      },
+      {
+        "step": 3,
+        "action": "Run ipconfig /all to check if the computer has a valid IP address",
+        "reason": "No valid IP means the computer never properly joined the local network"
+      },
+      {
+        "step": 4,
+        "action": "Ping 8.8.8.8 to test raw connectivity, then ping google.com to test DNS",
+        "reason": "Separates a pure connectivity problem from a DNS-only problem"
+      },
+      {
+        "step": 5,
+        "action": "Restart the modem and router by powering them off for 30 seconds, then back on",
+        "reason": "Resolves the majority of temporary ISP and router connection issues"
+      },
+      {
+        "step": 6,
+        "action": "Contact the ISP if the WAN light stays off or red after a restart",
+        "reason": "Indicates an outage or line problem outside the local network"
+      }
+    ],
+    "possible_solutions": [
+      "Restart modem and router",
+      "Check and reseat all cables",
+      "Renew the IP address with ipconfig /release and ipconfig /renew",
+      "Contact ISP if the outage is confirmed on their end",
+      "Update or reinstall the network adapter driver"
+    ],
+    "prevention": [
+      "Use a surge protector for modem and router",
+      "Keep router firmware updated",
+      "Avoid unplugging networking equipment during active updates"
+    ],
+    "keywords": [
+      "no internet connection",
+      "internet not working",
+      "no internet access pc"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": [
+      "NET-002",
+      "NET-004",
+      "NET-021"
+    ]
+  },
+  {
+    "id": "NET-002",
+    "category": "Networking",
+    "subcategory": "Internet Connectivity",
+    "problem": "Internet Connected but Cannot Browse",
+    "description": "The network icon shows a normal connected status, but web pages will not load in the browser.",
+    "symptoms": [
+      "Network status shows connected with no warning icon",
+      "Browser shows 'This site can't be reached' or keeps loading forever",
+      "Other network apps like games or file sync may still work"
+    ],
+    "possible_causes": [
+      "DNS server not resolving website names",
+      "Browser-specific issue like cache, extensions, or proxy settings",
+      "Firewall blocking the browser specifically",
+      "ISP DNS server down",
+      "Malware redirecting or blocking browser traffic"
+    ],
+    "diagnostic_questions": [
+      "Does this happen in all browsers or just one?",
+      "Can you browse using a mobile data connection to compare?",
+      "Have you tried visiting a website by typing its raw IP address?",
+      "Were any new browser extensions or antivirus programs installed recently?"
+    ],
+    "commands": [
+      {
+        "command": "ping 8.8.8.8",
+        "purpose": "Check if raw internet connectivity works even though browsing fails",
+        "expected_result": "Replies received, confirming the internet connection itself is fine",
+        "abnormal_result": "Timeout would mean this is not just a browser issue but a deeper connectivity problem"
+      },
+      {
+        "command": "nslookup google.com",
+        "purpose": "Test whether DNS name resolution is working",
+        "expected_result": "Returns an IP address for google.com",
+        "abnormal_result": "'DNS request timed out' or no answer means DNS resolution is failing"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Ping 8.8.8.8 to confirm the raw internet connection works",
+        "reason": "If this succeeds, the problem is isolated to DNS or the browser, not the network connection itself"
+      },
+      {
+        "step": 2,
+        "action": "Run nslookup on a well-known domain to test DNS resolution",
+        "reason": "Confirms whether DNS is the specific point of failure"
+      },
+      {
+        "step": 3,
+        "action": "Try a different browser to see if the problem is browser-specific",
+        "reason": "Narrows the cause to one application versus the whole system"
+      },
+      {
+        "step": 4,
+        "action": "Change the DNS server to a public one like 8.8.8.8 or 1.1.1.1 in network adapter settings",
+        "reason": "Bypasses a malfunctioning ISP DNS server"
+      },
+      {
+        "step": 5,
+        "action": "Clear the browser cache and disable extensions one by one",
+        "reason": "Corrupted cache or a bad extension can block or break page loading"
+      },
+      {
+        "step": 6,
+        "action": "Run a malware scan if the problem persists across all browsers and DNS changes",
+        "reason": "Some malware intercepts or redirects browser traffic silently"
+      }
+    ],
+    "possible_solutions": [
+      "Change DNS server to a public DNS like 8.8.8.8 or 1.1.1.1",
+      "Clear browser cache and cookies",
+      "Disable browser extensions one at a time to find the culprit",
+      "Run a malware/antivirus scan",
+      "Reset the browser to default settings"
+    ],
+    "prevention": [
+      "Keep browser and extensions updated",
+      "Avoid installing browser extensions from unknown sources",
+      "Periodically clear browser cache"
+    ],
+    "keywords": [
+      "internet connected no browsing",
+      "cant open websites",
+      "connected but no access"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-001",
+      "NET-016"
+    ]
+  },
+  {
+    "id": "NET-003",
+    "category": "Networking",
+    "subcategory": "Internet Connectivity",
+    "problem": "Limited Internet Access",
+    "description": "Windows shows 'Limited' next to the network connection, meaning the device is connected to the local network but cannot reach the internet properly.",
+    "symptoms": [
+      "Network icon shows a yellow warning triangle or 'Limited' status",
+      "Local network devices may be reachable, but internet is not",
+      "Sometimes intermittently works then drops back to limited"
+    ],
+    "possible_causes": [
+      "Router failed to provide internet access even though local connection is fine",
+      "APIPA address (169.254.x.x) assigned instead of a real DHCP address",
+      "Router's WAN connection to the ISP is down",
+      "Network adapter driver issue"
+    ],
+    "diagnostic_questions": [
+      "Does the IP address shown start with 169.254?",
+      "Is the router's internet/WAN light on and normal?",
+      "Can you access other devices on the local network, like a printer or another computer?",
+      "Does restarting the adapter or router fix it temporarily?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig",
+        "purpose": "Check the current IP address type and range",
+        "expected_result": "A normal private IP like 192.168.x.x or 10.x.x.x",
+        "abnormal_result": "An address starting with 169.254.x.x (APIPA) confirms no valid DHCP address was received"
+      },
+      {
+        "command": "ipconfig /release",
+        "purpose": "Release the current IP address configuration",
+        "expected_result": "Adapter releases its IP with no error",
+        "abnormal_result": "Error releasing may indicate a deeper adapter or driver issue"
+      },
+      {
+        "command": "ipconfig /renew",
+        "purpose": "Request a new IP address from the DHCP server",
+        "expected_result": "A valid new IP address is assigned",
+        "abnormal_result": "Renewal fails or still returns a 169.254.x.x address, pointing to a DHCP or router problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the IP address with ipconfig to see if it is an APIPA (169.254.x.x) address",
+        "reason": "This confirms the computer failed to get an address from the router's DHCP service"
+      },
+      {
+        "step": 2,
+        "action": "Release and renew the IP address using ipconfig /release then ipconfig /renew",
+        "reason": "Forces a fresh request for network configuration"
+      },
+      {
+        "step": 3,
+        "action": "Restart the router if renewal fails or the same APIPA address returns",
+        "reason": "The router's DHCP service may have stopped or crashed"
+      },
+      {
+        "step": 4,
+        "action": "Check the router's WAN status to confirm it has internet from the ISP",
+        "reason": "A router without WAN internet can still hand out local IPs but with limited access"
+      },
+      {
+        "step": 5,
+        "action": "Update the network adapter driver if the problem is isolated to one computer",
+        "reason": "An outdated or corrupted driver can prevent proper DHCP negotiation"
+      }
+    ],
+    "possible_solutions": [
+      "Release and renew the IP address",
+      "Restart the router",
+      "Update the network adapter driver",
+      "Manually set a static IP as a temporary workaround",
+      "Check ISP status if the router's WAN connection is down"
+    ],
+    "prevention": [
+      "Keep router firmware updated",
+      "Ensure the router's DHCP pool is large enough for all connected devices",
+      "Restart the router periodically if it is older hardware"
+    ],
+    "keywords": [
+      "limited internet access",
+      "limited connectivity windows",
+      "yellow triangle network icon"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-001",
+      "NET-018",
+      "NET-019"
+    ]
+  },
+  {
+    "id": "NET-004",
+    "category": "Networking",
+    "subcategory": "Internet Connectivity",
+    "problem": "Slow Internet Connection",
+    "description": "The internet connection works but is much slower than expected, with pages loading slowly and downloads taking longer than normal.",
+    "symptoms": [
+      "Web pages load slowly",
+      "Streaming buffers frequently",
+      "Download and upload speeds are far below the subscribed plan",
+      "Speed test results are consistently low"
+    ],
+    "possible_causes": [
+      "Too many devices using bandwidth at the same time",
+      "Weak WiFi signal instead of wired connection",
+      "ISP throttling or an outage affecting speed",
+      "Malware or background applications using bandwidth",
+      "Outdated router hardware or firmware",
+      "Physical line or cable issues"
+    ],
+    "diagnostic_questions": [
+      "Is this slow on all devices or just one?",
+      "Are you connected by WiFi or Ethernet cable?",
+      "How many devices are actively using the internet right now?",
+      "Have you run a speed test, and how does it compare to your subscribed plan?"
+    ],
+    "commands": [
+      {
+        "command": "ping google.com -n 10",
+        "purpose": "Check for high latency or inconsistent response times that could explain slowness",
+        "expected_result": "Consistent low response times, for example under 50ms",
+        "abnormal_result": "High or wildly varying response times suggest network congestion or an unstable connection"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Run a speed test connected via Ethernet cable directly to the router",
+        "reason": "Rules out WiFi signal issues and tests the true line speed"
+      },
+      {
+        "step": 2,
+        "action": "Check how many devices are connected and actively using bandwidth, such as downloads or streaming",
+        "reason": "Bandwidth is shared, and heavy usage by other devices reduces available speed"
+      },
+      {
+        "step": 3,
+        "action": "Restart the modem and router",
+        "reason": "Clears temporary congestion or performance issues in the networking equipment"
+      },
+      {
+        "step": 4,
+        "action": "Check for background applications or updates consuming bandwidth on the affected computer",
+        "reason": "Automatic updates or cloud sync tools can silently use large amounts of bandwidth"
+      },
+      {
+        "step": 5,
+        "action": "Compare the speed test result to the plan speed from the ISP",
+        "reason": "Confirms whether this is a real problem or expected performance for the plan"
+      },
+      {
+        "step": 6,
+        "action": "Contact the ISP if wired speeds are consistently far below the subscribed plan",
+        "reason": "May indicate a line problem or an area-wide issue on their end"
+      }
+    ],
+    "possible_solutions": [
+      "Connect via Ethernet cable to rule out WiFi issues",
+      "Limit the number of simultaneous heavy-bandwidth devices",
+      "Restart modem and router",
+      "Close bandwidth-heavy background applications",
+      "Contact ISP if wired speed remains consistently low"
+    ],
+    "prevention": [
+      "Regularly restart networking equipment",
+      "Keep router firmware updated for best performance",
+      "Position the router centrally to improve WiFi speed for all devices"
+    ],
+    "keywords": [
+      "slow internet",
+      "internet speed slow",
+      "slow download upload"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-008",
+      "NET-025"
+    ]
+  },
+  {
+    "id": "NET-005",
+    "category": "Networking",
+    "subcategory": "Internet Connectivity",
+    "problem": "Intermittent Internet Connection",
+    "description": "The internet connection drops and reconnects repeatedly throughout the day instead of staying stable.",
+    "symptoms": [
+      "Internet works, then disconnects briefly, then reconnects on its own",
+      "Video calls or streaming cut out periodically",
+      "Network icon flickers between connected and disconnected"
+    ],
+    "possible_causes": [
+      "Loose or damaged Ethernet cable or connector",
+      "WiFi interference from other devices or networks",
+      "Overheating router or modem",
+      "ISP-side intermittent line issue",
+      "Outdated network driver causing periodic disconnects",
+      "IP address conflict causing intermittent drops"
+    ],
+    "diagnostic_questions": [
+      "Does the disconnect happen at regular intervals or randomly?",
+      "Is this on WiFi or a wired connection?",
+      "Does the router or modem feel warm or hot to the touch?",
+      "Does the problem happen on all devices at the same time, suggesting a router/ISP issue, or just one device?"
+    ],
+    "commands": [
+      {
+        "command": "ping 8.8.8.8 -t",
+        "purpose": "Continuously ping to observe exactly when and how often the connection drops",
+        "expected_result": "Continuous replies with no gaps",
+        "abnormal_result": "Periodic timeouts corresponding to when the user notices disconnects, confirming an unstable connection"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Run a continuous ping test while using the computer normally to capture the exact drop pattern",
+        "reason": "Provides objective evidence of when and how often the connection actually drops"
+      },
+      {
+        "step": 2,
+        "action": "Check and reseat all physical cable connections, or try a different cable",
+        "reason": "A loose or damaged cable is a very common cause of intermittent drops"
+      },
+      {
+        "step": 3,
+        "action": "Check if the router or modem feels excessively warm and ensure it has proper ventilation",
+        "reason": "Overheating equipment can intermittently reset or drop connections"
+      },
+      {
+        "step": 4,
+        "action": "Move the router away from interference sources like microwaves, cordless phones, or thick walls if using WiFi",
+        "reason": "Interference is a common cause of periodic WiFi drops"
+      },
+      {
+        "step": 5,
+        "action": "Update the network adapter driver on the affected computer",
+        "reason": "Outdated drivers can cause periodic reconnections due to power-saving or compatibility bugs"
+      },
+      {
+        "step": 6,
+        "action": "Contact the ISP to check the line if the issue affects all devices and persists after equipment checks",
+        "reason": "May indicate an external line quality issue"
+      }
+    ],
+    "possible_solutions": [
+      "Replace damaged or loose cables",
+      "Improve router ventilation and placement",
+      "Reduce WiFi interference sources",
+      "Update network adapter drivers",
+      "Contact ISP to check line quality if the problem is network-wide"
+    ],
+    "prevention": [
+      "Use quality cables and connectors",
+      "Keep networking equipment in a cool, ventilated location",
+      "Regularly update router firmware and device drivers"
+    ],
+    "keywords": [
+      "internet keeps disconnecting",
+      "intermittent connection drops",
+      "connection drops randomly"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": [
+      "NET-006",
+      "NET-009"
+    ]
+  },
+  {
+    "id": "NET-006",
+    "category": "Networking",
+    "subcategory": "Internet Connectivity",
+    "problem": "Internet Disconnects Frequently",
+    "description": "The internet connection disconnects completely and requires manual reconnection or a router restart multiple times per day.",
+    "symptoms": [
+      "Connection drops fully and does not reconnect automatically",
+      "Manual reconnect or router restart is needed each time",
+      "Happens multiple times daily, more severe than brief intermittent drops"
+    ],
+    "possible_causes": [
+      "Router firmware bug or crash",
+      "ISP modem/router experiencing hardware failure",
+      "Overloaded router from too many connected devices",
+      "IP address lease conflicts",
+      "Power supply issues to the router or modem"
+    ],
+    "diagnostic_questions": [
+      "How many times per day does this happen, roughly?",
+      "Does restarting the router fix it every time, or does it sometimes need longer to recover?",
+      "How old is the router/modem, and has firmware ever been updated?",
+      "How many devices are typically connected to this network?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check for a valid IP address after a disconnect to see how the computer's network state looks",
+        "expected_result": "A valid, current IP address and gateway",
+        "abnormal_result": "Missing or APIPA address suggests the router itself dropped and did not properly hand out addresses"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the router's firmware version and update to the latest available version",
+        "reason": "Many frequent-disconnect issues are fixed by manufacturers in firmware updates"
+      },
+      {
+        "step": 2,
+        "action": "Count and review all connected devices for one that might be overloading the router, such as a device downloading heavily",
+        "reason": "An overloaded router can crash or drop connections under heavy load"
+      },
+      {
+        "step": 3,
+        "action": "Check the power supply and cable to the router/modem for looseness or damage",
+        "reason": "Power interruptions can cause the equipment to reset unexpectedly"
+      },
+      {
+        "step": 4,
+        "action": "Perform a factory reset on the router if firmware updates do not help",
+        "reason": "Clears any corrupted configuration causing instability"
+      },
+      {
+        "step": 5,
+        "action": "Replace the router if it is old and resets continue after a factory reset and firmware update",
+        "reason": "Aging hardware often becomes unstable over time"
+      }
+    ],
+    "possible_solutions": [
+      "Update router firmware",
+      "Reduce the number of connected devices or upgrade to router hardware that supports more devices",
+      "Check and secure the power connection to the router",
+      "Factory reset the router if problems continue",
+      "Replace aging router hardware"
+    ],
+    "prevention": [
+      "Keep firmware updated on a regular schedule",
+      "Avoid overloading a single router with excessive devices",
+      "Use a UPS to protect against power fluctuations"
+    ],
+    "keywords": [
+      "internet disconnects frequently",
+      "router keeps dropping connection",
+      "need to restart router often"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "NET-005",
+      "NET-018"
+    ]
+  },
+  {
+    "id": "NET-007",
+    "category": "Networking",
+    "subcategory": "Internet Connectivity",
+    "problem": "High Latency (High Ping)",
+    "description": "Network responses take longer than normal, causing lag in video calls, online games, or any real-time application, even though the connection is otherwise working.",
+    "symptoms": [
+      "Video calls have noticeable delay or lag",
+      "Online games show high ping numbers",
+      "Ping tests return high response times, for example over 100-150ms for a normally low-latency connection"
+    ],
+    "possible_causes": [
+      "Network congestion from other devices",
+      "WiFi instead of wired connection adding latency",
+      "ISP routing issue or distant server location",
+      "Router processing overload",
+      "Background applications consuming bandwidth"
+    ],
+    "diagnostic_questions": [
+      "What ping time are you seeing, and what would you normally expect?",
+      "Is this happening on WiFi or a wired connection?",
+      "Does the high latency happen with everything, or only specific applications or servers?",
+      "Are other devices on the network actively using a lot of bandwidth right now?"
+    ],
+    "commands": [
+      {
+        "command": "ping google.com -n 20",
+        "purpose": "Measure average latency over multiple pings to a general destination",
+        "expected_result": "Consistent, low response times appropriate for the connection type",
+        "abnormal_result": "Consistently high or highly variable response times confirm a latency problem"
+      },
+      {
+        "command": "tracert google.com",
+        "purpose": "Identify at which hop along the route latency increases significantly",
+        "expected_result": "Latency increases gradually and reasonably at each hop",
+        "abnormal_result": "A large latency jump at a specific hop points to where the delay is being introduced, such as the ISP or a specific server"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Run a ping test to a well-known server to measure current latency",
+        "reason": "Establishes a baseline number to work with"
+      },
+      {
+        "step": 2,
+        "action": "Switch from WiFi to a wired Ethernet connection if possible and re-test",
+        "reason": "WiFi commonly adds extra latency compared to a wired connection"
+      },
+      {
+        "step": 3,
+        "action": "Check for other devices or applications using heavy bandwidth at the same time",
+        "reason": "Congestion from other traffic increases queuing delay"
+      },
+      {
+        "step": 4,
+        "action": "Run tracert to see where along the path latency increases sharply",
+        "reason": "Helps determine if the delay is local, at the ISP, or further along the internet route"
+      },
+      {
+        "step": 5,
+        "action": "Restart the router to clear any processing overload",
+        "reason": "Resolves temporary router performance issues contributing to latency"
+      },
+      {
+        "step": 6,
+        "action": "Contact the ISP if tracert shows the delay starting outside the local network",
+        "reason": "The issue may be in their network or peering routes, outside local control"
+      }
+    ],
+    "possible_solutions": [
+      "Switch to a wired connection to reduce latency",
+      "Reduce simultaneous bandwidth usage from other devices",
+      "Restart the router",
+      "Contact the ISP if the delay is confirmed to originate outside the local network"
+    ],
+    "prevention": [
+      "Use wired connections for latency-sensitive activities like gaming or video calls",
+      "Avoid heavy downloads during important real-time sessions",
+      "Choose servers geographically closer when possible for online applications"
+    ],
+    "keywords": [
+      "high ping",
+      "high latency internet",
+      "laggy connection"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-008",
+      "NET-025"
+    ]
+  },
+  {
+    "id": "NET-008",
+    "category": "Networking",
+    "subcategory": "Internet Connectivity",
+    "problem": "Packet Loss",
+    "description": "Some data packets sent over the network never arrive at their destination, causing choppy calls, game rubber-banding, or incomplete data transfers.",
+    "symptoms": [
+      "Video or voice calls sound choppy or cut out briefly",
+      "Online games show rubber-banding or missed hits",
+      "Ping tests show some requests timing out while others succeed"
+    ],
+    "possible_causes": [
+      "Weak or interfered WiFi signal",
+      "Damaged network cable or faulty port",
+      "Network congestion overloading equipment",
+      "Faulty router, switch, or modem hardware",
+      "ISP-side network issue"
+    ],
+    "diagnostic_questions": [
+      "Is this happening on WiFi or a wired connection?",
+      "What percentage of packet loss are you seeing in a ping test?",
+      "Does packet loss happen constantly or only at certain times of day?",
+      "Have you tried testing from a different device or location to compare?"
+    ],
+    "commands": [
+      {
+        "command": "ping google.com -n 50",
+        "purpose": "Send many pings to calculate a percentage of lost packets",
+        "expected_result": "0% packet loss, or very close to it",
+        "abnormal_result": "Noticeable packet loss percentage (for example, above 1-2%) confirms a real problem"
+      },
+      {
+        "command": "tracert google.com",
+        "purpose": "Identify which hop in the network path is dropping packets",
+        "expected_result": "All hops respond consistently",
+        "abnormal_result": "A specific hop showing repeated timeouts or high loss indicates where the problem is occurring"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Run an extended ping test and check the packet loss percentage in the summary",
+        "reason": "Quantifies the severity of the problem with concrete numbers"
+      },
+      {
+        "step": 2,
+        "action": "Switch to a wired connection if currently on WiFi and re-test",
+        "reason": "Wireless interference is a very common cause of packet loss"
+      },
+      {
+        "step": 3,
+        "action": "Inspect and replace network cables between the computer, switch, and router",
+        "reason": "A damaged cable can cause consistent packet loss"
+      },
+      {
+        "step": 4,
+        "action": "Run tracert to identify which specific hop is dropping packets",
+        "reason": "Helps determine if the loss is local, at the router, or somewhere in the ISP's network"
+      },
+      {
+        "step": 5,
+        "action": "Restart networking equipment (router, switch, modem) to rule out a temporary hardware glitch",
+        "reason": "Clears buffer overflows or temporary faults causing packet drops"
+      },
+      {
+        "step": 6,
+        "action": "Contact the ISP if packet loss is confirmed beyond the local network in the tracert results",
+        "reason": "The issue lies outside what can be fixed locally"
+      }
+    ],
+    "possible_solutions": [
+      "Switch from WiFi to a wired connection",
+      "Replace damaged network cables",
+      "Restart routers, switches, and modems",
+      "Contact the ISP if loss is confirmed on their network segment"
+    ],
+    "prevention": [
+      "Use quality, undamaged cables",
+      "Position WiFi routers to minimize interference and obstruction",
+      "Monitor network equipment for early signs of hardware failure"
+    ],
+    "keywords": [
+      "packet loss",
+      "dropped packets network",
+      "choppy video call packet loss"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": [
+      "NET-007",
+      "NET-025"
+    ]
+  },
+  {
+    "id": "NET-009",
+    "category": "Networking",
+    "subcategory": "Internet Connectivity",
+    "problem": "Unable to Access Specific Websites",
+    "description": "The internet works normally for most sites, but one or a few specific websites will not load, while everything else works fine.",
+    "symptoms": [
+      "Most websites load normally",
+      "One or a few specific sites time out, show an error, or never load",
+      "Other devices may or may not have the same problem with those sites"
+    ],
+    "possible_causes": [
+      "The specific website itself is down or having issues",
+      "DNS cache holding outdated or incorrect information for that site",
+      "ISP or regional block/throttling of that specific site",
+      "Firewall or security software blocking that particular domain",
+      "Browser-specific cache or cookie issue for that site"
+    ],
+    "diagnostic_questions": [
+      "Which specific website or websites are affected?",
+      "Does the site fail on all your devices, or just this one?",
+      "Have you tried accessing the site from a different network, like mobile data?",
+      "Have you tried clearing your browser cache or using a private/incognito window for that site?"
+    ],
+    "commands": [
+      {
+        "command": "ping <affected_website_domain>",
+        "purpose": "Check basic reachability to the specific website's server",
+        "expected_result": "Replies received (though some sites block ping deliberately)",
+        "abnormal_result": "Timeout may indicate a routing or blocking issue, though it is not conclusive since many sites disable ping responses"
+      },
+      {
+        "command": "nslookup <affected_website_domain>",
+        "purpose": "Confirm the domain resolves to a valid IP address",
+        "expected_result": "Returns a valid IP address for the domain",
+        "abnormal_result": "No response or an unexpected IP may indicate a DNS caching or resolution problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if the website is down for everyone using a third-party outage checking site or by testing from another network",
+        "reason": "Rules out a problem on your end if the site itself is having issues"
+      },
+      {
+        "step": 2,
+        "action": "Try opening the site in a private/incognito browser window",
+        "reason": "Bypasses cached cookies and data that might be causing the specific site to fail"
+      },
+      {
+        "step": 3,
+        "action": "Flush the DNS cache using ipconfig /flushdns",
+        "reason": "Clears any outdated or corrupted cached DNS entry for that specific domain"
+      },
+      {
+        "step": 4,
+        "action": "Try accessing the site using a different DNS server, such as 1.1.1.1 or 8.8.8.8",
+        "reason": "Some ISP DNS servers have issues resolving specific domains correctly"
+      },
+      {
+        "step": 5,
+        "action": "Check firewall or security software logs for the domain being specifically blocked",
+        "reason": "Security software or parental controls sometimes block specific sites intentionally"
+      },
+      {
+        "step": 6,
+        "action": "Test the site from mobile data to determine if the block is specific to this network",
+        "reason": "Confirms whether the restriction is local (ISP/router/firewall) or on the site's end"
+      }
+    ],
+    "possible_solutions": [
+      "Flush the DNS cache",
+      "Try a different public DNS server",
+      "Clear browser cache/cookies or use a private window",
+      "Check and adjust firewall or security software rules for that domain",
+      "Wait if the site itself is confirmed down"
+    ],
+    "prevention": [
+      "Keep a note of frequently used sites' normal behavior to quickly spot anomalies",
+      "Keep DNS and security software configurations well documented",
+      "Regularly clear browser cache to avoid stale site data"
+    ],
+    "keywords": [
+      "cant access specific website",
+      "one website not loading",
+      "site blocked only this network"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "NET-002",
+      "NET-016"
+    ]
+  },
+  {
+    "id": "NET-010",
+    "category": "Networking",
+    "subcategory": "Internet Connectivity",
+    "problem": "Internet Works on Other Devices Only",
+    "description": "Every device on the network has internet access except one specific computer, which shows no connection or limited access.",
+    "symptoms": [
+      "Phones, tablets, and other computers connect fine",
+      "One specific computer has no internet or limited access",
+      "Problem persists even after restarting the router"
+    ],
+    "possible_causes": [
+      "Network adapter driver issue on the affected computer",
+      "IP address conflict specific to that device",
+      "Incorrect network settings (static IP, DNS, proxy) on that computer only",
+      "Firewall or security software on that computer blocking traffic",
+      "Faulty network adapter hardware or cable specific to that device"
+    ],
+    "diagnostic_questions": [
+      "Is this a wired or wireless connection on the affected computer?",
+      "Have any network settings been manually changed on this computer, like a static IP or proxy?",
+      "Does the problem happen only on this network, or also elsewhere?",
+      "Was any new security software or VPN installed recently on this computer?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check the affected computer's specific network configuration for problems",
+        "expected_result": "Valid IP, subnet, gateway, and DNS matching the rest of the network",
+        "abnormal_result": "APIPA address, wrong subnet, incorrect static IP, or missing gateway explains why only this device fails"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Run ipconfig /all on the affected computer and compare its settings to a working device on the same network",
+        "reason": "Quickly reveals if the configuration is different or invalid on the problem computer"
+      },
+      {
+        "step": 2,
+        "action": "Check for a manually configured static IP, DNS, or proxy setting that may be incorrect",
+        "reason": "Manual settings are a common cause of a single device failing while others work fine"
+      },
+      {
+        "step": 3,
+        "action": "Set the network adapter back to automatic (DHCP) IP and DNS settings",
+        "reason": "Removes any incorrect manual configuration as the cause"
+      },
+      {
+        "step": 4,
+        "action": "Temporarily disable firewall or security software to test if it is blocking the connection",
+        "reason": "Overly aggressive security software can block all internet traffic on just one machine"
+      },
+      {
+        "step": 5,
+        "action": "Try a different network cable or, for WiFi, try a different WiFi adapter if available, to test for a hardware fault",
+        "reason": "Isolates whether the issue is a failing physical network component"
+      },
+      {
+        "step": 6,
+        "action": "Update or reinstall the network adapter driver",
+        "reason": "A corrupted or outdated driver can cause connectivity to fail on just this device"
+      }
+    ],
+    "possible_solutions": [
+      "Reset network adapter settings to automatic (DHCP)",
+      "Disable conflicting security software temporarily to test",
+      "Update or reinstall the network adapter driver",
+      "Replace a faulty cable or adapter"
+    ],
+    "prevention": [
+      "Avoid manually changing network settings unless necessary and well documented",
+      "Keep network drivers updated",
+      "Review security software rules after installation to ensure they don't block normal traffic"
+    ],
+    "keywords": [
+      "only one computer no internet",
+      "single device cant connect",
+      "other devices work fine but not this one"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-001",
+      "NET-011",
+      "NET-017"
+    ]
+  },
+  {
+    "id": "NET-011",
+    "category": "Networking",
+    "subcategory": "Ethernet Problems",
+    "problem": "Ethernet Cable Unplugged",
+    "description": "Windows or the network status shows the Ethernet cable as unplugged, even though a cable appears to be connected.",
+    "symptoms": [
+      "Notification or icon says 'Network cable unplugged'",
+      "No network connection through the wired port",
+      "Cable appears physically connected"
+    ],
+    "possible_causes": [
+      "Cable not fully seated in the port",
+      "Damaged cable or connector",
+      "Faulty Ethernet port on the computer or router/switch",
+      "Cable plugged into the wrong port",
+      "Network adapter disabled"
+    ],
+    "diagnostic_questions": [
+      "Have you tried unplugging and firmly replugging the cable at both ends?",
+      "Have you tried a different, known-working cable?",
+      "Does the port's link light turn on when the cable is plugged in?",
+      "Have you tried plugging the cable into a different port on the router or switch?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check the Ethernet adapter's current status",
+        "expected_result": "Adapter shows 'Media State: Media disconnected' only if truly unplugged; otherwise a valid IP appears",
+        "abnormal_result": "Persistent 'Media disconnected' despite a plugged-in cable confirms a physical link problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Unplug the Ethernet cable and firmly reinsert it at both the computer and router/switch ends until it clicks",
+        "reason": "A cable not fully seated is the most common and simplest cause"
+      },
+      {
+        "step": 2,
+        "action": "Check if the small link/activity light near the Ethernet port lights up when connected",
+        "reason": "No light at all usually confirms a physical connection or port problem rather than a software issue"
+      },
+      {
+        "step": 3,
+        "action": "Try a different, known-working Ethernet cable",
+        "reason": "Rules out a damaged cable as the cause"
+      },
+      {
+        "step": 4,
+        "action": "Try plugging into a different port on the router or switch",
+        "reason": "Isolates whether the router/switch port itself has failed"
+      },
+      {
+        "step": 5,
+        "action": "Check Device Manager to confirm the network adapter is enabled and not disabled or missing",
+        "reason": "A disabled adapter can sometimes show a similar 'unplugged' style message"
+      }
+    ],
+    "possible_solutions": [
+      "Firmly reseat the cable at both ends",
+      "Replace a damaged Ethernet cable",
+      "Use a different port on the router or switch",
+      "Enable the network adapter if it was disabled"
+    ],
+    "prevention": [
+      "Use good quality cables and avoid excessive bending or pulling",
+      "Label and route cables neatly to avoid accidental disconnection",
+      "Periodically inspect cable connectors for wear"
+    ],
+    "keywords": [
+      "ethernet cable unplugged message",
+      "network cable unplugged windows",
+      "wired connection not detected"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": [
+      "NET-012",
+      "NET-026"
+    ]
+  },
+  {
+    "id": "NET-012",
+    "category": "Networking",
+    "subcategory": "Ethernet Problems",
+    "problem": "Ethernet Not Connected",
+    "description": "The Ethernet connection shows as 'Not connected' in network settings, with no active link to the router or switch.",
+    "symptoms": [
+      "Ethernet adapter listed but shows 'Not connected' status",
+      "No internet or local network access via the wired connection",
+      "May happen consistently or only sometimes"
+    ],
+    "possible_causes": [
+      "Cable, port, or adapter hardware fault",
+      "Adapter disabled in Windows or Device Manager",
+      "Driver issue preventing the adapter from establishing a link",
+      "Switch or router port not active or misconfigured",
+      "Duplex/speed mismatch between adapter and switch"
+    ],
+    "diagnostic_questions": [
+      "Does the port's link light turn on with the cable connected?",
+      "Is the network adapter enabled in Device Manager and network settings?",
+      "Has this connection worked before on this exact cable and port?",
+      "Have any recent driver or Windows updates been installed?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "View detailed adapter state including media connection status",
+        "expected_result": "Shows a connected state with a valid IP address",
+        "abnormal_result": "Shows 'Media disconnected' or the adapter missing entirely"
+      },
+      {
+        "command": "powershell Get-NetAdapter",
+        "purpose": "View the status of all network adapters from PowerShell",
+        "expected_result": "Ethernet adapter status shows 'Up'",
+        "abnormal_result": "Status shows 'Disabled', 'Disconnected', or the adapter is missing from the list"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the cable is properly connected and check for a link light on both ends",
+        "reason": "Rules out a basic physical connection issue first"
+      },
+      {
+        "step": 2,
+        "action": "Check Device Manager to ensure the Ethernet adapter is enabled and has no warning icons",
+        "reason": "A disabled or malfunctioning adapter will never show as connected"
+      },
+      {
+        "step": 3,
+        "action": "Run Get-NetAdapter in PowerShell to check the adapter's detailed status",
+        "reason": "Gives clear technical confirmation of whether the adapter itself is up or down"
+      },
+      {
+        "step": 4,
+        "action": "Update or reinstall the Ethernet adapter driver",
+        "reason": "A corrupted or incompatible driver can prevent the adapter from establishing a link"
+      },
+      {
+        "step": 5,
+        "action": "Test the same cable and port with another device if possible",
+        "reason": "Confirms whether the fault is with this specific computer or the network side"
+      }
+    ],
+    "possible_solutions": [
+      "Reseat or replace the cable",
+      "Enable the adapter in Device Manager if disabled",
+      "Update or reinstall the Ethernet driver",
+      "Test the port/cable with another device to isolate the fault"
+    ],
+    "prevention": [
+      "Keep network adapter drivers updated",
+      "Avoid disabling network adapters unless necessary",
+      "Regularly inspect physical connections on frequently moved equipment"
+    ],
+    "keywords": [
+      "ethernet not connected",
+      "wired network not connecting",
+      "ethernet adapter disconnected status"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-011",
+      "NET-014",
+      "NET-015"
+    ]
+  },
+  {
+    "id": "NET-013",
+    "category": "Networking",
+    "subcategory": "Ethernet Problems",
+    "problem": "Ethernet Connected but No Internet",
+    "description": "The Ethernet connection shows as connected with a valid IP address, but there is still no internet access.",
+    "symptoms": [
+      "Ethernet status shows 'Connected' with no warning",
+      "Local network devices may be reachable",
+      "Websites and online services do not load"
+    ],
+    "possible_causes": [
+      "Router has no internet from the ISP (WAN down)",
+      "DNS server not resolving correctly",
+      "Incorrect gateway configuration",
+      "Firewall blocking internet traffic despite local connectivity",
+      "ISP outage"
+    ],
+    "diagnostic_questions": [
+      "Does the network icon show fully connected with no warning triangle?",
+      "Can you access other devices on the local network, like a shared printer or file server?",
+      "Can you ping the router's IP address successfully?",
+      "Does the router's WAN/internet light look normal?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Confirm the computer has a valid local IP, gateway, and DNS",
+        "expected_result": "Valid private IP address with a correct gateway matching the router",
+        "abnormal_result": "Missing or incorrect gateway/DNS entries explain the lack of internet despite local connection"
+      },
+      {
+        "command": "ping <gateway_ip>",
+        "purpose": "Test connectivity to the router itself",
+        "expected_result": "Replies received, confirming the local network segment works",
+        "abnormal_result": "Timeout means even the local connection to the router has an issue"
+      },
+      {
+        "command": "ping 8.8.8.8",
+        "purpose": "Test connectivity beyond the local router to the wider internet",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout while the gateway ping succeeds confirms the router itself has no internet (WAN down)"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Ping the router's gateway IP address to confirm the local connection is healthy",
+        "reason": "Separates a local network problem from an internet (WAN) problem"
+      },
+      {
+        "step": 2,
+        "action": "Ping a known public IP address like 8.8.8.8 to test beyond the router",
+        "reason": "If the gateway responds but this fails, the problem is the router's internet connection, not the computer"
+      },
+      {
+        "step": 3,
+        "action": "Check the router's WAN/internet status light and admin page for a connected status",
+        "reason": "Confirms whether the router itself has lost its ISP connection"
+      },
+      {
+        "step": 4,
+        "action": "Restart the modem and router",
+        "reason": "Resolves many temporary WAN connectivity issues"
+      },
+      {
+        "step": 5,
+        "action": "Check firewall settings on the computer if other devices on the same network do have internet",
+        "reason": "A local firewall issue can block internet while allowing local network access"
+      },
+      {
+        "step": 6,
+        "action": "Contact the ISP if the router confirms no WAN connection after a restart",
+        "reason": "Indicates an outage or line issue outside local control"
+      }
+    ],
+    "possible_solutions": [
+      "Restart modem and router to restore WAN connection",
+      "Check and correct DNS/gateway settings",
+      "Adjust firewall rules if only this device is affected",
+      "Contact ISP if WAN remains down after restart"
+    ],
+    "prevention": [
+      "Monitor router WAN status periodically",
+      "Keep modem and router firmware updated",
+      "Use a UPS to prevent power-related WAN drops"
+    ],
+    "keywords": [
+      "ethernet connected no internet",
+      "wired connection no internet access",
+      "local only no internet"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-001",
+      "NET-016",
+      "NET-018"
+    ]
+  },
+  {
+    "id": "NET-014",
+    "category": "Networking",
+    "subcategory": "Ethernet Problems",
+    "problem": "Network Cable Unidentified",
+    "description": "Windows shows the network as 'Unidentified Network' after connecting an Ethernet cable, often with limited or no internet access.",
+    "symptoms": [
+      "Network name shows as 'Unidentified Network' in Windows",
+      "Network may be categorized as public even on a trusted network",
+      "Internet access may be limited or missing"
+    ],
+    "possible_causes": [
+      "Windows could not properly detect the network's identity or gateway",
+      "Router or switch not responding correctly to network discovery",
+      "IP configuration incomplete or incorrect",
+      "Faulty cable or port causing an unstable connection"
+    ],
+    "diagnostic_questions": [
+      "Does this happen every time you connect, or only occasionally?",
+      "Is this a new router, network, or cable setup?",
+      "Does ipconfig show a complete IP configuration including a gateway?",
+      "Have you tried a different cable or port?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check whether the adapter received a complete network configuration",
+        "expected_result": "Full configuration including IP, subnet, gateway, and DNS",
+        "abnormal_result": "Missing gateway or an APIPA address explains why Windows cannot identify the network"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Run ipconfig /all to check if a complete network configuration, including a gateway, was received",
+        "reason": "An incomplete configuration is the most common reason Windows cannot identify the network"
+      },
+      {
+        "step": 2,
+        "action": "Release and renew the IP address using ipconfig /release and ipconfig /renew",
+        "reason": "Forces a fresh, hopefully complete, configuration request"
+      },
+      {
+        "step": 3,
+        "action": "Try a different cable and port to rule out a physical fault causing an unstable connection",
+        "reason": "An unstable link can prevent Windows from fully completing network detection"
+      },
+      {
+        "step": 4,
+        "action": "Restart the computer and the router/switch",
+        "reason": "Clears temporary state issues on both ends that may prevent proper identification"
+      },
+      {
+        "step": 5,
+        "action": "Manually set the network profile to Private if identification issues persist but connectivity is otherwise fine",
+        "reason": "Allows normal local network features to work even if auto-identification is imperfect"
+      }
+    ],
+    "possible_solutions": [
+      "Release and renew the IP configuration",
+      "Try a different cable or port",
+      "Restart the computer and networking equipment",
+      "Manually set the network profile if needed"
+    ],
+    "prevention": [
+      "Ensure the router's DHCP service is functioning properly for all clients",
+      "Use quality cables to maintain a stable link",
+      "Keep network adapter drivers updated"
+    ],
+    "keywords": [
+      "unidentified network windows",
+      "network not identified",
+      "ethernet unidentified network fix"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-011",
+      "NET-013"
+    ]
+  },
+  {
+    "id": "NET-015",
+    "category": "Networking",
+    "subcategory": "Ethernet Problems",
+    "problem": "Ethernet Adapter Disabled",
+    "description": "The Ethernet network adapter has been disabled in Windows, so the wired connection cannot be used at all.",
+    "symptoms": [
+      "Ethernet adapter shows greyed out in Network Connections",
+      "No Ethernet option appears active in network settings",
+      "Right-click menu shows an option to 'Enable' rather than 'Disable'"
+    ],
+    "possible_causes": [
+      "Adapter was accidentally disabled by a user",
+      "Group Policy or IT management disabled the adapter",
+      "A driver or Windows update disabled the adapter",
+      "Power management settings turned off the adapter"
+    ],
+    "diagnostic_questions": [
+      "Was the adapter intentionally disabled by anyone recently, such as during troubleshooting?",
+      "Is this a personal computer or a managed work/school computer?",
+      "Did this happen after a Windows update?",
+      "Are other adapters, like WiFi, working normally?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-NetAdapter",
+        "purpose": "List all network adapters and their enabled/disabled status",
+        "expected_result": "Ethernet adapter status shows 'Up' or at least 'Disconnected' rather than 'Disabled'",
+        "abnormal_result": "Status shows 'Disabled', confirming the adapter itself is turned off"
+      },
+      {
+        "command": "powershell Enable-NetAdapter -Name \"Ethernet\"",
+        "purpose": "Enable a disabled Ethernet adapter from PowerShell",
+        "expected_result": "Adapter status changes to enabled/connected",
+        "abnormal_result": "Access denied error means PowerShell needs to be run as Administrator, or Group Policy is preventing the change"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Network Connections (ncpa.cpl) and check if the Ethernet adapter icon appears greyed out",
+        "reason": "Confirms visually whether the adapter is disabled"
+      },
+      {
+        "step": 2,
+        "action": "Right-click the adapter and select 'Enable'",
+        "reason": "This is the direct and simplest fix if the adapter was just turned off"
+      },
+      {
+        "step": 3,
+        "action": "If the option is greyed out or reverts back to disabled, check with IT if this is a managed/work computer",
+        "reason": "Group Policy on managed computers can intentionally keep certain adapters disabled"
+      },
+      {
+        "step": 4,
+        "action": "Check adapter power management settings under Device Manager to ensure 'Allow the computer to turn off this device to save power' is unchecked",
+        "reason": "Aggressive power saving can effectively disable the adapter under certain conditions"
+      },
+      {
+        "step": 5,
+        "action": "Restart the computer after enabling the adapter",
+        "reason": "Ensures the change takes full effect"
+      }
+    ],
+    "possible_solutions": [
+      "Enable the adapter through Network Connections or Device Manager",
+      "Check and adjust power management settings for the adapter",
+      "Check with IT/administrator if Group Policy is disabling the adapter on a managed device"
+    ],
+    "prevention": [
+      "Avoid disabling network adapters unless necessary for troubleshooting",
+      "Document any intentional Group Policy restrictions for managed devices",
+      "Regularly review power management settings after Windows updates"
+    ],
+    "keywords": [
+      "ethernet adapter disabled",
+      "enable network adapter",
+      "ethernet greyed out"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": [
+      "NET-012",
+      "NET-016"
+    ]
+  },
+  {
+    "id": "NET-016",
+    "category": "Networking",
+    "subcategory": "Ethernet Problems",
+    "problem": "Ethernet Adapter Missing",
+    "description": "The Ethernet adapter does not appear at all in Network Connections or Device Manager, as if the hardware does not exist.",
+    "symptoms": [
+      "No Ethernet adapter listed in Network Connections",
+      "Device Manager does not show the Ethernet controller, or shows it as unknown",
+      "Wired connection cannot be configured or used at all"
+    ],
+    "possible_causes": [
+      "Network adapter driver not installed",
+      "Motherboard's onboard network hardware failure",
+      "Adapter disabled at the BIOS/UEFI level",
+      "Recent Windows update removed or corrupted the driver",
+      "Physical hardware fault, especially on desktop motherboards"
+    ],
+    "diagnostic_questions": [
+      "Is this a laptop or desktop, and is the Ethernet port built-in or a separate USB adapter?",
+      "Did this start after a Windows update, reinstall, or hardware change?",
+      "Have you checked Device Manager under 'Other devices' or 'Network adapters' for anything with a warning icon?",
+      "Have you checked the BIOS/UEFI settings to confirm onboard LAN is enabled?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class Net",
+        "purpose": "List all network-related devices Windows can detect, including ones without working drivers",
+        "expected_result": "Ethernet controller listed with status 'OK'",
+        "abnormal_result": "Ethernet controller missing entirely, or listed with an error/unknown status"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Device Manager under 'Network adapters' and also 'Other devices' for anything unrecognized",
+        "reason": "A missing driver often shows the hardware as an unknown device rather than disappearing completely"
+      },
+      {
+        "step": 2,
+        "action": "Check the computer's BIOS/UEFI settings to confirm onboard LAN/Ethernet is enabled",
+        "reason": "Some systems allow disabling onboard network hardware at the firmware level"
+      },
+      {
+        "step": 3,
+        "action": "Download and install the correct network adapter driver directly from the motherboard or laptop manufacturer's website",
+        "reason": "Ensures Windows has the correct driver to recognize and use the hardware"
+      },
+      {
+        "step": 4,
+        "action": "Try a USB-to-Ethernet adapter as a test if the built-in port is suspected to have failed",
+        "reason": "Helps determine if this is a hardware failure versus a software/driver issue"
+      },
+      {
+        "step": 5,
+        "action": "Consider professional repair or a USB Ethernet adapter as a permanent workaround if onboard hardware has failed",
+        "reason": "A confirmed hardware failure on a motherboard's LAN chip typically cannot be fixed through software"
+      }
+    ],
+    "possible_solutions": [
+      "Install the correct network adapter driver from the manufacturer",
+      "Enable onboard LAN in BIOS/UEFI if disabled",
+      "Use a USB-to-Ethernet adapter as a workaround for failed hardware",
+      "Seek professional repair for confirmed hardware failure"
+    ],
+    "prevention": [
+      "Keep chipset and network drivers updated",
+      "Avoid unnecessary BIOS/UEFI changes to hardware settings",
+      "Keep a USB Ethernet adapter on hand as a backup for critical systems"
+    ],
+    "keywords": [
+      "ethernet adapter missing",
+      "no ethernet controller device manager",
+      "network adapter not showing"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "NET-017",
+      "NET-015"
+    ]
+  },
+  {
+    "id": "NET-017",
+    "category": "Networking",
+    "subcategory": "Ethernet Problems",
+    "problem": "Ethernet Driver Missing",
+    "description": "The Ethernet adapter hardware is recognized by Windows, but no driver is installed, so it cannot be used to connect to a network.",
+    "symptoms": [
+      "Device Manager shows the Ethernet controller with a yellow warning icon",
+      "Error message: 'The drivers for this device are not installed'",
+      "No Ethernet option available in network settings"
+    ],
+    "possible_causes": [
+      "Fresh Windows installation without network drivers",
+      "Driver was uninstalled or corrupted",
+      "Windows Update did not provide a compatible driver automatically"
+    ],
+    "diagnostic_questions": [
+      "Was this a fresh Windows installation or reset?",
+      "Do you have another way to get online, such as WiFi or a USB drive with the driver on another computer?",
+      "What is the exact motherboard or laptop model, to find the correct driver?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class Net",
+        "purpose": "Confirm the adapter is detected as hardware even without a working driver",
+        "expected_result": "Device listed with a status indicating a driver problem",
+        "abnormal_result": "Status explicitly shows 'Error' or 'Unknown', confirming the driver is missing or not functioning"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Device Manager for the Ethernet controller under 'Other devices' with a warning icon",
+        "reason": "Confirms the hardware is detected but lacks a working driver"
+      },
+      {
+        "step": 2,
+        "action": "Use another internet-connected device to download the correct driver from the motherboard or laptop manufacturer's website",
+        "reason": "Without a network driver, this computer cannot download it itself"
+      },
+      {
+        "step": 3,
+        "action": "Transfer the driver installer to the affected computer using a USB drive",
+        "reason": "Provides the only way to install the driver without existing network access"
+      },
+      {
+        "step": 4,
+        "action": "Install the driver and restart the computer",
+        "reason": "Completes the installation and applies the changes"
+      },
+      {
+        "step": 5,
+        "action": "Confirm the Ethernet adapter now appears normally in Device Manager and Network Connections",
+        "reason": "Verifies the driver installed correctly and the adapter is usable"
+      }
+    ],
+    "possible_solutions": [
+      "Download and install the correct driver from the manufacturer using another device, then transfer via USB",
+      "Use Windows Update to search for a compatible driver if any other network connection is available",
+      "Run the manufacturer's full driver support package if available"
+    ],
+    "prevention": [
+      "Keep a copy of network drivers saved externally for quick recovery after OS reinstalls",
+      "Check manufacturer support pages for driver downloads before reinstalling Windows",
+      "Use a USB WiFi adapter as an alternative internet source during recovery"
+    ],
+    "keywords": [
+      "ethernet driver missing",
+      "driver not installed network adapter",
+      "no driver ethernet controller"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-016",
+      "NET-009"
+    ]
+  },
+  {
+    "id": "NET-018",
+    "category": "Networking",
+    "subcategory": "Ethernet Problems",
+    "problem": "Ethernet Driver Corrupted",
+    "description": "The Ethernet driver is installed but not functioning correctly, causing connection failures, errors, or inconsistent behavior.",
+    "symptoms": [
+      "Adapter shows in Device Manager but with a warning icon or error code",
+      "Connection frequently drops or fails to establish",
+      "Error codes like 'Code 10' or 'Code 31' appear in Device Manager"
+    ],
+    "possible_causes": [
+      "Driver files corrupted due to an incomplete update or crash",
+      "Conflict with another recently installed driver or software",
+      "Malware damage to system driver files",
+      "Incompatible driver version for the current Windows build"
+    ],
+    "diagnostic_questions": [
+      "What exact error code, if any, shows in Device Manager for this adapter?",
+      "Did this start after a Windows update or new software installation?",
+      "Have you tried updating or reinstalling the driver already?",
+      "Does the problem happen consistently or only intermittently?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class Net -Status Error",
+        "purpose": "List network devices currently reporting an error status",
+        "expected_result": "No devices returned (no errors)",
+        "abnormal_result": "Ethernet adapter listed, confirming a driver-level error"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the exact error code shown in Device Manager for the adapter",
+        "reason": "Specific error codes point to specific documented causes and fixes from Microsoft"
+      },
+      {
+        "step": 2,
+        "action": "Uninstall the driver completely through Device Manager, including deleting the driver software if prompted",
+        "reason": "Ensures no corrupted files remain before reinstalling"
+      },
+      {
+        "step": 3,
+        "action": "Restart the computer to let Windows attempt to reinstall a basic driver automatically",
+        "reason": "Windows often reinstalls a default driver on restart after removal"
+      },
+      {
+        "step": 4,
+        "action": "If the basic driver does not resolve it, manually install the latest driver from the manufacturer's website",
+        "reason": "Provides a clean, up-to-date, and compatible driver"
+      },
+      {
+        "step": 5,
+        "action": "Run a malware scan if driver corruption happens repeatedly without a clear cause",
+        "reason": "Rules out malicious software damaging system files"
+      }
+    ],
+    "possible_solutions": [
+      "Uninstall and reinstall the Ethernet driver completely",
+      "Install the latest driver from the manufacturer's website",
+      "Run System File Checker (sfc /scannow) to repair corrupted system files",
+      "Run a malware scan if corruption recurs"
+    ],
+    "prevention": [
+      "Keep drivers updated through official manufacturer channels",
+      "Avoid interrupting driver installations or Windows updates",
+      "Run regular malware scans to protect system files"
+    ],
+    "keywords": [
+      "ethernet driver corrupted",
+      "network adapter error code",
+      "reinstall ethernet driver"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-017",
+      "NET-009"
+    ]
+  },
+  {
+    "id": "NET-019",
+    "category": "Networking",
+    "subcategory": "Ethernet Problems",
+    "problem": "Ethernet Speed Limited to 100 Mbps",
+    "description": "The network connection works but is limited to 100 Mbps instead of the expected higher gigabit speed, even though the hardware supports it.",
+    "symptoms": [
+      "Network adapter properties show link speed as 100 Mbps instead of 1.0 Gbps",
+      "File transfers between local devices are slower than expected",
+      "Internet speed itself may be fine if the plan is under 100 Mbps, but local transfers suffer"
+    ],
+    "possible_causes": [
+      "Damaged or low-category cable (Cat5 instead of Cat5e/Cat6)",
+      "Faulty port on the switch, router, or computer negotiating at a lower speed",
+      "Auto-negotiation failure between devices",
+      "Outdated network driver limiting speed"
+    ],
+    "diagnostic_questions": [
+      "What category of Ethernet cable is being used, if known (Cat5, Cat5e, Cat6)?",
+      "Are both the computer's network adapter and the switch/router port gigabit-capable?",
+      "Has this always been 100 Mbps, or did it recently drop from a higher speed?",
+      "Have you tried a different cable or port?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-NetAdapter | Select Name, LinkSpeed",
+        "purpose": "Check the currently negotiated link speed of the network adapter",
+        "expected_result": "Shows 1 Gbps or higher on capable hardware",
+        "abnormal_result": "Shows 100 Mbps despite gigabit-capable hardware, confirming a negotiation or cable issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the network adapter's reported link speed using Get-NetAdapter or adapter properties",
+        "reason": "Confirms the actual negotiated speed versus the expected capability"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the Ethernet cable is at least Cat5e, ideally Cat6, since older Cat5 cables cannot support gigabit speeds reliably",
+        "reason": "Cable category is a very common and simple cause of this limitation"
+      },
+      {
+        "step": 3,
+        "action": "Try a different cable and a different port on the switch or router",
+        "reason": "Rules out a damaged cable or a switch/router port stuck at a lower negotiated speed"
+      },
+      {
+        "step": 4,
+        "action": "Check the adapter's advanced settings for a manually forced speed setting instead of auto-negotiation",
+        "reason": "A manually forced 100 Mbps setting will override the hardware's true capability"
+      },
+      {
+        "step": 5,
+        "action": "Update the network adapter driver to the latest version",
+        "reason": "Driver bugs can sometimes cause incorrect speed negotiation"
+      }
+    ],
+    "possible_solutions": [
+      "Replace the cable with a Cat5e or Cat6 cable",
+      "Try a different switch/router port",
+      "Set the adapter speed/duplex setting to 'Auto Negotiation' instead of a fixed value",
+      "Update the network adapter driver"
+    ],
+    "prevention": [
+      "Use Cat5e or better cabling for all new installations",
+      "Label cable categories during installation for future reference",
+      "Keep adapter settings on auto-negotiation unless there is a specific reason to force a setting"
+    ],
+    "keywords": [
+      "ethernet stuck at 100mbps",
+      "gigabit not working",
+      "slow lan speed limited"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "NET-004",
+      "NET-025",
+      "NET-026"
+    ]
+  },
+  {
+    "id": "NET-020",
+    "category": "Networking",
+    "subcategory": "Ethernet Problems",
+    "problem": "Ethernet Link Light Not Blinking",
+    "description": "The small link/activity light next to the Ethernet port is completely off or stays solid without ever blinking, suggesting no active data connection.",
+    "symptoms": [
+      "Link light is off or does not blink during normal use",
+      "No network connectivity through the wired port",
+      "May be accompanied by a 'cable unplugged' message"
+    ],
+    "possible_causes": [
+      "Cable not properly connected or damaged",
+      "Faulty port on the computer, switch, or router",
+      "Adapter disabled or driver not functioning",
+      "No power to the switch or router the cable connects to"
+    ],
+    "diagnostic_questions": [
+      "Is the light completely off, or on but never blinking during activity?",
+      "Have you confirmed both ends of the cable are firmly connected?",
+      "Is the switch or router the cable connects to powered on?",
+      "Have you tested this exact cable and port combination with another device?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the switch or router on the other end of the cable is powered on",
+        "reason": "No power on the far end means there will never be a link, regardless of the local port"
+      },
+      {
+        "step": 2,
+        "action": "Firmly reseat the cable at both ends",
+        "reason": "A loose connection can prevent the link light from activating even if it looks plugged in"
+      },
+      {
+        "step": 3,
+        "action": "Try a different, known-working cable",
+        "reason": "Rules out a damaged cable preventing link establishment"
+      },
+      {
+        "step": 4,
+        "action": "Try a different port on the switch or router",
+        "reason": "Isolates whether the specific port on the networking equipment has failed"
+      },
+      {
+        "step": 5,
+        "action": "Check Device Manager to confirm the network adapter is enabled and has no driver errors",
+        "reason": "A disabled or malfunctioning adapter will not establish a link even with a good cable"
+      },
+      {
+        "step": 6,
+        "action": "Test the cable and port with a different computer if the problem persists",
+        "reason": "Confirms whether the issue is with this specific computer's port/adapter or the networking equipment"
+      }
+    ],
+    "possible_solutions": [
+      "Reseat or replace the cable",
+      "Use a different port on the switch/router",
+      "Confirm power to the switch/router",
+      "Enable or repair the network adapter on the computer"
+    ],
+    "prevention": [
+      "Regularly inspect physical connections on critical systems",
+      "Label and test spare cables periodically",
+      "Keep networking equipment powered by a UPS to avoid unexpected outages"
+    ],
+    "keywords": [
+      "ethernet link light off",
+      "no link light network port",
+      "port light not blinking"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": [
+      "NET-011",
+      "NET-026"
+    ]
+  },
+  {
+    "id": "NET-021",
+    "category": "Networking",
+    "subcategory": "Ethernet Problems",
+    "problem": "Network Adapter Not Detected",
+    "description": "Neither the Ethernet nor WiFi adapter (or a specific one) is detected by the operating system at all, leaving no way to configure networking.",
+    "symptoms": [
+      "No network adapters appear in Network Connections",
+      "Device Manager shows no network adapters, or an unknown device",
+      "No way to connect to any network, wired or wireless, depending on which adapter is affected"
+    ],
+    "possible_causes": [
+      "Driver not installed for the adapter",
+      "Hardware failure of the network adapter",
+      "Adapter disabled in BIOS/UEFI",
+      "Physical damage to the adapter, especially for add-in cards or USB adapters"
+    ],
+    "diagnostic_questions": [
+      "Is this affecting the Ethernet adapter, WiFi adapter, or both?",
+      "Is this a built-in adapter or an external USB/PCIe adapter?",
+      "Did this happen after a Windows reinstall, update, or hardware change?",
+      "Have you checked BIOS/UEFI to confirm the adapter is enabled?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class Net",
+        "purpose": "List all network devices Windows can detect, even with driver problems",
+        "expected_result": "All expected adapters listed with 'OK' status",
+        "abnormal_result": "Adapters missing entirely, indicating either a disabled, failed, or undetected hardware component"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Device Manager thoroughly, including 'Other devices' and hidden devices, for any trace of the adapter",
+        "reason": "An adapter without a driver often appears as an unknown device rather than disappearing completely"
+      },
+      {
+        "step": 2,
+        "action": "Check BIOS/UEFI settings to confirm the relevant onboard adapter is enabled",
+        "reason": "Some systems allow network adapters to be disabled at the firmware level"
+      },
+      {
+        "step": 3,
+        "action": "For external adapters, try a different USB port or PCIe slot",
+        "reason": "Rules out a faulty port or slot rather than the adapter itself"
+      },
+      {
+        "step": 4,
+        "action": "Install the correct driver from the manufacturer using another computer with internet access if needed",
+        "reason": "Provides the correct driver when Windows cannot detect or auto-install one"
+      },
+      {
+        "step": 5,
+        "action": "Consider the adapter hardware failed if it still is not detected after driver installation and BIOS checks, and plan for replacement",
+        "reason": "Confirms a hardware fault that software troubleshooting cannot resolve"
+      }
+    ],
+    "possible_solutions": [
+      "Enable the adapter in BIOS/UEFI if disabled",
+      "Install the correct manufacturer driver",
+      "Try a different port/slot for external adapters",
+      "Replace the adapter if hardware failure is confirmed"
+    ],
+    "prevention": [
+      "Keep BIOS/UEFI settings documented after any changes",
+      "Handle add-in cards and USB adapters carefully to avoid physical damage",
+      "Keep driver installers backed up externally"
+    ],
+    "keywords": [
+      "network adapter not detected",
+      "no network adapters found",
+      "missing network hardware windows"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "NET-016",
+      "NET-030"
+    ]
+  },
+  {
+    "id": "NET-022",
+    "category": "Networking",
+    "subcategory": "Wi-Fi Problems",
+    "problem": "Wi-Fi Not Showing",
+    "description": "The desired WiFi network name (SSID) does not appear in the list of available networks, even though the router is on and other devices can see it.",
+    "symptoms": [
+      "Target WiFi network missing from the available networks list",
+      "Other WiFi networks nearby are visible",
+      "Other devices can see and connect to the same network"
+    ],
+    "possible_causes": [
+      "Router broadcasting on a WiFi band or channel the device does not support",
+      "Network is hidden (SSID broadcast disabled)",
+      "WiFi adapter disabled or malfunctioning on the affected device",
+      "Device is out of range or blocked by interference",
+      "Router's WiFi radio has crashed or is disabled"
+    ],
+    "diagnostic_questions": [
+      "Can other devices see and connect to this exact network name?",
+      "Is your device far from the router, or are there many walls/obstructions?",
+      "Do you know if the router uses 5GHz, 2.4GHz, or both, and does your device support that band?",
+      "Is the network hidden, or should it normally be visible?"
+    ],
+    "commands": [
+      {
+        "command": "netsh wlan show networks",
+        "purpose": "List all WiFi networks the adapter can currently detect",
+        "expected_result": "Target network appears in the list with a signal strength value",
+        "abnormal_result": "Target network missing from the list even though other networks are shown, confirming a detection or compatibility issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm on another device that the network is broadcasting normally and visible",
+        "reason": "Establishes whether the problem is with the router or just this one device"
+      },
+      {
+        "step": 2,
+        "action": "Check if the router is using a WiFi band, like 5GHz, that this specific device may not support",
+        "reason": "Older devices sometimes cannot see or connect to 5GHz-only networks"
+      },
+      {
+        "step": 3,
+        "action": "Move closer to the router and retry scanning for networks",
+        "reason": "Rules out range or interference as the cause"
+      },
+      {
+        "step": 4,
+        "action": "Toggle WiFi off and on, or restart the WiFi adapter through Device Manager",
+        "reason": "Resolves a stuck or crashed WiFi radio state on the device"
+      },
+      {
+        "step": 5,
+        "action": "Check router settings to confirm SSID broadcast is enabled if the network should not be hidden",
+        "reason": "A hidden network requires manual entry rather than appearing in the scan list"
+      },
+      {
+        "step": 6,
+        "action": "Restart the router if its WiFi radio may have crashed while other functions still work",
+        "reason": "A router-side radio crash will make the network invisible to all devices"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the WiFi adapter or toggle WiFi off and on",
+      "Move closer to the router to rule out range issues",
+      "Enable SSID broadcast on the router if unintentionally hidden",
+      "Restart the router to reset its WiFi radio",
+      "Manually add the network if it is intentionally hidden"
+    ],
+    "prevention": [
+      "Choose WiFi bands and channels supported by all household/office devices",
+      "Keep router firmware updated",
+      "Avoid placing the router in an isolated or obstructed location"
+    ],
+    "keywords": [
+      "wifi network not showing up",
+      "ssid not visible",
+      "cant see wifi network"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-023",
+      "NET-031"
+    ]
+  },
+  {
+    "id": "NET-023",
+    "category": "Networking",
+    "subcategory": "Wi-Fi Problems",
+    "problem": "Cannot Connect to Wi-Fi",
+    "description": "The WiFi network is visible in the list, but the device fails to connect, either hanging on 'Connecting' or returning an error.",
+    "symptoms": [
+      "Connection attempt hangs on 'Connecting...' indefinitely",
+      "Error message appears such as 'Can't connect to this network'",
+      "Other devices connect to the same network without issue"
+    ],
+    "possible_causes": [
+      "Incorrect WiFi password entered",
+      "Router's maximum connected device limit reached",
+      "MAC address filtering blocking this specific device",
+      "Corrupted saved network profile on this device",
+      "WiFi driver issue"
+    ],
+    "diagnostic_questions": [
+      "Are you certain the WiFi password being entered is correct and current?",
+      "How many devices are currently connected to this network?",
+      "Does this device connect fine to other WiFi networks?",
+      "Have you tried forgetting this network and reconnecting from scratch?"
+    ],
+    "commands": [
+      {
+        "command": "netsh wlan show profile name=\"<network_name>\" key=clear",
+        "purpose": "View the saved WiFi password Windows has stored for this network profile",
+        "expected_result": "Shows the correct, current WiFi password",
+        "abnormal_result": "Shows an outdated or incorrect password, explaining the connection failure"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Double-check the WiFi password being used matches the current router password exactly, watching for case sensitivity",
+        "reason": "An incorrect password is by far the most common cause of connection failure"
+      },
+      {
+        "step": 2,
+        "action": "Forget the network on the device and reconnect from scratch, entering the password fresh",
+        "reason": "Clears any corrupted or outdated saved profile causing silent failures"
+      },
+      {
+        "step": 3,
+        "action": "Check the router admin page for the number of currently connected devices versus its maximum supported limit",
+        "reason": "Some routers silently refuse new connections once a device limit is reached"
+      },
+      {
+        "step": 4,
+        "action": "Check the router's MAC address filtering settings, if enabled, to confirm this device is allowed",
+        "reason": "MAC filtering can block a legitimate device that was never added to the allow list"
+      },
+      {
+        "step": 5,
+        "action": "Restart both the router and the device's WiFi adapter",
+        "reason": "Clears temporary state issues on both ends that can prevent a successful handshake"
+      },
+      {
+        "step": 6,
+        "action": "Update the WiFi adapter driver if the device fails to connect to this network specifically but not others",
+        "reason": "Driver bugs can cause compatibility issues with specific router models or security settings"
+      }
+    ],
+    "possible_solutions": [
+      "Forget and reconnect to the network with the correct password",
+      "Check and adjust MAC address filtering on the router",
+      "Restart the router and the device's WiFi adapter",
+      "Update the WiFi driver",
+      "Reduce connected devices if the router's limit is reached"
+    ],
+    "prevention": [
+      "Keep WiFi passwords documented securely for authorized users",
+      "Regularly review MAC filtering lists if used",
+      "Choose router hardware rated for the expected number of connected devices"
+    ],
+    "keywords": [
+      "cannot connect to wifi",
+      "wifi connection failed",
+      "stuck connecting to wifi"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-024",
+      "NET-022"
+    ]
+  },
+  {
+    "id": "NET-024",
+    "category": "Networking",
+    "subcategory": "Wi-Fi Problems",
+    "problem": "Wrong Wi-Fi Password",
+    "description": "The device rejects the WiFi password as incorrect, even though the user believes they are entering the correct one.",
+    "symptoms": [
+      "Error message specifically indicates an incorrect network security key or password",
+      "Connection fails immediately after entering the password",
+      "Other devices connect successfully with the same password"
+    ],
+    "possible_causes": [
+      "Password was mistyped, including case sensitivity errors",
+      "Router's WiFi password was recently changed",
+      "Saved/cached password on the device is outdated",
+      "Confusion between similar network names, such as 2.4GHz and 5GHz versions with different passwords"
+    ],
+    "diagnostic_questions": [
+      "Are you sure of the exact current WiFi password, including uppercase and lowercase letters?",
+      "Has the WiFi password been changed recently by anyone with router access?",
+      "Are there multiple networks with similar names, like 'HomeWiFi' and 'HomeWiFi_5G', that might use different passwords?",
+      "Does this device have a previously saved profile for this network that might be outdated?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Carefully re-type the WiFi password, double-checking uppercase, lowercase, numbers, and symbols",
+        "reason": "Simple typos are the most frequent cause of this exact error"
+      },
+      {
+        "step": 2,
+        "action": "Check the router's admin page or a label on the router itself for the correct current password",
+        "reason": "Confirms the actual current password rather than relying on memory"
+      },
+      {
+        "step": 3,
+        "action": "Confirm you are connecting to the correct network name if multiple similar SSIDs exist",
+        "reason": "Prevents accidentally trying a 5GHz password on the 2.4GHz network or vice versa"
+      },
+      {
+        "step": 4,
+        "action": "Forget the saved network profile on the device and reconnect fresh with the correct password",
+        "reason": "Removes any outdated cached password causing repeated rejection"
+      },
+      {
+        "step": 5,
+        "action": "Change the WiFi password on the router if it may have been changed unexpectedly by someone else, then reconnect all devices",
+        "reason": "Resolves confusion when the password was changed without the user's knowledge"
+      }
+    ],
+    "possible_solutions": [
+      "Re-enter the password carefully, checking case sensitivity",
+      "Confirm the correct password from the router directly",
+      "Forget and reconnect to the network with the correct password",
+      "Change the router's WiFi password if needed and update all devices"
+    ],
+    "prevention": [
+      "Use a password manager to store WiFi credentials accurately",
+      "Label the router with its current WiFi credentials in a secure location",
+      "Communicate password changes to all users of the network"
+    ],
+    "keywords": [
+      "wifi password incorrect",
+      "wrong wifi password error",
+      "network security key mismatch"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": [
+      "NET-023",
+      "NET-025"
+    ]
+  },
+  {
+    "id": "NET-025",
+    "category": "Networking",
+    "subcategory": "Wi-Fi Problems",
+    "problem": "Authentication Failed",
+    "description": "The device connects partway to the WiFi network but then shows an 'Authentication failed' or similar error, disconnecting shortly after.",
+    "symptoms": [
+      "Device briefly shows connected, then disconnects with an authentication error",
+      "Repeated connection attempts fail the same way",
+      "Other devices may or may not be affected"
+    ],
+    "possible_causes": [
+      "Incorrect or outdated WiFi password/security key",
+      "Mismatched security protocol between device and router, such as WPA2 vs WPA3",
+      "Router's authentication server or radio malfunctioning",
+      "Corrupted network profile on the device",
+      "MAC address filtering rejecting the device after initial handshake"
+    ],
+    "diagnostic_questions": [
+      "Does this happen with a fresh password entry, or does it happen even though the password is correct?",
+      "What WiFi security type does the router use, such as WPA2-Personal or WPA3?",
+      "Is this a new or recently updated device that may not support the router's security protocol?",
+      "Does restarting the router or the device change anything?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the exact WiFi password is correct by checking it directly from the router",
+        "reason": "Even with authentication-specific errors, an incorrect password remains a common root cause"
+      },
+      {
+        "step": 2,
+        "action": "Check what WiFi security protocol the router is using and whether the device supports it",
+        "reason": "Older devices may not support newer protocols like WPA3, causing authentication failures"
+      },
+      {
+        "step": 3,
+        "action": "Forget the network profile on the device and reconnect from scratch",
+        "reason": "Clears potentially corrupted authentication data cached from a previous connection"
+      },
+      {
+        "step": 4,
+        "action": "Restart the router to reset its wireless authentication process",
+        "reason": "Resolves temporary glitches in the router's handling of client authentication"
+      },
+      {
+        "step": 5,
+        "action": "Temporarily switch the router's security mode to a more widely compatible setting like WPA2-Personal (AES) to test compatibility",
+        "reason": "Confirms whether a security protocol mismatch is the root cause"
+      },
+      {
+        "step": 6,
+        "action": "Update the WiFi adapter driver on the device if the issue is isolated to one device",
+        "reason": "Driver-level bugs can cause authentication handshakes to fail with certain routers"
+      }
+    ],
+    "possible_solutions": [
+      "Forget and reconnect using the correct password",
+      "Switch router security mode to a more compatible setting if needed",
+      "Restart the router",
+      "Update the WiFi adapter driver on the affected device"
+    ],
+    "prevention": [
+      "Use a widely compatible security protocol like WPA2/WPA3 mixed mode if older devices are in use",
+      "Keep router firmware updated for authentication stability",
+      "Keep device WiFi drivers updated"
+    ],
+    "keywords": [
+      "wifi authentication failed",
+      "cant authenticate wifi network",
+      "wifi error authentication problem"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "NET-023",
+      "NET-024"
+    ]
+  },
+  {
+    "id": "NET-026",
+    "category": "Networking",
+    "subcategory": "Wi-Fi Problems",
+    "problem": "Wi-Fi Connected but No Internet",
+    "description": "The device shows as connected to WiFi with full or good signal, but there is no actual internet access.",
+    "symptoms": [
+      "WiFi icon shows connected, sometimes with a warning symbol",
+      "Local network devices may be reachable, like a shared printer",
+      "Websites and online services fail to load"
+    ],
+    "possible_causes": [
+      "Router has no internet from the ISP (WAN down)",
+      "DNS resolution failure",
+      "Too many devices causing the router to struggle assigning proper internet routing",
+      "Firewall or router misconfiguration blocking internet traffic",
+      "ISP outage"
+    ],
+    "diagnostic_questions": [
+      "Do other devices on the same WiFi network also have no internet, or just this one?",
+      "Does the router's internet/WAN light look normal?",
+      "Can you access local network devices even though internet fails?",
+      "Have you tried connecting via Ethernet cable to see if internet works when wired?"
+    ],
+    "commands": [
+      {
+        "command": "ping <gateway_ip>",
+        "purpose": "Test connectivity to the router itself over WiFi",
+        "expected_result": "Replies received, confirming the local WiFi connection is healthy",
+        "abnormal_result": "Timeout means even the local connection to the router is failing"
+      },
+      {
+        "command": "ping 8.8.8.8",
+        "purpose": "Test connectivity beyond the router to the internet",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout while the gateway ping succeeds confirms the router has no internet (WAN down), not a WiFi problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if other devices on the same WiFi also lack internet",
+        "reason": "Determines whether this is a router/ISP-wide issue or specific to one device"
+      },
+      {
+        "step": 2,
+        "action": "Ping the router's gateway IP, then ping a public IP like 8.8.8.8",
+        "reason": "Separates a local WiFi connectivity issue from a router-to-internet (WAN) issue"
+      },
+      {
+        "step": 3,
+        "action": "Check the router's WAN/internet status light or admin page",
+        "reason": "Confirms if the router itself has lost its connection to the ISP"
+      },
+      {
+        "step": 4,
+        "action": "Restart the modem and router",
+        "reason": "Resolves the majority of temporary WAN or routing issues"
+      },
+      {
+        "step": 5,
+        "action": "Try connecting via Ethernet cable directly to the router to isolate whether this is WiFi-specific or a broader internet issue",
+        "reason": "If wired also fails, the problem is the router/ISP, not WiFi itself"
+      },
+      {
+        "step": 6,
+        "action": "Contact the ISP if the WAN remains down after a restart and wired connections also fail",
+        "reason": "Indicates an outage or line issue outside local control"
+      }
+    ],
+    "possible_solutions": [
+      "Restart modem and router",
+      "Change DNS settings if resolution is the issue",
+      "Test with a wired connection to isolate the WiFi from the WAN problem",
+      "Contact ISP if WAN stays down after restart"
+    ],
+    "prevention": [
+      "Monitor router WAN status periodically",
+      "Keep firmware updated",
+      "Avoid overloading the router with too many simultaneously active devices"
+    ],
+    "keywords": [
+      "wifi connected no internet",
+      "wifi says connected but no internet access",
+      "wifi limited access"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-001",
+      "NET-013"
+    ]
+  },
+  {
+    "id": "NET-027",
+    "category": "Networking",
+    "subcategory": "Wi-Fi Problems",
+    "problem": "Wi-Fi Disconnects Frequently",
+    "description": "The WiFi connection drops repeatedly throughout the day and needs to reconnect, similar to intermittent wired issues but specific to wireless.",
+    "symptoms": [
+      "WiFi disconnects and reconnects on its own multiple times a day",
+      "Video calls, streaming, or downloads interrupted periodically",
+      "May affect one device or multiple devices on the same network"
+    ],
+    "possible_causes": [
+      "Weak signal due to distance or obstructions",
+      "Interference from other WiFi networks or electronic devices",
+      "Router firmware bug or overheating",
+      "Power-saving settings on the device turning off the WiFi adapter periodically",
+      "Outdated WiFi driver"
+    ],
+    "diagnostic_questions": [
+      "How far is the device from the router, and are there walls or floors in between?",
+      "Does this happen on multiple devices or just one?",
+      "Are there many other WiFi networks nearby that might be causing channel interference?",
+      "Does the device have WiFi power-saving mode enabled?"
+    ],
+    "commands": [
+      {
+        "command": "netsh wlan show interfaces",
+        "purpose": "Check current WiFi signal strength and connection details",
+        "expected_result": "Good signal strength (generally above 60-70%) and a stable connection",
+        "abnormal_result": "Low signal strength or frequent state changes suggest a range or interference problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the WiFi signal strength using netsh wlan show interfaces or the device's WiFi settings",
+        "reason": "Weak signal is one of the most common causes of frequent disconnects"
+      },
+      {
+        "step": 2,
+        "action": "Move closer to the router or reduce obstructions to test if signal improves and disconnects stop",
+        "reason": "Confirms whether distance/obstruction is the root cause"
+      },
+      {
+        "step": 3,
+        "action": "Disable WiFi adapter power-saving mode in Device Manager's adapter properties",
+        "reason": "Aggressive power saving can cause the adapter to briefly disconnect to save power"
+      },
+      {
+        "step": 4,
+        "action": "Change the router's WiFi channel to a less congested one, especially on 2.4GHz",
+        "reason": "Reduces interference from neighboring networks using the same channel"
+      },
+      {
+        "step": 5,
+        "action": "Update the WiFi adapter driver and the router's firmware",
+        "reason": "Resolves known bugs that can cause periodic disconnections"
+      },
+      {
+        "step": 6,
+        "action": "Consider a WiFi extender or mesh system if the affected area is consistently far from the router",
+        "reason": "Physically extends good signal coverage to problem areas"
+      }
+    ],
+    "possible_solutions": [
+      "Disable WiFi power-saving mode on the device",
+      "Change the router's WiFi channel",
+      "Move closer to the router or add a WiFi extender/mesh node",
+      "Update WiFi driver and router firmware"
+    ],
+    "prevention": [
+      "Position the router centrally and elevated for best coverage",
+      "Regularly update router firmware and device drivers",
+      "Consider mesh WiFi systems for larger homes or offices"
+    ],
+    "keywords": [
+      "wifi keeps disconnecting",
+      "wifi drops frequently",
+      "wireless connection unstable"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-028",
+      "NET-005"
+    ]
+  },
+  {
+    "id": "NET-028",
+    "category": "Networking",
+    "subcategory": "Wi-Fi Problems",
+    "problem": "Weak Wi-Fi Signal",
+    "description": "The WiFi signal strength is consistently low in certain areas, resulting in slow speeds, disconnects, or an inability to connect at all in those spots.",
+    "symptoms": [
+      "Signal strength indicator shows only 1-2 bars in certain rooms or areas",
+      "Connection is slow or unstable in these low-signal spots",
+      "Signal is strong closer to the router"
+    ],
+    "possible_causes": [
+      "Physical distance from the router",
+      "Obstructions like thick walls, floors, metal objects, or large appliances",
+      "Interference from other electronics or neighboring WiFi networks",
+      "Router antenna orientation or placement",
+      "Older or lower-powered router hardware"
+    ],
+    "diagnostic_questions": [
+      "In which specific areas is the signal weak, and how far are they from the router?",
+      "What kind of walls or materials are between the device and the router, such as concrete or brick?",
+      "Is the router placed in a central, open location or tucked away in a corner or cabinet?",
+      "How old is the router, and does it support modern WiFi standards?"
+    ],
+    "commands": [
+      {
+        "command": "netsh wlan show interfaces",
+        "purpose": "Check the exact signal strength percentage in the affected area",
+        "expected_result": "Signal strength appropriate for reliable use, generally 60% or higher",
+        "abnormal_result": "Consistently low signal strength, such as under 30-40%, in the affected area confirming a coverage problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the signal strength percentage in the affected area using the device's WiFi settings or netsh wlan show interfaces",
+        "reason": "Quantifies exactly how weak the signal really is"
+      },
+      {
+        "step": 2,
+        "action": "Relocate the router to a more central, open, and elevated location if possible",
+        "reason": "Router placement has a major impact on overall coverage"
+      },
+      {
+        "step": 3,
+        "action": "Adjust router antenna angles if external antennas are present",
+        "reason": "Proper antenna orientation can noticeably improve coverage in certain directions"
+      },
+      {
+        "step": 4,
+        "action": "Identify and reduce sources of interference, such as moving the router away from microwaves or cordless phone bases",
+        "reason": "These devices can interfere with WiFi signals, especially on the 2.4GHz band"
+      },
+      {
+        "step": 5,
+        "action": "Add a WiFi extender, access point, or mesh system to cover consistently weak areas",
+        "reason": "Physically extends reliable coverage beyond the main router's range"
+      },
+      {
+        "step": 6,
+        "action": "Consider upgrading to a newer router if the current one is old and has limited range or power",
+        "reason": "Newer hardware often has significantly better range and performance"
+      }
+    ],
+    "possible_solutions": [
+      "Reposition the router to a more central and elevated location",
+      "Adjust antenna orientation",
+      "Reduce interference from nearby electronics",
+      "Add a WiFi extender, additional access point, or mesh system",
+      "Upgrade to newer router hardware if needed"
+    ],
+    "prevention": [
+      "Plan router placement during setup to minimize obstructions",
+      "Consider mesh systems for larger or multi-floor spaces from the start",
+      "Regularly reassess coverage as the space or furniture layout changes"
+    ],
+    "keywords": [
+      "weak wifi signal",
+      "poor wifi coverage",
+      "wifi signal low in room"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "NET-027",
+      "NET-004"
+    ]
+  },
+  {
+    "id": "NET-029",
+    "category": "Networking",
+    "subcategory": "Wi-Fi Problems",
+    "problem": "Slow Wi-Fi",
+    "description": "WiFi connects normally with good signal strength, but internet and local network speeds are noticeably slower than expected.",
+    "symptoms": [
+      "Speed test results on WiFi are much lower than the subscribed plan or wired speed",
+      "Streaming buffers or drops quality",
+      "File transfers over WiFi to local devices are slow"
+    ],
+    "possible_causes": [
+      "Too many devices sharing the same WiFi band",
+      "Outdated WiFi standard on the router or device (e.g., WiFi 4 instead of WiFi 5/6)",
+      "Channel congestion from neighboring networks",
+      "Router placed far from the device despite decent signal bars",
+      "Background bandwidth usage from other devices or applications"
+    ],
+    "diagnostic_questions": [
+      "How does WiFi speed compare to a wired Ethernet speed test on the same network?",
+      "How many devices are actively connected and using bandwidth right now?",
+      "What WiFi standard does the router support, and what does the device support (2.4GHz vs 5GHz, WiFi 5, WiFi 6)?",
+      "Have you tried switching to the 5GHz band if available?"
+    ],
+    "commands": [
+      {
+        "command": "netsh wlan show interfaces",
+        "purpose": "Check the current negotiated WiFi connection speed (PHY rate) versus signal strength",
+        "expected_result": "A connection speed appropriate for the router and device's supported standard",
+        "abnormal_result": "A surprisingly low negotiated speed despite good signal strength suggests a band, channel, or compatibility issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Run a speed test over WiFi, then repeat over a wired connection on the same network for comparison",
+        "reason": "Determines whether the slowness is specific to WiFi or affects the whole connection"
+      },
+      {
+        "step": 2,
+        "action": "Check whether the device is connected to the 2.4GHz or 5GHz band and switch to 5GHz if available and within range",
+        "reason": "5GHz typically offers significantly faster speeds at closer range compared to 2.4GHz"
+      },
+      {
+        "step": 3,
+        "action": "Check for channel congestion using a WiFi analyzer app and change the router's channel if heavily congested",
+        "reason": "Reduces interference from neighboring networks competing for the same channel"
+      },
+      {
+        "step": 4,
+        "action": "Reduce the number of actively connected and bandwidth-heavy devices during testing",
+        "reason": "Confirms whether shared bandwidth usage is contributing to the slowness"
+      },
+      {
+        "step": 5,
+        "action": "Update router firmware and the device's WiFi driver",
+        "reason": "Performance improvements and bug fixes are often included in updates"
+      },
+      {
+        "step": 6,
+        "action": "Consider upgrading router hardware if it uses an older WiFi standard that limits maximum possible speed",
+        "reason": "Older WiFi 4 routers cannot deliver speeds that newer WiFi 5/6 hardware can achieve"
+      }
+    ],
+    "possible_solutions": [
+      "Switch to the 5GHz band if available",
+      "Change the router's WiFi channel to reduce congestion",
+      "Limit simultaneous heavy bandwidth usage during important tasks",
+      "Update router firmware and device WiFi drivers",
+      "Upgrade to a newer WiFi standard router if needed"
+    ],
+    "prevention": [
+      "Choose router hardware matching current WiFi standards",
+      "Regularly review and adjust WiFi channel selection",
+      "Position router to minimize obstructions for best speed, not just signal bars"
+    ],
+    "keywords": [
+      "slow wifi speed",
+      "wifi slower than ethernet",
+      "wifi speed test low"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-004",
+      "NET-028"
+    ]
+  },
+  {
+    "id": "NET-030",
+    "category": "Networking",
+    "subcategory": "Wi-Fi Problems",
+    "problem": "Hidden SSID",
+    "description": "The user needs to connect to a WiFi network that has its name (SSID) intentionally hidden and does not appear in the normal network list.",
+    "symptoms": [
+      "Network does not appear in the available WiFi list",
+      "Connecting requires manually entering the network name",
+      "Router administrator has confirmed SSID broadcast is disabled"
+    ],
+    "possible_causes": [
+      "This is intentional router configuration for privacy/security, not a fault",
+      "User does not know the exact SSID or security settings needed to connect manually",
+      "Case sensitivity or typo in the manually entered network name"
+    ],
+    "diagnostic_questions": [
+      "Do you know the exact SSID (network name), including correct capitalization?",
+      "Do you know the security type used, such as WPA2-Personal, and the password?",
+      "Is SSID hiding intentional, done by an administrator for security reasons?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Obtain the exact SSID name, security type, and password from the network administrator or router settings",
+        "reason": "A hidden network cannot be discovered automatically and requires exact manual entry"
+      },
+      {
+        "step": 2,
+        "action": "On the device, choose the option to manually add a network rather than selecting from the visible list",
+        "reason": "This is the correct method for connecting to networks that do not broadcast their name"
+      },
+      {
+        "step": 3,
+        "action": "Enter the SSID exactly as configured, matching uppercase and lowercase letters precisely",
+        "reason": "SSIDs are case-sensitive, and even small typos will prevent a successful connection"
+      },
+      {
+        "step": 4,
+        "action": "Select the correct security type and enter the password",
+        "reason": "An incorrect security type selection will cause the connection to fail even with the right password"
+      },
+      {
+        "step": 5,
+        "action": "Confirm successful connection and consider whether hiding the SSID provides meaningful benefit, since it is a weak security measure on its own",
+        "reason": "Hidden SSIDs offer minimal real security while adding inconvenience, which is worth discussing with the administrator"
+      }
+    ],
+    "possible_solutions": [
+      "Manually add the network using the exact SSID, security type, and password",
+      "Confirm exact capitalization and spelling of the hidden SSID",
+      "Ask the administrator to temporarily unhide the SSID to simplify onboarding, if appropriate"
+    ],
+    "prevention": [
+      "Document hidden SSID names and passwords securely for authorized users",
+      "Consider that SSID hiding provides minimal actual security benefit compared to strong WPA2/WPA3 passwords",
+      "Use a consistent process for onboarding new devices to hidden networks"
+    ],
+    "keywords": [
+      "hidden wifi network",
+      "connect to hidden ssid",
+      "manually add wifi network"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": [
+      "NET-022"
+    ]
+  },
+  {
+    "id": "NET-031",
+    "category": "Networking",
+    "subcategory": "Wi-Fi Problems",
+    "problem": "Cannot Obtain IP Address",
+    "description": "The device connects to the WiFi network (correct password accepted) but then fails to receive a valid IP address, resulting in no network access.",
+    "symptoms": [
+      "Status shows 'Connecting...' then 'Cannot obtain IP address' or similar error",
+      "WiFi password is accepted, but connection stalls after that point",
+      "May show an APIPA (169.254.x.x) address instead of a proper one"
+    ],
+    "possible_causes": [
+      "Router's DHCP service is full, disabled, or malfunctioning",
+      "IP address conflict on the network",
+      "Device's network adapter or driver issue preventing proper DHCP negotiation",
+      "Too many devices connected, exceeding the DHCP pool size"
+    ],
+    "diagnostic_questions": [
+      "Does this happen on this one device only, or on any new device trying to join the network?",
+      "How many devices are currently connected to this WiFi network?",
+      "Have you tried restarting the router?",
+      "Does ipconfig show an APIPA address (169.254.x.x)?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check what IP address, if any, was assigned to the WiFi adapter",
+        "expected_result": "A valid private IP address matching the router's network range",
+        "abnormal_result": "An APIPA address (169.254.x.x) or no address at all confirms the DHCP request failed"
+      },
+      {
+        "command": "ipconfig /release && ipconfig /renew",
+        "purpose": "Manually release and request a new IP address from the router",
+        "expected_result": "A new, valid IP address is successfully assigned",
+        "abnormal_result": "The renewal fails or still returns an APIPA address, pointing to a router-side DHCP problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Run ipconfig /all to confirm whether an APIPA address was assigned",
+        "reason": "Confirms the device failed to receive a proper address from the router's DHCP service"
+      },
+      {
+        "step": 2,
+        "action": "Release and renew the IP address manually",
+        "reason": "Forces a fresh DHCP request that may succeed if the first attempt simply failed"
+      },
+      {
+        "step": 3,
+        "action": "Check the router's admin page for the number of connected devices versus the DHCP pool size",
+        "reason": "A full DHCP pool will refuse to assign new addresses to additional devices"
+      },
+      {
+        "step": 4,
+        "action": "Restart the router to reset its DHCP service",
+        "reason": "Resolves a stuck or crashed DHCP service on the router"
+      },
+      {
+        "step": 5,
+        "action": "Restart the affected device and try reconnecting fresh",
+        "reason": "Clears any stuck network stack state on the device itself"
+      },
+      {
+        "step": 6,
+        "action": "Increase the router's DHCP pool size in its settings if it is being exhausted regularly by many devices",
+        "reason": "Prevents future devices from being unable to obtain an address"
+      }
+    ],
+    "possible_solutions": [
+      "Release and renew the IP address",
+      "Restart the router to reset DHCP",
+      "Increase the DHCP pool size if it is full",
+      "Restart the affected device's network adapter"
+    ],
+    "prevention": [
+      "Monitor the number of connected devices relative to the DHCP pool size",
+      "Keep router firmware updated for DHCP stability",
+      "Consider a larger DHCP range for busy networks"
+    ],
+    "keywords": [
+      "cannot obtain ip address wifi",
+      "stuck obtaining ip address",
+      "wifi connected no ip"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-003",
+      "NET-018"
+    ]
+  },
+  {
+    "id": "NET-032",
+    "category": "Networking",
+    "subcategory": "Wi-Fi Problems",
+    "problem": "Wi-Fi Adapter Disabled",
+    "description": "The WiFi adapter has been disabled, either through a physical switch, a function key, or in Windows settings, so no wireless networks can be found or used.",
+    "symptoms": [
+      "No WiFi networks are listed at all, as if no adapter exists",
+      "WiFi toggle in settings is off, or the adapter shows disabled in Device Manager",
+      "A physical WiFi switch or indicator light on a laptop may be off"
+    ],
+    "possible_causes": [
+      "Physical WiFi switch or airplane mode turned on",
+      "WiFi disabled through a function key (Fn+F-key) combination",
+      "Adapter disabled in Windows Network Connections or Device Manager",
+      "Power management or Group Policy disabling the adapter"
+    ],
+    "diagnostic_questions": [
+      "Does the laptop have a physical WiFi switch or indicator light, and what state is it in?",
+      "Is Airplane Mode turned on in Windows settings?",
+      "Have you checked Device Manager to see if the WiFi adapter is disabled?",
+      "Was WiFi working before, and did anything change recently, like a key press or software install?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-NetAdapter",
+        "purpose": "Check the current status of the WiFi adapter",
+        "expected_result": "Adapter status shows 'Up' or at least present, not 'Disabled'",
+        "abnormal_result": "Status shows 'Disabled', confirming the adapter itself has been turned off"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if Airplane Mode is turned on in Windows quick settings and turn it off if so",
+        "reason": "Airplane Mode disables all wireless radios, including WiFi, with one simple toggle"
+      },
+      {
+        "step": 2,
+        "action": "Check for a physical WiFi switch on the laptop, often on the side or front edge, and ensure it is in the 'on' position",
+        "reason": "Many laptops have a hardware switch that overrides all software settings"
+      },
+      {
+        "step": 3,
+        "action": "Try the WiFi function key combination, usually Fn plus a key showing a wireless icon",
+        "reason": "Accidental key presses are a common and simple cause of WiFi being toggled off"
+      },
+      {
+        "step": 4,
+        "action": "Check Device Manager and Network Connections to confirm the WiFi adapter is enabled",
+        "reason": "Confirms and fixes the issue if it was disabled at the software/driver level"
+      },
+      {
+        "step": 5,
+        "action": "Check Group Policy settings if this is a managed work or school computer",
+        "reason": "Administrators sometimes intentionally disable WiFi on managed devices for security reasons"
+      }
+    ],
+    "possible_solutions": [
+      "Turn off Airplane Mode",
+      "Check and enable the physical WiFi switch if present",
+      "Use the WiFi function key to re-enable wireless",
+      "Enable the adapter in Device Manager or Network Connections",
+      "Check with IT if Group Policy is disabling WiFi on a managed device"
+    ],
+    "prevention": [
+      "Be mindful of function key combinations that toggle WiFi",
+      "Avoid disabling network adapters unless necessary for troubleshooting",
+      "Document Group Policy restrictions on managed devices for user reference"
+    ],
+    "keywords": [
+      "wifi adapter disabled",
+      "no wifi networks found at all",
+      "airplane mode wifi off"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-10 minutes",
+    "related_problems": [
+      "NET-015",
+      "NET-021"
+    ]
+  },
+  {
+    "id": "NET-033",
+    "category": "Networking",
+    "subcategory": "IP Address Problems",
+    "problem": "No IP Address Assigned",
+    "description": "The network adapter shows no IP address at all, whether wired or wireless, preventing any network communication.",
+    "symptoms": [
+      "ipconfig shows no IPv4 address for the adapter, or shows 'Media disconnected'",
+      "No local network or internet access",
+      "Network icon typically shows a warning or disconnected state"
+    ],
+    "possible_causes": [
+      "No physical or wireless connection established",
+      "DHCP server (router) not responding",
+      "Adapter driver issue preventing address negotiation",
+      "Static IP was removed or misconfigured without a valid replacement"
+    ],
+    "diagnostic_questions": [
+      "Is this a wired or wireless connection?",
+      "Is the physical link (cable connected, or WiFi connected) actually established before checking for an IP?",
+      "Have you tried releasing and renewing the IP address?",
+      "Is this affecting just this device or the whole network?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check the current IP configuration status for all adapters",
+        "expected_result": "A valid IPv4 address listed for the active adapter",
+        "abnormal_result": "No IPv4 address at all, or 'Media disconnected', confirming no address was received"
+      },
+      {
+        "command": "ipconfig /release",
+        "purpose": "Release any current IP address configuration",
+        "expected_result": "Releases without error",
+        "abnormal_result": "Error releasing may indicate an adapter or driver problem"
+      },
+      {
+        "command": "ipconfig /renew",
+        "purpose": "Request a new IP address from the DHCP server",
+        "expected_result": "A valid new IP address is assigned",
+        "abnormal_result": "Renewal fails entirely or returns no address, pointing to a DHCP/router issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the physical connection (cable plugged in or WiFi connected) is actually established first",
+        "reason": "No IP address is expected and normal if there is no underlying connection at all"
+      },
+      {
+        "step": 2,
+        "action": "Run ipconfig /release followed by ipconfig /renew",
+        "reason": "Forces a fresh request for a valid IP address from the network's DHCP server"
+      },
+      {
+        "step": 3,
+        "action": "Restart the router to reset its DHCP service if renewal fails",
+        "reason": "A stuck or crashed DHCP service on the router will not respond to any client requests"
+      },
+      {
+        "step": 4,
+        "action": "Check if a static IP was previously configured and is now invalid or missing required fields",
+        "reason": "An incomplete static configuration can prevent any address from being properly applied"
+      },
+      {
+        "step": 5,
+        "action": "Update or reinstall the network adapter driver if release/renew consistently fails on this device only",
+        "reason": "A driver-level fault can prevent the adapter from properly requesting or accepting an address"
+      }
+    ],
+    "possible_solutions": [
+      "Release and renew the IP address",
+      "Restart the router to reset DHCP service",
+      "Correct or remove an invalid static IP configuration",
+      "Update or reinstall the network adapter driver"
+    ],
+    "prevention": [
+      "Keep DHCP services on routers/servers properly maintained",
+      "Avoid leaving incomplete static IP configurations on devices",
+      "Regularly test and monitor network adapter health on critical systems"
+    ],
+    "keywords": [
+      "no ip address assigned",
+      "ipconfig no ip",
+      "network adapter no address"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-034",
+      "NET-041"
+    ]
+  },
+  {
+    "id": "NET-034",
+    "category": "Networking",
+    "subcategory": "IP Address Problems",
+    "problem": "APIPA Address (169.254.x.x)",
+    "description": "The device has assigned itself an Automatic Private IP Addressing (APIPA) address starting with 169.254, meaning it failed to get a real address from DHCP.",
+    "symptoms": [
+      "ipconfig shows an IP address starting with 169.254",
+      "No internet or local network access, or only very limited local access",
+      "May show a 'Limited' network status in Windows"
+    ],
+    "possible_causes": [
+      "DHCP server (router) not responding or unreachable",
+      "Physical or wireless connection unstable during the address request",
+      "Router's DHCP service disabled or its address pool exhausted",
+      "Firewall or driver issue blocking the DHCP request/response"
+    ],
+    "diagnostic_questions": [
+      "Have you tried releasing and renewing the IP address?",
+      "Is the router's DHCP service enabled, and is its address pool full?",
+      "Does this happen on this device only, or on multiple devices joining the network?",
+      "Is the physical or WiFi connection to the router stable?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Confirm the exact IP address currently assigned",
+        "expected_result": "A valid private IP in the router's normal range, such as 192.168.x.x",
+        "abnormal_result": "An address starting with 169.254.x.x confirms an APIPA self-assigned address was used because DHCP failed"
+      },
+      {
+        "command": "ipconfig /release && ipconfig /renew",
+        "purpose": "Force the device to request a new address from the DHCP server",
+        "expected_result": "A valid address in the correct range is received",
+        "abnormal_result": "The device falls back to another 169.254.x.x address, confirming DHCP is still not responding"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the APIPA address with ipconfig /all",
+        "reason": "Establishes clearly that this is a failed DHCP request rather than another type of network issue"
+      },
+      {
+        "step": 2,
+        "action": "Release and renew the IP address",
+        "reason": "Gives the device another chance to successfully reach the DHCP server"
+      },
+      {
+        "step": 3,
+        "action": "Restart the router to reset its DHCP service",
+        "reason": "A crashed or overloaded DHCP service is a very common cause of repeated APIPA assignment"
+      },
+      {
+        "step": 4,
+        "action": "Check the router's DHCP pool size and current usage in its admin page",
+        "reason": "A full address pool will cause new or renewing devices to fail and fall back to APIPA"
+      },
+      {
+        "step": 5,
+        "action": "Check cable/WiFi stability during the renewal process, since a dropped connection mid-request can cause failure",
+        "reason": "An unstable connection at the exact moment of the DHCP request can cause it to fail"
+      },
+      {
+        "step": 6,
+        "action": "Temporarily assign a manual static IP as a workaround while investigating the DHCP issue further",
+        "reason": "Restores network access immediately while the underlying DHCP problem is resolved"
+      }
+    ],
+    "possible_solutions": [
+      "Release and renew the IP address",
+      "Restart the router to reset DHCP",
+      "Increase the DHCP pool size if exhausted",
+      "Temporarily assign a static IP as a workaround"
+    ],
+    "prevention": [
+      "Monitor DHCP pool utilization on busy networks",
+      "Keep router firmware updated for DHCP reliability",
+      "Use a stable, quality connection during initial network setup"
+    ],
+    "keywords": [
+      "169.254 ip address",
+      "apipa address problem",
+      "self assigned ip address"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-033",
+      "NET-036"
+    ]
+  },
+  {
+    "id": "NET-035",
+    "category": "Networking",
+    "subcategory": "IP Address Problems",
+    "problem": "Duplicate IP Address",
+    "description": "Windows shows a warning that another device on the network is using the same IP address as this computer, causing connectivity conflicts.",
+    "symptoms": [
+      "Warning message: 'Another device on the network has the same IP address'",
+      "Intermittent or complete loss of network connectivity",
+      "May affect one or both devices sharing the same address"
+    ],
+    "possible_causes": [
+      "Two devices manually configured with the same static IP",
+      "A device with a static IP falls within the router's dynamic DHCP pool range, causing a clash",
+      "DHCP server assigning a duplicate address due to a lease table error"
+    ],
+    "diagnostic_questions": [
+      "Is this device using a static (manually set) IP address, or automatic (DHCP)?",
+      "Do you know of any other device that might be using the same static IP?",
+      "Was a new device recently added to the network with a manually configured address?",
+      "Does restarting the router or renewing the IP resolve the conflict temporarily?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check whether this device is using a static or DHCP-assigned address",
+        "expected_result": "Clarifies the current configuration type and address in use",
+        "abnormal_result": "A static IP that happens to fall within the router's DHCP range is a likely source of the conflict"
+      },
+      {
+        "command": "arp -a",
+        "purpose": "View the ARP table to see which MAC addresses are associated with which IPs on the local network",
+        "expected_result": "Each IP address maps to only one MAC address",
+        "abnormal_result": "Inconsistent or conflicting entries can sometimes reveal duplicate address activity, though this may need to be checked from another device"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Identify whether the device in question uses a static IP or receives one automatically via DHCP",
+        "reason": "Determines the right fix path, since static IP conflicts are resolved differently than DHCP conflicts"
+      },
+      {
+        "step": 2,
+        "action": "If static, change the device to use an IP address outside the router's DHCP pool range, or switch it to automatic (DHCP)",
+        "reason": "Prevents future clashes with dynamically assigned addresses"
+      },
+      {
+        "step": 3,
+        "action": "If using DHCP, release and renew the IP address to request a fresh, hopefully non-conflicting address",
+        "reason": "Often resolves temporary DHCP lease table errors causing the duplicate assignment"
+      },
+      {
+        "step": 4,
+        "action": "Check other devices on the network for any manually configured static IPs that might conflict",
+        "reason": "Identifies and corrects the actual source of the duplicate address"
+      },
+      {
+        "step": 5,
+        "action": "Restart the router to clear and rebuild its DHCP lease table if conflicts persist",
+        "reason": "Resolves internal DHCP server errors that may be causing repeated duplicate assignments"
+      }
+    ],
+    "possible_solutions": [
+      "Change conflicting static IP to one outside the DHCP range, or switch to automatic",
+      "Release and renew the IP address",
+      "Identify and correct other devices with conflicting static IPs",
+      "Restart the router to rebuild the DHCP lease table"
+    ],
+    "prevention": [
+      "Reserve a specific range outside the DHCP pool for static IP devices",
+      "Use DHCP reservations instead of manual static IPs where possible",
+      "Document all statically assigned IP addresses on the network"
+    ],
+    "keywords": [
+      "duplicate ip address warning",
+      "ip address conflict windows",
+      "same ip address another device"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "NET-036",
+      "NET-041"
+    ]
+  },
+  {
+    "id": "NET-036",
+    "category": "Networking",
+    "subcategory": "IP Address Problems",
+    "problem": "Static IP Misconfigured",
+    "description": "A device configured with a manual (static) IP address cannot connect properly due to incorrect settings in that configuration.",
+    "symptoms": [
+      "Device cannot reach the local network or internet despite appearing 'connected'",
+      "ipconfig shows a static IP that does not match the network's actual range",
+      "Other devices using DHCP work fine on the same network"
+    ],
+    "possible_causes": [
+      "Wrong IP address entered, not matching the network's subnet",
+      "Incorrect subnet mask",
+      "Incorrect default gateway or DNS server entered",
+      "IP address conflicts with another device or falls within the DHCP pool"
+    ],
+    "diagnostic_questions": [
+      "What static IP, subnet mask, gateway, and DNS values were manually entered?",
+      "What is the correct network range used by the router, for example 192.168.1.x?",
+      "Was this configuration copied from another device or documentation that might be outdated?",
+      "Does switching this device to automatic (DHCP) restore connectivity?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Review the exact static configuration currently applied",
+        "expected_result": "IP address, subnet mask, gateway, and DNS all correctly matching the network",
+        "abnormal_result": "Any mismatched value, such as a wrong subnet or gateway on a different network segment, explains the failure"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Compare the manually configured IP, subnet mask, gateway, and DNS against a known-working device on the same network using DHCP",
+        "reason": "Quickly reveals which specific value is incorrect"
+      },
+      {
+        "step": 2,
+        "action": "Correct the IP address to be within the correct network range and outside the router's DHCP pool",
+        "reason": "Ensures the address is valid for this network and will not conflict with dynamically assigned devices"
+      },
+      {
+        "step": 3,
+        "action": "Correct the subnet mask to match the rest of the network, typically 255.255.255.0 for most home/small office networks",
+        "reason": "An incorrect subnet mask can prevent the device from communicating even within the same physical network"
+      },
+      {
+        "step": 4,
+        "action": "Correct the default gateway to match the router's actual IP address",
+        "reason": "An incorrect gateway prevents any traffic from leaving the local network"
+      },
+      {
+        "step": 5,
+        "action": "Correct or update the DNS server entries, or set them to a reliable public DNS like 8.8.8.8",
+        "reason": "Ensures website names can be properly resolved even with the correct IP configuration otherwise"
+      },
+      {
+        "step": 6,
+        "action": "Test connectivity after each correction, or consider switching to automatic (DHCP) if manual configuration is not required",
+        "reason": "Confirms the fix and simplifies future maintenance if static addressing is not truly needed"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the IP address, subnet mask, gateway, and DNS to match the actual network",
+      "Switch to automatic (DHCP) configuration if static addressing is not required",
+      "Use a DHCP reservation instead of manual static configuration for easier management"
+    ],
+    "prevention": [
+      "Document all static IP configurations clearly and keep them updated",
+      "Use DHCP reservations instead of manual static IPs where possible to reduce human error",
+      "Double check all four key values (IP, subnet, gateway, DNS) when configuring manually"
+    ],
+    "keywords": [
+      "static ip misconfigured",
+      "wrong static ip settings",
+      "manual ip configuration not working"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "NET-037",
+      "NET-038",
+      "NET-039"
+    ]
+  },
+  {
+    "id": "NET-037",
+    "category": "Networking",
+    "subcategory": "IP Address Problems",
+    "problem": "Incorrect Subnet Mask",
+    "description": "The subnet mask configured on a device does not match the rest of the network, preventing proper communication even within the same physical network.",
+    "symptoms": [
+      "Device cannot communicate with other devices on what should be the same local network",
+      "May show a valid-looking IP address but still fail to connect properly",
+      "Problem often appears after manual network configuration"
+    ],
+    "possible_causes": [
+      "Subnet mask manually entered incorrectly",
+      "Subnet mask copied from a different network with a different addressing scheme",
+      "Confusion between common subnet mask values, such as 255.255.255.0 versus 255.255.0.0"
+    ],
+    "diagnostic_questions": [
+      "What subnet mask is currently configured on this device?",
+      "What subnet mask do other working devices on the same network use?",
+      "Was this configuration entered manually, and if so, where did the values come from?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check the currently configured subnet mask",
+        "expected_result": "Subnet mask matches what is used by other devices on the same network",
+        "abnormal_result": "A different or unusual subnet mask value indicates a misconfiguration"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the subnet mask on a known-working device on the same network for comparison",
+        "reason": "Provides the correct reference value to fix the misconfigured device"
+      },
+      {
+        "step": 2,
+        "action": "Correct the subnet mask on the affected device to match the rest of the network exactly",
+        "reason": "All devices on the same logical network segment must use the same subnet mask to communicate properly"
+      },
+      {
+        "step": 3,
+        "action": "Restart the network adapter or the device after making the change",
+        "reason": "Ensures the corrected setting is fully applied"
+      },
+      {
+        "step": 4,
+        "action": "Test connectivity to another local device and to the internet after the correction",
+        "reason": "Confirms the subnet mask was indeed the cause and the fix worked"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the subnet mask to match the rest of the network",
+      "Switch to automatic (DHCP) configuration if manual entry is error-prone",
+      "Restart the adapter after making changes"
+    ],
+    "prevention": [
+      "Use DHCP where possible to avoid manual subnet mask errors",
+      "Document the correct subnet mask for the network for reference",
+      "Double-check subnet values when setting up any static configuration"
+    ],
+    "keywords": [
+      "incorrect subnet mask",
+      "subnet mask wrong network",
+      "subnet mismatch local network"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-15 minutes",
+    "related_problems": [
+      "NET-036",
+      "NET-038"
+    ]
+  },
+  {
+    "id": "NET-038",
+    "category": "Networking",
+    "subcategory": "IP Address Problems",
+    "problem": "Incorrect Gateway",
+    "description": "The default gateway configured on a device is wrong or missing, so the device can communicate on the local network but cannot reach the internet or other networks.",
+    "symptoms": [
+      "Local devices are reachable, but internet and other network segments are not",
+      "ipconfig shows an incorrect, missing, or unreachable gateway address",
+      "Ping to the configured gateway fails"
+    ],
+    "possible_causes": [
+      "Gateway IP manually entered incorrectly",
+      "Gateway address does not match the router's actual IP",
+      "Router's IP address changed but the device's static configuration was not updated",
+      "DHCP misconfiguration providing a wrong gateway value"
+    ],
+    "diagnostic_questions": [
+      "What gateway address is currently configured on the affected device?",
+      "What is the router's actual current IP address?",
+      "Is this device using a static IP with a manually entered gateway, or DHCP?",
+      "Can you ping the configured gateway address successfully?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check the currently configured default gateway",
+        "expected_result": "Gateway address matches the router's actual IP, for example 192.168.1.1",
+        "abnormal_result": "Gateway is missing, blank, or does not match the router's real address"
+      },
+      {
+        "command": "ping <gateway_ip>",
+        "purpose": "Test if the configured gateway address is actually reachable",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout confirms the configured gateway address is wrong or unreachable"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the router's actual current IP address, usually printed on the router or found in its admin interface",
+        "reason": "Provides the correct value the device's gateway setting should match"
+      },
+      {
+        "step": 2,
+        "action": "Compare this to the gateway currently configured on the affected device using ipconfig /all",
+        "reason": "Confirms whether there is a mismatch"
+      },
+      {
+        "step": 3,
+        "action": "Correct the static gateway setting to match the router's actual IP address, or switch the device to automatic (DHCP)",
+        "reason": "Restores the device's ability to route traffic beyond the local network"
+      },
+      {
+        "step": 4,
+        "action": "Ping the corrected gateway address to confirm it now responds",
+        "reason": "Verifies the fix resolved the connectivity issue"
+      },
+      {
+        "step": 5,
+        "action": "If using DHCP and the gateway is still wrong, check the router's DHCP configuration for an incorrect gateway value being handed out",
+        "reason": "Points to a router-side misconfiguration rather than a device-side one"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the static gateway to match the router's actual IP address",
+      "Switch the device to automatic (DHCP) configuration",
+      "Fix an incorrect gateway value in the router's DHCP settings if applicable"
+    ],
+    "prevention": [
+      "Keep static IP documentation updated whenever the router's address changes",
+      "Use DHCP where possible to avoid manual gateway errors",
+      "Regularly verify network configuration after any router changes"
+    ],
+    "keywords": [
+      "incorrect default gateway",
+      "gateway not reachable static ip",
+      "wrong gateway address configured"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-036",
+      "NET-042"
+    ]
+  },
+  {
+    "id": "NET-039",
+    "category": "Networking",
+    "subcategory": "IP Address Problems",
+    "problem": "IP Address Conflict",
+    "description": "Two or more devices on the network are attempting to use the same IP address at the same time, causing connectivity problems for one or both devices.",
+    "symptoms": [
+      "Windows warning: 'There is an IP address conflict with another system on the network'",
+      "Intermittent connectivity, or one device losing connection when the other is active",
+      "Problem may resolve temporarily on its own then return"
+    ],
+    "possible_causes": [
+      "Duplicate static IP configuration on two devices",
+      "A device with a static IP within the router's DHCP pool clashing with a dynamically assigned device",
+      "DHCP server assigning the same address twice due to a lease table issue"
+    ],
+    "diagnostic_questions": [
+      "Are any devices on the network manually configured with static IP addresses?",
+      "Does the conflict warning mention a specific IP address, and do you recognize which devices might be using it?",
+      "Did this start after adding a new device to the network?",
+      "Does releasing and renewing the IP, or restarting the router, temporarily resolve it?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Identify the exact IP address in conflict on this device",
+        "expected_result": "Shows the current IP address involved in the conflict warning",
+        "abnormal_result": "N/A - this simply identifies the address to investigate further"
+      },
+      {
+        "command": "arp -a",
+        "purpose": "View which MAC addresses are associated with IP addresses on the local network, to help identify the conflicting device",
+        "expected_result": "Each IP maps to a single consistent MAC address",
+        "abnormal_result": "Unexpected or unfamiliar MAC address entries can help identify an unknown or conflicting device"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact IP address mentioned in the conflict warning",
+        "reason": "Provides the specific address to investigate rather than searching broadly"
+      },
+      {
+        "step": 2,
+        "action": "Check all devices on the network for a static IP configuration matching that address",
+        "reason": "Duplicate static configuration is the most direct and common cause"
+      },
+      {
+        "step": 3,
+        "action": "Change one of the conflicting devices to a different static IP outside the DHCP pool, or switch it to automatic (DHCP)",
+        "reason": "Resolves the conflict by ensuring only one device uses that specific address"
+      },
+      {
+        "step": 4,
+        "action": "Release and renew the IP address on the affected DHCP-based device if no static conflict is found",
+        "reason": "Requests a fresh address from the router, which can resolve a stale DHCP lease table entry"
+      },
+      {
+        "step": 5,
+        "action": "Restart the router to rebuild its DHCP lease table if conflicts continue to recur without a clear static IP cause",
+        "reason": "Clears any internal inconsistency in how the router is tracking assigned addresses"
+      }
+    ],
+    "possible_solutions": [
+      "Change a conflicting static IP to a unique address outside the DHCP range",
+      "Switch a statically configured device to automatic (DHCP)",
+      "Release and renew the IP address",
+      "Restart the router to rebuild the DHCP lease table"
+    ],
+    "prevention": [
+      "Reserve a specific address range for static IP devices, separate from the DHCP pool",
+      "Use DHCP reservations for devices needing a consistent address",
+      "Document all static IP assignments across the network"
+    ],
+    "keywords": [
+      "ip address conflict warning",
+      "duplicate ip conflict windows",
+      "two devices same ip"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "NET-035",
+      "NET-034"
+    ]
+  },
+  {
+    "id": "NET-040",
+    "category": "Networking",
+    "subcategory": "IP Address Problems",
+    "problem": "Unable to Renew IP Address",
+    "description": "Attempting to renew the IP address using ipconfig /renew fails with an error, and the device cannot obtain a valid address.",
+    "symptoms": [
+      "ipconfig /renew returns an error such as 'The RPC server is unavailable' or 'An error occurred while renewing interface'",
+      "Device remains without a valid IP address or keeps an APIPA address",
+      "No network connectivity as a result"
+    ],
+    "possible_causes": [
+      "DHCP Client service not running on the computer",
+      "Router's DHCP server not responding at all",
+      "Physical or wireless connection unstable during the renewal attempt",
+      "Network adapter driver issue preventing proper DHCP communication"
+    ],
+    "diagnostic_questions": [
+      "What exact error message appears when running ipconfig /renew?",
+      "Is the DHCP Client service running in Windows Services?",
+      "Is the physical or WiFi connection to the router stable during this attempt?",
+      "Does restarting the computer or router change the result?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /renew",
+        "purpose": "Attempt to obtain a new IP address and observe the specific error, if any",
+        "expected_result": "A new valid IP address is successfully assigned",
+        "abnormal_result": "A specific error message appears, which helps identify whether the problem is the DHCP Client service, the adapter, or the router"
+      },
+      {
+        "command": "services.msc",
+        "purpose": "Check whether the DHCP Client service is running in Windows",
+        "expected_result": "DHCP Client service status is 'Running'",
+        "abnormal_result": "Service is stopped or disabled, which will directly prevent successful IP renewal"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the exact error message returned by ipconfig /renew",
+        "reason": "Different errors point to different root causes, such as a service issue versus no router response"
+      },
+      {
+        "step": 2,
+        "action": "Open Services (services.msc) and confirm the DHCP Client service is running and set to automatic",
+        "reason": "This Windows service is required for the renewal process to function at all"
+      },
+      {
+        "step": 3,
+        "action": "Start the DHCP Client service if it is stopped, then retry ipconfig /renew",
+        "reason": "Directly resolves the issue if this specific service was the cause"
+      },
+      {
+        "step": 4,
+        "action": "Restart the router to reset its own DHCP server if the client-side service is running normally but renewal still fails",
+        "reason": "Confirms and resolves a router-side DHCP service problem"
+      },
+      {
+        "step": 5,
+        "action": "Update or reinstall the network adapter driver if the problem persists on this device only",
+        "reason": "A driver-level fault can prevent the renewal request from being sent or received correctly"
+      }
+    ],
+    "possible_solutions": [
+      "Start the DHCP Client service if stopped",
+      "Restart the router to reset its DHCP server",
+      "Update or reinstall the network adapter driver",
+      "Restart the computer to reset the network stack fully"
+    ],
+    "prevention": [
+      "Keep the DHCP Client service set to automatic startup",
+      "Keep network drivers updated",
+      "Keep router firmware updated for DHCP reliability"
+    ],
+    "keywords": [
+      "ipconfig renew failed",
+      "unable to renew ip address error",
+      "dhcp client service stopped"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-033",
+      "NET-041"
+    ]
+  },
+  {
+    "id": "NET-041",
+    "category": "Networking",
+    "subcategory": "IP Address Problems",
+    "problem": "DHCP Lease Expired",
+    "description": "The device's DHCP-assigned IP address lease has expired and could not be renewed, resulting in a loss of network connectivity.",
+    "symptoms": [
+      "Device loses network connectivity after previously working fine",
+      "ipconfig shows an expired or invalid lease, or an APIPA address",
+      "Reconnecting or restarting sometimes temporarily restores access"
+    ],
+    "possible_causes": [
+      "Router unreachable at the exact time of lease renewal",
+      "Device was offline (asleep, powered off) during the scheduled renewal window",
+      "Router's DHCP service issue preventing lease renewal",
+      "Very short DHCP lease time configured on the router causing frequent renewal attempts"
+    ],
+    "diagnostic_questions": [
+      "Did this happen after the device was asleep, in standby, or away from the network for a period of time?",
+      "What is the DHCP lease time configured on the router, if known?",
+      "Does manually renewing the IP address resolve it?",
+      "Does this happen to this device only, or to multiple devices?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check the current lease status and details for the adapter",
+        "expected_result": "Shows a valid, current lease with 'Lease Obtained' and 'Lease Expires' dates in the future",
+        "abnormal_result": "Lease already expired, or an APIPA address present, confirming the renewal failed"
+      },
+      {
+        "command": "ipconfig /renew",
+        "purpose": "Manually attempt to renew the expired lease",
+        "expected_result": "A new valid lease and IP address obtained",
+        "abnormal_result": "Renewal fails again, indicating a persistent DHCP server issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the current lease details with ipconfig /all to confirm expiration",
+        "reason": "Confirms this is specifically a lease expiration issue rather than another type of DHCP failure"
+      },
+      {
+        "step": 2,
+        "action": "Manually renew the IP address using ipconfig /renew",
+        "reason": "Often immediately resolves the issue by obtaining a fresh, valid lease"
+      },
+      {
+        "step": 3,
+        "action": "Restart the router if manual renewal fails, to reset its DHCP service",
+        "reason": "Addresses a router-side problem preventing successful lease renewals"
+      },
+      {
+        "step": 4,
+        "action": "Check and consider increasing the DHCP lease time in the router settings if this happens frequently",
+        "reason": "A longer lease time reduces how often devices need to successfully renew, lowering the chance of failure during a renewal attempt"
+      },
+      {
+        "step": 5,
+        "action": "Ensure the device stays connected to the network consistently, especially avoiding long sleep/standby periods away from the router if this is a recurring issue",
+        "reason": "Devices offline during their renewal window are more likely to experience this problem"
+      }
+    ],
+    "possible_solutions": [
+      "Manually renew the IP address",
+      "Restart the router to reset the DHCP service",
+      "Increase the DHCP lease time in router settings",
+      "Keep the device connected to avoid missing renewal windows"
+    ],
+    "prevention": [
+      "Configure a reasonable DHCP lease time for the environment, balancing renewal frequency and address availability",
+      "Keep router firmware updated for DHCP reliability",
+      "Monitor for devices with frequent lease expiration issues as a sign of a larger network problem"
+    ],
+    "keywords": [
+      "dhcp lease expired",
+      "ip lease expired no internet",
+      "dhcp renewal failed"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-034",
+      "NET-040"
+    ]
+  },
+  {
+    "id": "NET-042",
+    "category": "Networking",
+    "subcategory": "IP Address Problems",
+    "problem": "Invalid IP Configuration",
+    "description": "The device's overall network configuration is invalid or inconsistent, combining multiple incorrect values that together prevent normal network use.",
+    "symptoms": [
+      "Device cannot reliably connect to the network or internet",
+      "ipconfig shows a combination of unusual or mismatched values across IP, subnet, gateway, and DNS",
+      "Problem may have appeared after manual changes or software that modifies network settings"
+    ],
+    "possible_causes": [
+      "Multiple manually entered settings are individually or collectively incorrect",
+      "Conflicting network profiles or leftover settings from VPN or virtualization software",
+      "Corrupted network stack requiring a full reset",
+      "Static configuration left over after switching from static to DHCP incompletely"
+    ],
+    "diagnostic_questions": [
+      "Have any manual network changes been made recently, including VPN or virtual machine software installations?",
+      "Does resetting the adapter to automatic (DHCP) resolve the issue?",
+      "Is this affecting one adapter only, or all network adapters on the device?",
+      "Would a full network reset be acceptable to attempt as a troubleshooting step?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Review the complete current network configuration for inconsistencies",
+        "expected_result": "All values (IP, subnet, gateway, DNS) are valid and consistent with the network",
+        "abnormal_result": "Multiple mismatched, missing, or clearly invalid values across the configuration"
+      },
+      {
+        "command": "netsh int ip reset",
+        "purpose": "Reset the entire TCP/IP stack to default settings",
+        "expected_result": "Command completes and prompts for a restart, after which networking behaves normally",
+        "abnormal_result": "Networking issues persist even after the reset and restart, suggesting a deeper hardware or driver problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Review the full output of ipconfig /all for any values that look incorrect or inconsistent",
+        "reason": "Provides a complete picture of what specifically is misconfigured"
+      },
+      {
+        "step": 2,
+        "action": "Reset the network adapter to automatic (DHCP) configuration for both IP and DNS settings",
+        "reason": "Removes any incorrect manual settings and lets the router provide a fresh, correct configuration"
+      },
+      {
+        "step": 3,
+        "action": "Check for and uninstall any recently added VPN or virtualization software that may have altered network settings, if suspected",
+        "reason": "Some third-party software modifies network configurations in ways that can conflict with normal use"
+      },
+      {
+        "step": 4,
+        "action": "Run netsh int ip reset and netsh winsock reset to fully reset the TCP/IP stack, then restart the computer",
+        "reason": "Resolves deeper corruption in the network stack that individual setting changes cannot fix"
+      },
+      {
+        "step": 5,
+        "action": "Reconfigure any necessary static settings carefully and individually verify each one afterward if static configuration is genuinely required",
+        "reason": "Ensures a clean, correct configuration going forward rather than repeating the same mistakes"
+      }
+    ],
+    "possible_solutions": [
+      "Reset the adapter to automatic (DHCP) configuration",
+      "Uninstall recently added VPN/virtualization software if suspected",
+      "Run netsh int ip reset and netsh winsock reset, then restart",
+      "Carefully reconfigure any required static settings from scratch"
+    ],
+    "prevention": [
+      "Avoid unnecessary manual network configuration changes",
+      "Document any required static settings clearly before applying them",
+      "Be cautious when installing VPN or virtualization software known to modify network settings"
+    ],
+    "keywords": [
+      "invalid ip configuration",
+      "network settings messed up",
+      "reset tcp ip stack windows"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": [
+      "NET-036",
+      "NET-040"
+    ]
+  }
+]

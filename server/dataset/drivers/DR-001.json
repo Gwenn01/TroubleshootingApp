@@ -1,0 +1,2596 @@
+[
+  {
+    "id": "DRV-002",
+    "category": "Drivers",
+    "subcategory": "Driver Availability",
+    "problem": "Driver is missing for a device",
+    "description": "A piece of hardware, such as a graphics card, printer, or other component, is installed but Windows has no driver software for it at all, preventing the device from working.",
+    "symptoms": [
+      "The device does not function at all",
+      "Device Manager shows the device with a warning icon or under 'Other devices'",
+      "Windows reports it could not find a driver during automatic search",
+      "The device may be listed as 'Unknown Device'"
+    ],
+    "possible_causes": [
+      "The device driver was never installed after Windows setup or a fresh install",
+      "A driver was accidentally uninstalled or removed",
+      "Windows Update does not have a matching driver available for this specific hardware",
+      "The hardware is very new or very old and lacks built-in Windows support",
+      "The manufacturer's installation software was skipped during initial setup"
+    ],
+    "diagnostic_questions": [
+      "Is this a newly installed piece of hardware, or something that worked before and stopped?",
+      "Did you install the manufacturer's driver software when you first set up this hardware?",
+      "What is the exact make and model of the device missing a driver?",
+      "Does the device appear anywhere in Device Manager, even with a warning icon?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Open Device Manager to check if the device appears, and under what status",
+        "expected_result": "The device is listed correctly under its proper category with no warning icons",
+        "abnormal_result": "The device appears under 'Other devices' or with a yellow warning icon, or does not appear at all"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Device Manager and check if the device appears anywhere, including under 'Other devices' or with a warning symbol",
+        "reason": "This confirms whether Windows detects the hardware at all but simply lacks a driver, versus not detecting it as a physical device in the first place"
+      },
+      {
+        "step": 2,
+        "action": "Right-click the device, if visible, and select 'Update driver', then choose to search automatically for updated driver software",
+        "reason": "This allows Windows to search its own driver database and Windows Update for a matching driver"
+      },
+      {
+        "step": 3,
+        "action": "If Windows cannot find a driver automatically, identify the exact make and model of the hardware, often found printed on the device or in its original packaging",
+        "reason": "Precise hardware identification is necessary to locate the correct driver from the manufacturer"
+      },
+      {
+        "step": 4,
+        "action": "Visit the hardware manufacturer's official website using another working computer if needed, and download the correct driver for your exact Windows version",
+        "reason": "Manufacturer websites are the most reliable source for correct, complete drivers, especially for hardware not covered by Windows' built-in driver database"
+      },
+      {
+        "step": 5,
+        "action": "Install the downloaded driver, following the manufacturer's installation instructions, then restart the computer",
+        "reason": "A restart ensures the newly installed driver is fully loaded and recognized by the operating system"
+      },
+      {
+        "step": 6,
+        "action": "After restarting, check Device Manager again to confirm the device now appears correctly with no warning icons",
+        "reason": "This verifies the driver installation was successful and the device is now properly recognized"
+      },
+      {
+        "step": 7,
+        "action": "If the exact hardware model cannot be identified, use the hardware ID shown in Device Manager's device properties to search for a matching driver online",
+        "reason": "The hardware ID is a unique identifier that can be used to find the correct driver even when the device name itself is unclear or generic"
+      }
+    ],
+    "possible_solutions": [
+      "Update the driver automatically through Device Manager",
+      "Download and install the correct driver from the manufacturer's website",
+      "Use the device's hardware ID to identify and locate the correct driver",
+      "Restart the computer after installing the driver"
+    ],
+    "prevention": [
+      "Always install manufacturer driver software when setting up new hardware",
+      "Keep a record of hardware models for future driver lookups",
+      "Check for driver availability before purchasing very new or unusual hardware"
+    ],
+    "keywords": ["driver missing", "no driver installed device", "device manager other devices", "missing driver hardware"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Unknown Device in Device Manager", "Device Not Detected", "Hardware Not Recognized"]
+  },
+
+  {
+    "id": "DRV-003",
+    "category": "Drivers",
+    "subcategory": "Driver Integrity",
+    "problem": "Driver is corrupted",
+    "description": "A device that was previously working correctly now malfunctions or stops working entirely, with Device Manager or an error message indicating the installed driver file has become damaged or corrupted.",
+    "symptoms": [
+      "A previously working device suddenly stops functioning correctly",
+      "Device Manager shows an error mentioning driver corruption",
+      "The device behaves erratically or produces garbled output",
+      "Reinstalling the driver temporarily fixes the issue until it happens again"
+    ],
+    "possible_causes": [
+      "A driver file was damaged during a Windows update or system crash",
+      "Malware altered or damaged driver files",
+      "A failing hard drive caused corruption in the stored driver files",
+      "An interrupted driver installation left files in a partially written, corrupted state",
+      "A sudden power loss during a driver update"
+    ],
+    "diagnostic_questions": [
+      "Did this device work correctly before, and if so, when did it stop?",
+      "Did anything unusual happen recently, such as a crash, forced shutdown, or interrupted update?",
+      "Does the error message specifically mention driver corruption?",
+      "Have you noticed any other signs of system instability recently?"
+    ],
+    "commands": [
+      {
+        "command": "sfc /scannow",
+        "purpose": "Scan and repair corrupted Windows system files, which can include driver-related files",
+        "expected_result": "No integrity violations found, or issues successfully repaired",
+        "abnormal_result": "Corrupt files found that could not be repaired automatically, requiring further steps"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note exactly which device is affected and what specific error or behavior indicates corruption",
+        "reason": "This helps confirm the issue is genuinely driver corruption rather than a different type of hardware or software problem"
+      },
+      {
+        "step": 2,
+        "action": "In Device Manager, right-click the affected device and select 'Uninstall device', checking the option to remove the driver software if available, then restart the computer",
+        "reason": "This removes the corrupted driver files completely, allowing a clean reinstallation on restart"
+      },
+      {
+        "step": 3,
+        "action": "After restarting, allow Windows to automatically reinstall a fresh copy of the driver, or manually install one from the manufacturer if it does not reinstall automatically",
+        "reason": "This replaces the corrupted files with a clean, working copy of the driver"
+      },
+      {
+        "step": 4,
+        "action": "Run sfc /scannow to check for and repair any other corrupted system files that might be related",
+        "reason": "Driver corruption can sometimes be a symptom of broader system file corruption that this tool can detect and fix"
+      },
+      {
+        "step": 5,
+        "action": "Run a full antivirus scan to rule out malware as the cause of the corruption",
+        "reason": "Some malware specifically targets or damages system and driver files"
+      },
+      {
+        "step": 6,
+        "action": "Check the health of the hard drive using chkdsk, since physical drive errors can cause files stored on it, including drivers, to become corrupted",
+        "reason": "A failing drive can cause recurring corruption issues that will continue to affect newly installed drivers unless addressed"
+      },
+      {
+        "step": 7,
+        "action": "If corruption recurs repeatedly despite clean reinstalls, consider this a sign of a deeper underlying issue, such as failing hardware, and investigate further or seek professional repair",
+        "reason": "Repeated corruption after clean installs suggests the root cause is not the driver itself but something else affecting the system's ability to store files reliably"
+      }
+    ],
+    "possible_solutions": [
+      "Uninstall and cleanly reinstall the driver",
+      "Repair system files using sfc /scannow",
+      "Remove malware that may have caused the corruption",
+      "Repair underlying disk errors using chkdsk",
+      "Investigate failing hardware if corruption recurs after clean reinstalls"
+    ],
+    "prevention": [
+      "Use a UPS to prevent power loss during driver updates",
+      "Keep antivirus software active and updated",
+      "Avoid interrupting driver installations once started",
+      "Monitor hard drive health periodically"
+    ],
+    "keywords": ["driver corrupted", "corrupted driver file", "device stopped working driver corruption", "code 39 driver corrupted"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Driver Corrupted (Code 39)", "Driver Cannot Be Loaded", "Device Cannot Start (Code 10)"]
+  },
+
+  {
+    "id": "DRV-004",
+    "category": "Drivers",
+    "subcategory": "Driver Installation",
+    "problem": "Driver installation failed",
+    "description": "The user attempts to install a driver, either downloaded from a manufacturer or provided on installation media, but the installation process fails partway through or shows an error before completing.",
+    "symptoms": [
+      "Error message during the driver installation process",
+      "Installation appears to start but never completes",
+      "The device still does not work correctly after the installation attempt",
+      "Installer closes unexpectedly without a clear error"
+    ],
+    "possible_causes": [
+      "The downloaded driver file is corrupted or incomplete",
+      "The driver is not compatible with the current version or edition of Windows",
+      "Insufficient administrator permissions to complete the installation",
+      "A conflicting older driver version is preventing the new one from installing",
+      "Antivirus software is blocking the installer"
+    ],
+    "diagnostic_questions": [
+      "What exact error message, if any, appears during the failed installation?",
+      "Did you download the driver directly from the official manufacturer's website?",
+      "Are you running the installer with administrator rights?",
+      "Is there an existing older version of this driver currently installed?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message or behavior observed during the failed installation attempt",
+        "reason": "Specific error details help narrow down whether the cause is a corrupted file, compatibility issue, or permissions problem"
+      },
+      {
+        "step": 2,
+        "action": "Delete the downloaded installer file and download it again fresh from the official manufacturer's website",
+        "reason": "This rules out a corrupted or incomplete download as the cause of the installation failure"
+      },
+      {
+        "step": 3,
+        "action": "Confirm the driver is specifically designed for your exact Windows version and edition, such as Windows 10 or 11, and 32-bit or 64-bit",
+        "reason": "Installing an incompatible driver version is a common cause of installation failures"
+      },
+      {
+        "step": 4,
+        "action": "Right-click the installer and select 'Run as administrator' to ensure it has the necessary permissions to complete the installation",
+        "reason": "Some driver installations require administrator-level access to properly write files and registry entries"
+      },
+      {
+        "step": 5,
+        "action": "If an older version of this driver is currently installed, uninstall it completely first, restart the computer, then attempt the new installation",
+        "reason": "A conflicting older driver can sometimes block or interfere with a new installation attempt"
+      },
+      {
+        "step": 6,
+        "action": "Temporarily disable antivirus software and attempt the installation again",
+        "reason": "Some antivirus programs mistakenly flag and block legitimate driver installers"
+      },
+      {
+        "step": 7,
+        "action": "Try installing the driver from Device Manager instead, using the 'Update driver' option and pointing it to the extracted downloaded driver files",
+        "reason": "This alternative installation method sometimes succeeds when the manufacturer's own installer program fails"
+      },
+      {
+        "step": 8,
+        "action": "If installation continues to fail, check for a different, often older, more stable version of the driver on the manufacturer's website",
+        "reason": "The very latest driver version occasionally has installation bugs that an earlier, more established version does not have"
+      }
+    ],
+    "possible_solutions": [
+      "Redownload the driver file to rule out a corrupted download",
+      "Confirm and use the correct driver version for your exact Windows edition",
+      "Run the installer as administrator",
+      "Uninstall an older conflicting driver version first",
+      "Temporarily disable antivirus software during installation",
+      "Try installing via Device Manager's Update Driver option instead"
+    ],
+    "prevention": [
+      "Always download drivers from official manufacturer websites",
+      "Confirm compatibility with your exact Windows version before downloading",
+      "Run installers as administrator when required",
+      "Keep antivirus exclusions properly configured for trusted installer sources"
+    ],
+    "keywords": ["driver installation failed", "cannot install driver error", "driver setup failed", "driver installer error"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Driver Not Compatible with Windows", "Wrong Driver Installed", "Driver Update Failed"]
+  },
+
+  {
+    "id": "DRV-005",
+    "category": "Drivers",
+    "subcategory": "Driver Updates",
+    "problem": "Driver update failed",
+    "description": "The user tries to update an existing driver to a newer version, either through Windows Update, Device Manager, or manufacturer software, but the update process fails or does not complete successfully.",
+    "symptoms": [
+      "Error message when attempting to update the driver",
+      "Windows Update shows the driver update as failed in its history",
+      "The driver version remains unchanged after the update attempt",
+      "The device may stop working correctly after a failed update attempt"
+    ],
+    "possible_causes": [
+      "A network interruption occurred while downloading the update",
+      "The update package itself is corrupted or was not fully downloaded",
+      "A conflict with the currently installed driver version",
+      "Insufficient disk space for the update to complete",
+      "A Windows Update service issue unrelated to the driver itself"
+    ],
+    "diagnostic_questions": [
+      "What method are you using to update the driver: Windows Update, Device Manager, or manufacturer software?",
+      "Did you have a stable internet connection throughout the update attempt?",
+      "How much free disk space is currently available?",
+      "Does the device still work with its current, older driver version?"
+    ],
+    "commands": [
+      {
+        "command": "sfc /scannow",
+        "purpose": "Check for and repair corrupted system files that could be interfering with the driver update process",
+        "expected_result": "No integrity violations found, or issues successfully repaired",
+        "abnormal_result": "Corrupt files found that could not be repaired, requiring further troubleshooting"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the device still functions with its current driver version, even though the update failed",
+        "reason": "This establishes whether there is an immediate functional problem, or just an update that has not yet succeeded"
+      },
+      {
+        "step": 2,
+        "action": "Check your internet connection stability, then retry the update, since a network interruption is a common cause of failed downloads",
+        "reason": "This directly addresses one of the most common and simple causes of a failed driver update"
+      },
+      {
+        "step": 3,
+        "action": "Check available disk space and free up space if it is low",
+        "reason": "Insufficient disk space can prevent an update from downloading or installing completely"
+      },
+      {
+        "step": 4,
+        "action": "If updating through Windows Update, check the Windows Update history for the specific error code associated with the failed driver update",
+        "reason": "Specific error codes can point to more precise causes and corresponding known solutions"
+      },
+      {
+        "step": 5,
+        "action": "As an alternative, download the latest driver version directly from the manufacturer's website instead of relying on Windows Update or bundled update software",
+        "reason": "Manufacturer websites often provide the most reliable, complete, and directly installable driver packages"
+      },
+      {
+        "step": 6,
+        "action": "Uninstall the current driver completely through Device Manager, restart the computer, then install the newly downloaded driver fresh",
+        "reason": "This clean installation approach avoids potential conflicts between the old and new driver versions that can cause update failures"
+      },
+      {
+        "step": 7,
+        "action": "Run sfc /scannow to rule out underlying system file corruption interfering with the update process",
+        "reason": "Corrupted system files can sometimes prevent driver updates from completing successfully"
+      },
+      {
+        "step": 8,
+        "action": "If the update continues to fail, check the manufacturer's support resources or forums for any known issues with this specific driver update",
+        "reason": "Some driver updates have known, documented issues that the manufacturer may have already addressed with a corrected release"
+      }
+    ],
+    "possible_solutions": [
+      "Ensure a stable internet connection and retry",
+      "Free up disk space before attempting the update",
+      "Download and install the latest driver directly from the manufacturer",
+      "Perform a clean uninstall and reinstall rather than an in-place update",
+      "Repair system files if underlying corruption is interfering"
+    ],
+    "prevention": [
+      "Maintain a stable internet connection during driver updates",
+      "Keep adequate free disk space available",
+      "Check manufacturer resources for known issues before major driver updates"
+    ],
+    "keywords": ["driver update failed", "windows update driver error", "cannot update driver", "driver update stuck"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Driver Installation Failed", "Driver Missing After Windows Update", "Windows Installed Incorrect Driver"]
+  },
+
+  {
+    "id": "DRV-006",
+    "category": "Drivers",
+    "subcategory": "Driver Selection",
+    "problem": "Wrong driver was installed for a device",
+    "description": "A driver has been installed for a piece of hardware, but it is not the correct one for that specific device model, resulting in the hardware not functioning properly, working with limited features, or behaving unexpectedly.",
+    "symptoms": [
+      "The device partially works but with reduced functionality or performance",
+      "Device Manager shows a generic driver name rather than the specific model",
+      "Certain features of the hardware are unavailable that should be present",
+      "The device may work but with a different name or description than expected"
+    ],
+    "possible_causes": [
+      "Windows Update installed a generic or similar driver rather than the exact matching one",
+      "The user manually selected an incorrect driver from a list during installation",
+      "A driver for a similar but different model was mistakenly downloaded and installed",
+      "Automatic driver detection matched the device incorrectly due to similar hardware IDs"
+    ],
+    "diagnostic_questions": [
+      "What is the exact make and model of the device experiencing the problem?",
+      "What driver name or description currently shows in Device Manager for this device?",
+      "Are specific features or functions of the hardware not working as expected?",
+      "Did you or Windows select the current driver, and do you recall how it was chosen?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Open Device Manager to check the currently installed driver's name and version details",
+        "expected_result": "Shows a driver name and details matching the exact device model",
+        "abnormal_result": "Shows a generic or mismatched driver name, confirming the wrong driver is currently installed"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Device Manager, find the affected device, and check its current driver details under the Driver tab in Properties",
+        "reason": "This confirms exactly what driver is currently installed, including its provider and version, which can be compared against what should actually be installed"
+      },
+      {
+        "step": 2,
+        "action": "Identify the exact correct make and model of the hardware, checking physical labels or original documentation if needed",
+        "reason": "Precise identification is essential to locate the genuinely correct driver rather than a similar but incorrect one"
+      },
+      {
+        "step": 3,
+        "action": "Visit the manufacturer's official website and search specifically for your exact model number to find the correct, matching driver",
+        "reason": "This ensures the driver obtained is specifically designed for your exact hardware rather than a similar model that might have different capabilities"
+      },
+      {
+        "step": 4,
+        "action": "Uninstall the current, incorrect driver completely through Device Manager, including removing the driver software if that option is available",
+        "reason": "This ensures the incorrect driver is fully removed before installing the correct replacement"
+      },
+      {
+        "step": 5,
+        "action": "Restart the computer to ensure the incorrect driver is completely cleared from the system",
+        "reason": "This prevents any lingering incorrect driver files from interfering with the new correct installation"
+      },
+      {
+        "step": 6,
+        "action": "Install the correct, manufacturer-verified driver for your exact device model",
+        "reason": "This directly resolves the issue by properly matching the driver to the specific hardware"
+      },
+      {
+        "step": 7,
+        "action": "After installation, verify in Device Manager that the correct driver name and all expected features are now present and working",
+        "reason": "This confirms the correct driver was successfully installed and the hardware is now functioning as intended"
+      }
+    ],
+    "possible_solutions": [
+      "Identify the exact correct hardware model and download its matching driver",
+      "Uninstall the incorrect driver completely before installing the correct one",
+      "Verify all expected features work correctly after installing the correct driver"
+    ],
+    "prevention": [
+      "Always verify the exact hardware model before downloading or selecting a driver",
+      "Avoid manually selecting drivers from a generic list unless certain of the exact match",
+      "Download drivers directly from manufacturer model-specific pages"
+    ],
+    "keywords": ["wrong driver installed", "incorrect driver device", "generic driver instead of specific", "driver mismatch hardware"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["Windows Installed Incorrect Driver", "Driver Not Compatible with Windows", "Driver Conflict"]
+  },
+
+  {
+    "id": "DRV-007",
+    "category": "Drivers",
+    "subcategory": "Compatibility",
+    "problem": "Driver is not compatible with the current version of Windows",
+    "description": "The user tries to install a driver, but it fails or later causes instability because it was designed for a different version or edition of Windows than what is currently installed on the computer.",
+    "symptoms": [
+      "Installer shows an explicit compatibility warning during setup",
+      "The driver installs but the device malfunctions or the system becomes unstable",
+      "Error messages specifically reference Windows version incompatibility",
+      "The device worked on a previous Windows version but not after an upgrade"
+    ],
+    "possible_causes": [
+      "The driver was designed for an older or newer version of Windows than currently installed",
+      "The driver is for the wrong Windows edition, such as 32-bit versus 64-bit",
+      "A recent major Windows feature update introduced compatibility requirements the old driver does not meet",
+      "The hardware manufacturer has not yet released a driver certified for the current Windows version"
+    ],
+    "diagnostic_questions": [
+      "What exact version and build of Windows are you currently running?",
+      "Is this driver specifically listed as compatible with your Windows version on the manufacturer's site?",
+      "Did this device work correctly before a recent Windows upgrade or update?",
+      "Are you using a 32-bit or 64-bit version of Windows?"
+    ],
+    "commands": [
+      {
+        "command": "winver",
+        "purpose": "Check the exact current Windows version and build number",
+        "expected_result": "Displays the specific Windows edition, version, and build currently installed",
+        "abnormal_result": "Not applicable; this is purely informational to confirm compatibility requirements"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check your exact Windows version, edition, and whether it is 32-bit or 64-bit using the winver command or System settings",
+        "reason": "This precise information is required to find a genuinely compatible driver"
+      },
+      {
+        "step": 2,
+        "action": "Visit the hardware manufacturer's website and check their compatibility list for this exact driver against your specific Windows version",
+        "reason": "This confirms whether a compatible driver actually exists for your current Windows configuration"
+      },
+      {
+        "step": 3,
+        "action": "If a compatible driver version is available, download and install that specific version instead of the one that failed",
+        "reason": "This directly resolves the incompatibility by using a driver actually designed for your Windows version"
+      },
+      {
+        "step": 4,
+        "action": "If the device worked before a recent Windows feature update, check if the manufacturer has released an updated driver specifically addressing that Windows version",
+        "reason": "Hardware manufacturers often need time to release updated drivers following major Windows updates, and a newer driver release may resolve the issue"
+      },
+      {
+        "step": 5,
+        "action": "If no compatible driver currently exists, check if Windows' own built-in generic driver provides basic functionality as a temporary measure",
+        "reason": "This can provide at least partial functionality while waiting for the manufacturer to release a properly compatible driver"
+      },
+      {
+        "step": 6,
+        "action": "Consider running the driver installer in Compatibility Mode, right-clicking the installer and selecting Properties, then the Compatibility tab, though this does not always fully resolve deeper compatibility issues",
+        "reason": "This can sometimes help with software compatibility, though driver-level incompatibilities are often more fundamental and may not be fully solved this way"
+      },
+      {
+        "step": 7,
+        "action": "If the hardware is old and no longer supported by the manufacturer for current Windows versions, consider whether replacing the hardware with a currently supported model is the most practical long-term solution",
+        "reason": "Manufacturers eventually stop updating drivers for older hardware, and continuing to use genuinely incompatible, unsupported hardware can cause ongoing instability"
+      }
+    ],
+    "possible_solutions": [
+      "Download and install a driver version specifically compatible with your Windows version",
+      "Check for an updated driver released after a recent Windows feature update",
+      "Use Windows' built-in generic driver as a temporary measure",
+      "Replace outdated hardware with a currently supported model if no compatible driver exists"
+    ],
+    "prevention": [
+      "Verify driver compatibility with your exact Windows version before installing",
+      "Check manufacturer support pages for updates before major Windows upgrades",
+      "Research hardware compatibility before purchasing new devices for use with a specific Windows version"
+    ],
+    "keywords": ["driver not compatible windows", "driver windows version mismatch", "incompatible driver error", "driver not supported windows"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Driver Installation Failed", "Wrong Driver Installed", "Driver Missing After Windows Update"]
+  },
+
+  {
+    "id": "DRV-008",
+    "category": "Drivers",
+    "subcategory": "Driver Loading",
+    "problem": "Driver cannot be loaded",
+    "description": "Windows attempts to load a device's driver during startup or when the device is connected, but the driver fails to load, preventing the device from being used and often showing a specific error in Device Manager.",
+    "symptoms": [
+      "Device Manager shows an error stating the driver cannot be loaded",
+      "The device does not function even though a driver is installed",
+      "The error may appear consistently at every startup",
+      "System event logs may show a specific driver load failure entry"
+    ],
+    "possible_causes": [
+      "The driver file itself is corrupted or missing a required component",
+      "A driver signature or security policy is blocking the specific driver from loading",
+      "A conflict with another driver is preventing this one from loading properly",
+      "The driver requires a specific service that has failed to start",
+      "Boot configuration settings, such as Secure Boot, are blocking unsigned or incompatible drivers"
+    ],
+    "diagnostic_questions": [
+      "Does this error appear every time the computer starts, or only occasionally?",
+      "Is Secure Boot enabled in your computer's BIOS/UEFI settings?",
+      "Did this start after installing new software, another driver, or a Windows update?",
+      "Does the exact error message reference a driver signature or security issue?"
+    ],
+    "commands": [
+      {
+        "command": "sc query [service name]",
+        "purpose": "Check the status of a specific driver-related Windows service that may need to be running for the driver to load",
+        "expected_result": "Shows the service as running normally",
+        "abnormal_result": "Shows the service as stopped or failed, which would explain the driver's inability to load"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Device Manager for the exact error code or message associated with the failure to load",
+        "reason": "The specific error provides important direction toward the most likely underlying cause"
+      },
+      {
+        "step": 2,
+        "action": "Uninstall the driver completely and reinstall a fresh copy, ideally downloaded directly from the manufacturer",
+        "reason": "This addresses potential corruption or incompleteness in the currently installed driver files"
+      },
+      {
+        "step": 3,
+        "action": "Check if Secure Boot is enabled in your BIOS/UEFI settings, since this can block certain unsigned or improperly signed drivers from loading",
+        "reason": "Secure Boot is a security feature that intentionally prevents certain types of drivers from loading if they do not meet its verification requirements"
+      },
+      {
+        "step": 4,
+        "action": "If Secure Boot is confirmed to be the cause and the driver is from a trusted source, you may need to either find a properly signed version of the driver, or make an informed decision about adjusting Secure Boot settings",
+        "reason": "This directly addresses a security-policy-based blocking of the driver, though changing Secure Boot settings should be done thoughtfully given its security purpose"
+      },
+      {
+        "step": 5,
+        "action": "Check if a related Windows service that this driver depends on is running, using the Services management console",
+        "reason": "Some drivers depend on a specific supporting service, and if that service has failed to start, the driver itself cannot load properly"
+      },
+      {
+        "step": 6,
+        "action": "Check for and temporarily disable any recently installed, potentially conflicting driver for similar hardware",
+        "reason": "A conflict between two drivers attempting to manage similar or related hardware can prevent one or both from loading correctly"
+      },
+      {
+        "step": 7,
+        "action": "Run sfc /scannow to check for and repair any related corrupted system files",
+        "reason": "Underlying system file corruption can sometimes interfere with the driver loading process"
+      },
+      {
+        "step": 8,
+        "action": "If the issue persists, check Windows Event Viewer for detailed technical information about exactly why the driver failed to load, which can be shared with the manufacturer's support team",
+        "reason": "Detailed event log information often reveals the precise technical reason for the failure, which is valuable for further troubleshooting or manufacturer support"
+      }
+    ],
+    "possible_solutions": [
+      "Uninstall and cleanly reinstall the driver",
+      "Address Secure Boot restrictions if they are blocking the driver",
+      "Start a required dependent service that has failed",
+      "Resolve a conflict with another driver",
+      "Repair underlying system file corruption"
+    ],
+    "prevention": [
+      "Use properly signed, manufacturer-verified drivers",
+      "Understand Secure Boot requirements before installing unusual or unsigned drivers",
+      "Avoid installing multiple drivers for similar or overlapping hardware"
+    ],
+    "keywords": ["driver cannot be loaded", "driver load failed", "secure boot blocking driver", "driver failed to start"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-55 minutes",
+    "related_problems": ["Driver Corrupted", "Driver Service Failed to Start", "Windows Stopped This Device (Code 43)"]
+  },
+
+  {
+    "id": "DRV-009",
+    "category": "Drivers",
+    "subcategory": "Device Detection",
+    "problem": "Unknown Device appears in Device Manager",
+    "description": "Device Manager shows an entry labeled 'Unknown Device', typically with a warning icon, indicating Windows has detected some piece of hardware but cannot identify what it is or find an appropriate driver for it.",
+    "symptoms": [
+      "An entry named 'Unknown Device' appears in Device Manager, often under 'Other devices'",
+      "A yellow warning triangle appears next to the entry",
+      "The associated physical hardware, if known, does not function",
+      "No manufacturer or device name information is shown"
+    ],
+    "possible_causes": [
+      "A piece of hardware was connected without its driver being installed",
+      "Windows does not have built-in support for this specific hardware",
+      "A driver failed during installation, leaving the device improperly recognized",
+      "The hardware is unusual, very new, or uses a non-standard connection method"
+    ],
+    "diagnostic_questions": [
+      "Do you know what physical hardware might correspond to this unknown device entry?",
+      "Did you recently connect any new hardware, internal or external, to the computer?",
+      "Have you tried checking the device's properties for a hardware ID?",
+      "Is there any physical labeling on connected hardware that might identify it?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Open Device Manager and check the Unknown Device's Details tab for its Hardware IDs",
+        "expected_result": "Shows one or more hardware ID strings that can be used to identify the exact device",
+        "abnormal_result": "No hardware ID is shown, making identification more difficult and requiring physical inspection instead"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Right-click the Unknown Device entry, select Properties, go to the Details tab, and change the property dropdown to 'Hardware Ids'",
+        "reason": "This reveals a unique identifier string that can be used to look up exactly what the device is, even when Windows cannot identify it by name"
+      },
+      {
+        "step": 2,
+        "action": "Search online for the exact hardware ID string shown, which often reveals the specific manufacturer and device model",
+        "reason": "Hardware IDs are standardized and can be searched to accurately identify obscure or unlabeled hardware"
+      },
+      {
+        "step": 3,
+        "action": "Think about any hardware recently connected or installed, whether internal components or external devices, around the time this unknown device first appeared",
+        "reason": "This practical, contextual approach can often quickly identify the source, especially if the timing closely matches a specific hardware change"
+      },
+      {
+        "step": 4,
+        "action": "Once identified, visit the manufacturer's official website and download the correct, matching driver for this specific hardware",
+        "reason": "This provides Windows with the proper driver needed to fully recognize and correctly operate the device"
+      },
+      {
+        "step": 5,
+        "action": "Install the correct driver, then restart the computer to ensure it is fully loaded and applied",
+        "reason": "A restart ensures the newly installed driver takes full effect and the device is properly initialized"
+      },
+      {
+        "step": 6,
+        "action": "After restarting, check Device Manager again to confirm the 'Unknown Device' entry has been replaced with the correctly identified and functioning hardware",
+        "reason": "This verifies the identification and driver installation were successful"
+      },
+      {
+        "step": 7,
+        "action": "If the device cannot be identified through its hardware ID or physical inspection, consider whether it might be an unnecessary or leftover entry from previously removed hardware, in which case it may be safe to ignore or research further before taking action",
+        "reason": "Not every unknown device entry represents currently needed, functioning hardware, and some caution is appropriate before assuming action is required"
+      }
+    ],
+    "possible_solutions": [
+      "Identify the device using its hardware ID and search online",
+      "Install the correct driver once the device is identified",
+      "Physically inspect recently connected hardware for identifying information",
+      "Research whether an unidentifiable entry is safe to ignore"
+    ],
+    "prevention": [
+      "Install proper drivers immediately when connecting new hardware",
+      "Keep documentation of internal hardware components for future reference",
+      "Label or document unusual or custom hardware for easier future identification"
+    ],
+    "keywords": ["unknown device device manager", "unidentified hardware windows", "hardware id lookup", "unknown device warning icon"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Driver Missing", "Device Not Detected", "Hardware Not Recognized"]
+  },
+
+  {
+    "id": "DRV-010",
+    "category": "Drivers",
+    "subcategory": "Device Detection",
+    "problem": "Device is not detected by the computer at all",
+    "description": "A piece of hardware that is physically connected to the computer does not appear anywhere in Windows, not even as an unknown or improperly functioning device, suggesting Windows is not detecting its presence at all.",
+    "symptoms": [
+      "The device does not appear anywhere in Device Manager",
+      "No sound, notification, or indication occurs when the device is connected",
+      "The device may have power or activity lights on, but Windows shows no awareness of it",
+      "The same device may work correctly when connected to a different computer"
+    ],
+    "possible_causes": [
+      "A faulty or loose physical connection, such as a cable or port",
+      "The specific port or connection type is disabled in BIOS/UEFI settings",
+      "The device itself is faulty or has failed",
+      "A fundamental hardware compatibility issue, such as an unsupported connection standard",
+      "A driver or chipset issue affecting the specific port controller"
+    ],
+    "diagnostic_questions": [
+      "Does the device show any lights or signs of receiving power when connected?",
+      "Have you tried a different cable or a different port on the computer?",
+      "Does this same device work correctly when connected to a different computer?",
+      "Is this a new device being connected for the first time, or one that worked before?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Open Device Manager and check View > Show hidden devices, which can reveal devices not currently active but previously connected",
+        "expected_result": "The device appears, even if greyed out, confirming it was previously recognized",
+        "abnormal_result": "The device does not appear even with hidden devices shown, suggesting it has truly never been detected"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if the device shows any signs of receiving power, such as lights or fan movement, when connected",
+        "reason": "This helps distinguish between a device with no power at all, versus one receiving power but not being recognized by Windows specifically"
+      },
+      {
+        "step": 2,
+        "action": "Try a different cable and a different port on the computer",
+        "reason": "This helps rule out a faulty cable or a specific non-functioning port as the underlying cause"
+      },
+      {
+        "step": 3,
+        "action": "Test the device on a different computer, if one is available",
+        "reason": "This is one of the most effective ways to determine if the problem is with the device itself, or specific to the original computer"
+      },
+      {
+        "step": 4,
+        "action": "In Device Manager, enable View > Show hidden devices to check if the device was previously detected but is now inactive or hidden",
+        "reason": "This can reveal a device that was recognized in the past, providing useful clues even if it is not currently active"
+      },
+      {
+        "step": 5,
+        "action": "Check the computer's BIOS/UEFI settings to confirm the relevant port or connection type, such as a specific USB controller, is enabled",
+        "reason": "Some ports or connection types can be disabled at the firmware level, which would prevent Windows from ever detecting anything connected to them"
+      },
+      {
+        "step": 6,
+        "action": "If the device is internal, such as a newly installed expansion card, confirm it is properly and fully seated in its slot",
+        "reason": "An improperly seated internal component will not be detected at all, regardless of software or driver considerations"
+      },
+      {
+        "step": 7,
+        "action": "Update the chipset drivers for the computer's motherboard, since these control the underlying communication with various ports and controllers",
+        "reason": "Outdated chipset drivers can sometimes prevent proper detection of connected hardware at a fundamental level"
+      },
+      {
+        "step": 8,
+        "action": "If the device fails to be detected on multiple computers and connections, this strongly suggests the device itself has failed and needs to be repaired or replaced",
+        "reason": "Consistent non-detection across different, known-working environments points clearly to the device itself as the root cause"
+      }
+    ],
+    "possible_solutions": [
+      "Try a different cable or port",
+      "Test the device on a different computer",
+      "Enable the relevant port or controller in BIOS/UEFI settings",
+      "Reseat internal hardware components properly",
+      "Update motherboard chipset drivers",
+      "Replace the device if it fails detection across multiple computers"
+    ],
+    "prevention": [
+      "Use quality, reliable cables for connecting hardware",
+      "Properly seat internal hardware components during installation",
+      "Keep chipset drivers updated"
+    ],
+    "keywords": ["device not detected", "hardware not recognized computer", "device not showing up", "no power detected device"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-50 minutes",
+    "related_problems": ["Hardware Not Recognized", "Device Not Showing in Device Manager", "USB Driver Missing"]
+  },
+
+  {
+    "id": "DRV-011",
+    "category": "Drivers",
+    "subcategory": "Device Status",
+    "problem": "Device has a yellow warning icon in Device Manager",
+    "description": "A device listed in Device Manager displays a small yellow warning triangle overlaid on its icon, indicating a general problem with the device that requires further investigation.",
+    "symptoms": [
+      "Yellow warning triangle displayed next to a device's icon",
+      "The device may not be functioning correctly or at all",
+      "Double-clicking the device shows a specific status message and error code",
+      "The exact nature of the problem varies depending on the specific error code shown"
+    ],
+    "possible_causes": [
+      "A missing, outdated, or corrupted driver",
+      "A hardware conflict with another device",
+      "The device has been disabled",
+      "A specific numbered error code indicating a more precise underlying issue",
+      "A physical hardware problem"
+    ],
+    "diagnostic_questions": [
+      "Which specific device shows the yellow warning icon?",
+      "What exact error code or message appears when you double-click the device and check its status?",
+      "Did this start after any specific recent change, such as a new installation or update?",
+      "Does the device function at all, or not at all?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Open Device Manager to identify the specific device and check its exact error code",
+        "expected_result": "Device shows normal status with no warning icon",
+        "abnormal_result": "Yellow warning icon present, with a specific numbered error code shown in the device's properties"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Double-click the device showing the warning icon and check its Device Status message on the General tab of its Properties",
+        "reason": "This reveals the exact specific error code and description, which is essential for pinpointing the precise underlying cause"
+      },
+      {
+        "step": 2,
+        "action": "Look up the specific numbered error code shown, since different codes indicate very different underlying problems, each with its own targeted solution",
+        "reason": "Device Manager error codes are standardized, and identifying the exact code allows for much more precise and effective troubleshooting"
+      },
+      {
+        "step": 3,
+        "action": "As a general first step regardless of the specific code, try updating the driver through the 'Update driver' option",
+        "reason": "Many warning icon issues, across various specific error codes, are resolved simply by ensuring the most current, correct driver is installed"
+      },
+      {
+        "step": 4,
+        "action": "If updating does not resolve it, try uninstalling the device and its driver completely, then restart the computer to allow a fresh reinstallation",
+        "reason": "This clears out any potentially corrupted or conflicting driver state, allowing Windows to start fresh with the device"
+      },
+      {
+        "step": 5,
+        "action": "Check if the device might be conflicting with another piece of hardware by reviewing its resource allocation under the Resources tab, if available",
+        "reason": "Rarely, two devices can conflict over the same system resources, which Device Manager can sometimes reveal directly"
+      },
+      {
+        "step": 6,
+        "action": "Confirm the device has not been accidentally disabled by right-clicking it and checking if an 'Enable device' option appears, which would indicate it is currently disabled",
+        "reason": "A disabled device will show a warning icon, and simply re-enabling it directly resolves this particular cause"
+      },
+      {
+        "step": 7,
+        "action": "If the specific error code and standard driver troubleshooting do not resolve the issue, refer to the specific troubleshooting guidance for that exact numbered code for more targeted steps",
+        "reason": "Certain codes, such as Code 10, Code 28, Code 39, Code 43, or Code 52, have their own specific, more detailed troubleshooting paths beyond general driver updates"
+      }
+    ],
+    "possible_solutions": [
+      "Identify and address the specific numbered error code shown",
+      "Update the driver to the latest version",
+      "Uninstall and cleanly reinstall the device and its driver",
+      "Re-enable the device if it was found to be disabled",
+      "Resolve a resource conflict with another device"
+    ],
+    "prevention": [
+      "Keep drivers updated regularly",
+      "Avoid disabling devices unintentionally",
+      "Address warning icons promptly rather than letting them persist"
+    ],
+    "keywords": ["yellow warning icon device manager", "device warning triangle", "device manager error symbol", "device problem icon"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Device Cannot Start (Code 10)", "Driver Error (Code 28)", "Driver Corrupted (Code 39)"]
+  },
+
+  {
+    "id": "DRV-012",
+    "category": "Drivers",
+    "subcategory": "Error Codes",
+    "problem": "Device cannot start (Code 10)",
+    "description": "Device Manager shows a specific error stating 'This device cannot start' along with error code 10, indicating Windows recognizes the device but its driver is failing to properly initialize it.",
+    "symptoms": [
+      "Device Manager shows 'This device cannot start. (Code 10)'",
+      "The device does not function despite appearing to have a driver installed",
+      "The device may have worked previously and stopped, or may be new",
+      "No other more specific error information is typically given beyond this generic code"
+    ],
+    "possible_causes": [
+      "A generic or incorrect driver is installed for the specific hardware",
+      "The driver has become corrupted",
+      "A hardware fault is preventing proper initialization",
+      "A conflict with another device or driver",
+      "BIOS/UEFI settings related to this specific type of hardware are misconfigured"
+    ],
+    "diagnostic_questions": [
+      "Which specific device is showing this Code 10 error?",
+      "Did this device work correctly before, and if so, what changed recently?",
+      "Have you already tried simply updating the driver for this device?",
+      "Is this a built-in device, such as onboard audio, or an externally connected one?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Update the driver for the affected device through Device Manager, selecting the option to search automatically for updated driver software",
+        "reason": "Code 10 is a very general error, and a driver update resolves a significant portion of cases by replacing an incorrect or outdated driver"
+      },
+      {
+        "step": 2,
+        "action": "If updating does not help, uninstall the device completely, including removing the driver software, then restart the computer",
+        "reason": "This forces a completely fresh reinstallation, clearing out any corrupted driver state that a simple update might not fully address"
+      },
+      {
+        "step": 3,
+        "action": "Download and manually install the latest driver directly from the hardware manufacturer's website, rather than relying solely on Windows' automatic detection",
+        "reason": "Manufacturer-provided drivers are often more complete and specifically tuned for the exact hardware than generic Windows drivers"
+      },
+      {
+        "step": 4,
+        "action": "For built-in hardware, such as onboard audio or network adapters, check the computer's BIOS/UEFI settings to confirm the specific device or feature is enabled",
+        "reason": "Some built-in components can be disabled at the firmware level, which would cause this exact type of initialization failure"
+      },
+      {
+        "step": 5,
+        "action": "Check for and install any pending Windows updates, since some Code 10 errors are related to underlying system issues that Microsoft has addressed in subsequent updates",
+        "reason": "Keeping Windows current can resolve known underlying compatibility issues contributing to this error"
+      },
+      {
+        "step": 6,
+        "action": "If the device is external, test it on a different computer if possible, to help distinguish between a hardware fault and a software or driver-specific issue",
+        "reason": "This helps confirm whether the device itself has failed, or if the problem is specific to this computer's configuration"
+      },
+      {
+        "step": 7,
+        "action": "If the problem persists across multiple driver reinstalls and the device fails on other computers as well, this suggests a genuine hardware failure requiring repair or replacement",
+        "reason": "Consistent failure despite thorough driver troubleshooting points toward the hardware itself as the root cause"
+      }
+    ],
+    "possible_solutions": [
+      "Update the driver through Device Manager",
+      "Completely uninstall and reinstall the device and driver",
+      "Install the latest driver directly from the manufacturer",
+      "Enable the relevant device in BIOS/UEFI settings if applicable",
+      "Test on a different computer to isolate a hardware fault"
+    ],
+    "prevention": [
+      "Keep drivers updated from manufacturer sources",
+      "Keep BIOS/UEFI settings properly configured for installed hardware",
+      "Keep Windows updated regularly"
+    ],
+    "keywords": ["code 10 device cannot start", "this device cannot start code 10", "device manager error code 10"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Device Has a Yellow Warning Icon", "Driver Corrupted", "Driver Conflict"]
+  },
+
+  {
+    "id": "DRV-013",
+    "category": "Drivers",
+    "subcategory": "Error Codes",
+    "problem": "Driver error (Code 28)",
+    "description": "Device Manager shows error code 28, indicating that the drivers for this device are not installed, distinguishing it from a completely unknown device but confirming no working driver is currently present.",
+    "symptoms": [
+      "Device Manager shows 'The drivers for this device are not installed. (Code 28)'",
+      "The device is recognized by name or type but has no functional driver",
+      "The device does not work at all until a proper driver is installed",
+      "This code is common right after a fresh Windows installation before drivers are added"
+    ],
+    "possible_causes": [
+      "The driver was never installed for this device",
+      "The driver was uninstalled or removed",
+      "Windows Update does not have an appropriate driver readily available for automatic installation",
+      "The device is newly connected hardware without its driver software yet installed"
+    ],
+    "diagnostic_questions": [
+      "Is this a freshly installed or recently reinstalled Windows system?",
+      "Is this a newly connected piece of hardware?",
+      "Do you have access to the manufacturer's driver installation software or website?",
+      "Was a driver ever successfully installed for this device before?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Right-click the device showing Code 28 and select 'Update driver', then choose to search automatically for driver software",
+        "reason": "This allows Windows to attempt finding and installing an appropriate driver through its own built-in search and Windows Update"
+      },
+      {
+        "step": 2,
+        "action": "If Windows cannot find a driver automatically, identify the exact make and model of the hardware",
+        "reason": "Precise identification is necessary to locate the correct driver from the manufacturer when automatic detection is unsuccessful"
+      },
+      {
+        "step": 3,
+        "action": "Visit the manufacturer's official website, search for your exact model, and download the correct driver for your specific Windows version",
+        "reason": "This provides a reliable, complete driver package specifically designed for your exact hardware and operating system"
+      },
+      {
+        "step": 4,
+        "action": "Run the downloaded installer, following the manufacturer's provided instructions, then restart the computer",
+        "reason": "This properly installs the driver and ensures it is fully loaded and recognized after the restart"
+      },
+      {
+        "step": 5,
+        "action": "After restarting, check Device Manager to confirm the Code 28 error has been resolved and the device now functions correctly",
+        "reason": "This verifies the driver installation was successful and fully addressed the missing driver issue"
+      },
+      {
+        "step": 6,
+        "action": "If this occurred after a fresh Windows installation, check if the motherboard or computer manufacturer provides a complete driver package or utility that installs all necessary drivers at once",
+        "reason": "Many computer manufacturers provide comprehensive driver packages that can efficiently address multiple Code 28 errors following a fresh installation"
+      },
+      {
+        "step": 7,
+        "action": "If the exact hardware cannot be easily identified, check the device's Hardware ID under its Details tab in Device Manager and search for this identifier online",
+        "reason": "This provides an alternative, more technical path to correctly identifying obscure or unclear hardware"
+      }
+    ],
+    "possible_solutions": [
+      "Update the driver automatically through Device Manager",
+      "Download and install the correct driver from the manufacturer's website",
+      "Use a comprehensive manufacturer driver package after a fresh Windows install",
+      "Identify unclear hardware using its Hardware ID"
+    ],
+    "prevention": [
+      "Install manufacturer driver packages after any fresh Windows installation",
+      "Install drivers promptly when connecting new hardware",
+      "Keep a record of hardware models for future reference"
+    ],
+    "keywords": ["code 28 driver not installed", "drivers for this device are not installed", "device manager error code 28"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Driver Missing", "Unknown Device in Device Manager", "Device Not Detected"]
+  },
+
+  {
+    "id": "DRV-014",
+    "category": "Drivers",
+    "subcategory": "Error Codes",
+    "problem": "Driver corrupted (Code 39)",
+    "description": "Device Manager shows error code 39, specifically indicating that Windows cannot load the driver for this device because it may be corrupted or missing, or the associated registry entries are damaged.",
+    "symptoms": [
+      "Device Manager shows 'Windows cannot load the device driver for this hardware. The driver may be corrupted or missing. (Code 39)'",
+      "The device does not function despite a driver appearing to be installed",
+      "This error may appear suddenly on a previously working device",
+      "Commonly seen with CD/DVD drives and some storage controllers, though it can affect other devices"
+    ],
+    "possible_causes": [
+      "The driver file itself has become corrupted",
+      "Registry entries related to the driver have become damaged, often due to malware or a botched uninstallation of another program",
+      "A conflicting filter driver, often installed by burning or virtual drive software, is interfering",
+      "The driver was improperly removed, leaving incomplete remnants behind"
+    ],
+    "diagnostic_questions": [
+      "Which specific device is showing this Code 39 error?",
+      "Have you recently installed or uninstalled any CD/DVD burning, virtual drive, or disk imaging software?",
+      "Did this device work correctly before, and when did the problem start?",
+      "Have you run any malware scans recently?"
+    ],
+    "commands": [
+      {
+        "command": "reg query HKLM\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4d36e965-e325-11ce-bfc1-08002be10318}",
+        "purpose": "Check for and identify UpperFilters or LowerFilters registry values under the DVD/CD-ROM class key, which are a common cause of Code 39 specifically for optical drives",
+        "expected_result": "No UpperFilters or LowerFilters values present, or only legitimate ones",
+        "abnormal_result": "Unexpected or leftover filter values present, which are a well-documented common cause of this specific error for CD/DVD drives"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Uninstall the affected device's driver completely through Device Manager, then restart the computer to allow a fresh reinstallation",
+        "reason": "This is the most direct first step to replace potentially corrupted driver files with a clean installation"
+      },
+      {
+        "step": 2,
+        "action": "If the affected device is a CD/DVD drive, check if any disc burning, virtual drive, or disc image mounting software was recently installed or uninstalled",
+        "reason": "This type of software frequently installs filter drivers that, if left behind incorrectly after an uninstall, are a very well-known specific cause of Code 39 on optical drives"
+      },
+      {
+        "step": 3,
+        "action": "For CD/DVD drive issues specifically, carefully check the registry for UpperFilters and LowerFilters values under the DVD/CD-ROM device class key, and remove any that are leftover from uninstalled software",
+        "reason": "Removing these specific leftover filter entries is a well-documented, targeted fix for this particular common cause of Code 39"
+      },
+      {
+        "step": 4,
+        "action": "Run a full antivirus and malware scan, since malware can sometimes damage the registry entries associated with device drivers",
+        "reason": "This addresses malware as a potential root cause of the registry-level corruption behind this error"
+      },
+      {
+        "step": 5,
+        "action": "Run sfc /scannow to check for and repair broader corrupted system files that might be contributing to the issue",
+        "reason": "This addresses potential system-level corruption beyond just the specific device's own driver files"
+      },
+      {
+        "step": 6,
+        "action": "Download and reinstall the latest driver directly from the hardware manufacturer's website",
+        "reason": "This ensures a complete, correct, and current driver replaces whatever corrupted or incomplete version was previously present"
+      },
+      {
+        "step": 7,
+        "action": "If registry editing is required and you are not fully comfortable performing it yourself, seek assistance from someone experienced, since incorrect registry changes can cause other problems",
+        "reason": "Registry editing carries some risk if done incorrectly, so appropriate caution and care is warranted"
+      }
+    ],
+    "possible_solutions": [
+      "Completely uninstall and reinstall the device driver",
+      "Remove leftover UpperFilters/LowerFilters registry entries for CD/DVD drive issues",
+      "Remove malware that may have damaged registry entries",
+      "Repair system files using sfc /scannow",
+      "Reinstall the latest driver from the manufacturer"
+    ],
+    "prevention": [
+      "Properly uninstall disc burning and virtual drive software using official uninstallers",
+      "Keep antivirus software active and updated",
+      "Avoid installing multiple overlapping virtual drive or disc utility programs"
+    ],
+    "keywords": ["code 39 driver corrupted", "driver may be corrupted or missing", "upperfilters lowerfilters registry", "cd dvd drive code 39"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-55 minutes",
+    "related_problems": ["Driver Corrupted", "Driver Cannot Be Loaded", "Registry errors"]
+  },
+
+  {
+    "id": "DRV-015",
+    "category": "Drivers",
+    "subcategory": "Error Codes",
+    "problem": "Windows stopped this device because it has reported problems (Code 43)",
+    "description": "Device Manager shows error code 43, indicating that Windows has detected a genuine problem with the device, often at the hardware level, and has deliberately stopped it to prevent further issues, distinct from a simple missing driver.",
+    "symptoms": [
+      "Device Manager shows 'Windows has stopped this device because it has reported problems. (Code 43)'",
+      "The device stops functioning suddenly, sometimes during active use",
+      "Reinstalling the driver often does not resolve the issue",
+      "Commonly seen with graphics cards and USB devices"
+    ],
+    "possible_causes": [
+      "The device experienced a genuine hardware fault or crash reported back to Windows",
+      "A driver crashed and could not properly recover, prompting Windows to stop the device as a protective measure",
+      "Overheating caused the hardware to fail and report an error",
+      "Insufficient power delivery to the device, especially common with USB devices",
+      "A fundamentally corrupted or severely outdated driver unable to properly communicate with the hardware"
+    ],
+    "diagnostic_questions": [
+      "Which specific device is showing this Code 43 error?",
+      "Did this happen suddenly during active use, or upon connecting the device?",
+      "Is this a USB device, and if so, is it connected directly or through a hub?",
+      "Does the device feel unusually hot, or is there any other sign of a physical problem?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Disconnect the device (if external) and restart the computer, then reconnect it after the restart",
+        "reason": "This clears the current error state and gives the device a completely fresh initialization attempt, which sometimes resolves the issue if it was a temporary glitch"
+      },
+      {
+        "step": 2,
+        "action": "For USB devices, try connecting directly to a port on the computer rather than through a USB hub",
+        "reason": "Some USB hubs do not provide sufficient power for certain devices, and Code 43 can result from this kind of power delivery problem"
+      },
+      {
+        "step": 3,
+        "action": "Uninstall the device's driver completely through Device Manager, then restart the computer to allow a fresh driver installation",
+        "reason": "While Code 43 often points to hardware, ensuring a completely clean driver reinstallation rules out driver-level causes before assuming hardware failure"
+      },
+      {
+        "step": 4,
+        "action": "Update the driver to the absolute latest version available directly from the manufacturer",
+        "reason": "In some cases, a severely outdated driver cannot properly communicate with newer hardware revisions, triggering this protective error"
+      },
+      {
+        "step": 5,
+        "action": "For graphics cards specifically, check if the computer is experiencing overheating, and ensure proper cooling and ventilation",
+        "reason": "Overheating is a well-documented common cause of graphics cards specifically triggering a Code 43 error as a protective shutdown"
+      },
+      {
+        "step": 6,
+        "action": "Test the device on a different computer or a different port, if possible, to help determine whether the problem lies with the device itself or the original computer",
+        "reason": "This is one of the most effective ways to isolate whether this is a genuine hardware failure of the device, versus something specific to this computer's port, power delivery, or configuration"
+      },
+      {
+        "step": 7,
+        "action": "If the device consistently shows Code 43 across multiple computers and after driver reinstallation, this strongly indicates a genuine hardware failure requiring repair or replacement",
+        "reason": "Code 43 is specifically Windows reporting a problem communicated by the hardware itself, and consistent failure across different environments points clearly to the device being at fault"
+      }
+    ],
+    "possible_solutions": [
+      "Disconnect and reconnect the device after a restart",
+      "Connect USB devices directly rather than through a hub",
+      "Completely uninstall and reinstall the driver",
+      "Improve cooling if overheating is suspected, especially for graphics cards",
+      "Replace the device if hardware failure is confirmed across multiple systems"
+    ],
+    "prevention": [
+      "Ensure adequate cooling and ventilation for demanding hardware like graphics cards",
+      "Use direct ports rather than unpowered hubs for USB devices",
+      "Keep drivers updated to the latest manufacturer versions"
+    ],
+    "keywords": ["code 43 windows stopped device", "device reported problems code 43", "graphics card code 43", "usb device code 43"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-60 minutes",
+    "related_problems": ["Display Driver Crashed", "USB Driver Missing", "Device Has a Yellow Warning Icon"]
+  },
+
+  {
+    "id": "DRV-016",
+    "category": "Drivers",
+    "subcategory": "Error Codes",
+    "problem": "Driver signature error (Code 52)",
+    "description": "Device Manager shows error code 52, indicating Windows could not verify the digital signature of the drivers required for this device, which is a security feature preventing unsigned or improperly signed drivers from loading.",
+    "symptoms": [
+      "Device Manager shows 'Windows cannot verify the digital signature for the drivers required for this device. (Code 52)'",
+      "The device fails to function despite having a driver installed",
+      "This often happens with unsigned, beta, or improperly certified drivers",
+      "May occur after manually installing a driver from an unofficial source"
+    ],
+    "possible_causes": [
+      "The driver is genuinely unsigned or uses an invalid, expired, or untrusted digital signature",
+      "The driver was downloaded from an unofficial or unreliable source",
+      "Windows' driver signature enforcement policy is set to strictly reject anything not properly signed",
+      "The system clock is set incorrectly, causing an otherwise valid certificate to appear expired or not yet valid"
+    ],
+    "diagnostic_questions": [
+      "Where did you obtain this specific driver: the manufacturer's official site, or another source?",
+      "Is your computer's date and time set correctly?",
+      "Is this a beta, pre-release, or unofficial driver version?",
+      "Have you recently made any changes to Windows security or boot settings?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check your computer's date and time settings, correcting them if they are inaccurate",
+        "reason": "An incorrect system clock can cause Windows to incorrectly evaluate an otherwise valid, properly signed driver's certificate as expired or invalid"
+      },
+      {
+        "step": 2,
+        "action": "Uninstall the current unsigned or improperly signed driver completely",
+        "reason": "This removes the problematic driver before attempting to install a proper, correctly signed replacement"
+      },
+      {
+        "step": 3,
+        "action": "Download the driver again directly from the official manufacturer's website, ensuring you are getting a proper, officially signed release version rather than a beta or unofficial copy",
+        "reason": "Official manufacturer releases are properly signed and certified, directly avoiding this signature verification error"
+      },
+      {
+        "step": 4,
+        "action": "Install this properly signed driver and restart the computer",
+        "reason": "This directly resolves the issue by using a driver that meets Windows' security signature requirements"
+      },
+      {
+        "step": 5,
+        "action": "If you specifically need to use an unsigned or beta driver for a legitimate testing or specialized purpose, understand that this requires deliberately adjusting Windows' driver signature enforcement settings, which reduces this particular security protection",
+        "reason": "This is an important security trade-off that should only be made deliberately, with a clear understanding of the associated risks of loading unverified driver software"
+      },
+      {
+        "step": 6,
+        "action": "If choosing to proceed with an unsigned driver despite the security implications, this typically requires booting into Advanced Startup Options and specifically disabling driver signature enforcement for that session, or through more persistent boot configuration changes for ongoing use",
+        "reason": "Windows requires this deliberate, explicit action specifically to allow unsigned drivers to load, ensuring users cannot bypass this protection accidentally"
+      },
+      {
+        "step": 7,
+        "action": "For business or security-conscious environments, strongly prefer finding a properly signed alternative driver rather than disabling this security feature",
+        "reason": "Disabling driver signature enforcement reduces overall system security by allowing potentially unverified or malicious drivers to load, so this should be avoided when a properly signed alternative exists"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the computer's date and time settings",
+      "Download and install a properly signed driver from the official manufacturer",
+      "Deliberately and temporarily disable driver signature enforcement only if a signed alternative genuinely does not exist and the security trade-off is understood",
+      "Prefer a properly signed alternative driver over disabling this security feature"
+    ],
+    "prevention": [
+      "Only download drivers from official, trusted manufacturer sources",
+      "Keep the system clock accurate",
+      "Avoid installing unsigned or beta drivers on important production systems"
+    ],
+    "keywords": ["code 52 driver signature error", "cannot verify digital signature driver", "unsigned driver error", "driver signature enforcement"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Driver Cannot Be Loaded", "Driver Not Compatible with Windows", "Driver Installation Failed"]
+  },
+
+  {
+    "id": "DRV-017",
+    "category": "Drivers",
+    "subcategory": "Audio Devices",
+    "problem": "Audio driver is missing",
+    "description": "The computer's sound device has no driver installed, resulting in no audio output or input, with the audio device either missing from Device Manager or showing as unrecognized.",
+    "symptoms": [
+      "No sound plays from any source on the computer",
+      "The audio device is missing or shows as unrecognized in Device Manager",
+      "Volume icon in the taskbar may show a red X or 'No audio device is installed' message",
+      "Sound settings show no available playback devices"
+    ],
+    "possible_causes": [
+      "The audio driver was never installed after a fresh Windows installation",
+      "The driver was accidentally uninstalled or removed",
+      "A Windows update removed or replaced the previously working audio driver",
+      "Windows' generic built-in audio driver is not compatible with this specific hardware"
+    ],
+    "diagnostic_questions": [
+      "Did this happen after a fresh Windows installation, a Windows update, or was the device working before and stopped?",
+      "Does the volume icon in the taskbar show any specific error or missing device message?",
+      "Do you know the exact make and model of your computer or sound card?",
+      "Does the audio device appear at all in Device Manager, even with an error?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Open Device Manager and check under 'Sound, video and game controllers' for the audio device's status",
+        "expected_result": "Audio device listed normally with no warning icons",
+        "abnormal_result": "Audio device missing entirely, or shown with a warning icon under 'Other devices'"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Device Manager and check under 'Sound, video and game controllers' as well as 'Other devices' for any audio-related entries",
+        "reason": "This confirms whether Windows detects the audio hardware at all, even without a proper driver"
+      },
+      {
+        "step": 2,
+        "action": "If an audio device appears with a warning icon, right-click it and select 'Update driver', choosing to search automatically",
+        "reason": "This allows Windows to attempt to find and install an appropriate driver through its built-in search"
+      },
+      {
+        "step": 3,
+        "action": "If no driver is found automatically, or no audio device appears at all, identify your exact computer model or sound card make and model",
+        "reason": "This precise information is needed to locate the correct audio driver from the appropriate source"
+      },
+      {
+        "step": 4,
+        "action": "Visit the computer manufacturer's website (for laptops or pre-built desktops) or the sound card manufacturer's website (for custom-built desktops), and download the correct audio driver",
+        "reason": "Manufacturer-specific audio drivers are typically more complete and reliable than generic Windows drivers, especially for laptop audio configurations"
+      },
+      {
+        "step": 5,
+        "action": "Install the downloaded driver and restart the computer",
+        "reason": "This properly installs the correct audio driver and ensures it is fully loaded after the restart"
+      },
+      {
+        "step": 6,
+        "action": "After restarting, check Sound settings to confirm the audio device now appears as an available playback device and test sound output",
+        "reason": "This verifies the driver installation successfully restored audio functionality"
+      },
+      {
+        "step": 7,
+        "action": "If this occurred after a Windows update, check if the manufacturer has released a specific driver update addressing compatibility with that particular Windows update",
+        "reason": "Windows updates occasionally cause temporary compatibility issues with existing audio drivers that manufacturers subsequently address"
+      }
+    ],
+    "possible_solutions": [
+      "Update the driver automatically through Device Manager",
+      "Download and install the correct audio driver from the computer or sound card manufacturer",
+      "Check for a manufacturer driver update addressing a recent Windows update",
+      "Restart the computer after installing the driver"
+    ],
+    "prevention": [
+      "Install manufacturer audio drivers after fresh Windows installations",
+      "Keep audio drivers updated, especially after major Windows updates",
+      "Keep a record of your computer or sound card model for future reference"
+    ],
+    "keywords": ["audio driver missing", "no sound device installed", "sound card driver missing", "no audio output device"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["No sound on computer", "Driver Missing", "Driver Missing After Windows Update"]
+  },
+
+  {
+    "id": "DRV-018",
+    "category": "Drivers",
+    "subcategory": "Network Devices",
+    "problem": "Network driver is missing",
+    "description": "The computer's network adapter, whether wired Ethernet or wireless Wi-Fi, has no driver installed, resulting in no network connectivity being possible, with the adapter missing or unrecognized in Device Manager.",
+    "symptoms": [
+      "No network adapters appear in Network Connections settings",
+      "The network adapter is missing or shows as unrecognized in Device Manager",
+      "No internet or network access is possible through any method",
+      "This is especially common right after a fresh Windows installation"
+    ],
+    "possible_causes": [
+      "The network driver was never installed after a fresh Windows installation",
+      "The driver was accidentally uninstalled or corrupted",
+      "Windows' built-in generic driver does not fully support this specific network adapter",
+      "A Windows update removed or replaced a previously working network driver"
+    ],
+    "diagnostic_questions": [
+      "Did this happen after a fresh Windows installation?",
+      "Do you have access to another computer or a mobile device to download the driver, since this computer may not have internet access?",
+      "Do you know the exact make and model of your network adapter or computer?",
+      "Does any network adapter appear at all in Device Manager, even with a warning icon?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Open Device Manager and check under 'Network adapters' for the device's status",
+        "expected_result": "Network adapter listed normally with no warning icons",
+        "abnormal_result": "No network adapter listed, or shown with a warning icon, confirming a missing or non-functional driver"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Device Manager and check under 'Network adapters' as well as 'Other devices' for any network-related entries",
+        "reason": "This confirms whether Windows detects the network hardware at all, even without a proper working driver"
+      },
+      {
+        "step": 2,
+        "action": "Since this computer likely has no internet access due to the missing network driver, use a different computer or a mobile device to identify and download the correct driver",
+        "reason": "Downloading the network driver requires internet access, which this computer cannot provide until the driver itself is installed, creating a chicken-and-egg situation that requires an alternate device"
+      },
+      {
+        "step": 3,
+        "action": "Identify the exact make and model of your computer (for laptops) or your specific network adapter (for desktop computers)",
+        "reason": "This precise information is necessary to locate the correct driver from the appropriate manufacturer"
+      },
+      {
+        "step": 4,
+        "action": "On the other device, visit the computer or network adapter manufacturer's website and download the correct network driver for your exact Windows version",
+        "reason": "This provides the correct driver file needed to restore network functionality"
+      },
+      {
+        "step": 5,
+        "action": "Transfer the downloaded driver file to the affected computer using a USB drive",
+        "reason": "Since the affected computer lacks network access, a physical transfer method like a USB drive is necessary to get the driver file onto it"
+      },
+      {
+        "step": 6,
+        "action": "Install the driver from the USB drive on the affected computer, then restart it",
+        "reason": "This properly installs the network driver, restoring the computer's ability to connect to networks"
+      },
+      {
+        "step": 7,
+        "action": "After restarting, confirm the network adapter now appears correctly and test connecting to a network, either wired or wireless as appropriate",
+        "reason": "This verifies the driver installation successfully restored network connectivity"
+      }
+    ],
+    "possible_solutions": [
+      "Download the correct network driver using a different device with internet access",
+      "Transfer the driver to the affected computer via USB drive",
+      "Install the driver and restart the computer",
+      "Verify network connectivity is restored after installation"
+    ],
+    "prevention": [
+      "Keep a copy of network drivers saved on a USB drive for emergency situations",
+      "Install manufacturer driver packages after fresh Windows installations",
+      "Keep network drivers updated regularly"
+    ],
+    "keywords": ["network driver missing", "no network adapter found", "ethernet driver missing", "wifi adapter driver missing"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["No internet access ethernet", "Wi-Fi keeps disconnecting", "Driver Missing After Windows Update"]
+  },
+
+  {
+    "id": "DRV-019",
+    "category": "Drivers",
+    "subcategory": "Graphics Devices",
+    "problem": "Graphics driver is missing",
+    "description": "The computer's graphics card or integrated graphics has no proper driver installed, resulting in Windows using a very basic generic display driver, causing poor visual quality, limited resolution options, and missing graphics features.",
+    "symptoms": [
+      "Display resolution options are very limited compared to what the monitor supports",
+      "Device Manager shows 'Microsoft Basic Display Adapter' instead of the actual graphics card name",
+      "Graphics-intensive applications, like games, perform very poorly or will not run",
+      "Display appears blurry or icons and text appear larger than intended"
+    ],
+    "possible_causes": [
+      "The graphics driver was never installed after a fresh Windows installation",
+      "The driver was accidentally uninstalled",
+      "A Windows update replaced the proper driver with the generic basic one",
+      "The proper graphics driver failed to install correctly"
+    ],
+    "diagnostic_questions": [
+      "Does Device Manager show your actual graphics card name, or 'Microsoft Basic Display Adapter'?",
+      "Did this happen after a fresh Windows installation or a recent Windows update?",
+      "Do you know the exact make and model of your graphics card, whether integrated or a separate card?",
+      "Are you experiencing limited resolution options or poor performance in demanding applications?"
+    ],
+    "commands": [
+      {
+        "command": "dxdiag",
+        "purpose": "Open DirectX Diagnostic Tool to check the currently detected graphics card name and driver details",
+        "expected_result": "Shows the actual graphics card manufacturer and model with a recent driver date",
+        "abnormal_result": "Shows 'Microsoft Basic Display Adapter' or a very old driver date, confirming the proper driver is not installed"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Run dxdiag and check the Display tab to see exactly what graphics card name and driver information is currently being shown",
+        "reason": "This confirms whether the proper manufacturer driver is installed, or if Windows is using its very basic generic fallback driver"
+      },
+      {
+        "step": 2,
+        "action": "Identify the exact make and model of your graphics hardware, whether it is a dedicated graphics card or the integrated graphics built into your processor",
+        "reason": "This precise information is required to download the correct, matching graphics driver"
+      },
+      {
+        "step": 3,
+        "action": "Visit the appropriate manufacturer's website, such as NVIDIA, AMD, or Intel, and download the correct graphics driver for your exact hardware and Windows version",
+        "reason": "Manufacturer graphics drivers provide full functionality, proper resolution support, and significantly better performance compared to the generic Windows fallback driver"
+      },
+      {
+        "step": 4,
+        "action": "Install the downloaded driver, following the manufacturer's installation instructions, then restart the computer",
+        "reason": "This properly installs the complete graphics driver and ensures it is fully active after the restart"
+      },
+      {
+        "step": 5,
+        "action": "After restarting, confirm in Device Manager and dxdiag that the correct graphics card name and driver are now shown",
+        "reason": "This verifies the proper driver installation was successful"
+      },
+      {
+        "step": 6,
+        "action": "Check that your display resolution options and overall visual quality have improved to match your monitor's actual capabilities",
+        "reason": "This confirms the practical benefit of the properly installed driver, resolving the original visual quality symptoms"
+      },
+      {
+        "step": 7,
+        "action": "If this occurred after a Windows update, check if the manufacturer has released a specific driver update addressing compatibility with that particular update",
+        "reason": "Windows updates occasionally cause temporary compatibility issues with existing graphics drivers that manufacturers typically address relatively quickly given how commonly graphics drivers are used"
+      }
+    ],
+    "possible_solutions": [
+      "Download and install the correct graphics driver from the manufacturer (NVIDIA, AMD, or Intel)",
+      "Restart the computer after installation to fully apply the driver",
+      "Check for a manufacturer update addressing a recent Windows update if applicable",
+      "Verify display resolution and quality improve after installation"
+    ],
+    "prevention": [
+      "Install manufacturer graphics drivers after fresh Windows installations",
+      "Keep graphics drivers updated regularly, especially for gaming or demanding applications",
+      "Check manufacturer websites after major Windows updates"
+    ],
+    "keywords": ["graphics driver missing", "microsoft basic display adapter", "no graphics card driver", "poor display quality driver"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Display Driver Crashed", "Wrong resolution blurry screen", "Driver Missing After Windows Update"]
+  },
+
+  {
+    "id": "DRV-020",
+    "category": "Drivers",
+    "subcategory": "USB Devices",
+    "problem": "USB driver is missing",
+    "description": "The computer's USB controller or a specific connected USB device lacks a proper driver, resulting in USB ports not functioning correctly or a specific connected USB device not being recognized.",
+    "symptoms": [
+      "USB devices are not recognized when plugged in",
+      "USB controllers show a warning icon in Device Manager",
+      "Some USB ports work while others do not",
+      "A specific USB device works on other computers but not this one"
+    ],
+    "possible_causes": [
+      "The USB controller driver was never installed or was corrupted",
+      "A Windows update affected the USB controller driver",
+      "Motherboard chipset drivers, which USB controllers often depend on, are missing or outdated",
+      "A specific USB device requires its own separate driver beyond the generic USB controller driver"
+    ],
+    "diagnostic_questions": [
+      "Are all USB ports affected, or just some of them?",
+      "Does this affect all USB devices, or just one specific device?",
+      "Do you know if your motherboard chipset drivers are installed and up to date?",
+      "Does Device Manager show any warning icons under 'Universal Serial Bus controllers'?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Open Device Manager and check under 'Universal Serial Bus controllers' for any warning icons",
+        "expected_result": "All USB controllers listed normally with no warning icons",
+        "abnormal_result": "One or more USB controllers show a warning icon, indicating a missing or problematic driver"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Device Manager and check under 'Universal Serial Bus controllers' for any entries showing warning icons",
+        "reason": "This identifies whether the core USB controller drivers themselves have a problem, versus an issue with just one specific connected device"
+      },
+      {
+        "step": 2,
+        "action": "If a specific USB controller shows a warning, right-click it and select 'Update driver', choosing to search automatically",
+        "reason": "This allows Windows to attempt to find and install an appropriate driver for the affected USB controller"
+      },
+      {
+        "step": 3,
+        "action": "Update your motherboard's chipset drivers from the motherboard or computer manufacturer's website, since USB controllers often depend on these underlying drivers",
+        "reason": "Outdated or missing chipset drivers can specifically cause USB controller issues, since USB functionality is closely tied to the overall chipset driver package"
+      },
+      {
+        "step": 4,
+        "action": "If only one specific USB device is not recognized while others work fine, check if that specific device requires its own separate, dedicated driver beyond basic USB support",
+        "reason": "Some specialized USB devices, unlike simple flash drives or mice, require manufacturer-specific drivers to function correctly"
+      },
+      {
+        "step": 5,
+        "action": "For a specific problematic device, visit its manufacturer's website and download the correct dedicated driver if one is required",
+        "reason": "This addresses a device-specific driver need that goes beyond the generic USB controller functionality"
+      },
+      {
+        "step": 6,
+        "action": "Restart the computer after installing any updated drivers to ensure they are fully applied",
+        "reason": "This ensures all newly installed drivers are properly loaded and initialized"
+      },
+      {
+        "step": 7,
+        "action": "If all USB ports are affected despite driver updates, check BIOS/UEFI settings to confirm USB controllers have not been disabled at the firmware level",
+        "reason": "A completely disabled USB controller at the firmware level would prevent any driver-level fix from working, since the hardware itself is turned off"
+      }
+    ],
+    "possible_solutions": [
+      "Update the USB controller driver through Device Manager",
+      "Update motherboard chipset drivers",
+      "Install a dedicated driver for a specific problematic USB device",
+      "Confirm USB controllers are enabled in BIOS/UEFI settings"
+    ],
+    "prevention": [
+      "Keep motherboard chipset drivers updated",
+      "Install dedicated drivers for specialized USB devices when required",
+      "Keep USB controller drivers current"
+    ],
+    "keywords": ["usb driver missing", "usb controller warning icon", "usb device not recognized driver", "chipset driver usb"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["USB device not recognized", "Chipset Driver Missing", "Device Not Detected"]
+  },
+
+  {
+    "id": "DRV-021",
+    "category": "Drivers",
+    "subcategory": "Bluetooth Devices",
+    "problem": "Bluetooth driver is missing",
+    "description": "The computer's Bluetooth adapter has no proper driver installed, preventing Bluetooth functionality entirely, with no Bluetooth option available in Windows settings or the adapter showing as unrecognized in Device Manager.",
+    "symptoms": [
+      "No Bluetooth option appears in Windows Settings",
+      "Device Manager shows no Bluetooth adapter, or shows one with a warning icon",
+      "Previously paired Bluetooth devices can no longer connect",
+      "Bluetooth was working before but has since stopped"
+    ],
+    "possible_causes": [
+      "The Bluetooth driver was never installed after a fresh Windows installation",
+      "The driver was accidentally uninstalled or corrupted",
+      "A Windows update affected the Bluetooth driver",
+      "The Bluetooth adapter itself, whether internal or a USB dongle, has a connection issue separate from the driver"
+    ],
+    "diagnostic_questions": [
+      "Did this happen after a fresh Windows installation, a Windows update, or after working correctly before?",
+      "Is your Bluetooth built into the computer, or a separate USB adapter?",
+      "Does any Bluetooth-related entry appear in Device Manager, even with a warning icon?",
+      "Do you know the exact make and model of your computer or Bluetooth adapter?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Open Device Manager and check under 'Bluetooth' for the adapter's status",
+        "expected_result": "Bluetooth adapter listed normally with no warning icons",
+        "abnormal_result": "No Bluetooth category appears at all, or the adapter shows a warning icon"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Device Manager and check specifically under the 'Bluetooth' category, as well as under 'Other devices', for any related entries",
+        "reason": "This confirms whether Windows detects the Bluetooth hardware at all, even without a proper working driver"
+      },
+      {
+        "step": 2,
+        "action": "If a Bluetooth entry appears with a warning icon, right-click it and select 'Update driver', choosing to search automatically",
+        "reason": "This allows Windows to attempt to find and install an appropriate driver through its built-in search capability"
+      },
+      {
+        "step": 3,
+        "action": "If no Bluetooth adapter appears at all, identify whether your computer has built-in Bluetooth or requires a separate USB Bluetooth adapter, and confirm it is properly connected if external",
+        "reason": "This clarifies whether the issue is purely a missing driver for existing hardware, or potentially a connection issue with external hardware"
+      },
+      {
+        "step": 4,
+        "action": "Visit your computer manufacturer's website (for built-in Bluetooth) or the specific adapter manufacturer's website (for USB adapters), and download the correct Bluetooth driver",
+        "reason": "This provides the correct, complete driver package specifically needed for your exact Bluetooth hardware"
+      },
+      {
+        "step": 5,
+        "action": "Install the downloaded driver and restart the computer",
+        "reason": "This properly installs the Bluetooth driver and ensures it is fully active and functional after the restart"
+      },
+      {
+        "step": 6,
+        "action": "After restarting, check Windows Settings to confirm Bluetooth now appears as an available option, and test pairing with a known Bluetooth device",
+        "reason": "This verifies the driver installation successfully restored full Bluetooth functionality"
+      },
+      {
+        "step": 7,
+        "action": "If this occurred after a Windows update, check if the manufacturer has released a specific driver update addressing compatibility with that particular update",
+        "reason": "Windows updates occasionally cause temporary compatibility issues with existing Bluetooth drivers that manufacturers subsequently address"
+      }
+    ],
+    "possible_solutions": [
+      "Update the driver automatically through Device Manager",
+      "Download and install the correct Bluetooth driver from the manufacturer",
+      "Confirm external USB Bluetooth adapters are properly connected",
+      "Check for a manufacturer update addressing a recent Windows update"
+    ],
+    "prevention": [
+      "Install manufacturer Bluetooth drivers after fresh Windows installations",
+      "Keep Bluetooth drivers updated, especially after major Windows updates",
+      "Keep a record of your Bluetooth hardware model for future reference"
+    ],
+    "keywords": ["bluetooth driver missing", "no bluetooth option windows", "bluetooth adapter not detected", "bluetooth stopped working driver"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Driver Missing", "Device Not Detected", "Driver Missing After Windows Update"]
+  },
+
+  {
+    "id": "DRV-022",
+    "category": "Drivers",
+    "subcategory": "Webcam Devices",
+    "problem": "Webcam driver is missing",
+    "description": "The computer's built-in or external webcam has no proper driver installed, preventing it from being detected or used by any video calling or camera application.",
+    "symptoms": [
+      "Video calling applications show no camera available or a black screen",
+      "The webcam is missing or shows a warning icon in Device Manager under 'Cameras' or 'Imaging devices'",
+      "The webcam's indicator light, if present, does not turn on when an application tries to use it",
+      "The webcam worked before but has since stopped functioning"
+    ],
+    "possible_causes": [
+      "The webcam driver was never installed after a fresh Windows installation",
+      "The driver was accidentally uninstalled or corrupted",
+      "A Windows update affected the webcam driver",
+      "Windows privacy settings are blocking camera access, which can appear similar to a driver issue"
+    ],
+    "diagnostic_questions": [
+      "Is this a built-in laptop webcam, or an external USB webcam?",
+      "Does the webcam appear at all in Device Manager, even with a warning icon?",
+      "Have you checked Windows privacy settings to confirm camera access is allowed?",
+      "Did this happen after a fresh Windows installation, an update, or after previously working correctly?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Open Device Manager and check under 'Cameras' or 'Imaging devices' for the webcam's status",
+        "expected_result": "Webcam listed normally with no warning icons",
+        "abnormal_result": "No webcam listed, or shown with a warning icon, confirming a missing or non-functional driver"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Windows Settings under Privacy & Security > Camera to confirm camera access is allowed for apps in general and for the specific application you are trying to use",
+        "reason": "A privacy setting blocking camera access can produce symptoms very similar to a missing driver, and this is a simple, common cause worth ruling out first"
+      },
+      {
+        "step": 2,
+        "action": "Open Device Manager and check under 'Cameras' or 'Imaging devices' for the webcam entry",
+        "reason": "This confirms whether Windows detects the webcam hardware at all, even without a proper working driver"
+      },
+      {
+        "step": 3,
+        "action": "If the webcam shows a warning icon, right-click it and select 'Update driver', choosing to search automatically",
+        "reason": "This allows Windows to attempt to find and install an appropriate driver through its built-in search"
+      },
+      {
+        "step": 4,
+        "action": "If no webcam appears at all, and this is a built-in laptop webcam, visit the laptop manufacturer's website and download the specific webcam driver for your exact model",
+        "reason": "Laptop manufacturers provide specific drivers for their integrated webcams that are more reliable than generic detection"
+      },
+      {
+        "step": 5,
+        "action": "For an external USB webcam, visit that specific webcam manufacturer's website and download its dedicated driver and software if provided",
+        "reason": "Many external webcams, especially higher-end models, come with their own specific driver and software package for full functionality"
+      },
+      {
+        "step": 6,
+        "action": "Install the downloaded driver and restart the computer",
+        "reason": "This properly installs the webcam driver and ensures it is fully active after the restart"
+      },
+      {
+        "step": 7,
+        "action": "After restarting, test the webcam using the built-in Windows Camera app first, before trying other video calling applications",
+        "reason": "Testing with the simple built-in Camera app helps confirm the driver itself is working correctly, separate from any settings specific to a third-party video calling application"
+      }
+    ],
+    "possible_solutions": [
+      "Check and correct Windows camera privacy settings",
+      "Update the driver automatically through Device Manager",
+      "Download and install the correct webcam driver from the laptop or webcam manufacturer",
+      "Test functionality using the built-in Windows Camera app"
+    ],
+    "prevention": [
+      "Keep camera privacy settings properly configured",
+      "Install manufacturer webcam drivers and software when available",
+      "Keep webcam drivers updated"
+    ],
+    "keywords": ["webcam driver missing", "camera not detected windows", "no camera available video call", "webcam not working driver"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Driver Missing", "Device Not Detected", "Hardware Not Recognized"]
+  },
+
+  {
+    "id": "DRV-023",
+    "category": "Drivers",
+    "subcategory": "Input Devices",
+    "problem": "Touchpad driver is missing",
+    "description": "A laptop's built-in touchpad has no proper driver installed, resulting in either no touchpad functionality at all, or only very basic movement without advanced gestures or settings available.",
+    "symptoms": [
+      "The touchpad does not respond to touch at all",
+      "The touchpad works for basic movement but lacks gestures like scrolling or right-click",
+      "No touchpad settings appear in Windows Settings or Control Panel",
+      "Device Manager shows the touchpad with a warning icon or missing entirely"
+    ],
+    "possible_causes": [
+      "The touchpad driver was never installed after a fresh Windows installation",
+      "The driver was accidentally uninstalled or corrupted",
+      "Windows' generic built-in touchpad support lacks the manufacturer's advanced features",
+      "A Windows update affected the touchpad driver",
+      "The touchpad was accidentally disabled through a keyboard shortcut"
+    ],
+    "diagnostic_questions": [
+      "Does the touchpad not work at all, or does it work with only very basic movement?",
+      "Have you checked for a keyboard shortcut, often Fn plus a specific key, that might disable the touchpad?",
+      "Do you know the exact make and model of your laptop?",
+      "Does the touchpad appear in Device Manager, even with a warning icon?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Open Device Manager and check under 'Mice and other pointing devices' for the touchpad's status",
+        "expected_result": "Touchpad listed normally, often with the manufacturer's specific name, with no warning icons",
+        "abnormal_result": "Touchpad missing, or shown with a warning icon, or only listed as a generic 'HID-compliant mouse' without advanced features"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check for a physical keyboard shortcut, often involving the Fn key combined with a specific function key showing a touchpad icon, that may have accidentally disabled the touchpad",
+        "reason": "Many laptops have a simple hardware shortcut to toggle the touchpad on and off, and this is a very common, easily overlooked cause of an apparently non-functional touchpad"
+      },
+      {
+        "step": 2,
+        "action": "Open Device Manager and check under 'Mice and other pointing devices' for the touchpad entry",
+        "reason": "This confirms whether Windows detects the touchpad hardware at all, and whether it shows the proper manufacturer driver or just a generic one"
+      },
+      {
+        "step": 3,
+        "action": "If only basic movement works without gestures, this suggests Windows' generic driver is active rather than the manufacturer's full-featured one",
+        "reason": "The generic Windows driver provides only basic pointer movement, while the proper manufacturer driver unlocks gestures, sensitivity settings, and other advanced features"
+      },
+      {
+        "step": 4,
+        "action": "Identify your exact laptop make and model, then visit the manufacturer's website to download the specific touchpad driver, often listed under names like Synaptics, ELAN, or a similar touchpad technology provider",
+        "reason": "This provides the complete, proper driver needed for full touchpad functionality rather than just basic generic movement"
+      },
+      {
+        "step": 5,
+        "action": "Install the downloaded driver, following the manufacturer's instructions, then restart the computer",
+        "reason": "This properly installs the complete touchpad driver and ensures it is fully active after the restart"
+      },
+      {
+        "step": 6,
+        "action": "After restarting, check for a dedicated touchpad settings section in Windows Settings or a separate manufacturer utility, and confirm gestures and other advanced features now work",
+        "reason": "This verifies the proper driver installation was successful and full touchpad functionality has been restored"
+      },
+      {
+        "step": 7,
+        "action": "If the touchpad still does not respond at all even after driver installation, check BIOS/UEFI settings to confirm the internal touchpad has not been disabled at the firmware level",
+        "reason": "Some laptops allow the touchpad to be disabled through BIOS/UEFI settings, which would prevent any driver-level fix from restoring functionality"
+      }
+    ],
+    "possible_solutions": [
+      "Check for and use a keyboard shortcut to re-enable the touchpad",
+      "Update the driver automatically through Device Manager",
+      "Download and install the specific manufacturer touchpad driver",
+      "Confirm the touchpad is enabled in BIOS/UEFI settings"
+    ],
+    "prevention": [
+      "Install manufacturer touchpad drivers for full functionality",
+      "Be aware of touchpad toggle keyboard shortcuts on your specific laptop",
+      "Keep touchpad drivers updated"
+    ],
+    "keywords": ["touchpad driver missing", "touchpad not working laptop", "touchpad gestures not working", "synaptics elan driver missing"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Driver Missing", "Device Has a Yellow Warning Icon", "Hardware Not Recognized"]
+  },
+
+  {
+    "id": "DRV-024",
+    "category": "Drivers",
+    "subcategory": "Chipset Devices",
+    "problem": "Chipset driver is missing",
+    "description": "The motherboard's chipset driver, which enables proper communication between the processor, memory, and various onboard components, has not been installed, potentially causing a range of related hardware issues.",
+    "symptoms": [
+      "Multiple seemingly unrelated devices show problems, such as USB, audio, or onboard networking",
+      "Device Manager shows warning icons on several system devices simultaneously",
+      "Overall system performance may be affected, especially involving data transfer speeds",
+      "This is especially common right after a fresh Windows installation"
+    ],
+    "possible_causes": [
+      "The chipset driver was never installed after a fresh Windows installation",
+      "The driver was accidentally uninstalled",
+      "A new motherboard or computer was set up without installing the manufacturer's chipset package",
+      "Windows' generic drivers are providing only basic functionality without full chipset support"
+    ],
+    "diagnostic_questions": [
+      "Did this happen after a fresh Windows installation or setting up new hardware?",
+      "Are multiple different types of devices, such as USB, audio, and networking, all showing problems at the same time?",
+      "Do you know the exact make and model of your motherboard or computer?",
+      "Have you installed a manufacturer-provided driver package for your motherboard?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Notice if multiple, seemingly unrelated devices are all showing problems at the same time, such as USB devices, onboard audio, and networking all being affected together",
+        "reason": "This pattern is a strong indicator that the underlying chipset driver, which many components depend on, is the actual root cause rather than several unrelated individual device issues"
+      },
+      {
+        "step": 2,
+        "action": "Identify the exact make and model of your motherboard, for custom-built desktops, or your specific computer model, for laptops and pre-built desktops",
+        "reason": "This precise information is needed to locate the correct chipset driver package from the appropriate manufacturer"
+      },
+      {
+        "step": 3,
+        "action": "Visit the motherboard manufacturer's website (for custom builds) or the computer manufacturer's website (for laptops and pre-built systems), and download the complete chipset driver package",
+        "reason": "Chipset manufacturers provide comprehensive driver packages specifically designed to properly enable all the interconnected functionality the chipset supports"
+      },
+      {
+        "step": 4,
+        "action": "Install the chipset driver package first, before installing other individual device drivers like graphics or audio",
+        "reason": "The chipset driver provides foundational support that other device drivers often depend on, so installing it first helps ensure subsequent driver installations work correctly"
+      },
+      {
+        "step": 5,
+        "action": "Restart the computer after installing the chipset driver package",
+        "reason": "This ensures the foundational chipset driver is fully loaded and active before other dependent components attempt to initialize"
+      },
+      {
+        "step": 6,
+        "action": "After restarting, check Device Manager to see if previously affected devices, such as USB and audio, now show improved status with fewer or no warning icons",
+        "reason": "This verifies whether the chipset driver installation resolved the broader pattern of related device issues"
+      },
+      {
+        "step": 7,
+        "action": "If some individual devices still show issues after the chipset driver is properly installed, address those remaining specific devices individually with their own dedicated drivers",
+        "reason": "While the chipset driver resolves many foundational issues, some specific devices may still need their own separate, additional drivers for full functionality"
+      }
+    ],
+    "possible_solutions": [
+      "Download and install the complete chipset driver package from the motherboard or computer manufacturer",
+      "Install the chipset driver before other individual device drivers",
+      "Restart the computer to fully apply the chipset driver",
+      "Address any remaining individual device issues after the chipset driver is installed"
+    ],
+    "prevention": [
+      "Always install the chipset driver package early when setting up a new computer",
+      "Keep chipset drivers updated, especially after major Windows updates",
+      "Install chipset drivers before other individual hardware drivers"
+    ],
+    "keywords": ["chipset driver missing", "multiple devices not working", "motherboard driver package missing", "chipset driver install"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["USB Driver Missing", "Driver Conflict", "Device Not Detected"]
+  },
+
+  {
+    "id": "DRV-025",
+    "category": "Drivers",
+    "subcategory": "Graphics Devices",
+    "problem": "Display driver has crashed",
+    "description": "The graphics driver unexpectedly stops responding and restarts itself, often causing the screen to briefly go black or flicker, sometimes accompanied by a notification that the display driver has recovered.",
+    "symptoms": [
+      "Screen briefly goes black or flickers, then returns to normal",
+      "Notification appears stating 'Display driver stopped responding and has recovered'",
+      "This may happen during demanding tasks like gaming or video playback",
+      "May happen occasionally or very frequently, depending on severity"
+    ],
+    "possible_causes": [
+      "The graphics driver has a bug triggered by a specific demanding task",
+      "The graphics card is overheating",
+      "The graphics card is being pushed beyond its stable limits, such as through overclocking",
+      "An outdated or corrupted graphics driver",
+      "Insufficient power delivery to a high-performance graphics card"
+    ],
+    "diagnostic_questions": [
+      "Does this happen during a specific activity, such as gaming, video editing, or watching videos?",
+      "How frequently does this happen: rarely, occasionally, or very often?",
+      "Have you made any changes to graphics card settings, such as overclocking?",
+      "Does the graphics card or computer feel unusually hot when this happens?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note exactly what activity was happening when the crash occurred, such as a specific game or video playback",
+        "reason": "A specific, repeatable trigger helps narrow down whether the issue is related to a particular type of demanding graphics workload"
+      },
+      {
+        "step": 2,
+        "action": "If any graphics card overclocking software or settings are in use, revert them back to default, stock settings",
+        "reason": "Overclocking pushes hardware beyond its officially supported limits, and this is a very common cause of exactly this type of driver crash and recovery behavior"
+      },
+      {
+        "step": 3,
+        "action": "Update the graphics driver to the latest version available from the manufacturer (NVIDIA, AMD, or Intel)",
+        "reason": "Graphics driver updates frequently include bug fixes and stability improvements that can directly resolve this type of crash"
+      },
+      {
+        "step": 4,
+        "action": "If a recent driver update seems to have introduced or worsened the problem, consider rolling back to a previous, more stable driver version",
+        "reason": "Occasionally, a specific driver release itself contains bugs, and an earlier version may prove more stable for your specific hardware and workload"
+      },
+      {
+        "step": 5,
+        "action": "Check the graphics card's temperature during demanding tasks using monitoring software, and ensure the computer has adequate cooling and ventilation",
+        "reason": "Overheating is a very common cause of graphics driver crashes, as the hardware protects itself by essentially resetting when temperatures become too high"
+      },
+      {
+        "step": 6,
+        "action": "For desktop computers with a dedicated, high-performance graphics card, confirm the power supply provides adequate and stable power for the card's requirements",
+        "reason": "Insufficient or unstable power delivery can cause a demanding graphics card to crash under load"
+      },
+      {
+        "step": 7,
+        "action": "Perform a completely clean graphics driver installation using the manufacturer's dedicated cleanup tool, if available, to remove all traces of the previous driver before installing a fresh copy",
+        "reason": "Leftover files and settings from previous driver installations can sometimes cause instability that a standard update does not fully resolve"
+      },
+      {
+        "step": 8,
+        "action": "If crashes continue despite these steps, especially if they happen even during light, non-demanding tasks, this may indicate the graphics card hardware itself is failing and needs professional evaluation",
+        "reason": "Persistent instability despite thorough software-level troubleshooting increasingly points toward an underlying hardware problem"
+      }
+    ],
+    "possible_solutions": [
+      "Revert any overclocking back to default settings",
+      "Update to the latest graphics driver from the manufacturer",
+      "Roll back to a previous, more stable driver version if a recent update caused the issue",
+      "Improve cooling and ventilation to address overheating",
+      "Perform a clean driver reinstallation using the manufacturer's cleanup tool"
+    ],
+    "prevention": [
+      "Avoid overclocking beyond stable, tested limits",
+      "Maintain adequate cooling for the graphics card",
+      "Keep graphics drivers updated",
+      "Ensure adequate power supply capacity for high-performance graphics cards"
+    ],
+    "keywords": ["display driver crashed", "display driver stopped responding and has recovered", "screen flickers graphics driver", "graphics driver instability"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-50 minutes",
+    "related_problems": ["Graphics Driver Missing", "Windows Stopped This Device (Code 43)", "Blue screen errors"]
+  },
+
+  {
+    "id": "DRV-026",
+    "category": "Drivers",
+    "subcategory": "Driver Conflicts",
+    "problem": "Driver conflict between two devices",
+    "description": "Two different devices or their drivers interfere with each other, causing one or both to malfunction, often due to competing for the same system resources or attempting to manage overlapping hardware functionality.",
+    "symptoms": [
+      "One device stops working correctly after another, seemingly unrelated device is installed",
+      "Device Manager may show a resource conflict message for one or both devices",
+      "Uninstalling one specific device or driver resolves the issue with the other",
+      "Symptoms may be inconsistent or hard to reproduce reliably"
+    ],
+    "possible_causes": [
+      "Two devices are assigned the same system resource, such as an IRQ, causing a genuine hardware-level conflict",
+      "Two different drivers attempt to control the same or overlapping hardware functionality, such as competing audio enhancement drivers",
+      "A newly installed driver includes a filter component that interferes with an existing, unrelated device",
+      "Legacy or older driver technology conflicting with newer driver models"
+    ],
+    "diagnostic_questions": [
+      "Did the problem start right after installing a new device or driver?",
+      "Have you noticed the issue resolves when a specific other device is disconnected or its driver is uninstalled?",
+      "Does Device Manager show any specific resource conflict message?",
+      "Are the two devices involved of a similar type, such as two different audio-related devices?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Open Device Manager, and under View > Devices by connection, examine resource allocation which can help reveal conflicts",
+        "expected_result": "No conflicting resource assignments between different devices",
+        "abnormal_result": "Two devices shown competing for the same specific resource, confirming a genuine conflict"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Identify exactly when the problem started and whether it correlates with installing a specific new device or driver",
+        "reason": "This timing correlation is often the most direct clue pointing toward which two devices or drivers might be in conflict"
+      },
+      {
+        "step": 2,
+        "action": "If a specific recent installation is suspected, try temporarily uninstalling or disabling that device to see if the other device's problem resolves",
+        "reason": "This directly tests whether the suspected device is indeed the source of the conflict"
+      },
+      {
+        "step": 3,
+        "action": "Check Device Manager's Resources tab for the affected devices, if available, to look for any explicitly shown resource conflicts",
+        "reason": "Modern Windows and hardware generally handle resource allocation automatically and conflicts are less common than in the past, but this can still occasionally reveal a genuine underlying issue"
+      },
+      {
+        "step": 4,
+        "action": "If two devices of a similar type are involved, such as two different audio-related pieces of software or hardware, consider whether they might both be trying to control overlapping functionality",
+        "reason": "This type of software-level conflict, rather than a strict hardware resource conflict, is increasingly the more common cause of what appears to be device conflicts on modern systems"
+      },
+      {
+        "step": 5,
+        "action": "Update both involved devices' drivers to their latest versions, since manufacturers sometimes release updates specifically addressing known compatibility issues with other common hardware or software",
+        "reason": "Driver updates can directly resolve known conflicts that manufacturers have identified and addressed"
+      },
+      {
+        "step": 6,
+        "action": "If updating does not resolve the conflict, and both devices are genuinely needed, research whether there is a known, documented compatibility issue between these specific two devices or drivers",
+        "reason": "Some conflicts are well-documented by manufacturers or user communities, often with specific recommended workarounds"
+      },
+      {
+        "step": 7,
+        "action": "As a last resort, if one of the two conflicting devices is less critical, consider whether it can be removed or disabled to prioritize the more important device's proper functioning",
+        "reason": "When a direct resolution is not readily available, prioritizing the more essential device provides a practical path forward"
+      }
+    ],
+    "possible_solutions": [
+      "Uninstall or disable a newly installed conflicting device",
+      "Update both involved devices' drivers to their latest versions",
+      "Research known compatibility issues between the specific devices involved",
+      "Prioritize the more essential device if a direct resolution is not available"
+    ],
+    "prevention": [
+      "Install one new device at a time and test functionality before adding another",
+      "Research compatibility before installing multiple devices with overlapping functionality",
+      "Keep all drivers updated to benefit from compatibility fixes"
+    ],
+    "keywords": ["driver conflict", "device conflict resource", "two devices interfering", "resource conflict device manager"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-55 minutes",
+    "related_problems": ["Device Cannot Start (Code 10)", "Wrong Driver Installed", "Windows Installed Incorrect Driver"]
+  },
+
+  {
+    "id": "DRV-027",
+    "category": "Drivers",
+    "subcategory": "Windows Updates",
+    "problem": "Driver went missing after a Windows update",
+    "description": "A device that was working correctly suddenly stops functioning immediately after a Windows update is installed, with its driver appearing to have been removed, replaced with a generic version, or otherwise broken by the update process.",
+    "symptoms": [
+      "A previously working device stops functioning right after installing Windows updates",
+      "The device shows a warning icon in Device Manager that was not present before",
+      "The driver may show as a different, often older or more generic, version than before the update",
+      "The problem started at a time clearly correlating with a recent update installation"
+    ],
+    "possible_causes": [
+      "The Windows update included a generic driver that replaced a more complete manufacturer-specific one",
+      "The update process encountered an error specifically while handling this device's driver",
+      "A known compatibility issue exists between this specific update and this hardware, not yet addressed by the manufacturer",
+      "The update reset certain driver-related settings to their defaults"
+    ],
+    "diagnostic_questions": [
+      "Did this device work correctly before the most recent Windows update, and stop immediately after?",
+      "Do you know approximately when the update was installed relative to when the problem started?",
+      "What does Device Manager currently show for this device's driver version and provider?",
+      "Have you checked the manufacturer's website for a driver update specifically addressing this Windows update?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Check the current driver version and date for the affected device to compare against what should be installed",
+        "expected_result": "Shows a reasonably current driver matching what was working before the update",
+        "abnormal_result": "Shows an older or generic driver version, confirming the update affected the previously installed driver"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the timing correlation between the Windows update installation and when the device stopped working",
+        "reason": "This establishes a reasonably confident connection between the update and the device issue, guiding the appropriate troubleshooting path"
+      },
+      {
+        "step": 2,
+        "action": "Check Device Manager for the affected device's current driver version and provider information",
+        "reason": "This reveals whether the update replaced the driver with an older or more generic version compared to what was previously installed and working"
+      },
+      {
+        "step": 3,
+        "action": "Visit the hardware manufacturer's website and check for a driver update specifically released to address compatibility with the recent Windows update",
+        "reason": "Manufacturers frequently release updated drivers relatively soon after major Windows updates specifically to address compatibility issues introduced by those updates"
+      },
+      {
+        "step": 4,
+        "action": "If a newer, compatible driver is available, download and install it, then restart the computer",
+        "reason": "This directly resolves the issue by providing a proper driver version that is specifically designed to work correctly with the current Windows update"
+      },
+      {
+        "step": 5,
+        "action": "If no updated driver is yet available, try manually reinstalling the same driver you were using before the update, if you have a backup copy or can find the same version",
+        "reason": "This can sometimes restore the previous working configuration while waiting for an officially updated, compatible driver"
+      },
+      {
+        "step": 6,
+        "action": "If the device is critical and no solution is immediately available, consider whether uninstalling the specific problematic Windows update is a reasonable temporary measure while waiting for a proper driver fix",
+        "reason": "This is a more drastic step that should be weighed against the security and other benefits of the update, but can serve as a temporary bridge for critical functionality"
+      },
+      {
+        "step": 7,
+        "action": "Report the issue to the hardware manufacturer if no solution is readily available, since this provides them valuable feedback to prioritize releasing a compatible driver update",
+        "reason": "Manufacturer awareness of specific compatibility issues helps ensure they are addressed in a timely manner for all affected users"
+      }
+    ],
+    "possible_solutions": [
+      "Install a manufacturer driver update addressing the specific Windows update compatibility",
+      "Manually reinstall the previous working driver version if available",
+      "Temporarily uninstall the problematic Windows update if the device is critical",
+      "Report the compatibility issue to the manufacturer"
+    ],
+    "prevention": [
+      "Check for manufacturer driver updates before installing major Windows updates when possible",
+      "Create a system restore point before major Windows updates",
+      "Keep backup copies of critical working drivers"
+    ],
+    "keywords": ["driver missing after windows update", "device stopped working after update", "windows update broke driver", "driver reverted after update"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-50 minutes",
+    "related_problems": ["Windows Installed Incorrect Driver", "Driver Update Failed", "Driver Not Compatible with Windows"]
+  },
+
+  {
+    "id": "DRV-028",
+    "category": "Drivers",
+    "subcategory": "Windows Updates",
+    "problem": "Windows installed an incorrect driver automatically",
+    "description": "Windows Update or automatic driver detection installed a driver for a device, but it is either the wrong driver entirely, an overly generic one, or one that causes the device to malfunction, rather than the proper manufacturer-recommended driver.",
+    "symptoms": [
+      "The device works but with reduced functionality or performance",
+      "The driver name or version shown does not match what the manufacturer recommends",
+      "The device may work initially but develop issues over time",
+      "Certain expected features of the hardware are missing or do not work"
+    ],
+    "possible_causes": [
+      "Windows Update's automatic driver matching selected a similar but not exactly correct driver",
+      "A generic Windows-provided driver was installed instead of a more complete manufacturer version",
+      "Windows Update installed a driver update that is actually a downgrade or regression for this specific use case",
+      "Automatic driver installation occurred without the user's awareness or preference for a specific version"
+    ],
+    "diagnostic_questions": [
+      "What specific driver name and version currently shows in Device Manager for this device?",
+      "What driver does the manufacturer specifically recommend for this exact hardware model?",
+      "Are you missing any expected features or experiencing reduced performance compared to before?",
+      "Do you recall Windows Update installing something for this device recently?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Check the currently installed driver's exact name, version, and provider for the affected device",
+        "expected_result": "Shows the specific manufacturer-recommended driver",
+        "abnormal_result": "Shows a generic or different driver than what the manufacturer specifically recommends for this hardware"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Device Manager for the exact currently installed driver's name, version, and provider for the affected device",
+        "reason": "This provides a clear baseline of what is currently installed, which can then be compared against the manufacturer's recommended driver"
+      },
+      {
+        "step": 2,
+        "action": "Visit the hardware manufacturer's official website and identify the specific driver they recommend for your exact device model and Windows version",
+        "reason": "This establishes what should actually be installed, as manufacturer recommendations are typically more precisely tailored than Windows' automatic detection"
+      },
+      {
+        "step": 3,
+        "action": "Uninstall the current, incorrectly matched driver completely through Device Manager",
+        "reason": "This ensures the incorrect driver is fully removed before installing the properly recommended replacement"
+      },
+      {
+        "step": 4,
+        "action": "Restart the computer to ensure the incorrect driver is completely cleared",
+        "reason": "This prevents any lingering incorrect driver files from interfering with the new, correct installation"
+      },
+      {
+        "step": 5,
+        "action": "Install the correct, manufacturer-recommended driver you identified earlier",
+        "reason": "This directly resolves the issue by properly matching the exact recommended driver to the specific hardware"
+      },
+      {
+        "step": 6,
+        "action": "To prevent Windows from automatically replacing this correct driver again in the future, consider adjusting your Windows Update settings related to driver updates, such as using the 'Show or hide updates' troubleshooter to hide a specific problematic driver update",
+        "reason": "This helps prevent Windows Update from repeatedly reinstalling the same incorrect or undesired driver automatically going forward"
+      },
+      {
+        "step": 7,
+        "action": "Periodically check that the correct driver remains installed, especially after major Windows updates, in case automatic driver replacement occurs again",
+        "reason": "This proactive check helps catch and correct the issue again if it recurs, since Windows Update's automatic behavior can sometimes repeat"
+      }
+    ],
+    "possible_solutions": [
+      "Identify and install the specific manufacturer-recommended driver",
+      "Completely uninstall the incorrect driver before installing the correct one",
+      "Hide a specific problematic driver update to prevent Windows from reinstalling it",
+      "Periodically verify the correct driver remains installed after future updates"
+    ],
+    "prevention": [
+      "Consider adjusting Windows Update driver settings for critical hardware",
+      "Periodically verify installed drivers match manufacturer recommendations",
+      "Keep a record of the correct driver version and source for important hardware"
+    ],
+    "keywords": ["windows installed wrong driver", "incorrect driver automatic update", "windows update wrong driver version", "driver auto installed incorrect"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Wrong Driver Installed", "Driver Missing After Windows Update", "Driver Update Failed"]
+  },
+
+  {
+    "id": "DRV-029",
+    "category": "Drivers",
+    "subcategory": "Driver Services",
+    "problem": "Driver-related service failed to start",
+    "description": "A Windows service that a specific driver depends on to function properly fails to start, either automatically at boot or when the device is used, preventing the associated hardware from working correctly even though a driver is installed.",
+    "symptoms": [
+      "The device does not function despite having what appears to be a properly installed driver",
+      "Windows Event Viewer or Services console shows a specific service failed to start",
+      "The issue may appear consistently at every startup",
+      "Manually starting the service, if possible, may temporarily resolve the issue"
+    ],
+    "possible_causes": [
+      "The service is disabled and not set to start automatically",
+      "The service depends on another service or component that itself failed to start",
+      "A corrupted service configuration or related files",
+      "Insufficient permissions or a security software conflict preventing the service from starting",
+      "The service crashed due to an internal error"
+    ],
+    "diagnostic_questions": [
+      "Do you know the specific name of the service related to this device's driver?",
+      "Does the device work if you manually start the related service?",
+      "Does this happen every time the computer starts, or only occasionally?",
+      "Have you seen any specific error messages in Event Viewer related to this service?"
+    ],
+    "commands": [
+      {
+        "command": "services.msc",
+        "purpose": "Open the Services management console to check the status and startup type of the relevant driver-related service",
+        "expected_result": "The service shows as 'Running' with an appropriate startup type, such as Automatic",
+        "abnormal_result": "The service shows as 'Stopped' when it should be running, or its startup type is set to Disabled or Manual when Automatic is expected"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Identify the specific Windows service name associated with the malfunctioning device's driver, often findable through the device's driver details or online research for that specific hardware type",
+        "reason": "Precisely identifying the relevant service is necessary before you can check and correct its specific status"
+      },
+      {
+        "step": 2,
+        "action": "Open the Services management console and locate this specific service, checking its current status and startup type",
+        "reason": "This directly reveals whether the service is stopped when it should be running, and whether its startup type is appropriately configured"
+      },
+      {
+        "step": 3,
+        "action": "If the service is stopped, try starting it manually and see if the associated device begins working correctly",
+        "reason": "This confirms whether this specific service is indeed the key dependency needed for the device to function"
+      },
+      {
+        "step": 4,
+        "action": "If manually starting the service resolves the issue, change its startup type to 'Automatic' to ensure it starts properly on future boots",
+        "reason": "This provides a more permanent fix by ensuring the service reliably starts without needing manual intervention each time"
+      },
+      {
+        "step": 5,
+        "action": "If the service fails to start even when attempted manually, check its listed Dependencies tab for other services it relies on, and verify those are also running correctly",
+        "reason": "A failed dependency can prevent a service from starting even when its own configuration appears correct, so checking the dependency chain is important"
+      },
+      {
+        "step": 6,
+        "action": "Check Windows Event Viewer for specific error messages related to this service failing to start, which can provide more precise diagnostic detail",
+        "reason": "Detailed event log information often reveals the exact technical reason for the failure, guiding more targeted troubleshooting"
+      },
+      {
+        "step": 7,
+        "action": "If the service consistently fails to start due to what appears to be corruption or a deeper configuration issue, consider completely uninstalling and reinstalling the associated device driver, which typically also resets the related service configuration",
+        "reason": "A clean driver reinstallation often resets the associated service to its proper default configuration, resolving underlying corruption issues"
+      },
+      {
+        "step": 8,
+        "action": "Run sfc /scannow to check for and repair broader corrupted system files that might be affecting core Windows service functionality",
+        "reason": "This addresses potential deeper system-level corruption that could be preventing services in general from starting reliably"
+      }
+    ],
+    "possible_solutions": [
+      "Manually start the stopped service and set its startup type to Automatic",
+      "Resolve issues with a failed dependency service",
+      "Completely uninstall and reinstall the associated driver to reset the service configuration",
+      "Repair underlying system file corruption using sfc /scannow"
+    ],
+    "prevention": [
+      "Avoid manually disabling services related to important hardware without understanding their purpose",
+      "Keep drivers and their associated services updated together",
+      "Periodically check critical hardware-related services remain properly configured"
+    ],
+    "keywords": ["driver service failed to start", "device service not running", "service dependency failed", "driver service stopped"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-55 minutes",
+    "related_problems": ["Driver Cannot Be Loaded", "Device Cannot Start (Code 10)", "Driver Corrupted"]
+  },
+
+  {
+    "id": "DRV-030",
+    "category": "Drivers",
+    "subcategory": "Device Detection",
+    "problem": "Hardware is not recognized by the computer",
+    "description": "A piece of hardware, whether newly installed or previously working, is not properly recognized by the computer at a fundamental level, going beyond a simple missing driver to suggest the hardware itself is not being detected as present.",
+    "symptoms": [
+      "The device does not appear in Device Manager at all, even under hidden devices",
+      "BIOS/UEFI setup screens also do not show the hardware, for internal components",
+      "No physical indication of power or activity from the device",
+      "The issue persists even after trying different drivers or troubleshooting steps"
+    ],
+    "possible_causes": [
+      "A physical connection problem, such as a loose cable or improperly seated component",
+      "The hardware itself has failed or is defective",
+      "The relevant port, slot, or controller is disabled in BIOS/UEFI settings",
+      "A fundamental incompatibility between the hardware and the computer, such as an unsupported interface",
+      "Insufficient power being supplied to the device"
+    ],
+    "diagnostic_questions": [
+      "For internal hardware, does it appear at all in the computer's BIOS/UEFI setup screen?",
+      "For external hardware, does the device show any signs of receiving power when connected?",
+      "Has this hardware worked correctly before, or is this the first time being used?",
+      "Have you tried this hardware in a different computer, or different hardware in this same port or slot?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "For internal hardware, restart the computer and check if the device is visible within the BIOS/UEFI setup screen, which operates independently of Windows and drivers entirely",
+        "reason": "If hardware does not appear even at this most fundamental level, it strongly indicates a physical connection or hardware failure issue, rather than anything related to Windows or drivers"
+      },
+      {
+        "step": 2,
+        "action": "For external hardware, check for any signs of the device receiving power, such as indicator lights or fan movement, when connected",
+        "reason": "This helps distinguish between a device with no power at all, which points to a connection or power issue, versus one that has power but is still not being recognized"
+      },
+      {
+        "step": 3,
+        "action": "Check and reseat all physical connections related to the hardware, including cables, and for internal components, ensure they are fully and properly seated in their slots",
+        "reason": "A loose or improper physical connection is one of the most common causes of hardware not being recognized at this fundamental level"
+      },
+      {
+        "step": 4,
+        "action": "Try a different cable, port, or slot if possible, to help rule out a specific faulty connection point on the computer itself",
+        "reason": "This helps isolate whether the problem is with the specific port or slot being used, rather than the hardware device itself"
+      },
+      {
+        "step": 5,
+        "action": "Test the hardware in a different computer, or test different, known-working hardware in the same port or slot on this computer",
+        "reason": "This is one of the most effective diagnostic steps to determine whether the problem lies with the specific hardware device, or with this particular computer's port, slot, or controller"
+      },
+      {
+        "step": 6,
+        "action": "Check BIOS/UEFI settings to confirm the relevant port, slot, or controller has not been disabled at the firmware level",
+        "reason": "Some computers allow specific ports or controllers to be disabled in firmware settings, which would prevent any detection regardless of the hardware's actual condition"
+      },
+      {
+        "step": 7,
+        "action": "Update the computer's BIOS/UEFI firmware to the latest version available from the manufacturer, since this can sometimes improve compatibility with newer hardware",
+        "reason": "Firmware updates occasionally add support for hardware standards or specific devices that were not recognized by an older firmware version"
+      },
+      {
+        "step": 8,
+        "action": "If the hardware fails to be recognized across multiple computers, ports, and after firmware updates, this strongly indicates the hardware itself has failed and requires repair or replacement",
+        "reason": "Consistent non-detection across multiple different, known-working environments points clearly and definitively to the specific hardware device as the root cause"
+      }
+    ],
+    "possible_solutions": [
+      "Reseat physical connections and try different cables or ports",
+      "Test the hardware in a different computer to isolate the cause",
+      "Enable the relevant port or controller in BIOS/UEFI settings",
+      "Update the computer's BIOS/UEFI firmware",
+      "Replace the hardware if it fails detection across multiple systems"
+    ],
+    "prevention": [
+      "Properly seat and connect hardware during installation",
+      "Keep BIOS/UEFI firmware updated",
+      "Handle hardware components carefully to avoid physical damage"
+    ],
+    "keywords": ["hardware not recognized", "device not detected bios", "no power hardware not working", "hardware failure not detected"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-60 minutes",
+    "related_problems": ["Device Not Detected", "Device Not Showing in Device Manager", "Unknown Device in Device Manager"]
+  },
+
+  {
+    "id": "DRV-031",
+    "category": "Drivers",
+    "subcategory": "Device Detection",
+    "problem": "Device is not showing in Device Manager at all",
+    "description": "A piece of hardware that should be present, whether built-in or externally connected, does not appear anywhere within Device Manager's list, not even under hidden or disconnected devices, suggesting Windows has no record of it whatsoever.",
+    "symptoms": [
+      "The device does not appear anywhere in Device Manager, including with 'Show hidden devices' enabled",
+      "No related entries exist under any device category",
+      "The hardware may show signs of power but Windows shows no awareness of it",
+      "This differs from an 'Unknown Device' entry, since there is no entry at all"
+    ],
+    "possible_causes": [
+      "A complete physical connection failure preventing any communication with the device",
+      "The relevant controller or port is entirely disabled at the firmware level",
+      "The hardware itself has completely failed",
+      "A fundamental driver component needed even for basic detection is missing or corrupted",
+      "The device uses a connection type not supported at all by this computer"
+    ],
+    "diagnostic_questions": [
+      "Have you tried enabling 'Show hidden devices' under the View menu in Device Manager?",
+      "Does the hardware show any signs of receiving power when connected?",
+      "Is this a completely new type of connection for this computer, or one that has worked before?",
+      "Have you tried the hardware in a different computer or port?"
+    ],
+    "commands": [
+      {
+        "command": "devmgmt.msc",
+        "purpose": "Open Device Manager and enable View > Show hidden devices to reveal any previously connected but currently inactive devices",
+        "expected_result": "The device appears, even if greyed out, confirming Windows has some record of it",
+        "abnormal_result": "The device still does not appear even with hidden devices shown, confirming Windows has no record of it whatsoever"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "In Device Manager, click View and enable 'Show hidden devices' to check for any previously connected devices that might currently be inactive",
+        "reason": "This can reveal a device that Windows has some historical record of, even if it is not currently showing as active, which provides useful diagnostic context"
+      },
+      {
+        "step": 2,
+        "action": "Physically disconnect and reconnect the device, or for internal hardware, power down the computer completely and reseat the component",
+        "reason": "This provides a fresh connection attempt, which can resolve issues caused by a temporary bad connection or a device not being properly initialized on first connection"
+      },
+      {
+        "step": 3,
+        "action": "Try a different cable and a different port, for external devices, or a different slot, for internal components if possible",
+        "reason": "This helps rule out a specific faulty connection point as the reason nothing at all is being detected"
+      },
+      {
+        "step": 4,
+        "action": "Test the device in a different computer to determine if the device itself is the problem, or if it is specific to this particular computer",
+        "reason": "This is one of the most effective ways to isolate whether the fundamental lack of any detection is due to the device or the computer"
+      },
+      {
+        "step": 5,
+        "action": "Check BIOS/UEFI settings to confirm the relevant port, slot, or controller type is enabled, since a completely disabled controller would explain a total lack of any detection",
+        "reason": "Certain connection types or controllers can be entirely disabled at the firmware level, which would prevent even basic Windows detection from occurring"
+      },
+      {
+        "step": 6,
+        "action": "Update the computer's motherboard chipset drivers and BIOS/UEFI firmware, since these control fundamental hardware detection capabilities",
+        "reason": "Outdated chipset drivers or firmware can sometimes prevent proper detection of certain types of connected hardware"
+      },
+      {
+        "step": 7,
+        "action": "If using an unusual or very new connection standard, confirm this specific computer actually supports that standard at all",
+        "reason": "Attempting to use a completely unsupported connection type would explain a total absence of any detection, regardless of other troubleshooting steps"
+      },
+      {
+        "step": 8,
+        "action": "If the device still does not appear at all despite these steps, and testing on another computer also shows the same result, this strongly suggests the hardware itself has failed",
+        "reason": "A complete lack of detection across multiple different environments, despite thorough troubleshooting, points clearly toward a fundamental hardware failure"
+      }
+    ],
+    "possible_solutions": [
+      "Reconnect or reseat the hardware with a fresh connection attempt",
+      "Try different cables, ports, or slots",
+      "Test the device on a different computer",
+      "Enable the relevant controller in BIOS/UEFI settings",
+      "Update chipset drivers and BIOS/UEFI firmware",
+      "Confirm the computer supports the specific connection standard being used"
+    ],
+    "prevention": [
+      "Ensure proper physical connections when installing hardware",
+      "Verify computer compatibility with a connection standard before purchasing hardware",
+      "Keep chipset drivers and firmware updated"
+    ],
+    "keywords": ["device not showing device manager", "no device manager entry hardware", "hardware completely undetected", "hidden devices not showing"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-55 minutes",
+    "related_problems": ["Device Not Detected", "Hardware Not Recognized", "Unknown Device in Device Manager"]
+  }
+]

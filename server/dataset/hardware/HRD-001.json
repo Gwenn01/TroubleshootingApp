@@ -1,0 +1,2469 @@
+[
+  {
+    "id": "HW-001",
+    "category": "Hardware",
+    "subcategory": "Power Problems",
+    "problem": "Computer Won't Turn On",
+    "description": "Pressing the power button on a desktop or laptop produces absolutely no response at all, no lights, no fans, no sounds, and no display activity.",
+    "symptoms": [
+      "Pressing the power button does nothing at all",
+      "No lights, fan noise, or beeps from the case",
+      "No display activity of any kind"
+    ],
+    "possible_causes": [
+      "Power cable not fully connected or a faulty power outlet",
+      "Power supply unit (PSU) has failed, on a desktop",
+      "Laptop battery fully drained and no power adapter connected or the adapter has failed",
+      "Power button or its connecting cable/switch has failed",
+      "PSU switch on the back of a desktop case turned off"
+    ],
+    "diagnostic_questions": [
+      "Is this a desktop or a laptop?",
+      "Is the power cable firmly connected at both the computer and the wall outlet, and does that outlet work for other devices?",
+      "For a desktop, is the physical power switch on the back of the PSU turned to the 'on' position?",
+      "For a laptop, does anything happen when the power adapter alone is plugged in, without pressing the power button?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the power cable or adapter is firmly connected at both ends and test the wall outlet with another device",
+        "reason": "A loose connection or dead outlet is the simplest and most common cause of a completely unresponsive computer"
+      },
+      {
+        "step": 2,
+        "action": "For a desktop, check that the PSU's physical power switch on the back of the case is set to 'on' (usually marked with a I rather than O)",
+        "reason": "This physical switch is separate from the front power button and is easy to overlook"
+      },
+      {
+        "step": 3,
+        "action": "For a laptop, try removing the battery if removable and running on the power adapter alone, or leave it charging for 15-30 minutes before trying again in case the battery is completely depleted",
+        "reason": "A fully drained battery can sometimes prevent the laptop from powering on immediately even when plugged in"
+      },
+      {
+        "step": 4,
+        "action": "Try a different, known-working power cable or adapter if available",
+        "reason": "Rules out a damaged cable or adapter as the specific cause"
+      },
+      {
+        "step": 5,
+        "action": "For desktops, disconnect all peripherals and internal drives except the essentials, then attempt to power on to rule out a short circuit from an attached component",
+        "reason": "A faulty peripheral or internal component can sometimes prevent the system from powering on at all"
+      },
+      {
+        "step": 6,
+        "action": "Consider the power supply unit, power button/switch, or motherboard has failed if nothing above restores any sign of life, and seek professional diagnosis",
+        "reason": "A completely dead system after ruling out cables, outlets, and basic peripherals often points to a genuine internal hardware failure"
+      }
+    ],
+    "possible_solutions": [
+      "Reconnect or replace the power cable/adapter",
+      "Turn on the PSU's physical power switch if it was off",
+      "Charge a laptop battery fully before attempting to power on again",
+      "Test or replace the power supply unit on a desktop if suspected faulty",
+      "Seek professional repair if the power button/switch itself has failed"
+    ],
+    "prevention": [
+      "Use a surge protector to help protect the power supply from damage",
+      "Avoid letting laptop batteries fully deplete regularly",
+      "Keep desktop PSU switches clearly labeled and check them during any case work"
+    ],
+    "keywords": [
+      "computer wont turn on at all",
+      "pc no response power button",
+      "desktop completely dead no lights"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": [
+      "HW-002",
+      "HW-029"
+    ]
+  },
+  {
+    "id": "HW-002",
+    "category": "Hardware",
+    "subcategory": "Power Problems",
+    "problem": "No Power",
+    "description": "The computer shows absolutely no sign of receiving electrical power at all, distinct from turning on and failing partway; there are no lights, no fan spin-up, and no indication the power supply is even receiving current.",
+    "symptoms": [
+      "No lights anywhere on the case or laptop, including charging indicator lights",
+      "No fan spin-up sound, even briefly, when plugged in",
+      "No response whatsoever to the power button"
+    ],
+    "possible_causes": [
+      "Wall outlet itself has no power, such as a tripped breaker",
+      "Power cable or adapter is damaged or disconnected internally",
+      "Power strip or surge protector has failed or its own switch is off",
+      "PSU or laptop charging circuit has failed completely"
+    ],
+    "diagnostic_questions": [
+      "Have you confirmed the wall outlet has power by testing another device in it?",
+      "Is the computer plugged directly into the wall, or through a power strip or surge protector?",
+      "Does the power cable or laptop adapter show any signs of physical damage, such as fraying or a bent connector?",
+      "Has a circuit breaker or fuse for this outlet possibly tripped?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Test the wall outlet with a different, known-working device such as a lamp or phone charger",
+        "reason": "Confirms whether the outlet itself is providing power before suspecting the computer"
+      },
+      {
+        "step": 2,
+        "action": "Check and reset any tripped circuit breaker or fuse for that outlet",
+        "reason": "A tripped breaker will cut power to the outlet entirely while appearing otherwise normal"
+      },
+      {
+        "step": 3,
+        "action": "Bypass any power strip or surge protector by plugging the computer directly into the wall outlet",
+        "reason": "A failed power strip or surge protector is a common and easily overlooked cause of a total power loss"
+      },
+      {
+        "step": 4,
+        "action": "Inspect the power cable or adapter closely for visible damage, and try a different known-compatible cable or adapter if available",
+        "reason": "Internal wire damage is not always visible externally but a cable swap quickly rules this out"
+      },
+      {
+        "step": 5,
+        "action": "If all external power sources test as good, consider that the internal PSU (desktop) or charging circuit (laptop) has failed and requires professional diagnosis or replacement",
+        "reason": "With external power confirmed good, remaining causes are internal hardware failures needing further inspection"
+      }
+    ],
+    "possible_solutions": [
+      "Reset a tripped circuit breaker",
+      "Plug directly into a wall outlet, bypassing a power strip",
+      "Replace a damaged power cable or adapter",
+      "Replace the PSU or seek professional repair for a laptop charging circuit failure"
+    ],
+    "prevention": [
+      "Use a quality surge protector and test it periodically",
+      "Avoid daisy-chaining multiple power strips together",
+      "Handle power cables and adapters gently to avoid internal wire damage"
+    ],
+    "keywords": [
+      "computer no power at all",
+      "no lights no fans on pc",
+      "laptop no power light"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "HW-001",
+      "HW-029"
+    ]
+  },
+  {
+    "id": "HW-003",
+    "category": "Hardware",
+    "subcategory": "Power Problems",
+    "problem": "Computer Randomly Shuts Down",
+    "description": "The computer unexpectedly powers off completely during normal use, without any warning, error message, or user action, and then can typically be turned back on normally.",
+    "symptoms": [
+      "System powers off abruptly during use, sometimes during specific activities like gaming or heavy tasks",
+      "No Windows shutdown or error screen appears beforehand, it simply cuts off",
+      "Computer can usually be turned back on again shortly afterward"
+    ],
+    "possible_causes": [
+      "CPU or system overheating, triggering an automatic thermal protection shutdown",
+      "Power supply unit failing or unable to handle the system's power draw under load",
+      "Faulty RAM causing a system crash that presents as a shutdown",
+      "Overloaded circuit or power strip if multiple high-draw devices share the same outlet"
+    ],
+    "diagnostic_questions": [
+      "Does the shutdown happen more often during demanding tasks like gaming or video editing, suggesting a heat or power draw pattern?",
+      "Have you checked or cleaned the internal cooling (fans, heatsinks, vents) recently?",
+      "Is the computer plugged into a power strip shared with other high-draw devices?",
+      "How old is the power supply unit, and has it ever been tested or replaced?"
+    ],
+    "commands": [
+      {
+        "command": "Event Viewer > Windows Logs > System (look for Kernel-Power Event ID 41)",
+        "purpose": "Check Windows logs for a record confirming an unexpected power loss event rather than a controlled shutdown",
+        "expected_result": "No unexpected power loss events, or an identifiable pattern correlating with specific activities",
+        "abnormal_result": "Kernel-Power Event ID 41 entries confirm the system lost power unexpectedly rather than shutting down through a normal Windows process"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Windows Event Viewer for Kernel-Power Event ID 41 entries around the time of the shutdowns",
+        "reason": "Confirms these are true unexpected power-loss events and may show a pattern in timing or frequency"
+      },
+      {
+        "step": 2,
+        "action": "Monitor CPU and system temperatures using a monitoring utility during normal and demanding use to check for excessive heat before a shutdown",
+        "reason": "Overheating-triggered automatic shutdowns are one of the most common causes of this exact symptom"
+      },
+      {
+        "step": 3,
+        "action": "Clean dust from fans, heatsinks, and vents, and confirm all case and CPU fans are spinning properly",
+        "reason": "Restores proper cooling if dust buildup or a failed fan is causing overheating"
+      },
+      {
+        "step": 4,
+        "action": "Test the system with only one stick of RAM at a time if multiple sticks are installed, to rule out a faulty memory module causing crashes",
+        "reason": "Faulty RAM can cause abrupt system failures that present similarly to a power issue"
+      },
+      {
+        "step": 5,
+        "action": "Consider testing with a different, known-good power supply unit if overheating and RAM have been ruled out, especially under heavy load",
+        "reason": "A failing PSU unable to sustain output under load is a common cause of shutdowns specifically during demanding tasks"
+      }
+    ],
+    "possible_solutions": [
+      "Clean and improve cooling if overheating is confirmed",
+      "Replace faulty RAM identified through testing",
+      "Replace the power supply unit if it is failing under load",
+      "Plug the computer into a dedicated outlet not shared with other high-draw devices"
+    ],
+    "prevention": [
+      "Clean internal dust regularly as routine maintenance",
+      "Monitor system temperatures periodically, especially in warmer environments",
+      "Choose a power supply unit with adequate headroom above the system's actual power draw"
+    ],
+    "keywords": [
+      "computer shuts down randomly",
+      "pc turns off by itself",
+      "random shutdown no warning"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": [
+      "HW-017",
+      "HW-018",
+      "HW-015"
+    ]
+  },
+  {
+    "id": "HW-004",
+    "category": "Hardware",
+    "subcategory": "Power Problems",
+    "problem": "Computer Randomly Restarts",
+    "description": "The computer unexpectedly reboots itself during normal use without any user action, sometimes showing a brief black screen before Windows begins loading again.",
+    "symptoms": [
+      "System restarts on its own during use, sometimes during specific activities",
+      "May briefly show a black screen or BIOS splash before Windows reloads",
+      "Can happen occasionally or very frequently depending on the underlying cause"
+    ],
+    "possible_causes": [
+      "Windows configured to automatically restart after a system crash (BSOD), hiding the actual error screen",
+      "Overheating triggering an automatic protective restart",
+      "Unstable RAM or a failing hardware component causing a system crash",
+      "Windows Update installing and forcing a restart, which can be mistaken for a random restart"
+    ],
+    "diagnostic_questions": [
+      "Does this happen during specific activities, like gaming or heavy multitasking, or does it seem completely random?",
+      "Have you seen any blue error screen (BSOD) flash briefly before the restart, even for a split second?",
+      "Is Windows set to automatically restart after a system failure, which would hide the actual error details?",
+      "Could this coincide with scheduled Windows Update restarts rather than being a true unexpected crash?"
+    ],
+    "commands": [
+      {
+        "command": "Event Viewer > Windows Logs > System (look for Event ID 1001 or 6008, and BugCheck events)",
+        "purpose": "Check for logged crash/bugcheck events that would explain the restarts",
+        "expected_result": "No unexpected crash events, or a clear, consistent bugcheck code pointing to a specific cause",
+        "abnormal_result": "Repeated BugCheck (blue screen) events logged around the time of each restart, confirming these are crash-triggered restarts rather than normal shutdowns"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Disable automatic restart on system failure temporarily (System Properties > Advanced > Startup and Recovery) so any blue screen error becomes visible instead of immediately restarting",
+        "reason": "Reveals the actual stop code/error message, which is critical information for diagnosing the true cause"
+      },
+      {
+        "step": 2,
+        "action": "Check Event Viewer for BugCheck or Event ID 1001 entries corresponding to the restart times",
+        "reason": "Provides a specific error code to research, even if the blue screen itself was not seen"
+      },
+      {
+        "step": 3,
+        "action": "Monitor system temperatures during use to rule out an overheating-triggered protective restart",
+        "reason": "Overheating is a very common cause of unexpected restarts, especially during demanding tasks"
+      },
+      {
+        "step": 4,
+        "action": "Test RAM using a memory diagnostic tool, and test with one stick at a time if multiple modules are installed",
+        "reason": "Faulty RAM is one of the most common hardware causes of random crash-restarts"
+      },
+      {
+        "step": 5,
+        "action": "Check Windows Update history to rule out a scheduled update restart being mistaken for a random crash-based one",
+        "reason": "Distinguishes between a genuine problem and normal, expected Windows Update behavior"
+      }
+    ],
+    "possible_solutions": [
+      "Disable auto-restart on failure to capture the actual error for diagnosis",
+      "Address overheating if temperatures are found to be excessive",
+      "Replace faulty RAM identified through testing",
+      "Update or roll back drivers if a specific bugcheck code points to a driver issue"
+    ],
+    "prevention": [
+      "Keep drivers, especially graphics drivers, updated to reduce crash-related restarts",
+      "Monitor system temperatures periodically",
+      "Run periodic memory diagnostics on systems with a history of instability"
+    ],
+    "keywords": [
+      "computer restarts randomly",
+      "pc reboots itself no warning",
+      "random restart bsod"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": [
+      "HW-003",
+      "HW-016",
+      "HW-017"
+    ]
+  },
+  {
+    "id": "HW-005",
+    "category": "Hardware",
+    "subcategory": "Boot Problems",
+    "problem": "Windows Won't Boot",
+    "description": "The computer powers on and the hardware appears to start normally, but Windows fails to load, either hanging, showing an error, or looping back to a restart before reaching the desktop.",
+    "symptoms": [
+      "Computer powers on with fans and lights active, but Windows never finishes loading",
+      "May show a spinning loading circle indefinitely, an error message, or repeatedly restart during boot",
+      "Might boot into an automatic repair screen or recovery environment instead of normal Windows"
+    ],
+    "possible_causes": [
+      "Corrupted Windows system files or a failed recent update",
+      "Boot configuration data (BCD) corrupted or misconfigured",
+      "Failing storage drive containing the Windows installation",
+      "Recently installed hardware or driver causing a boot-time conflict"
+    ],
+    "diagnostic_questions": [
+      "Does the computer reach the Windows logo/loading screen at all, or fail before that point?",
+      "Did this start right after a Windows update, driver installation, or new hardware being added?",
+      "Does Windows attempt an automatic repair, and if so, what happens after that completes?",
+      "Have you heard any unusual clicking or grinding sounds from the storage drive, which could indicate a failing drive?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note exactly where in the boot process the failure occurs, such as before or after the Windows logo, or during a specific stage of automatic repair",
+        "reason": "The exact failure point narrows down whether this is a very early hardware/firmware issue or a Windows-level software problem"
+      },
+      {
+        "step": 2,
+        "action": "Boot into Windows Recovery Environment, either automatically after repeated failed boots or via installation media, and run Startup Repair",
+        "reason": "Startup Repair can automatically detect and fix many common boot configuration and system file issues"
+      },
+      {
+        "step": 3,
+        "action": "If Startup Repair does not resolve it, open Command Prompt from Recovery and run bootrec /fixmbr, bootrec /fixboot, and bootrec /rebuildbcd in sequence",
+        "reason": "Manually rebuilds the boot configuration data when automatic repair cannot fully resolve a deeper boot configuration corruption"
+      },
+      {
+        "step": 4,
+        "action": "If the issue began right after a specific update or driver installation, use Safe Mode or Recovery's 'Uninstall Updates' option to remove the suspected change",
+        "reason": "Directly addresses the issue if a recent software change is the root cause rather than a deeper corruption or hardware fault"
+      },
+      {
+        "step": 5,
+        "action": "Run a storage drive diagnostic tool from the recovery environment or a bootable diagnostic disk to check the drive's health",
+        "reason": "Rules out or confirms a failing drive as the underlying cause, which would require drive replacement rather than further software repair attempts"
+      }
+    ],
+    "possible_solutions": [
+      "Run Startup Repair from Windows Recovery Environment",
+      "Rebuild the boot configuration data using bootrec commands from Recovery",
+      "Roll back or uninstall a recently installed update or driver via Safe Mode or Recovery",
+      "Test the storage drive's health using diagnostic tools, replacing it if failing"
+    ],
+    "prevention": [
+      "Avoid interrupting Windows updates once they begin installing",
+      "Keep a Windows installation/recovery USB drive prepared in advance",
+      "Monitor drive health periodically to catch failing drives before they cause boot failures"
+    ],
+    "keywords": [
+      "windows wont boot",
+      "stuck on loading screen windows",
+      "windows boot loop repair"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-90 minutes",
+    "related_problems": [
+      "HW-006",
+      "HW-011",
+      "HW-012"
+    ]
+  },
+  {
+    "id": "HW-006",
+    "category": "Hardware",
+    "subcategory": "Boot Problems",
+    "problem": "No Bootable Device Found",
+    "description": "The computer displays a message such as 'No Bootable Device Found' or 'Boot Device Not Found' during startup, meaning the system cannot locate any drive containing an operating system to load.",
+    "symptoms": [
+      "Error message specifically mentions no bootable device or boot device not found",
+      "Computer's BIOS/UEFI screen appears normally before the error, indicating basic hardware is functioning",
+      "No Windows loading screen appears at all"
+    ],
+    "possible_causes": [
+      "Storage drive containing Windows has failed or become disconnected internally",
+      "Boot order in BIOS/UEFI set to a device that no longer has a valid operating system",
+      "Drive's boot partition or boot sector has become corrupted",
+      "Loose or disconnected SATA/power cable to the drive, on a desktop"
+    ],
+    "diagnostic_questions": [
+      "Was any internal hardware recently added, removed, or moved, including opening the case for cleaning?",
+      "Does the drive appear at all in the BIOS/UEFI settings, confirming it is at least detected?",
+      "Has this system always booted from this same drive, or was there a recent change to boot order or a newly added drive?",
+      "Do you hear any unusual sounds from the drive, such as clicking, which could indicate a hardware failure?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Enter the BIOS/UEFI settings and check whether the storage drive is detected at all in the system information or boot device list",
+        "reason": "Confirms whether this is a boot configuration issue or the drive is not being detected by hardware at all"
+      },
+      {
+        "step": 2,
+        "action": "If the drive is detected, check and correct the boot order to ensure the correct drive is set as the primary boot device",
+        "reason": "An incorrect boot order pointing to the wrong or an empty device is a common and easily fixed cause"
+      },
+      {
+        "step": 3,
+        "action": "If the drive is not detected at all, power off, and for a desktop, check and reseat the SATA and power cables connecting the drive",
+        "reason": "A loose or disconnected cable will make an otherwise healthy drive invisible to the system"
+      },
+      {
+        "step": 4,
+        "action": "Test the drive in another computer, or test another known-good drive in this computer, if it remains undetected after reseating cables",
+        "reason": "Isolates whether the problem is the specific drive or the computer's storage controller/port"
+      },
+      {
+        "step": 5,
+        "action": "Consider the drive has failed and needs replacement if it is confirmed undetected across different cables, ports, or computers, and pursue data recovery separately if needed",
+        "reason": "Confirms a genuine drive hardware failure requiring replacement rather than a configuration fix"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the boot order in BIOS/UEFI to the correct drive",
+      "Reseat SATA and power cables to the storage drive",
+      "Replace a failed storage drive",
+      "Repair a corrupted boot sector using Windows recovery tools if the drive itself is healthy"
+    ],
+    "prevention": [
+      "Handle internal cables carefully during any case work to avoid loosening connections",
+      "Monitor drive health periodically with diagnostic tools",
+      "Keep a known boot order documented for reference after BIOS resets"
+    ],
+    "keywords": [
+      "no bootable device found error",
+      "boot device not found",
+      "pc wont find hard drive to boot"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "HW-005",
+      "HW-011",
+      "HW-012"
+    ]
+  },
+  {
+    "id": "HW-007",
+    "category": "Hardware",
+    "subcategory": "Display Problems",
+    "problem": "Black Screen",
+    "description": "The computer appears to be powered on and running, with fans spinning and lights active, but the monitor shows only a black screen instead of any image.",
+    "symptoms": [
+      "Computer's case lights and fans are active, indicating it is powered on",
+      "Monitor remains completely black with no image, sometimes still showing it is receiving a signal",
+      "May happen at startup, or occur suddenly after Windows has already loaded"
+    ],
+    "possible_causes": [
+      "Monitor cable loose or connected to the wrong video output (motherboard vs graphics card)",
+      "Graphics card seated improperly or has failed",
+      "Windows display driver crashed or malfunctioning",
+      "Monitor itself powered off, in sleep mode, or set to the wrong input source"
+    ],
+    "diagnostic_questions": [
+      "Does the monitor show any indication of receiving a signal, or does it appear as if no signal is being sent at all?",
+      "Is the video cable connected to the graphics card's output, or to the motherboard's built-in output, especially if a dedicated graphics card is installed?",
+      "Does the black screen happen immediately at startup, or after Windows appears to have been running for a while?",
+      "Have you tried pressing keys or moving the mouse to rule out the monitor simply being asleep?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the monitor's input source setting and confirm it is set to the correct input matching the connected cable",
+        "reason": "A monitor set to the wrong input source will show a black screen even with a perfectly good connection elsewhere"
+      },
+      {
+        "step": 2,
+        "action": "If a dedicated graphics card is installed, confirm the monitor cable is connected to the graphics card's output rather than the motherboard's built-in video output",
+        "reason": "Connecting to the wrong output is an extremely common cause of a black screen when a dedicated graphics card is present, since the motherboard output is often disabled"
+      },
+      {
+        "step": 3,
+        "action": "Reseat the video cable at both ends, and try a different cable or port if available",
+        "reason": "Rules out a loose connection or a damaged cable as the cause"
+      },
+      {
+        "step": 4,
+        "action": "If the black screen occurs after Windows was already running rather than at startup, try pressing Ctrl+Alt+Del or Windows+Ctrl+Shift+B to reset the display driver, or wait a minute in case it recovers on its own",
+        "reason": "A crashed or hung display driver can sometimes recover automatically or be reset without a full restart"
+      },
+      {
+        "step": 5,
+        "action": "If a dedicated graphics card is installed, power off, reseat the card firmly in its slot, and confirm all power connectors to it are properly attached",
+        "reason": "An improperly seated graphics card is a common cause of a black screen despite the rest of the system powering on normally"
+      },
+      {
+        "step": 6,
+        "action": "Boot into Safe Mode if the black screen consistently occurs after the Windows logo, to determine whether a display driver issue is preventing normal graphics output",
+        "reason": "Safe Mode uses a basic display driver, and successfully reaching the desktop this way strongly points to a driver problem rather than a hardware fault"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the monitor's input source setting",
+      "Move the cable to the graphics card's output if one is installed",
+      "Reseat or replace the video cable",
+      "Reseat the graphics card, or test with a different one",
+      "Boot into Safe Mode to address a display driver issue"
+    ],
+    "prevention": [
+      "Label cables and ports clearly when a dedicated graphics card is installed",
+      "Keep display drivers updated through official channels",
+      "Avoid moving or bumping the computer case in ways that could loosen internal cards"
+    ],
+    "keywords": [
+      "black screen no display",
+      "monitor black but pc on",
+      "black screen after login windows"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "HW-008",
+      "HW-009"
+    ]
+  },
+  {
+    "id": "HW-008",
+    "category": "Hardware",
+    "subcategory": "Display Problems",
+    "problem": "No Display",
+    "description": "The monitor shows absolutely nothing, not even a 'no signal' message, and the screen appears completely off despite the computer seeming to be running.",
+    "symptoms": [
+      "Monitor screen is completely dark, with no 'no signal' indicator light or message",
+      "Computer's case shows normal signs of power, such as fans and lights",
+      "Problem occurs from the very moment the computer is turned on"
+    ],
+    "possible_causes": [
+      "Monitor itself is not powered on or has failed",
+      "Video cable not connected at all, or connected to a port with no active output",
+      "Graphics card not seated properly or has failed, on desktops",
+      "No POST (Power-On Self-Test) completion due to a more fundamental hardware issue"
+    ],
+    "diagnostic_questions": [
+      "Is the monitor itself definitely powered on, with its own power light illuminated?",
+      "Does the monitor's power light change color or behavior at all when the computer is turned on, which might indicate it is at least detecting an attempted signal?",
+      "Have you tried the monitor with a different device to confirm the monitor itself works?",
+      "Does the computer produce any beep codes or diagnostic sounds during startup?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the monitor itself is powered on and its power indicator light is active",
+        "reason": "An unpowered monitor will obviously show nothing, regardless of what the computer is doing"
+      },
+      {
+        "step": 2,
+        "action": "Test the monitor with a different device, such as a laptop, to confirm the monitor itself is functioning",
+        "reason": "Isolates whether the monitor or the computer is the source of the problem"
+      },
+      {
+        "step": 3,
+        "action": "Check that the video cable is firmly connected at both the monitor and the computer, and try a different cable or port",
+        "reason": "Rules out a basic connection issue before considering more serious hardware causes"
+      },
+      {
+        "step": 4,
+        "action": "Listen for beep codes during startup, which can indicate a specific hardware failure detected during POST",
+        "reason": "Beep code patterns, documented by the motherboard manufacturer, can pinpoint issues like failed RAM or a graphics card problem even without any display"
+      },
+      {
+        "step": 5,
+        "action": "If a dedicated graphics card is installed, try reseating it or testing with the motherboard's built-in video output instead, if available",
+        "reason": "Helps isolate whether the graphics card itself has failed"
+      }
+    ],
+    "possible_solutions": [
+      "Confirm monitor power and test it with another device",
+      "Reseat or replace the video cable",
+      "Reseat the graphics card or test with onboard video",
+      "Address any specific hardware failure indicated by beep codes"
+    ],
+    "prevention": [
+      "Test monitors and cables periodically if used across multiple systems",
+      "Keep motherboard beep code documentation accessible for quick diagnosis",
+      "Handle graphics cards carefully during any internal maintenance"
+    ],
+    "keywords": [
+      "no display at all monitor",
+      "screen completely black no signal light",
+      "pc on but nothing on screen"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "HW-007",
+      "HW-009",
+      "HW-010"
+    ]
+  },
+  {
+    "id": "HW-009",
+    "category": "Hardware",
+    "subcategory": "Display Problems",
+    "problem": "No Signal to Monitor",
+    "description": "The monitor is powered on and displays a 'No Signal' message, indicating it is working correctly but is not receiving any video data from the computer.",
+    "symptoms": [
+      "Monitor explicitly displays a 'No Signal' or similar message",
+      "Monitor's own power and menu functions work normally",
+      "Computer may appear to be running normally otherwise, based on case lights and fan noise"
+    ],
+    "possible_causes": [
+      "Video cable disconnected or connected to an inactive port",
+      "Graphics card not properly seated or has failed",
+      "Computer not actually completing POST due to another hardware issue",
+      "Monitor set to scan the wrong input while a valid signal exists on a different input"
+    ],
+    "diagnostic_questions": [
+      "Which specific input source is the monitor currently set to, and does it match the cable actually connected?",
+      "If a dedicated graphics card is installed, is the cable connected to it, or to the motherboard's built-in port?",
+      "Have you tried a different video cable or port to rule out a cable-specific fault?",
+      "Does the computer's case show normal fan and light activity, suggesting it is at least attempting to power on?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the monitor's input source setting matches the port the video cable is actually connected to",
+        "reason": "A 'No Signal' message very often simply means the monitor is looking at the wrong input"
+      },
+      {
+        "step": 2,
+        "action": "If a dedicated graphics card is installed, verify the cable is connected to it rather than the motherboard's built-in output",
+        "reason": "This is one of the most frequent causes of a 'No Signal' message specifically when a graphics card is present"
+      },
+      {
+        "step": 3,
+        "action": "Try a different video cable and a different port on both the computer and monitor if possible",
+        "reason": "Isolates a damaged cable or a specific faulty port as the cause"
+      },
+      {
+        "step": 4,
+        "action": "Reseat the graphics card firmly in its slot, ensuring it is fully seated and any power connectors are attached",
+        "reason": "An improperly seated graphics card can fail to output any signal even while otherwise appearing to function"
+      },
+      {
+        "step": 5,
+        "action": "Test the monitor on a different computer, and test this computer with a different monitor if possible, to isolate which device is actually at fault",
+        "reason": "Definitively narrows down whether the problem lies with the monitor or the computer's video output"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the monitor's input source setting",
+      "Connect the cable to the correct port (graphics card vs motherboard)",
+      "Replace a damaged video cable",
+      "Reseat the graphics card and its power connectors",
+      "Test monitor and computer separately to isolate the fault"
+    ],
+    "prevention": [
+      "Clearly label the correct port to use when a dedicated graphics card is installed",
+      "Keep spare, known-working video cables on hand for troubleshooting",
+      "Reseat internal cards carefully after any case maintenance"
+    ],
+    "keywords": [
+      "monitor no signal message",
+      "no signal but monitor on",
+      "display no signal detected"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": [
+      "HW-007",
+      "HW-008",
+      "HW-010"
+    ]
+  },
+  {
+    "id": "HW-010",
+    "category": "Hardware",
+    "subcategory": "Display Problems",
+    "problem": "Monitor Not Detected",
+    "description": "Windows does not recognize a connected monitor, either failing to extend the desktop to it or showing it as an unknown/generic display without proper resolution options.",
+    "symptoms": [
+      "Windows Display Settings does not list the monitor, or shows it as a generic 'unknown display'",
+      "Monitor's native resolution is not available as an option",
+      "Second monitor in a multi-monitor setup specifically fails to be detected while the primary works fine"
+    ],
+    "possible_causes": [
+      "Video cable connection issue specific to that monitor or port",
+      "Graphics driver not properly installed or outdated, lacking full monitor detection capability",
+      "Monitor's own EDID (display identification data) not being read correctly by the computer",
+      "Faulty or incompatible cable/adapter, especially with certain adapter types"
+    ],
+    "diagnostic_questions": [
+      "Is this affecting a single monitor or specifically a second monitor in a multi-monitor setup?",
+      "Have you tried clicking 'Detect' in Windows Display Settings after confirming the physical connection?",
+      "Are the graphics drivers up to date, particularly after a recent Windows update?",
+      "Is any adapter or converter being used between the cable and either device, such as HDMI to DisplayPort?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class Monitor",
+        "purpose": "Check whether Windows detects the monitor as a recognized Plug and Play device",
+        "expected_result": "The monitor is listed with a proper model name and 'OK' status",
+        "abnormal_result": "The monitor is missing entirely or listed as a generic/unknown display, confirming a detection issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Click 'Detect' in Windows Display Settings after confirming the monitor is powered on and connected",
+        "reason": "Forces Windows to actively re-scan for connected displays, which can resolve a simple detection hiccup"
+      },
+      {
+        "step": 2,
+        "action": "Try a different video cable and port, and remove any adapters/converters in the connection path if present",
+        "reason": "Adapters and converters are a common source of EDID read failures that prevent proper monitor detection"
+      },
+      {
+        "step": 3,
+        "action": "Update the graphics driver to the latest version from the manufacturer's website",
+        "reason": "Outdated or generic drivers may lack full support for properly detecting and identifying certain monitors"
+      },
+      {
+        "step": 4,
+        "action": "Test the monitor on a different computer, and test this computer with a different monitor, to isolate whether the monitor or the computer's graphics output is at fault",
+        "reason": "Helps definitively narrow down which specific component is causing the detection failure"
+      },
+      {
+        "step": 5,
+        "action": "Check Device Manager for the monitor under 'Monitors' and try uninstalling and letting Windows redetect it",
+        "reason": "Clears a corrupted or stuck device entry that may be preventing proper redetection"
+      }
+    ],
+    "possible_solutions": [
+      "Click Detect in Windows Display Settings",
+      "Use a direct cable connection without adapters where possible",
+      "Update the graphics driver to the latest version",
+      "Uninstall and let Windows redetect the monitor in Device Manager"
+    ],
+    "prevention": [
+      "Use high-quality, direct cable connections rather than multiple adapters when possible",
+      "Keep graphics drivers updated",
+      "Test new monitors and cables individually when setting up a multi-monitor configuration"
+    ],
+    "keywords": [
+      "monitor not detected windows",
+      "second monitor not showing up",
+      "display settings cant find monitor"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "HW-009",
+      "HW-007"
+    ]
+  },
+  {
+    "id": "HW-011",
+    "category": "Hardware",
+    "subcategory": "Storage Problems",
+    "problem": "Hard Drive Not Detected",
+    "description": "A traditional mechanical hard drive (HDD) does not appear in BIOS/UEFI or Windows, whether it is meant to be the boot drive or a secondary storage drive.",
+    "symptoms": [
+      "Drive does not appear in BIOS/UEFI's storage device list",
+      "Drive does not show up in Windows File Explorer or Disk Management",
+      "Drive may not be spinning up at all, or may make unusual noises when powered on"
+    ],
+    "possible_causes": [
+      "Loose or disconnected SATA data cable or power cable",
+      "Drive has failed mechanically or electronically",
+      "Incorrect SATA port mode setting in BIOS/UEFI (such as being set to RAID when the drive expects AHCI)",
+      "Drive letter not assigned in Windows despite the drive being physically detected"
+    ],
+    "diagnostic_questions": [
+      "Does the drive appear at all in BIOS/UEFI, even if not in Windows?",
+      "Do you hear the drive spin up, or any unusual clicking or grinding noises, when the computer is powered on?",
+      "Have the SATA data and power cables been recently disturbed, such as during cleaning or other hardware changes?",
+      "Is this a boot drive or a secondary storage drive that is not detected?"
+    ],
+    "commands": [
+      {
+        "command": "diskmgmt.msc (Disk Management)",
+        "purpose": "Check if Windows detects the physical drive even without an assigned letter or partition",
+        "expected_result": "Drive appears listed, even if unallocated or without a drive letter",
+        "abnormal_result": "Drive does not appear at all in Disk Management, indicating a detection issue below the Windows level"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check whether the drive appears at all in BIOS/UEFI's storage device listing",
+        "reason": "Determines if this is a fundamental hardware detection issue or something specific to Windows"
+      },
+      {
+        "step": 2,
+        "action": "Power off, reseat the SATA data cable and power cable at both the drive and motherboard/PSU ends, and try a different SATA cable if available",
+        "reason": "Loose or damaged cables are one of the most common and easily fixed causes of a drive not being detected"
+      },
+      {
+        "step": 3,
+        "action": "Try connecting the drive to a different SATA port on the motherboard",
+        "reason": "Isolates whether a specific motherboard port has failed rather than the drive itself"
+      },
+      {
+        "step": 4,
+        "action": "Check the BIOS/UEFI SATA mode setting (such as AHCI vs RAID) to ensure it matches what the system was originally configured for",
+        "reason": "An incorrect mode setting can cause previously working drives to become undetected"
+      },
+      {
+        "step": 5,
+        "action": "If detected in BIOS/UEFI but not Windows, check Disk Management for an uninitialized or unallocated drive that may simply need a drive letter or partition",
+        "reason": "The drive may be physically fine but simply not yet properly set up within Windows"
+      },
+      {
+        "step": 6,
+        "action": "Test the drive in another computer, or listen closely for clicking or grinding sounds, to assess for a genuine mechanical failure requiring replacement",
+        "reason": "Confirms whether the drive itself has failed and needs to be replaced, especially important for data recovery planning"
+      }
+    ],
+    "possible_solutions": [
+      "Reseat or replace SATA data and power cables",
+      "Try a different SATA port on the motherboard",
+      "Correct the BIOS/UEFI SATA mode setting if changed unexpectedly",
+      "Assign a drive letter/initialize the drive in Disk Management if detected but not set up",
+      "Replace the drive if mechanical failure is confirmed"
+    ],
+    "prevention": [
+      "Handle SATA cables carefully during any internal case work",
+      "Monitor drive health with diagnostic tools to catch early warning signs",
+      "Keep backups of important data given that mechanical drives can fail without much warning"
+    ],
+    "keywords": [
+      "hard drive not detected bios",
+      "hdd not showing up windows",
+      "hard disk not found"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": [
+      "HW-006",
+      "HW-012"
+    ]
+  },
+  {
+    "id": "HW-012",
+    "category": "Hardware",
+    "subcategory": "Storage Problems",
+    "problem": "SSD Not Detected",
+    "description": "A solid-state drive (SSD), whether SATA or NVMe, does not appear in BIOS/UEFI or Windows, preventing it from being used as a boot drive or additional storage.",
+    "symptoms": [
+      "Drive does not appear in BIOS/UEFI's storage device list",
+      "Drive does not show up in Windows File Explorer or Disk Management",
+      "For NVMe drives, the drive may not appear even though it is physically installed in its M.2 slot"
+    ],
+    "possible_causes": [
+      "For SATA SSDs, a loose or disconnected data/power cable, similar to traditional hard drives",
+      "For NVMe SSDs, the drive not being fully seated in its M.2 slot or the retaining screw not securing it properly",
+      "M.2 slot configured for a different mode (such as SATA vs PCIe/NVMe) in BIOS/UEFI, not matching the installed drive type",
+      "Drive itself has failed, or a firmware issue preventing proper initialization"
+    ],
+    "diagnostic_questions": [
+      "Is this a SATA SSD or an NVMe M.2 SSD?",
+      "For an NVMe drive, is it fully seated in its slot and secured with its retaining screw?",
+      "Does the drive appear at all in BIOS/UEFI, even if not in Windows?",
+      "Has the BIOS/UEFI M.2 slot mode setting been checked to confirm it matches the installed drive type?"
+    ],
+    "commands": [
+      {
+        "command": "diskmgmt.msc (Disk Management)",
+        "purpose": "Check if Windows detects the physical SSD even without an assigned letter or partition",
+        "expected_result": "Drive appears listed, even if unallocated",
+        "abnormal_result": "Drive does not appear at all, indicating a detection issue below the Windows level"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check whether the SSD appears at all in BIOS/UEFI's storage device listing",
+        "reason": "Determines if this is a fundamental hardware detection issue or specific to Windows"
+      },
+      {
+        "step": 2,
+        "action": "For a SATA SSD, reseat the data and power cables, and try a different SATA port, similar to troubleshooting a traditional hard drive",
+        "reason": "SATA SSDs are susceptible to the same basic cable and port issues as mechanical hard drives"
+      },
+      {
+        "step": 3,
+        "action": "For an NVMe M.2 SSD, power off, reseat the drive fully into its slot at the correct angle, and ensure the retaining screw is properly securing it flat",
+        "reason": "An improperly seated M.2 drive is a very common and easily fixed cause of non-detection"
+      },
+      {
+        "step": 4,
+        "action": "Check the BIOS/UEFI M.2 slot configuration to confirm it is set to the correct mode (such as PCIe/NVMe rather than SATA) matching the installed drive",
+        "reason": "Some motherboards allow M.2 slots to be configured for different drive types, and a mismatch will prevent detection"
+      },
+      {
+        "step": 5,
+        "action": "Test the SSD in a different M.2 slot or a different computer if available, to isolate whether the drive itself or the specific slot/computer is at fault",
+        "reason": "Helps determine if this is a drive failure or a slot/motherboard-specific issue"
+      },
+      {
+        "step": 6,
+        "action": "Update the motherboard's BIOS/UEFI firmware if the SSD is a newer model that may not be recognized by an older firmware version",
+        "reason": "Newer SSD models sometimes require updated motherboard firmware for proper detection and compatibility"
+      }
+    ],
+    "possible_solutions": [
+      "Reseat the SATA SSD's cables or the NVMe drive in its M.2 slot",
+      "Correct the M.2 slot mode setting in BIOS/UEFI if mismatched",
+      "Test in a different slot or computer to isolate the fault",
+      "Update motherboard BIOS/UEFI firmware for newer drive compatibility",
+      "Replace the SSD if failure is confirmed"
+    ],
+    "prevention": [
+      "Ensure M.2 drives are fully seated and properly secured with their retaining screw during installation",
+      "Check motherboard M.2 slot specifications and BIOS settings before installing a new SSD",
+      "Keep motherboard firmware reasonably updated for better component compatibility"
+    ],
+    "keywords": [
+      "ssd not detected bios",
+      "m.2 nvme drive not showing up",
+      "new ssd not recognized"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": [
+      "HW-006",
+      "HW-011"
+    ]
+  },
+  {
+    "id": "HW-013",
+    "category": "Hardware",
+    "subcategory": "Storage Problems",
+    "problem": "External Drive Not Detected",
+    "description": "An external hard drive, SSD, or USB flash drive is not recognized by the computer when connected, whether via USB or another external interface.",
+    "symptoms": [
+      "Drive does not appear in File Explorer or Disk Management when connected",
+      "No sound or notification indicating a new device was connected",
+      "Drive's own activity light, if it has one, may or may not illuminate when connected"
+    ],
+    "possible_causes": [
+      "USB cable is faulty or not fully connected",
+      "USB port itself is not functioning correctly",
+      "External drive is not receiving adequate power, particularly for drives requiring more power than a single USB port can provide",
+      "Drive itself has failed, or its file system has become corrupted"
+    ],
+    "diagnostic_questions": [
+      "Does the drive show any sign of activity, such as a light turning on, when connected?",
+      "Have you tried a different USB cable and a different USB port on the computer?",
+      "Does this drive work when connected to a different computer?",
+      "If this is a portable hard drive rather than a flash drive or SSD, does it have its own separate power adapter, or does it rely solely on USB power?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class DiskDrive",
+        "purpose": "Check whether Windows detects the external drive as connected hardware at all",
+        "expected_result": "The external drive is listed with an 'OK' status",
+        "abnormal_result": "The drive is missing entirely or shown with an error status, indicating a detection-level problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Try a different USB cable and a different USB port on the computer",
+        "reason": "Rules out a faulty cable or a specific non-functioning port as the cause, which are both very common issues"
+      },
+      {
+        "step": 2,
+        "action": "Check if the drive shows any activity light or sound when connected, indicating it is at least receiving power",
+        "reason": "Helps distinguish between a power/detection issue and the drive being on but not properly recognized"
+      },
+      {
+        "step": 3,
+        "action": "For portable hard drives that may need more power than a single USB port provides, try a powered USB hub or a cable with two USB connectors for extra power, if applicable",
+        "reason": "Some higher-capacity portable drives are underpowered by certain USB ports alone, especially on laptops or through hubs"
+      },
+      {
+        "step": 4,
+        "action": "Test the drive on a different computer to determine if the drive itself or the original computer is the source of the problem",
+        "reason": "Definitively isolates which device is actually at fault"
+      },
+      {
+        "step": 5,
+        "action": "Check Disk Management on the working computer for the drive appearing as unallocated or with a file system error, which would indicate a logical rather than physical problem",
+        "reason": "A drive that appears in Disk Management but not File Explorer often has a partition or file system issue rather than a hardware failure"
+      }
+    ],
+    "possible_solutions": [
+      "Use a different USB cable and port",
+      "Use a powered USB hub for higher-power external drives",
+      "Test the drive on a different computer to isolate the fault",
+      "Address file system issues in Disk Management if the drive is detected as hardware but not properly accessible"
+    ],
+    "prevention": [
+      "Safely eject external drives before disconnecting them to avoid file system corruption",
+      "Use quality USB cables and avoid unnecessary extension cables or hubs when possible",
+      "Keep backups of important data on external drives given their portable, more failure-prone nature"
+    ],
+    "keywords": [
+      "external hard drive not detected",
+      "usb drive not showing up",
+      "flash drive not recognized computer"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "HW-022",
+      "HW-023"
+    ]
+  },
+  {
+    "id": "HW-014",
+    "category": "Hardware",
+    "subcategory": "Performance Problems",
+    "problem": "Computer Running Very Slow",
+    "description": "The computer takes an unusually long time to start up, open applications, or respond to input, significantly slower than what would normally be expected for its hardware.",
+    "symptoms": [
+      "Programs take a long time to open or become unresponsive ('Not Responding')",
+      "Startup and shutdown take significantly longer than normal",
+      "General system responsiveness, such as opening the Start menu, feels sluggish"
+    ],
+    "possible_causes": [
+      "Storage drive (especially a traditional HDD) is nearly full or highly fragmented",
+      "Too many programs launching automatically at startup, consuming resources continuously",
+      "Malware or unwanted background processes consuming CPU, memory, or disk resources",
+      "Failing or aging storage drive, particularly a mechanical hard drive nearing the end of its life",
+      "Insufficient RAM for current workload, causing heavy use of slower virtual memory (paging)"
+    ],
+    "diagnostic_questions": [
+      "Has the computer always been this slow, or did performance noticeably decline at some point?",
+      "How full is the primary storage drive, and is it a traditional hard drive or an SSD?",
+      "How many programs are set to launch automatically when the computer starts?",
+      "Has a malware/antivirus scan been run recently to rule out unwanted background processes?"
+    ],
+    "commands": [
+      {
+        "command": "Task Manager > Performance tab",
+        "purpose": "Check current CPU, memory, and disk utilization to identify which resource is being maxed out",
+        "expected_result": "Utilization levels appropriate for current activity, with headroom available",
+        "abnormal_result": "One or more resources, especially disk or CPU, consistently pegged near 100% even during light use, pointing to a specific bottleneck"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Task Manager and check the Performance tab to identify whether CPU, memory, or disk usage is consistently maxed out",
+        "reason": "Pinpoints which specific resource is the bottleneck, directing further troubleshooting efficiently"
+      },
+      {
+        "step": 2,
+        "action": "Check available free space on the primary storage drive, and free up space if it is nearly full, especially on drives below roughly 10-15% free space",
+        "reason": "A nearly full drive, particularly an SSD, can significantly slow down overall system performance"
+      },
+      {
+        "step": 3,
+        "action": "Review and disable unnecessary startup programs through Task Manager's Startup tab",
+        "reason": "Excessive startup programs consume resources continuously in the background, slowing down the entire system"
+      },
+      {
+        "step": 4,
+        "action": "Run a full malware/antivirus scan to rule out unwanted background processes consuming resources",
+        "reason": "Malware and unwanted software are common, often overlooked causes of significant performance degradation"
+      },
+      {
+        "step": 5,
+        "action": "For a traditional mechanical hard drive, check its health and consider whether it may be failing or simply reaching the natural limits of HDD speed compared to an SSD",
+        "reason": "Aging or failing mechanical drives are a very common cause of slowdowns, especially if the drive was not the original bottleneck when the system was new"
+      },
+      {
+        "step": 6,
+        "action": "Check installed RAM against current workload needs, since heavy paging to disk due to insufficient RAM causes significant slowdowns",
+        "reason": "Confirms whether a RAM upgrade would meaningfully improve performance for the user's actual workload"
+      }
+    ],
+    "possible_solutions": [
+      "Free up storage space, especially on nearly full drives",
+      "Disable unnecessary startup programs",
+      "Run a malware scan and remove any unwanted software found",
+      "Consider upgrading to an SSD if still using a traditional hard drive as the primary drive",
+      "Add more RAM if consistently running near capacity"
+    ],
+    "prevention": [
+      "Regularly clean up unnecessary files and uninstall unused programs",
+      "Keep startup program lists lean",
+      "Run periodic malware scans as routine maintenance",
+      "Consider proactive hardware upgrades (SSD, RAM) as workload needs grow"
+    ],
+    "keywords": [
+      "computer very slow",
+      "pc sluggish taking forever",
+      "laptop slow to respond"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": [
+      "HW-011",
+      "HW-015"
+    ]
+  },
+  {
+    "id": "HW-015",
+    "category": "Hardware",
+    "subcategory": "Memory Problems",
+    "problem": "RAM Not Detected",
+    "description": "Newly installed RAM, or existing RAM after a system change, is not recognized by BIOS/UEFI or Windows, showing less total memory than what is physically installed.",
+    "symptoms": [
+      "BIOS/UEFI or Windows shows less total RAM than what is physically installed",
+      "System may fail to boot entirely if the RAM issue is severe enough",
+      "A specific RAM slot or module may not be recognized while others work fine"
+    ],
+    "possible_causes": [
+      "RAM module not fully seated in its slot",
+      "RAM module installed in an incompatible or incorrectly paired slot for dual/quad-channel configurations",
+      "RAM module itself has failed or is incompatible with the motherboard",
+      "BIOS/UEFI needs a firmware update to properly support a newer RAM module"
+    ],
+    "diagnostic_questions": [
+      "Is this newly installed RAM, or existing RAM that suddenly is not being fully detected?",
+      "Are all RAM modules fully and firmly seated, with the slot's retention clips fully closed?",
+      "Are the RAM modules installed in the correct slots as specified by the motherboard manual for proper channel configuration?",
+      "Does the total detected RAM change if you test each module individually in the same slot?"
+    ],
+    "commands": [
+      {
+        "command": "Task Manager > Performance > Memory (or System Information)",
+        "purpose": "Check the total RAM Windows currently detects and recognizes as usable",
+        "expected_result": "Detected RAM matches the total physically installed",
+        "abnormal_result": "Detected RAM is noticeably less than what is physically installed, confirming a detection issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Power off, and firmly reseat all RAM modules, ensuring the retention clips on each slot fully close and click into place",
+        "reason": "An improperly seated module is one of the most common and easily fixed causes of RAM not being detected"
+      },
+      {
+        "step": 2,
+        "action": "Consult the motherboard manual for the correct slot configuration for the number of RAM modules installed, particularly for dual or quad-channel setups",
+        "reason": "Installing modules in the wrong slots can prevent proper detection or full-speed operation, even if seated correctly"
+      },
+      {
+        "step": 3,
+        "action": "Test each RAM module individually in the same known-good slot to identify if one specific module has failed",
+        "reason": "Isolates a single faulty module from an otherwise healthy set"
+      },
+      {
+        "step": 4,
+        "action": "Test each slot individually with the same known-good RAM module to identify if a specific motherboard slot has failed",
+        "reason": "Isolates a faulty motherboard slot as distinct from a faulty RAM module"
+      },
+      {
+        "step": 5,
+        "action": "Check if a BIOS/UEFI firmware update is needed to support this specific RAM module, particularly for newer or higher-capacity modules on an older motherboard",
+        "reason": "Some motherboards require a firmware update to properly recognize newer or larger-capacity RAM modules"
+      }
+    ],
+    "possible_solutions": [
+      "Reseat all RAM modules firmly",
+      "Install RAM in the correct slots per the motherboard manual",
+      "Replace a RAM module confirmed to have failed through individual testing",
+      "Update motherboard BIOS/UEFI firmware for compatibility with newer RAM"
+    ],
+    "prevention": [
+      "Handle RAM modules carefully, avoiding touching the gold contacts",
+      "Consult the motherboard manual for correct slot configuration before installing new RAM",
+      "Verify RAM compatibility with the motherboard before purchasing"
+    ],
+    "keywords": [
+      "ram not detected bios",
+      "memory not showing full amount",
+      "new ram not recognized"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": [
+      "HW-016",
+      "HW-003"
+    ]
+  },
+  {
+    "id": "HW-016",
+    "category": "Hardware",
+    "subcategory": "Memory Problems",
+    "problem": "Memory Error",
+    "description": "The computer displays a memory-related error message, experiences frequent crashes attributed to RAM, or fails Windows Memory Diagnostic/third-party memory testing tools.",
+    "symptoms": [
+      "Blue screen errors specifically mentioning memory management or similar RAM-related stop codes",
+      "System crashes or freezes unpredictably, often more frequently under heavier memory usage",
+      "Memory diagnostic tools report errors when tested"
+    ],
+    "possible_causes": [
+      "One or more RAM modules have failed or developed faults",
+      "RAM modules running at an incompatible or unstable speed/timing setting in BIOS/UEFI",
+      "RAM modules from mismatched kits or incompatible with each other when mixed",
+      "Overheating RAM in a poorly ventilated case under heavy sustained use"
+    ],
+    "diagnostic_questions": [
+      "What is the exact error message or blue screen stop code being shown, if any?",
+      "Have you run Windows Memory Diagnostic or a third-party tool like MemTest86 to test the RAM?",
+      "Are all RAM modules from the same kit, or have modules from different kits/brands been mixed together?",
+      "Has the RAM's speed or timing setting been manually changed or overclocked in BIOS/UEFI?"
+    ],
+    "commands": [
+      {
+        "command": "mdsched.exe (Windows Memory Diagnostic)",
+        "purpose": "Run a built-in Windows tool to test RAM for errors",
+        "expected_result": "No errors reported after the test completes",
+        "abnormal_result": "Errors reported, confirming a genuine RAM problem requiring further isolation and likely module replacement"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Run Windows Memory Diagnostic (mdsched.exe) or a more thorough third-party tool like MemTest86, letting it complete several full passes",
+        "reason": "Provides a definitive, dedicated test to confirm whether RAM errors are actually present, rather than relying on symptoms alone"
+      },
+      {
+        "step": 2,
+        "action": "If errors are found, test each RAM module individually in the same slot to identify which specific module is faulty",
+        "reason": "Isolates a single bad module rather than assuming all installed RAM needs replacement"
+      },
+      {
+        "step": 3,
+        "action": "Check BIOS/UEFI for any manually configured RAM speed, timing, or voltage settings that may be unstable, and reset to the manufacturer's default/rated settings (XMP/DOCP profile or standard JEDEC settings)",
+        "reason": "Incorrectly configured or overly aggressive RAM settings can cause errors even with otherwise healthy hardware"
+      },
+      {
+        "step": 4,
+        "action": "If mixing RAM modules from different kits or brands, test with only a single matched kit installed to rule out compatibility issues between mismatched modules",
+        "reason": "Mismatched RAM specifications can cause instability even when each module tests fine individually"
+      },
+      {
+        "step": 5,
+        "action": "Replace any RAM module confirmed to be faulty through individual testing",
+        "reason": "A module that consistently produces errors on its own needs to be replaced rather than continuing to cause system instability"
+      }
+    ],
+    "possible_solutions": [
+      "Reset RAM to default/rated speed and timing settings in BIOS/UEFI",
+      "Replace any RAM module confirmed faulty through testing",
+      "Use matched RAM kits rather than mixing different modules",
+      "Ensure adequate case ventilation if overheating is suspected"
+    ],
+    "prevention": [
+      "Use a single matched RAM kit rather than mixing modules from different sources",
+      "Avoid aggressive manual overclocking of RAM without thorough stability testing",
+      "Run periodic memory diagnostics as part of routine system health checks"
+    ],
+    "keywords": [
+      "memory error blue screen",
+      "ram error test failed",
+      "memory management bsod"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": [
+      "HW-015",
+      "HW-004"
+    ]
+  },
+  {
+    "id": "HW-017",
+    "category": "Hardware",
+    "subcategory": "Thermal Problems",
+    "problem": "CPU Overheating",
+    "description": "The CPU reaches excessively high temperatures during normal or demanding use, potentially causing thermal throttling, instability, or automatic protective shutdowns.",
+    "symptoms": [
+      "System becomes noticeably slower during sustained heavy use (thermal throttling)",
+      "Random shutdowns or restarts, particularly during demanding tasks like gaming or video rendering",
+      "Fans run at very high, noisy speeds trying to compensate for the heat"
+    ],
+    "possible_causes": [
+      "CPU cooler not making proper contact due to dried out or improperly applied thermal paste",
+      "Dust buildup blocking the CPU cooler's heatsink fins or fan",
+      "CPU fan not spinning at full speed, or has failed entirely",
+      "Inadequate case airflow trapping heat, even if the CPU cooler itself is functioning",
+      "CPU cooler undersized for the CPU's actual heat output, especially after a CPU upgrade"
+    ],
+    "diagnostic_questions": [
+      "What CPU temperatures are you seeing, both at idle and under load, using a monitoring tool?",
+      "How old is the current thermal paste application, and has the cooler ever been reseated?",
+      "Is the CPU fan and any case fans confirmed to be spinning, and at what apparent speed?",
+      "Has the computer's interior been cleaned of dust recently?"
+    ],
+    "commands": [
+      {
+        "command": "HWiNFO or similar hardware monitoring utility",
+        "purpose": "Check real-time CPU temperature readings at idle and under load",
+        "expected_result": "Idle temperatures generally well under 50°C and load temperatures within the CPU manufacturer's safe operating range",
+        "abnormal_result": "Temperatures consistently approaching or exceeding 90-100°C, or the manufacturer's specified maximum, confirming a genuine overheating problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Install a hardware monitoring utility and observe CPU temperatures both at idle and during a demanding task",
+        "reason": "Provides concrete temperature data to confirm overheating and gauge its severity, rather than relying on guesswork"
+      },
+      {
+        "step": 2,
+        "action": "Power off, open the case, and clean dust from the CPU cooler's heatsink fins, fan blades, and general case interior using compressed air",
+        "reason": "Dust buildup is one of the most common causes of gradually worsening thermal performance over time"
+      },
+      {
+        "step": 3,
+        "action": "Confirm the CPU fan, and all case fans, are actually spinning and appear to be running at expected speeds",
+        "reason": "A failed or malfunctioning fan will directly cause overheating regardless of how clean the system is"
+      },
+      {
+        "step": 4,
+        "action": "If thermal paste has not been replaced in a few years, or the cooler has never been reseated since original installation, remove the cooler, clean off old paste, and reapply a fresh, appropriately sized amount before reseating firmly",
+        "reason": "Dried out or improperly applied thermal paste significantly reduces heat transfer from the CPU to the cooler over time"
+      },
+      {
+        "step": 5,
+        "action": "Verify overall case airflow, ensuring intake and exhaust fans are properly oriented and not obstructed, and that cables are reasonably managed to avoid blocking airflow",
+        "reason": "Even a good CPU cooler cannot perform well if the surrounding case traps heat due to poor overall airflow"
+      },
+      {
+        "step": 6,
+        "action": "Consider upgrading to a more capable CPU cooler if the current one is undersized for the CPU's actual heat output, particularly after a CPU upgrade",
+        "reason": "Some coolers are simply not rated to handle the heat output of certain CPUs, especially higher-end or overclocked models"
+      }
+    ],
+    "possible_solutions": [
+      "Clean dust from the cooler and case",
+      "Reapply fresh thermal paste and reseat the cooler",
+      "Replace a failed CPU or case fan",
+      "Improve overall case airflow and cable management",
+      "Upgrade to a more capable CPU cooler if needed"
+    ],
+    "prevention": [
+      "Clean internal components every few months as routine maintenance",
+      "Reapply thermal paste every 2-4 years as part of long-term maintenance",
+      "Choose a CPU cooler rated appropriately for the CPU's thermal output"
+    ],
+    "keywords": [
+      "cpu overheating high temperature",
+      "cpu running too hot",
+      "thermal throttling slow under load"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": [
+      "HW-018",
+      "HW-003",
+      "HW-004"
+    ]
+  },
+  {
+    "id": "HW-018",
+    "category": "Hardware",
+    "subcategory": "Thermal Problems",
+    "problem": "Cooling Fan Not Working",
+    "description": "A cooling fan, whether the CPU fan, a case fan, or a GPU fan, does not spin at all, leading to inadequate cooling and a risk of overheating.",
+    "symptoms": [
+      "A specific fan does not spin when the computer is powered on",
+      "System may run hotter than usual or shut down unexpectedly due to inadequate cooling",
+      "BIOS may display a fan error warning if the motherboard monitors that specific fan header"
+    ],
+    "possible_causes": [
+      "Fan's power cable disconnected from its header on the motherboard or fan controller",
+      "Fan itself has failed mechanically, such as a seized bearing",
+      "Fan header configured with a temperature curve that keeps it off at low temperatures, which may be normal for some case fans",
+      "Fan controller or PWM signal issue preventing the fan from receiving proper power/control signals"
+    ],
+    "diagnostic_questions": [
+      "Which specific fan is not spinning: CPU, case, or GPU fan?",
+      "Is the fan's cable firmly connected to its header on the motherboard or a fan controller/hub?",
+      "Does the fan remain off consistently, or does it only fail to spin at low temperatures, which could be normal semi-passive behavior for some models?",
+      "Have you tried manually spinning the fan blades gently with the system off to check for a stuck or seized bearing?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the fan's power cable is firmly and correctly connected to its intended header on the motherboard or fan controller",
+        "reason": "A loose or disconnected cable is the simplest and most common reason a fan does not spin at all"
+      },
+      {
+        "step": 2,
+        "action": "Check whether this fan is configured with a temperature-based curve that intentionally keeps it off or very slow at low temperatures, which is normal semi-passive behavior on some case and GPU fans",
+        "reason": "Some fans are designed to remain off until a certain temperature threshold is reached, which can be mistaken for a failure"
+      },
+      {
+        "step": 3,
+        "action": "With the system powered off, gently try spinning the fan blades by hand to check for excessive resistance or a completely seized bearing",
+        "reason": "Significant resistance or a fan that will not turn at all by hand strongly indicates a mechanical failure"
+      },
+      {
+        "step": 4,
+        "action": "Try connecting the fan to a different, known-working header, or test a known-working fan on the header the failed fan was using",
+        "reason": "Isolates whether the fan itself or the specific motherboard/controller header has failed"
+      },
+      {
+        "step": 5,
+        "action": "Replace the fan if it is confirmed to have mechanically failed, ensuring proper cooling is restored, especially urgent if this is the CPU fan",
+        "reason": "A failed fan providing critical cooling, particularly for the CPU, poses a real risk of overheating damage if not promptly addressed"
+      }
+    ],
+    "possible_solutions": [
+      "Reconnect a loose fan cable",
+      "Confirm the fan's behavior is not simply an intentional low-temperature semi-passive mode",
+      "Test the fan and header separately to isolate the fault",
+      "Replace a mechanically failed fan promptly, especially for critical CPU cooling"
+    ],
+    "prevention": [
+      "Periodically check that all fans spin up properly during startup or under load",
+      "Clean fans regularly to prevent dust from contributing to bearing wear",
+      "Replace aging fans proactively before they fail completely, particularly for critical CPU cooling"
+    ],
+    "keywords": [
+      "cpu fan not spinning",
+      "case fan not working",
+      "gpu fan not turning on"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "HW-017",
+      "HW-019"
+    ]
+  },
+  {
+    "id": "HW-019",
+    "category": "Hardware",
+    "subcategory": "Thermal Problems",
+    "problem": "Fan Making Loud Noise",
+    "description": "A cooling fan produces unusually loud noise, whether a constant high-pitched whine, rattling, grinding, or clicking sound, distinct from normal fan operation.",
+    "symptoms": [
+      "Noticeable rattling, grinding, clicking, or high-pitched whining sound from inside the case or laptop",
+      "Noise may be constant or may vary with fan speed, worsening under heavier system load",
+      "Noise may have developed gradually over time or appeared suddenly"
+    ],
+    "possible_causes": [
+      "Dust or debris accumulation causing the fan blades to become unbalanced or obstructed",
+      "Fan bearing wearing out, a common issue in fans that have been in use for a long time",
+      "Loose fan mounting, causing it to vibrate against the case or other components",
+      "Cable or other object physically contacting and rubbing against the spinning fan blades"
+    ],
+    "diagnostic_questions": [
+      "Does the noise sound like rattling/vibration, grinding, or a high-pitched whine, since each suggests a different cause?",
+      "Has the computer's interior been cleaned of dust recently?",
+      "Does the noise change or worsen when the fan speeds up under heavier system load?",
+      "Can you visually confirm which specific fan is making the noise by observing or carefully listening while the case is open?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Power off the computer, open the case, and visually inspect the identified fan for visible dust buildup, debris, or a loose cable resting against the blades",
+        "reason": "Dust and cable interference are common, easily fixed sources of fan noise"
+      },
+      {
+        "step": 2,
+        "action": "Clean the fan and surrounding area thoroughly using compressed air, holding the fan blades steady to prevent them from spinning too fast during cleaning",
+        "reason": "Removes dust buildup that can cause imbalance and noise, while protecting the fan's bearing from spinning ungoverned during cleaning"
+      },
+      {
+        "step": 3,
+        "action": "Check that the fan is securely mounted with all screws tight, and that it is not vibrating against the case or other components",
+        "reason": "A loose fan can vibrate significantly, producing noise that might be mistaken for a failing bearing"
+      },
+      {
+        "step": 4,
+        "action": "Route any nearby cables away from the fan blades to eliminate physical contact as a noise source",
+        "reason": "A cable lightly touching spinning blades can produce a surprisingly loud and rhythmic noise"
+      },
+      {
+        "step": 5,
+        "action": "If the noise persists after cleaning and confirming secure mounting, particularly if it is a grinding or grating sound, consider the fan's bearing has worn out and the fan should be replaced",
+        "reason": "A worn bearing cannot be repaired and will typically continue to worsen, making replacement the appropriate solution"
+      }
+    ],
+    "possible_solutions": [
+      "Clean dust from the fan and surrounding area",
+      "Secure any loose fan mounting screws",
+      "Route cables away from fan blades",
+      "Replace the fan if bearing wear is confirmed"
+    ],
+    "prevention": [
+      "Clean fans regularly as part of routine maintenance to prevent dust-related noise and wear",
+      "Ensure proper cable management to keep cables away from fan blades",
+      "Replace fans proactively if they are old and beginning to show early signs of noise"
+    ],
+    "keywords": [
+      "fan making loud noise pc",
+      "computer fan grinding rattling",
+      "fan loud whining sound"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "HW-018",
+      "HW-017"
+    ]
+  },
+  {
+    "id": "HW-020",
+    "category": "Hardware",
+    "subcategory": "Input Device Problems",
+    "problem": "Keyboard Not Working",
+    "description": "The keyboard, whether built into a laptop, connected via USB, or wireless, does not respond at all, or specific keys fail to register input.",
+    "symptoms": [
+      "No keystrokes register at all, or only certain keys fail to work",
+      "Keyboard's indicator lights, such as Caps Lock, may or may not respond when pressed",
+      "Problem may occur system-wide or only within specific applications"
+    ],
+    "possible_causes": [
+      "USB keyboard's cable is loose or the port is not functioning",
+      "Wireless keyboard's batteries are depleted or it is not properly paired/connected",
+      "Keyboard driver issue or a stuck key mechanically interfering with input",
+      "Laptop's built-in keyboard has failed or become disconnected internally"
+    ],
+    "diagnostic_questions": [
+      "Is this a USB, wireless, or a laptop's built-in keyboard?",
+      "Does the keyboard work in BIOS/UEFI (before Windows loads), which would indicate a Windows-level rather than hardware-level issue?",
+      "For a wireless keyboard, have the batteries been checked or replaced recently?",
+      "Are all keys affected, or only certain ones, which might indicate a specific stuck key or localized damage?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class Keyboard",
+        "purpose": "Check whether Windows detects the keyboard as connected hardware",
+        "expected_result": "The keyboard is listed with an 'OK' status",
+        "abnormal_result": "The keyboard is missing or shown with an error status, indicating a detection or driver-level problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Test whether the keyboard works in BIOS/UEFI by restarting and entering setup before Windows loads",
+        "reason": "If the keyboard works at this level, the problem is specifically within Windows rather than the keyboard hardware or its basic connection"
+      },
+      {
+        "step": 2,
+        "action": "For a USB keyboard, try a different USB port and a different cable if detachable",
+        "reason": "Rules out a faulty port or cable as the cause"
+      },
+      {
+        "step": 3,
+        "action": "For a wireless keyboard, replace the batteries and confirm the USB receiver is properly connected, or re-pair via Bluetooth if applicable",
+        "reason": "Depleted batteries and pairing issues are very common causes of a wireless keyboard suddenly not responding"
+      },
+      {
+        "step": 4,
+        "action": "Test the keyboard on a different computer if possible, to isolate whether the keyboard itself or the original computer is at fault",
+        "reason": "Definitively narrows down which specific device is the source of the problem"
+      },
+      {
+        "step": 5,
+        "action": "Check Device Manager for the keyboard, and try uninstalling it and letting Windows automatically reinstall the driver upon restart",
+        "reason": "Resolves a corrupted or malfunctioning keyboard driver without needing to replace hardware"
+      },
+      {
+        "step": 6,
+        "action": "For a laptop's built-in keyboard, if it fails to work even in BIOS/UEFI, consider this a hardware failure likely requiring internal repair or an external keyboard as a workaround",
+        "reason": "A built-in keyboard not working even at the BIOS level strongly suggests a physical hardware or internal connection fault"
+      }
+    ],
+    "possible_solutions": [
+      "Try a different USB port/cable, or replace batteries for wireless keyboards",
+      "Re-pair a wireless/Bluetooth keyboard",
+      "Reinstall the keyboard driver in Device Manager",
+      "Use an external keyboard as a workaround for a failed laptop built-in keyboard",
+      "Seek professional repair for a failed laptop internal keyboard"
+    ],
+    "prevention": [
+      "Keep spare batteries on hand for wireless keyboards",
+      "Avoid spilling liquids near keyboards, a common cause of both mechanical and electrical failures",
+      "Handle laptops carefully to avoid physical stress on the built-in keyboard's internal connections"
+    ],
+    "keywords": [
+      "keyboard not working at all",
+      "keys not registering",
+      "laptop keyboard some keys not working"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": [
+      "HW-022",
+      "HW-030"
+    ]
+  },
+  {
+    "id": "HW-021",
+    "category": "Hardware",
+    "subcategory": "Input Device Problems",
+    "problem": "Mouse Not Working",
+    "description": "The mouse, whether wired, wireless, or a laptop's built-in touchpad substitute, does not respond, either failing to move the cursor or not registering clicks.",
+    "symptoms": [
+      "Cursor does not move at all, or moves erratically",
+      "Clicks do not register, or only some buttons work while others do not",
+      "Mouse's indicator light, if it has one, may or may not be illuminated"
+    ],
+    "possible_causes": [
+      "USB cable loose or the port is not functioning, for a wired mouse",
+      "Wireless mouse's batteries depleted or its USB receiver not properly connected",
+      "Mouse sensor obstructed by dust or dirt, or the surface it is being used on is unsuitable for tracking",
+      "Mouse driver issue or a hardware failure within the mouse itself"
+    ],
+    "diagnostic_questions": [
+      "Is this a wired or wireless mouse?",
+      "Does the mouse work in BIOS/UEFI, indicating a Windows-level rather than hardware-level issue?",
+      "For a wireless mouse, have the batteries been checked or replaced?",
+      "Does the mouse's sensor light (on the underside) illuminate when the mouse is powered and connected?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class Mouse",
+        "purpose": "Check whether Windows detects the mouse as connected hardware",
+        "expected_result": "The mouse is listed with an 'OK' status",
+        "abnormal_result": "The mouse is missing or shown with an error status, indicating a detection or driver-level problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Test whether the mouse works in BIOS/UEFI by restarting and entering setup before Windows loads",
+        "reason": "If it works here, the issue is specific to Windows rather than the mouse hardware or basic connection"
+      },
+      {
+        "step": 2,
+        "action": "For a wired mouse, try a different USB port and inspect the cable for visible damage",
+        "reason": "Rules out a faulty port or a damaged cable as the cause"
+      },
+      {
+        "step": 3,
+        "action": "For a wireless mouse, replace the batteries and confirm the USB receiver is firmly connected, trying a different USB port for the receiver as well",
+        "reason": "Depleted batteries and a loose receiver are very common, simple causes of a wireless mouse not responding"
+      },
+      {
+        "step": 4,
+        "action": "Check the mouse's sensor for dust or debris, and try using it on a different surface, avoiding glass or highly reflective surfaces that can interfere with optical tracking",
+        "reason": "A dirty sensor or unsuitable surface can cause erratic or completely absent cursor movement even with a functioning mouse"
+      },
+      {
+        "step": 5,
+        "action": "Test the mouse on a different computer to isolate whether the mouse itself or the original computer is at fault",
+        "reason": "Definitively narrows down which specific device is the source of the problem"
+      },
+      {
+        "step": 6,
+        "action": "Check Device Manager for the mouse and try uninstalling it, letting Windows automatically reinstall the driver upon restart",
+        "reason": "Resolves a corrupted or malfunctioning mouse driver without needing to replace hardware"
+      }
+    ],
+    "possible_solutions": [
+      "Try a different USB port/cable, or replace batteries for wireless mice",
+      "Clean the mouse's sensor and use a suitable tracking surface",
+      "Reinstall the mouse driver in Device Manager",
+      "Replace the mouse if hardware failure is confirmed through testing on another computer"
+    ],
+    "prevention": [
+      "Keep spare batteries on hand for wireless mice",
+      "Use a proper mouse pad or suitable surface for reliable tracking",
+      "Keep the mouse sensor clean of dust and debris"
+    ],
+    "keywords": [
+      "mouse not working at all",
+      "cursor not moving",
+      "wireless mouse not responding"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "HW-030",
+      "HW-022"
+    ]
+  },
+  {
+    "id": "HW-022",
+    "category": "Hardware",
+    "subcategory": "USB Problems",
+    "problem": "USB Device Not Recognized",
+    "description": "Windows displays a 'USB Device Not Recognized' error notification when a device is plugged in, and the device does not function despite appearing to be connected.",
+    "symptoms": [
+      "Notification pop-up specifically states 'USB Device Not Recognized'",
+      "Device does not appear in File Explorer or function as expected",
+      "Device may have worked previously in the same or a different port"
+    ],
+    "possible_causes": [
+      "Corrupted or outdated USB driver for that specific device or the USB controller itself",
+      "Insufficient power being supplied to the device, particularly for higher-power devices",
+      "USB port itself has failed or is malfunctioning",
+      "Device itself has failed or has a faulty cable"
+    ],
+    "diagnostic_questions": [
+      "Does this happen with this specific device in multiple different USB ports, or only in one particular port?",
+      "Does this device work correctly when connected to a different computer?",
+      "Has this exact device and cable worked before, and if so, what might have changed recently?",
+      "Is this a higher-power device, such as an external hard drive, that might need more power than the port can provide?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class USB -Status Error",
+        "purpose": "List USB devices currently showing an error status in Windows",
+        "expected_result": "No devices returned, indicating no current USB errors",
+        "abnormal_result": "The affected device is listed, confirming Windows is detecting it but encountering an error"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Unplug the device and try a different USB port on the computer",
+        "reason": "Isolates whether a specific port has failed or if the issue follows the device itself"
+      },
+      {
+        "step": 2,
+        "action": "Try a different USB cable if the device uses a detachable one",
+        "reason": "Rules out a damaged cable as the cause"
+      },
+      {
+        "step": 3,
+        "action": "Test the device on a different computer to determine if the device itself or the original computer is at fault",
+        "reason": "Definitively narrows down which specific component is causing the issue"
+      },
+      {
+        "step": 4,
+        "action": "Uninstall the problematic USB device driver in Device Manager and unplug/replug the device to let Windows reinstall it fresh",
+        "reason": "Resolves a corrupted driver that may be preventing proper recognition"
+      },
+      {
+        "step": 5,
+        "action": "For higher-power devices, try connecting through a powered USB hub or a different port capable of providing more power, such as a rear motherboard port rather than a front panel port",
+        "reason": "Insufficient power delivery is a common cause of recognition failures for power-hungry devices like external hard drives"
+      },
+      {
+        "step": 6,
+        "action": "Update the motherboard's USB/chipset drivers from the manufacturer's website if the problem affects multiple different devices across multiple ports",
+        "reason": "A broader driver issue affecting the entire USB controller would explain problems across many different connected devices"
+      }
+    ],
+    "possible_solutions": [
+      "Try a different USB port and cable",
+      "Reinstall the device driver in Device Manager",
+      "Use a powered USB hub for higher-power devices",
+      "Update motherboard USB/chipset drivers",
+      "Test on a different computer to isolate the fault"
+    ],
+    "prevention": [
+      "Use quality USB cables and avoid unnecessary extension cables",
+      "Safely eject USB devices before disconnecting",
+      "Keep chipset and USB drivers updated"
+    ],
+    "keywords": [
+      "usb device not recognized error",
+      "usb not working windows",
+      "usb port device error"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "HW-023",
+      "HW-013"
+    ]
+  },
+  {
+    "id": "HW-023",
+    "category": "Hardware",
+    "subcategory": "USB Problems",
+    "problem": "USB Port Not Working",
+    "description": "A specific USB port on the computer does not function at all, failing to recognize any device plugged into it, while other ports work normally.",
+    "symptoms": [
+      "No response at all when any device is plugged into this specific port",
+      "No power delivered to the port, such as a connected device not even charging",
+      "Other USB ports on the same computer work normally with the same devices"
+    ],
+    "possible_causes": [
+      "Physical damage or debris inside the specific USB port",
+      "Loose internal connection between the port and the motherboard, particularly for front panel or add-on ports",
+      "USB port disabled in BIOS/UEFI or through Device Manager",
+      "Motherboard's USB controller for that specific port header has failed"
+    ],
+    "diagnostic_questions": [
+      "Does the problem follow the specific port regardless of what device is plugged in?",
+      "Have you tried multiple different, known-working devices in this same port?",
+      "Is this a rear motherboard port, a front panel port, or a port on an add-on card/hub?",
+      "Is there any visible damage or debris inside the port itself?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class USB",
+        "purpose": "Check overall USB controller status, which may reveal a broader controller issue affecting specific ports",
+        "expected_result": "All USB controllers and hubs show 'OK' status",
+        "abnormal_result": "A specific USB controller or hub shows an error, potentially explaining why ports connected to it are not working"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Try multiple different, known-working devices in the specific non-functioning port to confirm the problem follows the port itself",
+        "reason": "Rules out a device-specific issue and confirms the port itself is truly at fault"
+      },
+      {
+        "step": 2,
+        "action": "Visually inspect the port for any visible damage, bent pins, or debris that might be obstructing a proper connection",
+        "reason": "Physical damage or blockage is a straightforward and sometimes visible cause of a non-functioning port"
+      },
+      {
+        "step": 3,
+        "action": "For a front panel port, check the internal cable connecting it to the motherboard's USB header, ensuring it is properly and firmly connected",
+        "reason": "Front panel ports rely on an internal cable connection that can become loose, especially after any case work"
+      },
+      {
+        "step": 4,
+        "action": "Check Device Manager and BIOS/UEFI settings to confirm this specific USB port or controller has not been disabled",
+        "reason": "Some systems allow individual USB ports or controllers to be disabled, which would fully explain a completely non-functioning port"
+      },
+      {
+        "step": 5,
+        "action": "If the port remains non-functional after ruling out debris, disabled settings, and loose internal connections, consider this a failed motherboard port or controller, and use a different port or an add-on USB card as a workaround",
+        "reason": "A confirmed hardware failure at the motherboard level typically requires a workaround unless a full motherboard repair or replacement is pursued"
+      }
+    ],
+    "possible_solutions": [
+      "Reconnect a loose front panel port cable internally",
+      "Enable the port if disabled in BIOS/UEFI or Device Manager",
+      "Clean debris from the port carefully",
+      "Use a different port or an add-on USB card/hub as a workaround for a failed port"
+    ],
+    "prevention": [
+      "Avoid forcing connectors into USB ports, which can cause physical damage",
+      "Handle front panel cable connections carefully during any case maintenance",
+      "Periodically test all USB ports on critical systems"
+    ],
+    "keywords": [
+      "usb port not working specific",
+      "one usb port dead",
+      "front panel usb not working"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "HW-022"
+    ]
+  },
+  {
+    "id": "HW-024",
+    "category": "Hardware",
+    "subcategory": "Audio Problems",
+    "problem": "No Sound",
+    "description": "The computer produces no audio output at all, whether through built-in speakers, external speakers, or headphones, despite the system otherwise appearing to function normally.",
+    "symptoms": [
+      "No sound plays from any application or system sound",
+      "Volume icon in the system tray may show as muted or show no obvious issue",
+      "Problem may affect all audio output or just a specific device"
+    ],
+    "possible_causes": [
+      "Correct playback device not selected in Windows sound settings",
+      "Audio muted at the system, application, or hardware (physical volume dial/mute button) level",
+      "Audio driver not installed, outdated, or malfunctioning",
+      "Speakers or headphones not properly connected, or a hardware failure in the output device itself"
+    ],
+    "diagnostic_questions": [
+      "Is the volume level checked at both the system level and within the specific application you are trying to hear audio from?",
+      "Is the correct playback device selected in Windows Sound settings, especially if multiple output options exist (speakers, headphones, HDMI, etc.)?",
+      "Does audio work through a different output device, such as headphones instead of speakers, or vice versa?",
+      "Was any audio driver update, Windows update, or new software installed around the time this started?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class AudioEndpoint",
+        "purpose": "Check whether Windows detects available audio output devices",
+        "expected_result": "Expected audio devices listed with 'OK' status",
+        "abnormal_result": "Expected device missing or showing an error status, pointing to a detection or driver issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check volume levels at the system tray, within the specific application, and on any physical volume controls on speakers/headphones",
+        "reason": "Audio can be muted or turned down at multiple independent levels, and any one of them being off will result in no sound"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the correct playback device is selected in Windows Sound settings, particularly if multiple output devices are available",
+        "reason": "Windows may be sending audio to an unintended output, such as a monitor's HDMI audio, instead of the intended speakers or headphones"
+      },
+      {
+        "step": 3,
+        "action": "Test a different output device, such as headphones, to determine whether the issue is specific to one device or system-wide",
+        "reason": "Helps isolate whether the problem lies with a specific speaker/headphone or the computer's audio system more broadly"
+      },
+      {
+        "step": 4,
+        "action": "Check Device Manager for the audio driver, and try updating or reinstalling it, including uninstalling and allowing Windows to reinstall it automatically",
+        "reason": "A corrupted, outdated, or missing audio driver is a very common cause of complete audio failure"
+      },
+      {
+        "step": 5,
+        "action": "Run the built-in Windows audio troubleshooter (Settings > System > Sound > Troubleshoot) for an automated check of common configuration issues",
+        "reason": "Can automatically detect and resolve several common and simple audio configuration problems"
+      },
+      {
+        "step": 6,
+        "action": "Test the speakers or headphones on a different device to rule out a hardware failure in the output device itself if all other steps do not resolve the issue",
+        "reason": "Confirms whether the actual speakers or headphones have failed, requiring replacement rather than further software troubleshooting"
+      }
+    ],
+    "possible_solutions": [
+      "Correct volume levels at all relevant levels (system, app, physical)",
+      "Select the correct playback device in Windows Sound settings",
+      "Update or reinstall the audio driver",
+      "Run the Windows audio troubleshooter",
+      "Test with different output hardware to isolate a device failure"
+    ],
+    "prevention": [
+      "Keep audio drivers updated through official channels",
+      "Periodically verify the correct default playback device is selected, especially after connecting new displays or devices",
+      "Handle speaker and headphone cables carefully to avoid damage"
+    ],
+    "keywords": [
+      "no sound at all computer",
+      "audio not working windows",
+      "no sound from speakers headphones"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "HW-025",
+      "HW-027"
+    ]
+  },
+  {
+    "id": "HW-025",
+    "category": "Hardware",
+    "subcategory": "Audio Problems",
+    "problem": "Microphone Not Working",
+    "description": "A microphone, whether built-in, USB, or a headset microphone, does not pick up any audio, causing calls, recordings, or voice input to fail.",
+    "symptoms": [
+      "Other party on a call reports hearing nothing, or a recording captures no audio",
+      "Microphone level indicator in Windows Sound settings shows no movement even when speaking",
+      "Problem may affect all applications or just one specific program"
+    ],
+    "possible_causes": [
+      "Incorrect microphone selected as the default recording device in Windows",
+      "Microphone muted at the system, application, or physical hardware level (such as a mute button on a headset)",
+      "Microphone driver issue or the device not properly detected",
+      "Application-specific permission not granted for microphone access"
+    ],
+    "diagnostic_questions": [
+      "Is the correct microphone selected as the default recording device in Windows Sound settings, especially if multiple input devices are available?",
+      "Does the microphone level indicator move at all in Windows Sound settings when you speak, confirming whether Windows detects any input?",
+      "Does this specific application have permission to access the microphone, checked under Windows Privacy settings?",
+      "Is there a physical mute button on the microphone or headset that might be engaged?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class AudioEndpoint",
+        "purpose": "Check whether Windows detects the microphone as an available recording device",
+        "expected_result": "The microphone is listed with an 'OK' status",
+        "abnormal_result": "The microphone is missing or shown with an error, indicating a detection or driver-level problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check for a physical mute button or switch on the microphone or headset, and confirm it is not engaged",
+        "reason": "A physically muted device is an easily overlooked but very common cause of no microphone input"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the correct microphone is selected as the default recording device in Windows Sound settings, particularly if multiple input devices are connected",
+        "reason": "Windows may be listening to the wrong input device if more than one is available"
+      },
+      {
+        "step": 3,
+        "action": "Speak into the microphone while watching the input level indicator in Windows Sound settings to see if Windows detects any signal at all",
+        "reason": "Confirms whether this is a Windows-level detection issue or a problem specific to a particular application"
+      },
+      {
+        "step": 4,
+        "action": "Check the specific application's microphone permissions under Windows Privacy & Security settings, ensuring both system-wide and app-specific microphone access are enabled",
+        "reason": "Modern Windows versions require explicit permission grants for apps to access the microphone, and this is a common overlooked cause"
+      },
+      {
+        "step": 5,
+        "action": "Update or reinstall the microphone/audio driver through Device Manager",
+        "reason": "Resolves a corrupted or outdated driver that may be preventing proper microphone function"
+      },
+      {
+        "step": 6,
+        "action": "Test the microphone on a different computer or device if available, to isolate whether the microphone hardware itself has failed",
+        "reason": "Confirms whether the issue is a genuine hardware failure requiring replacement rather than a software/configuration problem"
+      }
+    ],
+    "possible_solutions": [
+      "Disengage any physical mute switch on the device",
+      "Select the correct microphone as the default recording device",
+      "Grant microphone permissions in Windows Privacy settings for the affected application",
+      "Update or reinstall the audio/microphone driver",
+      "Test on a different device to isolate a hardware failure"
+    ],
+    "prevention": [
+      "Regularly verify correct default recording device selection, especially after connecting new devices",
+      "Check application permissions when installing new communication software",
+      "Keep audio drivers updated"
+    ],
+    "keywords": [
+      "microphone not working at all",
+      "mic not picking up sound",
+      "others cant hear me on call"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "HW-024",
+      "HW-026"
+    ]
+  },
+  {
+    "id": "HW-026",
+    "category": "Hardware",
+    "subcategory": "Peripheral Problems",
+    "problem": "Webcam Not Detected",
+    "description": "A webcam, whether built into a laptop or an external USB camera, is not recognized by Windows or by specific applications, preventing video calls or recording.",
+    "symptoms": [
+      "Video calling or recording applications show no camera available, or a black screen where video should appear",
+      "Webcam does not appear in Windows Camera app or Device Manager",
+      "Webcam's indicator light, if present, may or may not illuminate when an application tries to access it"
+    ],
+    "possible_causes": [
+      "Webcam disabled in Device Manager or through a physical privacy shutter/switch on some laptops",
+      "Camera driver issue or the device not properly detected",
+      "Application-specific camera permission not granted under Windows Privacy settings",
+      "Another application already using the camera exclusively, blocking access for others"
+    ],
+    "diagnostic_questions": [
+      "Does the webcam's indicator light turn on at all when an application tries to use it?",
+      "Does this laptop have a physical privacy shutter or a function key to enable/disable the camera?",
+      "Does the specific application have camera permission granted under Windows Privacy & Security settings?",
+      "Is any other application, such as a video call program running in the background, possibly already using the camera exclusively?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class Camera",
+        "purpose": "Check whether Windows detects the webcam as connected hardware",
+        "expected_result": "The webcam is listed with an 'OK' status",
+        "abnormal_result": "The webcam is missing or shown with an error status, indicating a detection or driver-level problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check for a physical privacy shutter or a function key combination that might be disabling the camera, particularly common on laptops",
+        "reason": "Many laptops include a physical or keyboard-based way to disable the camera for privacy, which is an easy thing to overlook"
+      },
+      {
+        "step": 2,
+        "action": "Close all other applications that might be using the camera, then try the intended application again",
+        "reason": "Many webcams can only be accessed by one application at a time, so a background app can silently block access"
+      },
+      {
+        "step": 3,
+        "action": "Check the specific application's camera permission under Windows Privacy & Security settings, ensuring both system-wide and app-specific camera access are enabled",
+        "reason": "Modern Windows requires explicit permission for apps to access the camera, and this is a very common overlooked cause"
+      },
+      {
+        "step": 4,
+        "action": "Check Device Manager to confirm the webcam is listed and enabled, without any warning icons",
+        "reason": "Reveals whether Windows detects the camera hardware at all and whether it has a functioning driver"
+      },
+      {
+        "step": 5,
+        "action": "Update or reinstall the camera driver, including uninstalling it in Device Manager and letting Windows automatically reinstall it upon restart",
+        "reason": "Resolves a corrupted or outdated driver that may be preventing proper camera function"
+      },
+      {
+        "step": 6,
+        "action": "For an external USB webcam, try a different USB port and cable, and test on a different computer if available",
+        "reason": "Isolates whether the issue is with the camera hardware itself, the connection, or the original computer"
+      }
+    ],
+    "possible_solutions": [
+      "Disable any physical privacy shutter or re-enable via function key",
+      "Close other applications that may be using the camera",
+      "Grant camera permissions in Windows Privacy settings",
+      "Update or reinstall the camera driver",
+      "Test an external webcam on a different port or computer"
+    ],
+    "prevention": [
+      "Check camera privacy settings when installing new video call applications",
+      "Keep camera drivers updated",
+      "Be mindful of which applications may be running in the background and using the camera"
+    ],
+    "keywords": [
+      "webcam not detected windows",
+      "camera not working video call",
+      "laptop camera black screen"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "HW-024",
+      "HW-022"
+    ]
+  },
+  {
+    "id": "HW-027",
+    "category": "Hardware",
+    "subcategory": "Connectivity Problems",
+    "problem": "Bluetooth Not Working",
+    "description": "Bluetooth functionality on the computer does not work at all, either failing to turn on, not finding nearby devices, or failing to maintain a connection with previously paired devices.",
+    "symptoms": [
+      "Bluetooth toggle in Windows settings does nothing, or Bluetooth does not appear as an option at all",
+      "No nearby Bluetooth devices are found when scanning",
+      "Previously paired devices fail to connect or repeatedly disconnect"
+    ],
+    "possible_causes": [
+      "Bluetooth adapter disabled in Device Manager or through Airplane Mode",
+      "Bluetooth driver issue or the adapter not properly detected",
+      "Physical Bluetooth/WiFi combo adapter hardware failure",
+      "Interference or an outdated driver causing pairing or connection instability"
+    ],
+    "diagnostic_questions": [
+      "Does Bluetooth appear as an option in Windows settings at all, or is it completely missing?",
+      "Is Airplane Mode turned on, which would disable Bluetooth along with WiFi?",
+      "Does this affect all Bluetooth devices, or only a specific one that may have its own pairing issue?",
+      "Did Bluetooth work before, and if so, what changed around the time it stopped working, such as a Windows update?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class Bluetooth",
+        "purpose": "Check whether Windows detects the Bluetooth adapter as connected hardware",
+        "expected_result": "The Bluetooth adapter is listed with an 'OK' status",
+        "abnormal_result": "The adapter is missing or shown with an error status, indicating a detection or driver-level problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm Airplane Mode is turned off, since this disables Bluetooth along with WiFi",
+        "reason": "Airplane Mode is a simple, common, and easily overlooked cause of Bluetooth appearing completely non-functional"
+      },
+      {
+        "step": 2,
+        "action": "Check Device Manager for the Bluetooth adapter, confirming it is present, enabled, and free of warning icons",
+        "reason": "Reveals whether Windows detects the Bluetooth hardware at all and whether its driver is functioning properly"
+      },
+      {
+        "step": 3,
+        "action": "If a device is listed with a warning, update or reinstall the Bluetooth driver, including uninstalling and letting Windows reinstall it automatically upon restart",
+        "reason": "Resolves a corrupted or outdated driver that is a very common cause of Bluetooth malfunction, especially after a Windows update"
+      },
+      {
+        "step": 4,
+        "action": "For a specific device that will not pair or keeps disconnecting, remove it from the paired devices list and attempt to pair again from scratch",
+        "reason": "Clears a corrupted pairing record that can cause persistent connection issues even when Bluetooth itself is otherwise functioning"
+      },
+      {
+        "step": 5,
+        "action": "Restart the computer after making driver or pairing changes to ensure they fully take effect",
+        "reason": "Ensures a clean state for Bluetooth to reinitialize properly after troubleshooting changes"
+      },
+      {
+        "step": 6,
+        "action": "If the Bluetooth adapter is entirely missing from Device Manager even after driver reinstallation attempts, consider this a hardware failure, especially relevant for laptops with combo WiFi/Bluetooth cards",
+        "reason": "A completely undetected adapter after driver-level troubleshooting often indicates a genuine hardware fault requiring professional repair or an external USB Bluetooth adapter as a workaround"
+      }
+    ],
+    "possible_solutions": [
+      "Turn off Airplane Mode",
+      "Update or reinstall the Bluetooth driver",
+      "Remove and re-pair a problematic specific device",
+      "Restart the computer after making changes",
+      "Use an external USB Bluetooth adapter as a workaround for failed internal hardware"
+    ],
+    "prevention": [
+      "Keep Bluetooth drivers updated, especially after major Windows updates",
+      "Periodically remove and re-pair rarely used devices to keep pairing records clean",
+      "Keep an external USB Bluetooth adapter on hand as a backup for critical systems"
+    ],
+    "keywords": [
+      "bluetooth not working windows",
+      "bluetooth wont turn on",
+      "bluetooth device wont pair"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "HW-028",
+      "NET-032"
+    ]
+  },
+  {
+    "id": "HW-028",
+    "category": "Hardware",
+    "subcategory": "Connectivity Problems",
+    "problem": "Wi-Fi Adapter Not Detected",
+    "description": "The computer's WiFi adapter does not appear at all in Windows, whether in Device Manager or network settings, leaving no way to configure or use wireless networking.",
+    "symptoms": [
+      "No WiFi adapter listed in Network Connections or Device Manager",
+      "No WiFi option available anywhere in Windows network settings",
+      "Wired/Ethernet connectivity, if available, may work normally, isolating the issue to WiFi specifically"
+    ],
+    "possible_causes": [
+      "WiFi adapter driver not installed or has become corrupted",
+      "WiFi adapter disabled in BIOS/UEFI settings",
+      "Physical WiFi adapter hardware failure, particularly relevant for laptops with a replaceable WiFi card",
+      "Windows Update removed or failed to properly install a compatible driver"
+    ],
+    "diagnostic_questions": [
+      "Did this start after a Windows update, reinstall, or any hardware change?",
+      "Have you checked Device Manager under 'Network adapters' and also 'Other devices' for anything unrecognized?",
+      "Have you checked BIOS/UEFI settings to confirm the WiFi adapter is enabled, if such an option exists on this system?",
+      "Is this a laptop with a physical WiFi switch, and is it in the correct position?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class Net",
+        "purpose": "List all network-related devices Windows can detect, including ones without a working driver",
+        "expected_result": "The WiFi adapter is listed with an 'OK' status",
+        "abnormal_result": "The WiFi adapter is missing entirely, or listed with an error/unknown status"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check for a physical WiFi switch on the laptop and confirm Airplane Mode is turned off",
+        "reason": "These simple physical/software toggles can make a fully functional WiFi adapter appear completely absent"
+      },
+      {
+        "step": 2,
+        "action": "Check Device Manager under 'Network adapters' and also 'Other devices' for the WiFi adapter, even if listed as unknown or with a warning icon",
+        "reason": "A missing driver often causes the hardware to appear as an unrecognized device rather than disappearing entirely"
+      },
+      {
+        "step": 3,
+        "action": "Check BIOS/UEFI settings for an option to enable the WiFi/wireless adapter, if the system provides one",
+        "reason": "Some systems allow the WiFi adapter to be disabled at the firmware level, independent of any Windows-level setting"
+      },
+      {
+        "step": 4,
+        "action": "Download and install the correct WiFi adapter driver from the laptop or motherboard manufacturer's website using another internet-connected device",
+        "reason": "Provides the correct driver when Windows cannot detect or automatically install one, especially important since this computer currently has no WiFi to search for it"
+      },
+      {
+        "step": 5,
+        "action": "For a laptop, if the adapter remains completely undetected after driver and BIOS checks, consider a failed internal WiFi card, which in some laptops can be replaced, or use an external USB WiFi adapter as a workaround",
+        "reason": "A confirmed hardware failure typically requires either professional replacement of the internal card or a practical external USB alternative"
+      }
+    ],
+    "possible_solutions": [
+      "Turn off Airplane Mode and check any physical WiFi switch",
+      "Enable the WiFi adapter in BIOS/UEFI if disabled",
+      "Install the correct WiFi driver from the manufacturer",
+      "Replace a failed internal WiFi card or use an external USB WiFi adapter as a workaround"
+    ],
+    "prevention": [
+      "Keep WiFi drivers updated through official manufacturer channels",
+      "Avoid unnecessary BIOS/UEFI changes to hardware settings",
+      "Keep a USB WiFi adapter on hand as a backup for critical systems"
+    ],
+    "keywords": [
+      "wifi adapter not detected windows",
+      "no wifi option in settings",
+      "laptop missing wireless adapter"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "HW-027",
+      "NET-021"
+    ]
+  },
+  {
+    "id": "HW-029",
+    "category": "Hardware",
+    "subcategory": "Power Problems",
+    "problem": "Battery Not Charging",
+    "description": "A laptop's battery does not charge when the power adapter is connected, either remaining at the same percentage or continuing to drain despite being plugged in.",
+    "symptoms": [
+      "Battery percentage does not increase while plugged in, or continues to slowly decrease",
+      "Windows may show 'Plugged in, not charging' next to the battery icon",
+      "Charging indicator light on the laptop, if present, may not illuminate or shows an unusual color/pattern"
+    ],
+    "possible_causes": [
+      "Power adapter or charging cable has failed or is not fully connected",
+      "Battery has reached the end of its usable life and can no longer hold or accept a charge",
+      "Charging port on the laptop is damaged or has debris preventing a proper connection",
+      "Battery charge threshold setting intentionally limiting charging to preserve battery health"
+    ],
+    "diagnostic_questions": [
+      "Does the power adapter's indicator light, if it has one, show it is receiving power and functioning?",
+      "Is the charging cable and connector firmly and fully seated in the laptop's charging port?",
+      "Does Windows show 'Plugged in, not charging' or does it not seem to detect being plugged in at all?",
+      "Is there any custom battery charge limit software installed or a BIOS setting that might intentionally cap charging at a certain percentage?"
+    ],
+    "commands": [
+      {
+        "command": "powercfg /batteryreport",
+        "purpose": "Generate a detailed battery health report including design capacity versus current full charge capacity",
+        "expected_result": "Current full charge capacity reasonably close to the battery's original design capacity",
+        "abnormal_result": "Current full charge capacity significantly reduced from design capacity, indicating significant battery wear or degradation"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the power adapter and cable are firmly and fully connected at both the wall outlet and the laptop's charging port",
+        "reason": "A loose connection is the simplest and most common cause of a laptop not charging"
+      },
+      {
+        "step": 2,
+        "action": "Try a different, known-working power adapter if available, ideally the exact same model or a manufacturer-approved equivalent",
+        "reason": "Isolates whether the current adapter itself has failed"
+      },
+      {
+        "step": 3,
+        "action": "Inspect the laptop's charging port for visible damage or debris that might be preventing a proper connection",
+        "reason": "Physical damage or blockage in the port is a straightforward cause that can sometimes be visually confirmed"
+      },
+      {
+        "step": 4,
+        "action": "Check for any battery charge limit or 'battery health' software/BIOS setting that might be intentionally capping the charge percentage",
+        "reason": "Many modern laptops include a feature to intentionally limit maximum charge to preserve long-term battery health, which can be mistaken for a charging failure"
+      },
+      {
+        "step": 5,
+        "action": "Run a battery health report using powercfg /batteryreport to check the battery's current capacity compared to its original design capacity",
+        "reason": "Reveals whether the battery has genuinely degraded significantly, which is a normal outcome of battery aging rather than necessarily a fault"
+      },
+      {
+        "step": 6,
+        "action": "Consider battery replacement if the health report confirms significant capacity loss, or professional inspection if the charging port itself appears physically damaged",
+        "reason": "Provides the appropriate path forward depending on whether the root cause is the battery itself or the physical charging connection"
+      }
+    ],
+    "possible_solutions": [
+      "Reconnect or replace the power adapter/cable",
+      "Clean or repair a damaged charging port",
+      "Disable an intentional charge limit setting if a higher charge percentage is desired",
+      "Replace the battery if significantly degraded",
+      "Seek professional repair for a damaged charging port"
+    ],
+    "prevention": [
+      "Use only manufacturer-approved or certified power adapters",
+      "Avoid extreme temperatures when charging, which can accelerate battery wear",
+      "Consider using a charge limit feature if available to extend long-term battery lifespan, understanding the trade-off with maximum immediate capacity"
+    ],
+    "keywords": [
+      "laptop battery not charging",
+      "plugged in not charging windows",
+      "battery stuck same percentage"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": [
+      "HW-001",
+      "HW-002"
+    ]
+  },
+  {
+    "id": "HW-030",
+    "category": "Hardware",
+    "subcategory": "Input Device Problems",
+    "problem": "Touchpad Not Working",
+    "description": "A laptop's built-in touchpad does not respond to touch, movement, or clicks, preventing normal cursor control without an external mouse.",
+    "symptoms": [
+      "Cursor does not move at all when touching or swiping the touchpad",
+      "Tap-to-click or physical click buttons on the touchpad do not register",
+      "Touchpad may have worked before and stopped suddenly, or may never have worked on a fresh setup"
+    ],
+    "possible_causes": [
+      "Touchpad disabled through a function key combination or in Windows settings",
+      "Touchpad driver issue or the device not properly detected",
+      "External mouse connected, which automatically disables the touchpad on some laptops by default",
+      "Physical hardware failure of the touchpad itself"
+    ],
+    "diagnostic_questions": [
+      "Is there a function key combination (often Fn plus a touchpad icon key) that might have accidentally disabled the touchpad?",
+      "Is an external mouse currently connected, which some laptops are configured to automatically prioritize over the touchpad?",
+      "Does the touchpad work in BIOS/UEFI, indicating a Windows-level rather than hardware-level issue?",
+      "Has this touchpad ever worked on this laptop, or has it never functioned since it was new or freshly reinstalled?"
+    ],
+    "commands": [
+      {
+        "command": "powershell Get-PnpDevice -Class Mouse",
+        "purpose": "Check whether Windows detects the touchpad as connected hardware, since it is typically classified alongside mice",
+        "expected_result": "The touchpad is listed with an 'OK' status",
+        "abnormal_result": "The touchpad is missing or shown with an error status, indicating a detection or driver-level problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Try the function key combination commonly used to toggle the touchpad on and off, usually Fn plus a key showing a touchpad icon",
+        "reason": "Accidental key presses are a very common and simple cause of a touchpad appearing to stop working entirely"
+      },
+      {
+        "step": 2,
+        "action": "Disconnect any external mouse currently connected, since some laptops are configured by default to disable the touchpad whenever an external mouse is present",
+        "reason": "This default behavior is easily mistaken for a touchpad failure when it is actually working as intended"
+      },
+      {
+        "step": 3,
+        "action": "Check Windows Settings under Devices/Touchpad (or Bluetooth & devices > Touchpad) to confirm the touchpad is not disabled there",
+        "reason": "Windows has its own separate software toggle for the touchpad that may have been turned off, whether accidentally or by another user"
+      },
+      {
+        "step": 4,
+        "action": "Check Device Manager for the touchpad, typically listed under Mice and other pointing devices, and confirm it is present, enabled, and free of warning icons",
+        "reason": "Reveals whether Windows detects the touchpad hardware at all and whether its driver is functioning properly"
+      },
+      {
+        "step": 5,
+        "action": "Update or reinstall the touchpad driver, ideally the manufacturer's specific precision touchpad driver rather than a generic one, including uninstalling and restarting to let Windows reinstall it",
+        "reason": "Resolves a corrupted or generic driver that may be preventing full or any touchpad functionality"
+      },
+      {
+        "step": 6,
+        "action": "If the touchpad works in BIOS/UEFI but not in Windows, focus troubleshooting on software/drivers; if it fails even in BIOS/UEFI, this suggests a genuine hardware failure requiring professional repair",
+        "reason": "This distinction is critical for correctly directing further troubleshooting effort toward either software or hardware repair"
+      }
+    ],
+    "possible_solutions": [
+      "Use the function key to re-enable the touchpad",
+      "Disconnect an external mouse if it is automatically disabling the touchpad",
+      "Enable the touchpad in Windows Settings",
+      "Update or reinstall the touchpad driver",
+      "Seek professional repair if the touchpad fails even at the BIOS/UEFI level"
+    ],
+    "prevention": [
+      "Be mindful of function key combinations that toggle the touchpad",
+      "Keep touchpad drivers updated through the manufacturer's official support page",
+      "Handle the laptop carefully to avoid physical stress on the touchpad's internal connections"
+    ],
+    "keywords": [
+      "laptop touchpad not working",
+      "touchpad not responding to touch",
+      "touchpad disabled cant find setting"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": [
+      "HW-021",
+      "HW-020"
+    ]
+  }
+]

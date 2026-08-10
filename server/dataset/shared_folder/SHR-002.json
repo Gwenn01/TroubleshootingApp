@@ -1,0 +1,2273 @@
+[
+  {
+    "id": "SHARE-049",
+    "category": "Shared Folders",
+    "subcategory": "Visibility and Access",
+    "problem": "Shared folder not visible",
+    "description": "A shared folder that should be visible on the network no longer appears when browsing network locations, even though it still exists on the file server.",
+    "symptoms": [
+      "Folder does not appear when browsing the network or server",
+      "Direct path to the folder may still work even though browsing does not show it",
+      "Other shared folders on the same server are visible",
+      "Issue may affect only one user or several users"
+    ],
+    "possible_causes": [
+      "The share was accidentally unshared or hidden with a $ suffix",
+      "Network discovery is disabled on the user's computer",
+      "Permissions were changed so the folder no longer lists for this user",
+      "The server's browse list has not refreshed"
+    ],
+    "diagnostic_questions": [
+      "Can you access the folder directly by typing its full network path?",
+      "Are other shared folders on the same server visible to you?",
+      "Is network discovery turned on for your network connection?",
+      "Did anyone recently change sharing settings on that folder?"
+    ],
+    "commands": [
+      {
+        "command": "net view \\\\servername",
+        "purpose": "List all shares currently advertised by the server",
+        "expected_result": "Shows the folder in the list of available shares",
+        "abnormal_result": "The folder is missing from the list, confirming it is not being advertised or is hidden"
+      },
+      {
+        "command": "\\\\servername\\sharename",
+        "purpose": "Attempt to access the share directly by its known path, bypassing browsing",
+        "expected_result": "The folder opens normally despite not appearing in browse lists",
+        "abnormal_result": "Access is denied or the path cannot be found, pointing to a deeper permissions or share issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Try accessing the folder directly by typing its full network path instead of browsing",
+        "reason": "This determines whether the share still exists and is reachable, or whether it is only missing from the browse list"
+      },
+      {
+        "step": 2,
+        "action": "Check whether the share name ends in a dollar sign, which hides it from browsing by design",
+        "reason": "Administrators sometimes hide shares intentionally, which is not a fault but expected behavior"
+      },
+      {
+        "step": 3,
+        "action": "Confirm network discovery is enabled on your computer's network settings",
+        "reason": "Disabled network discovery prevents your computer from browsing and listing available network shares"
+      },
+      {
+        "step": 4,
+        "action": "Ask another user on the same network if they can see the folder",
+        "reason": "This helps determine if the issue is specific to your computer or affects the share for everyone"
+      },
+      {
+        "step": 5,
+        "action": "Check with the server administrator whether the folder is still actively shared and whether your permissions changed",
+        "reason": "The share may have been removed, renamed, or your access revoked without notice"
+      }
+    ],
+    "possible_solutions": [
+      "Access the folder using its direct network path if browsing does not show it",
+      "Enable network discovery on the affected computer",
+      "Have the administrator re-share the folder if sharing was accidentally removed",
+      "Have the administrator restore visibility permissions for the affected user"
+    ],
+    "prevention": [
+      "Document all active shares and their intended visibility settings",
+      "Communicate before removing or renaming existing shares",
+      "Provide users with direct paths for shares that are intentionally hidden"
+    ],
+    "keywords": ["shared folder not visible", "folder missing from network", "cannot see shared folder", "network browsing issue"],
+    "difficulty": "Basic",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["Shared folder disappeared", "Hidden shared folder cannot be accessed", "Invalid network path"]
+  },
+  {
+    "id": "SHARE-050",
+    "category": "Shared Folders",
+    "subcategory": "Visibility and Access",
+    "problem": "Shared folder disappeared",
+    "description": "A shared folder that was previously accessible and mapped no longer exists at its expected location, and attempts to open it fail entirely rather than just being slow or hidden from browsing.",
+    "symptoms": [
+      "The mapped drive or shortcut to the folder returns an error when opened",
+      "The folder cannot be found even when navigating to its known path",
+      "The issue started suddenly without a known cause",
+      "Other users may report the same experience"
+    ],
+    "possible_causes": [
+      "The folder or share was deleted or moved on the server",
+      "The share was renamed without updating existing shortcuts or mapped drives",
+      "The underlying server or storage volume was decommissioned or replaced",
+      "A migration to a new file server occurred without informing users"
+    ],
+    "diagnostic_questions": [
+      "When did you last successfully access this folder?",
+      "Are other users experiencing the same missing folder?",
+      "Has your organization recently migrated file storage or servers?",
+      "Do you have an alternate path or new server name you were given recently?"
+    ],
+    "commands": [
+      {
+        "command": "net view \\\\servername",
+        "purpose": "Check whether the server still exists and what shares it currently offers",
+        "expected_result": "The server responds and lists its currently available shares",
+        "abnormal_result": "The server does not respond, or the expected share is missing from the list entirely"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm with other users whether they are also unable to find the folder",
+        "reason": "This establishes whether the folder was actually removed or moved, versus a problem isolated to your computer"
+      },
+      {
+        "step": 2,
+        "action": "Ask whether there has been a recent server migration, folder reorganization, or IT announcement about storage changes",
+        "reason": "Planned changes are the most common reason a previously working folder suddenly disappears"
+      },
+      {
+        "step": 3,
+        "action": "Check with the file server administrator for the folder's new location or name",
+        "reason": "The data itself may still exist but under a new share name, folder structure, or server"
+      },
+      {
+        "step": 4,
+        "action": "Update any shortcuts or mapped drives once the new location is confirmed",
+        "reason": "Old paths will continue to fail even after the correct folder is found elsewhere, until references are updated"
+      }
+    ],
+    "possible_solutions": [
+      "Update shortcuts and mapped drives to the folder's new location",
+      "Restore the folder from backup if it was deleted in error",
+      "Communicate the corrected path to all affected users",
+      "Recreate the share if it was removed unintentionally"
+    ],
+    "prevention": [
+      "Announce planned folder moves, renames, or server migrations in advance",
+      "Maintain a central list of current share locations for reference",
+      "Use DFS namespaces so folder paths stay consistent even if backend storage changes"
+    ],
+    "keywords": ["shared folder disappeared", "folder gone", "missing network folder", "share removed"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["Shared folder not visible", "Invalid network path", "Network path no longer exists"]
+  },
+  {
+    "id": "SHARE-051",
+    "category": "Shared Folders",
+    "subcategory": "Mapped Drives",
+    "problem": "Network drive disconnected",
+    "description": "A mapped network drive that normally connects automatically shows as disconnected, preventing access to the shared folder it points to until manually reconnected.",
+    "symptoms": [
+      "The mapped drive letter appears in File Explorer but shows a disconnected status",
+      "Double-clicking the drive prompts an error or takes a long time before failing",
+      "The drive was previously working and connected without issue",
+      "Reconnecting manually may work temporarily before disconnecting again"
+    ],
+    "possible_causes": [
+      "The computer lost network connectivity temporarily and the mapping did not automatically re-establish",
+      "The server hosting the share was temporarily unavailable when the connection was attempted",
+      "Saved credentials for the mapped drive have expired or become invalid",
+      "The device went to sleep or changed networks, breaking the persistent connection"
+    ],
+    "diagnostic_questions": [
+      "Does the drive reconnect successfully if you double-click it?",
+      "Did your computer recently wake from sleep or switch networks?",
+      "Are you able to reach the server through its direct path instead of the mapped letter?",
+      "Have your saved credentials for this drive been changed recently?"
+    ],
+    "commands": [
+      {
+        "command": "net use",
+        "purpose": "List all current network drive mappings and their connection status",
+        "expected_result": "Shows the drive as OK and connected",
+        "abnormal_result": "Shows the drive as Disconnected or Unavailable, confirming the mapping is broken"
+      },
+      {
+        "command": "net use X: \\\\servername\\sharename /persistent:yes",
+        "purpose": "Manually re-establish the mapped drive connection and make it persist across restarts",
+        "expected_result": "The drive reconnects successfully and remains available after reboot",
+        "abnormal_result": "An error such as system error 53 or 67 appears, indicating a deeper connectivity or naming issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Double-click the disconnected drive to attempt an immediate reconnection",
+        "reason": "This is the simplest test to see if the connection recovers on its own with a fresh attempt"
+      },
+      {
+        "step": 2,
+        "action": "Check network connectivity to confirm you can reach other network resources normally",
+        "reason": "A broader network issue would explain a temporary loss of the drive mapping"
+      },
+      {
+        "step": 3,
+        "action": "Use net use to review the current status of all mapped drives",
+        "reason": "This confirms exactly which drives are affected and gives specific error details if the connection fails"
+      },
+      {
+        "step": 4,
+        "action": "Re-enter credentials if prompted, ensuring they are current and correct",
+        "reason": "Expired or changed passwords are a common cause of a previously working mapped drive failing to reconnect"
+      },
+      {
+        "step": 5,
+        "action": "Remove and recreate the mapped drive if reconnecting repeatedly fails",
+        "reason": "A corrupted mapping configuration sometimes needs to be fully recreated rather than repaired"
+      }
+    ],
+    "possible_solutions": [
+      "Manually reconnect the drive and update saved credentials",
+      "Recreate the mapped drive with the persistent connection option enabled",
+      "Resolve any underlying network connectivity issues",
+      "Adjust power settings so the network adapter does not disconnect during sleep"
+    ],
+    "prevention": [
+      "Enable persistent reconnection when mapping drives",
+      "Keep saved network credentials up to date",
+      "Avoid aggressive power-saving settings on network adapters for devices that rely on mapped drives"
+    ],
+    "keywords": ["network drive disconnected", "mapped drive not connecting", "drive shows disconnected", "reconnect network drive"],
+    "difficulty": "Basic",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["Network drive shows red X", "Invalid network path", "Shared folder not visible"]
+  },
+  {
+    "id": "SHARE-052",
+    "category": "Shared Folders",
+    "subcategory": "Mapped Drives",
+    "problem": "Network drive shows red X",
+    "description": "A mapped network drive displays a red X icon in File Explorer, indicating Windows believes the drive is currently unreachable, even though the underlying share may still be functioning.",
+    "symptoms": [
+      "The drive letter shows a red X overlay in File Explorer",
+      "Opening the drive may still succeed despite the icon suggesting disconnection",
+      "The icon does not update even after the connection is restored",
+      "Other mapped drives on the same computer may show normally"
+    ],
+    "possible_causes": [
+      "Windows Explorer has not refreshed the drive's cached connection status",
+      "The drive was briefly unreachable and the icon has not updated since reconnecting",
+      "A background network change occurred without a matching Explorer refresh",
+      "The mapped drive's underlying share is genuinely still unreachable"
+    ],
+    "diagnostic_questions": [
+      "Can you actually open and browse the drive despite the red X icon?",
+      "Does refreshing File Explorer or restarting it change the icon?",
+      "Has your network connection changed or dropped recently?",
+      "Are file operations on the drive working normally despite the icon?"
+    ],
+    "commands": [
+      {
+        "command": "net use",
+        "purpose": "Check the actual connection status of the drive, independent of the icon shown in Explorer",
+        "expected_result": "Shows the drive as OK, confirming the red X is a stale icon rather than a real disconnection",
+        "abnormal_result": "Shows the drive as Disconnected, confirming the icon accurately reflects a real connectivity problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Try opening the drive directly to see whether it actually works despite the red X icon",
+        "reason": "This immediately clarifies whether the issue is a real disconnection or just a stale icon in Explorer"
+      },
+      {
+        "step": 2,
+        "action": "Refresh File Explorer or restart it via Task Manager",
+        "reason": "Explorer's drive status icons can become stale and simply need a refresh to reflect the current real connection state"
+      },
+      {
+        "step": 3,
+        "action": "Use net use to check the drive's actual reported connection status",
+        "reason": "This provides a definitive answer on whether the drive is truly connected, separate from what the icon displays"
+      },
+      {
+        "step": 4,
+        "action": "If the drive is genuinely disconnected, follow standard reconnection steps including re-entering credentials if needed",
+        "reason": "A real disconnection requires the same resolution as any other broken mapped drive connection"
+      }
+    ],
+    "possible_solutions": [
+      "Restart File Explorer to refresh stale status icons",
+      "Reconnect the drive if net use confirms it is genuinely disconnected",
+      "Ignore the icon if the drive is confirmed to be working normally, as it is a display issue only",
+      "Remap the drive if the icon issue persists across multiple sessions"
+    ],
+    "prevention": [
+      "Restart File Explorer periodically after network changes to keep icons accurate",
+      "Enable persistent connections to reduce genuine disconnection events",
+      "Keep Windows updated, as Explorer icon refresh bugs are sometimes addressed in updates"
+    ],
+    "keywords": ["network drive red x", "mapped drive icon error", "drive shows disconnected icon", "explorer stale drive status"],
+    "difficulty": "Basic",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": ["Network drive disconnected", "Shared folder not visible", "Invalid network path"]
+  },
+  {
+    "id": "SHARE-053",
+    "category": "Shared Folders",
+    "subcategory": "Performance",
+    "problem": "Shared folder opens very slowly",
+    "description": "Opening a shared folder over the network takes an unusually long time, even though the folder eventually loads and its contents are accessible.",
+    "symptoms": [
+      "Double-clicking the folder results in a long delay before contents display",
+      "The delay is worse for folders with many files or subfolders",
+      "Local folders and other shares may open at normal speed",
+      "The issue may be worse at certain times of day"
+    ],
+    "possible_causes": [
+      "The folder contains a very large number of files, slowing directory listing",
+      "Network latency or bandwidth constraints between the client and server",
+      "Antivirus software is scanning each file as the folder is browsed",
+      "The server is under heavy load from many simultaneous users",
+      "DNS resolution delays when connecting to the server"
+    ],
+    "diagnostic_questions": [
+      "Does the delay happen every time, or only occasionally?",
+      "Is the slowness specific to this one folder or does it affect all shared folders?",
+      "Roughly how many files or subfolders does this folder contain?",
+      "Do other users experience the same slowness with this folder?"
+    ],
+    "commands": [
+      {
+        "command": "ping servername",
+        "purpose": "Check basic network latency to the file server",
+        "expected_result": "Consistent, low latency replies from the server",
+        "abnormal_result": "High or inconsistent latency, suggesting a network path issue contributing to slowness"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Determine whether the slowness affects only this folder or all shared folders on the server",
+        "reason": "This distinguishes between a folder-specific issue, such as file count, and a broader server or network problem"
+      },
+      {
+        "step": 2,
+        "action": "Check roughly how many files and subfolders are in the affected folder",
+        "reason": "Folders with a very large number of items are inherently slower to list over a network connection"
+      },
+      {
+        "step": 3,
+        "action": "Test network latency to the server using ping",
+        "reason": "High latency to the server would explain general slowness independent of the folder's contents"
+      },
+      {
+        "step": 4,
+        "action": "Check with other users to see if they experience the same slowness with this folder",
+        "reason": "This helps determine if the cause is server-side or specific to your computer or connection"
+      },
+      {
+        "step": 5,
+        "action": "Report to IT if the slowness correlates with peak usage times or specific server load patterns",
+        "reason": "The server may need performance tuning or additional resources during high-demand periods"
+      }
+    ],
+    "possible_solutions": [
+      "Reorganize very large folders into smaller subfolders to speed up listing",
+      "Have IT investigate server load and network latency during affected periods",
+      "Exclude trusted network shares from real-time antivirus scanning where policy allows",
+      "Upgrade network infrastructure if latency is consistently high"
+    ],
+    "prevention": [
+      "Avoid storing extremely large numbers of files in a single folder",
+      "Monitor server load and plan capacity upgrades proactively",
+      "Regularly review antivirus scanning policies for network shares"
+    ],
+    "keywords": ["shared folder slow to open", "slow network folder browsing", "folder takes long to load", "network share performance"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Slow file copy over the network", "File server storage full", "VLAN or network configuration issue prevents reaching the file server"]
+  },
+  {
+    "id": "SHARE-054",
+    "category": "Shared Folders",
+    "subcategory": "Performance",
+    "problem": "Slow file copy over the network",
+    "description": "Copying files to or from a shared folder takes significantly longer than expected, even though the connection to the folder itself is otherwise stable.",
+    "symptoms": [
+      "File transfer progress bar moves very slowly or stalls repeatedly",
+      "Copy speeds are far below what the network connection should support",
+      "Large files are disproportionately slower than small ones",
+      "Copying to local drives is fast, but network copies are slow"
+    ],
+    "possible_causes": [
+      "Network bandwidth is being consumed by other traffic or users",
+      "Wi-Fi connection quality is poor compared to a wired connection",
+      "The file server's disk or network interface is a bottleneck under load",
+      "Antivirus real-time scanning is inspecting every file during transfer",
+      "A duplex or speed mismatch exists between network devices along the path"
+    ],
+    "diagnostic_questions": [
+      "Are you connected via Wi-Fi or a wired connection?",
+      "Does the slow speed happen with all files or mainly large files?",
+      "Do other users report slow transfers to or from this same server?",
+      "Have you tested copy speed to a different server for comparison?"
+    ],
+    "commands": [
+      {
+        "command": "ping servername -t",
+        "purpose": "Monitor ongoing latency to the server during a file transfer to spot spikes or packet loss",
+        "expected_result": "Stable, low latency throughout the transfer",
+        "abnormal_result": "Latency spikes or timeouts during the transfer, indicating network instability affecting transfer speed"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Test whether the slow speed happens over a wired connection instead of Wi-Fi, if possible",
+        "reason": "Wi-Fi signal quality and interference are common causes of inconsistent transfer speeds"
+      },
+      {
+        "step": 2,
+        "action": "Compare transfer speed to this server against a transfer to a different server or resource",
+        "reason": "This helps isolate whether the bottleneck is specific to this server or a broader network issue"
+      },
+      {
+        "step": 3,
+        "action": "Check with other users to see if they are also experiencing slow transfers to the same server",
+        "reason": "Widespread slowness points to a server-side or network infrastructure bottleneck rather than a single computer issue"
+      },
+      {
+        "step": 4,
+        "action": "Monitor latency during an active transfer using a continuous ping",
+        "reason": "Latency spikes or packet loss during transfer indicate network instability that would directly slow file copies"
+      },
+      {
+        "step": 5,
+        "action": "Report findings to IT, including timing, affected server, and whether the issue is isolated or widespread",
+        "reason": "IT can investigate server load, switch configuration, and bandwidth usage that are outside end-user visibility"
+      }
+    ],
+    "possible_solutions": [
+      "Switch to a wired connection if currently using Wi-Fi",
+      "Have IT investigate server disk and network interface load",
+      "Schedule large transfers outside of peak usage hours",
+      "Exclude trusted network paths from intensive real-time antivirus scanning where policy allows"
+    ],
+    "prevention": [
+      "Use wired connections for regular large file transfers where possible",
+      "Monitor server and network performance proactively",
+      "Plan bandwidth capacity around peak usage patterns"
+    ],
+    "keywords": ["slow network file copy", "slow file transfer shared folder", "network copy speed issue", "file server bottleneck"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Shared folder opens very slowly", "VLAN or network configuration issue prevents reaching the file server", "File server storage full"]
+  },
+  {
+    "id": "SHARE-055",
+    "category": "Shared Folders",
+    "subcategory": "Permissions",
+    "problem": "Cannot create a new folder",
+    "description": "A user attempting to create a new folder within a shared network location receives an error or is unable to complete the action, despite being able to view existing contents.",
+    "symptoms": [
+      "Right-click New Folder option is grayed out or fails when used",
+      "An access denied or permission error appears when attempting to create a folder",
+      "Existing files and folders can still be viewed and opened normally",
+      "Other users may be able to create folders in the same location"
+    ],
+    "possible_causes": [
+      "The user's NTFS or share permissions only allow read access, not write access",
+      "The folder has reached a quota limit preventing new items",
+      "A group policy or security setting restricts folder creation in this location",
+      "The user's permissions were recently changed"
+    ],
+    "diagnostic_questions": [
+      "Can you create files or folders in other shared locations?",
+      "Do you see a specific error message, and what does it say?",
+      "Were your permissions to this folder recently changed?",
+      "Can a colleague with similar access create a folder in this same location?"
+    ],
+    "commands": [
+      {
+        "command": "icacls \"\\\\servername\\sharename\\folder\"",
+        "purpose": "Display the effective NTFS permissions for the folder to check the user's access level",
+        "expected_result": "Shows the user or their group with modify or write permissions",
+        "abnormal_result": "Shows the user or their group limited to read-only permissions, explaining the inability to create folders"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message shown when attempting to create the folder",
+        "reason": "The specific wording, such as access denied versus disk full, points toward different root causes"
+      },
+      {
+        "step": 2,
+        "action": "Test whether you can create a folder in a different shared location",
+        "reason": "This determines if the issue is specific to this one folder's permissions or a broader account issue"
+      },
+      {
+        "step": 3,
+        "action": "Ask a colleague with similar expected access to test creating a folder in the same location",
+        "reason": "This helps confirm whether the restriction is specific to your account or affects everyone at this permission level"
+      },
+      {
+        "step": 4,
+        "action": "Check with the administrator whether your permissions were recently changed or whether the folder has a quota limit",
+        "reason": "Recent permission changes or storage quotas are common and directly explain a sudden loss of write access"
+      },
+      {
+        "step": 5,
+        "action": "Request the administrator grant modify or write permissions if your role requires creating folders here",
+        "reason": "Only an administrator with appropriate rights can adjust NTFS or share-level permissions"
+      }
+    ],
+    "possible_solutions": [
+      "Have the administrator grant write or modify permissions to the user or their group",
+      "Free up space if a quota limit is preventing new folder creation",
+      "Correct a recent permissions change that unintentionally restricted access",
+      "Move folder creation to a location where the user already has appropriate access"
+    ],
+    "prevention": [
+      "Review permission changes carefully before applying them broadly",
+      "Set up folder quotas with advance warnings before limits are reached",
+      "Maintain clear documentation of intended access levels per folder"
+    ],
+    "keywords": ["cannot create folder network share", "access denied creating folder", "no write permission shared folder", "new folder greyed out"],
+    "difficulty": "Basic",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["Read-only shared folder", "Cannot rename files", "Cannot delete files from shared folder"]
+  },
+  {
+    "id": "SHARE-056",
+    "category": "Shared Folders",
+    "subcategory": "Permissions",
+    "problem": "Cannot rename files",
+    "description": "A user is unable to rename files or folders within a shared network location, receiving an error or having the rename action silently fail.",
+    "symptoms": [
+      "Renaming a file reverts to the original name after pressing Enter",
+      "An access denied or permission error appears when attempting to rename",
+      "The file can be opened and read normally",
+      "Other file operations like copying elsewhere may work fine"
+    ],
+    "possible_causes": [
+      "The user has read and execute permissions but lacks modify permissions",
+      "The file is currently open by another user or process, locking it",
+      "The file is marked read-only at the file system level",
+      "A backup or antivirus process has a temporary lock on the file"
+    ],
+    "diagnostic_questions": [
+      "Does the exact same problem happen with other files in this folder?",
+      "Is the file currently open by you or possibly by another user?",
+      "Does the file's read-only attribute appear checked in its properties?",
+      "Can you rename files successfully in other shared folders?"
+    ],
+    "commands": [
+      {
+        "command": "attrib \"\\\\servername\\sharename\\folder\\filename\"",
+        "purpose": "Check whether the file has the read-only attribute set at the file system level",
+        "expected_result": "No R attribute shown, meaning the file is not marked read-only",
+        "abnormal_result": "An R attribute is shown, confirming the file is set to read-only and explaining the rename failure"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether the same rename issue happens with other files in the same folder",
+        "reason": "This distinguishes between a single problematic file and a folder-wide permissions issue"
+      },
+      {
+        "step": 2,
+        "action": "Check the file's properties to see if the read-only attribute is enabled",
+        "reason": "A read-only attribute directly prevents renaming and is a simple, checkable cause"
+      },
+      {
+        "step": 3,
+        "action": "Confirm the file is not currently open by you or another user",
+        "reason": "Files locked by an open application cannot be renamed until they are closed"
+      },
+      {
+        "step": 4,
+        "action": "Test renaming a file in a different shared folder to see if the problem is isolated to this location",
+        "reason": "This helps determine if the issue is account-wide or specific to this particular folder's permissions"
+      },
+      {
+        "step": 5,
+        "action": "Contact the administrator to verify modify permissions if the issue persists across multiple files in this folder",
+        "reason": "Rename requires modify-level NTFS permissions, which the administrator can confirm or grant"
+      }
+    ],
+    "possible_solutions": [
+      "Remove the read-only attribute if it is set on the file",
+      "Close the file in any application where it may be open before renaming",
+      "Have the administrator grant modify permissions if they are currently insufficient",
+      "Wait for any backup or antivirus process to release its lock on the file"
+    ],
+    "prevention": [
+      "Avoid leaving shared files open longer than necessary",
+      "Set appropriate default permissions when creating shared folders",
+      "Communicate scheduled backup windows that may temporarily lock files"
+    ],
+    "keywords": ["cannot rename file shared folder", "rename fails network drive", "file locked cannot rename", "read only file rename error"],
+    "difficulty": "Basic",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["Cannot create a new folder", "Cannot move files", "Read-only shared folder"]
+  },
+  {
+    "id": "SHARE-057",
+    "category": "Shared Folders",
+    "subcategory": "Permissions",
+    "problem": "Cannot move files",
+    "description": "A user is unable to move files from one location to another within or between shared folders, with the move operation failing or being blocked partway through.",
+    "symptoms": [
+      "Moving a file results in an access denied or permission error",
+      "The move operation appears to start but never completes",
+      "Copying the same file instead of moving it works without issue",
+      "The problem may occur only when moving between certain folders"
+    ],
+    "possible_causes": [
+      "The destination folder permissions do not allow write access, while the source only needs read access",
+      "The source folder permissions do not allow delete, which a move operation requires after copying",
+      "The file is open or locked during the move attempt",
+      "The move crosses between different shares or servers with inconsistent permissions"
+    ],
+    "diagnostic_questions": [
+      "Does copying the file to the new location work, even if moving does not?",
+      "Are the source and destination folders on the same server and share?",
+      "Do you have confirmed write access to the destination folder?",
+      "Is the file currently open in any application?"
+    ],
+    "commands": [
+      {
+        "command": "icacls \"\\\\servername\\sharename\\destinationfolder\"",
+        "purpose": "Check effective permissions on the destination folder where the file is being moved to",
+        "expected_result": "Shows write or modify permissions for the user at the destination",
+        "abnormal_result": "Shows only read permissions at the destination, explaining why the move operation is blocked"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Test whether copying the file to the destination succeeds, even though moving does not",
+        "reason": "This isolates whether the issue is with write access at the destination or delete access at the source"
+      },
+      {
+        "step": 2,
+        "action": "If copying succeeds but the original cannot then be deleted, this confirms a source-side permissions limitation",
+        "reason": "A move is effectively a copy followed by a delete, so isolating which half fails clarifies the root cause"
+      },
+      {
+        "step": 3,
+        "action": "Confirm you have write access to the destination folder using its properties or by attempting to create a test file there",
+        "reason": "Insufficient destination permissions are one of the most common reasons a move operation fails"
+      },
+      {
+        "step": 4,
+        "action": "Check whether the file is open in any application before attempting the move again",
+        "reason": "An open or locked file cannot be moved until it is closed"
+      },
+      {
+        "step": 5,
+        "action": "Contact the administrator with the specific source and destination folders if permissions appear to be the cause",
+        "reason": "The administrator can verify and adjust permissions on both ends of the move operation"
+      }
+    ],
+    "possible_solutions": [
+      "Have the administrator grant write permissions at the destination folder",
+      "Have the administrator grant delete permissions at the source folder if needed",
+      "Close the file in any application before attempting to move it again",
+      "Copy the file manually and delete the original separately if permissions allow partial access"
+    ],
+    "prevention": [
+      "Align permission levels consistently across related folders where files are regularly moved",
+      "Communicate folder permission structures clearly to users who move files regularly",
+      "Avoid leaving files open when they need to be moved by automated processes"
+    ],
+    "keywords": ["cannot move file network folder", "move operation access denied", "file move fails shared drive", "move permission error"],
+    "difficulty": "Basic",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["Cannot copy files to shared folder", "Cannot rename files", "Cannot delete files from shared folder"]
+  },
+  {
+    "id": "SHARE-058",
+    "category": "Shared Folders",
+    "subcategory": "Permissions",
+    "problem": "Cannot copy files to shared folder",
+    "description": "A user attempting to copy files from their local computer into a shared network folder is blocked or receives an error, even though other operations on the share may succeed.",
+    "symptoms": [
+      "An access denied error appears when pasting or dragging files into the shared folder",
+      "The copy progress bar starts but fails partway through",
+      "Files already in the folder can be opened and read normally",
+      "The problem may be limited to copying only, with other actions working"
+    ],
+    "possible_causes": [
+      "The user has read-only access to the destination folder",
+      "The shared folder or server has run out of available storage space",
+      "A file size or type restriction policy is blocking the specific file being copied",
+      "Antivirus software is blocking the copy due to a false positive detection"
+    ],
+    "diagnostic_questions": [
+      "Does the error happen with all files, or only specific ones?",
+      "Have you or others successfully copied files here before?",
+      "Is there a specific error message, such as disk full or access denied?",
+      "Does the file you are copying have an unusual extension or come from an external source?"
+    ],
+    "commands": [
+      {
+        "command": "icacls \"\\\\servername\\sharename\\folder\"",
+        "purpose": "Check whether the user has write permissions to the destination folder",
+        "expected_result": "Shows write or modify access for the user or their group",
+        "abnormal_result": "Shows only read access, confirming a permissions-based block on copying"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message shown during the failed copy attempt",
+        "reason": "Different error messages, such as disk full versus access denied, point toward very different causes"
+      },
+      {
+        "step": 2,
+        "action": "Test copying a different, simple file such as a small text file to see if the issue is file-specific",
+        "reason": "This determines whether the block applies broadly or only to certain files, such as those flagged by antivirus or size policies"
+      },
+      {
+        "step": 3,
+        "action": "Check your permissions to the destination folder to confirm you have write access",
+        "reason": "Read-only access is one of the most common and simplest explanations for a blocked copy"
+      },
+      {
+        "step": 4,
+        "action": "Check with the administrator whether the shared folder or its underlying storage volume is low on or out of space",
+        "reason": "Full storage will block new files from being copied even when permissions are otherwise correct"
+      },
+      {
+        "step": 5,
+        "action": "Check whether antivirus software on your computer or the server flagged the file being copied",
+        "reason": "Security software sometimes blocks file transfers it deems suspicious, which can appear identical to a permissions error"
+      }
+    ],
+    "possible_solutions": [
+      "Have the administrator grant write permissions to the destination folder",
+      "Free up space on the shared folder's storage volume",
+      "Have antivirus software review and release a falsely flagged file",
+      "Adjust file size or type restriction policies if they are blocking legitimate files"
+    ],
+    "prevention": [
+      "Monitor shared storage capacity proactively and set low-space alerts",
+      "Communicate file type or size restrictions clearly to users",
+      "Regularly review antivirus policies for false positives affecting legitimate file transfers"
+    ],
+    "keywords": ["cannot copy file to shared folder", "copy access denied network drive", "paste blocked network folder", "file server storage full copy"],
+    "difficulty": "Basic",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["Cannot move files", "File server storage full", "Read-only shared folder"]
+  },
+  {
+    "id": "SHARE-059",
+    "category": "Shared Folders",
+    "subcategory": "Permissions",
+    "problem": "Cannot delete files from shared folder",
+    "description": "A user is unable to delete files or folders within a shared network location, receiving an error or having the delete action fail without explanation.",
+    "symptoms": [
+      "An access denied or permission error appears when attempting to delete",
+      "The file appears to delete but reappears after refreshing the folder",
+      "Other operations such as opening or copying the file work normally",
+      "The issue may apply only to certain files or folders within the share"
+    ],
+    "possible_causes": [
+      "The user's permissions allow modify but not delete on this specific location",
+      "The file is currently open by another user or locked by a background process",
+      "The file or folder has special attributes preventing deletion",
+      "A retention or compliance policy is protecting the file from deletion"
+    ],
+    "diagnostic_questions": [
+      "Does the same deletion failure happen with other files in the same folder?",
+      "Could the file currently be open by you or another user?",
+      "Is there a specific error message shown when the deletion fails?",
+      "Could this file or folder be subject to a retention or legal hold policy?"
+    ],
+    "commands": [
+      {
+        "command": "icacls \"\\\\servername\\sharename\\folder\\filename\"",
+        "purpose": "Check the specific delete permission entry for the user on this file or folder",
+        "expected_result": "Shows delete permission granted to the user or their group",
+        "abnormal_result": "Shows delete permission explicitly denied or absent, confirming a permissions-based block"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Test whether the same deletion problem occurs with a different file in the same folder",
+        "reason": "This distinguishes between a single locked or protected file and a broader folder-level permissions restriction"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the file is not currently open by you or another user",
+        "reason": "Open files are commonly locked by the operating system and cannot be deleted until closed"
+      },
+      {
+        "step": 3,
+        "action": "Check the exact error message returned when the deletion is attempted",
+        "reason": "Specific wording helps distinguish between a permissions issue, a lock, and a retention policy block"
+      },
+      {
+        "step": 4,
+        "action": "Ask the administrator whether this file or folder is subject to a retention policy or legal hold",
+        "reason": "Compliance protections intentionally prevent deletion regardless of normal file permissions"
+      },
+      {
+        "step": 5,
+        "action": "Request the administrator review and adjust delete permissions if none of the above explain the issue",
+        "reason": "A straightforward permissions gap may simply need to be corrected by someone with administrative access"
+      }
+    ],
+    "possible_solutions": [
+      "Close the file in any application before attempting deletion again",
+      "Have the administrator grant delete permissions where appropriate",
+      "Wait for a retention or legal hold policy to expire before the file can be deleted",
+      "Have the administrator remove special file attributes preventing deletion"
+    ],
+    "prevention": [
+      "Clearly communicate any retention or legal hold policies affecting shared folders",
+      "Set delete permissions deliberately based on user roles",
+      "Encourage users to close files promptly when finished to avoid unnecessary locks"
+    ],
+    "keywords": ["cannot delete file shared folder", "delete access denied network drive", "file will not delete network share", "delete permission error"],
+    "difficulty": "Basic",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["Cannot move files", "Cannot rename files", "Read-only shared folder"]
+  },
+  {
+    "id": "SHARE-060",
+    "category": "Shared Folders",
+    "subcategory": "Permissions",
+    "problem": "Read-only shared folder",
+    "description": "A shared folder that a user expects to have full access to instead behaves as read-only, allowing files to be viewed and opened but blocking any modification, creation, or deletion.",
+    "symptoms": [
+      "All modification actions, including create, rename, move, and delete, fail in this folder",
+      "Files within the folder open normally in read mode",
+      "The read-only behavior applies broadly across the entire folder, not just specific files",
+      "Other shared folders may work normally for the same user"
+    ],
+    "possible_causes": [
+      "The user or their group has been granted read-only NTFS or share permissions",
+      "A recent permissions change removed write access that previously existed",
+      "The folder is intentionally configured as read-only for this user's role",
+      "The share permission is more restrictive than the underlying NTFS permission, overriding it"
+    ],
+    "diagnostic_questions": [
+      "Is this behavior consistent across every file and action in the folder?",
+      "Did you previously have full access to this folder that has since changed?",
+      "Are other users with a similar role able to modify files in this folder?",
+      "Is this folder intended to be read-only for your specific role?"
+    ],
+    "commands": [
+      {
+        "command": "icacls \"\\\\servername\\sharename\\folder\"",
+        "purpose": "Review the full effective NTFS permissions for the folder for the current user",
+        "expected_result": "Shows modify or write access if full access is expected",
+        "abnormal_result": "Shows only read and execute access, confirming the folder is genuinely restricted to read-only for this user"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether the read-only behavior is consistent across all files and actions in the folder",
+        "reason": "This establishes whether this is a folder-wide permission setting rather than an issue with individual files"
+      },
+      {
+        "step": 2,
+        "action": "Check with colleagues in a similar role to see if they experience the same read-only restriction",
+        "reason": "This helps determine if the restriction is intentional and role-based, or specific to your account"
+      },
+      {
+        "step": 3,
+        "action": "Ask the administrator whether your permissions were recently changed to read-only",
+        "reason": "This directly confirms whether the change was intentional or an error that needs correcting"
+      },
+      {
+        "step": 4,
+        "action": "Ask the administrator to check both share-level and NTFS-level permissions, since the more restrictive of the two always applies",
+        "reason": "A folder can have full NTFS permissions but still behave as read-only if the share-level permission is more limited"
+      },
+      {
+        "step": 5,
+        "action": "Request appropriate write or modify access be granted if your role requires it",
+        "reason": "Only an administrator with sufficient rights can adjust the permission level for the folder"
+      }
+    ],
+    "possible_solutions": [
+      "Have the administrator grant modify or write permissions at both the share and NTFS level",
+      "Correct a share-level permission that is unintentionally overriding more permissive NTFS settings",
+      "Confirm and accept the read-only restriction if it is intentional for your role",
+      "Request a role or group change if broader access is genuinely required for your work"
+    ],
+    "prevention": [
+      "Keep share-level and NTFS-level permissions aligned to avoid unexpected restrictions",
+      "Document intended access levels for each shared folder by role",
+      "Review permission changes with affected users before applying them"
+    ],
+    "keywords": ["read only shared folder", "cannot modify files network share", "folder permissions read only", "share permission restriction"],
+    "difficulty": "Basic",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["Cannot create a new folder", "Cannot delete files from shared folder", "Folder ownership incorrect"]
+  },
+  {
+    "id": "SHARE-061",
+    "category": "Shared Folders",
+    "subcategory": "Synchronization",
+    "problem": "Folder contents not updating",
+    "description": "A shared folder displays outdated contents in File Explorer, not reflecting files that have been recently added, removed, or changed by other users or processes.",
+    "symptoms": [
+      "Files added by others do not appear until the folder is manually refreshed or reopened",
+      "Deleted files still appear as present in the folder view",
+      "Refreshing the folder view resolves the issue temporarily",
+      "The issue may recur consistently for this same folder"
+    ],
+    "possible_causes": [
+      "File Explorer is displaying a cached view of the folder contents",
+      "Offline Files or a local caching feature is showing a stale local copy",
+      "The client and server have a change notification delay or failure",
+      "Windows directory caching is not refreshing automatically as expected"
+    ],
+    "diagnostic_questions": [
+      "Does manually refreshing the folder show the correct, current contents?",
+      "Are you using Offline Files or any folder synchronization feature on this share?",
+      "Does this happen with just this one folder or with shared folders generally?",
+      "Do other users see the updates immediately while you do not?"
+    ],
+    "commands": [
+      {
+        "command": "net use",
+        "purpose": "Check whether the folder is mapped with Offline Files or caching enabled",
+        "expected_result": "Shows standard connection details without unexpected caching behavior",
+        "abnormal_result": "Reveals the drive is configured for offline access, which can explain stale content being displayed"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Manually refresh the folder view by pressing F5 or reopening the folder",
+        "reason": "This is the simplest way to confirm whether the issue is just a display cache versus a deeper synchronization problem"
+      },
+      {
+        "step": 2,
+        "action": "Check if Offline Files or a similar caching feature is enabled for this shared folder",
+        "reason": "Offline Files intentionally caches content locally and may not immediately reflect server-side changes"
+      },
+      {
+        "step": 3,
+        "action": "Ask other users whether they see the updated contents immediately",
+        "reason": "This helps determine if the delay is specific to your computer's caching behavior or a broader server issue"
+      },
+      {
+        "step": 4,
+        "action": "Test whether the same delayed update behavior happens with other shared folders",
+        "reason": "A pattern across multiple folders suggests a system-wide caching setting rather than an issue with this one folder"
+      },
+      {
+        "step": 5,
+        "action": "If Offline Files is in use and causing consistent problems, consider disabling it for this specific folder if not needed",
+        "reason": "Removing unnecessary local caching eliminates the most common cause of folders appearing out of date"
+      }
+    ],
+    "possible_solutions": [
+      "Manually refresh the folder view whenever updates seem delayed",
+      "Disable Offline Files or caching for the affected shared folder if it is not required",
+      "Have IT investigate change notification settings on the file server",
+      "Remap the network drive if caching behavior appears misconfigured"
+    ],
+    "prevention": [
+      "Only enable Offline Files for folders where offline access is genuinely needed",
+      "Educate users on manually refreshing folders when real-time accuracy matters",
+      "Regularly review caching and synchronization settings for shared drives"
+    ],
+    "keywords": ["shared folder not updating", "stale folder contents", "changes not showing network folder", "folder cache not refreshing"],
+    "difficulty": "Basic",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["Changes made by other users not appearing", "Offline Files not syncing", "Shared folder synchronization issue"]
+  },
+  {
+    "id": "SHARE-062",
+    "category": "Shared Folders",
+    "subcategory": "Synchronization",
+    "problem": "Changes made by other users not appearing",
+    "description": "Edits, additions, or deletions made by other users to files in a shared folder are not visible to a particular user, even after some time has passed, despite both parties working from the same shared location.",
+    "symptoms": [
+      "A colleague confirms they saved changes, but those changes are not visible to you",
+      "The file's last modified timestamp does not update from your view",
+      "Refreshing or reopening the folder does not resolve the discrepancy",
+      "The issue may be one-directional, where your changes are visible to others but not the reverse"
+    ],
+    "possible_causes": [
+      "You are viewing a locally cached or offline copy of the file rather than the live version",
+      "A synchronization service is delayed in pushing or pulling the latest changes",
+      "You and your colleague are unintentionally working from different folder locations with similar names",
+      "A file locking or version conflict is preventing the update from being visible"
+    ],
+    "diagnostic_questions": [
+      "Are you and your colleague both accessing the exact same folder path?",
+      "Are you using any offline access or synchronization feature for this folder?",
+      "Does the file's modified date and time match what your colleague reports?",
+      "Have you tried closing and reopening the file completely rather than just refreshing?"
+    ],
+    "commands": [
+      {
+        "command": "dir \"\\\\servername\\sharename\\folder\\filename\" /T:W",
+        "purpose": "Check the actual last-modified timestamp of the file as seen by your computer",
+        "expected_result": "Shows a timestamp matching when your colleague says they last saved changes",
+        "abnormal_result": "Shows an older timestamp, confirming you are viewing an outdated version of the file"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm that you and your colleague are both working from the exact same folder path and file name",
+        "reason": "Similarly named folders or files in different locations are a common and simple explanation for this issue"
+      },
+      {
+        "step": 2,
+        "action": "Check the file's last modified timestamp against what your colleague reports",
+        "reason": "A mismatched timestamp confirms you are viewing an outdated cached version rather than the current file"
+      },
+      {
+        "step": 3,
+        "action": "Fully close the file and any related application, then reopen it directly from the network path",
+        "reason": "Some applications cache file contents in memory and will not show updates until fully reopened"
+      },
+      {
+        "step": 4,
+        "action": "Check whether Offline Files or another synchronization feature is enabled and possibly delayed",
+        "reason": "Synchronization delays can cause a temporary but confusing gap between what different users see"
+      },
+      {
+        "step": 5,
+        "action": "Escalate to IT if the discrepancy continues after confirming path, timestamp, and reopening the file",
+        "reason": "A persistent mismatch despite basic checks suggests a deeper synchronization or server-side issue needing investigation"
+      }
+    ],
+    "possible_solutions": [
+      "Confirm and correct any folder path mismatch between users",
+      "Fully close and reopen files rather than relying on refresh alone",
+      "Disable or resolve delays in Offline Files or synchronization features",
+      "Have IT investigate server-side replication or synchronization delays"
+    ],
+    "prevention": [
+      "Standardize and communicate exact shared folder paths across teams",
+      "Avoid duplicate or similarly named folders that can cause confusion",
+      "Train users to fully close and reopen files when checking for the latest updates"
+    ],
+    "keywords": ["changes not appearing shared folder", "colleague changes not visible", "outdated file network share", "synchronization delay shared folder"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["Folder contents not updating", "File version conflict", "Offline Files not syncing"]
+  },
+  {
+    "id": "SHARE-063",
+    "category": "Shared Folders",
+    "subcategory": "Synchronization",
+    "problem": "Shared folder synchronization issue",
+    "description": "A shared folder configured for synchronization, such as through Offline Files or a third-party sync tool, fails to keep the local and server copies consistent with each other.",
+    "symptoms": [
+      "Synchronization status shows errors or is stuck in a pending state",
+      "Some files sync successfully while others consistently fail",
+      "A sync conflict notification appears for one or more files",
+      "The synchronization process takes much longer than expected or never completes"
+    ],
+    "possible_causes": [
+      "Network interruptions occurred during the synchronization process",
+      "A specific file is locked, in use, or has an unsupported name or path length",
+      "The local cache has become corrupted and needs to be reset",
+      "Conflicting changes were made to the same file both locally and on the server"
+    ],
+    "diagnostic_questions": [
+      "Are all files failing to sync, or only specific ones?",
+      "Is there a specific error message associated with the synchronization failure?",
+      "Was there a recent network interruption during a sync attempt?",
+      "Could the same file have been edited both offline and by someone else at the same time?"
+    ],
+    "commands": [
+      {
+        "command": "net use",
+        "purpose": "Confirm the connection status of the mapped drive associated with the synchronized folder",
+        "expected_result": "Shows the drive as connected and available",
+        "abnormal_result": "Shows the drive as disconnected, which would directly explain synchronization failures"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the synchronization status or sync center for specific error details on the affected folder",
+        "reason": "Specific error codes or messages narrow down whether the issue is a conflict, a lock, or a connectivity problem"
+      },
+      {
+        "step": 2,
+        "action": "Identify whether the issue affects all files in the folder or only specific problematic ones",
+        "reason": "This distinguishes between a broad connectivity issue and isolated file-specific conflicts"
+      },
+      {
+        "step": 3,
+        "action": "Resolve any flagged sync conflicts by choosing which version of the file to keep",
+        "reason": "Conflicting changes must be manually reconciled since the sync tool cannot automatically decide which version is correct"
+      },
+      {
+        "step": 4,
+        "action": "Confirm the network connection to the server is stable during the synchronization attempt",
+        "reason": "Interrupted connectivity during sync is a common cause of incomplete or failed synchronization"
+      },
+      {
+        "step": 5,
+        "action": "Consider resetting the local offline cache if synchronization issues persist across many files",
+        "reason": "A corrupted local cache can cause widespread and hard-to-diagnose synchronization failures"
+      }
+    ],
+    "possible_solutions": [
+      "Resolve individual file sync conflicts by selecting the correct version to keep",
+      "Ensure a stable network connection throughout the synchronization process",
+      "Reset or rebuild the local offline cache if corruption is suspected",
+      "Close files that are locked or in use before retrying synchronization"
+    ],
+    "prevention": [
+      "Maintain stable network connectivity during scheduled synchronization windows",
+      "Avoid editing the same file simultaneously offline and by other users",
+      "Periodically review synchronization health and resolve conflicts promptly"
+    ],
+    "keywords": ["shared folder sync error", "offline files sync failure", "sync conflict network folder", "synchronization stuck shared drive"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["Offline Files not syncing", "Offline Files cache corrupted", "File version conflict"]
+  },
+  {
+    "id": "SHARE-064",
+    "category": "Shared Folders",
+    "subcategory": "Paths and Addressing",
+    "problem": "Shared folder path changed",
+    "description": "The network path used to access a shared folder has changed, such as due to a server rename, migration, or restructuring, causing existing shortcuts and mapped drives to stop working correctly.",
+    "symptoms": [
+      "Existing shortcuts or mapped drives to the folder no longer work",
+      "The old path returns an error, but the folder is confirmed to still exist somewhere",
+      "IT has communicated a new server name, share name, or folder structure",
+      "The issue affects all users who have not yet updated their references"
+    ],
+    "possible_causes": [
+      "The file server was renamed as part of an infrastructure change",
+      "The share name was changed during a folder reorganization",
+      "A migration moved the data to an entirely new server",
+      "A DFS namespace mapping was reconfigured, changing the effective path"
+    ],
+    "diagnostic_questions": [
+      "Have you received any communication from IT about a server or folder path change?",
+      "What is the exact old path you were using compared to any new path you have been given?",
+      "Are you using a shortcut, a mapped drive, or typing the path manually?",
+      "Does the new path work correctly when tested directly?"
+    ],
+    "commands": [
+      {
+        "command": "net use X: \\\\newservername\\newsharename /persistent:yes",
+        "purpose": "Map a drive to the new correct path once it has been confirmed",
+        "expected_result": "The drive maps successfully and provides access to the expected folder contents",
+        "abnormal_result": "An error occurs, suggesting the new path information provided may still be incorrect or incomplete"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check for any recent IT communication regarding server renames, migrations, or folder restructuring",
+        "reason": "Planned changes are almost always the explanation when a previously working path suddenly stops functioning"
+      },
+      {
+        "step": 2,
+        "action": "Obtain the confirmed new path from IT or the file server administrator",
+        "reason": "Guessing at a new path risks continued errors, while a confirmed path ensures the fix will work"
+      },
+      {
+        "step": 3,
+        "action": "Test the new path directly by typing it into File Explorer before updating any shortcuts",
+        "reason": "This confirms the new path is correct and working before committing to updating all references"
+      },
+      {
+        "step": 4,
+        "action": "Update all shortcuts, mapped drives, and any application configurations that reference the old path",
+        "reason": "Every reference to the old path will continue to fail until it is manually updated to the new one"
+      },
+      {
+        "step": 5,
+        "action": "Communicate the new path to any other team members who may still be using the outdated reference",
+        "reason": "This prevents repeated support requests for the same underlying path change"
+      }
+    ],
+    "possible_solutions": [
+      "Update all mapped drives and shortcuts to the new confirmed path",
+      "Use a DFS namespace going forward so future path changes do not require user updates",
+      "Communicate path changes broadly and in advance of any planned migration",
+      "Update any application or script configurations referencing the old path"
+    ],
+    "prevention": [
+      "Use DFS namespaces to abstract the physical server path from the path users see",
+      "Announce path changes well in advance of implementation",
+      "Maintain a central reference document of current shared folder paths"
+    ],
+    "keywords": ["shared folder path changed", "network path moved", "server renamed shared folder", "updated share path"],
+    "difficulty": "Basic",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["Invalid network path", "Network path no longer exists", "Shared folder disappeared"]
+  },
+  {
+    "id": "SHARE-065",
+    "category": "Shared Folders",
+    "subcategory": "Paths and Addressing",
+    "problem": "Invalid network path",
+    "description": "A user attempts to access a shared folder using a specific network path and receives an error stating the network path is invalid, preventing any access to the resource.",
+    "symptoms": [
+      "An error message explicitly states the network path was not found or is invalid",
+      "The path may have worked previously but fails now",
+      "Typing the path manually produces the same error as using a shortcut",
+      "Other network paths on the same computer may work correctly"
+    ],
+    "possible_causes": [
+      "A typo or formatting error exists in the path being entered",
+      "The server name cannot be resolved due to a DNS or name resolution issue",
+      "The share itself no longer exists at that location",
+      "A network connectivity problem is preventing any communication with the server"
+    ],
+    "diagnostic_questions": [
+      "Can you confirm the exact path being used, checking carefully for typos?",
+      "Does pinging the server by name succeed?",
+      "Can you reach the server using its IP address instead of its name?",
+      "Have other network paths or resources been working normally?"
+    ],
+    "commands": [
+      {
+        "command": "ping servername",
+        "purpose": "Test basic name resolution and connectivity to the server referenced in the path",
+        "expected_result": "The server name resolves to an IP address and responds to the ping",
+        "abnormal_result": "The name fails to resolve, or the server does not respond, indicating a resolution or connectivity issue"
+      },
+      {
+        "command": "nslookup servername",
+        "purpose": "Specifically check whether the server name resolves correctly to an IP address via DNS",
+        "expected_result": "Returns a valid IP address corresponding to the file server",
+        "abnormal_result": "Returns an error or no matching record, indicating a DNS resolution problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Carefully review the exact path being typed or used for any typos or formatting errors",
+        "reason": "A simple typo in the server or share name is one of the most common causes of an invalid path error"
+      },
+      {
+        "step": 2,
+        "action": "Test whether the server name resolves and responds using ping",
+        "reason": "This determines whether the problem is with name resolution or with the share itself"
+      },
+      {
+        "step": 3,
+        "action": "If the name does not resolve, try accessing the share using the server's IP address instead",
+        "reason": "Successfully connecting via IP address confirms the issue is specifically with name resolution rather than the share itself"
+      },
+      {
+        "step": 4,
+        "action": "Use nslookup to check whether DNS is correctly resolving the server name",
+        "reason": "This provides a clear, direct answer on whether DNS is the root cause of the invalid path error"
+      },
+      {
+        "step": 5,
+        "action": "Confirm with the administrator whether the share still exists and is correctly named",
+        "reason": "The share itself may have been renamed, removed, or restructured, which would explain the invalid path regardless of network connectivity"
+      }
+    ],
+    "possible_solutions": [
+      "Correct any typo in the network path being used",
+      "Resolve DNS issues preventing the server name from being recognized",
+      "Use the server's IP address as a temporary workaround while DNS issues are resolved",
+      "Update the path if the share has been renamed or moved"
+    ],
+    "prevention": [
+      "Use consistent, well-documented naming conventions for servers and shares",
+      "Maintain healthy and redundant DNS infrastructure",
+      "Provide users with copy-paste ready paths rather than requiring manual entry"
+    ],
+    "keywords": ["invalid network path error", "network path not found", "cannot resolve server name", "share path error"],
+    "difficulty": "Basic",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["Network path no longer exists", "Shared folder path changed", "VLAN or network configuration issue prevents reaching the file server"]
+  },
+  {
+    "id": "SHARE-066",
+    "category": "Shared Folders",
+    "subcategory": "Paths and Addressing",
+    "problem": "Network path no longer exists",
+    "description": "A previously valid network path to a shared folder now returns an error indicating the path no longer exists, distinct from a temporary connectivity issue, suggesting the underlying share or server has been permanently removed or restructured.",
+    "symptoms": [
+      "The error specifically indicates the path no longer exists rather than being temporarily unreachable",
+      "The server itself may still be reachable for other purposes",
+      "The issue persists consistently across multiple attempts and over time",
+      "Other users report the same permanent error for this path"
+    ],
+    "possible_causes": [
+      "The share was permanently deleted from the server",
+      "The server itself was decommissioned or replaced",
+      "A folder restructuring removed or renamed this specific share",
+      "Storage migration moved the data without preserving the original share name"
+    ],
+    "diagnostic_questions": [
+      "Is the underlying server still reachable for other shares or purposes?",
+      "Has there been any announced decommissioning or restructuring of this server?",
+      "Do other users get the exact same permanent error for this path?",
+      "Is there a known replacement path or new location for this data?"
+    ],
+    "commands": [
+      {
+        "command": "net view \\\\servername",
+        "purpose": "Check what shares, if any, the server currently offers",
+        "expected_result": "Lists currently available shares, which may or may not include the expected one",
+        "abnormal_result": "The expected share is absent from the list, confirming it has been removed or renamed"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the server itself is still reachable, separate from this specific share",
+        "reason": "This distinguishes between the entire server being gone versus just this one share being removed"
+      },
+      {
+        "step": 2,
+        "action": "Check for any IT announcements regarding server decommissioning, restructuring, or data migration",
+        "reason": "Permanent path removal is almost always tied to a planned infrastructure change"
+      },
+      {
+        "step": 3,
+        "action": "Confirm with other users that they receive the same permanent error, ruling out an issue isolated to your computer",
+        "reason": "A shared experience across users confirms this is a server-side change rather than a local problem"
+      },
+      {
+        "step": 4,
+        "action": "Contact the administrator to determine whether the data was moved and, if so, to what new location",
+        "reason": "The data may still exist and be accessible elsewhere under a new path"
+      },
+      {
+        "step": 5,
+        "action": "Update all references once a new path is confirmed, or request the share be recreated if it was removed in error",
+        "reason": "This resolves the issue going forward and prevents repeated confusion for other users"
+      }
+    ],
+    "possible_solutions": [
+      "Update all shortcuts and mapped drives to a new confirmed path if the data was relocated",
+      "Request the administrator recreate the share if it was removed unintentionally",
+      "Restore the share from backup if data was lost during a migration",
+      "Communicate the new correct path broadly once confirmed"
+    ],
+    "prevention": [
+      "Provide advance notice before permanently removing or restructuring shares",
+      "Maintain thorough documentation of active shares and their purposes before decommissioning",
+      "Use DFS namespaces to reduce the impact of backend path changes on end users"
+    ],
+    "keywords": ["network path no longer exists", "share permanently removed", "server decommissioned share missing", "path removed error"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["Invalid network path", "Shared folder path changed", "Shared folder disappeared"]
+  },
+  {
+    "id": "SHARE-067",
+    "category": "Shared Folders",
+    "subcategory": "Storage Capacity",
+    "problem": "File server storage full",
+    "description": "The storage volume backing a shared folder has reached or is nearing full capacity, resulting in failed file saves, failed copies, and other write operations across the affected share.",
+    "symptoms": [
+      "New files cannot be saved or copied to the shared folder",
+      "An explicit disk full or insufficient space error appears",
+      "Existing files can still be opened and read normally",
+      "The issue affects multiple users accessing the same server or volume"
+    ],
+    "possible_causes": [
+      "The storage volume has genuinely reached its maximum capacity",
+      "Large temporary or backup files have accumulated and consumed available space",
+      "A quota assigned to the share or volume has been reached",
+      "Log files or system data on the server have grown unexpectedly large"
+    ],
+    "diagnostic_questions": [
+      "Does the error explicitly mention disk space or insufficient storage?",
+      "Are multiple users experiencing the same issue on this server?",
+      "Has there been a recent large increase in file uploads to this server?",
+      "Is there a known storage quota configured for this share?"
+    ],
+    "commands": [
+      {
+        "command": "fsutil volume diskfree C:",
+        "purpose": "Check available free space on a given volume, when run directly on the server",
+        "expected_result": "Shows a reasonable amount of free space available",
+        "abnormal_result": "Shows very little or no free space remaining, confirming the volume is at or near capacity"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the exact error message indicates a storage or disk space problem",
+        "reason": "This distinguishes a capacity issue from a permissions or connectivity error that might look similar to an end user"
+      },
+      {
+        "step": 2,
+        "action": "Check with other users to see if they are experiencing the same failures on this server",
+        "reason": "Widespread failures across users strongly indicate a server-wide storage capacity issue rather than an individual problem"
+      },
+      {
+        "step": 3,
+        "action": "Report the issue to the server administrator, who can check actual available disk space directly on the server",
+        "reason": "End users generally cannot check server-side disk space directly and need administrator involvement to confirm and resolve capacity issues"
+      },
+      {
+        "step": 4,
+        "action": "Have the administrator identify and remove or archive unnecessary large files, such as old backups or temporary files",
+        "reason": "Freeing up space by removing non-essential files is often the fastest way to restore normal write operations"
+      },
+      {
+        "step": 5,
+        "action": "Consider expanding storage capacity or implementing quotas if the volume is chronically near full",
+        "reason": "A long-term capacity solution prevents this issue from recurring as data continues to grow"
+      }
+    ],
+    "possible_solutions": [
+      "Have the administrator free up space by archiving or removing unnecessary files",
+      "Expand the storage volume's capacity if chronically insufficient",
+      "Implement or adjust quotas to prevent any single folder from consuming excessive space",
+      "Move less frequently used data to alternative or archival storage"
+    ],
+    "prevention": [
+      "Monitor storage capacity proactively with automated low-space alerts",
+      "Implement regular archiving policies for old or unused files",
+      "Set reasonable quotas on shared folders to prevent runaway growth"
+    ],
+    "keywords": ["file server storage full", "disk full network share", "insufficient space shared folder", "server out of storage"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "30-60 minutes (requires administrator involvement)",
+    "related_problems": ["Shared folder quota exceeded", "Cannot copy files to shared folder", "Shared folder opens very slowly"]
+  },
+  {
+    "id": "SHARE-068",
+    "category": "Shared Folders",
+    "subcategory": "Storage Capacity",
+    "problem": "Shared folder quota exceeded",
+    "description": "A user or department reaches a configured storage quota limit on a shared folder, preventing further files from being added even though the underlying server volume itself may have ample free space.",
+    "symptoms": [
+      "An error specifically references a quota limit rather than general disk space",
+      "Other shared folders on the same server, subject to different quotas, work normally",
+      "The issue is isolated to one specific shared folder or user account",
+      "The quota error persists even though colleagues on other quotas can save files normally"
+    ],
+    "possible_causes": [
+      "The folder or user has reached an administratively configured storage quota",
+      "Accumulated files, including old or duplicate ones, have pushed usage over the limit",
+      "The quota was set conservatively and no longer matches actual storage needs",
+      "Temporary or cached files are unexpectedly counted against the quota"
+    ],
+    "diagnostic_questions": [
+      "Does the error message specifically mention a quota rather than general disk space?",
+      "Is this issue isolated to one folder while others work fine?",
+      "Do you know what your current quota limit is for this folder?",
+      "Have you recently added a large amount of data to this folder?"
+    ],
+    "commands": [
+      {
+        "command": "dir \"\\\\servername\\sharename\\folder\" /s",
+        "purpose": "Review the folder's current total size and file count as a rough indicator of quota usage",
+        "expected_result": "Shows a total size comfortably within expected quota limits",
+        "abnormal_result": "Shows a total size at or very near the known or suspected quota limit, supporting the quota exceeded diagnosis"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the exact error message specifically references a quota rather than general server disk space",
+        "reason": "This distinguishes a quota-specific limit from a broader storage capacity issue affecting the whole server"
+      },
+      {
+        "step": 2,
+        "action": "Review the folder's current size and contents to identify any unusually large or unnecessary files",
+        "reason": "Identifying large or duplicate files provides an immediate opportunity to free up quota space without administrator involvement"
+      },
+      {
+        "step": 3,
+        "action": "Remove or archive unnecessary files to bring usage back under the quota limit",
+        "reason": "This directly resolves the immediate issue by reducing usage below the configured threshold"
+      },
+      {
+        "step": 4,
+        "action": "Contact the administrator to confirm the exact quota limit and current usage if it is not clear",
+        "reason": "The administrator has visibility into the precise quota configuration that end users typically cannot see directly"
+      },
+      {
+        "step": 5,
+        "action": "Request a quota increase from the administrator if the current limit no longer matches legitimate storage needs",
+        "reason": "Business needs may have grown beyond the originally configured quota, requiring a formal adjustment"
+      }
+    ],
+    "possible_solutions": [
+      "Remove or archive unnecessary files to reduce usage below the quota",
+      "Request a quota increase from the administrator if usage needs have genuinely grown",
+      "Move infrequently used data to a different location not subject to this quota",
+      "Set up regular cleanup routines to prevent quota limits from being reached again"
+    ],
+    "prevention": [
+      "Set quota warning thresholds so users are alerted before hitting the hard limit",
+      "Review and adjust quotas periodically based on actual usage trends",
+      "Encourage regular cleanup of old or duplicate files within quota-limited folders"
+    ],
+    "keywords": ["shared folder quota exceeded", "storage quota limit reached", "quota error network folder", "cannot save quota full"],
+    "difficulty": "Basic",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["File server storage full", "Cannot copy files to shared folder", "Duplicate files after synchronization"]
+  },
+  {
+    "id": "SHARE-069",
+    "category": "Shared Folders",
+    "subcategory": "Permissions",
+    "problem": "Folder ownership incorrect",
+    "description": "A shared folder or its contents show an unexpected or incorrect owner, which can lead to confusing permission behavior and difficulty managing access even when explicit permissions appear otherwise correct.",
+    "symptoms": [
+      "The folder's properties show an unexpected owner, such as a former employee or a generic system account",
+      "Permission changes made by the intended owner or administrator do not behave as expected",
+      "Some users experience inconsistent access despite seemingly correct permission entries",
+      "Taking ownership requires elevated administrative rights not available to standard users"
+    ],
+    "possible_causes": [
+      "The folder was originally created by an account that has since been deleted or disabled",
+      "Ownership was not properly transferred during a reorganization or offboarding process",
+      "A migration or restore process set an unexpected default owner",
+      "Nested folders were created by different users over time, leading to inconsistent ownership"
+    ],
+    "diagnostic_questions": [
+      "What owner is currently listed in the folder's advanced security properties?",
+      "Was this folder recently migrated, restored from backup, or reorganized?",
+      "Is the listed owner an account that has been deleted, disabled, or left the organization?",
+      "Are permission changes behaving unpredictably compared to what is explicitly configured?"
+    ],
+    "commands": [
+      {
+        "command": "icacls \"\\\\servername\\sharename\\folder\" /setowner \"DOMAIN\\correctuser\"",
+        "purpose": "Reassign ownership of the folder to the correct user or administrative group, when run with sufficient privileges",
+        "expected_result": "Ownership successfully changes to the specified correct account",
+        "abnormal_result": "An access denied error appears, indicating the current user lacks sufficient rights to take ownership"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the folder's advanced security properties to see who is currently listed as the owner",
+        "reason": "This confirms whether ownership is indeed incorrect and identifies exactly what needs to be corrected"
+      },
+      {
+        "step": 2,
+        "action": "Determine whether the listed owner is a deleted, disabled, or otherwise inappropriate account",
+        "reason": "This helps establish how the incorrect ownership likely occurred, such as through offboarding without a proper handoff"
+      },
+      {
+        "step": 3,
+        "action": "This issue requires administrative rights to correct ownership and should be escalated to IT",
+        "reason": "Standard users typically cannot take ownership of folders they do not already own, requiring elevated privileges"
+      },
+      {
+        "step": 4,
+        "action": "Have the administrator take ownership of the folder and assign it to an appropriate current account or administrative group",
+        "reason": "Correct ownership ensures permission changes behave predictably and management responsibility is clearly assigned"
+      },
+      {
+        "step": 5,
+        "action": "Review and confirm that permissions still behave as expected after ownership is corrected",
+        "reason": "Fixing ownership sometimes reveals or resolves related permission inconsistencies that were previously hidden"
+      }
+    ],
+    "possible_solutions": [
+      "Have an administrator take ownership and reassign it to the correct account or group",
+      "Establish a standard process for transferring folder ownership during employee offboarding",
+      "Review and correct ownership across related folders that may share the same root cause",
+      "Assign ownership to an administrative group rather than an individual to avoid future issues"
+    ],
+    "prevention": [
+      "Include folder ownership transfer as a standard step in the employee offboarding process",
+      "Assign ownership of shared folders to administrative groups rather than individual accounts",
+      "Periodically audit folder ownership across critical shares"
+    ],
+    "keywords": ["folder ownership incorrect", "wrong owner shared folder", "cannot take ownership network folder", "ownership permission issue"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-40 minutes (requires administrator involvement)",
+    "related_problems": ["Read-only shared folder", "Cannot delete files from shared folder", "Cannot create a new folder"]
+  },
+  {
+    "id": "SHARE-070",
+    "category": "Shared Folders",
+    "subcategory": "Synchronization",
+    "problem": "Duplicate files after synchronization",
+    "description": "After a synchronization process runs on a shared folder, duplicate copies of files appear, often with modified names indicating a conflict, cluttering the folder and creating confusion over which version is current.",
+    "symptoms": [
+      "Files appear with names indicating a conflict, such as including a computer name or the word conflict",
+      "Multiple near-identical copies of the same file exist with slightly different names or timestamps",
+      "The duplication appeared suddenly after a synchronization event",
+      "It is unclear which duplicate contains the most current or correct content"
+    ],
+    "possible_causes": [
+      "The same file was edited both offline and by another user simultaneously, creating a genuine conflict",
+      "A synchronization interruption caused an incomplete merge that resulted in duplicate copies",
+      "Multiple devices were synchronizing the same folder without proper conflict resolution",
+      "A backup or sync tool created versioned copies rather than overwriting files"
+    ],
+    "diagnostic_questions": [
+      "Do the duplicate file names include any indication of a conflict, such as a device name or the word conflict?",
+      "Were you or a colleague editing this file offline around the time the duplicates appeared?",
+      "Are you using Offline Files, a cloud sync tool, or another synchronization method for this folder?",
+      "Can you identify which duplicate contains the most recent and correct content by reviewing timestamps?"
+    ],
+    "commands": [
+      {
+        "command": "dir \"\\\\servername\\sharename\\folder\" /o:d",
+        "purpose": "List files sorted by date to help identify which duplicate is the most recently modified",
+        "expected_result": "Clearly shows the chronological order of duplicate files to help identify the most current version",
+        "abnormal_result": "Timestamps are identical or unclear, making it difficult to determine which duplicate should be kept"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Identify all duplicate files related to the same original document, noting their exact names and timestamps",
+        "reason": "A clear inventory of duplicates is necessary before deciding which to keep and which to remove"
+      },
+      {
+        "step": 2,
+        "action": "Review the content of each duplicate to determine which contains the most current and complete information",
+        "reason": "Timestamps alone do not always indicate which version has the most important or correct content"
+      },
+      {
+        "step": 3,
+        "action": "Consult with any colleagues who may have also edited the file to confirm which version should be considered authoritative",
+        "reason": "Collaborative input helps avoid accidentally discarding someone else's important recent changes"
+      },
+      {
+        "step": 4,
+        "action": "Merge any necessary content from duplicates into a single authoritative file, then remove the redundant copies",
+        "reason": "This restores a single clean version of the file and eliminates ongoing confusion"
+      },
+      {
+        "step": 5,
+        "action": "Review synchronization settings with IT if duplicate conflicts are happening frequently",
+        "reason": "Frequent duplication suggests an underlying synchronization configuration issue that should be addressed at the source"
+      }
+    ],
+    "possible_solutions": [
+      "Manually review and merge duplicate files, then remove redundant copies",
+      "Establish clear file ownership or locking practices to prevent simultaneous conflicting edits",
+      "Adjust synchronization settings to reduce the frequency of conflict-driven duplication",
+      "Educate users on proper offline editing practices to minimize future conflicts"
+    ],
+    "prevention": [
+      "Encourage checking file lock or in-use status before editing shared documents offline",
+      "Limit simultaneous offline editing of the same files by multiple users",
+      "Regularly review and clean up synchronization conflict files before they accumulate"
+    ],
+    "keywords": ["duplicate files after sync", "conflict copy shared folder", "sync created duplicate file", "offline files conflict duplicate"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["File version conflict", "Shared folder synchronization issue", "Offline Files not syncing"]
+  },
+  {
+    "id": "SHARE-071",
+    "category": "Shared Folders",
+    "subcategory": "Synchronization",
+    "problem": "Offline Files not syncing",
+    "description": "A folder configured for offline availability fails to synchronize changes between the local cached copy and the server, leaving local and server content out of alignment.",
+    "symptoms": [
+      "The Sync Center shows the folder as not synchronized or shows an error state",
+      "Changes made offline do not appear on the server once reconnected",
+      "Changes made on the server do not appear in the local offline copy",
+      "Sync attempts may appear to run but never actually complete"
+    ],
+    "possible_causes": [
+      "The computer has not had a stable network connection long enough to complete synchronization",
+      "Offline Files synchronization is disabled or misconfigured in Sync Center settings",
+      "A specific file is locked or conflicted, blocking the entire sync job from completing",
+      "The local Offline Files cache has become corrupted"
+    ],
+    "diagnostic_questions": [
+      "What status does Sync Center show for this specific folder?",
+      "Has your computer had a stable, sustained network connection since the last successful sync?",
+      "Are there any specific files flagged with errors or conflicts in Sync Center?",
+      "When was the last time this folder successfully synchronized?"
+    ],
+    "commands": [
+      {
+        "command": "net use",
+        "purpose": "Confirm the network connection to the server backing the offline folder is currently active",
+        "expected_result": "Shows the drive connected and available",
+        "abnormal_result": "Shows the drive disconnected, explaining why synchronization cannot currently complete"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Sync Center and review the current status and any error details for the affected folder",
+        "reason": "Sync Center provides specific status information that narrows down whether this is a connectivity, conflict, or configuration issue"
+      },
+      {
+        "step": 2,
+        "action": "Confirm you have a stable network connection to the server, then manually initiate a sync",
+        "reason": "Synchronization requires a sustained connection, and manually triggering it can help isolate transient connectivity issues"
+      },
+      {
+        "step": 3,
+        "action": "Resolve any specific file conflicts or errors shown in Sync Center",
+        "reason": "A single problematic file can sometimes block the entire folder's synchronization from completing"
+      },
+      {
+        "step": 4,
+        "action": "Check that Offline Files is properly enabled and configured for this folder in its settings",
+        "reason": "A misconfiguration or accidental disabling of offline sync would directly explain a lack of synchronization"
+      },
+      {
+        "step": 5,
+        "action": "Consider disabling and then re-enabling Offline Files for the folder if synchronization remains stuck",
+        "reason": "Resetting the offline availability configuration can clear a corrupted or stuck sync state"
+      }
+    ],
+    "possible_solutions": [
+      "Manually initiate synchronization once a stable connection is confirmed",
+      "Resolve specific file conflicts blocking the overall sync process",
+      "Reconfigure or re-enable Offline Files settings for the affected folder",
+      "Reset the local Offline Files cache if corruption is suspected"
+    ],
+    "prevention": [
+      "Ensure devices connect to the network regularly and for sufficient duration to allow synchronization",
+      "Monitor Sync Center periodically for early signs of conflicts or errors",
+      "Limit Offline Files usage to folders where it is genuinely necessary"
+    ],
+    "keywords": ["offline files not syncing", "sync center error", "offline folder out of sync", "synchronization stuck offline files"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["Offline Files cache corrupted", "Shared folder synchronization issue", "Duplicate files after synchronization"]
+  },
+  {
+    "id": "SHARE-072",
+    "category": "Shared Folders",
+    "subcategory": "Synchronization",
+    "problem": "Offline Files cache corrupted",
+    "description": "The local cache used by Offline Files to store copies of network folder contents becomes corrupted, causing synchronization failures, missing files, or errors that persist even after basic troubleshooting.",
+    "symptoms": [
+      "Persistent synchronization errors that do not resolve with normal troubleshooting steps",
+      "Files appear missing or corrupted only in the offline cached view",
+      "Sync Center reports errors referencing the cache itself rather than individual files",
+      "The issue affects the entire offline folder rather than just specific files"
+    ],
+    "possible_causes": [
+      "An improper shutdown or crash occurred while Offline Files was actively synchronizing",
+      "Disk errors on the local drive affected the integrity of the cache",
+      "A Windows update or system change disrupted the Offline Files database",
+      "The cache grew unusually large or encountered an internal inconsistency"
+    ],
+    "diagnostic_questions": [
+      "Have basic synchronization troubleshooting steps already been attempted without success?",
+      "Did the computer experience a crash or improper shutdown around when this issue began?",
+      "Does the error message reference the cache or database specifically, rather than individual files?",
+      "Has this issue persisted across multiple sync attempts and reboots?"
+    ],
+    "commands": [
+      {
+        "command": "net use",
+        "purpose": "Verify the underlying network connection to the server is functioning normally, ruling out a simple connectivity cause",
+        "expected_result": "Shows the drive connected normally, supporting a cache-specific rather than connectivity-based diagnosis",
+        "abnormal_result": "Shows connectivity problems, suggesting the issue may be network-related rather than genuine cache corruption"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm basic synchronization troubleshooting, such as checking connectivity and resolving conflicts, has already been attempted",
+        "reason": "Cache corruption should be considered only after simpler and more common causes have been ruled out"
+      },
+      {
+        "step": 2,
+        "action": "Review Sync Center error details for any specific reference to the offline cache or database itself",
+        "reason": "Errors specifically referencing the cache, rather than individual files, point more strongly toward corruption"
+      },
+      {
+        "step": 3,
+        "action": "This issue typically requires resetting the Offline Files cache, which is an administrative-level fix",
+        "reason": "Rebuilding the offline cache involves system-level changes that go beyond standard end-user troubleshooting"
+      },
+      {
+        "step": 4,
+        "action": "Have IT reset the Offline Files cache and re-enable offline availability for the affected folder",
+        "reason": "This effectively rebuilds the local cache from scratch, clearing out any corruption"
+      },
+      {
+        "step": 5,
+        "action": "After the reset, confirm the folder synchronizes successfully and all expected files are present",
+        "reason": "This verifies that the corruption has actually been resolved and no data was lost during the process"
+      }
+    ],
+    "possible_solutions": [
+      "Have IT reset and rebuild the Offline Files cache for the affected folder",
+      "Re-enable Offline Files after the cache reset and allow a full resynchronization",
+      "Verify no data was lost by comparing folder contents against the server after the reset",
+      "Address any underlying disk health issues that may have contributed to the corruption"
+    ],
+    "prevention": [
+      "Avoid improper shutdowns while synchronization is actively in progress",
+      "Periodically monitor disk health on devices that rely heavily on Offline Files",
+      "Keep the operating system updated to reduce the risk of Offline Files database issues"
+    ],
+    "keywords": ["offline files cache corrupted", "sync database corruption", "offline files reset cache", "persistent sync error offline files"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes (requires IT involvement)",
+    "related_problems": ["Offline Files not syncing", "Shared folder synchronization issue", "Duplicate files after synchronization"]
+  },
+  {
+    "id": "SHARE-073",
+    "category": "Shared Folders",
+    "subcategory": "Visibility and Access",
+    "problem": "Shared folder shortcut not working",
+    "description": "A shortcut previously created to quickly access a shared folder no longer opens the folder correctly, returning an error instead of navigating to the expected location.",
+    "symptoms": [
+      "Double-clicking the shortcut produces an error instead of opening the folder",
+      "The shortcut's target path may appear outdated or incorrect when checked",
+      "Accessing the same folder by typing the path directly may still work",
+      "The shortcut previously worked without issue"
+    ],
+    "possible_causes": [
+      "The shortcut's target path is outdated because the folder was moved or renamed",
+      "The shortcut file itself has become corrupted",
+      "The server or share referenced by the shortcut no longer exists",
+      "The shortcut points to a mapped drive letter that is no longer connected"
+    ],
+    "diagnostic_questions": [
+      "Does typing the folder's path directly work, even though the shortcut does not?",
+      "What target path does the shortcut currently point to, when checked in its properties?",
+      "Has the folder been moved, renamed, or migrated recently?",
+      "Does the shortcut point to a mapped drive letter, and is that drive currently connected?"
+    ],
+    "commands": [
+      {
+        "command": "net use",
+        "purpose": "Check whether a mapped drive letter referenced by the shortcut is currently connected",
+        "expected_result": "Shows the relevant drive letter as connected, if the shortcut relies on one",
+        "abnormal_result": "Shows the drive letter as disconnected or missing, explaining why the shortcut fails"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the shortcut's properties to see exactly what target path it is pointing to",
+        "reason": "This reveals whether the shortcut is using an outdated path, a disconnected drive letter, or a valid but unreachable location"
+      },
+      {
+        "step": 2,
+        "action": "Test whether typing the target path directly into File Explorer works",
+        "reason": "This determines whether the underlying folder is reachable at all, isolating the problem to the shortcut itself if it works"
+      },
+      {
+        "step": 3,
+        "action": "If the shortcut points to a mapped drive letter, confirm that drive is currently connected",
+        "reason": "A disconnected mapped drive would cause any shortcut relying on that letter to fail, even if the underlying share is fine"
+      },
+      {
+        "step": 4,
+        "action": "If the target path is outdated due to a folder move or rename, update the shortcut with the new correct path",
+        "reason": "This directly resolves the issue by pointing the shortcut to the folder's current, correct location"
+      },
+      {
+        "step": 5,
+        "action": "Delete and recreate the shortcut if it appears corrupted despite having a seemingly correct target path",
+        "reason": "A corrupted shortcut file sometimes needs to be recreated entirely rather than repaired"
+      }
+    ],
+    "possible_solutions": [
+      "Update the shortcut's target path to the folder's current correct location",
+      "Reconnect any mapped drive letter the shortcut depends on",
+      "Recreate the shortcut entirely if it appears corrupted",
+      "Use the full UNC path in the shortcut instead of a mapped drive letter for greater reliability"
+    ],
+    "prevention": [
+      "Prefer full UNC paths over mapped drive letters when creating shortcuts intended for long-term use",
+      "Update shortcuts proactively whenever a shared folder is moved or renamed",
+      "Communicate folder path changes to users who rely on saved shortcuts"
+    ],
+    "keywords": ["shortcut to shared folder not working", "broken network folder shortcut", "shortcut target error", "shared folder link broken"],
+    "difficulty": "Basic",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["Shared folder path changed", "Network drive disconnected", "Invalid network path"]
+  },
+  {
+    "id": "SHARE-074",
+    "category": "Shared Folders",
+    "subcategory": "Visibility and Access",
+    "problem": "Hidden shared folder cannot be accessed",
+    "description": "A shared folder intentionally hidden from network browsing, typically indicated by a share name ending in a dollar sign, cannot be accessed even when the user attempts to connect to it directly by its known path.",
+    "symptoms": [
+      "The folder does not appear in network browsing, as expected for a hidden share",
+      "Attempting to access the folder directly by its known path still fails",
+      "An access denied or path not found error appears despite using the correct hidden share name",
+      "Other hidden shares on the same server may work correctly for this user"
+    ],
+    "possible_causes": [
+      "The exact hidden share name or path being used contains a typo",
+      "The user lacks the necessary permissions to access this specific hidden share",
+      "The hidden share was removed or renamed without the user being informed",
+      "The user is not using the correct dollar sign suffix required to reach a hidden share"
+    ],
+    "diagnostic_questions": [
+      "Can you confirm the exact hidden share name and path you are using, including the dollar sign?",
+      "Have you successfully accessed this specific hidden share before?",
+      "Do you have confirmed permissions to access this particular hidden share?",
+      "Are other hidden shares on the same server accessible to you?"
+    ],
+    "commands": [
+      {
+        "command": "net use \\\\servername\\sharename$",
+        "purpose": "Attempt to directly connect to the hidden share using its exact expected name",
+        "expected_result": "Successfully connects to the hidden share",
+        "abnormal_result": "Returns an access denied or path not found error, indicating either a naming issue or a permissions problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Carefully confirm the exact hidden share name and path, paying close attention to the required dollar sign suffix",
+        "reason": "A small error in the hidden share name, including a missing dollar sign, will prevent a successful connection"
+      },
+      {
+        "step": 2,
+        "action": "Attempt to connect directly to the share using the exact confirmed path",
+        "reason": "This tests the connection cleanly, separate from any confusion caused by the folder not appearing in browsing"
+      },
+      {
+        "step": 3,
+        "action": "Confirm with the administrator that you have been granted permissions to this specific hidden share",
+        "reason": "Hidden shares often carry additional restricted permissions beyond just being unlisted from browsing"
+      },
+      {
+        "step": 4,
+        "action": "Ask the administrator to confirm the hidden share still exists under the expected name",
+        "reason": "The share could have been removed, renamed, or restructured without the user being aware, since it was never visible to browse"
+      },
+      {
+        "step": 5,
+        "action": "Request the administrator grant appropriate access or provide the corrected share name if either was the underlying issue",
+        "reason": "Only an administrator can adjust permissions or confirm the current correct hidden share configuration"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the hidden share path if a typo or missing dollar sign was the cause",
+      "Have the administrator grant appropriate permissions to the hidden share",
+      "Obtain the corrected share name if it was renamed or restructured",
+      "Have the administrator confirm the hidden share still exists as expected"
+    ],
+    "prevention": [
+      "Clearly document exact hidden share names and paths for authorized users",
+      "Communicate any changes to hidden share names or permissions promptly",
+      "Avoid relying on hidden shares for resources needing broad or frequently changing access"
+    ],
+    "keywords": ["hidden shared folder access denied", "cannot access hidden share", "dollar sign share not working", "hidden network folder error"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["Shared folder not visible", "Read-only shared folder", "Invalid network path"]
+  },
+  {
+    "id": "SHARE-075",
+    "category": "Shared Folders",
+    "subcategory": "Synchronization",
+    "problem": "File version conflict",
+    "description": "Two or more users edit the same file in a shared folder at overlapping times, resulting in a version conflict where the system cannot automatically determine which set of changes should be kept.",
+    "symptoms": [
+      "A conflict notification appears when saving or synchronizing the file",
+      "Two versions of the file exist with names indicating a conflict",
+      "Changes one user made appear to be missing after another user saved",
+      "The issue occurs specifically when multiple people edit the same file closely in time"
+    ],
+    "possible_causes": [
+      "Two users had the file open and made changes without coordinating with each other",
+      "One user was working offline while another edited the live server copy",
+      "The application used does not support real-time co-authoring for this file type",
+      "A synchronization delay caused both users to believe they had the latest version"
+    ],
+    "diagnostic_questions": [
+      "Were multiple people editing this file at the same time, and were any of them working offline?",
+      "Does the application being used support real-time co-authoring for this file type?",
+      "Can you identify what unique content exists in each conflicting version?",
+      "Is there a conflict-named copy of the file alongside the original?"
+    ],
+    "commands": [
+      {
+        "command": "dir \"\\\\servername\\sharename\\folder\" /o:d",
+        "purpose": "List the conflicting file versions sorted by date to help identify their sequence and relative recency",
+        "expected_result": "Clearly shows the order in which the conflicting versions were created or modified",
+        "abnormal_result": "Timestamps are too close together to clearly establish order, requiring manual content review instead"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Identify all versions of the file involved in the conflict, noting their exact names and timestamps",
+        "reason": "A clear picture of what versions exist is necessary before deciding how to reconcile the conflict"
+      },
+      {
+        "step": 2,
+        "action": "Review the content differences between the conflicting versions to identify what changes each contains",
+        "reason": "Understanding what unique content exists in each version is essential to avoid losing important work during reconciliation"
+      },
+      {
+        "step": 3,
+        "action": "Coordinate with the other user or users involved to agree on how to merge the changes",
+        "reason": "Manual reconciliation requires input from everyone who contributed changes to ensure nothing important is lost"
+      },
+      {
+        "step": 4,
+        "action": "Create a single merged, authoritative version of the file and save it back to the shared location",
+        "reason": "This resolves the immediate conflict and restores a single clear source of truth for the file"
+      },
+      {
+        "step": 5,
+        "action": "Discuss with the team whether a co-authoring or file locking approach could prevent similar conflicts in the future",
+        "reason": "Addressing the root collaborative workflow issue helps prevent recurring version conflicts"
+      }
+    ],
+    "possible_solutions": [
+      "Manually merge the conflicting versions into a single authoritative file",
+      "Adopt a co-authoring compatible application or file format for frequently shared documents",
+      "Implement file checkout or locking practices for documents prone to conflicts",
+      "Improve team communication around who is actively editing shared files"
+    ],
+    "prevention": [
+      "Use applications that support real-time co-authoring where possible",
+      "Establish file locking or checkout conventions for critical shared documents",
+      "Encourage team communication before extended offline editing of shared files"
+    ],
+    "keywords": ["file version conflict shared folder", "conflicting copy network file", "two versions of file conflict", "co-authoring conflict shared drive"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["Duplicate files after synchronization", "Changes made by other users not appearing", "Shared folder synchronization issue"]
+  },
+  {
+    "id": "SHARE-076",
+    "category": "Shared Folders",
+    "subcategory": "Backup and Recovery",
+    "problem": "Previous Versions (Shadow Copy) unavailable",
+    "description": "A user attempts to restore an earlier version of a file or folder using the Previous Versions feature, but no earlier versions are listed, or the feature appears entirely unavailable.",
+    "symptoms": [
+      "The Previous Versions tab shows no available versions for the file or folder",
+      "The Previous Versions tab or option is missing entirely",
+      "Earlier versions were available before but are no longer shown",
+      "The feature works for some files or folders but not others"
+    ],
+    "possible_causes": [
+      "Shadow Copy is not enabled on the server volume hosting this share",
+      "Shadow Copy is enabled but no snapshots have been taken recently enough to include this file",
+      "The user lacks sufficient permissions to view previous versions",
+      "The specific file or folder was created after the last snapshot was taken"
+    ],
+    "diagnostic_questions": [
+      "Have Previous Versions worked for other files on this same share before?",
+      "Roughly when was the file last known to have an earlier recoverable version?",
+      "Do you have standard read access to the file, separate from the Previous Versions feature specifically?",
+      "Is this issue specific to one file or does it affect the entire share?"
+    ],
+    "commands": [
+      {
+        "command": "vssadmin list shadows",
+        "purpose": "List existing shadow copy snapshots on the server, when run directly on the server with appropriate rights",
+        "expected_result": "Shows a list of recent shadow copy snapshots available for the relevant volume",
+        "abnormal_result": "Shows no snapshots, or none recent enough, indicating Shadow Copy is not configured or not running as expected"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether Previous Versions has worked successfully for other files on this same share before",
+        "reason": "This establishes whether Shadow Copy is generally functional on this server or the feature may not be enabled at all"
+      },
+      {
+        "step": 2,
+        "action": "Check whether the issue is specific to one file or folder versus affecting the entire share",
+        "reason": "A single affected item points toward that item being newer than the last snapshot, while a share-wide issue suggests Shadow Copy itself is misconfigured"
+      },
+      {
+        "step": 3,
+        "action": "This issue requires server-side verification of Shadow Copy configuration and snapshot schedule",
+        "reason": "End users cannot verify or configure Shadow Copy settings directly on the server"
+      },
+      {
+        "step": 4,
+        "action": "Have the administrator confirm Shadow Copy is enabled on the relevant volume and check the snapshot schedule",
+        "reason": "Shadow Copy must be explicitly enabled and scheduled on the server for Previous Versions to have any data to show"
+      },
+      {
+        "step": 5,
+        "action": "If Shadow Copy is disabled or misconfigured, have the administrator enable it and adjust the snapshot schedule appropriately",
+        "reason": "This restores the ability to recover previous versions going forward, though it cannot recover versions from before it is enabled"
+      }
+    ],
+    "possible_solutions": [
+      "Have the administrator enable Shadow Copy on the relevant server volume if it is currently disabled",
+      "Adjust the Shadow Copy snapshot schedule to run more frequently going forward",
+      "Restore the needed file version from a separate backup system if Shadow Copy does not have it",
+      "Confirm and correct user permissions if access to Previous Versions is being blocked"
+    ],
+    "prevention": [
+      "Enable Shadow Copy on all volumes hosting important shared folders",
+      "Schedule Shadow Copy snapshots at a frequency appropriate to how often files change",
+      "Maintain a separate, independent backup system as a complement to Shadow Copy"
+    ],
+    "keywords": ["previous versions unavailable", "shadow copy not working", "no earlier file versions", "restore previous version failed"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes (requires administrator involvement)",
+    "related_problems": ["Shared folder backup failed", "File version conflict", "File server storage full"]
+  },
+  {
+    "id": "SHARE-077",
+    "category": "Shared Folders",
+    "subcategory": "Backup and Recovery",
+    "problem": "Shared folder backup failed",
+    "description": "A scheduled backup job responsible for protecting a shared folder's contents fails to complete successfully, putting the data at risk in the event of loss or corruption.",
+    "symptoms": [
+      "The backup software or job log shows a failure or error status",
+      "Backup notifications indicate the job did not complete within its expected window",
+      "Some files back up successfully while others are consistently skipped or fail",
+      "The backup failure has been ongoing rather than a single isolated incident"
+    ],
+    "possible_causes": [
+      "The backup job lost network connectivity to the shared folder during the process",
+      "Insufficient permissions for the backup service account on certain files or folders",
+      "Specific files were open or locked during the backup window, causing them to be skipped",
+      "The backup destination ran out of available storage space",
+      "The backup job exceeded its allotted time window and was terminated before completion"
+    ],
+    "diagnostic_questions": [
+      "What specific error or status does the backup job log show?",
+      "Does the failure affect the entire backup job or only specific files or folders?",
+      "Has this backup job been failing consistently, or did it just start failing recently?",
+      "Is the backup destination storage confirmed to have sufficient available space?"
+    ],
+    "commands": [
+      {
+        "command": "icacls \"\\\\servername\\sharename\\folder\"",
+        "purpose": "Verify the backup service account has appropriate read permissions on the source folder",
+        "expected_result": "Shows the backup service account with sufficient read access to all necessary files",
+        "abnormal_result": "Shows the backup service account lacking access to certain files or subfolders, explaining partial backup failures"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Review the specific error message or status code from the backup job log",
+        "reason": "The exact error provides the clearest indication of whether the cause is connectivity, permissions, storage, or something else"
+      },
+      {
+        "step": 2,
+        "action": "Determine whether the entire backup job failed or only specific files were skipped",
+        "reason": "A full job failure points toward connectivity or destination issues, while selective failures point toward permissions or file locks"
+      },
+      {
+        "step": 3,
+        "action": "Verify that the backup service account has appropriate permissions across the entire folder structure",
+        "reason": "Insufficient permissions on even a subset of files is a common and specific cause of partial backup failures"
+      },
+      {
+        "step": 4,
+        "action": "Confirm the backup destination has sufficient available storage space",
+        "reason": "A full backup destination will cause jobs to fail partway through or not start at all"
+      },
+      {
+        "step": 5,
+        "action": "Check whether the backup job's scheduled time window is sufficient for the current volume of data",
+        "reason": "As data grows, backup jobs can begin exceeding their allotted time and get terminated before completing"
+      },
+      {
+        "step": 6,
+        "action": "Escalate to IT or the backup administrator with the specific findings for correction of the underlying configuration",
+        "reason": "Resolving backup job configuration issues typically requires administrative access to the backup software"
+      }
+    ],
+    "possible_solutions": [
+      "Correct backup service account permissions across the affected folder structure",
+      "Free up space on the backup destination storage",
+      "Extend the backup job's time window to accommodate current data volume",
+      "Investigate and resolve network connectivity issues occurring during the backup window"
+    ],
+    "prevention": [
+      "Regularly monitor backup job logs for early warning signs of failure",
+      "Proactively adjust backup windows and destination capacity as data grows",
+      "Test backup restores periodically to confirm the backup process is genuinely working end to end"
+    ],
+    "keywords": ["shared folder backup failed", "backup job error network share", "backup did not complete", "backup service permissions issue"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-90 minutes (requires administrator involvement)",
+    "related_problems": ["Previous Versions (Shadow Copy) unavailable", "File server storage full", "Shared folder quota exceeded"]
+  },
+  {
+    "id": "SHARE-078",
+    "category": "Shared Folders",
+    "subcategory": "Search and Indexing",
+    "problem": "File indexing/search not working on the shared folder",
+    "description": "Searching for files by name or content within a shared network folder returns incomplete or no results, even though the files are confirmed to exist in the location being searched.",
+    "symptoms": [
+      "Searching for a known file by name returns no results",
+      "Content-based search fails to find files that clearly contain the search term",
+      "Search works normally on local folders but not on this shared location",
+      "Search results are inconsistent or incomplete compared to what actually exists in the folder"
+    ],
+    "possible_causes": [
+      "The shared folder is not included in the local search index scope",
+      "Windows Search Indexing service is not running or has an error on the client computer",
+      "The server does not support or has indexing disabled for network search",
+      "The search index has become corrupted or is significantly out of date"
+    ],
+    "diagnostic_questions": [
+      "Does search work correctly on other shared folders or only fail for this one?",
+      "Have you confirmed the file you are searching for definitely exists in this exact folder?",
+      "Are you searching by file name only, or also trying to search file contents?",
+      "Does local file search work correctly on your computer?"
+    ],
+    "commands": [
+      {
+        "command": "dir \"\\\\servername\\sharename\\folder\" /s /b | findstr /i \"searchterm\"",
+        "purpose": "Manually search for the file by name directly, bypassing the Windows Search index entirely",
+        "expected_result": "The file is found, confirming it exists and that the issue is specifically with the search index rather than the file's presence",
+        "abnormal_result": "The file is not found even with a direct search, suggesting the file may not actually be in the expected location"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the file actually exists in the expected folder by manually browsing to it",
+        "reason": "This rules out the possibility that the file is simply not where it is believed to be, separate from any indexing issue"
+      },
+      {
+        "step": 2,
+        "action": "Test whether search works correctly on other shared folders or only fails for this specific one",
+        "reason": "This helps determine if the issue is specific to this folder's indexing configuration or a broader search problem"
+      },
+      {
+        "step": 3,
+        "action": "Check whether this shared folder has been added to your computer's indexed locations",
+        "reason": "Network folders often need to be explicitly added to the local search index to be included in search results"
+      },
+      {
+        "step": 4,
+        "action": "Confirm the Windows Search service is running normally on your computer",
+        "reason": "A stopped or malfunctioning search service would explain search failures across multiple locations, not just this folder"
+      },
+      {
+        "step": 5,
+        "action": "If content-based search specifically fails while name-based search works, check whether the file types involved support content indexing",
+        "reason": "Some file types require additional filters or plugins to be indexed for their content rather than just their name"
+      },
+      {
+        "step": 6,
+        "action": "Escalate to IT if the folder needs to be added to indexing scope on the server itself for content search to work reliably",
+        "reason": "Server-side indexing configuration is typically outside what an end user can adjust directly"
+      }
+    ],
+    "possible_solutions": [
+      "Add the shared folder to your computer's indexed locations",
+      "Restart the Windows Search service if it is not running correctly",
+      "Rebuild the local search index if it appears corrupted or significantly out of date",
+      "Have IT enable or configure server-side indexing for the shared folder if content search is required"
+    ],
+    "prevention": [
+      "Proactively add frequently used shared folders to indexed locations",
+      "Periodically verify the Windows Search service is running and healthy",
+      "Communicate to users which shared folders support content search versus name-only search"
+    ],
+    "keywords": ["shared folder search not working", "network search no results", "file indexing network drive", "search index shared folder"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["Shared folder opens very slowly", "Folder contents not updating", "Shared folder not visible"]
+  }
+]

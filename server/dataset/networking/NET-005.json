@@ -1,0 +1,196 @@
+[
+ {
+  "id": "NET-132",
+  "category": "Networking",
+  "subcategory": "File Server Problems",
+  "problem": "Cannot Rename File or Folder on Network Share",
+  "description": "A user is unable to rename a file or folder stored on a network shared folder. An error message may indicate that the file is in use, access is denied, or the requested action cannot be completed.",
+  "symptoms": [
+    "Unable to rename a file or folder on the shared drive",
+    "Error message such as 'The action can't be completed because the file is open in another program'",
+    "Error message 'Access is denied'",
+    "The Rename option is unavailable or immediately fails",
+    "Other users may or may not be able to rename the same file"
+  ],
+  "possible_causes": [
+    "The file or folder is currently open by another user",
+    "The user does not have Modify or Write permissions on the shared folder",
+    "A background application such as antivirus or indexing service is using the file",
+    "The file is marked as Read-only",
+    "A stale file lock remains after an unexpected disconnection or application crash"
+  ],
+  "diagnostic_questions": [
+    "Can other users successfully rename the same file or folder?",
+    "Is the file currently open in Microsoft Office, Adobe Reader, or another application?",
+    "Does the user have Modify permissions on the shared folder?",
+    "Is the file marked as Read-only?",
+    "Did the problem begin after a system crash or network interruption?"
+  ],
+  "commands": [
+    {
+      "command": "openfiles /query",
+      "purpose": "Display currently open files on the file server and identify who is using them",
+      "expected_result": "Shows the user and computer currently accessing the file if it is actively open",
+      "abnormal_result": "No open file is listed even though the rename operation is blocked, suggesting a stale lock or permission issue"
+    },
+    {
+      "command": "attrib filename.ext",
+      "purpose": "Check whether the file has the Read-only attribute enabled",
+      "expected_result": "The file does not display the Read-only attribute",
+      "abnormal_result": "The file is marked as Read-only, preventing modifications such as renaming"
+    }
+  ],
+  "troubleshooting_steps": [
+    {
+      "step": 1,
+      "action": "Verify that the file is not currently open by the user or another user.",
+      "reason": "Windows does not allow renaming files that are actively in use."
+    },
+    {
+      "step": 2,
+      "action": "Confirm the user has Modify or Write permissions on the shared folder.",
+      "reason": "Read-only access allows viewing files but not renaming them."
+    },
+    {
+      "step": 3,
+      "action": "Check whether the file has the Read-only attribute and remove it if appropriate.",
+      "reason": "Read-only files may prevent rename operations."
+    },
+    {
+      "step": 4,
+      "action": "If the file appears locked without an active user, check for stale file locks or open file handles and close them if necessary.",
+      "reason": "Improperly closed sessions can leave files locked on the server."
+    },
+    {
+      "step": 5,
+      "action": "Retry the rename after antivirus, backup, or indexing processes have completed.",
+      "reason": "Background services may temporarily lock files during processing."
+    }
+  ],
+  "possible_solutions": [
+    "Close the file on all computers before renaming it",
+    "Grant the user Modify or Write permission if appropriate",
+    "Remove the Read-only attribute from the file",
+    "Clear stale file locks from the file server",
+    "Wait for antivirus or backup operations to finish before retrying"
+  ],
+  "prevention": [
+    "Ensure users close files before attempting to rename them",
+    "Assign proper NTFS and Share permissions based on user roles",
+    "Avoid disconnecting from the network while files are still open",
+    "Schedule antivirus scans and backups during non-business hours"
+  ],
+  "keywords": [
+    "cannot rename network file",
+    "access denied rename shared folder",
+    "file in use rename network share",
+    "rename file server error"
+  ],
+  "difficulty": "Beginner",
+  "estimated_fix_time": "10-20 minutes",
+  "related_problems": [
+    "NET-127",
+    "NET-131"
+  ]
+},
+{
+  "id": "NET-133",
+  "category": "Networking",
+  "subcategory": "File Server Problems",
+  "problem": "Slow Access to Network Shared Folder",
+  "description": "Users experience unusually slow performance when opening, browsing, copying, or saving files on a network shared folder. The issue may affect one user, multiple users, or the entire department.",
+  "symptoms": [
+    "Shared folders take a long time to open",
+    "Files open or save much slower than normal",
+    "Copying files to or from the network share is slow",
+    "Windows displays 'Working on it...' for an extended period",
+    "Performance is slower than accessing local files"
+  ],
+  "possible_causes": [
+    "Network congestion or high bandwidth usage",
+    "Slow or overloaded file server",
+    "Poor network connection or faulty network cable",
+    "DNS or network name resolution delays",
+    "Antivirus scanning files on the network share",
+    "Large number of files or folders in a single directory",
+    "Insufficient server resources such as CPU, memory, or disk performance"
+  ],
+  "diagnostic_questions": [
+    "Does the issue affect only one user or multiple users?",
+    "Is the slow performance limited to one shared folder or all network shares?",
+    "Can the user access local files at normal speed?",
+    "Has any large file transfer, backup, or update recently started?",
+    "Is the user connected through Wi-Fi or a wired network?"
+  ],
+  "commands": [
+    {
+      "command": "ping <file_server_name>",
+      "purpose": "Check network latency between the client and the file server",
+      "expected_result": "Low response times with no packet loss",
+      "abnormal_result": "High latency or packet loss indicates a network connectivity problem"
+    },
+    {
+      "command": "tracert <file_server_name>",
+      "purpose": "Identify delays or routing issues between the client and the file server",
+      "expected_result": "Normal route with consistent response times",
+      "abnormal_result": "One or more hops show excessive delay or timeouts"
+    }
+  ],
+  "troubleshooting_steps": [
+    {
+      "step": 1,
+      "action": "Determine whether the issue affects a single user or multiple users.",
+      "reason": "This helps identify whether the problem is client-specific or server-wide."
+    },
+    {
+      "step": 2,
+      "action": "Test the network connection by checking latency and packet loss.",
+      "reason": "Poor network performance commonly causes slow access to shared folders."
+    },
+    {
+      "step": 3,
+      "action": "Verify the file server is not experiencing high CPU, memory, or disk usage.",
+      "reason": "An overloaded server responds slowly to file requests."
+    },
+    {
+      "step": 4,
+      "action": "Temporarily disable or pause antivirus scanning of the shared folder if permitted for testing.",
+      "reason": "Real-time scanning can significantly slow file access."
+    },
+    {
+      "step": 5,
+      "action": "If the folder contains a very large number of files, consider reorganizing them into subfolders.",
+      "reason": "Directories containing thousands of files can reduce browsing performance."
+    }
+  ],
+  "possible_solutions": [
+    "Resolve network connectivity or bandwidth issues",
+    "Restart or optimize the file server if system resources are exhausted",
+    "Replace faulty network cables or switches if necessary",
+    "Optimize antivirus scanning policies for network shares",
+    "Organize files into smaller folders to improve performance"
+  ],
+  "prevention": [
+    "Monitor server performance regularly",
+    "Schedule backups and large file transfers outside business hours",
+    "Maintain healthy network infrastructure",
+    "Archive old files to reduce the number of items in shared folders",
+    "Keep network drivers and server software updated"
+  ],
+  "keywords": [
+    "slow network share",
+    "shared folder slow",
+    "file server performance",
+    "slow file access",
+    "network folder takes long to open"
+  ],
+  "difficulty": "Intermediate",
+  "estimated_fix_time": "15-45 minutes",
+  "related_problems": [
+    "NET-127",
+    "NET-128",
+    "NET-131",
+    "NET-132"
+  ]
+}
+]

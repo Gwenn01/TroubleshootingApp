@@ -1,0 +1,2628 @@
+[
+  {
+    "id": "WORD-001",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Word",
+    "problem": "Word won't open",
+    "description": "The user double-clicks Microsoft Word or a Word document, but the program never opens, shows no window, or shows an error before it can fully load.",
+    "symptoms": [
+      "Nothing happens when clicking the Word icon",
+      "A brief loading cursor appears then disappears with no window opening",
+      "Error message appears before Word finishes loading",
+      "Word may appear briefly in Task Manager processes but no window shows"
+    ],
+    "possible_causes": [
+      "A corrupted Word template file (Normal.dotm)",
+      "A problematic add-in loading at startup",
+      "A corrupted Office installation",
+      "Conflicting antivirus software blocking Word from launching",
+      "Insufficient system resources or a stuck background process",
+      "Windows needs updates for compatibility"
+    ],
+    "diagnostic_questions": [
+      "Does this happen every time, or only sometimes?",
+      "Do other Office programs like Excel open normally?",
+      "Did this start after installing an add-in, update, or new software?",
+      "Does Word appear in Task Manager as a running process even though no window shows?"
+    ],
+    "commands": [
+      {
+        "command": "winword /safe",
+        "purpose": "Open Word in Safe Mode, which disables add-ins and templates, to see if it opens without them",
+        "expected_result": "Word opens successfully in Safe Mode",
+        "abnormal_result": "Word still fails to open even in Safe Mode, pointing to a deeper installation problem"
+      },
+      {
+        "command": "taskkill /f /im winword.exe",
+        "purpose": "Force close any stuck Word process that might be preventing a new window from opening",
+        "expected_result": "Process ends successfully, allowing a fresh attempt to open Word",
+        "abnormal_result": "Error saying the process was not found, meaning Word was not actually running in the background"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Task Manager to see if Word is already running as a hidden or stuck process",
+        "reason": "Sometimes a previous Word session is stuck in the background, blocking a new window from appearing"
+      },
+      {
+        "step": 2,
+        "action": "End any stuck winword.exe process in Task Manager and try opening Word again",
+        "reason": "This clears a frozen background instance that could be silently blocking new windows"
+      },
+      {
+        "step": 3,
+        "action": "Try opening Word in Safe Mode using winword /safe from the Run box",
+        "reason": "This disables add-ins and custom templates, helping identify if one of them is preventing normal startup"
+      },
+      {
+        "step": 4,
+        "action": "If Safe Mode works, disable recently added add-ins from File > Options > Add-ins",
+        "reason": "This isolates and removes the specific add-in causing Word to fail to open normally"
+      },
+      {
+        "step": 5,
+        "action": "Rename the Normal.dotm template file found in the Word startup folder, allowing Word to create a fresh one",
+        "reason": "A corrupted default template is a common cause of Word failing to open"
+      },
+      {
+        "step": 6,
+        "action": "Run the Office Quick Repair tool from Control Panel > Programs > Microsoft Office > Change",
+        "reason": "This automatically fixes many common causes of Office programs failing to launch"
+      },
+      {
+        "step": 7,
+        "action": "Temporarily disable antivirus software to test if it is blocking Word from launching",
+        "reason": "Some antivirus programs mistakenly block Office applications from starting"
+      },
+      {
+        "step": 8,
+        "action": "If Quick Repair does not help, run Online Repair, which reinstalls Office components",
+        "reason": "This resolves deeper corruption that a quick repair cannot fix"
+      }
+    ],
+    "possible_solutions": [
+      "End a stuck Word process in Task Manager",
+      "Disable a problematic add-in",
+      "Rename or reset the Normal.dotm template",
+      "Run Office Quick Repair or Online Repair",
+      "Temporarily disable antivirus software to test",
+      "Reinstall Microsoft Office completely as a last resort"
+    ],
+    "prevention": [
+      "Only install trusted, necessary Word add-ins",
+      "Keep Office updated regularly",
+      "Avoid force-closing Word improperly, which can corrupt templates",
+      "Keep antivirus software properly configured to avoid false blocks"
+    ],
+    "keywords": ["word won't open", "word does not launch", "winword not opening", "word stuck loading"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Word not responding", "Word crashes", "Document corrupted"]
+  },
+
+  {
+    "id": "WORD-002",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Word",
+    "problem": "Word is not responding",
+    "description": "While the user is working in Word, the program suddenly freezes, the window title shows 'Not Responding', and no clicks or keyboard input have any effect.",
+    "symptoms": [
+      "Window title bar shows 'Word (Not Responding)'",
+      "Screen may appear greyed out or frozen",
+      "Cannot type, click, or scroll within the document",
+      "May happen during typing, saving, or opening a large document"
+    ],
+    "possible_causes": [
+      "A large or complex document with many images, tables, or tracked changes",
+      "A problematic add-in causing the freeze",
+      "Auto-save or auto-recovery trying to save at the same moment as another action",
+      "Insufficient system memory",
+      "A corrupted document",
+      "A printer driver issue if the freeze happens near a print action"
+    ],
+    "diagnostic_questions": [
+      "Does this happen with all documents, or one specific document?",
+      "Is the document unusually large or does it contain many images or tracked changes?",
+      "Does this happen at a specific moment, such as while saving, printing, or typing?",
+      "How long does the freeze typically last before recovering or needing to be closed?"
+    ],
+    "commands": [
+      {
+        "command": "taskmgr",
+        "purpose": "Check if Word is truly frozen or just working slowly, and monitor its CPU and memory usage",
+        "expected_result": "Word shows normal resource usage, or 'Not Responding' with high usage indicating heavy processing",
+        "abnormal_result": "Word shows 0% CPU usage while frozen for a long time, suggesting it is stuck rather than just working slowly"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Wait a minute or two before assuming Word is completely frozen, especially with a large document",
+        "reason": "Word can appear unresponsive briefly while processing large amounts of data, such as during auto-save"
+      },
+      {
+        "step": 2,
+        "action": "Check Task Manager to see Word's CPU usage while it appears frozen",
+        "reason": "High usage suggests Word is still working, while 0% usage over time suggests it is truly stuck"
+      },
+      {
+        "step": 3,
+        "action": "If Word recovers, save the document immediately using Save As to create a fresh copy",
+        "reason": "This protects the user's work in case the freeze happens again or the file has begun to show early signs of corruption"
+      },
+      {
+        "step": 4,
+        "action": "If Word does not recover after several minutes, close it through Task Manager and reopen it, checking if Word offers to recover unsaved changes",
+        "reason": "Word's AutoRecover feature can often restore most of the recent work after a forced closure"
+      },
+      {
+        "step": 5,
+        "action": "Check if the freezing happens consistently with one specific document versus all documents",
+        "reason": "This helps determine if the problem is with Word generally or a specific corrupted or overly complex document"
+      },
+      {
+        "step": 6,
+        "action": "Disable recently added add-ins through File > Options > Add-ins",
+        "reason": "Add-ins are a common cause of unpredictable freezing during normal use"
+      },
+      {
+        "step": 7,
+        "action": "If the document is very large or has extensive tracked changes, try accepting or removing old tracked changes and comments to reduce complexity",
+        "reason": "Large amounts of tracked changes and comments can significantly slow down Word's performance"
+      },
+      {
+        "step": 8,
+        "action": "Run Office Quick Repair if the freezing continues across multiple documents",
+        "reason": "This can fix underlying installation issues contributing to general instability"
+      }
+    ],
+    "possible_solutions": [
+      "Wait for large documents to finish processing",
+      "Save work using Save As once recovered",
+      "Recover unsaved changes using AutoRecover after a forced close",
+      "Disable a problematic add-in",
+      "Reduce document complexity by cleaning up tracked changes",
+      "Run Office Quick Repair"
+    ],
+    "prevention": [
+      "Save documents frequently while working",
+      "Keep documents to a reasonable size and complexity when possible",
+      "Only use necessary, trusted add-ins",
+      "Keep Office updated"
+    ],
+    "keywords": ["word not responding", "word frozen", "word hangs while typing", "word stuck saving"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Word won't open", "Word crashes", "Cannot save document"]
+  },
+
+  {
+    "id": "WORD-003",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Word",
+    "problem": "Word document is corrupted and will not open properly",
+    "description": "The user tries to open a Word document, but receives an error message saying the file is corrupted or unreadable, or the document opens showing garbled text and symbols instead of the normal content.",
+    "symptoms": [
+      "Error message such as 'Word found unreadable content'",
+      "Message asking if the user wants Word to try to recover the document",
+      "Document opens but shows strange characters or missing formatting",
+      "File will not open at all, showing a generic error"
+    ],
+    "possible_causes": [
+      "The file was not saved completely due to a crash or power loss",
+      "The file was copied or transferred incorrectly, causing data corruption",
+      "A virus or malware damaged the file",
+      "The storage device (USB drive, network drive) had an error while saving",
+      "The file extension does not match the actual file format"
+    ],
+    "diagnostic_questions": [
+      "Did the computer crash, lose power, or close unexpectedly while this document was open or being saved?",
+      "Where is the file stored, such as locally, on a USB drive, or a network location?",
+      "Was this file copied, emailed, or transferred from another location recently?",
+      "Do you have a recent backup or an earlier saved version of this document?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "When Word shows a recovery prompt, choose to let it try to open and repair the document",
+        "reason": "Word has a built-in repair feature that can often recover most of the content from a corrupted file automatically"
+      },
+      {
+        "step": 2,
+        "action": "If the automatic prompt does not appear, open Word first, then use File > Open, select the file, and choose 'Open and Repair' from the dropdown next to the Open button",
+        "reason": "This manually triggers the same repair process for files that do not prompt automatically"
+      },
+      {
+        "step": 3,
+        "action": "Check the AutoRecover folder for a recent automatically saved version of the document",
+        "reason": "Word periodically saves recovery copies that may be more recent or less damaged than the main corrupted file"
+      },
+      {
+        "step": 4,
+        "action": "Check if a backup copy exists, such as in a cloud storage version history, a previous email attachment, or a USB backup",
+        "reason": "A backup copy avoids the need for repair entirely and guarantees complete, undamaged content"
+      },
+      {
+        "step": 5,
+        "action": "Try opening the file on a different computer or using a different program that can read Word documents",
+        "reason": "This helps determine if the corruption is truly in the file itself, or related to a problem with this specific computer's Word installation"
+      },
+      {
+        "step": 6,
+        "action": "If the document contains recoverable text but has lost formatting, try opening it as plain text or using the 'Recover Text from Any File' option in Word's Open dialog",
+        "reason": "This extracts at least the raw text content even when full formatting recovery is not possible"
+      },
+      {
+        "step": 7,
+        "action": "Run a malware scan if corruption happened without any clear explanation like a crash or transfer error",
+        "reason": "Unexplained file corruption can sometimes be caused by malware damaging files on the system"
+      }
+    ],
+    "possible_solutions": [
+      "Use Word's 'Open and Repair' feature",
+      "Recover a version from the AutoRecover folder",
+      "Restore from a cloud or manual backup",
+      "Extract raw text using 'Recover Text from Any File'",
+      "Open the file on a different computer or program to test",
+      "Remove malware if it may have caused the corruption"
+    ],
+    "prevention": [
+      "Save documents frequently while working",
+      "Use cloud storage with version history for important documents",
+      "Use a UPS to avoid power loss during saving",
+      "Safely eject USB drives before removing them",
+      "Keep antivirus software active and updated"
+    ],
+    "keywords": ["word document corrupted", "word found unreadable content", "cannot open word file", "repair word document"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Cannot save document", "File is read-only", "Word crashes"]
+  },
+
+  {
+    "id": "WORD-004",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Word",
+    "problem": "Cannot save a Word document",
+    "description": "The user tries to save a Word document, but receives an error message, the save button appears to do nothing, or the document will not save to the intended location.",
+    "symptoms": [
+      "Error message such as 'Word cannot save this file due to a naming conflict, or another error'",
+      "Save appears to complete but no changes are actually saved",
+      "Error mentioning permission or access denied",
+      "Saving to a specific location fails while saving elsewhere works"
+    ],
+    "possible_causes": [
+      "The file is set to read-only",
+      "Insufficient permissions to save to the chosen folder or network location",
+      "The destination drive or folder is full or disconnected",
+      "The file name contains characters not allowed in file names",
+      "A network connection was lost while saving to a network location",
+      "The document is open and locked by another user (in a shared environment)"
+    ],
+    "diagnostic_questions": [
+      "What exact error message appears when trying to save?",
+      "Where are you trying to save the file, such as locally, on a USB drive, or a network/shared location?",
+      "Does saving with a different file name or in a different location work?",
+      "Is this file shared with or currently open by another person?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Read the exact error message shown when the save fails",
+        "reason": "The specific wording often points directly to the cause, such as a permissions or naming issue"
+      },
+      {
+        "step": 2,
+        "action": "Try saving the document with File > Save As to a different location, such as the Desktop",
+        "reason": "This helps determine if the problem is with the specific destination or the document itself"
+      },
+      {
+        "step": 3,
+        "action": "Check if the file is marked as read-only by right-clicking the file in File Explorer, checking Properties, and unchecking Read-only if selected",
+        "reason": "A read-only file cannot be saved over until this attribute is removed"
+      },
+      {
+        "step": 4,
+        "action": "Check available storage space on the destination drive",
+        "reason": "A completely full drive will prevent any new save operations from completing"
+      },
+      {
+        "step": 5,
+        "action": "If saving to a network or shared drive, confirm the network connection is currently working",
+        "reason": "A dropped network connection during saving is a common cause of save failures in shared environments"
+      },
+      {
+        "step": 6,
+        "action": "Check if the file name contains special characters that are not allowed, such as / \\ : * ? \" < > |",
+        "reason": "These characters are restricted in file names and will cause save errors if used"
+      },
+      {
+        "step": 7,
+        "action": "If working in a shared environment, check if someone else has the file open, which can lock it from being saved by others",
+        "reason": "Simultaneous access without proper co-authoring features can cause save conflicts"
+      },
+      {
+        "step": 8,
+        "action": "As a safety measure, copy all the document text into a new blank document and save that instead if the original file consistently fails to save",
+        "reason": "This preserves the user's work using a completely fresh file, bypassing whatever specific issue affects the original"
+      }
+    ],
+    "possible_solutions": [
+      "Remove the read-only attribute from the file",
+      "Save to a different location to confirm the file works",
+      "Free up space on the destination drive",
+      "Fix or wait for the network connection to a shared drive",
+      "Rename the file to remove invalid characters",
+      "Save content into a new document if the original remains broken"
+    ],
+    "prevention": [
+      "Regularly check available storage space",
+      "Avoid special characters in file names",
+      "Use a stable network connection when saving to shared drives",
+      "Coordinate with others when working on shared documents"
+    ],
+    "keywords": ["cannot save word document", "word save error", "file is read only", "permission denied saving word"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["File is read-only", "Document corrupted", "Shared folder access problems"]
+  },
+
+  {
+    "id": "WORD-005",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Word",
+    "problem": "Cannot print from Word",
+    "description": "The user tries to print a Word document, but nothing happens, an error message appears, or the printed page comes out blank or incorrect.",
+    "symptoms": [
+      "Print command in Word appears to do nothing",
+      "Error message when trying to print",
+      "Print job appears in the printer queue but never prints",
+      "Printed page is blank or shows incorrect formatting"
+    ],
+    "possible_causes": [
+      "The printer is offline, out of paper, or has another physical issue",
+      "The wrong printer is selected in the print settings",
+      "The print spooler service has stopped",
+      "An outdated or corrupted printer driver",
+      "The document has a formatting or compatibility issue with the specific printer",
+      "A stuck print job blocking new print jobs from starting"
+    ],
+    "diagnostic_questions": [
+      "Can you print a test page or a document from another program, like Notepad?",
+      "Is the correct printer selected in the print dialog?",
+      "Does the printer show as online and ready?",
+      "Does an error message appear, or does nothing happen at all when printing?"
+    ],
+    "commands": [
+      {
+        "command": "services.msc",
+        "purpose": "Check if the Print Spooler service is running",
+        "expected_result": "Print Spooler service shows status 'Running'",
+        "abnormal_result": "Service is stopped, which prevents all printing until it is restarted"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Try printing a simple test document from another program, such as Notepad",
+        "reason": "This determines if the problem is specific to Word or affects printing across the whole computer"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the correct printer is selected in Word's print dialog before printing",
+        "reason": "It is common to accidentally have a different printer, such as a 'Print to PDF' option, selected instead of the intended physical printer"
+      },
+      {
+        "step": 3,
+        "action": "Check the printer itself for basic issues, such as being powered on, connected, having paper, and not showing an error on its display",
+        "reason": "Physical printer issues are one of the most common and simplest causes of failed print jobs"
+      },
+      {
+        "step": 4,
+        "action": "Check the print queue for stuck jobs and cancel any that are stuck, then try printing again",
+        "reason": "A stuck job can block all new print jobs from processing until it is cleared"
+      },
+      {
+        "step": 5,
+        "action": "Restart the Print Spooler service using services.msc",
+        "reason": "This service manages all print jobs, and restarting it can clear many temporary printing problems"
+      },
+      {
+        "step": 6,
+        "action": "Update or reinstall the printer driver",
+        "reason": "An outdated or corrupted driver can cause print jobs to fail specifically or inconsistently"
+      },
+      {
+        "step": 7,
+        "action": "Try printing the document as a PDF first, then print the PDF, to see if the problem is specific to Word's printing process",
+        "reason": "This helps isolate whether the issue is with Word itself or the printer and driver setup"
+      },
+      {
+        "step": 8,
+        "action": "Check if the document has unusual formatting, very large images, or an unusual page size that could be causing a compatibility issue with the printer",
+        "reason": "Some complex or unusually formatted documents can cause specific printers to fail or produce blank pages"
+      }
+    ],
+    "possible_solutions": [
+      "Select the correct printer before printing",
+      "Fix physical printer issues like paper or connection problems",
+      "Clear stuck print jobs from the queue",
+      "Restart the Print Spooler service",
+      "Update or reinstall the printer driver",
+      "Print as PDF first to isolate the cause"
+    ],
+    "prevention": [
+      "Keep printer drivers updated",
+      "Regularly clear old stuck print jobs",
+      "Check printer status before large print jobs",
+      "Confirm the correct printer is set as default"
+    ],
+    "keywords": ["cannot print word document", "word print not working", "print job stuck", "printer offline word"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Printer shows offline", "Print jobs stuck in queue", "Driver problems"]
+  },
+
+  {
+    "id": "WORD-006",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Word",
+    "problem": "AutoSave is not working in Word",
+    "description": "The user expects Word to automatically save their document periodically, especially when using OneDrive or SharePoint, but changes are not being saved automatically, risking lost work if Word closes unexpectedly.",
+    "symptoms": [
+      "The AutoSave toggle at the top of the Word window is turned off or greyed out",
+      "Changes made are not reflected when reopening the document after a crash",
+      "AutoRecover files are missing or outdated after an unexpected closure",
+      "Document is not saved to OneDrive or SharePoint as expected"
+    ],
+    "possible_causes": [
+      "The document is saved locally rather than to OneDrive or SharePoint, where AutoSave requires cloud storage",
+      "AutoSave is manually turned off in Word settings",
+      "The user is not signed in to their Microsoft account",
+      "Internet connection issues preventing sync to OneDrive or SharePoint",
+      "AutoRecover settings (a separate feature from AutoSave) have a long save interval or are disabled"
+    ],
+    "diagnostic_questions": [
+      "Is the document currently saved to OneDrive or SharePoint, or is it saved only locally on the computer?",
+      "Are you signed in to your Microsoft account within Word?",
+      "Is the AutoSave toggle at the top of the Word window turned on or off?",
+      "Do you have a stable internet connection available right now?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if the document is saved to OneDrive or SharePoint, since AutoSave only works with files stored in these cloud locations",
+        "reason": "AutoSave is specifically a cloud-based feature and does not work for files saved only to a local hard drive"
+      },
+      {
+        "step": 2,
+        "action": "If the document is local, use File > Save As and choose the OneDrive location to move it to the cloud",
+        "reason": "This enables AutoSave to function, since it requires the file to be stored in a supported cloud location"
+      },
+      {
+        "step": 3,
+        "action": "Check the AutoSave toggle switch at the top left of the Word window, next to the Save icon, and turn it on if it is off",
+        "reason": "AutoSave can be manually turned off, and this is the most direct way to check and correct its status"
+      },
+      {
+        "step": 4,
+        "action": "Confirm you are signed in to the correct Microsoft account within Word, checking the account status in the top right corner",
+        "reason": "AutoSave to OneDrive or SharePoint requires being properly signed in to the associated account"
+      },
+      {
+        "step": 5,
+        "action": "Check that the computer has a stable internet connection, since AutoSave needs to upload changes continuously",
+        "reason": "Without internet access, AutoSave cannot function even if the file is technically stored in a cloud location"
+      },
+      {
+        "step": 6,
+        "action": "For extra protection regardless of AutoSave, check that Word's separate AutoRecover feature is enabled with a reasonably short save interval, found under File > Options > Save",
+        "reason": "AutoRecover works independently of AutoSave and provides a safety net for local files by periodically saving recovery copies"
+      },
+      {
+        "step": 7,
+        "action": "Manually save the document frequently using Ctrl+S as a reliable habit, regardless of AutoSave status",
+        "reason": "This ensures work is not lost even if AutoSave or AutoRecover encounters an unexpected problem"
+      }
+    ],
+    "possible_solutions": [
+      "Move the document to OneDrive or SharePoint to enable AutoSave",
+      "Turn on the AutoSave toggle manually",
+      "Sign in to the correct Microsoft account in Word",
+      "Ensure a stable internet connection is available",
+      "Enable and shorten the AutoRecover save interval for local files",
+      "Save manually and frequently as a backup habit"
+    ],
+    "prevention": [
+      "Store important documents in OneDrive or SharePoint",
+      "Stay signed in to the correct Microsoft account",
+      "Keep AutoRecover enabled with a short save interval",
+      "Build a habit of saving manually with Ctrl+S regularly"
+    ],
+    "keywords": ["autosave not working word", "autosave off greyed out", "onedrive autosave word", "autorecover settings"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["Cannot save document", "Document corrupted"]
+  },
+
+  {
+    "id": "WORD-007",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Word",
+    "problem": "Spell check is not working in Word",
+    "description": "The user notices that Word is not underlining misspelled words with the usual red squiggly line, or the spell check tool reports no errors even in text that clearly contains mistakes.",
+    "symptoms": [
+      "No red squiggly lines appear under misspelled words",
+      "Running Spelling & Grammar check manually reports no issues, even in text with obvious errors",
+      "Spell check may work in some documents but not others",
+      "Grammar check (blue or green underlines) may also be affected"
+    ],
+    "possible_causes": [
+      "Spell check is turned off for the specific document",
+      "The proofing language is set incorrectly for the text being typed",
+      "The 'Hide spelling errors' option is enabled in Word settings",
+      "The paragraph or section has proofing exceptions applied",
+      "A corrupted custom dictionary file",
+      "The document is set to 'Do not check spelling or grammar' formatting"
+    ],
+    "diagnostic_questions": [
+      "Does this happen in all documents, or just one specific document?",
+      "What language is the text written in, and does it match Word's proofing language setting?",
+      "Have you checked if 'Hide spelling errors in this document' is turned on in Word Options?",
+      "Did this work correctly before in the same document, or has it never worked?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if spell check works correctly in a brand new, blank Word document",
+        "reason": "This determines whether the problem is specific to one document or affects Word generally"
+      },
+      {
+        "step": 2,
+        "action": "If it works in a new document but not the current one, go to File > Options > Proofing and check that 'Hide spelling errors in this document only' is unchecked",
+        "reason": "This specific setting can be accidentally turned on for individual documents, silently disabling spell check just for that file"
+      },
+      {
+        "step": 3,
+        "action": "Select all text in the document (Ctrl+A) and check the Language setting shown at the bottom of the Word window or under Review > Language",
+        "reason": "If the proofing language does not match the actual language of the text, or is set to 'Do not check spelling or grammar', spell check will not function correctly"
+      },
+      {
+        "step": 4,
+        "action": "With all text selected, set the correct language and ensure the 'Do not check spelling or grammar' checkbox is unchecked",
+        "reason": "This directly corrects the setting causing spell check to be skipped for that text"
+      },
+      {
+        "step": 5,
+        "action": "Check Word Options > Proofing to confirm 'Check spelling as you type' and 'Mark grammar errors as you type' are both enabled",
+        "reason": "These global settings control whether Word actively checks text while typing across all documents"
+      },
+      {
+        "step": 6,
+        "action": "If the problem persists across all documents, try resetting or renaming the custom dictionary file",
+        "reason": "A corrupted custom dictionary can sometimes interfere with the overall spell checking process"
+      },
+      {
+        "step": 7,
+        "action": "Run Office Quick Repair if spell check remains broken across all documents despite correct settings",
+        "reason": "This can fix a deeper installation issue affecting the proofing tools"
+      }
+    ],
+    "possible_solutions": [
+      "Turn off 'Hide spelling errors in this document'",
+      "Correct the proofing language for the text",
+      "Uncheck 'Do not check spelling or grammar' for selected text",
+      "Enable 'Check spelling as you type' in Word Options",
+      "Reset a corrupted custom dictionary file",
+      "Run Office Quick Repair for persistent issues"
+    ],
+    "prevention": [
+      "Periodically check proofing language settings when working in multiple languages",
+      "Avoid accidentally toggling spelling and grammar options",
+      "Keep Office updated for proofing tool improvements"
+    ],
+    "keywords": ["spell check not working word", "no red squiggly lines", "grammar check not working", "hide spelling errors"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["Word not responding", "Fonts missing"]
+  },
+
+  {
+    "id": "WORD-008",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Word",
+    "problem": "Fonts are missing or displaying incorrectly in Word",
+    "description": "A document opens in Word, but the text appears in a different font than intended, or Word shows a message that certain fonts used in the document are not installed on this computer.",
+    "symptoms": [
+      "Text appears in an unexpected substitute font",
+      "Document layout looks different from how it was originally created",
+      "Missing font may be listed if checked in the font dropdown menu",
+      "Formatting looks inconsistent compared to the original file"
+    ],
+    "possible_causes": [
+      "The font used in the original document is not installed on this computer",
+      "The font file itself has become corrupted",
+      "A font was uninstalled or removed after the document was created",
+      "The document was created on a different computer or operating system with different available fonts"
+    ],
+    "diagnostic_questions": [
+      "Was this document created on this computer, or received from someone else?",
+      "Do you know the specific name of the font that should be used?",
+      "Does the document look correct when opened on a different computer?",
+      "Have any fonts been recently uninstalled or is this a newly set up computer?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if Word shows any message about a missing font when opening the document",
+        "reason": "Word sometimes directly notifies the user which specific font is missing, saving time in diagnosis"
+      },
+      {
+        "step": 2,
+        "action": "Select the affected text and check the font name shown in the font box at the top of the screen",
+        "reason": "This confirms the exact font name the document expects, even if it is currently being substituted"
+      },
+      {
+        "step": 3,
+        "action": "Check the Windows Fonts folder (Control Panel > Fonts) to see if the required font is installed",
+        "reason": "This confirms whether the font truly needs to be installed, or if it exists but is not being applied correctly"
+      },
+      {
+        "step": 4,
+        "action": "If the font is missing, obtain and install it from a legitimate, licensed source, such as the font's official website or the organization that created the document",
+        "reason": "Installing the correct font is the most direct way to restore the intended appearance of the document"
+      },
+      {
+        "step": 5,
+        "action": "After installing the font, close and reopen the document to confirm it now displays correctly",
+        "reason": "Word needs to reload the document to apply a newly installed font"
+      },
+      {
+        "step": 6,
+        "action": "If the exact font cannot be obtained, ask the document's original creator to either embed the font in the file or provide a version using only commonly available fonts",
+        "reason": "Embedding fonts when saving in Word ensures the document displays correctly on any computer, even without the font separately installed"
+      },
+      {
+        "step": 7,
+        "action": "For documents you create yourself, use File > Options > Save > Embed fonts in the file to prevent this problem for others in the future",
+        "reason": "This proactively solves the missing font problem for anyone who later opens the document on a different computer"
+      }
+    ],
+    "possible_solutions": [
+      "Install the missing font from a legitimate source",
+      "Ask the document creator to embed fonts or use common fonts",
+      "Embed fonts when saving your own documents",
+      "Manually reapply the correct font if it becomes available"
+    ],
+    "prevention": [
+      "Embed fonts in important documents before sharing them",
+      "Use widely available standard fonts when possible for shared documents",
+      "Keep a record of custom fonts used in frequently shared templates"
+    ],
+    "keywords": ["missing font word", "font substitution word", "document looks different font", "embed fonts word"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["Document corrupted", "Spell check not working"]
+  },
+
+  {
+    "id": "WORD-009",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Word",
+    "problem": "Word file is marked as read-only and cannot be edited",
+    "description": "The user opens a Word document and finds they cannot type or make any changes, with the title bar or a notification indicating the file is open in read-only mode.",
+    "symptoms": [
+      "Title bar shows '[Read-Only]' next to the file name",
+      "Typing has no effect on the document content",
+      "A yellow bar may appear saying 'This file is locked for editing' or similar",
+      "Editing tools may appear greyed out"
+    ],
+    "possible_causes": [
+      "The file's read-only attribute is enabled in its file properties",
+      "Another user currently has the file open on a shared network location",
+      "The file was opened directly from a protected location, such as an email attachment preview or a website",
+      "The document itself has restricted editing enabled intentionally by its creator",
+      "Windows file permissions do not allow the current user to modify the file"
+    ],
+    "diagnostic_questions": [
+      "Where is this file stored, such as locally, on a USB drive, email attachment, or shared network drive?",
+      "Does the notification mention another person's name as currently editing the file?",
+      "Was this file intentionally protected by its creator, such as a form or template?",
+      "Have you tried saving a copy of the file to a different location?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if a yellow notification bar mentions another user currently editing the file",
+        "reason": "If someone else has the file open on a shared location, Word opens it as read-only to prevent conflicting changes until they close it"
+      },
+      {
+        "step": 2,
+        "action": "If another user is editing it, wait for them to close the file, or contact them to coordinate access",
+        "reason": "This resolves the issue naturally once the file is no longer locked by someone else"
+      },
+      {
+        "step": 3,
+        "action": "If opened from an email attachment or web browser, save the file to the computer first, then open that saved copy instead",
+        "reason": "Files opened directly from email or browser preview modes are often automatically read-only until saved locally"
+      },
+      {
+        "step": 4,
+        "action": "Right-click the file in File Explorer, select Properties, and check if the Read-only checkbox at the bottom is selected",
+        "reason": "This attribute can be set intentionally or accidentally and directly controls whether the file can be edited"
+      },
+      {
+        "step": 5,
+        "action": "Uncheck the Read-only checkbox in Properties if it is enabled, then click Apply",
+        "reason": "This directly removes the restriction, allowing the file to be edited and saved normally"
+      },
+      {
+        "step": 6,
+        "action": "Check within Word under Review > Restrict Editing to see if the document itself has intentional editing restrictions set by its creator",
+        "reason": "Some documents are deliberately protected, such as forms, and may require a password from the creator to unlock full editing"
+      },
+      {
+        "step": 7,
+        "action": "If the file is on a network or shared drive, confirm the user account has proper write permissions to that location",
+        "reason": "Insufficient permissions on a shared location will also cause files to open in a read-only or restricted state"
+      }
+    ],
+    "possible_solutions": [
+      "Wait for another user to close the shared file",
+      "Save the file locally before editing if opened from email or browser",
+      "Uncheck the Read-only attribute in file Properties",
+      "Enter the correct password to remove intentional document restrictions",
+      "Request proper write permissions for a shared network location"
+    ],
+    "prevention": [
+      "Save email or browser attachments locally before editing",
+      "Coordinate editing access on shared documents",
+      "Understand which documents are intentionally protected before assuming a fault"
+    ],
+    "keywords": ["word file read only", "cannot edit word document", "file locked for editing", "read only word"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-20 minutes",
+    "related_problems": ["Cannot save document", "Shared folder access problems"]
+  },
+
+  {
+    "id": "WORD-010",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Word",
+    "problem": "Word crashes unexpectedly while working",
+    "description": "While the user is actively typing, formatting, or performing an action in Word, the program suddenly closes completely without warning, potentially losing unsaved work.",
+    "symptoms": [
+      "Word closes suddenly with no warning message",
+      "A Windows error report dialog may appear after the crash",
+      "Crash may happen during a specific action, such as inserting an image or using a certain feature",
+      "Unsaved changes may be lost unless AutoRecover captures them"
+    ],
+    "possible_causes": [
+      "A problematic add-in causing instability",
+      "A corrupted document triggering the crash",
+      "Outdated or corrupted graphics drivers affecting Word's rendering",
+      "A corrupted Office installation",
+      "Insufficient system memory for the current task",
+      "A specific feature or embedded object causing a known compatibility issue"
+    ],
+    "diagnostic_questions": [
+      "Does the crash happen during a specific action, such as inserting a picture, using a specific template, or printing?",
+      "Does this happen with all documents, or just one specific document?",
+      "Did this start after installing an add-in or a Windows/Office update?",
+      "When you reopen Word, does it offer to recover the document you were working on?"
+    ],
+    "commands": [
+      {
+        "command": "winword /safe",
+        "purpose": "Open Word in Safe Mode to test if it remains stable without add-ins and custom templates",
+        "expected_result": "Word runs without crashing in Safe Mode",
+        "abnormal_result": "Word still crashes even in Safe Mode, suggesting a deeper installation or file-specific problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "When reopening Word after a crash, allow it to recover the previous document if prompted",
+        "reason": "This retrieves as much of the recent work as possible through the AutoRecover feature"
+      },
+      {
+        "step": 2,
+        "action": "Note exactly what action was being performed right before the crash happened",
+        "reason": "A specific trigger, like inserting an image or using a particular feature, helps narrow down the exact cause"
+      },
+      {
+        "step": 3,
+        "action": "Test if the same crash happens in a brand new, blank document performing the same action",
+        "reason": "This determines if the problem is with Word generally, or specific to the original document"
+      },
+      {
+        "step": 4,
+        "action": "Open Word in Safe Mode using winword /safe and try to reproduce the crash",
+        "reason": "If it does not crash in Safe Mode, an add-in is the likely cause"
+      },
+      {
+        "step": 5,
+        "action": "Disable recently installed add-ins through File > Options > Add-ins if Safe Mode resolves the crashing",
+        "reason": "This removes the specific add-in responsible while keeping the rest of Word functional"
+      },
+      {
+        "step": 6,
+        "action": "Update the computer's graphics driver, since Word's rendering can be affected by outdated or unstable graphics drivers",
+        "reason": "This is a common but often overlooked cause of unexpected crashes in Office applications"
+      },
+      {
+        "step": 7,
+        "action": "Run Office Quick Repair to fix potential installation corruption",
+        "reason": "This resolves many general stability issues without needing a full reinstall"
+      },
+      {
+        "step": 8,
+        "action": "If the crash is tied to one specific document, try copying the content into a new document section by section to identify which part triggers the crash",
+        "reason": "This isolates a specific corrupted element, such as an embedded object or image, within that document"
+      }
+    ],
+    "possible_solutions": [
+      "Recover the document through AutoRecover after reopening Word",
+      "Disable a problematic add-in",
+      "Update the graphics driver",
+      "Run Office Quick Repair or Online Repair",
+      "Isolate and remove a corrupted element from a specific document",
+      "Reinstall Office if crashes continue across all documents"
+    ],
+    "prevention": [
+      "Save documents frequently while working",
+      "Keep graphics drivers and Office updated",
+      "Only use trusted, necessary add-ins",
+      "Avoid overly complex documents with excessive embedded objects when possible"
+    ],
+    "keywords": ["word crashes", "word closes unexpectedly", "word stopped working", "word crash while typing"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Word not responding", "Word won't open", "Document corrupted"]
+  },
+
+  {
+    "id": "EXCEL-001",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Excel",
+    "problem": "Excel won't open",
+    "description": "The user tries to open Microsoft Excel or an Excel file, but the program does not launch, shows no window, or displays an error before it finishes loading.",
+    "symptoms": [
+      "Nothing happens when clicking the Excel icon",
+      "A loading cursor briefly appears then disappears",
+      "Error message appears before Excel fully opens",
+      "Excel may appear in Task Manager without showing a visible window"
+    ],
+    "possible_causes": [
+      "A corrupted Excel add-in loading at startup",
+      "A corrupted default workbook template",
+      "A corrupted Office installation",
+      "Conflicting antivirus software blocking Excel from launching",
+      "A stuck background Excel process from a previous session"
+    ],
+    "diagnostic_questions": [
+      "Does this happen every time, or only sometimes?",
+      "Do other Office programs like Word open normally?",
+      "Did this start after installing an add-in or a recent update?",
+      "Does Excel appear in Task Manager as running, even without a visible window?"
+    ],
+    "commands": [
+      {
+        "command": "excel /safe",
+        "purpose": "Open Excel in Safe Mode, disabling add-ins, to see if it opens without them",
+        "expected_result": "Excel opens successfully in Safe Mode",
+        "abnormal_result": "Excel still fails to open even in Safe Mode, pointing to a deeper installation issue"
+      },
+      {
+        "command": "taskkill /f /im excel.exe",
+        "purpose": "Force close a stuck Excel process that might be blocking a new window from opening",
+        "expected_result": "Process ends successfully",
+        "abnormal_result": "Error saying the process was not found, meaning Excel was not actually running in the background"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Task Manager to see if Excel is already running as a hidden or stuck process",
+        "reason": "A stuck background instance can silently block a new Excel window from appearing"
+      },
+      {
+        "step": 2,
+        "action": "End any stuck excel.exe process and try opening Excel again",
+        "reason": "This clears a frozen background session that could be interfering with a fresh launch"
+      },
+      {
+        "step": 3,
+        "action": "Try opening Excel in Safe Mode using excel /safe from the Run box",
+        "reason": "This disables add-ins, helping identify if one is preventing Excel from starting normally"
+      },
+      {
+        "step": 4,
+        "action": "If Safe Mode works, disable recently added add-ins from File > Options > Add-ins",
+        "reason": "This isolates and removes the specific add-in causing the startup failure"
+      },
+      {
+        "step": 5,
+        "action": "Run the Office Quick Repair tool from Control Panel > Programs > Microsoft Office > Change",
+        "reason": "This automatically fixes many common causes of Office programs failing to launch"
+      },
+      {
+        "step": 6,
+        "action": "Temporarily disable antivirus software to test if it is blocking Excel from launching",
+        "reason": "Some antivirus programs mistakenly block Office applications from starting properly"
+      },
+      {
+        "step": 7,
+        "action": "If Quick Repair does not resolve it, run Online Repair to reinstall Office components",
+        "reason": "This addresses deeper corruption that a quick repair cannot fully fix"
+      }
+    ],
+    "possible_solutions": [
+      "End a stuck Excel process in Task Manager",
+      "Disable a problematic add-in",
+      "Run Office Quick Repair or Online Repair",
+      "Temporarily disable antivirus software to test",
+      "Reinstall Microsoft Office completely as a last resort"
+    ],
+    "prevention": [
+      "Only install trusted, necessary Excel add-ins",
+      "Keep Office updated regularly",
+      "Avoid force-closing Excel improperly",
+      "Keep antivirus software properly configured to avoid false blocks"
+    ],
+    "keywords": ["excel won't open", "excel does not launch", "excel stuck loading", "excel not starting"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Excel crashes", "Workbook corrupted", "Excel freezes"]
+  },
+
+  {
+    "id": "EXCEL-002",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Excel",
+    "problem": "Excel crashes unexpectedly while working",
+    "description": "While the user is entering data, using formulas, or working with a spreadsheet, Excel suddenly closes completely without warning, potentially losing unsaved work.",
+    "symptoms": [
+      "Excel closes suddenly with no warning message",
+      "A Windows error report dialog may appear after the crash",
+      "Crash may happen during a specific action, such as opening a large file or using a certain formula",
+      "Unsaved changes may be lost unless AutoRecover captures them"
+    ],
+    "possible_causes": [
+      "A problematic add-in causing instability",
+      "A very large or complex workbook with many formulas or macros",
+      "Outdated or corrupted graphics drivers affecting Excel's rendering",
+      "A corrupted Office installation",
+      "Insufficient system memory for a large workbook",
+      "A corrupted specific workbook file"
+    ],
+    "diagnostic_questions": [
+      "Does the crash happen during a specific action, such as opening the file, using a certain formula, or scrolling?",
+      "Does this happen with all workbooks, or just one specific file?",
+      "How large or complex is the workbook, in terms of rows, formulas, or macros?",
+      "Did this start after installing an add-in or a recent update?"
+    ],
+    "commands": [
+      {
+        "command": "excel /safe",
+        "purpose": "Open Excel in Safe Mode to test if it remains stable without add-ins",
+        "expected_result": "Excel runs without crashing in Safe Mode",
+        "abnormal_result": "Excel still crashes even in Safe Mode, suggesting a deeper installation or file-specific problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "When reopening Excel after a crash, allow it to recover the previous workbook if prompted",
+        "reason": "This retrieves as much recent work as possible through the AutoRecover feature"
+      },
+      {
+        "step": 2,
+        "action": "Note exactly what action was happening right before the crash",
+        "reason": "A specific trigger helps narrow down whether the cause is a formula, an add-in, or the file size itself"
+      },
+      {
+        "step": 3,
+        "action": "Test if the same crash happens with a brand new, simple workbook performing the same action",
+        "reason": "This determines if the problem is with Excel generally, or specific to the original workbook"
+      },
+      {
+        "step": 4,
+        "action": "Open Excel in Safe Mode using excel /safe and try to reproduce the crash",
+        "reason": "If it does not crash in Safe Mode, an add-in is the likely cause"
+      },
+      {
+        "step": 5,
+        "action": "Disable recently installed add-ins through File > Options > Add-ins if Safe Mode resolves the crashing",
+        "reason": "This removes the specific add-in responsible while keeping the rest of Excel functional"
+      },
+      {
+        "step": 6,
+        "action": "Update the computer's graphics driver, since Excel's rendering can be affected by outdated drivers, especially with large spreadsheets",
+        "reason": "This is a common but often overlooked cause of crashes in Office applications"
+      },
+      {
+        "step": 7,
+        "action": "If the workbook is very large or complex, try breaking it into smaller files or reducing unnecessary formulas and formatting",
+        "reason": "Extremely large or complex workbooks can exceed available memory, causing repeated crashes"
+      },
+      {
+        "step": 8,
+        "action": "Run Office Quick Repair to fix potential installation corruption if crashes continue across multiple workbooks",
+        "reason": "This resolves many general stability issues without needing a full reinstall"
+      }
+    ],
+    "possible_solutions": [
+      "Recover the workbook through AutoRecover after reopening Excel",
+      "Disable a problematic add-in",
+      "Update the graphics driver",
+      "Simplify or split an overly large workbook",
+      "Run Office Quick Repair or Online Repair",
+      "Reinstall Office if crashes continue across all workbooks"
+    ],
+    "prevention": [
+      "Save workbooks frequently while working",
+      "Keep graphics drivers and Office updated",
+      "Only use trusted, necessary add-ins",
+      "Avoid unnecessarily large or overly complex workbooks when possible"
+    ],
+    "keywords": ["excel crashes", "excel closes unexpectedly", "excel stopped working", "excel crash while working"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Excel won't open", "Excel freezes", "Workbook corrupted"]
+  },
+
+  {
+    "id": "EXCEL-003",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Excel",
+    "problem": "Excel workbook is corrupted and will not open properly",
+    "description": "The user tries to open an Excel file, but receives an error message saying the file is corrupted or unreadable, or the workbook opens showing missing data, broken formulas, or strange formatting.",
+    "symptoms": [
+      "Error message such as 'Excel cannot open the file because the file format or extension is not valid'",
+      "Message asking if Excel should try to repair the workbook",
+      "Workbook opens but shows missing sheets, data, or broken formulas",
+      "File will not open at all, showing a generic error"
+    ],
+    "possible_causes": [
+      "The file was not saved completely due to a crash or power loss",
+      "The file was copied or transferred incorrectly, causing data corruption",
+      "A virus or malware damaged the file",
+      "The storage device (USB drive, network drive) had an error while saving",
+      "The file extension does not match the actual file format"
+    ],
+    "diagnostic_questions": [
+      "Did the computer crash, lose power, or close unexpectedly while this workbook was open or being saved?",
+      "Where is the file stored, such as locally, on a USB drive, or a network location?",
+      "Was this file copied, emailed, or transferred from another location recently?",
+      "Do you have a recent backup or an earlier saved version of this workbook?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "When Excel shows a recovery prompt, choose to let it try to repair the workbook",
+        "reason": "Excel has a built-in repair feature that can often recover most of the data from a corrupted file automatically"
+      },
+      {
+        "step": 2,
+        "action": "If the automatic prompt does not appear, open Excel first, then use File > Open, select the file, and choose 'Open and Repair' from the dropdown next to the Open button",
+        "reason": "This manually triggers the same repair process for files that do not prompt automatically"
+      },
+      {
+        "step": 3,
+        "action": "If repair fails, try the 'Extract Data' option within the same Open and Repair dialog, which attempts to recover just the values and formulas without full formatting",
+        "reason": "This can recover the underlying data even when a full structural repair is not possible"
+      },
+      {
+        "step": 4,
+        "action": "Check the AutoRecover folder for a recent automatically saved version of the workbook",
+        "reason": "Excel periodically saves recovery copies that may be more recent or less damaged than the main corrupted file"
+      },
+      {
+        "step": 5,
+        "action": "Check if a backup copy exists, such as in a cloud storage version history, a previous email attachment, or a USB backup",
+        "reason": "A backup copy avoids the need for repair entirely and guarantees complete, undamaged content"
+      },
+      {
+        "step": 6,
+        "action": "Try opening the file on a different computer or using Excel Online to see if it opens differently",
+        "reason": "This helps determine if the corruption is truly in the file itself, or related to a problem with this specific computer's Excel installation"
+      },
+      {
+        "step": 7,
+        "action": "Run a malware scan if corruption happened without any clear explanation like a crash or transfer error",
+        "reason": "Unexplained file corruption can sometimes be caused by malware damaging files on the system"
+      }
+    ],
+    "possible_solutions": [
+      "Use Excel's 'Open and Repair' feature",
+      "Use 'Extract Data' to recover values and formulas",
+      "Recover a version from the AutoRecover folder",
+      "Restore from a cloud or manual backup",
+      "Open the file on a different computer or in Excel Online to test",
+      "Remove malware if it may have caused the corruption"
+    ],
+    "prevention": [
+      "Save workbooks frequently while working",
+      "Use cloud storage with version history for important workbooks",
+      "Use a UPS to avoid power loss during saving",
+      "Safely eject USB drives before removing them",
+      "Keep antivirus software active and updated"
+    ],
+    "keywords": ["excel workbook corrupted", "excel file format not valid", "repair excel file", "cannot open excel file"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Cannot save workbook", "Excel crashes", "Formula not calculating"]
+  },
+
+  {
+    "id": "EXCEL-004",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Excel",
+    "problem": "Formulas are not calculating in Excel",
+    "description": "The user enters or expects a formula to calculate a result, but instead the cell shows the formula text itself, an outdated value, or does not update even after changing related data.",
+    "symptoms": [
+      "Cell shows the formula text, like '=A1+B1', instead of the calculated result",
+      "Formula result does not update after changing the numbers it depends on",
+      "Only some cells update while others stay the same",
+      "Status bar at the bottom shows 'Calculate' instead of normal information"
+    ],
+    "possible_causes": [
+      "Calculation mode is set to Manual instead of Automatic",
+      "The cell is formatted as Text instead of General or Number, causing Excel to treat the formula as plain text",
+      "The formula contains a typing error preventing it from being recognized as a formula",
+      "Circular reference causing a calculation warning",
+      "The workbook is very large, causing intentional manual calculation to improve performance"
+    ],
+    "diagnostic_questions": [
+      "Does the cell show the formula text itself, like '=SUM(A1:A5)', or does it show a number that just seems wrong?",
+      "Does pressing F9 or manually recalculating update the values?",
+      "Is this happening with one specific cell, or all formulas in the workbook?",
+      "Was Calculation mode ever changed intentionally, such as for a large workbook?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the Formulas tab and look at the Calculation Options setting to see if it is set to Manual instead of Automatic",
+        "reason": "In Manual mode, Excel only recalculates when specifically told to, which explains formulas appearing frozen or outdated"
+      },
+      {
+        "step": 2,
+        "action": "If set to Manual, change Calculation Options to Automatic",
+        "reason": "This restores Excel's normal behavior of recalculating formulas immediately whenever related data changes"
+      },
+      {
+        "step": 3,
+        "action": "Press F9 to manually force a full recalculation and see if values update correctly",
+        "reason": "This confirms whether the underlying formulas are correct and just waiting for a trigger to recalculate"
+      },
+      {
+        "step": 4,
+        "action": "If a cell shows the formula text itself rather than a result, check if that cell is formatted as Text",
+        "reason": "Excel treats text-formatted cells as literal text, displaying the formula instead of calculating it"
+      },
+      {
+        "step": 5,
+        "action": "Change the cell format to General or Number, then re-enter the formula (simply changing the format alone may not be enough; retyping or re-entering with Enter after changing format usually fixes it)",
+        "reason": "This allows Excel to properly recognize and calculate the formula going forward"
+      },
+      {
+        "step": 6,
+        "action": "Check for a circular reference warning at the bottom of the screen, which can prevent proper calculation of related formulas",
+        "reason": "A circular reference, where a formula indirectly refers to its own cell, causes Excel to flag and potentially skip calculation"
+      },
+      {
+        "step": 7,
+        "action": "Carefully review the formula syntax for typing mistakes, such as missing parentheses or incorrect cell references",
+        "reason": "A syntax error can cause Excel to treat the entry as plain text rather than a working formula"
+      }
+    ],
+    "possible_solutions": [
+      "Change Calculation Options from Manual to Automatic",
+      "Force recalculation using F9",
+      "Change cell formatting from Text to General or Number and re-enter the formula",
+      "Fix a circular reference causing calculation issues",
+      "Correct formula syntax errors"
+    ],
+    "prevention": [
+      "Keep Calculation mode set to Automatic unless intentionally using Manual for performance",
+      "Format cells correctly before entering formulas",
+      "Double check formula syntax when creating complex formulas",
+      "Watch for circular reference warnings and address them promptly"
+    ],
+    "keywords": ["formula not calculating excel", "excel showing formula not result", "manual calculation mode", "formula stuck excel"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["#VALUE! error", "#REF! error", "Pivot Table not refreshing"]
+  },
+
+  {
+    "id": "EXCEL-005",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Excel",
+    "problem": "Formula shows a #VALUE! error",
+    "description": "Instead of showing a calculated result, a formula cell displays '#VALUE!', indicating that Excel cannot properly calculate the formula due to a problem with the type of data being used.",
+    "symptoms": [
+      "Cell displays '#VALUE!' instead of a number",
+      "Error may appear after entering a new formula or after changing referenced cells",
+      "Related formulas that depend on this cell may also show errors",
+      "Small green triangle may appear in the corner of the cell with a warning"
+    ],
+    "possible_causes": [
+      "The formula is trying to perform a math operation on a cell containing text instead of a number",
+      "A referenced cell contains extra spaces or hidden characters that make it look like a number but is actually text",
+      "The formula references an empty cell where a number was expected in a way the function does not support",
+      "An array formula was entered incorrectly",
+      "A function is being used with the wrong type or number of arguments"
+    ],
+    "diagnostic_questions": [
+      "Which specific formula or cell is showing the #VALUE! error?",
+      "What cells does this formula reference, and what type of data do they contain?",
+      "Did this error appear after changing the data in a referenced cell?",
+      "Are any of the referenced cells possibly containing text that looks like a number, such as with extra spaces?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Click on the cell showing the error and check the exact formula being used",
+        "reason": "This confirms exactly what calculation is being attempted and which cells are involved"
+      },
+      {
+        "step": 2,
+        "action": "Check each cell referenced in the formula to confirm it contains the expected type of data, such as a number rather than text",
+        "reason": "A #VALUE! error very commonly occurs when a formula expects a number but finds text instead"
+      },
+      {
+        "step": 3,
+        "action": "Look for cells that appear to contain numbers but are actually formatted or entered as text, often indicated by the number being aligned to the left instead of the right",
+        "reason": "Numbers stored as text look correct visually but cause math operations to fail"
+      },
+      {
+        "step": 4,
+        "action": "Use the Excel error checking button that appears next to the cell (the small warning icon) and select 'Convert to Number' if offered",
+        "reason": "This directly fixes numbers that are mistakenly stored as text"
+      },
+      {
+        "step": 5,
+        "action": "Check for extra spaces in text or number cells using the TRIM function, or by carefully re-entering the value",
+        "reason": "Hidden spaces can cause a cell to be treated as text even though it visually looks like a clean number"
+      },
+      {
+        "step": 6,
+        "action": "Break down a complex formula into smaller parts across separate helper cells to identify exactly which part of the formula is causing the error",
+        "reason": "This isolates the specific portion of a complicated formula responsible for the #VALUE! error"
+      },
+      {
+        "step": 7,
+        "action": "Check that the correct number and type of arguments are being used for any functions in the formula, referring to Excel's built-in function help if needed",
+        "reason": "Using a function incorrectly, such as providing text where a number is required, directly causes this error"
+      }
+    ],
+    "possible_solutions": [
+      "Convert text-formatted numbers to actual numbers",
+      "Remove extra spaces or hidden characters from referenced cells",
+      "Correct the data type in cells referenced by the formula",
+      "Break down complex formulas to isolate the error source",
+      "Correct function arguments to match expected types"
+    ],
+    "prevention": [
+      "Keep consistent data types within columns used in calculations",
+      "Use data validation to prevent incorrect data entry",
+      "Double check formulas after copying them to new cells",
+      "Use TRIM and CLEAN functions when importing data from external sources"
+    ],
+    "keywords": ["#VALUE! error excel", "excel value error", "formula error value", "text instead of number excel"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Formula not calculating", "#REF! error", "#DIV/0! error"]
+  },
+
+  {
+    "id": "EXCEL-006",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Excel",
+    "problem": "Formula shows a #REF! error",
+    "description": "A formula cell displays '#REF!', indicating that the formula is referring to a cell that no longer exists, usually because it was deleted.",
+    "symptoms": [
+      "Cell displays '#REF!' instead of a calculated result",
+      "Error appeared right after deleting a row, column, or cell",
+      "Multiple formulas across the workbook may show this error at once if a widely referenced cell was deleted",
+      "Formula bar shows '#REF!' directly within the formula text where a reference used to be"
+    ],
+    "possible_causes": [
+      "A row, column, or cell that the formula referenced was deleted",
+      "A worksheet referenced by the formula was deleted or renamed",
+      "Copying and pasting a formula in a way that broke its intended references",
+      "An external workbook link was removed or the linked file was deleted or moved"
+    ],
+    "diagnostic_questions": [
+      "Did you recently delete a row, column, or cell in this or a related worksheet?",
+      "Does this error appear in one cell only, or in many cells across the workbook?",
+      "Was this formula referencing another worksheet or an external workbook?",
+      "Can you recall what the formula used to look like before the error appeared?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Click on the cell showing the #REF! error and look at the formula bar to see exactly where the broken reference is within the formula",
+        "reason": "This shows precisely which part of the formula lost its reference, since '#REF!' will appear directly in place of the missing cell reference"
+      },
+      {
+        "step": 2,
+        "action": "Use Ctrl+Z to undo the recent action immediately if the deletion that caused this was just done",
+        "reason": "Undoing the deletion is the fastest and most reliable way to restore the original references before they were broken"
+      },
+      {
+        "step": 3,
+        "action": "If undo is not possible, manually retype the formula with the correct, currently valid cell references",
+        "reason": "This directly repairs the formula by pointing it to the correct, existing data"
+      },
+      {
+        "step": 4,
+        "action": "If many formulas across the workbook show this error at once, identify what widely referenced cell, row, or column was recently deleted",
+        "reason": "A single deleted reference can cascade into many #REF! errors throughout a workbook if it was used in many formulas"
+      },
+      {
+        "step": 5,
+        "action": "If the formula references another worksheet that was deleted or renamed, correct the sheet name reference within the formula",
+        "reason": "This restores the connection to the correct worksheet by name"
+      },
+      {
+        "step": 6,
+        "action": "If the formula links to an external workbook, check that the external file still exists at its expected location, and update the link if it was moved",
+        "reason": "External links break if the source file has been deleted, renamed, or moved to a different folder"
+      },
+      {
+        "step": 7,
+        "action": "Going forward, before deleting rows or columns, check if any formulas depend on that data using Excel's 'Trace Dependents' feature",
+        "reason": "This helps prevent future #REF! errors by showing what formulas rely on the data before it is removed"
+      }
+    ],
+    "possible_solutions": [
+      "Undo the recent deletion that caused the error",
+      "Manually correct the formula with valid cell references",
+      "Fix a broken worksheet name reference",
+      "Update a broken external workbook link",
+      "Use Trace Dependents before deleting data in the future"
+    ],
+    "prevention": [
+      "Check Trace Dependents before deleting rows, columns, or cells",
+      "Avoid deleting cells that other formulas rely on without checking first",
+      "Keep external linked files in consistent, stable locations",
+      "Be cautious when renaming worksheets that are referenced by formulas"
+    ],
+    "keywords": ["#REF! error excel", "excel reference error", "formula reference deleted", "broken cell reference excel"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Formula not calculating", "#VALUE! error", "Workbook corrupted"]
+  },
+
+  {
+    "id": "EXCEL-007",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Excel",
+    "problem": "Formula shows a #DIV/0! error",
+    "description": "A formula cell displays '#DIV/0!', indicating that the formula is trying to divide a number by zero or by an empty cell, which is not mathematically possible.",
+    "symptoms": [
+      "Cell displays '#DIV/0!' instead of a calculated result",
+      "Error appears in calculations involving division, such as averages or percentages",
+      "Error may appear only for certain rows while others calculate correctly",
+      "Related formulas that depend on this cell may also show errors"
+    ],
+    "possible_causes": [
+      "The formula is dividing by a cell that contains a zero",
+      "The formula is dividing by a cell that is currently empty",
+      "A function like AVERAGE is being used on a range that is completely empty for that specific row",
+      "Data has not yet been entered for a calculation intended to be completed later"
+    ],
+    "diagnostic_questions": [
+      "Which specific cell is being used as the divisor (the number being divided by) in this formula?",
+      "Is that cell currently empty, or does it contain a zero?",
+      "Is this error expected until more data is entered, such as in an ongoing report?",
+      "Does this happen in one row only, or across many rows in the same column?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Click on the cell showing the #DIV/0! error and identify which part of the formula is the divisor",
+        "reason": "This pinpoints exactly which cell is currently zero or empty, causing the division error"
+      },
+      {
+        "step": 2,
+        "action": "Check if that divisor cell is genuinely supposed to have a value, and if data is simply missing, enter the correct value",
+        "reason": "This directly resolves the error by providing valid data for the calculation"
+      },
+      {
+        "step": 3,
+        "action": "If the divisor being zero or empty is expected in certain situations, such as a report where data has not yet been entered for that row, wrap the formula in an IFERROR function",
+        "reason": "This allows the formula to show a blank cell, zero, or a custom message instead of the error, keeping the report visually clean while the error is expected and harmless"
+      },
+      {
+        "step": 4,
+        "action": "For example, change a formula like '=A1/B1' to '=IFERROR(A1/B1,0)' or '=IFERROR(A1/B1,\"\")' depending on what should display instead of the error",
+        "reason": "This is the standard, recommended way to gracefully handle expected division errors in Excel"
+      },
+      {
+        "step": 5,
+        "action": "If using an AVERAGE function on a range that might be empty, consider using AVERAGEIF or checking with an IF statement first to avoid dividing by zero when no data exists",
+        "reason": "AVERAGE internally divides by the count of numbers, and an entirely empty or non-numeric range causes this same type of error"
+      },
+      {
+        "step": 6,
+        "action": "If the error appears unexpectedly in a formula that previously worked, check if a value in the divisor cell was recently changed to zero or accidentally deleted",
+        "reason": "This helps identify a recent change that introduced the error where it did not exist before"
+      }
+    ],
+    "possible_solutions": [
+      "Enter the correct, non-zero value in the divisor cell",
+      "Wrap the formula in IFERROR to handle expected division by zero gracefully",
+      "Use AVERAGEIF or an IF check to avoid averaging empty ranges",
+      "Correct a recently changed value that introduced the error"
+    ],
+    "prevention": [
+      "Use IFERROR proactively in formulas involving division where empty data is expected",
+      "Double check source data before performing division-based calculations",
+      "Use data validation to prevent accidental zero entries where not appropriate"
+    ],
+    "keywords": ["#DIV/0! error excel", "division by zero excel", "excel divide error", "IFERROR excel formula"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["Formula not calculating", "#VALUE! error", "Pivot Table not refreshing"]
+  },
+
+  {
+    "id": "EXCEL-008",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Excel",
+    "problem": "Macros are disabled and will not run",
+    "description": "The user opens a workbook that contains macros, but sees a security warning saying macros have been disabled, and any buttons or automated features relying on macros do not work.",
+    "symptoms": [
+      "Yellow security warning bar saying 'Macros have been disabled'",
+      "Buttons or automated tools in the workbook do nothing when clicked",
+      "Error message when trying to run a macro manually",
+      "Macro-enabled features work on some computers but not others"
+    ],
+    "possible_causes": [
+      "Excel's macro security settings are set to disable all macros by default",
+      "The file was downloaded from the internet and is marked as untrusted",
+      "The macro itself contains an error preventing it from running",
+      "The workbook is saved with a .xlsx extension instead of .xlsm, which does not support macros",
+      "Company security policies block macros entirely on managed computers"
+    ],
+    "diagnostic_questions": [
+      "Do you see a yellow security warning bar when opening the file, and if so, what does it say?",
+      "Where did this file come from, such as downloaded from the internet, received by email, or created locally?",
+      "Is this a personal computer, or a company-managed computer with possible security restrictions?",
+      "Do you trust the source of this file and its macros?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check for a yellow security warning bar at the top of the workbook when it opens, and read exactly what it says",
+        "reason": "This is the most common and direct explanation, showing that Excel intentionally blocked the macros as a security precaution"
+      },
+      {
+        "step": 2,
+        "action": "If you trust the source of the file completely, click 'Enable Content' on the security warning bar",
+        "reason": "This is the standard, safe way to allow macros to run for a specific trusted file"
+      },
+      {
+        "step": 3,
+        "action": "If the file was downloaded from the internet, right-click the file in File Explorer, select Properties, and check the 'Unblock' checkbox at the bottom if present",
+        "reason": "Windows marks internet-downloaded files as potentially unsafe, and unblocking removes this flag, allowing macros to run more smoothly"
+      },
+      {
+        "step": 4,
+        "action": "Check Excel's Trust Center settings under File > Options > Trust Center > Trust Center Settings > Macro Settings",
+        "reason": "This shows the current overall macro security level, which may be set to block all macros without any warning"
+      },
+      {
+        "step": 5,
+        "action": "Adjust the macro setting to 'Disable all macros with notification' if it is currently set to block them entirely, so you at least get the option to enable trusted macros going forward",
+        "reason": "This provides a balance between security and functionality, showing a warning rather than silently blocking everything"
+      },
+      {
+        "step": 6,
+        "action": "Confirm the file is saved with a .xlsm extension if it is genuinely meant to contain macros",
+        "reason": "Standard .xlsx files do not support macros at all, and a file mistakenly saved in this format will lose any macro functionality"
+      },
+      {
+        "step": 7,
+        "action": "On a company-managed computer, contact the IT department if macros are needed for legitimate work purposes but are blocked by policy",
+        "reason": "Company-wide macro restrictions are often intentional security measures that require IT approval to adjust"
+      },
+      {
+        "step": 8,
+        "action": "If a macro is enabled but still does not run correctly, check the macro's code in the Visual Basic Editor for errors, if you have the necessary permissions and knowledge",
+        "reason": "The macro being allowed to run does not guarantee it is written correctly, and errors within its code can also prevent it from working"
+      }
+    ],
+    "possible_solutions": [
+      "Click 'Enable Content' on the security warning bar for trusted files",
+      "Unblock the file in its Properties if downloaded from the internet",
+      "Adjust Trust Center macro settings appropriately",
+      "Save the file with the correct .xlsm extension",
+      "Request IT approval for macros on a managed company computer",
+      "Fix errors within the macro's code if it still fails after being enabled"
+    ],
+    "prevention": [
+      "Only enable macros from trusted, known sources",
+      "Keep macro security settings at a reasonable, notification-based level",
+      "Save macro-containing workbooks with the correct .xlsm extension",
+      "Be cautious with macros in files received from unknown senders"
+    ],
+    "keywords": ["macros disabled excel", "enable content excel", "macro security warning", "excel macros not running"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["Workbook corrupted", "Excel crashes"]
+  },
+
+  {
+    "id": "EXCEL-009",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Excel",
+    "problem": "Pivot Table is not refreshing with updated data",
+    "description": "The user updates the source data for a Pivot Table, expecting the Pivot Table to reflect the new numbers, but it continues to show old, outdated values until manually refreshed, or does not update even after refreshing.",
+    "symptoms": [
+      "Pivot Table shows old data even after the source data has been changed",
+      "New rows added to the source data do not appear in the Pivot Table",
+      "Manually refreshing does not update the values",
+      "Pivot Table field list may be missing new columns added to the source data"
+    ],
+    "possible_causes": [
+      "The Pivot Table has simply not been manually refreshed yet, since this does not happen automatically by default",
+      "The Pivot Table's source data range does not include newly added rows or columns",
+      "The data source is set to a fixed range rather than a dynamic table",
+      "The Pivot Table is connected to an external data source that needs a separate refresh action",
+      "Filters applied to the Pivot Table are hiding the new data"
+    ],
+    "diagnostic_questions": [
+      "Have you tried right-clicking the Pivot Table and selecting Refresh?",
+      "Was new data added as new rows below the original data range, or within the existing range?",
+      "Is the source data a regular cell range, or was it converted into an official Excel Table?",
+      "Are there any filters currently applied to the Pivot Table that might be hiding the new data?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Right-click anywhere inside the Pivot Table and select Refresh, or use the Refresh button on the PivotTable Analyze tab",
+        "reason": "Pivot Tables do not automatically update when source data changes, and a manual refresh is the first and simplest step"
+      },
+      {
+        "step": 2,
+        "action": "If refreshing does not show new rows that were added below the original data, check the Pivot Table's source data range under PivotTable Analyze > Change Data Source",
+        "reason": "If new rows were added outside the originally defined range, the Pivot Table will not include them even after refreshing"
+      },
+      {
+        "step": 3,
+        "action": "Update the data source range to include the new rows and columns if the current range is too small",
+        "reason": "This directly expands what the Pivot Table considers as its source data going forward"
+      },
+      {
+        "step": 4,
+        "action": "Consider converting the source data range into an official Excel Table using Ctrl+T before creating or updating the Pivot Table",
+        "reason": "Excel Tables automatically expand to include new data added directly below or beside them, which then flows into the Pivot Table without manually adjusting the range each time"
+      },
+      {
+        "step": 5,
+        "action": "Check if any filters are currently applied within the Pivot Table that might be hiding the new or updated data",
+        "reason": "Data that does not match an active filter will not display, even though it is technically included in the underlying source"
+      },
+      {
+        "step": 6,
+        "action": "If the Pivot Table is connected to an external data source, such as another workbook or a database, use the specific 'Refresh All' option and confirm the connection settings are correct",
+        "reason": "External data connections sometimes require a different refresh process than a simple internal data range"
+      },
+      {
+        "step": 7,
+        "action": "For workbooks where this happens frequently, consider enabling 'Refresh data when opening the file' under PivotTable options",
+        "reason": "This ensures the Pivot Table automatically refreshes every time the workbook is opened, reducing the chance of viewing outdated data"
+      }
+    ],
+    "possible_solutions": [
+      "Manually refresh the Pivot Table",
+      "Expand the Pivot Table's source data range to include new data",
+      "Convert the source data into an Excel Table for automatic range expansion",
+      "Remove or adjust filters hiding new data",
+      "Refresh external data connections properly",
+      "Enable automatic refresh when opening the file"
+    ],
+    "prevention": [
+      "Use Excel Tables as the source data for Pivot Tables",
+      "Refresh Pivot Tables as a habit after updating source data",
+      "Enable automatic refresh on file open for frequently updated reports",
+      "Regularly review applied filters on Pivot Tables"
+    ],
+    "keywords": ["pivot table not refreshing", "pivot table showing old data", "pivot table source data range", "excel table pivot table"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["Charts not updating", "Formula not calculating"]
+  },
+
+  {
+    "id": "EXCEL-010",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Excel",
+    "problem": "Charts are not updating with new data",
+    "description": "The user adds or changes data in the spreadsheet, expecting a chart to automatically reflect the new information, but the chart continues to display old data or does not include newly added rows.",
+    "symptoms": [
+      "Chart shows old values that do not match current spreadsheet data",
+      "New rows or columns of data do not appear in the chart",
+      "Chart appears frozen even after significant changes to the source data",
+      "Deleted data may still appear as an empty category or zero value on the chart"
+    ],
+    "possible_causes": [
+      "The chart's data range is fixed and does not include newly added rows or columns",
+      "The source data is a regular cell range rather than an Excel Table with automatic expansion",
+      "Manual calculation mode is preventing the chart from reflecting recalculated values",
+      "The chart was copied or is linked to a different, unintended data range",
+      "Hidden rows or columns are excluded from the chart by a specific chart setting"
+    ],
+    "diagnostic_questions": [
+      "Was the new data added within the original chart's data range, or added as new rows or columns outside of it?",
+      "Is the source data a regular range, or has it been converted into an Excel Table?",
+      "Is Excel's calculation mode set to Automatic or Manual?",
+      "Are there any hidden rows or columns in the data that the chart might be excluding intentionally?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Click on the chart and check the highlighted data range shown around the source cells to see exactly what the chart currently includes",
+        "reason": "This visually confirms whether new data falls inside or outside the range the chart is currently using"
+      },
+      {
+        "step": 2,
+        "action": "If new data falls outside the current range, click the chart, go to Chart Design > Select Data, and expand the data range to include the new rows or columns",
+        "reason": "This directly updates what data the chart is set to display"
+      },
+      {
+        "step": 3,
+        "action": "Consider converting the source data into an official Excel Table using Ctrl+T if this problem happens frequently",
+        "reason": "Excel Tables automatically expand to include new data, and charts based on them will automatically update as new rows or columns are added"
+      },
+      {
+        "step": 4,
+        "action": "Check that Excel's Calculation mode is set to Automatic under the Formulas tab",
+        "reason": "If set to Manual, values feeding the chart may not be recalculating, causing the chart to appear outdated even with correct data ranges"
+      },
+      {
+        "step": 5,
+        "action": "Check if any rows or columns involved are hidden, and review the chart's settings under Chart Design > Select Data > Hidden and Empty Cells to see how hidden data is being handled",
+        "reason": "Charts can be configured to intentionally exclude hidden rows or columns, which may explain missing data that the user expects to see"
+      },
+      {
+        "step": 6,
+        "action": "If the chart seems linked to unexpected data, right-click the chart, choose Select Data, and carefully verify the exact cell references being used",
+        "reason": "A chart can sometimes be accidentally linked to the wrong range, especially after copying and pasting charts between worksheets"
+      },
+      {
+        "step": 7,
+        "action": "As a final step, try deleting and recreating the chart from the current, correct data range if none of the above resolves the issue",
+        "reason": "This guarantees a chart built fresh from the intended current data, removing any lingering reference issues from the original chart"
+      }
+    ],
+    "possible_solutions": [
+      "Expand the chart's data range to include new data",
+      "Convert source data into an Excel Table for automatic range updates",
+      "Switch Calculation mode to Automatic",
+      "Adjust hidden and empty cell settings for the chart",
+      "Correct an unintended data range link",
+      "Recreate the chart from the correct current data range"
+    ],
+    "prevention": [
+      "Use Excel Tables as chart source data whenever possible",
+      "Keep Calculation mode set to Automatic",
+      "Regularly verify chart data ranges after major spreadsheet changes",
+      "Be cautious when copying charts between worksheets"
+    ],
+    "keywords": ["chart not updating excel", "chart showing old data", "excel chart data range", "chart not including new rows"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["Pivot Table not refreshing", "Formula not calculating"]
+  },
+
+  {
+    "id": "EXCEL-011",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Excel",
+    "problem": "Excel freezes while working with a spreadsheet",
+    "description": "While the user is entering data, applying formulas, or scrolling through a spreadsheet, Excel stops responding entirely, with the window showing 'Not Responding' and no input having any effect.",
+    "symptoms": [
+      "Window title shows 'Excel (Not Responding)'",
+      "Cannot click, type, or scroll within the workbook",
+      "May happen with large workbooks, heavy formulas, or many open files",
+      "Freeze may resolve after a long wait, or require force closing"
+    ],
+    "possible_causes": [
+      "A very large workbook with thousands of rows, complex formulas, or many worksheets",
+      "Excel is set to Automatic calculation, causing heavy recalculation with every change in a large file",
+      "A problematic add-in causing instability",
+      "Not enough system memory (RAM) to handle the workbook's size",
+      "A specific formula or function causing a long, intensive calculation",
+      "Multiple large workbooks open simultaneously"
+    ],
+    "diagnostic_questions": [
+      "How large is the workbook, in terms of rows, worksheets, and complexity of formulas?",
+      "Does this happen with all workbooks, or just one particularly large or complex one?",
+      "Does the freeze happen right after entering data, or while performing another action like sorting or filtering?",
+      "How much RAM does the computer have, and how many programs are typically open at the same time?"
+    ],
+    "commands": [
+      {
+        "command": "taskmgr",
+        "purpose": "Check Excel's CPU and memory usage while it appears frozen, to see if it is truly stuck or just working intensively",
+        "expected_result": "High CPU usage suggests Excel is actively calculating, while 0% usage over a long period suggests it is truly stuck",
+        "abnormal_result": "Excel is stuck at 0% CPU usage for many minutes with no progress, indicating a true freeze rather than heavy processing"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Task Manager to see if Excel is using high CPU, suggesting it is still actively calculating rather than truly frozen",
+        "reason": "This helps decide whether to keep waiting or to consider force closing the program"
+      },
+      {
+        "step": 2,
+        "action": "If CPU usage is high, allow more time for a very large or complex workbook to finish processing before assuming it is stuck",
+        "reason": "Extremely large or formula-heavy workbooks can genuinely take a long time to complete calculations, especially on older hardware"
+      },
+      {
+        "step": 3,
+        "action": "If Excel does recover, immediately save the workbook using Save As to create a fresh, safe copy",
+        "reason": "This protects the user's work in case Excel freezes again or shows early signs of instability"
+      },
+      {
+        "step": 4,
+        "action": "Change Calculation mode to Manual for very large workbooks under the Formulas tab, then manually recalculate using F9 when ready",
+        "reason": "This prevents Excel from recalculating the entire workbook automatically after every small change, which can significantly reduce freezing during data entry"
+      },
+      {
+        "step": 5,
+        "action": "Close other open programs and unnecessary browser tabs to free up system memory for Excel",
+        "reason": "Large workbooks require significant memory, and freeing up resources elsewhere can improve Excel's performance"
+      },
+      {
+        "step": 6,
+        "action": "Disable unnecessary add-ins through File > Options > Add-ins",
+        "reason": "Add-ins can add overhead that contributes to freezing, especially in already resource-intensive workbooks"
+      },
+      {
+        "step": 7,
+        "action": "Consider splitting a very large workbook into smaller, separate files if it has grown excessively large over time",
+        "reason": "Reducing the overall size and complexity directly reduces the processing load that can cause freezing"
+      },
+      {
+        "step": 8,
+        "action": "If the computer has limited RAM and frequently works with large workbooks, consider upgrading the amount of installed RAM",
+        "reason": "This addresses the underlying hardware limitation causing frequent freezing with demanding files"
+      }
+    ],
+    "possible_solutions": [
+      "Wait for a large workbook to finish genuine processing",
+      "Save work using Save As once recovered",
+      "Switch Calculation mode to Manual for large workbooks",
+      "Close other programs to free up memory",
+      "Disable unnecessary add-ins",
+      "Split an overly large workbook into smaller files",
+      "Upgrade system RAM for frequent work with large files"
+    ],
+    "prevention": [
+      "Save workbooks frequently while working",
+      "Use Manual calculation mode for very large or complex workbooks",
+      "Keep workbook size and complexity reasonable when possible",
+      "Only use necessary, trusted add-ins",
+      "Ensure adequate system RAM for typical workbook sizes"
+    ],
+    "keywords": ["excel freezes", "excel not responding", "excel hangs large workbook", "excel stuck calculating"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Excel crashes", "Formula not calculating", "Cannot save workbook"]
+  },
+
+  {
+    "id": "EXCEL-012",
+    "category": "Office Applications",
+    "subcategory": "Microsoft Excel",
+    "problem": "Cannot save an Excel workbook",
+    "description": "The user tries to save an Excel workbook, but receives an error message, the save appears to do nothing, or the file will not save to the intended location.",
+    "symptoms": [
+      "Error message when trying to save, such as a permissions or naming conflict error",
+      "Save appears to complete but changes are not actually saved",
+      "Error mentioning the file is locked or in use by another user",
+      "Saving to a specific location fails while saving elsewhere works"
+    ],
+    "possible_causes": [
+      "The file is set to read-only",
+      "Insufficient permissions to save to the chosen folder or network location",
+      "The destination drive or folder is full or disconnected",
+      "The file name contains characters not allowed in file names",
+      "A network connection was lost while saving to a network location",
+      "The workbook is open and locked by another user in a shared environment",
+      "The workbook is extremely large and hitting a size or row limit issue"
+    ],
+    "diagnostic_questions": [
+      "What exact error message appears when trying to save?",
+      "Where are you trying to save the file, such as locally, on a USB drive, or a network/shared location?",
+      "Does saving with a different file name or in a different location work?",
+      "Is this file shared with or currently open by another person?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Read the exact error message shown when the save fails",
+        "reason": "The specific wording often points directly to the cause, such as a permissions or naming issue"
+      },
+      {
+        "step": 2,
+        "action": "Try saving the workbook with File > Save As to a different location, such as the Desktop",
+        "reason": "This helps determine if the problem is with the specific destination or the workbook itself"
+      },
+      {
+        "step": 3,
+        "action": "Check if the file is marked as read-only by right-clicking the file in File Explorer, checking Properties, and unchecking Read-only if selected",
+        "reason": "A read-only file cannot be saved over until this attribute is removed"
+      },
+      {
+        "step": 4,
+        "action": "Check available storage space on the destination drive",
+        "reason": "A completely full drive will prevent any new save operations from completing"
+      },
+      {
+        "step": 5,
+        "action": "If saving to a network or shared drive, confirm the network connection is currently working",
+        "reason": "A dropped network connection during saving is a common cause of save failures in shared environments"
+      },
+      {
+        "step": 6,
+        "action": "Check if the file name contains special characters that are not allowed, such as / \\ : * ? \" < > |",
+        "reason": "These characters are restricted in file names and will cause save errors if used"
+      },
+      {
+        "step": 7,
+        "action": "If working in a shared environment, check if someone else has the workbook open, which can lock it from being saved by others",
+        "reason": "Simultaneous access without proper co-authoring features can cause save conflicts"
+      },
+      {
+        "step": 8,
+        "action": "As a safety measure, copy all worksheets into a new blank workbook and save that instead if the original file consistently fails to save",
+        "reason": "This preserves the user's work using a completely fresh file, bypassing whatever specific issue affects the original"
+      }
+    ],
+    "possible_solutions": [
+      "Remove the read-only attribute from the file",
+      "Save to a different location to confirm the file works",
+      "Free up space on the destination drive",
+      "Fix or wait for the network connection to a shared drive",
+      "Rename the file to remove invalid characters",
+      "Save content into a new workbook if the original remains broken"
+    ],
+    "prevention": [
+      "Regularly check available storage space",
+      "Avoid special characters in file names",
+      "Use a stable network connection when saving to shared drives",
+      "Coordinate with others when working on shared workbooks"
+    ],
+    "keywords": ["cannot save excel workbook", "excel save error", "file is read only excel", "permission denied saving excel"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["Workbook corrupted", "File is read-only", "Shared folder access problems"]
+  },
+
+  {
+    "id": "PPT-001",
+    "category": "Office Applications",
+    "subcategory": "Microsoft PowerPoint",
+    "problem": "PowerPoint presentation won't open",
+    "description": "The user tries to open a PowerPoint presentation, but the program does not launch the file, shows no window, or displays an error before it can fully load.",
+    "symptoms": [
+      "Nothing happens when double-clicking the presentation file",
+      "PowerPoint opens but the specific file never loads",
+      "Error message appears before the presentation opens",
+      "PowerPoint may appear in Task Manager without showing a visible window"
+    ],
+    "possible_causes": [
+      "A corrupted or problematic add-in loading at startup",
+      "A corrupted Office installation",
+      "The presentation file itself is corrupted",
+      "Conflicting antivirus software blocking PowerPoint from launching",
+      "A stuck background PowerPoint process from a previous session"
+    ],
+    "diagnostic_questions": [
+      "Does this happen with this one specific presentation, or with PowerPoint in general?",
+      "Do other Office programs like Word open normally?",
+      "Did this start after installing an add-in or a recent update?",
+      "Does PowerPoint appear in Task Manager as running, even without a visible window?"
+    ],
+    "commands": [
+      {
+        "command": "powerpnt /safe",
+        "purpose": "Open PowerPoint in Safe Mode, disabling add-ins, to see if it opens without them",
+        "expected_result": "PowerPoint opens successfully in Safe Mode",
+        "abnormal_result": "PowerPoint still fails to open even in Safe Mode, pointing to a deeper installation issue"
+      },
+      {
+        "command": "taskkill /f /im powerpnt.exe",
+        "purpose": "Force close a stuck PowerPoint process that might be blocking a new window from opening",
+        "expected_result": "Process ends successfully",
+        "abnormal_result": "Error saying the process was not found, meaning PowerPoint was not actually running in the background"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if the problem is with PowerPoint generally, or specific to one presentation file by trying to open a blank new presentation",
+        "reason": "This determines whether to focus troubleshooting on the program itself or the specific file"
+      },
+      {
+        "step": 2,
+        "action": "Check Task Manager to see if PowerPoint is already running as a hidden or stuck process, and end it if so",
+        "reason": "A stuck background instance can silently block a new PowerPoint window from appearing"
+      },
+      {
+        "step": 3,
+        "action": "Try opening PowerPoint in Safe Mode using powerpnt /safe from the Run box",
+        "reason": "This disables add-ins, helping identify if one is preventing PowerPoint from starting normally"
+      },
+      {
+        "step": 4,
+        "action": "If Safe Mode works, disable recently added add-ins from File > Options > Add-ins",
+        "reason": "This isolates and removes the specific add-in causing the startup failure"
+      },
+      {
+        "step": 5,
+        "action": "If the problem is specific to one file, try opening that file using File > Open from within an already-running PowerPoint window, rather than double-clicking it directly",
+        "reason": "This can sometimes bypass issues related to how the file association is triggering PowerPoint to launch"
+      },
+      {
+        "step": 6,
+        "action": "Run the Office Quick Repair tool from Control Panel > Programs > Microsoft Office > Change",
+        "reason": "This automatically fixes many common causes of Office programs failing to launch"
+      },
+      {
+        "step": 7,
+        "action": "Temporarily disable antivirus software to test if it is blocking PowerPoint from launching",
+        "reason": "Some antivirus programs mistakenly block Office applications from starting properly"
+      }
+    ],
+    "possible_solutions": [
+      "End a stuck PowerPoint process in Task Manager",
+      "Disable a problematic add-in",
+      "Open the file from within PowerPoint using File > Open instead of double-clicking",
+      "Run Office Quick Repair or Online Repair",
+      "Temporarily disable antivirus software to test",
+      "Reinstall Microsoft Office completely as a last resort"
+    ],
+    "prevention": [
+      "Only install trusted, necessary PowerPoint add-ins",
+      "Keep Office updated regularly",
+      "Avoid force-closing PowerPoint improperly",
+      "Keep antivirus software properly configured to avoid false blocks"
+    ],
+    "keywords": ["powerpoint won't open", "presentation not opening", "powerpoint stuck loading", "powerpnt not starting"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["PowerPoint crashes", "Cannot save presentation"]
+  },
+
+  {
+    "id": "PPT-002",
+    "category": "Office Applications",
+    "subcategory": "Microsoft PowerPoint",
+    "problem": "PowerPoint crashes unexpectedly while working",
+    "description": "While the user is editing slides, adding content, or running a slide show, PowerPoint suddenly closes completely without warning, potentially losing unsaved work.",
+    "symptoms": [
+      "PowerPoint closes suddenly with no warning message",
+      "A Windows error report dialog may appear after the crash",
+      "Crash may happen during a specific action, such as inserting media or starting a slide show",
+      "Unsaved changes may be lost unless AutoRecover captures them"
+    ],
+    "possible_causes": [
+      "A problematic add-in causing instability",
+      "A large or complex presentation with many embedded videos or images",
+      "Outdated or corrupted graphics drivers, especially affecting slide show playback",
+      "A corrupted Office installation",
+      "A corrupted specific presentation file",
+      "Insufficient system memory for a media-heavy presentation"
+    ],
+    "diagnostic_questions": [
+      "Does the crash happen during a specific action, such as starting the slide show, inserting a video, or applying a transition?",
+      "Does this happen with all presentations, or just one specific file?",
+      "How large is the presentation, and does it contain many videos, images, or embedded objects?",
+      "Did this start after installing an add-in or a recent update?"
+    ],
+    "commands": [
+      {
+        "command": "powerpnt /safe",
+        "purpose": "Open PowerPoint in Safe Mode to test if it remains stable without add-ins",
+        "expected_result": "PowerPoint runs without crashing in Safe Mode",
+        "abnormal_result": "PowerPoint still crashes even in Safe Mode, suggesting a deeper installation or file-specific problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "When reopening PowerPoint after a crash, allow it to recover the previous presentation if prompted",
+        "reason": "This retrieves as much of the recent work as possible through the AutoRecover feature"
+      },
+      {
+        "step": 2,
+        "action": "Note exactly what action was being performed right before the crash happened",
+        "reason": "A specific trigger, like starting a slide show or inserting a video, helps narrow down the exact cause"
+      },
+      {
+        "step": 3,
+        "action": "Test if the same crash happens with a brand new, simple presentation performing the same action",
+        "reason": "This determines if the problem is with PowerPoint generally, or specific to the original presentation"
+      },
+      {
+        "step": 4,
+        "action": "Open PowerPoint in Safe Mode using powerpnt /safe and try to reproduce the crash",
+        "reason": "If it does not crash in Safe Mode, an add-in is the likely cause"
+      },
+      {
+        "step": 5,
+        "action": "Disable recently installed add-ins through File > Options > Add-ins if Safe Mode resolves the crashing",
+        "reason": "This removes the specific add-in responsible while keeping the rest of PowerPoint functional"
+      },
+      {
+        "step": 6,
+        "action": "Update the computer's graphics driver, since this is a very common cause of crashes specifically during slide shows or video playback",
+        "reason": "PowerPoint relies heavily on graphics hardware for smooth transitions, animations, and video playback"
+      },
+      {
+        "step": 7,
+        "action": "If the presentation contains large embedded videos, consider linking to external video files instead of embedding them directly, or compressing media using File > Compress Media",
+        "reason": "Reducing the file's overall media load can significantly improve stability, especially on less powerful computers"
+      },
+      {
+        "step": 8,
+        "action": "Run Office Quick Repair to fix potential installation corruption if crashes continue across multiple presentations",
+        "reason": "This resolves many general stability issues without needing a full reinstall"
+      }
+    ],
+    "possible_solutions": [
+      "Recover the presentation through AutoRecover after reopening PowerPoint",
+      "Disable a problematic add-in",
+      "Update the graphics driver",
+      "Compress media or reduce embedded video size",
+      "Run Office Quick Repair or Online Repair",
+      "Reinstall Office if crashes continue across all presentations"
+    ],
+    "prevention": [
+      "Save presentations frequently while working",
+      "Keep graphics drivers and Office updated",
+      "Only use trusted, necessary add-ins",
+      "Compress media in presentations with many videos or images"
+    ],
+    "keywords": ["powerpoint crashes", "powerpoint closes unexpectedly", "powerpoint stopped working", "powerpoint crash during slideshow"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["PowerPoint won't open", "Video not playing", "Slide Show not starting"]
+  },
+
+  {
+    "id": "PPT-003",
+    "category": "Office Applications",
+    "subcategory": "Microsoft PowerPoint",
+    "problem": "Video will not play in a PowerPoint presentation",
+    "description": "The user inserted a video into a slide, but when playing the slide show, the video does not play, shows a black box, or displays an error instead of the expected video content.",
+    "symptoms": [
+      "Video shows as a black rectangle instead of playing",
+      "Error message such as 'This media format is not supported'",
+      "Video plays in edit mode but not during the actual slide show",
+      "Video plays fine on the computer where it was created, but not on another computer"
+    ],
+    "possible_causes": [
+      "The video format is not supported by the version of PowerPoint being used",
+      "The video was linked rather than embedded, and the video file has been moved or deleted",
+      "Missing codecs needed to play the specific video format",
+      "The presentation was moved to a different computer without also transferring the linked video files",
+      "Outdated PowerPoint or graphics drivers affecting video playback"
+    ],
+    "diagnostic_questions": [
+      "Does the video play correctly when you double-click it while editing the slide, outside of the actual slide show?",
+      "Was the video embedded directly into the presentation, or linked to a separate video file?",
+      "Is this presentation being played on the same computer where the video was originally inserted?",
+      "What video file format is being used, such as MP4, AVI, or WMV?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if the video plays correctly while editing the slide, separate from running the full slide show",
+        "reason": "This helps determine if the problem is with the video file itself or specifically with slide show playback"
+      },
+      {
+        "step": 2,
+        "action": "Check whether the video was embedded directly into the presentation or linked to an external file",
+        "reason": "Linked videos require the original video file to remain in its expected location, and moving the presentation without the video will break playback"
+      },
+      {
+        "step": 3,
+        "action": "If the video was linked and the presentation was moved to a new computer or folder, ensure the original video file is also moved to the same relative location, or re-link the video",
+        "reason": "This restores the connection between the presentation and its linked video content"
+      },
+      {
+        "step": 4,
+        "action": "For future presentations that need to be moved, use File > Insert Video > embed the file directly rather than linking, or use PowerPoint's 'Package for CD' or similar feature that also copies linked media",
+        "reason": "Embedding avoids the entire issue of broken links when transferring a presentation between computers"
+      },
+      {
+        "step": 5,
+        "action": "Check the video file format, since PowerPoint has the best native support for MP4 files using standard codecs",
+        "reason": "Uncommon or older video formats may not be supported without additional software"
+      },
+      {
+        "step": 6,
+        "action": "If using an unsupported format, convert the video to MP4 using standard, widely compatible video codecs before inserting it into the presentation",
+        "reason": "This ensures the widest compatibility across different computers and PowerPoint versions"
+      },
+      {
+        "step": 7,
+        "action": "Update PowerPoint and the computer's graphics driver to their latest versions",
+        "reason": "Outdated software or drivers can also cause playback issues even with properly formatted, embedded videos"
+      },
+      {
+        "step": 8,
+        "action": "Test playing the presentation on the intended target computer well in advance of when it needs to be presented",
+        "reason": "This allows time to resolve any playback issues before a live presentation, rather than discovering the problem at a critical moment"
+      }
+    ],
+    "possible_solutions": [
+      "Re-link a broken linked video, or move the video file to the correct location",
+      "Embed the video directly rather than linking it",
+      "Convert the video to a widely compatible MP4 format",
+      "Update PowerPoint and graphics drivers",
+      "Test playback in advance on the computer where it will be presented"
+    ],
+    "prevention": [
+      "Embed videos directly into presentations when possible",
+      "Use widely compatible video formats like MP4",
+      "Test presentations on the target computer before important events",
+      "Keep PowerPoint and drivers updated"
+    ],
+    "keywords": ["video not playing powerpoint", "black box video powerpoint", "media format not supported", "linked video broken powerpoint"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["PowerPoint crashes", "Slide Show not starting", "Images not displaying"]
+  },
+
+  {
+    "id": "PPT-004",
+    "category": "Office Applications",
+    "subcategory": "Microsoft PowerPoint",
+    "problem": "Animations are not working during the slide show",
+    "description": "The user has applied animations or transitions to slide elements, but when running the actual slide show, the animations either do not play at all or play incorrectly compared to how they appeared while editing.",
+    "symptoms": [
+      "Elements appear instantly instead of animating in as expected",
+      "Animation order is different than intended",
+      "Transitions between slides do not play smoothly or at all",
+      "Animations work in edit view but not during Presenter View or full slide show"
+    ],
+    "possible_causes": [
+      "Animations were accidentally removed or reset",
+      "Slide show settings have animations disabled",
+      "Outdated graphics drivers affecting animation rendering",
+      "The presentation was opened in a different, older version of PowerPoint that does not support certain animation types",
+      "Performance settings reducing animation quality on less powerful computers"
+    ],
+    "diagnostic_questions": [
+      "Do the animations play correctly when previewed while editing, using the Preview button on the Animations tab?",
+      "Are you viewing this in full Slide Show mode, or in Presenter View, or another viewing mode?",
+      "Was this presentation created in the same version of PowerPoint being used to present it?",
+      "Have any slide show settings been changed recently, intentionally or accidentally?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Click the Preview button on the Animations tab while editing to confirm the animations are still correctly applied to the intended elements",
+        "reason": "This verifies whether the animations exist and function correctly outside of the full slide show environment"
+      },
+      {
+        "step": 2,
+        "action": "Check the Slide Show tab and confirm the 'Show Without Animation' checkbox is not accidentally selected under Set Up Slide Show",
+        "reason": "This specific setting can be intentionally or accidentally enabled, disabling all animations during playback while leaving them intact in the file"
+      },
+      {
+        "step": 3,
+        "action": "Confirm the animation order in the Animation Pane matches what is intended, checking for elements that may have been duplicated or reordered accidentally",
+        "reason": "Animations play in the exact order listed in the Animation Pane, and unintended changes here directly affect playback"
+      },
+      {
+        "step": 4,
+        "action": "Update the computer's graphics driver, since animation rendering relies on it, especially for more complex or 3D-style animations",
+        "reason": "Outdated graphics drivers are a common and often overlooked cause of animations not displaying correctly"
+      },
+      {
+        "step": 5,
+        "action": "Check what version of PowerPoint the presentation was originally created in versus the version currently being used to present it",
+        "reason": "Some newer animation types are not supported in older PowerPoint versions and may simply not play if opened in an outdated version"
+      },
+      {
+        "step": 6,
+        "action": "If presenting on an older or less powerful computer, consider simplifying complex animations, since performance-limited systems sometimes skip or shorten animations to maintain smooth playback",
+        "reason": "This ensures more consistent animation playback across different hardware capabilities"
+      },
+      {
+        "step": 7,
+        "action": "Test the full slide show, not just the edit view preview, well before an important presentation to confirm animations behave as expected in the actual presenting environment",
+        "reason": "Edit view previews do not always perfectly represent full slide show behavior, especially with Presenter View or dual monitor setups"
+      }
+    ],
+    "possible_solutions": [
+      "Turn off 'Show Without Animation' if accidentally enabled",
+      "Correct the animation order in the Animation Pane",
+      "Update the graphics driver",
+      "Use a consistent, current PowerPoint version for creating and presenting",
+      "Simplify complex animations for less powerful presenting computers",
+      "Test the full slide show in advance of important presentations"
+    ],
+    "prevention": [
+      "Test animations in full Slide Show mode, not just edit view, before presenting",
+      "Keep graphics drivers updated",
+      "Use a consistent PowerPoint version between creation and presentation computers",
+      "Avoid overly complex animations for presentations on unknown or older hardware"
+    ],
+    "keywords": ["animations not working powerpoint", "powerpoint animation not playing", "show without animation", "transitions not working powerpoint"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Slide Show not starting", "PowerPoint crashes"]
+  },
+
+  {
+    "id": "PPT-005",
+    "category": "Office Applications",
+    "subcategory": "Microsoft PowerPoint",
+    "problem": "Fonts are missing or displaying incorrectly in a presentation",
+    "description": "A presentation opens, but the text appears in a different, substitute font than intended, changing the overall look and sometimes causing text to overflow or misalign on slides.",
+    "symptoms": [
+      "Text appears in an unexpected substitute font",
+      "Slide layout looks different from how it was originally designed, with text overflowing text boxes",
+      "PowerPoint may show a message that fonts used in the presentation are not installed",
+      "Presentation looks correct on the original computer but wrong on another computer"
+    ],
+    "possible_causes": [
+      "The font used in the original presentation is not installed on the current computer",
+      "The presentation was created on a different computer with different available fonts",
+      "Fonts were not embedded when the presentation was saved",
+      "A font file has become corrupted or was uninstalled"
+    ],
+    "diagnostic_questions": [
+      "Was this presentation created on this computer, or received from someone else or another computer?",
+      "Do you know the specific name of the font that should be used?",
+      "Does the presentation display correctly when opened on the original computer it was created on?",
+      "Was the option to embed fonts used when the presentation was originally saved?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Select the affected text and check the font name shown in the font box to see what font the presentation expects to use",
+        "reason": "This confirms the exact font name being called for, even though it is currently being substituted with something else"
+      },
+      {
+        "step": 2,
+        "action": "Check the Windows Fonts folder to see if the required font is installed on this specific computer",
+        "reason": "This confirms whether the font genuinely needs to be installed on this machine"
+      },
+      {
+        "step": 3,
+        "action": "If missing, obtain and install the correct font from a legitimate, licensed source",
+        "reason": "Installing the correct font is the most direct way to restore the presentation's intended appearance"
+      },
+      {
+        "step": 4,
+        "action": "Close and reopen the presentation after installing the font to confirm it displays correctly",
+        "reason": "PowerPoint needs to reload the file to properly apply a newly installed font"
+      },
+      {
+        "step": 5,
+        "action": "For presentations you create yourself that will be shown on other computers, use File > Options > Save > Embed fonts in the file before saving",
+        "reason": "This ensures the presentation displays correctly on any computer, even without the fonts separately installed, which is especially important for presentations"
+      },
+      {
+        "step": 6,
+        "action": "If embedding fonts, choose the option to embed all characters rather than just the characters currently used, if the presentation might be edited further on another computer",
+        "reason": "This ensures any new text typed later on a different computer will still display using the correct embedded font"
+      },
+      {
+        "step": 7,
+        "action": "As a more universal option, consider using widely available standard fonts for important presentations that will be shown on unknown computers, especially where embedding is not possible or reliable",
+        "reason": "This avoids missing font problems entirely by relying only on fonts virtually guaranteed to be available"
+      }
+    ],
+    "possible_solutions": [
+      "Install the missing font from a legitimate source",
+      "Embed fonts when saving the presentation",
+      "Use widely available standard fonts for shared presentations",
+      "Reapply the correct font manually if it becomes available"
+    ],
+    "prevention": [
+      "Embed fonts in important presentations before sharing or presenting elsewhere",
+      "Use widely available standard fonts when possible",
+      "Test presentations on the target computer in advance of important events"
+    ],
+    "keywords": ["missing font powerpoint", "font substitution powerpoint", "presentation looks different font", "embed fonts powerpoint"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["Images not displaying", "PowerPoint crashes"]
+  },
+
+  {
+    "id": "PPT-006",
+    "category": "Office Applications",
+    "subcategory": "Microsoft PowerPoint",
+    "problem": "Cannot save a PowerPoint presentation",
+    "description": "The user tries to save a PowerPoint presentation, but receives an error message, the save appears to do nothing, or the file will not save to the intended location.",
+    "symptoms": [
+      "Error message when trying to save, such as a permissions or naming conflict error",
+      "Save appears to complete but changes are not actually saved",
+      "Error mentioning the file is locked or in use by another user",
+      "Saving to a specific location fails while saving elsewhere works"
+    ],
+    "possible_causes": [
+      "The file is set to read-only",
+      "Insufficient permissions to save to the chosen folder or network location",
+      "The destination drive or folder is full or disconnected",
+      "The file name contains characters not allowed in file names",
+      "A network connection was lost while saving to a network location",
+      "The presentation is open and locked by another user in a shared environment",
+      "The presentation is very large due to embedded videos or images, causing save timeouts"
+    ],
+    "diagnostic_questions": [
+      "What exact error message appears when trying to save?",
+      "Where are you trying to save the file, such as locally, on a USB drive, or a network/shared location?",
+      "Does saving with a different file name or in a different location work?",
+      "Is the presentation unusually large, especially with embedded videos or many high-resolution images?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Read the exact error message shown when the save fails",
+        "reason": "The specific wording often points directly to the cause, such as a permissions or naming issue"
+      },
+      {
+        "step": 2,
+        "action": "Try saving the presentation with File > Save As to a different location, such as the Desktop",
+        "reason": "This helps determine if the problem is with the specific destination or the presentation itself"
+      },
+      {
+        "step": 3,
+        "action": "Check if the file is marked as read-only by right-clicking the file in File Explorer, checking Properties, and unchecking Read-only if selected",
+        "reason": "A read-only file cannot be saved over until this attribute is removed"
+      },
+      {
+        "step": 4,
+        "action": "Check available storage space on the destination drive, especially if the presentation contains large embedded videos",
+        "reason": "Media-heavy presentations can be very large, and a nearly full drive can prevent a successful save"
+      },
+      {
+        "step": 5,
+        "action": "If saving to a network or shared drive, confirm the network connection is currently stable, since large file saves are especially vulnerable to interruptions",
+        "reason": "A dropped network connection during a large save is a common cause of save failures for media-heavy presentations"
+      },
+      {
+        "step": 6,
+        "action": "Check if the file name contains special characters that are not allowed, such as / \\ : * ? \" < > |",
+        "reason": "These characters are restricted in file names and will cause save errors if used"
+      },
+      {
+        "step": 7,
+        "action": "If working in a shared environment, check if someone else has the presentation open, which can lock it from being saved by others",
+        "reason": "Simultaneous access without proper co-authoring features can cause save conflicts"
+      },
+      {
+        "step": 8,
+        "action": "Compress media within the presentation using File > Compress Media before saving, if the file is very large due to videos or images",
+        "reason": "This reduces the overall file size, which can resolve save failures related to size or timeout issues, especially on slower drives or network locations"
+      }
+    ],
+    "possible_solutions": [
+      "Remove the read-only attribute from the file",
+      "Save to a different location to confirm the file works",
+      "Free up space on the destination drive",
+      "Fix or wait for the network connection to a shared drive",
+      "Rename the file to remove invalid characters",
+      "Compress media to reduce file size before saving"
+    ],
+    "prevention": [
+      "Regularly check available storage space",
+      "Avoid special characters in file names",
+      "Use a stable network connection when saving to shared drives",
+      "Compress media in presentations regularly to keep file size manageable"
+    ],
+    "keywords": ["cannot save powerpoint", "powerpoint save error", "file is read only powerpoint", "presentation too large to save"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["PowerPoint crashes", "Video not playing", "Shared folder access problems"]
+  },
+
+  {
+    "id": "PPT-007",
+    "category": "Office Applications",
+    "subcategory": "Microsoft PowerPoint",
+    "problem": "Slide Show will not start",
+    "description": "The user clicks to start the slide show, either from the beginning or the current slide, but nothing happens, an error appears, or the presentation freezes before displaying the first slide.",
+    "symptoms": [
+      "Clicking 'From Beginning' or 'From Current Slide' does nothing",
+      "Error message appears when trying to start the slide show",
+      "Screen goes black or shows a loading indicator that never completes",
+      "Slide show starts but immediately closes back to edit view"
+    ],
+    "possible_causes": [
+      "A problem with the display or projector connection settings",
+      "Presenter View settings conflicting with the available monitor setup",
+      "A corrupted or problematic embedded object on the first slide causing a failure",
+      "Outdated graphics drivers affecting slide show rendering",
+      "The presentation file itself has some corruption",
+      "Incorrect monitor selection settings when using an external display or projector"
+    ],
+    "diagnostic_questions": [
+      "Are you presenting using a single monitor, or with an additional monitor or projector connected?",
+      "Does any error message appear, or does the slide show simply not start at all?",
+      "Have you tried starting from a different slide, rather than always the first one?",
+      "Does this happen with all presentations, or just this specific one?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if an external monitor or projector is connected and confirm the display settings are correctly configured in Windows",
+        "reason": "Incorrect display configuration is a very common cause of slide shows failing to start properly, especially in presentation settings with a projector"
+      },
+      {
+        "step": 2,
+        "action": "In PowerPoint, go to Slide Show > Set Up Slide Show and confirm the correct monitor is selected if using multiple displays",
+        "reason": "PowerPoint needs to know which screen to use for the full slide show versus Presenter View, and an incorrect setting can prevent the show from starting as expected"
+      },
+      {
+        "step": 3,
+        "action": "Try starting the slide show from a slide other than the first one, to see if the issue is specific to the first slide's content",
+        "reason": "This helps identify if a specific object or element on the first slide is causing the failure to start"
+      },
+      {
+        "step": 4,
+        "action": "If a specific slide seems to be the trigger, check that slide for a potentially corrupted embedded video, image, or object",
+        "reason": "A single corrupted embedded object can sometimes prevent the entire slide show from starting or cause it to crash immediately"
+      },
+      {
+        "step": 5,
+        "action": "Update the computer's graphics driver, since slide show rendering, especially with multiple monitors, relies heavily on it",
+        "reason": "Outdated graphics drivers are a common cause of display-related failures when starting a slide show"
+      },
+      {
+        "step": 6,
+        "action": "Turn off Presenter View temporarily under Slide Show settings and try starting the show again with just the basic full-screen mode",
+        "reason": "This isolates whether the specific issue is with Presenter View's dual-screen functionality rather than the slide show itself"
+      },
+      {
+        "step": 7,
+        "action": "Run Office Quick Repair if the problem happens consistently across multiple different presentations",
+        "reason": "This addresses potential underlying installation issues affecting the slide show engine specifically"
+      },
+      {
+        "step": 8,
+        "action": "Test the presentation and its slide show functionality well in advance of any important live presentation",
+        "reason": "This allows time to resolve display and slide show startup issues before they become a problem in front of an audience"
+      }
+    ],
+    "possible_solutions": [
+      "Correct display and monitor selection settings",
+      "Fix or remove a corrupted embedded object on the problematic slide",
+      "Update the graphics driver",
+      "Temporarily disable Presenter View to isolate the issue",
+      "Run Office Quick Repair for persistent, cross-presentation issues",
+      "Test slide show functionality well before important presentations"
+    ],
+    "prevention": [
+      "Test slide shows with the actual presenting equipment in advance",
+      "Keep graphics drivers updated",
+      "Avoid embedding unnecessarily large or complex objects when simpler options exist",
+      "Confirm monitor and display settings before important presentations"
+    ],
+    "keywords": ["slide show will not start", "powerpoint presentation mode not working", "presenter view issue", "slide show blank screen"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["PowerPoint crashes", "Video not playing", "Display problems"]
+  },
+
+  {
+    "id": "PPT-008",
+    "category": "Office Applications",
+    "subcategory": "Microsoft PowerPoint",
+    "problem": "Images are not displaying in a presentation",
+    "description": "The user opens a presentation and finds that images which should appear on the slides are showing as blank boxes, red X icons, or are simply missing entirely.",
+    "symptoms": [
+      "Blank white or grey boxes where images should be",
+      "A small red X icon in the corner of an empty image placeholder",
+      "Images that displayed correctly before are now missing",
+      "Problem appears only on certain computers, not the one where the presentation was created"
+    ],
+    "possible_causes": [
+      "Images were linked rather than embedded, and the linked image files have been moved or deleted",
+      "The presentation was transferred to a different computer without also transferring the linked image files",
+      "The image files themselves have become corrupted",
+      "A graphics driver issue affecting image rendering",
+      "Antivirus or security software blocking certain image file types from loading"
+    ],
+    "diagnostic_questions": [
+      "Were the images inserted using 'Insert Picture' and embedded directly, or linked from an external file location?",
+      "Is this presentation being viewed on the same computer where it was originally created, or a different one?",
+      "Did the images display correctly before, and if so, what changed recently?",
+      "Do all images show as missing, or just some specific ones?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if all images are missing, or just specific ones, to help narrow down whether this is a widespread or isolated problem",
+        "reason": "A pattern affecting only certain images often points to those specific files being linked and broken, rather than a general presentation-wide issue"
+      },
+      {
+        "step": 2,
+        "action": "Click on an empty image placeholder to see if any information appears about a missing linked file path",
+        "reason": "This can directly reveal if the image was linked to an external file rather than embedded, and show where PowerPoint expects to find it"
+      },
+      {
+        "step": 3,
+        "action": "If images were linked, locate the original image files and either move them back to their expected location, or reinsert them directly into the presentation",
+        "reason": "This restores the connection between the presentation and its image content, or permanently embeds the images to avoid the issue in the future"
+      },
+      {
+        "step": 4,
+        "action": "For future presentations that need to be shared or moved, always insert images so they are embedded directly, which is PowerPoint's default and standard behavior when using the normal Insert Picture option",
+        "reason": "This prevents the entire class of problems related to broken links when a presentation is moved to a different computer or folder"
+      },
+      {
+        "step": 5,
+        "action": "Update the computer's graphics driver, since some display or rendering issues can prevent images from showing correctly even when the files themselves are intact",
+        "reason": "This addresses a less common but still possible cause related to graphics rendering rather than missing files"
+      },
+      {
+        "step": 6,
+        "action": "Check if antivirus or security software might be blocking or quarantining certain image file types, especially if the presentation was recently downloaded from the internet or an email attachment",
+        "reason": "Some security software can interfere with embedded or linked media in ways that cause images to fail to load"
+      },
+      {
+        "step": 7,
+        "action": "If specific image files appear corrupted, try replacing them with a fresh copy of the original image if available",
+        "reason": "A corrupted individual image file cannot be repaired within PowerPoint and needs to be replaced with a working version"
+      }
+    ],
+    "possible_solutions": [
+      "Locate and restore missing linked image files",
+      "Re-embed images directly into the presentation",
+      "Update the graphics driver",
+      "Check antivirus settings for interference with media files",
+      "Replace corrupted individual image files with fresh copies"
+    ],
+    "prevention": [
+      "Always embed images rather than linking them when possible",
+      "Keep presentations and their linked files together if linking is used",
+      "Test presentations on the target computer before important events",
+      "Keep graphics drivers updated"
+    ],
+    "keywords": ["images not showing powerpoint", "missing pictures presentation", "red x image powerpoint", "broken linked image powerpoint"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Video not playing", "Fonts missing", "PowerPoint crashes"]
+  }
+]

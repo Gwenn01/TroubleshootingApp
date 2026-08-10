@@ -1,0 +1,2600 @@
+[
+  {
+    "id": "APP-001",
+    "category": "Company Application",
+    "subcategory": "Login Issues",
+    "problem": "Cannot login to the application",
+    "description": "The user tries to log in to the company application using their normal credentials, but the login process fails without a specific clear reason, preventing them from accessing the system.",
+    "symptoms": [
+      "Login screen rejects credentials or shows a generic error",
+      "Login button appears to do nothing when clicked",
+      "Login page reloads back to itself after submitting credentials",
+      "Error may or may not include a specific reason"
+    ],
+    "possible_causes": [
+      "Incorrect username or password entered",
+      "The application server is down or unreachable",
+      "The user's account has been locked or disabled",
+      "A network connectivity problem preventing the login request from reaching the server",
+      "Browser cache or cookies interfering with the login session",
+      "The application itself is experiencing an outage or bug"
+    ],
+    "diagnostic_questions": [
+      "What exact message or behavior happens when you try to log in?",
+      "Have you logged in successfully before, or is this your first attempt?",
+      "Are other users able to log in right now?",
+      "Are you connected to the correct network or VPN required for this application?"
+    ],
+    "commands": [
+      {
+        "command": "ping [application server address]",
+        "purpose": "Check if the computer can reach the server hosting the application",
+        "expected_result": "Replies received from the server",
+        "abnormal_result": "Request timed out, meaning the server cannot be reached from this network, which would prevent login"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the exact username and password are being entered correctly, checking for Caps Lock and typing mistakes",
+        "reason": "Simple credential entry errors are the most common cause of login failures and should be ruled out first"
+      },
+      {
+        "step": 2,
+        "action": "Check with other users to see if they are able to log in to the same application right now",
+        "reason": "This quickly determines if the problem is isolated to one user's account or affects the application more broadly"
+      },
+      {
+        "step": 3,
+        "action": "Confirm the computer has a working network connection, and is connected to any required VPN if the application is only accessible internally",
+        "reason": "Without the correct network path, the login request may never actually reach the application server"
+      },
+      {
+        "step": 4,
+        "action": "Clear the browser cache and cookies for the application's website, then try logging in again",
+        "reason": "Corrupted or outdated cached login data can sometimes interfere with a new login attempt"
+      },
+      {
+        "step": 5,
+        "action": "Try logging in using a different browser or an incognito/private browsing window",
+        "reason": "This helps determine if the issue is related to browser-specific settings, extensions, or stored data"
+      },
+      {
+        "step": 6,
+        "action": "Ping the application server's address, if known, to confirm basic network reachability",
+        "reason": "This helps distinguish between a network connectivity problem and an application or account-specific issue"
+      },
+      {
+        "step": 7,
+        "action": "If the problem affects multiple users, check the application's status page or contact the system administrator to see if there is a known outage",
+        "reason": "A widespread login failure often points to a server-side outage rather than an individual account or computer problem"
+      },
+      {
+        "step": 8,
+        "action": "If only this one user is affected, contact the system administrator to check if the account has been locked, disabled, or needs a password reset",
+        "reason": "Account-specific restrictions require administrator access to review and correct"
+      }
+    ],
+    "possible_solutions": [
+      "Correct mistyped username or password",
+      "Reconnect to the required network or VPN",
+      "Clear browser cache and cookies",
+      "Try a different browser or private browsing window",
+      "Wait out a confirmed application-wide outage",
+      "Have the administrator unlock, enable, or reset the affected account"
+    ],
+    "prevention": [
+      "Use a password manager to avoid credential entry mistakes",
+      "Keep track of VPN requirements for internal applications",
+      "Report suspected outages promptly to help administrators respond quickly",
+      "Periodically clear browser cache for frequently used web applications"
+    ],
+    "keywords": ["cannot login application", "login failed company system", "cannot access application", "login error generic"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Invalid username or password", "User account locked", "Server unavailable"]
+  },
+
+  {
+    "id": "APP-002",
+    "category": "Company Application",
+    "subcategory": "Login Issues",
+    "problem": "Invalid username or password error",
+    "description": "The user enters their credentials to log in, but the application specifically responds with an 'invalid username or password' message, even though the user believes their credentials are correct.",
+    "symptoms": [
+      "Specific error message stating 'Invalid username or password'",
+      "Error appears immediately after submitting the login form",
+      "Message does not specify which part, username or password, is incorrect",
+      "May happen consistently or only occasionally"
+    ],
+    "possible_causes": [
+      "The username or password was typed incorrectly, including Caps Lock being on",
+      "The password was recently changed and the old one is being used",
+      "The account uses a different username format than expected, such as an email address instead of a short username",
+      "The account does not exist or was never properly created in this system",
+      "A trailing space or hidden character was accidentally included when typing or pasting credentials"
+    ],
+    "diagnostic_questions": [
+      "Are you certain of the exact username format expected by this application, such as full email versus short username?",
+      "Was your password changed recently, either by you or by an administrator?",
+      "Is Caps Lock currently on?",
+      "Are you copying and pasting the password from somewhere, or typing it manually?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if Caps Lock or Num Lock is currently on before retyping credentials",
+        "reason": "An accidentally enabled Caps Lock is one of the most common reasons correct credentials appear to be rejected"
+      },
+      {
+        "step": 2,
+        "action": "Carefully retype both the username and password directly, rather than relying on autofill, to rule out saved incorrect credentials",
+        "reason": "Browser autofill can sometimes store an outdated or incorrect version of a username or password"
+      },
+      {
+        "step": 3,
+        "action": "Confirm the correct username format expected by this specific application, such as a full email address versus just a short account name",
+        "reason": "Different applications expect different username formats, and using the wrong format will always result in this generic error"
+      },
+      {
+        "step": 4,
+        "action": "If copying and pasting the password, paste it into a plain text field first to check for accidental extra spaces or hidden characters",
+        "reason": "Copying from certain sources can accidentally include invisible characters that cause the password to not match, even though it looks correct visually"
+      },
+      {
+        "step": 5,
+        "action": "Confirm whether the password was recently changed, and if so, ensure you are using the most current version",
+        "reason": "Using an old, previously valid password after a change is a common and simple explanation for this error"
+      },
+      {
+        "step": 6,
+        "action": "Use the application's official 'Forgot Password' or password reset option if available, to set a fresh, known password",
+        "reason": "This provides a definitive way to rule out any uncertainty about the current correct password"
+      },
+      {
+        "step": 7,
+        "action": "If the reset process indicates no account exists for the given username or email, contact the system administrator to confirm the account was properly created and is active",
+        "reason": "In some cases, the underlying account itself may not exist or may not have been fully set up, which requires administrator involvement to resolve"
+      }
+    ],
+    "possible_solutions": [
+      "Turn off Caps Lock and retype credentials carefully",
+      "Confirm and use the correct username format for this application",
+      "Remove hidden characters or spaces when pasting a password",
+      "Use the most recently updated password if it was changed",
+      "Use the official password reset option",
+      "Contact the administrator if the account may not exist or be active"
+    ],
+    "prevention": [
+      "Use a password manager to store credentials accurately",
+      "Update saved passwords promptly after any change",
+      "Be aware of the specific username format required by each application",
+      "Avoid relying solely on browser autofill for critical login credentials"
+    ],
+    "keywords": ["invalid username or password", "login credentials rejected", "incorrect password error application", "username format login error"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-20 minutes",
+    "related_problems": ["Cannot login", "Password expired", "User account locked"]
+  },
+
+  {
+    "id": "APP-003",
+    "category": "Company Application",
+    "subcategory": "Login Issues",
+    "problem": "Password has expired and needs to be changed",
+    "description": "When the user tries to log in, the application informs them that their password has expired and must be changed before they can continue, blocking normal access until this is completed.",
+    "symptoms": [
+      "Message specifically stating the password has expired",
+      "User is redirected to a password change screen instead of the normal application",
+      "Login is blocked entirely until a new password is set",
+      "May happen suddenly based on a scheduled password expiration policy"
+    ],
+    "possible_causes": [
+      "The organization enforces a password expiration policy after a set number of days",
+      "The password was not changed proactively before reaching its expiration date",
+      "An administrator manually flagged the account to require a password change at next login"
+    ],
+    "diagnostic_questions": [
+      "Does the message specifically mention that your password has expired?",
+      "Do you know your organization's password expiration policy, such as every 60 or 90 days?",
+      "Are you able to proceed with the password change screen shown?",
+      "Do you have any specific password complexity requirements you need to follow for the new password?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Read the password expiration message and follow the provided prompt to set a new password",
+        "reason": "Most applications provide a direct, guided process for changing an expired password right at login"
+      },
+      {
+        "step": 2,
+        "action": "Choose a new password that meets the organization's complexity requirements, such as minimum length and use of numbers or symbols",
+        "reason": "A new password that does not meet policy requirements will likely be rejected, requiring another attempt"
+      },
+      {
+        "step": 3,
+        "action": "Avoid reusing a recently used previous password, since many systems block password reuse for a certain number of past passwords",
+        "reason": "Reused passwords are commonly rejected by security policy, which can cause confusion if the user does not realize this restriction applies"
+      },
+      {
+        "step": 4,
+        "action": "After successfully setting the new password, confirm you can log in normally using it",
+        "reason": "This verifies the password change was fully successful and properly recognized by the system"
+      },
+      {
+        "step": 5,
+        "action": "Update the new password in any password manager or saved credential storage being used",
+        "reason": "This ensures future login attempts use the current, correct password rather than the old expired one"
+      },
+      {
+        "step": 6,
+        "action": "If the password change process itself fails or shows an error, contact the system administrator for assistance",
+        "reason": "In some cases, expired passwords require administrator-level action, especially if the standard self-service change process encounters a problem"
+      },
+      {
+        "step": 7,
+        "action": "Going forward, note your organization's password expiration schedule and change the password proactively a few days before it expires",
+        "reason": "This helps avoid being unexpectedly blocked from logging in during an important task in the future"
+      }
+    ],
+    "possible_solutions": [
+      "Follow the on-screen prompt to set a new password meeting policy requirements",
+      "Choose a new, unique password not recently used before",
+      "Update saved credentials in a password manager after changing",
+      "Contact the administrator if the change process itself fails"
+    ],
+    "prevention": [
+      "Change passwords proactively before their expiration date",
+      "Keep track of the organization's password expiration policy",
+      "Use a password manager to track and update passwords across systems"
+    ],
+    "keywords": ["password expired application", "must change password login", "password expiration policy", "expired password error"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": ["Cannot login", "Invalid username or password", "User account locked"]
+  },
+
+  {
+    "id": "APP-004",
+    "category": "Company Application",
+    "subcategory": "Login Issues",
+    "problem": "User account is locked",
+    "description": "The user tries to log in, but instead of a normal password prompt or error, the application specifically indicates that the account has been locked, usually after several failed login attempts.",
+    "symptoms": [
+      "Message specifically stating the account is locked",
+      "Login is blocked entirely, even with the correct password",
+      "Message may mention a lockout duration or instructions to contact an administrator",
+      "May follow a series of recent failed login attempts"
+    ],
+    "possible_causes": [
+      "Too many incorrect password attempts triggered an automatic security lockout",
+      "An administrator manually locked the account for security or policy reasons",
+      "Suspicious login activity was detected, triggering an automatic protective lockout",
+      "The account was locked as part of an offboarding or role change process"
+    ],
+    "diagnostic_questions": [
+      "Do you recall making several incorrect password attempts recently?",
+      "Does the lockout message mention a specific wait time before automatic unlock?",
+      "Have you contacted your IT department about this account recently for any other reason?",
+      "Is there any chance someone else may have attempted to log in to your account unsuccessfully?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Read the lockout message carefully to see if it specifies an automatic unlock time or specific instructions",
+        "reason": "Many lockout policies are temporary and will resolve automatically after a set waiting period, which the message may clearly state"
+      },
+      {
+        "step": 2,
+        "action": "If an automatic unlock time is mentioned, wait for that period to pass before attempting to log in again",
+        "reason": "Attempting to log in repeatedly during an active lockout period can sometimes extend the lockout duration further"
+      },
+      {
+        "step": 3,
+        "action": "Avoid making further login attempts while investigating the cause, since additional failed attempts can worsen the situation",
+        "reason": "Continuing to guess at the password or retry repeatedly can trigger longer or more severe lockout periods on some systems"
+      },
+      {
+        "step": 4,
+        "action": "Contact the system administrator or IT help desk to confirm the reason for the lockout and request it be lifted if needed",
+        "reason": "Administrators can typically see the specific reason for a lockout and can manually unlock the account if appropriate"
+      },
+      {
+        "step": 5,
+        "action": "If the lockout was triggered by forgetting the correct password, use this opportunity to also reset the password through the official process once unlocked",
+        "reason": "This prevents a repeat lockout from continuing to use an uncertain or forgotten password"
+      },
+      {
+        "step": 6,
+        "action": "If suspicious login activity is suspected as the cause, inform the IT security team so they can investigate whether the account may have been targeted",
+        "reason": "A security-related lockout may indicate an attempted unauthorized access, which should be properly investigated rather than simply unlocked and ignored"
+      },
+      {
+        "step": 7,
+        "action": "Once access is restored, confirm normal login works correctly with the current password",
+        "reason": "This verifies the lockout has been fully resolved and access is genuinely restored"
+      }
+    ],
+    "possible_solutions": [
+      "Wait for an automatic lockout period to expire",
+      "Contact the administrator to manually unlock the account",
+      "Reset the password after unlocking if it was the original cause",
+      "Report suspected suspicious activity to the IT security team"
+    ],
+    "prevention": [
+      "Use a password manager to avoid repeated incorrect password attempts",
+      "Report forgotten passwords early rather than repeatedly guessing",
+      "Enable multi-factor authentication where available for added account security"
+    ],
+    "keywords": ["user account locked", "account locked out login", "too many failed attempts", "account lockout policy"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes (may depend on lockout duration)",
+    "related_problems": ["Cannot login", "Invalid username or password", "Access denied"]
+  },
+
+  {
+    "id": "APP-005",
+    "category": "Company Application",
+    "subcategory": "Application Startup",
+    "problem": "The system or application won't open",
+    "description": "The user tries to launch the company application, whether a desktop program or a web-based system, but it fails to open, shows no window or page, or gets stuck before becoming usable.",
+    "symptoms": [
+      "Nothing happens when trying to launch the application",
+      "A loading indicator appears but never completes",
+      "Error message appears before the application interface loads",
+      "Browser tab may show a blank page for web-based applications"
+    ],
+    "possible_causes": [
+      "The application server is down or unreachable",
+      "A network connectivity problem preventing the application from loading",
+      "A corrupted local installation, for desktop applications",
+      "Outdated browser or missing browser components, for web-based applications",
+      "Insufficient system resources on the user's computer",
+      "A recent update introduced a compatibility issue"
+    ],
+    "diagnostic_questions": [
+      "Is this a desktop application installed on the computer, or a web-based system accessed through a browser?",
+      "Does this happen every time, or only sometimes?",
+      "Are other users able to open the same application right now?",
+      "Did this start after a recent update, either to the application or your computer?"
+    ],
+    "commands": [
+      {
+        "command": "ping [application server address]",
+        "purpose": "Check if the computer can reach the server hosting the application",
+        "expected_result": "Replies received from the server",
+        "abnormal_result": "Request timed out, meaning the server cannot be reached, which would prevent the application from loading"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether this is a desktop application or a web-based system, since troubleshooting differs between the two",
+        "reason": "Desktop applications rely on local installation health, while web-based systems depend heavily on browser and network conditions"
+      },
+      {
+        "step": 2,
+        "action": "Check with other users to see if they are able to access the same application right now",
+        "reason": "This quickly indicates whether the problem is isolated to this user's computer or represents a wider server or application outage"
+      },
+      {
+        "step": 3,
+        "action": "Confirm the computer has a working network or internet connection, and any required VPN connection is active",
+        "reason": "Without proper connectivity, the application cannot load or communicate with its server regardless of local settings"
+      },
+      {
+        "step": 4,
+        "action": "For web-based applications, try accessing it using a different browser or an incognito/private browsing window",
+        "reason": "This helps rule out browser-specific issues like outdated cache, cookies, or conflicting extensions"
+      },
+      {
+        "step": 5,
+        "action": "For desktop applications, restart the computer completely and try launching the application again",
+        "reason": "A full restart clears many temporary software issues that could prevent an application from starting properly"
+      },
+      {
+        "step": 6,
+        "action": "Check for and install any pending updates for the application or, for web-based systems, ensure the browser itself is updated",
+        "reason": "Compatibility issues from outdated software are a common cause of applications failing to open correctly"
+      },
+      {
+        "step": 7,
+        "action": "If the problem affects many users, check the application's status page or contact the system administrator about a possible server-side outage",
+        "reason": "A widespread failure to open the application typically points to a server or infrastructure issue rather than individual computers"
+      },
+      {
+        "step": 8,
+        "action": "For a desktop application affecting only this one computer, consider reinstalling the application if a corrupted local installation is suspected",
+        "reason": "This replaces potentially damaged program files that could be preventing normal startup"
+      }
+    ],
+    "possible_solutions": [
+      "Restore network or VPN connectivity",
+      "Try a different browser or private browsing window for web-based systems",
+      "Restart the computer to clear temporary issues",
+      "Update the application or browser to the latest version",
+      "Wait out a confirmed server-side outage",
+      "Reinstall a corrupted desktop application installation"
+    ],
+    "prevention": [
+      "Keep applications and browsers updated regularly",
+      "Maintain a stable network and VPN connection",
+      "Report suspected outages to IT promptly",
+      "Restart the computer periodically to clear accumulated issues"
+    ],
+    "keywords": ["system won't open", "application not launching", "cannot open company application", "application blank page"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Application crashes", "Blank screen", "Server unavailable"]
+  },
+
+  {
+    "id": "APP-006",
+    "category": "Company Application",
+    "subcategory": "Application Stability",
+    "problem": "Application crashes unexpectedly",
+    "description": "While the user is actively working within the application, it suddenly closes completely, or a web-based version shows a crash or error page, interrupting the current task.",
+    "symptoms": [
+      "Application window closes suddenly with no warning",
+      "Browser tab shows a crash message for web-based applications",
+      "Error report dialog may appear after the crash",
+      "Unsaved work may be lost"
+    ],
+    "possible_causes": [
+      "A bug in the application triggered by a specific action",
+      "Insufficient system memory for the current task",
+      "A corrupted local installation, for desktop applications",
+      "Browser instability or conflicting extensions, for web-based applications",
+      "A server-side error causing the client to crash unexpectedly",
+      "Outdated application or browser version with a known compatibility issue"
+    ],
+    "diagnostic_questions": [
+      "Does the crash happen during a specific action, such as saving, generating a report, or opening a certain record?",
+      "Does this happen consistently, or only occasionally?",
+      "Are other users experiencing the same crash under similar circumstances?",
+      "Did this start after a recent update to the application, browser, or operating system?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note exactly what action was being performed right before the crash occurred",
+        "reason": "A specific, repeatable trigger helps narrow down the exact cause and gives useful information to report to support"
+      },
+      {
+        "step": 2,
+        "action": "Reopen the application and attempt to reproduce the same action carefully",
+        "reason": "This confirms whether the crash is consistently reproducible, which is important information for diagnosing and reporting the issue"
+      },
+      {
+        "step": 3,
+        "action": "Check with other users to see if they experience the same crash performing a similar action",
+        "reason": "This helps determine if the issue is a broader application bug affecting everyone, or something specific to this user's computer or data"
+      },
+      {
+        "step": 4,
+        "action": "For web-based applications, try the same action in a different browser or an incognito/private window",
+        "reason": "This helps isolate whether the crash is related to browser-specific settings, extensions, or cached data"
+      },
+      {
+        "step": 5,
+        "action": "Close other unnecessary programs or browser tabs to free up system memory before retrying",
+        "reason": "Insufficient available memory can sometimes cause applications to crash, especially during resource-intensive actions"
+      },
+      {
+        "step": 6,
+        "action": "Check for and install any pending updates for the application or browser",
+        "reason": "Known bugs causing crashes are often addressed in official updates released after the current version"
+      },
+      {
+        "step": 7,
+        "action": "For a desktop application, consider reinstalling it if crashes continue and are not related to a specific reproducible action",
+        "reason": "This replaces potentially corrupted program files that could be causing general instability"
+      },
+      {
+        "step": 8,
+        "action": "Report the specific trigger, error details, and frequency of the crash to the system administrator or application support team",
+        "reason": "Detailed, specific information significantly helps the support team diagnose and potentially fix the underlying bug"
+      }
+    ],
+    "possible_solutions": [
+      "Avoid a specific identified trigger while it is investigated",
+      "Try a different browser for web-based applications",
+      "Free up system memory before performing demanding actions",
+      "Update the application or browser to the latest version",
+      "Reinstall a desktop application experiencing general instability",
+      "Report detailed crash information to application support"
+    ],
+    "prevention": [
+      "Save work frequently while using the application",
+      "Keep the application and browser updated",
+      "Report crash patterns to support promptly",
+      "Avoid running too many other resource-intensive programs simultaneously"
+    ],
+    "keywords": ["application crashes", "system crashes unexpectedly", "application closes suddenly", "browser crash web application"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["System won't open", "Application not responding", "Blank screen"]
+  },
+
+  {
+    "id": "APP-007",
+    "category": "Company Application",
+    "subcategory": "Application Stability",
+    "problem": "Application is not responding",
+    "description": "While using the application, it stops responding to clicks, typing, or other input, with the screen frozen in its current state, sometimes requiring the user to wait or force close it.",
+    "symptoms": [
+      "Application window shows 'Not Responding' in its title",
+      "Clicking buttons or typing has no effect",
+      "Loading indicator may spin indefinitely",
+      "Freeze may resolve on its own after a wait, or require closing the application"
+    ],
+    "possible_causes": [
+      "A large or complex operation, such as generating a big report, taking longer than expected",
+      "A server-side delay causing the client application to appear frozen while waiting for a response",
+      "Insufficient system memory for the current task",
+      "A specific record or dataset causing the application to hang",
+      "A network slowdown affecting communication with the server"
+    ],
+    "diagnostic_questions": [
+      "Does this happen during a specific action, such as generating a report or loading a large amount of data?",
+      "How long does the unresponsive state typically last before recovering or needing to be closed?",
+      "Are other users experiencing similar slowness or freezing right now?",
+      "Is your network connection to the application's server currently stable?"
+    ],
+    "commands": [
+      {
+        "command": "taskmgr",
+        "purpose": "Check the application's CPU and memory usage while it appears frozen, to determine if it is truly stuck or working intensively",
+        "expected_result": "High CPU usage suggests active processing, while 0% usage over a long period suggests a true freeze",
+        "abnormal_result": "The application shows 0% CPU usage for an extended period with no progress, indicating a genuine freeze rather than legitimate processing"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Task Manager to see if the application is using high CPU, suggesting it is still actively processing rather than truly frozen",
+        "reason": "This helps decide whether to keep waiting for a legitimate large operation to finish, or consider it a true freeze"
+      },
+      {
+        "step": 2,
+        "action": "If a large report or data operation was just triggered, allow extra time for it to complete, especially with large datasets",
+        "reason": "Some legitimate operations can take a genuinely long time and may only appear frozen while working correctly in the background"
+      },
+      {
+        "step": 3,
+        "action": "Check your network connection stability to the application's server",
+        "reason": "A slow or unstable connection can cause the client application to appear frozen while waiting for a delayed server response"
+      },
+      {
+        "step": 4,
+        "action": "Check with other users to see if they are experiencing similar slowness or unresponsiveness with the same application right now",
+        "reason": "This helps determine if the issue is isolated to your session or indicates a broader server-side performance problem"
+      },
+      {
+        "step": 5,
+        "action": "If the application does recover, save any work immediately and consider restarting the application for a fresh, stable session",
+        "reason": "This protects recent work and reduces the chance of the same freeze recurring in the current session"
+      },
+      {
+        "step": 6,
+        "action": "If a specific record or dataset consistently causes the freeze, note this detail and avoid it temporarily while reporting it to the administrator or support team",
+        "reason": "Certain records with unusual size or data issues can specifically trigger performance problems, and isolating this helps with a targeted fix"
+      },
+      {
+        "step": 7,
+        "action": "Close unnecessary other programs or browser tabs to free up system memory",
+        "reason": "This ensures the application has adequate resources available, reducing the chance of memory-related freezing"
+      },
+      {
+        "step": 8,
+        "action": "If the application does not recover after a reasonable wait, close it and report the details, including what action triggered the freeze, to the system administrator or support team",
+        "reason": "Detailed information helps identify whether this is a client-side, network, or server-side performance issue requiring further investigation"
+      }
+    ],
+    "possible_solutions": [
+      "Wait for a large legitimate operation to complete",
+      "Improve network connection stability",
+      "Restart the application for a fresh session after recovery",
+      "Avoid a specific record or dataset causing repeated freezes",
+      "Free up system memory by closing other programs",
+      "Report persistent freezing details to the administrator or support team"
+    ],
+    "prevention": [
+      "Save work frequently while using the application",
+      "Maintain a stable network connection",
+      "Avoid running too many resource-intensive programs simultaneously",
+      "Report recurring freeze patterns to support for investigation"
+    ],
+    "keywords": ["application not responding", "system frozen", "application hangs loading", "not responding company system"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Application crashes", "Loading forever", "System running slowly"]
+  },
+
+  {
+    "id": "APP-008",
+    "category": "Company Application",
+    "subcategory": "Display Issues",
+    "problem": "Blank screen appears instead of the application content",
+    "description": "The user opens the application, whether a desktop program or a web page, but instead of seeing the normal interface, the screen remains completely blank or white with no content displayed.",
+    "symptoms": [
+      "Screen is entirely blank, white, or grey with no visible content",
+      "No error message is shown, just an empty screen",
+      "May happen for the entire application, or just a specific page or section",
+      "Browser tab may show as loaded, but the page itself displays nothing"
+    ],
+    "possible_causes": [
+      "A JavaScript or rendering error preventing the web page content from displaying",
+      "An outdated or incompatible browser version",
+      "A browser extension interfering with page rendering",
+      "A slow or incomplete page load that has stalled partway through",
+      "A server-side error resulting in an empty response being sent to the client",
+      "Display or graphics driver issues affecting a desktop application's rendering"
+    ],
+    "diagnostic_questions": [
+      "Is this a web-based application in a browser, or a desktop application?",
+      "Does the blank screen happen every time, or only sometimes?",
+      "Have you tried refreshing the page or restarting the application?",
+      "Are other users experiencing the same blank screen with this application right now?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Refresh the web page, or fully close and reopen the desktop application",
+        "reason": "This is the simplest first step and can resolve blank screens caused by a temporary loading glitch"
+      },
+      {
+        "step": 2,
+        "action": "For web-based applications, try opening the page in a different browser or an incognito/private browsing window",
+        "reason": "This helps determine if the blank screen is related to browser-specific settings, cached data, or a conflicting extension"
+      },
+      {
+        "step": 3,
+        "action": "Clear the browser's cache and cookies for the application's website, then try loading it again",
+        "reason": "Corrupted or outdated cached files can sometimes prevent a web page from rendering its content correctly"
+      },
+      {
+        "step": 4,
+        "action": "Temporarily disable browser extensions, especially ad blockers or script blockers, and try loading the page again",
+        "reason": "Certain browser extensions can inadvertently block legitimate scripts needed for the application to display its content"
+      },
+      {
+        "step": 5,
+        "action": "Check with other users to see if they are experiencing the same blank screen with this application",
+        "reason": "This helps determine if the issue is isolated to your browser or computer, or represents a wider application or server-side problem"
+      },
+      {
+        "step": 6,
+        "action": "Confirm the browser being used meets the application's minimum supported version, updating it if necessary",
+        "reason": "Using an outdated, unsupported browser version is a common cause of rendering failures like a blank screen"
+      },
+      {
+        "step": 7,
+        "action": "For a desktop application, update the computer's graphics driver, since rendering issues can sometimes stem from an outdated driver",
+        "reason": "Graphics driver issues can specifically affect how an application's interface is drawn on screen"
+      },
+      {
+        "step": 8,
+        "action": "If the blank screen persists across multiple browsers and computers, report the issue to the system administrator, since it likely points to a server-side rendering or data issue",
+        "reason": "A widespread, consistent blank screen problem typically indicates something needs to be fixed on the application or server side rather than the individual user's setup"
+      }
+    ],
+    "possible_solutions": [
+      "Refresh the page or restart the application",
+      "Try a different browser or private browsing window",
+      "Clear browser cache and cookies",
+      "Disable interfering browser extensions",
+      "Update the browser to a supported version",
+      "Update the graphics driver for desktop application rendering issues",
+      "Report a persistent, widespread blank screen to the system administrator"
+    ],
+    "prevention": [
+      "Keep the browser updated to a supported version",
+      "Periodically clear browser cache for frequently used applications",
+      "Be cautious with browser extensions on systems used for critical business applications",
+      "Keep graphics drivers updated for desktop applications"
+    ],
+    "keywords": ["blank screen application", "white screen web application", "application shows nothing", "empty page company system"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Loading forever", "Application not responding", "Data not displaying"]
+  },
+
+  {
+    "id": "APP-009",
+    "category": "Company Application",
+    "subcategory": "Display Issues",
+    "problem": "Application appears to be loading forever",
+    "description": "The user opens the application or navigates to a specific page, but a loading indicator, spinner, or progress bar continues indefinitely without the content ever finishing loading.",
+    "symptoms": [
+      "Loading spinner or progress bar continues indefinitely",
+      "No error message appears, just continuous loading",
+      "May happen for the entire application, or a specific page or report",
+      "Waiting a long time does not resolve the issue"
+    ],
+    "possible_causes": [
+      "A slow or unstable network connection preventing data from fully loading",
+      "The server is taking an unusually long time to respond, or has stalled processing the request",
+      "A very large amount of data being requested, exceeding normal loading times",
+      "A stuck or hung process on the server side handling this specific request",
+      "A client-side script error preventing the loading state from properly completing"
+    ],
+    "diagnostic_questions": [
+      "Does this happen with the entire application, or a specific page or report?",
+      "How long have you waited before concluding it is stuck rather than just slow?",
+      "Are other users experiencing the same continuous loading right now?",
+      "Is your network connection stable and reasonably fast at the moment?"
+    ],
+    "commands": [
+      {
+        "command": "ping [application server address]",
+        "purpose": "Check basic network connectivity and response time to the application server",
+        "expected_result": "Consistent, reasonably fast reply times",
+        "abnormal_result": "Very slow or inconsistent replies, or timeouts, suggesting a network or server-side performance problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Wait a reasonable amount of time, such as one to two minutes, in case a legitimately large amount of data is being processed",
+        "reason": "Some operations, especially large reports, can genuinely take longer than usual without being truly stuck"
+      },
+      {
+        "step": 2,
+        "action": "Check your network connection stability and speed",
+        "reason": "A slow or intermittent connection can cause data to load extremely slowly, appearing as if it is stuck indefinitely"
+      },
+      {
+        "step": 3,
+        "action": "Check with other users to see if they are experiencing the same continuous loading issue with this application or specific page",
+        "reason": "This helps determine if the problem is isolated to your session or represents a broader server-side issue affecting everyone"
+      },
+      {
+        "step": 4,
+        "action": "Refresh the page or restart the application to cancel the stuck loading attempt and try again fresh",
+        "reason": "This clears the current stuck state and gives the loading process a clean new attempt"
+      },
+      {
+        "step": 5,
+        "action": "If the loading is specific to one large report or dataset, try narrowing the request, such as using a smaller date range or fewer filters, to see if a smaller request loads successfully",
+        "reason": "This helps determine if the issue is related to the sheer size of the requested data rather than a general application problem"
+      },
+      {
+        "step": 6,
+        "action": "For web-based applications, try a different browser or clear the browser cache to rule out a client-side script issue preventing the loading state from resolving",
+        "reason": "Sometimes the data does load successfully on the server, but a client-side display issue prevents the loading indicator from disappearing"
+      },
+      {
+        "step": 7,
+        "action": "If the problem persists and affects multiple users or specific known large operations, report it to the system administrator with details about what was being loaded",
+        "reason": "This provides the necessary information for the administrator to investigate potential server-side performance bottlenecks or stuck processes"
+      }
+    ],
+    "possible_solutions": [
+      "Allow extra time for a genuinely large operation to complete",
+      "Improve or stabilize the network connection",
+      "Refresh or restart to clear a stuck loading state",
+      "Narrow the request size, such as a smaller date range, for large reports",
+      "Try a different browser to rule out a client-side display issue",
+      "Report persistent loading issues to the system administrator with specifics"
+    ],
+    "prevention": [
+      "Avoid requesting excessively large reports or datasets when a smaller, filtered version would work",
+      "Maintain a stable network connection when using data-intensive features",
+      "Report recurring slow-loading patterns to help administrators identify bottlenecks"
+    ],
+    "keywords": ["loading forever application", "stuck loading spinner", "page never finishes loading", "application infinite loading"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Blank screen", "System running slowly", "Failed to retrieve data"]
+  },
+
+  {
+    "id": "APP-010",
+    "category": "Company Application",
+    "subcategory": "Server Connectivity",
+    "problem": "Cannot connect to the server",
+    "description": "The user tries to use the application, but it displays an error indicating it cannot establish a connection to its server, preventing any data from being loaded or actions performed.",
+    "symptoms": [
+      "Error message such as 'Cannot connect to server' or 'Connection failed'",
+      "Application loads its basic interface but cannot retrieve any data",
+      "All server-dependent features are unavailable",
+      "May happen for one user or many at the same time"
+    ],
+    "possible_causes": [
+      "No active internet or network connection on the user's computer",
+      "The application server is down or restarting",
+      "A required VPN connection is not active for internal applications",
+      "A firewall or network configuration is blocking the connection",
+      "Incorrect server address configured in the application settings"
+    ],
+    "diagnostic_questions": [
+      "Are you connected to the correct network or VPN required for this application?",
+      "Are other users able to connect to the application right now?",
+      "Does your computer have a working internet or network connection overall?",
+      "Has this application worked correctly before on this same network connection?"
+    ],
+    "commands": [
+      {
+        "command": "ping [application server address]",
+        "purpose": "Test basic network connectivity to the application server",
+        "expected_result": "Replies received from the server, confirming a network path exists",
+        "abnormal_result": "Request timed out, meaning the server cannot be reached from this network location"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the computer has a working internet or network connection independent of this specific application, such as by browsing a website",
+        "reason": "This determines if the problem is specific to reaching this application's server, or a broader network issue affecting everything"
+      },
+      {
+        "step": 2,
+        "action": "If the application requires a VPN connection, confirm the VPN is currently active and stable",
+        "reason": "Many internal business applications are only reachable through a company VPN, and without it, connection attempts will always fail"
+      },
+      {
+        "step": 3,
+        "action": "Ping the application server's address to test basic network reachability",
+        "reason": "This directly confirms whether a network path currently exists to the server from this specific computer"
+      },
+      {
+        "step": 4,
+        "action": "Check with other users to see if they are experiencing the same connection failure right now",
+        "reason": "This quickly indicates whether the problem is isolated to this one user or represents a broader server outage"
+      },
+      {
+        "step": 5,
+        "action": "Restart the application, or refresh the web page, to rule out a temporary connection state issue",
+        "reason": "A fresh restart can resolve connection problems caused by a stuck or corrupted session on the client side"
+      },
+      {
+        "step": 6,
+        "action": "Check the application's configured server address, if accessible in its settings, to confirm it has not been accidentally changed or is outdated",
+        "reason": "An incorrect server address will prevent the application from ever finding the correct server, regardless of network health"
+      },
+      {
+        "step": 7,
+        "action": "If the problem affects multiple users, contact the system administrator immediately, since this likely indicates a server outage or network infrastructure issue",
+        "reason": "A widespread connectivity issue requires administrator-level investigation into the server and network infrastructure itself"
+      }
+    ],
+    "possible_solutions": [
+      "Restore a working internet or network connection",
+      "Reconnect the VPN if required for this application",
+      "Restart the application or refresh the page",
+      "Correct an incorrect server address in application settings",
+      "Report a widespread outage to the system administrator"
+    ],
+    "prevention": [
+      "Maintain a stable VPN connection when required",
+      "Keep application server settings correctly configured",
+      "Stay informed of scheduled server maintenance windows",
+      "Report connectivity issues to IT promptly for faster resolution"
+    ],
+    "keywords": ["cannot connect to server", "connection failed application", "server unreachable", "vpn required application"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Server unavailable", "Connection timed out", "Database connection failed"]
+  },
+
+  {
+    "id": "APP-011",
+    "category": "Company Application",
+    "subcategory": "Server Connectivity",
+    "problem": "Server unavailable message appears",
+    "description": "The user tries to access the application and receives a specific message stating the server is unavailable, distinct from a generic connection failure, suggesting the server itself is not currently operational.",
+    "symptoms": [
+      "Specific error message stating 'Server unavailable' or 'Service unavailable'",
+      "May include an HTTP error code such as 503",
+      "Problem persists across multiple attempts and refreshes",
+      "May affect one specific application or an entire suite of related systems"
+    ],
+    "possible_causes": [
+      "The server is undergoing scheduled maintenance",
+      "The server has crashed or stopped responding due to an unexpected error",
+      "The server is overloaded with too many requests at once",
+      "A recent deployment or update to the application caused the server to fail to start correctly",
+      "An underlying infrastructure issue, such as a database or dependent service being down"
+    ],
+    "diagnostic_questions": [
+      "Does the error include a specific code, such as 503 Service Unavailable?",
+      "Have you received any communication about scheduled maintenance for this system?",
+      "Are other users also seeing this same unavailable message right now?",
+      "Has this been happening consistently, or did it start very recently?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message and any accompanying error code shown",
+        "reason": "Specific codes, such as 503, help confirm the nature of the problem and provide useful information for the administrator"
+      },
+      {
+        "step": 2,
+        "action": "Check for any recent communication from IT about planned maintenance for this application or related systems",
+        "reason": "Scheduled maintenance is a very common and expected cause of temporary server unavailability"
+      },
+      {
+        "step": 3,
+        "action": "Check with other users to confirm whether they are also seeing the same unavailable message",
+        "reason": "This quickly establishes whether the problem is a genuine server-wide outage or possibly isolated to this one connection"
+      },
+      {
+        "step": 4,
+        "action": "Wait a reasonable amount of time, such as 10 to 15 minutes, and try again, in case this is a brief, temporary server issue",
+        "reason": "Servers sometimes recover automatically from temporary overload or brief internal errors within a short period"
+      },
+      {
+        "step": 5,
+        "action": "Check the application's status page, if one is provided by the organization, for official updates on the outage",
+        "reason": "Many organizations maintain a status page specifically to communicate known outages and estimated resolution times"
+      },
+      {
+        "step": 6,
+        "action": "If the problem persists beyond a reasonable wait time, report it immediately to the system administrator, providing the exact error message, code, and time it started",
+        "reason": "Detailed, specific information significantly speeds up the administrator's ability to diagnose and address the outage"
+      },
+      {
+        "step": 7,
+        "action": "Avoid repeatedly refreshing or retrying excessively while waiting, since this can add unnecessary additional load to an already struggling server",
+        "reason": "Excessive retry attempts can worsen an already overloaded server situation for all affected users"
+      }
+    ],
+    "possible_solutions": [
+      "Wait out scheduled maintenance",
+      "Wait for a brief, temporary server issue to resolve on its own",
+      "Check the official status page for outage updates",
+      "Report the outage promptly to the system administrator with specific details",
+      "Avoid excessive retry attempts that could add load to a struggling server"
+    ],
+    "prevention": [
+      "Stay informed of scheduled maintenance windows through official communication channels",
+      "Check the status page before assuming a widespread issue",
+      "Report outages promptly with specific details to help administrators respond quickly"
+    ],
+    "keywords": ["server unavailable", "service unavailable error", "503 error application", "server down message"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-45 minutes (may depend on server status)",
+    "related_problems": ["Cannot connect to server", "Server offline", "Service stopped"]
+  },
+
+  {
+    "id": "APP-012",
+    "category": "Company Application",
+    "subcategory": "Server Connectivity",
+    "problem": "Connection timed out error",
+    "description": "The user attempts an action within the application, such as loading a page or saving data, but after waiting, receives a specific error stating the connection timed out, rather than a successful response.",
+    "symptoms": [
+      "Error message specifically mentioning 'Connection timed out' or 'Request timed out'",
+      "The action seems to be attempted but never completes within the expected time",
+      "May happen with all actions, or specifically slow or large operations",
+      "Problem may be intermittent or consistent"
+    ],
+    "possible_causes": [
+      "A slow or unstable network connection",
+      "The server is taking longer than the allowed time limit to process the request",
+      "A very large operation exceeding normal timeout thresholds",
+      "Network congestion between the user's location and the server",
+      "A firewall or proxy interrupting the connection before it can complete"
+    ],
+    "diagnostic_questions": [
+      "Does this happen with all actions, or specifically larger or more complex operations?",
+      "Is your network connection currently stable and reasonably fast?",
+      "Are other users experiencing similar timeout errors right now?",
+      "Does this happen consistently, or only occasionally?"
+    ],
+    "commands": [
+      {
+        "command": "ping [application server address]",
+        "purpose": "Check network response time and stability to the application server",
+        "expected_result": "Consistent, reasonably fast reply times with no lost packets",
+        "abnormal_result": "Slow, inconsistent replies or significant packet loss, indicating network instability contributing to the timeout"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check your network connection stability and speed, since a poor connection is a very common cause of timeout errors",
+        "reason": "Timeouts often occur when data cannot be transmitted quickly or reliably enough to complete a request within the allowed time"
+      },
+      {
+        "step": 2,
+        "action": "Retry the same action to see if the timeout was a one-time, temporary occurrence",
+        "reason": "Some timeouts are caused by brief network hiccups that do not repeat on a subsequent attempt"
+      },
+      {
+        "step": 3,
+        "action": "If the timeout happens specifically with a large operation, such as a big report, try breaking it into smaller parts, such as a shorter date range",
+        "reason": "This reduces the processing time needed, helping the operation complete within the allowed timeout period"
+      },
+      {
+        "step": 4,
+        "action": "Check with other users to see if they are experiencing similar timeout errors with the same or similar actions",
+        "reason": "This helps determine if the problem is related to your specific network connection, or a broader server-side performance issue"
+      },
+      {
+        "step": 5,
+        "action": "If working remotely, check the stability of your VPN connection specifically, since VPN connections can sometimes introduce additional latency contributing to timeouts",
+        "reason": "VPN connections add an extra layer of network complexity that can sometimes be a source of instability or slowdown"
+      },
+      {
+        "step": 6,
+        "action": "If timeouts happen consistently with specific types of actions, report this pattern to the system administrator, since it may indicate the timeout threshold needs adjustment or there is a server-side performance issue",
+        "reason": "Consistent, predictable timeout patterns provide valuable diagnostic information that can lead to a proper server-side fix"
+      },
+      {
+        "step": 7,
+        "action": "As a temporary workaround for known slow operations, try performing them during off-peak hours when server load may be lower",
+        "reason": "Reduced overall server load during quieter periods can sometimes allow operations to complete within the timeout limit that would otherwise fail during peak usage"
+      }
+    ],
+    "possible_solutions": [
+      "Improve or stabilize the network connection",
+      "Retry the action after a brief pause",
+      "Break large operations into smaller parts",
+      "Ensure a stable VPN connection when working remotely",
+      "Report consistent timeout patterns to the system administrator",
+      "Perform known slow operations during off-peak hours as a workaround"
+    ],
+    "prevention": [
+      "Maintain a stable, reasonably fast network connection",
+      "Avoid requesting excessively large operations when smaller ones would suffice",
+      "Report recurring timeout patterns to help administrators adjust server settings",
+      "Use a stable VPN connection when required for remote access"
+    ],
+    "keywords": ["connection timed out", "request timeout error", "timeout error application", "action timed out server"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Cannot connect to server", "System running slowly", "Failed to retrieve data"]
+  },
+
+  {
+    "id": "APP-013",
+    "category": "Company Application",
+    "subcategory": "Database Connectivity",
+    "problem": "Database connection failed error",
+    "description": "The user tries to perform an action that requires retrieving or saving data, but the application shows a specific error indicating it could not connect to its underlying database.",
+    "symptoms": [
+      "Error message specifically mentioning 'Database connection failed' or similar",
+      "The application's basic interface may load, but no data can be retrieved or saved",
+      "Error may include a technical code or reference number",
+      "Problem may affect one specific feature or the entire application"
+    ],
+    "possible_causes": [
+      "The database server is down or restarting",
+      "The database server has reached its maximum number of allowed connections",
+      "A network problem between the application server and the database server",
+      "Database server maintenance is currently in progress",
+      "A configuration issue in the application preventing it from properly reaching the database"
+    ],
+    "diagnostic_questions": [
+      "Does the error include any specific technical code or reference number?",
+      "Are other users experiencing the same database connection error right now?",
+      "Have you received any communication about scheduled database maintenance?",
+      "Does this error happen with all actions, or specific ones involving data retrieval or saving?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message and any technical code or reference number shown",
+        "reason": "This detailed information is essential for the system administrator or database team to quickly diagnose the specific cause"
+      },
+      {
+        "step": 2,
+        "action": "Check with other users to confirm whether they are also experiencing the same database connection error",
+        "reason": "This is a database-level, typically server-side issue, and confirming its scope with others is important initial diagnostic information"
+      },
+      {
+        "step": 3,
+        "action": "Check for any recent communication from IT about scheduled database maintenance",
+        "reason": "Planned database maintenance is a common and expected cause of temporary connection failures"
+      },
+      {
+        "step": 4,
+        "action": "Wait a short period, such as 5 to 10 minutes, and try the action again, in case this is a brief, temporary database connectivity issue",
+        "reason": "Database connections can sometimes recover automatically from brief spikes in load or temporary internal issues"
+      },
+      {
+        "step": 5,
+        "action": "This type of error is generally not something an end user can resolve directly, since it relates to backend server infrastructure",
+        "reason": "Database connectivity is managed at the server and infrastructure level, well beyond typical end-user troubleshooting capabilities"
+      },
+      {
+        "step": 6,
+        "action": "Report the issue promptly to the system administrator or database team, including the exact error message, code, and the specific time it started occurring",
+        "reason": "This is a critical, backend infrastructure issue that requires immediate administrator attention, and detailed reporting speeds up resolution significantly"
+      },
+      {
+        "step": 7,
+        "action": "Avoid repeatedly retrying the same failed action many times while waiting for the issue to be resolved",
+        "reason": "Repeated attempts can add unnecessary additional load to an already struggling database connection pool, potentially worsening the situation for all users"
+      }
+    ],
+    "possible_solutions": [
+      "Wait out scheduled database maintenance",
+      "Wait for a brief, temporary connectivity issue to resolve",
+      "Report the issue immediately to the system administrator or database team with specific details",
+      "Avoid excessive retry attempts that could add load to the database"
+    ],
+    "prevention": [
+      "Stay informed of scheduled database maintenance windows",
+      "Report database connection errors promptly with specific details",
+      "Avoid excessive simultaneous requests during known high-load periods"
+    ],
+    "keywords": ["database connection failed", "database error application", "cannot connect database", "database unavailable error"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-60 minutes (typically requires administrator involvement)",
+    "related_problems": ["Failed to retrieve data", "Failed to save data", "Server unavailable"]
+  },
+
+  {
+    "id": "APP-014",
+    "category": "Company Application",
+    "subcategory": "Data Operations",
+    "problem": "Failed to retrieve data error",
+    "description": "The user tries to view a report, list, or record within the application, but instead of the expected data, they receive an error message stating the data could not be retrieved.",
+    "symptoms": [
+      "Error message stating 'Failed to retrieve data' or similar",
+      "Empty results or a blank list where data is expected",
+      "May happen with all data, or specific reports or records",
+      "Problem may be intermittent or consistent"
+    ],
+    "possible_causes": [
+      "A network or server connectivity problem interrupting the data request",
+      "A database issue preventing the underlying data from being accessed",
+      "The specific data being requested no longer exists or was moved",
+      "Insufficient permissions to view the requested data",
+      "A bug in a specific report or query causing it to fail"
+    ],
+    "diagnostic_questions": [
+      "Does this happen with all data and reports, or a specific one?",
+      "Have you been able to successfully retrieve this same data before?",
+      "Are other users able to retrieve this same data right now?",
+      "Is your network connection currently stable?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note exactly what data, report, or record you were trying to retrieve when the error appeared",
+        "reason": "This specific detail helps determine if the problem is isolated to one particular piece of data or a broader system issue"
+      },
+      {
+        "step": 2,
+        "action": "Check your network connection stability, since interrupted connectivity during a data request can directly cause this type of error",
+        "reason": "A dropped or unstable connection during data transfer is a very common and simple cause of retrieval failures"
+      },
+      {
+        "step": 3,
+        "action": "Retry the same request to see if it was a temporary, one-time failure",
+        "reason": "Some retrieval failures are caused by brief network or server hiccups that do not repeat on a subsequent attempt"
+      },
+      {
+        "step": 4,
+        "action": "Check with other users to see if they can successfully retrieve the same specific data",
+        "reason": "This helps determine if the problem is related to your access permissions or connection specifically, or a broader data or system issue affecting everyone"
+      },
+      {
+        "step": 5,
+        "action": "Confirm you have the correct permissions to view this specific data, especially if it is data you have not accessed before",
+        "reason": "Some retrieval failures are actually permission-related, presenting as a generic error rather than a clear access denied message"
+      },
+      {
+        "step": 6,
+        "action": "If the failure happens specifically with one report or query, note this pattern, since it may point to a bug or issue specific to that report rather than the whole application",
+        "reason": "Isolating the problem to a specific report helps direct troubleshooting toward that specific piece of functionality rather than the entire system"
+      },
+      {
+        "step": 7,
+        "action": "Report the issue to the system administrator, including exactly what data or report was being requested and any error details shown",
+        "reason": "Detailed, specific information helps the administrator or support team investigate the underlying data or query issue effectively"
+      }
+    ],
+    "possible_solutions": [
+      "Restore network connectivity before retrying",
+      "Retry the request after a brief pause",
+      "Confirm and request correct permissions for the specific data",
+      "Report a specific broken report or query to the administrator",
+      "Wait for a server-side data or query issue to be resolved"
+    ],
+    "prevention": [
+      "Maintain a stable network connection during data-intensive operations",
+      "Confirm appropriate permissions are set up in advance for needed data",
+      "Report recurring retrieval failures for specific reports to help identify bugs"
+    ],
+    "keywords": ["failed to retrieve data", "data retrieval error", "cannot load report data", "empty results error application"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Data not displaying", "Database connection failed", "Report not generating"]
+  },
+
+  {
+    "id": "APP-015",
+    "category": "Company Application",
+    "subcategory": "Data Operations",
+    "problem": "Failed to save data error",
+    "description": "The user fills out a form or edits a record within the application and tries to save their changes, but the save fails with an error message instead of the data being properly stored.",
+    "symptoms": [
+      "Error message such as 'Failed to save data' or 'Save unsuccessful'",
+      "Changes appear to be entered correctly but are not saved after the error",
+      "May happen with all save attempts, or specific forms or records",
+      "Data may partially save, causing incomplete or inconsistent records"
+    ],
+    "possible_causes": [
+      "A network connectivity problem interrupting the save request",
+      "Required fields were left blank or contain invalid data",
+      "A validation rule within the application rejected the submitted data",
+      "The record being edited was changed by another user at the same time, causing a conflict",
+      "A database issue on the server side preventing the save from completing",
+      "Insufficient permissions to save changes to this specific record"
+    ],
+    "diagnostic_questions": [
+      "Does the error message give any specific reason for the save failure?",
+      "Were all required fields filled in correctly before attempting to save?",
+      "Is it possible another user was editing the same record at the same time?",
+      "Does this happen with all records, or a specific one?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Read the exact error message carefully to see if it specifies a particular reason, such as a missing required field or validation issue",
+        "reason": "Many save failures include specific, actionable details about exactly what needs to be corrected before saving can succeed"
+      },
+      {
+        "step": 2,
+        "action": "Review the form for any required fields that may have been accidentally left blank or contain improperly formatted data",
+        "reason": "Missing or invalid data in required fields is one of the most common reasons a save attempt fails"
+      },
+      {
+        "step": 3,
+        "action": "Check your network connection stability, since an interrupted connection during the save process can directly cause this type of failure",
+        "reason": "A dropped connection while data is being transmitted to the server is a common and straightforward cause of save failures"
+      },
+      {
+        "step": 4,
+        "action": "If corrections are needed based on the error message, make those specific corrections and attempt to save again",
+        "reason": "This directly addresses the root cause identified by the application's own validation feedback"
+      },
+      {
+        "step": 5,
+        "action": "If the error suggests a conflict with another user's changes, refresh the record to see the most current version, then carefully reapply your intended changes before saving again",
+        "reason": "This resolves conflicts that occur when two people try to edit and save the same record at the same time"
+      },
+      {
+        "step": 6,
+        "action": "Before navigating away or refreshing, copy your entered data to a temporary location, such as a text document, in case it is lost during troubleshooting",
+        "reason": "This protects the time and effort already invested in entering the data, in case the save process needs to be restarted"
+      },
+      {
+        "step": 7,
+        "action": "Confirm you have the correct permissions to edit and save changes to this specific record or type of record",
+        "reason": "Some save failures are actually related to insufficient permissions, even if the initial view or edit screen was accessible"
+      },
+      {
+        "step": 8,
+        "action": "If the save failure continues without a clear reason, report it to the system administrator, providing the exact record, error message, and data you were trying to save",
+        "reason": "Detailed information helps the administrator investigate whether this is a validation rule, permissions, or a deeper database issue"
+      }
+    ],
+    "possible_solutions": [
+      "Fill in any missing required fields correctly",
+      "Restore network connectivity before saving",
+      "Refresh and reapply changes if a conflict with another user's edit is detected",
+      "Confirm correct permissions to save changes to this record",
+      "Report unclear or persistent save failures to the system administrator"
+    ],
+    "prevention": [
+      "Double check required fields before submitting a save",
+      "Maintain a stable network connection while working on important records",
+      "Communicate with team members to avoid simultaneous editing conflicts",
+      "Save work incrementally rather than making many changes before a single save attempt"
+    ],
+    "keywords": ["failed to save data", "cannot save record error", "save unsuccessful application", "data not saving form"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Cannot save record", "Database connection failed", "Access denied"]
+  },
+
+  {
+    "id": "APP-016",
+    "category": "Company Application",
+    "subcategory": "Performance",
+    "problem": "The system is running slowly overall",
+    "description": "The user finds that the application generally feels sluggish, with delays when navigating between pages, loading records, or performing everyday tasks, without any specific error occurring.",
+    "symptoms": [
+      "Noticeable delay when clicking links or buttons",
+      "Pages take longer than usual to load",
+      "Typing or interacting with forms feels laggy",
+      "Slowness may be constant or worsen at certain times of day"
+    ],
+    "possible_causes": [
+      "High server load, especially during peak usage times",
+      "A slow or unstable network connection",
+      "Insufficient system resources on the user's own computer",
+      "A large amount of data being processed or displayed at once",
+      "Multiple browser tabs or other programs consuming system resources",
+      "A server-side performance issue affecting all users"
+    ],
+    "diagnostic_questions": [
+      "Does this slowness happen at specific times of day, or throughout the entire day?",
+      "Are other users experiencing similar slowness with this application right now?",
+      "How many other browser tabs or programs do you typically have open at the same time?",
+      "Has this slowness been gradual over time, or did it start suddenly?"
+    ],
+    "commands": [
+      {
+        "command": "ping [application server address]",
+        "purpose": "Check network response time to the application server to help distinguish network-related slowness from other causes",
+        "expected_result": "Fast, consistent reply times",
+        "abnormal_result": "Slow or inconsistent reply times, suggesting network conditions are contributing to the overall slowness"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note whether the slowness happens at specific times of day, such as during known busy periods for the business",
+        "reason": "Slowness tied to peak usage times often points to server load as the primary cause, which is useful diagnostic information"
+      },
+      {
+        "step": 2,
+        "action": "Check with other users to see if they are experiencing similar slowness with the same application right now",
+        "reason": "This helps determine if the issue is specific to your computer or connection, or a broader server-side performance problem affecting everyone"
+      },
+      {
+        "step": 3,
+        "action": "Check your network connection speed and stability",
+        "reason": "A slow or unstable connection can make even a well-performing application feel sluggish from the user's perspective"
+      },
+      {
+        "step": 4,
+        "action": "Close unnecessary browser tabs and other programs running on your computer",
+        "reason": "Freeing up system resources can improve the responsiveness of the application, especially on computers with limited memory"
+      },
+      {
+        "step": 5,
+        "action": "For web-based applications, clear the browser cache and cookies, then try again",
+        "reason": "A large or corrupted cache can sometimes contribute to slower page loading and general sluggishness"
+      },
+      {
+        "step": 6,
+        "action": "If working with particularly large reports or datasets, try narrowing the request with more specific filters or a smaller date range",
+        "reason": "Requesting less data at once reduces processing time and can significantly improve perceived performance for that specific task"
+      },
+      {
+        "step": 7,
+        "action": "Restart the browser or the application completely for a fresh session",
+        "reason": "This clears any accumulated temporary performance issues within the current session"
+      },
+      {
+        "step": 8,
+        "action": "If slowness is widespread among users or persists despite these steps, report it to the system administrator, including details about when it happens and what specific actions feel slow",
+        "reason": "This provides valuable information to help the administrator investigate potential server-side performance bottlenecks"
+      }
+    ],
+    "possible_solutions": [
+      "Work around known peak usage times if flexible",
+      "Improve network connection speed and stability",
+      "Close unnecessary programs and browser tabs",
+      "Clear browser cache and cookies",
+      "Narrow large data requests with more specific filters",
+      "Report persistent, widespread slowness to the system administrator"
+    ],
+    "prevention": [
+      "Avoid running unnecessary resource-intensive programs while using the application",
+      "Maintain a stable, reasonably fast network connection",
+      "Use filters to request only necessary data rather than very large datasets",
+      "Report slowness patterns to help administrators identify and address bottlenecks"
+    ],
+    "keywords": ["system running slowly", "application sluggish", "slow performance company system", "application lag"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Loading forever", "Connection timed out", "Application not responding"]
+  },
+
+  {
+    "id": "APP-017",
+    "category": "Company Application",
+    "subcategory": "Access Permissions",
+    "problem": "Access denied error when using the application",
+    "description": "The user tries to access a specific area, feature, or record within the application, but is met with an error stating access is denied, preventing them from proceeding.",
+    "symptoms": [
+      "Error message stating 'Access denied' or 'You do not have permission'",
+      "Certain menu options or buttons are missing or greyed out",
+      "Access works for some areas of the application but not others",
+      "Problem may follow a role change or new task assignment"
+    ],
+    "possible_causes": [
+      "The user's account role does not have the required permissions for this specific area or action",
+      "A recent change to the user's role or group membership reduced their access",
+      "The specific record or area has additional restrictions beyond general application access",
+      "The user is trying to access a feature not licensed or enabled for their account type",
+      "A temporary permissions synchronization delay after a recent access change"
+    ],
+    "diagnostic_questions": [
+      "What specific area, feature, or record were you trying to access when this error appeared?",
+      "Have you had successful access to this same area before, or is this your first attempt?",
+      "Do you know if your role or job responsibilities have changed recently?",
+      "Are other users with a similar role able to access this same area successfully?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact area, feature, or record you were trying to access, along with the exact error message",
+        "reason": "This specific detail is essential for the administrator to properly review and correct the relevant permissions"
+      },
+      {
+        "step": 2,
+        "action": "Confirm whether you have successfully accessed this same area before, or if this is a new task or responsibility",
+        "reason": "This helps distinguish between a genuine, unexpected loss of previously working access, versus a new access requirement that has simply never been granted"
+      },
+      {
+        "step": 3,
+        "action": "Check with colleagues in a similar role to see if they can access this same area successfully",
+        "reason": "This helps determine if the issue is specific to your individual account, or reflects a broader role-based access configuration that may need updating"
+      },
+      {
+        "step": 4,
+        "action": "If your role or job responsibilities have recently changed, this may explain a genuine need for updated access that has not yet been granted",
+        "reason": "New responsibilities often require corresponding new access permissions that need to be specifically requested and approved"
+      },
+      {
+        "step": 5,
+        "action": "Log out and log back in to the application, since some permission changes require a fresh session to take full effect",
+        "reason": "Newly granted permissions sometimes do not apply to an already active session until it is refreshed"
+      },
+      {
+        "step": 6,
+        "action": "Contact the system administrator or your manager to request the appropriate access, providing the specific area or feature needed and the business reason",
+        "reason": "This directly addresses the root cause by ensuring the correct permissions are properly granted through the appropriate approval process"
+      },
+      {
+        "step": 7,
+        "action": "Once updated access is confirmed, log out and log back in again, then verify the previously denied area is now accessible",
+        "reason": "This confirms the access change has been fully and correctly applied"
+      }
+    ],
+    "possible_solutions": [
+      "Log out and log back in after a permissions change",
+      "Request appropriate access from the administrator or manager with business justification",
+      "Confirm the correct role-based permissions with colleagues in similar positions",
+      "Report an unexpected loss of previously working access to the administrator"
+    ],
+    "prevention": [
+      "Request necessary access proactively when taking on new responsibilities",
+      "Understand your role's expected access scope within the application",
+      "Report unexpected access changes to the administrator promptly"
+    ],
+    "keywords": ["access denied application", "permission denied error", "cannot access feature", "insufficient permissions system"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Permission denied", "Cannot save record", "User account locked"]
+  },
+
+  {
+    "id": "APP-018",
+    "category": "Company Application",
+    "subcategory": "Access Permissions",
+    "problem": "Permission denied for a specific action",
+    "description": "The user can access a general area of the application, but when trying to perform a specific action, such as editing, deleting, or approving, they receive an error stating they do not have permission for that particular action.",
+    "symptoms": [
+      "Error message such as 'Permission denied' when attempting a specific action",
+      "Can view content but cannot edit, delete, or approve it",
+      "Certain action buttons are greyed out or missing",
+      "Permission works for some records but not others of the same type"
+    ],
+    "possible_causes": [
+      "The user's role allows viewing but not the specific action being attempted, such as editing or approving",
+      "The specific record has additional ownership or approval-level restrictions",
+      "A workflow or approval process requires a different, more senior role to perform this action",
+      "The user's permissions were recently and intentionally scoped down for this type of action",
+      "The action is restricted to specific individuals or departments as a business rule"
+    ],
+    "diagnostic_questions": [
+      "What specific action were you trying to perform, such as editing, deleting, or approving?",
+      "Have you been able to perform this same action successfully before on other records?",
+      "Do you know if this specific action is meant to be restricted to certain roles, such as managers or approvers?",
+      "Does this happen with all records, or just specific ones?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact action being attempted and the exact wording of the permission denied message",
+        "reason": "This helps distinguish between a general access restriction and one specific to a particular action, such as approval rights"
+      },
+      {
+        "step": 2,
+        "action": "Consider whether this specific action is a business process intentionally restricted to certain roles, such as managers or designated approvers",
+        "reason": "Some actions are deliberately limited by business rule, and understanding this context helps determine if the restriction is actually expected rather than a technical error"
+      },
+      {
+        "step": 3,
+        "action": "Check if this happens with all records of this type, or just specific ones, which might indicate an ownership-based restriction",
+        "reason": "Some systems restrict certain actions only to the original creator or assigned owner of a specific record, rather than applying a blanket restriction"
+      },
+      {
+        "step": 4,
+        "action": "If you believe you should have this permission based on your role or responsibilities, contact your manager or the system administrator to confirm and request the correct access level",
+        "reason": "This ensures the request goes through the appropriate approval process if the restriction does need to be adjusted for your role"
+      },
+      {
+        "step": 5,
+        "action": "If the action needs to be performed but is correctly restricted to a different role, identify and coordinate with the appropriate person, such as a manager or approver, to complete the action instead",
+        "reason": "This provides a practical way to get the necessary action completed while respecting appropriate business controls"
+      },
+      {
+        "step": 6,
+        "action": "Once any permission change is confirmed and applied, log out and log back in to ensure the update is properly recognized",
+        "reason": "This ensures the newly granted permission is correctly reflected in your active session"
+      }
+    ],
+    "possible_solutions": [
+      "Confirm whether the restriction is an intentional business rule",
+      "Request an appropriate permission update from the administrator or manager if warranted",
+      "Coordinate with the correctly authorized person to complete a restricted action",
+      "Log out and back in after any permission change is applied"
+    ],
+    "prevention": [
+      "Understand which actions are intentionally restricted by role within the application",
+      "Request necessary permissions proactively for new responsibilities",
+      "Communicate with the administrator about expected access needs for your position"
+    ],
+    "keywords": ["permission denied action", "cannot approve record", "cannot delete permission error", "restricted action application"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["Access denied", "Cannot save record", "Failed to save data"]
+  },
+
+  {
+    "id": "APP-019",
+    "category": "Company Application",
+    "subcategory": "Data Operations",
+    "problem": "Cannot save a record",
+    "description": "The user fills out information for a new or existing record within the application and attempts to save it, but the save action does not complete successfully, and the record is not properly stored.",
+    "symptoms": [
+      "Save button does not appear to do anything when clicked",
+      "An error message appears specifically related to saving",
+      "The record reverts to its previous state after a failed save attempt",
+      "Partial data may be saved while other fields are lost"
+    ],
+    "possible_causes": [
+      "Required fields were left incomplete or contain invalid formatting",
+      "A network interruption occurred during the save attempt",
+      "Insufficient permissions to save changes to this specific record",
+      "A validation rule specific to this record type rejected the data",
+      "The record was locked or being edited by another user simultaneously"
+    ],
+    "diagnostic_questions": [
+      "Does any error message appear when clicking save, or does nothing happen at all?",
+      "Have you checked that all required fields are filled in correctly?",
+      "Is this a new record, or an edit to an existing one?",
+      "Does this happen with all records, or a specific type or specific one?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Carefully review the form for any required fields, typically marked with an asterisk or similar indicator, that may be empty or incorrectly filled in",
+        "reason": "Missing or invalid required field data is one of the most common and simplest causes of a failed save attempt"
+      },
+      {
+        "step": 2,
+        "action": "Check if any specific error message or validation warning appears near a particular field after attempting to save",
+        "reason": "Many applications provide field-specific feedback pointing directly to the exact issue preventing a successful save"
+      },
+      {
+        "step": 3,
+        "action": "Correct any identified issues with required fields or invalid data, then attempt to save again",
+        "reason": "This directly addresses the root cause identified by the application's own validation feedback"
+      },
+      {
+        "step": 4,
+        "action": "Check your network connection stability, since an interrupted connection during the save process can prevent the record from being properly stored",
+        "reason": "A dropped connection while data is being transmitted is a common and straightforward cause of save failures"
+      },
+      {
+        "step": 5,
+        "action": "Before attempting further troubleshooting steps, copy the entered data to a temporary location, such as a text document, to protect against losing your work",
+        "reason": "This safeguards the time and effort already invested in entering the data in case further steps require refreshing or navigating away"
+      },
+      {
+        "step": 6,
+        "action": "If editing an existing record, refresh the page to check if another user may have modified it simultaneously, then reapply your intended changes",
+        "reason": "This resolves conflicts that occur when two people try to save changes to the same record around the same time"
+      },
+      {
+        "step": 7,
+        "action": "Confirm you have the correct permissions to create or edit this specific type of record",
+        "reason": "Some save failures are related to insufficient permissions rather than a data or validation problem"
+      },
+      {
+        "step": 8,
+        "action": "If the save continues to fail without a clear explanation, report the issue to the system administrator, providing the specific record type, the data being entered, and any error messages shown",
+        "reason": "This detailed information helps the administrator investigate whether the issue is a validation rule, permissions, or a deeper system issue"
+      }
+    ],
+    "possible_solutions": [
+      "Complete all required fields with valid data",
+      "Restore network connectivity before saving",
+      "Refresh and reapply changes if editing conflicts with another user",
+      "Confirm correct permissions to save this record type",
+      "Report persistent, unexplained save failures to the system administrator"
+    ],
+    "prevention": [
+      "Double check required fields before submitting a save",
+      "Maintain a stable network connection while entering important data",
+      "Coordinate with team members to avoid simultaneous editing of the same records",
+      "Save work incrementally when entering large amounts of data"
+    ],
+    "keywords": ["cannot save record", "save button not working", "record not saving application", "failed save attempt"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Failed to save data", "Permission denied", "Data not displaying"]
+  },
+
+  {
+    "id": "APP-020",
+    "category": "Company Application",
+    "subcategory": "Data Display",
+    "problem": "Data is not displaying correctly",
+    "description": "The user opens a record, list, or page within the application, but the expected data either does not appear at all, appears incomplete, or shows information that does not match what should be there.",
+    "symptoms": [
+      "Fields that should contain data appear blank",
+      "A list or table shows fewer records than expected",
+      "Data shown does not match what was recently entered or updated",
+      "Some columns or fields display correctly while others do not"
+    ],
+    "possible_causes": [
+      "The page has not fully loaded or refreshed with the latest data",
+      "A caching issue causing outdated information to be displayed",
+      "A filter or search criteria is unintentionally hiding expected data",
+      "Insufficient permissions to view certain fields or records",
+      "A synchronization delay between when data was entered and when it becomes visible elsewhere",
+      "A bug in how a specific view or report renders the underlying data"
+    ],
+    "diagnostic_questions": [
+      "Does refreshing the page or navigating away and back resolve the issue?",
+      "Are any filters or search criteria currently applied that might be excluding the expected data?",
+      "Was this data entered very recently, and if so, how long ago?",
+      "Does this happen with all data, or a specific record, list, or report?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Refresh the page or navigate away and then back to the record or list in question",
+        "reason": "This is the simplest first step and can resolve display issues caused by a temporary loading or caching glitch"
+      },
+      {
+        "step": 2,
+        "action": "Check if any filters, search terms, or sorting criteria are currently applied that might be unintentionally excluding the expected data",
+        "reason": "Active filters are a very common and often overlooked reason that expected data does not appear to be present"
+      },
+      {
+        "step": 3,
+        "action": "Clear any applied filters and search criteria, then check if the missing data now appears",
+        "reason": "This directly tests whether a filter was the cause of the apparent missing data"
+      },
+      {
+        "step": 4,
+        "action": "If the data was entered very recently, allow a short amount of time in case there is a brief synchronization delay before it becomes visible in this specific view or report",
+        "reason": "Some systems have a slight delay between data entry and it becoming visible in all related views, especially reports"
+      },
+      {
+        "step": 5,
+        "action": "For web-based applications, clear the browser cache, since outdated cached data can sometimes be displayed instead of the current version",
+        "reason": "A stale cache can cause the browser to show older information rather than fetching the latest data from the server"
+      },
+      {
+        "step": 6,
+        "action": "Confirm you have the correct permissions to view all the expected fields or records, since some display issues are actually related to visibility restrictions rather than a technical bug",
+        "reason": "Certain fields or entire records may be intentionally hidden from users without the appropriate permission level, which can look like a display error"
+      },
+      {
+        "step": 7,
+        "action": "Check with other users to see if they see the same missing or incorrect data",
+        "reason": "This helps determine if the issue is specific to your session, browser, or permissions, or reflects a genuine data or system-wide problem"
+      },
+      {
+        "step": 8,
+        "action": "If the problem persists and cannot be explained by filters, permissions, or caching, report it to the system administrator with specific details about the record, list, or report affected",
+        "reason": "Detailed information helps the administrator investigate whether this is a deeper data integrity or application rendering bug"
+      }
+    ],
+    "possible_solutions": [
+      "Refresh the page or navigate away and back",
+      "Clear filters or search criteria that may be hiding data",
+      "Allow time for a brief data synchronization delay",
+      "Clear the browser cache for outdated cached data",
+      "Confirm correct permissions to view the expected data",
+      "Report persistent, unexplained data display issues to the system administrator"
+    ],
+    "prevention": [
+      "Be mindful of active filters when reviewing lists or reports",
+      "Periodically clear browser cache for frequently used applications",
+      "Confirm appropriate permissions are set up for expected data visibility",
+      "Allow reasonable time for data synchronization after entry"
+    ],
+    "keywords": ["data not displaying", "missing data application", "record shows blank fields", "list missing expected records"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Failed to retrieve data", "Blank screen", "Report not generating"]
+  },
+
+  {
+    "id": "APP-021",
+    "category": "Company Application",
+    "subcategory": "Reporting",
+    "problem": "Report will not generate",
+    "description": "The user selects a report and the necessary parameters, then requests it to be generated, but the report either fails with an error, produces an empty result, or never completes.",
+    "symptoms": [
+      "Error message when trying to generate the report",
+      "Report generation appears to start but never completes",
+      "Generated report is empty despite data existing that should be included",
+      "May happen with all reports, or a specific one"
+    ],
+    "possible_causes": [
+      "The selected parameters or filters are too restrictive, excluding all matching data",
+      "A very large amount of data being requested is exceeding processing limits or timing out",
+      "A bug in the specific report's underlying query or template",
+      "Insufficient permissions to access all the data required for the report",
+      "A server-side performance issue affecting the reporting engine specifically"
+    ],
+    "diagnostic_questions": [
+      "What specific report were you trying to generate, and what parameters or filters did you select?",
+      "Does this happen with all reports, or just this specific one?",
+      "Have you successfully generated this same report before?",
+      "Roughly how much data (such as date range or number of records) were you expecting this report to include?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Review the exact parameters and filters selected for the report, checking for any that might be unintentionally too restrictive",
+        "reason": "Overly narrow filters, such as an incorrect date range, are a very common reason a report appears empty or fails to find matching data"
+      },
+      {
+        "step": 2,
+        "action": "Try generating the report with broader or simpler parameters, such as a wider date range, to see if it successfully produces results",
+        "reason": "This helps determine if the issue is related to overly specific filtering rather than a fundamental problem with the report itself"
+      },
+      {
+        "step": 3,
+        "action": "If the report involves a very large amount of data, try narrowing the request, such as a shorter date range, to reduce processing load",
+        "reason": "Extremely large reports can exceed normal processing time limits, causing generation to fail or time out"
+      },
+      {
+        "step": 4,
+        "action": "Confirm you have the correct permissions to access all the data categories included in this specific report",
+        "reason": "Insufficient permissions to certain underlying data can sometimes cause a report to fail rather than simply excluding that portion"
+      },
+      {
+        "step": 5,
+        "action": "Try generating a different, simpler report to see if the issue is specific to this one report or affects the reporting feature more broadly",
+        "reason": "This helps isolate whether the problem is with this specific report's configuration or a general reporting system issue"
+      },
+      {
+        "step": 6,
+        "action": "Check with other users to see if they experience the same issue generating this specific report",
+        "reason": "This helps determine if the problem is related to your specific account or access, or a broader issue with the report itself"
+      },
+      {
+        "step": 7,
+        "action": "If the report has worked before but suddenly fails, consider if any related data or configuration may have recently changed",
+        "reason": "A recent change to underlying data structure or report configuration could explain a previously working report suddenly failing"
+      },
+      {
+        "step": 8,
+        "action": "Report the specific report name, parameters used, and exact error or behavior to the system administrator or report owner",
+        "reason": "Detailed information helps the administrator or report developer investigate and potentially fix an underlying bug in the report itself"
+      }
+    ],
+    "possible_solutions": [
+      "Adjust overly restrictive filters or parameters",
+      "Narrow the data range for very large report requests",
+      "Confirm correct permissions for all data included in the report",
+      "Test with a different, simpler report to isolate the issue",
+      "Report a specific broken report to the administrator or report owner"
+    ],
+    "prevention": [
+      "Double check report parameters before generating",
+      "Avoid requesting excessively large reports when a narrower scope would suffice",
+      "Confirm appropriate permissions are set up for reporting needs",
+      "Report broken reports promptly to help maintain reporting reliability"
+    ],
+    "keywords": ["report not generating", "report generation failed", "empty report results", "cannot create report application"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Cannot export to Excel", "Cannot print report", "Failed to retrieve data"]
+  },
+
+  {
+    "id": "APP-022",
+    "category": "Company Application",
+    "subcategory": "Reporting",
+    "problem": "Cannot export data to Excel",
+    "description": "The user tries to export a report or list of data from the application into an Excel file, but the export either fails, produces an error, or results in a file that will not open correctly.",
+    "symptoms": [
+      "Error message when clicking the export to Excel option",
+      "Export appears to start but the file never downloads",
+      "Downloaded file will not open, or opens with an error in Excel",
+      "Exported file is empty or missing expected data"
+    ],
+    "possible_causes": [
+      "The amount of data being exported is too large, exceeding export limits",
+      "A browser setting is blocking the file download",
+      "A temporary server-side issue during the export generation process",
+      "The exported file has become corrupted during the download process",
+      "An outdated or incompatible version of Excel struggling to open the exported format"
+    ],
+    "diagnostic_questions": [
+      "Does an error appear immediately, or does the export seem to start but never finish?",
+      "Roughly how much data were you trying to export, such as number of rows or records?",
+      "Have you successfully exported to Excel from this application before?",
+      "Does the downloaded file fail to open, or does it open but appear empty or incomplete?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if the amount of data being exported is unusually large, and if so, try narrowing it with filters before exporting again",
+        "reason": "Excel exports of extremely large datasets can fail or produce corrupted files if they exceed reasonable size or row limits"
+      },
+      {
+        "step": 2,
+        "action": "Check the browser's download settings and notification area to confirm the file download was not silently blocked",
+        "reason": "Browser security settings sometimes block file downloads without a clearly visible error, especially for certain file types"
+      },
+      {
+        "step": 3,
+        "action": "Try the export again after waiting a short period, in case this was a brief, temporary server-side issue during file generation",
+        "reason": "Some export failures are caused by momentary server load issues that resolve on a subsequent attempt"
+      },
+      {
+        "step": 4,
+        "action": "If the file downloads but will not open correctly in Excel, try opening it on a different computer or with a different, updated version of Excel",
+        "reason": "This helps determine if the problem is with the exported file itself, or specific to the Excel installation on the original computer"
+      },
+      {
+        "step": 5,
+        "action": "Confirm the version of Excel being used is reasonably current and compatible with the file format being exported",
+        "reason": "Very outdated Excel versions can sometimes struggle to properly open modern export file formats"
+      },
+      {
+        "step": 6,
+        "action": "Try exporting a smaller subset of the same data, such as a shorter date range, to see if a reduced export completes successfully",
+        "reason": "This helps confirm whether data volume specifically is the underlying cause of the export failure"
+      },
+      {
+        "step": 7,
+        "action": "Check with other users to see if they experience the same export failure with similar amounts of data",
+        "reason": "This helps determine if the problem is isolated to your account, computer, or browser, or reflects a broader export feature issue"
+      },
+      {
+        "step": 8,
+        "action": "Report persistent export failures to the system administrator, including the approximate data size and any error messages encountered",
+        "reason": "This information helps the administrator determine if an export size limit needs adjustment or if there is an underlying export feature bug"
+      }
+    ],
+    "possible_solutions": [
+      "Narrow the data being exported to a smaller, more manageable size",
+      "Check and adjust browser download settings",
+      "Retry the export after a brief pause",
+      "Use an updated, compatible version of Excel to open the file",
+      "Report persistent export failures to the system administrator"
+    ],
+    "prevention": [
+      "Avoid exporting excessively large datasets when a filtered, smaller export would suffice",
+      "Keep Excel updated to a reasonably current version",
+      "Confirm browser download settings allow expected file types",
+      "Report export limitations to help administrators adjust system limits appropriately"
+    ],
+    "keywords": ["cannot export excel", "export to excel failed", "exported file corrupted", "excel export error application"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Report not generating", "Cannot print report", "System running slowly"]
+  },
+
+  {
+    "id": "APP-023",
+    "category": "Company Application",
+    "subcategory": "Reporting",
+    "problem": "Cannot print a report",
+    "description": "The user tries to print a report generated within the application, but the print process fails, produces a blank or incorrectly formatted page, or the print dialog does not appear at all.",
+    "symptoms": [
+      "Clicking print does nothing, or no print dialog appears",
+      "Print dialog appears but the printed page is blank",
+      "Printed report is missing content or shows incorrect formatting",
+      "Print works for other documents but not this specific report"
+    ],
+    "possible_causes": [
+      "A pop-up blocker is preventing the print dialog or a print preview window from opening",
+      "A printer connectivity or configuration issue unrelated to the application itself",
+      "The report is formatted in a way that does not translate well to a printed page, such as being too wide",
+      "A browser setting affecting how print dialogs are handled for this specific website",
+      "The report needs to first be exported to PDF before printing, depending on how the application is designed"
+    ],
+    "diagnostic_questions": [
+      "Does a print dialog or preview window appear at all when you click print?",
+      "Can you print normally from other applications or websites on this same computer?",
+      "Does the application provide a separate 'print-friendly' or PDF export option instead of direct printing?",
+      "Does this happen with all reports, or just a specific one?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether the print function works normally for other websites or applications on this same computer",
+        "reason": "This helps distinguish between a general printer or computer issue and something specific to this particular report or application"
+      },
+      {
+        "step": 2,
+        "action": "Check if the browser's pop-up blocker is preventing a print preview window or dialog from appearing",
+        "reason": "Pop-up blockers can sometimes silently prevent print-related windows from opening without an obvious error message"
+      },
+      {
+        "step": 3,
+        "action": "Temporarily allow pop-ups for this specific application's website, then try printing again",
+        "reason": "This directly tests whether a pop-up blocker was the cause of the print dialog failing to appear"
+      },
+      {
+        "step": 4,
+        "action": "Check if the application offers an alternative option, such as exporting the report to PDF first, then printing the PDF file instead",
+        "reason": "Many applications are actually designed to be printed this way, and using the direct browser print function on a complex report page can produce unreliable results"
+      },
+      {
+        "step": 5,
+        "action": "If the printed page appears blank or incorrectly formatted, check the browser's print preview before actually printing, to see how the page will look",
+        "reason": "Print preview can reveal formatting issues, such as content being cut off or shown too small to read, before wasting paper"
+      },
+      {
+        "step": 6,
+        "action": "Try adjusting print settings, such as switching to landscape orientation or adjusting scaling, if the report appears too wide for a standard page",
+        "reason": "Reports with many columns or wide tables often print better with adjusted orientation or scaling settings"
+      },
+      {
+        "step": 7,
+        "action": "Confirm the printer itself is working correctly by printing a simple test document from another program",
+        "reason": "This rules out a general printer hardware or driver issue as the underlying cause"
+      },
+      {
+        "step": 8,
+        "action": "If the problem is specific to one report's formatting and persists despite these steps, report it to the system administrator or report owner",
+        "reason": "This may indicate a report design issue that needs to be corrected at the source, particularly if it consistently fails to print correctly for all users"
+      }
+    ],
+    "possible_solutions": [
+      "Allow pop-ups for the application's website",
+      "Use an available PDF export option before printing instead of direct browser printing",
+      "Adjust print orientation and scaling settings for wide reports",
+      "Confirm the printer itself works with a simple test document",
+      "Report a specific report's formatting issue to the administrator or report owner"
+    ],
+    "prevention": [
+      "Use available PDF export options for complex reports when possible",
+      "Keep pop-up blocker settings configured appropriately for trusted business applications",
+      "Preview reports before printing to catch formatting issues early"
+    ],
+    "keywords": ["cannot print report", "print dialog not appearing", "blank printed page", "report print formatting issue"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Report not generating", "Cannot export to Excel", "Printer shows offline"]
+  },
+
+  {
+    "id": "APP-024",
+    "category": "Company Application",
+    "subcategory": "File Handling",
+    "problem": "Cannot upload a file to the application",
+    "description": "The user tries to upload a file, such as a document or image, as part of a record within the application, but the upload fails, shows an error, or does not complete successfully.",
+    "symptoms": [
+      "Error message when attempting to upload a file",
+      "Upload progress bar stalls or never completes",
+      "File appears to upload but does not attach to the record",
+      "Certain file types are rejected while others work"
+    ],
+    "possible_causes": [
+      "The file exceeds the maximum allowed upload size",
+      "The file type is not supported or allowed by the application",
+      "A network interruption occurred during the upload process",
+      "The file name contains characters not supported by the system",
+      "A temporary server-side issue affecting the upload feature"
+    ],
+    "diagnostic_questions": [
+      "What is the file size and file type of the file you are trying to upload?",
+      "Does the application specify a maximum file size or list of allowed file types anywhere?",
+      "Have you successfully uploaded files to this application before?",
+      "Does this happen with all files, or just this specific one?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the file size of the file being uploaded and compare it to any maximum size limit specified by the application",
+        "reason": "Exceeding the maximum allowed file size is one of the most common and straightforward reasons an upload fails"
+      },
+      {
+        "step": 2,
+        "action": "If the file is too large, try compressing it, such as reducing image resolution or using a zip file if allowed, before attempting to upload again",
+        "reason": "Reducing the file size can bring it within the application's allowed upload limits"
+      },
+      {
+        "step": 3,
+        "action": "Check the file type being uploaded against any list of supported or allowed file types for this specific upload feature",
+        "reason": "Some applications only accept specific file types, and an unsupported type will be rejected regardless of its size"
+      },
+      {
+        "step": 4,
+        "action": "If the file type is not supported, convert it to an accepted format, such as saving a document as a PDF, before uploading",
+        "reason": "This directly resolves a file type restriction by providing the file in a format the application will accept"
+      },
+      {
+        "step": 5,
+        "action": "Check the file name for unusual characters, such as special symbols, and rename the file using only standard letters, numbers, and simple punctuation",
+        "reason": "Some systems have restrictions on characters allowed in uploaded file names, which can cause an otherwise valid file to fail"
+      },
+      {
+        "step": 6,
+        "action": "Confirm your network connection is stable throughout the upload process, especially for larger files",
+        "reason": "An interrupted connection partway through an upload can cause it to fail or result in an incomplete file"
+      },
+      {
+        "step": 7,
+        "action": "Try uploading a different, smaller test file to see if the upload feature works at all, helping isolate whether the issue is with this specific file or the feature generally",
+        "reason": "This helps distinguish between a problem specific to the original file and a broader upload feature malfunction"
+      },
+      {
+        "step": 8,
+        "action": "If uploads continue to fail despite meeting size and type requirements, report the issue to the system administrator with specific details about the file and any error messages",
+        "reason": "This may indicate a server-side upload feature issue requiring administrator investigation"
+      }
+    ],
+    "possible_solutions": [
+      "Reduce the file size to meet upload limits",
+      "Convert the file to a supported file type",
+      "Rename the file to remove unusual characters",
+      "Maintain a stable network connection during upload",
+      "Test with a different file to isolate the issue",
+      "Report persistent upload failures to the system administrator"
+    ],
+    "prevention": [
+      "Check file size and type requirements before attempting to upload",
+      "Use standard file naming conventions without unusual characters",
+      "Maintain a stable network connection for large file uploads",
+      "Compress large files proactively when possible"
+    ],
+    "keywords": ["cannot upload file", "file upload failed application", "upload size limit exceeded", "unsupported file type upload"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["Cannot save record", "Failed to save data", "System running slowly"]
+  },
+
+  {
+    "id": "APP-025",
+    "category": "Company Application",
+    "subcategory": "Notifications",
+    "problem": "Email notification was not sent",
+    "description": "The application is expected to send an automatic email notification, such as an approval alert or task reminder, but the intended recipient reports never receiving it.",
+    "symptoms": [
+      "Expected email notification never arrives in the recipient's inbox",
+      "The triggering action within the application appears to have completed successfully",
+      "Notification may work for some events but not others",
+      "Problem may affect one recipient or many"
+    ],
+    "possible_causes": [
+      "The recipient's email address on file is incorrect or outdated",
+      "The notification email was filtered into a junk or spam folder",
+      "A notification setting was disabled, either by the user or an administrator",
+      "The application's email sending service is experiencing a problem",
+      "The triggering event did not actually complete in a way that qualifies for a notification"
+    ],
+    "diagnostic_questions": [
+      "What specific action was expected to trigger this email notification?",
+      "Have you checked the recipient's junk or spam folder for the missing email?",
+      "Is the recipient's email address on file confirmed to be correct and current?",
+      "Have notifications worked correctly before for this same type of event?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Ask the recipient to check their junk, spam, or clutter folder for the missing notification email",
+        "reason": "Automated notification emails are sometimes incorrectly filtered as spam by email providers, even though they were technically sent successfully"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the recipient's email address on file within the application is correct and current",
+        "reason": "An outdated or incorrect email address would cause the notification to be sent to the wrong destination, or fail entirely"
+      },
+      {
+        "step": 3,
+        "action": "Check the application's notification settings, either for the specific user or the relevant event type, to confirm notifications are enabled",
+        "reason": "Notification preferences can sometimes be intentionally or accidentally disabled, preventing expected emails from being sent at all"
+      },
+      {
+        "step": 4,
+        "action": "Confirm the triggering action actually completed successfully within the application, such as a record being properly saved or a status being fully updated",
+        "reason": "If the underlying action did not fully complete as expected, the notification may correctly not have been triggered in the first place"
+      },
+      {
+        "step": 5,
+        "action": "Check with other users to see if they are also missing expected notifications for similar events",
+        "reason": "This helps determine if the problem is specific to one recipient's settings or email, or reflects a broader issue with the notification system itself"
+      },
+      {
+        "step": 6,
+        "action": "If the recipient's email and notification settings appear correct, and the triggering event did complete, this may indicate a problem with the application's underlying email sending service",
+        "reason": "Some notification failures are related to the technical email delivery system rather than anything within the user's control"
+      },
+      {
+        "step": 7,
+        "action": "Report the issue to the system administrator, providing the specific event, expected recipient, and approximate time the action occurred",
+        "reason": "This detailed information helps the administrator investigate whether this is a settings issue, a delivery problem, or a bug in the notification trigger itself"
+      }
+    ],
+    "possible_solutions": [
+      "Check the recipient's junk or spam folder",
+      "Correct an outdated or incorrect email address on file",
+      "Enable notification settings that may have been disabled",
+      "Confirm the triggering action actually completed successfully",
+      "Report a suspected email delivery system issue to the administrator"
+    ],
+    "prevention": [
+      "Keep contact email addresses updated within the application",
+      "Periodically review notification settings to confirm they match expectations",
+      "Add the application's sending address to a trusted senders list to avoid spam filtering",
+      "Confirm actions complete fully before assuming a notification failure"
+    ],
+    "keywords": ["email notification not sent", "missing notification application", "no email alert received", "notification settings disabled"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Cannot send email", "System running slowly", "Cannot save record"]
+  },
+
+  {
+    "id": "APP-026",
+    "category": "Company Application",
+    "subcategory": "Server Connectivity",
+    "problem": "Server appears to be offline",
+    "description": "The user tries to access the application, but instead of a normal login page or interface, they see an indication that the server itself is completely offline or unreachable.",
+    "symptoms": [
+      "Browser shows a 'This site can't be reached' error, or similar",
+      "Application URL does not load at all, showing a connection error rather than any application content",
+      "Problem persists across multiple attempts and page refreshes",
+      "May affect one specific application or several related systems hosted on the same server"
+    ],
+    "possible_causes": [
+      "The server hosting the application has crashed or shut down unexpectedly",
+      "The server is undergoing planned maintenance or a restart",
+      "A network or DNS issue is preventing the application's address from being reached",
+      "A firewall or security configuration is blocking access to the server",
+      "The server's hosting infrastructure is experiencing a broader outage"
+    ],
+    "diagnostic_questions": [
+      "What exact message or error appears in the browser when trying to access the application?",
+      "Are other applications or websites accessible normally on this same computer and network?",
+      "Have you received any communication about planned server maintenance?",
+      "Are other users also unable to reach this application right now?"
+    ],
+    "commands": [
+      {
+        "command": "ping [application server address]",
+        "purpose": "Test basic network connectivity to the server hosting the application",
+        "expected_result": "Replies received from the server",
+        "abnormal_result": "Request timed out or 'could not find host', indicating the server cannot currently be reached from the network"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm other websites and applications work normally on the same computer and network",
+        "reason": "This determines if the problem is specific to reaching this one server, or a broader network or internet connectivity issue"
+      },
+      {
+        "step": 2,
+        "action": "Check for any recent communication from IT about planned maintenance or a scheduled server restart for this application",
+        "reason": "Planned maintenance is a common and expected cause of temporary server unavailability"
+      },
+      {
+        "step": 3,
+        "action": "Ping the application's server address to test basic network reachability",
+        "reason": "This directly confirms whether the server can currently be reached at all from your network location"
+      },
+      {
+        "step": 4,
+        "action": "Check with other users to confirm whether they are also unable to reach the application",
+        "reason": "This quickly establishes whether the problem is a genuine server-wide outage or possibly isolated to your specific connection"
+      },
+      {
+        "step": 5,
+        "action": "Wait a reasonable period of time, such as 15 to 20 minutes, and try accessing the application again",
+        "reason": "Servers experiencing an unexpected crash or restart often come back online within a relatively short period"
+      },
+      {
+        "step": 6,
+        "action": "Check the organization's official status page, if available, for updates on any known outage affecting this application",
+        "reason": "Many organizations provide a dedicated status page specifically to communicate known outages and estimated resolution times"
+      },
+      {
+        "step": 7,
+        "action": "Report the outage immediately to the system administrator, providing the exact error message seen and confirming whether other users are also affected",
+        "reason": "This is a significant, business-impacting issue that requires prompt administrator attention to restore service"
+      }
+    ],
+    "possible_solutions": [
+      "Wait out scheduled maintenance or a brief unexpected outage",
+      "Check the official status page for known outage information",
+      "Report a confirmed offline server immediately to the system administrator",
+      "Confirm broader network connectivity is not the actual root cause"
+    ],
+    "prevention": [
+      "Stay informed of scheduled maintenance windows through official communication",
+      "Check the status page before assuming a widespread issue",
+      "Report outages promptly to help administrators respond and communicate updates quickly"
+    ],
+    "keywords": ["server offline", "site cannot be reached", "application server down", "server unreachable outage"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-45 minutes (may depend on server status)",
+    "related_problems": ["Server unavailable", "Service stopped", "Cannot connect to server"]
+  },
+
+  {
+    "id": "APP-027",
+    "category": "Company Application",
+    "subcategory": "Server Connectivity",
+    "problem": "A required background service has stopped",
+    "description": "A specific function of the application, which relies on a background service, such as scheduled processing or automated tasks, is no longer working, even though the general application interface may still be accessible.",
+    "symptoms": [
+      "Scheduled or automated tasks are no longer completing as expected",
+      "A specific feature dependent on a background process stops functioning",
+      "The main application interface may still load and work normally otherwise",
+      "Related error logs or notifications may mention a stopped service"
+    ],
+    "possible_causes": [
+      "The background service crashed due to an unexpected error",
+      "The service was manually stopped for maintenance and not yet restarted",
+      "A dependency required by the service, such as a database connection, became unavailable",
+      "A recent update or configuration change caused the service to fail to start properly",
+      "The server hosting the service ran out of necessary resources, causing it to stop"
+    ],
+    "diagnostic_questions": [
+      "What specific automated or scheduled function seems to have stopped working?",
+      "When was the last time this specific function worked correctly?",
+      "Have you received any communication about planned maintenance affecting background services?",
+      "Are other features of the application, not related to this specific background process, still working normally?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Identify exactly which specific automated or scheduled function has stopped working, distinguishing it from general application access",
+        "reason": "This helps clarify that the issue is specifically with a background service rather than the entire application being down"
+      },
+      {
+        "step": 2,
+        "action": "Confirm that other parts of the application, unrelated to this specific background function, continue to work normally",
+        "reason": "This helps isolate the problem specifically to the affected service rather than a broader application-wide outage"
+      },
+      {
+        "step": 3,
+        "action": "Check for any recent communication from IT about planned maintenance that might explain a temporarily stopped service",
+        "reason": "Background services are sometimes intentionally paused during maintenance windows, which would explain the temporary disruption"
+      },
+      {
+        "step": 4,
+        "action": "Note the exact time the affected function was last known to work correctly, and any specific error messages or notifications related to it",
+        "reason": "This information is important for the administrator to correlate with server logs and identify exactly when and why the service stopped"
+      },
+      {
+        "step": 5,
+        "action": "This type of issue generally cannot be resolved directly by an end user, since it involves restarting or repairing a backend service",
+        "reason": "Background services typically require server-level administrative access to properly diagnose, restart, or repair"
+      },
+      {
+        "step": 6,
+        "action": "Report the specific stopped function, along with all gathered details, to the system administrator as a priority issue",
+        "reason": "Prompt reporting with specific details helps the administrator quickly identify and restart the affected service, minimizing business impact"
+      },
+      {
+        "step": 7,
+        "action": "Once the administrator confirms the service has been restarted, verify that the previously affected function is now working correctly again",
+        "reason": "This confirms the issue has been fully resolved and the automated process is functioning as expected once more"
+      }
+    ],
+    "possible_solutions": [
+      "Wait out a known, planned maintenance window affecting the service",
+      "Report the specific stopped service to the system administrator with detailed timing information",
+      "Have the administrator restart or repair the affected background service",
+      "Verify full functionality once the administrator confirms the service is restored"
+    ],
+    "prevention": [
+      "Stay informed of scheduled maintenance affecting background services",
+      "Report stopped automated functions promptly with specific details",
+      "Maintain monitoring and alerting for critical background services where possible"
+    ],
+    "keywords": ["service stopped application", "background process not running", "scheduled task not working", "automated function stopped"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-60 minutes (typically requires administrator involvement)",
+    "related_problems": ["Server unavailable", "Server offline", "Email notification not sent"]
+  },
+
+  {
+    "id": "APP-028",
+    "category": "Company Application",
+    "subcategory": "Web Access",
+    "problem": "Website is not opening",
+    "description": "The user tries to access a company website or web-based application through their browser, but the page fails to load entirely, showing a browser-level error rather than any part of the website itself.",
+    "symptoms": [
+      "Browser shows an error such as 'This site can't be reached' or 'DNS_PROBE_FINISHED'",
+      "The page never begins to load, showing only a browser error page",
+      "Problem may happen with just this one website, or several",
+      "Other websites may load normally at the same time"
+    ],
+    "possible_causes": [
+      "A DNS resolution problem preventing the website's address from being found",
+      "No active internet or network connection",
+      "The website's server is down or unreachable",
+      "A firewall or content filtering system blocking access to the site",
+      "An incorrect URL was typed or bookmarked"
+    ],
+    "diagnostic_questions": [
+      "What exact error message does the browser show?",
+      "Are other websites loading normally on the same computer and network right now?",
+      "Have you successfully accessed this specific website before from this location?",
+      "Are you on the company network, a home network, or a public network?"
+    ],
+    "commands": [
+      {
+        "command": "ping [website address]",
+        "purpose": "Test basic network connectivity to the website's server",
+        "expected_result": "Replies received from the server",
+        "abnormal_result": "Request timed out or 'could not find host', indicating a network or DNS resolution problem"
+      },
+      {
+        "command": "ipconfig /flushdns",
+        "purpose": "Clear the local DNS cache in case it contains outdated or corrupted information for this website",
+        "expected_result": "Confirmation that the DNS cache was successfully flushed",
+        "abnormal_result": "An error appears, which is uncommon but may indicate a deeper network configuration issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm other websites load normally on the same computer and network",
+        "reason": "This determines if the problem is specific to this one website, or a broader internet connectivity issue"
+      },
+      {
+        "step": 2,
+        "action": "Double-check the website address for any typing mistakes, comparing it against a known correct source if possible",
+        "reason": "A simple typo in the URL is a common and easily overlooked cause of a website failing to load"
+      },
+      {
+        "step": 3,
+        "action": "Ping the website's address to test basic network connectivity to its server",
+        "reason": "This helps distinguish between a DNS resolution problem and the website's server itself being unreachable"
+      },
+      {
+        "step": 4,
+        "action": "Flush the local DNS cache using ipconfig /flushdns, then try loading the website again",
+        "reason": "This clears any outdated or corrupted cached DNS information that might be preventing the correct address from being found"
+      },
+      {
+        "step": 5,
+        "action": "Try accessing the website from a different device or network, such as a mobile phone using cellular data",
+        "reason": "This helps determine if the problem is specific to your original computer and network, or affects the website more broadly"
+      },
+      {
+        "step": 6,
+        "action": "If on a company or public network, consider that a firewall or content filtering system may be intentionally blocking access to this specific website",
+        "reason": "Many organizations implement web filtering that can block certain categories of websites, which would explain a consistent failure to load"
+      },
+      {
+        "step": 7,
+        "action": "If the website is a known company resource and appears genuinely down for everyone, report it to the system administrator, including the exact error message and website address",
+        "reason": "This provides the administrator with specific information needed to investigate a potential hosting or DNS configuration issue on their end"
+      }
+    ],
+    "possible_solutions": [
+      "Correct a mistyped website address",
+      "Flush the local DNS cache",
+      "Confirm broader internet connectivity is working",
+      "Test access from a different device or network",
+      "Report a confirmed company website outage to the system administrator"
+    ],
+    "prevention": [
+      "Bookmark frequently used website addresses to avoid typing mistakes",
+      "Keep DNS settings properly configured",
+      "Report website access issues promptly with specific error details"
+    ],
+    "keywords": ["website not opening", "site cannot be reached", "DNS probe finished error", "cannot access website"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Server offline", "Cannot connect to server", "DNS server not responding"]
+  },
+
+  {
+    "id": "APP-029",
+    "category": "Company Application",
+    "subcategory": "File Sharing",
+    "problem": "Cannot access a shared folder used by the application",
+    "description": "The application relies on a shared network folder for storing or retrieving certain files, but the user or the application itself cannot access this shared location, causing related features to fail.",
+    "symptoms": [
+      "Error message referencing an inaccessible shared folder or network path",
+      "Features relying on file storage, such as attachments or exports, fail specifically",
+      "The main application interface may still work normally otherwise",
+      "Problem may affect one user or several people relying on the same shared folder"
+    ],
+    "possible_causes": [
+      "The computer hosting the shared folder is turned off or disconnected from the network",
+      "The user's account lacks the correct permissions to access the shared folder",
+      "The shared folder path has changed or been moved without updating the application's configuration",
+      "A network connectivity problem between the user's computer and the shared folder location",
+      "File and printer sharing settings are disabled on the hosting computer"
+    ],
+    "diagnostic_questions": [
+      "Do you know where this shared folder is physically located, such as on a specific server or another user's computer?",
+      "Have you been able to access this shared folder successfully before?",
+      "Are other users experiencing the same issue accessing this shared location?",
+      "Is the computer or server hosting this shared folder currently powered on and connected to the network?"
+    ],
+    "commands": [
+      {
+        "command": "ping [shared folder host computer name or IP]",
+        "purpose": "Check if the computer hosting the shared folder is reachable on the network",
+        "expected_result": "Replies received from the host computer",
+        "abnormal_result": "Request timed out, meaning the host computer is off, disconnected, or unreachable"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the computer or server hosting the shared folder is turned on and connected to the network",
+        "reason": "A shared folder is only accessible while its hosting computer is running and properly connected"
+      },
+      {
+        "step": 2,
+        "action": "Ping the host computer or server to confirm basic network reachability",
+        "reason": "This verifies whether a network path currently exists to the location hosting the shared folder"
+      },
+      {
+        "step": 3,
+        "action": "Check with other users who rely on the same shared folder to see if they are experiencing the same access problem",
+        "reason": "This helps determine if the issue is specific to your account and permissions, or reflects a broader problem with the shared folder itself"
+      },
+      {
+        "step": 4,
+        "action": "Confirm you have the correct permissions to access this specific shared folder, checking with the folder owner or IT if uncertain",
+        "reason": "Insufficient permissions will prevent access even when the shared folder itself is otherwise online and functioning correctly"
+      },
+      {
+        "step": 5,
+        "action": "If the application specifically references a shared folder path in its configuration, confirm this path is still correct and has not changed",
+        "reason": "If the shared folder was moved or renamed, the application's stored path reference would become outdated and no longer work"
+      },
+      {
+        "step": 6,
+        "action": "Try accessing the shared folder directly through File Explorer, outside of the application, to isolate whether the problem is with general network access or specific to the application's configuration",
+        "reason": "This helps determine if the issue is a broader network/permissions problem, or specifically related to how the application is configured to reach the folder"
+      },
+      {
+        "step": 7,
+        "action": "Report the issue to the system administrator, providing the specific shared folder path and the exact error message experienced",
+        "reason": "Correcting an application's configured path, or a shared folder's underlying permissions or availability, typically requires administrator-level access"
+      }
+    ],
+    "possible_solutions": [
+      "Restore power and network connectivity to the shared folder's host computer",
+      "Request corrected access permissions for the shared folder",
+      "Update the application's configuration if the folder path has changed",
+      "Confirm broader network access to the shared location outside the application",
+      "Report configuration or permission issues to the system administrator"
+    ],
+    "prevention": [
+      "Keep shared folder host computers powered on and connected during business hours",
+      "Document and communicate shared folder path changes proactively",
+      "Confirm proper permissions are set up when shared folders are first configured",
+      "Regularly verify shared folder accessibility for critical application functions"
+    ],
+    "keywords": ["cannot access shared folder", "shared folder not accessible application", "network path application error", "shared drive permission denied"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Access denied", "Permission denied", "Cannot upload file"]
+  },
+
+  {
+    "id": "APP-030",
+    "category": "Company Application",
+    "subcategory": "Updates and Maintenance",
+    "problem": "System update failed to install",
+    "description": "An update to the application, whether a desktop client or a scheduled system-wide update, fails to install correctly, potentially leaving the application in an inconsistent or non-functional state.",
+    "symptoms": [
+      "Error message during the update installation process",
+      "Update appears to install but the application still shows the old version",
+      "The application becomes unstable or fails to open after a failed update attempt",
+      "Update process gets stuck partway through and does not complete"
+    ],
+    "possible_causes": [
+      "Insufficient permissions to install updates on the computer",
+      "A network interruption during the update download or installation process",
+      "Insufficient disk space to complete the update installation",
+      "A conflict with existing files or a previous incomplete update",
+      "The update package itself is corrupted or was not fully downloaded"
+    ],
+    "diagnostic_questions": [
+      "What exact error message, if any, appears during the failed update attempt?",
+      "Do you have administrator rights on this computer, if required for installing updates?",
+      "How much free disk space is currently available on this computer?",
+      "Did the update installation process get interrupted, such as by a lost network connection or a forced computer restart?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message or behavior observed during the failed update attempt",
+        "reason": "Specific error details help narrow down whether the cause is related to permissions, disk space, or a corrupted update package"
+      },
+      {
+        "step": 2,
+        "action": "Confirm you have the necessary administrator permissions on the computer to install updates, if required by this specific application",
+        "reason": "Insufficient permissions are a common and straightforward cause of failed installation attempts for desktop applications"
+      },
+      {
+        "step": 3,
+        "action": "Check available free disk space on the computer, since updates require sufficient room to download and install properly",
+        "reason": "An update can fail partway through if there is not enough free space to complete the installation process"
+      },
+      {
+        "step": 4,
+        "action": "Free up disk space if it is low, then attempt the update again",
+        "reason": "This directly addresses a lack of storage space, which is required for many update installations to complete successfully"
+      },
+      {
+        "step": 5,
+        "action": "Confirm your network connection remained stable throughout the update download and installation process, and retry if it was previously interrupted",
+        "reason": "A dropped connection during download or installation is a common cause of a corrupted or incomplete update"
+      },
+      {
+        "step": 6,
+        "action": "Restart the computer completely before attempting the update again",
+        "reason": "This clears any temporary file locks or system state issues left over from the previous failed attempt"
+      },
+      {
+        "step": 7,
+        "action": "If a previous update attempt left the application in an unstable state, consider whether a repair or reinstall of the application is needed before attempting the update again",
+        "reason": "A partially completed previous update can sometimes prevent a fresh update attempt from succeeding until the application is returned to a clean, stable state"
+      },
+      {
+        "step": 8,
+        "action": "If the update continues to fail despite these steps, contact the system administrator or IT support, providing the exact error message and steps already attempted",
+        "reason": "Persistent update failures may require administrator-level tools or a manually managed installation to properly resolve"
+      }
+    ],
+    "possible_solutions": [
+      "Obtain necessary administrator permissions before installing",
+      "Free up disk space before retrying the update",
+      "Ensure a stable network connection throughout the update process",
+      "Restart the computer before retrying a failed update",
+      "Repair or reinstall the application if a previous update left it unstable",
+      "Contact IT support for persistent update failures"
+    ],
+    "prevention": [
+      "Ensure adequate free disk space is maintained regularly",
+      "Maintain a stable network connection during scheduled update windows",
+      "Avoid interrupting update installations once started",
+      "Keep administrator credentials available for systems requiring them for updates"
+    ],
+    "keywords": ["system update failed", "application update error", "update installation stuck", "failed software update"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-50 minutes",
+    "related_problems": ["Application crashes", "System won't open", "System running slowly"]
+  }
+]

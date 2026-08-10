@@ -1,0 +1,1531 @@
+[
+  {
+    "id": "PRN-037",
+    "category": "Printer",
+    "subcategory": "Brother Network Printer",
+    "problem": "Brother Printer Offline Despite Valid IP Address",
+    "description": "A Brother laser (toner-based) printer shows a valid IP address on its own control panel, but Windows or macOS still shows it as offline and print jobs will not go through.",
+    "symptoms": [
+      "Printer's control panel shows a normal, valid IP address and 'Ready' status",
+      "Computer shows the printer as offline or unable to connect",
+      "Printer was working before and may have lost sync with the computer's saved connection"
+    ],
+    "possible_causes": [
+      "Printer's IP address changed but the computer's saved printer port still points to the old address",
+      "Brother printer driver's port type set to a fixed IP rather than the Brother-specific auto-reconnecting port",
+      "Printer went to sleep and its network interface took a moment to respond",
+      "Firewall or antivirus on the computer blocking the Brother printer's status polling"
+    ],
+    "diagnostic_questions": [
+      "Does the IP address shown on the printer's control panel match the port configured in the computer's printer properties?",
+      "Has the router been restarted recently, which could have changed the printer's IP if it is not using a fixed/reserved address?",
+      "Is the printer using Brother's own port monitor (BRPORT) or a standard TCP/IP port?",
+      "Does printing a test page directly from the printer's own menu work, confirming the printer itself is healthy?"
+    ],
+    "commands": [
+      {
+        "command": "ping <printer_ip>",
+        "purpose": "Confirm the computer can reach the printer at its currently displayed IP address",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout means the computer's saved address no longer matches the printer's real current IP"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the IP address on the Brother printer's own control panel under Network or WiFi settings",
+        "reason": "Confirms the printer's actual current address to compare against what the computer has saved"
+      },
+      {
+        "step": 2,
+        "action": "Open the printer's properties on the computer, go to Ports, and check the IP address configured there",
+        "reason": "Reveals whether the computer is trying to reach an outdated address"
+      },
+      {
+        "step": 3,
+        "action": "If the addresses differ, update the port's IP address to match, or delete and re-add the printer using Brother's official installer so it uses Brother's auto-reconnecting port monitor",
+        "reason": "Brother's own port monitor can automatically follow IP changes better than a plain standard TCP/IP port in many cases"
+      },
+      {
+        "step": 4,
+        "action": "Assign a static IP or DHCP reservation to the printer on the router so this does not recur",
+        "reason": "Prevents the printer's address from changing again after future router restarts"
+      },
+      {
+        "step": 5,
+        "action": "Temporarily disable the computer's firewall to test if it is blocking the printer's status/polling traffic if the IP addresses already match",
+        "reason": "Some security software blocks the specific ports Brother printers use to report their live status, causing a false offline reading"
+      }
+    ],
+    "possible_solutions": [
+      "Update the printer port's IP address to match the printer's current address",
+      "Reinstall using Brother's full driver/software package for better auto-reconnect behavior",
+      "Set a static IP or DHCP reservation for the printer",
+      "Adjust firewall/antivirus settings blocking Brother status polling"
+    ],
+    "prevention": [
+      "Assign a DHCP reservation to all networked Brother printers",
+      "Use Brother's official full driver package rather than a generic/basic driver",
+      "Keep the Brother printer's firmware updated for connection stability"
+    ],
+    "keywords": [
+      "brother printer offline valid ip",
+      "brother shows ready but offline windows",
+      "brother printer port ip mismatch"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "PRN-001",
+      "PRN-002"
+    ]
+  },
+  {
+    "id": "PRN-038",
+    "category": "Printer",
+    "subcategory": "Brother Network Printer",
+    "problem": "Brother \"Unable to Print\" Error Code",
+    "description": "A Brother laser printer displays an 'Unable to Print XX' style error code on its control panel and refuses to process any print jobs until the error is cleared.",
+    "symptoms": [
+      "Control panel displays 'Unable to Print' followed by a specific number or letter code",
+      "Printer stops accepting new jobs until the error is resolved",
+      "Error may be accompanied by a blinking error or attention light"
+    ],
+    "possible_causes": [
+      "Toner cartridge or drum unit not seated correctly",
+      "Foreign object or jammed paper scrap left inside after clearing a previous jam",
+      "Internal sensor malfunction or temporary firmware glitch",
+      "Genuine internal hardware fault requiring service, for later or more severe codes"
+    ],
+    "diagnostic_questions": [
+      "What is the exact error code or number shown on the display?",
+      "Was a toner cartridge, drum unit, or jammed paper recently removed and reinstalled?",
+      "Does turning the printer off and back on clear the error, even temporarily?",
+      "How old is the printer, and has this specific error happened before?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error code shown, since Brother documents specific meanings for each code on their support site",
+        "reason": "The specific code narrows down whether this is a toner/drum seating issue, a paper path obstruction, or a deeper fault"
+      },
+      {
+        "step": 2,
+        "action": "Turn the printer off, open the front cover, and remove and reseat the toner cartridge and drum unit firmly until they click into place",
+        "reason": "Improperly seated toner or drum assemblies are one of the most common causes of this general error class"
+      },
+      {
+        "step": 3,
+        "action": "Check the entire paper path, including areas not immediately obvious, for small torn paper scraps or foreign objects",
+        "reason": "A tiny leftover paper fragment can trigger this error even after a jam appears cleared"
+      },
+      {
+        "step": 4,
+        "action": "Close all covers fully and power the printer back on to see if the error clears",
+        "reason": "Covers not fully seated can prevent internal sensors from resetting properly"
+      },
+      {
+        "step": 5,
+        "action": "Look up the specific error code on Brother's official support site for this exact printer model if the error persists",
+        "reason": "Provides the manufacturer's precise guidance for that code, which may indicate a specific part needs replacement or professional service"
+      }
+    ],
+    "possible_solutions": [
+      "Reseat the toner cartridge and drum unit",
+      "Thoroughly check for and remove any leftover paper scraps",
+      "Ensure all covers are fully closed",
+      "Look up the specific error code on Brother's support site",
+      "Contact Brother support or service for persistent or hardware-specific codes"
+    ],
+    "prevention": [
+      "Handle toner and drum units carefully to ensure proper seating every time",
+      "Check thoroughly for paper scraps after every jam clearance",
+      "Keep firmware updated to reduce sensor-related firmware glitches"
+    ],
+    "keywords": [
+      "brother unable to print error",
+      "brother error code printer",
+      "brother printer error message display"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": [
+      "PRN-020",
+      "PRN-027"
+    ]
+  },
+  {
+    "id": "PRN-039",
+    "category": "Printer",
+    "subcategory": "Brother Network Printer",
+    "problem": "Brother Toner Ends Soon / Replace Toner Message Won't Clear",
+    "description": "A Brother printer displays a 'Toner Ends Soon' or 'Replace Toner' message that does not go away even after installing a new, genuine toner cartridge.",
+    "symptoms": [
+      "Message persists on the display after a toner cartridge replacement",
+      "Printer may refuse to print or only print in a reduced/draft capacity while the message is showing",
+      "New cartridge may be genuine Brother or a compatible/refilled cartridge"
+    ],
+    "possible_causes": [
+      "Protective seal or tab not fully removed from the new toner cartridge",
+      "Toner cartridge not inserted and locked in fully",
+      "Non-genuine or refilled cartridge not properly recognized by the printer's toner sensor",
+      "Toner counter not reset after installing a refilled or reset cartridge"
+    ],
+    "diagnostic_questions": [
+      "Is the new cartridge a genuine Brother cartridge, or a refilled/compatible one?",
+      "Was the orange or colored protective seal and tab fully pulled out from the new cartridge before installing?",
+      "Does the cartridge click firmly into place when installed?",
+      "If using a refilled cartridge, was the toner reset procedure for this specific printer model performed?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Remove the toner cartridge and confirm the full protective seal and pull tab were completely removed, not just partially",
+        "reason": "A partially removed seal is a very common reason a brand new cartridge is not recognized as fresh"
+      },
+      {
+        "step": 2,
+        "action": "Reinsert the cartridge firmly, ensuring it locks fully into place with an audible click if the model has one",
+        "reason": "An improperly seated cartridge will not make proper contact with the printer's toner level sensor"
+      },
+      {
+        "step": 3,
+        "action": "For genuine Brother cartridges, turn the printer off and back on to force it to re-check the cartridge status",
+        "reason": "Some Brother models only refresh the toner status reading on a power cycle"
+      },
+      {
+        "step": 4,
+        "action": "For refilled or compatible cartridges, check whether this specific printer model requires a manual toner reset procedure through the control panel menu",
+        "reason": "Refilled cartridges often need the printer's internal toner counter manually reset since it does not detect a genuinely new chip automatically"
+      },
+      {
+        "step": 5,
+        "action": "Consider switching to a genuine Brother cartridge if a compatible/refilled one continues to cause recognition issues after attempting a reset",
+        "reason": "Confirms whether the cartridge itself, rather than a procedural step, is the underlying cause"
+      }
+    ],
+    "possible_solutions": [
+      "Fully remove the protective seal and tab from the new cartridge",
+      "Firmly reseat the cartridge until it locks in place",
+      "Power cycle the printer to refresh the toner status reading",
+      "Perform the model-specific toner reset procedure for refilled cartridges",
+      "Switch to a genuine cartridge if compatibility issues persist"
+    ],
+    "prevention": [
+      "Always fully remove all packaging material before installing a new cartridge",
+      "Keep documentation of the toner reset procedure for this printer model if using refilled cartridges",
+      "Buy cartridges from reputable suppliers to reduce recognition issues"
+    ],
+    "keywords": [
+      "brother toner ends soon wont clear",
+      "replace toner message brother printer",
+      "brother toner not recognized new cartridge"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": [
+      "PRN-016",
+      "PRN-017"
+    ]
+  },
+  {
+    "id": "PRN-040",
+    "category": "Printer",
+    "subcategory": "Brother Network Printer",
+    "problem": "Brother Drum Error - Reset Drum Counter",
+    "description": "A Brother printer displays a drum-related error or 'Replace Drum' message, and after physically replacing or servicing the drum unit, the printer still shows the same warning because its internal drum counter was not reset.",
+    "symptoms": [
+      "'Replace Drum' or drum error message remains after installing a new or serviced drum unit",
+      "Print quality issues that prompted the original warning may persist since the printer still thinks the old drum is in use",
+      "Message reappears immediately even right after a fresh drum installation"
+    ],
+    "possible_causes": [
+      "Drum unit counter not manually reset through the control panel after replacement",
+      "New drum unit not fully seated",
+      "Drum unit and toner cartridge assembled incorrectly if they are separate components on this model",
+      "Using a drum unit that itself was not properly reset if it was serviced rather than brand new"
+    ],
+    "diagnostic_questions": [
+      "Was the drum unit's internal counter manually reset through the printer's control panel menu after installing the new drum?",
+      "Are the drum unit and toner cartridge correctly assembled together, if this model uses them as separate components joined before insertion?",
+      "Is this a brand new drum unit, or one that was cleaned/serviced and reinstalled?",
+      "Does the printer's control panel have a specific menu option for resetting the drum counter, and has it been located?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the drum unit is properly and fully seated in the printer, including correct assembly with the toner cartridge if they are separate parts on this model",
+        "reason": "Physical installation must be correct before a counter reset will have any lasting effect"
+      },
+      {
+        "step": 2,
+        "action": "Navigate to the printer's control panel menu, typically under a Settings, Machine Info, or Maintenance section, to find the drum unit reset option",
+        "reason": "Brother printers require this manual step because the printer cannot automatically detect that a physical drum swap occurred"
+      },
+      {
+        "step": 3,
+        "action": "Select and confirm the drum counter reset for the correct drum unit, being careful not to accidentally reset an unrelated counter, such as the toner counter",
+        "reason": "Selecting the wrong reset option will not clear the actual drum warning and could cause other confusing status readings"
+      },
+      {
+        "step": 4,
+        "action": "Print a test page and confirm the drum warning message is now cleared",
+        "reason": "Verifies the reset was applied correctly and to the right component"
+      },
+      {
+        "step": 5,
+        "action": "Consult the specific printer model's manual or Brother's support site for the exact menu path if it cannot be easily located, since this varies between models",
+        "reason": "Brother's menu structure for drum resets differs across their various printer model lines"
+      }
+    ],
+    "possible_solutions": [
+      "Perform the model-specific drum unit counter reset through the control panel menu",
+      "Confirm correct physical assembly and seating of the drum unit",
+      "Consult Brother's support site for the exact reset menu path for this specific model"
+    ],
+    "prevention": [
+      "Always perform the drum counter reset immediately after installing a new or serviced drum unit",
+      "Keep a note of the exact menu path for this printer model for future reference",
+      "Handle drum units carefully to avoid needing premature replacement"
+    ],
+    "keywords": [
+      "brother replace drum message wont clear",
+      "reset drum counter brother printer",
+      "brother drum unit reset menu"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-15 minutes",
+    "related_problems": [
+      "PRN-027"
+    ]
+  },
+  {
+    "id": "PRN-041",
+    "category": "Printer",
+    "subcategory": "Brother Network Printer",
+    "problem": "Brother Scan to Network Folder Authentication Failed",
+    "description": "A Brother all-in-one printer's Scan to Network Folder feature fails with an authentication error, even though the username and password appear correct.",
+    "symptoms": [
+      "Printer displays 'Authentication Error' or similar when attempting to scan to a configured network folder",
+      "Other scan destinations, such as scan to USB or scan to email, may still work fine",
+      "Feature may have worked previously and stopped after a password or account change"
+    ],
+    "possible_causes": [
+      "Windows account password used in the scan profile has changed since it was configured",
+      "Username entered in the wrong format, such as missing the domain or computer name prefix",
+      "Target computer's sharing and security settings changed, affecting how it authenticates incoming connections",
+      "Brother's Web Based Management stored credentials became out of sync with the actual account"
+    ],
+    "diagnostic_questions": [
+      "Has the password for the account used in this scan profile changed recently on the target computer?",
+      "Is the username entered in the correct format expected by the target system, such as DOMAIN\\username or COMPUTERNAME\\username?",
+      "Does the target shared folder still exist at the same path with the same sharing permissions?",
+      "Have you tried accessing the same shared folder manually from another computer using the same credentials to confirm they still work?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Manually test the exact username and password by trying to access the shared folder from a regular computer on the network",
+        "reason": "Confirms whether the credentials themselves are still valid before assuming the printer's configuration is at fault"
+      },
+      {
+        "step": 2,
+        "action": "Access the printer's Web Based Management page by typing its IP address into a browser, and navigate to the Scan to Network Folder profile settings",
+        "reason": "Provides a more detailed configuration interface than the printer's physical control panel for reviewing and editing the stored profile"
+      },
+      {
+        "step": 3,
+        "action": "Re-enter the username in the correct format required by the target system, typically including the computer name or domain prefix",
+        "reason": "An incorrectly formatted username is a very common and easy-to-overlook cause of authentication failures"
+      },
+      {
+        "step": 4,
+        "action": "Re-enter the current, correct password for the account and save the updated profile",
+        "reason": "Ensures the printer is using the actual current credentials rather than an outdated cached password"
+      },
+      {
+        "step": 5,
+        "action": "Confirm the target folder's sharing and security permissions still grant this account read/write access",
+        "reason": "A permissions change on the target computer, separate from the password itself, can also cause this same authentication error"
+      }
+    ],
+    "possible_solutions": [
+      "Update the username to the correct format including domain/computer name prefix",
+      "Re-enter the current correct password in the scan profile",
+      "Verify and correct sharing permissions on the target folder",
+      "Recreate the scan profile from scratch if editing does not resolve it"
+    ],
+    "prevention": [
+      "Use a dedicated service account with a non-expiring password for scan-to-folder profiles",
+      "Document the exact required username format for this network's systems",
+      "Update the scan profile promptly whenever the associated account's password changes"
+    ],
+    "keywords": [
+      "brother scan to folder authentication error",
+      "brother scan network folder password wrong",
+      "brother scan profile failing"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "PRN-025"
+    ]
+  },
+  {
+    "id": "PRN-042",
+    "category": "Printer",
+    "subcategory": "Brother Network Printer",
+    "problem": "Brother Printer Stuck on Warming Up / Initializing",
+    "description": "A Brother laser printer remains stuck displaying 'Warming Up' or 'Please Wait' on its control panel far longer than normal, never reaching a Ready state.",
+    "symptoms": [
+      "Display shows 'Warming Up' or 'Initializing' for an extended period, well beyond the printer's normal startup time",
+      "Printer does not accept print jobs while stuck in this state",
+      "May happen consistently on every power-up or only occasionally"
+    ],
+    "possible_causes": [
+      "Fuser unit taking unusually long to reach operating temperature",
+      "Toner cartridge or drum unit not properly seated, preventing the printer from completing its startup self-check",
+      "Internal firmware hang during the startup sequence",
+      "Genuine fuser or internal component fault"
+    ],
+    "diagnostic_questions": [
+      "How long has the printer been stuck in this state compared to its normal startup time?",
+      "Does this happen every time the printer is turned on, or only occasionally?",
+      "Have the toner cartridge and drum unit been recently removed and reinstalled?",
+      "Does performing a full power cycle change anything about this behavior?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Allow the printer a few extra minutes beyond its normal startup time, since cold environments can genuinely slow fuser warm-up",
+        "reason": "Rules out a simple environmental factor before assuming a fault"
+      },
+      {
+        "step": 2,
+        "action": "Turn the printer off using its power switch, wait about a minute, and turn it back on",
+        "reason": "Clears a temporary firmware hang that can occur during the startup self-check sequence"
+      },
+      {
+        "step": 3,
+        "action": "Open the cover and remove and reseat the toner cartridge and drum unit firmly",
+        "reason": "An improperly seated cartridge or drum can cause the startup self-check to stall indefinitely waiting for a valid reading"
+      },
+      {
+        "step": 4,
+        "action": "Check that all covers and trays are fully and correctly closed",
+        "reason": "An open or improperly closed cover can prevent the printer from completing its internal readiness checks"
+      },
+      {
+        "step": 5,
+        "action": "Contact Brother support or arrange professional service if the printer consistently remains stuck after reseating components and power cycling, since this may indicate a fuser or internal hardware fault",
+        "reason": "Persistent failure to complete warm-up despite basic troubleshooting often points to a genuine hardware issue needing professional diagnosis"
+      }
+    ],
+    "possible_solutions": [
+      "Allow additional time in cold environments",
+      "Power cycle the printer",
+      "Reseat the toner cartridge and drum unit",
+      "Ensure all covers and trays are fully closed",
+      "Seek professional service for persistent hardware-related stalls"
+    ],
+    "prevention": [
+      "Keep the printer in a reasonably temperature-controlled environment",
+      "Handle toner and drum components carefully during any removal",
+      "Keep firmware updated to avoid startup sequence bugs"
+    ],
+    "keywords": [
+      "brother printer stuck warming up",
+      "brother please wait forever",
+      "brother printer wont finish starting up"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "PRN-026",
+      "PRN-028"
+    ]
+  },
+  {
+    "id": "PRN-043",
+    "category": "Printer",
+    "subcategory": "Brother Network Printer",
+    "problem": "Brother Network Settings Reset After Firmware Update",
+    "description": "After updating a Brother printer's firmware, its network settings revert to defaults, including its IP address, causing it to lose its previous network configuration.",
+    "symptoms": [
+      "Printer previously had a static IP or specific network settings, which now show as default/DHCP after a firmware update",
+      "Computers previously connected to the printer can no longer find it at the old address",
+      "Printer's control panel shows different network settings than before the update"
+    ],
+    "possible_causes": [
+      "Firmware update process reset network settings as part of the update on this particular model",
+      "Update was interrupted partway through, causing a partial settings reset",
+      "User did not realize this specific firmware version resets network configuration and did not prepare in advance"
+    ],
+    "diagnostic_questions": [
+      "Was a firmware update recently performed on this printer?",
+      "Did the network settings, such as a static IP, change immediately after that update completed?",
+      "Was the network configuration documented beforehand so it can be easily reapplied?",
+      "Does the printer's release notes for this firmware version mention anything about settings being reset?"
+    ],
+    "commands": [
+      {
+        "command": "ping <old_printer_ip>",
+        "purpose": "Check if the printer still responds at its previous, pre-update IP address",
+        "expected_result": "Replies received if the address did not actually change",
+        "abnormal_result": "Timeout confirms the address changed and needs to be rediscovered"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Print a network configuration page directly from the printer's control panel to see its current post-update IP address and settings",
+        "reason": "Provides the printer's actual current configuration rather than relying on the old, no-longer-valid information"
+      },
+      {
+        "step": 2,
+        "action": "Reapply the previous static IP address and any other custom network settings, such as DNS or gateway, through the control panel or Web Based Management",
+        "reason": "Restores the printer to its intended network configuration"
+      },
+      {
+        "step": 3,
+        "action": "Update the printer port's IP address on all computers that print to this device to match the printer's current address",
+        "reason": "Ensures computers can find and print to the printer again at its current settings"
+      },
+      {
+        "step": 4,
+        "action": "Consider configuring a DHCP reservation on the router instead of a manual static IP on the printer going forward",
+        "reason": "A DHCP reservation survives firmware updates and factory-level resets better than settings stored directly on the printer"
+      },
+      {
+        "step": 5,
+        "action": "Check the release notes for future firmware updates on this model before applying them, watching for any mention of settings resets",
+        "reason": "Allows proactive preparation for future updates that might have the same behavior"
+      }
+    ],
+    "possible_solutions": [
+      "Reapply the previous static IP and network settings after the update",
+      "Update printer ports on all connected computers to the new address",
+      "Switch to a DHCP reservation on the router for more resilient IP consistency",
+      "Review firmware release notes before future updates"
+    ],
+    "prevention": [
+      "Document current network settings before performing any firmware update",
+      "Use a DHCP reservation rather than a printer-stored static IP where possible",
+      "Check release notes for known settings-reset behavior before updating"
+    ],
+    "keywords": [
+      "brother firmware update reset ip",
+      "brother network settings changed after update",
+      "brother printer lost static ip firmware"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "PRN-002",
+      "PRN-031"
+    ]
+  },
+  {
+    "id": "PRN-044",
+    "category": "Printer",
+    "subcategory": "Brother Network Printer",
+    "problem": "Brother Web Based Management Not Accessible by IP",
+    "description": "Typing a Brother printer's IP address into a web browser does not load its Web Based Management configuration page, even though the printer prints normally over the network.",
+    "symptoms": [
+      "Browser shows 'This site can't be reached' or a timeout when navigating to the printer's IP",
+      "Printing and scanning otherwise work fine over the network",
+      "Page may have worked previously and stopped loading after a change"
+    ],
+    "possible_causes": [
+      "Web Based Management feature disabled in the printer's security settings",
+      "Wrong or outdated IP address being used",
+      "Browser defaulting to HTTPS when the printer only serves HTTP, or vice versa",
+      "Computer and printer on different network segments despite printing working through a print server or other path"
+    ],
+    "diagnostic_questions": [
+      "Are you using the printer's current, confirmed IP address from a freshly printed network configuration page?",
+      "Have you tried both http:// and https:// prefixes when entering the address?",
+      "Does printing still work normally over the network despite the web page not loading?",
+      "Has anyone changed security or management settings on this printer recently?"
+    ],
+    "commands": [
+      {
+        "command": "ping <printer_ip>",
+        "purpose": "Confirm basic network connectivity to the printer before troubleshooting the web page specifically",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout indicates the underlying network connection itself is the issue, not just the web management page"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Print a network configuration page from the printer to confirm its exact current IP address",
+        "reason": "Ensures the browser is being pointed at the printer's real, current address rather than an outdated one"
+      },
+      {
+        "step": 2,
+        "action": "Try accessing the address using both http:// and https:// explicitly typed before the IP address",
+        "reason": "Brother printers vary by model in whether they serve their management page over HTTP, HTTPS, or both"
+      },
+      {
+        "step": 3,
+        "action": "Try a different web browser or a private/incognito window",
+        "reason": "Rules out browser-specific caching or extension interference"
+      },
+      {
+        "step": 4,
+        "action": "Check the printer's control panel for a setting related to enabling or disabling Web Based Management or remote management access",
+        "reason": "Some Brother models allow this feature to be turned off for security, which would explain the page failing to load despite normal printing"
+      },
+      {
+        "step": 5,
+        "action": "Confirm the computer and printer are genuinely on the same reachable network segment by pinging the printer's IP first",
+        "reason": "Rules out a network path issue as opposed to a problem specifically with the web management feature"
+      }
+    ],
+    "possible_solutions": [
+      "Use the printer's current confirmed IP address",
+      "Try both http:// and https:// prefixes",
+      "Enable Web Based Management in the printer's control panel settings if it was disabled",
+      "Try a different browser or private window"
+    ],
+    "prevention": [
+      "Bookmark the printer's Web Based Management address once confirmed working",
+      "Keep Web Based Management enabled if it is regularly used for administration",
+      "Document the printer's static IP for consistent access"
+    ],
+    "keywords": [
+      "brother web based management not loading",
+      "cant access brother printer ip page",
+      "brother printer web page not opening"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "PRN-030"
+    ]
+  },
+  {
+    "id": "PRN-045",
+    "category": "Printer",
+    "subcategory": "Brother Network Printer",
+    "problem": "Brother Toner Not Recognized After Refill or Reset",
+    "description": "After refilling a Brother toner cartridge or performing a chip reset, the printer displays an error indicating the cartridge is not recognized or is invalid.",
+    "symptoms": [
+      "Error message such as 'Unable to Print, Replace Toner' appears immediately after installing a refilled cartridge",
+      "Genuine, unopened cartridges do not show this issue, isolating it to the refilled unit",
+      "Printer may refuse to print entirely rather than just showing a warning"
+    ],
+    "possible_causes": [
+      "Refilled cartridge's chip was not properly reset or reprogrammed to reflect the refill",
+      "Printer firmware updated to more strictly detect non-genuine or reset chips",
+      "Toner chip contacts dirty or making poor contact with the printer's reader",
+      "Refilled cartridge genuinely low or improperly refilled, triggering a legitimate low-toner style error"
+    ],
+    "diagnostic_questions": [
+      "Was a chip reset tool used on this cartridge, and did it complete without errors?",
+      "Has this printer's firmware been updated recently, which might have changed how strictly it checks cartridge chips?",
+      "Are the gold or copper contacts on the cartridge's chip clean and free of toner dust or residue?",
+      "Does a genuine, known-good cartridge work normally in this same printer, confirming the printer itself is fine?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Remove the cartridge and clean the chip contacts gently with a dry, lint-free cloth",
+        "reason": "Toner dust or residue on the contacts is a simple and common cause of a chip not being read correctly"
+      },
+      {
+        "step": 2,
+        "action": "Reseat the cartridge firmly, ensuring it clicks fully into place",
+        "reason": "Poor physical contact between the chip and the printer's reader pins will cause recognition failures even with a properly reset chip"
+      },
+      {
+        "step": 3,
+        "action": "Re-run the chip reset procedure if a reset tool was used, confirming each step completes successfully",
+        "reason": "An incomplete or failed reset will leave the chip reporting outdated or invalid information to the printer"
+      },
+      {
+        "step": 4,
+        "action": "Test a known-good genuine cartridge in the same printer to confirm the printer itself is functioning normally",
+        "reason": "Isolates whether the problem is specific to the refilled cartridge or indicates a broader printer issue"
+      },
+      {
+        "step": 5,
+        "action": "Check if a recent firmware update on this printer has introduced stricter cartridge validation, and consider whether a firmware rollback or a different refill/reset method is needed",
+        "reason": "Some manufacturers adjust firmware over time to more strictly detect non-genuine cartridges, which can break previously working refill methods"
+      }
+    ],
+    "possible_solutions": [
+      "Clean the toner cartridge's chip contacts",
+      "Reseat the cartridge firmly",
+      "Re-run the chip reset procedure carefully",
+      "Test with a genuine cartridge to isolate the cause",
+      "Consider firmware version compatibility with refilled cartridges"
+    ],
+    "prevention": [
+      "Handle chip contacts carefully to avoid dust or damage during refilling",
+      "Use a reliable, well-reviewed reset tool and procedure",
+      "Keep track of which firmware versions are known to work with refilled cartridges for this model"
+    ],
+    "keywords": [
+      "brother refilled toner not recognized",
+      "brother chip reset not working",
+      "brother toner invalid error after refill"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "PRN-017",
+      "PRN-039"
+    ]
+  },
+  {
+    "id": "PRN-046",
+    "category": "Printer",
+    "subcategory": "Brother Network Printer",
+    "problem": "Brother Wireless Direct Conflicting with Network IP Printing",
+    "description": "A Brother printer configured with both regular WiFi network printing and Wireless Direct (a direct device-to-printer WiFi connection) causes confusion, with some devices unable to print because they are connected to the wrong one.",
+    "symptoms": [
+      "Some devices print fine while others cannot find the printer at all",
+      "Printer may show two different sets of network information, one for the regular network and one for Wireless Direct",
+      "Devices switching between home/office WiFi and the printer's direct connection experience print failures"
+    ],
+    "possible_causes": [
+      "A device is connected to the printer's Wireless Direct network instead of the main office/home WiFi network",
+      "Wireless Direct and regular network WiFi enabled simultaneously, causing confusion about which to use",
+      "User previously connected to Wireless Direct for a one-off print and forgot to switch back to normal WiFi"
+    ],
+    "diagnostic_questions": [
+      "Is the device that cannot print currently connected to a WiFi network named something like 'DIRECT-brother-series' rather than your normal network?",
+      "Is Wireless Direct intentionally needed for any specific use case, such as printing from a device with no access to the main network?",
+      "Are other devices on the same main network able to print without any issue?",
+      "Would disabling Wireless Direct entirely be acceptable if it is not actually needed?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the WiFi network name the affected device is currently connected to",
+        "reason": "Confirms whether the device accidentally connected to the printer's Wireless Direct network instead of the main network"
+      },
+      {
+        "step": 2,
+        "action": "Reconnect the affected device to the correct main WiFi network if it was mistakenly on Wireless Direct",
+        "reason": "Directly resolves the immediate connectivity confusion for that specific device"
+      },
+      {
+        "step": 3,
+        "action": "Determine whether Wireless Direct is genuinely needed for any workflow, such as guests printing without joining the main network",
+        "reason": "Establishes whether this feature should remain enabled at all going forward"
+      },
+      {
+        "step": 4,
+        "action": "Disable Wireless Direct through the printer's control panel or Web Based Management if it is not actually needed",
+        "reason": "Removes the source of confusion entirely by ensuring only one, consistent network path to the printer exists"
+      },
+      {
+        "step": 5,
+        "action": "If Wireless Direct is needed, clearly label or document it so users understand it is a separate, special-purpose connection distinct from the main network printing setup",
+        "reason": "Reduces the chance of accidental reconnections to the wrong network causing this same confusion again"
+      }
+    ],
+    "possible_solutions": [
+      "Reconnect affected devices to the correct main network",
+      "Disable Wireless Direct if it is not genuinely needed",
+      "Clearly document the purpose and use of Wireless Direct if it remains enabled"
+    ],
+    "prevention": [
+      "Only enable Wireless Direct when there is a specific, ongoing need for it",
+      "Educate users on the difference between the main network and Wireless Direct connections",
+      "Periodically review which wireless features are actually enabled and needed on the printer"
+    ],
+    "keywords": [
+      "brother wireless direct printing confusion",
+      "brother direct network vs wifi printing",
+      "brother printer two networks conflict"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "PRN-006",
+      "NET-022"
+    ]
+  },
+  {
+    "id": "PRN-047",
+    "category": "Printer",
+    "subcategory": "Epson Network Printer",
+    "problem": "Epson Toner-Based Printer Offline Over Network",
+    "description": "An Epson laser/LED (toner-based) network printer, such as an Epson WorkForce AL-series model, shows a valid IP address on its panel but appears offline to the computer.",
+    "symptoms": [
+      "Printer's own display shows a valid IP address and a Ready status",
+      "Computer or Epson printer utility shows the printer as offline or unreachable",
+      "Print jobs remain stuck in the queue without transmitting"
+    ],
+    "possible_causes": [
+      "Printer's IP address changed and the computer's saved port configuration is outdated",
+      "Epson Status Monitor or printer utility not properly polling the current network path",
+      "Sleep/power-saving mode delaying the printer's response to the computer's connection attempt",
+      "Firewall or security software blocking Epson's status communication ports"
+    ],
+    "diagnostic_questions": [
+      "Does the IP address on the printer's display match what is configured in the printer's port settings on the computer?",
+      "Has the router been restarted recently, which could have changed the printer's address if it does not use a fixed IP?",
+      "Does the printer wake up and respond normally when you press a button on its panel?",
+      "Is any firewall or security software installed that might be blocking the Epson status monitoring service?"
+    ],
+    "commands": [
+      {
+        "command": "ping <printer_ip>",
+        "purpose": "Confirm whether the computer can currently reach the printer at its displayed IP address",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout indicates the computer's saved connection details no longer match the printer's actual current address"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the IP address shown on the Epson printer's own control panel or display",
+        "reason": "Establishes the printer's actual current address to compare against the computer's configuration"
+      },
+      {
+        "step": 2,
+        "action": "Open the printer's port settings on the computer and compare the configured IP address",
+        "reason": "Reveals whether the addresses have diverged, which is the most common cause of this exact symptom"
+      },
+      {
+        "step": 3,
+        "action": "Update the port's IP address to match, or remove and reinstall the printer using Epson's full driver and utility package",
+        "reason": "Ensures the computer is pointed at the printer's correct, current network location"
+      },
+      {
+        "step": 4,
+        "action": "Assign a static IP or DHCP reservation to the printer through the router",
+        "reason": "Prevents this same mismatch from happening again after future router restarts"
+      },
+      {
+        "step": 5,
+        "action": "Temporarily disable the computer's firewall to test whether it is blocking Epson's status communication if the IP addresses already match correctly",
+        "reason": "Some firewalls block the specific ports used for live status polling even while still allowing the print job itself to eventually succeed"
+      }
+    ],
+    "possible_solutions": [
+      "Update the printer port's IP address to the current value",
+      "Reinstall using Epson's full driver and utility package",
+      "Assign a static IP or DHCP reservation to the printer",
+      "Adjust firewall settings blocking Epson status communication"
+    ],
+    "prevention": [
+      "Assign DHCP reservations to networked Epson printers",
+      "Use Epson's official full software package rather than a minimal driver-only install",
+      "Keep printer firmware updated for network stability"
+    ],
+    "keywords": [
+      "epson printer offline valid ip",
+      "epson shows ready but offline",
+      "epson network printer port mismatch"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "PRN-001",
+      "PRN-002"
+    ]
+  },
+  {
+    "id": "PRN-048",
+    "category": "Printer",
+    "subcategory": "Epson Network Printer",
+    "problem": "Epson \"Replace Toner Cartridge\" Error Won't Clear",
+    "description": "An Epson toner-based printer displays a 'Replace Toner Cartridge' or similar error that remains on screen even after installing a new cartridge.",
+    "symptoms": [
+      "Error persists on the display after a toner replacement",
+      "Printer may refuse to print at all while the error is showing",
+      "New cartridge may be genuine Epson or a compatible/refilled unit"
+    ],
+    "possible_causes": [
+      "Protective seal or shipping lock not fully removed from the new cartridge",
+      "Cartridge not seated and locked into position correctly",
+      "Non-genuine or refilled cartridge not properly recognized by the printer's sensor",
+      "Toner counter requiring a manual reset for refilled cartridges on certain models"
+    ],
+    "diagnostic_questions": [
+      "Is the new cartridge genuine Epson, or a refilled/compatible one?",
+      "Was all protective packaging, including any shipping lock or seal, fully removed before installation?",
+      "Does the cartridge lock firmly into place when installed?",
+      "If using a refilled cartridge, does this printer model require a manual toner counter reset procedure?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Remove the cartridge and confirm all protective seals, tape, and any shipping locks were completely removed",
+        "reason": "Leftover packaging material is one of the most common reasons a new cartridge is not recognized as installed"
+      },
+      {
+        "step": 2,
+        "action": "Reinsert the cartridge firmly until it locks fully into place",
+        "reason": "An improperly seated cartridge will not register correctly with the printer's internal sensor"
+      },
+      {
+        "step": 3,
+        "action": "Power cycle the printer to force it to re-check the cartridge status",
+        "reason": "Some Epson models only refresh their toner status reading during the startup sequence"
+      },
+      {
+        "step": 4,
+        "action": "For refilled or compatible cartridges, check whether this specific model requires a manual toner reset through the control panel or Epson's configuration utility",
+        "reason": "Refilled cartridges often need the internal counter manually reset since automatic detection expects a genuinely new chip"
+      },
+      {
+        "step": 5,
+        "action": "Test with a genuine Epson cartridge if a refilled one continues to be unrecognized after a reset attempt, to confirm whether the cartridge itself is the cause",
+        "reason": "Isolates whether this is a cartridge-specific issue or a broader printer problem"
+      }
+    ],
+    "possible_solutions": [
+      "Fully remove all protective packaging from the new cartridge",
+      "Firmly reseat the cartridge until it locks into place",
+      "Power cycle the printer to refresh the toner status",
+      "Perform the model-specific toner reset procedure for refilled cartridges",
+      "Switch to a genuine cartridge if recognition issues persist"
+    ],
+    "prevention": [
+      "Always fully remove all packaging before installing a new cartridge",
+      "Keep the toner reset procedure documented if using refilled cartridges regularly",
+      "Purchase cartridges from reputable suppliers"
+    ],
+    "keywords": [
+      "epson replace toner wont clear",
+      "epson toner cartridge not recognized",
+      "epson new toner still shows error"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": [
+      "PRN-016",
+      "PRN-017"
+    ]
+  },
+  {
+    "id": "PRN-049",
+    "category": "Printer",
+    "subcategory": "Epson Network Printer",
+    "problem": "Epson Printer Not Found by Epson Status Monitor over IP",
+    "description": "The Epson Status Monitor or Epson printer utility software cannot locate a networked toner-based printer by its IP address, even though the printer is powered on and connected.",
+    "symptoms": [
+      "Epson Status Monitor shows 'Printer Not Found' or fails to display live status",
+      "Basic printing may still work fine through the standard Windows print queue despite the utility failing",
+      "Utility previously found the printer successfully before"
+    ],
+    "possible_causes": [
+      "Printer's IP address changed since the utility was last configured",
+      "Epson Status Monitor's monitored port list is outdated or misconfigured",
+      "Firewall blocking the specific communication port the utility uses for status polling",
+      "Printer and computer are on different network segments despite basic printing working through a different path, such as a print server"
+    ],
+    "diagnostic_questions": [
+      "Does basic printing still work through the normal Windows print queue, even though the status utility cannot find the printer?",
+      "Has the printer's IP address changed since this utility was last working correctly?",
+      "Is any firewall or security software active that might be blocking the specific status monitoring port?",
+      "Was the utility working before, and can you identify what changed around the time it stopped finding the printer?"
+    ],
+    "commands": [
+      {
+        "command": "ping <printer_ip>",
+        "purpose": "Confirm basic network reachability to the printer before troubleshooting the utility specifically",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout indicates a more fundamental network reachability issue beyond just the utility software"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm basic printing still works through the standard Windows print queue to isolate this as a utility-specific issue",
+        "reason": "Determines whether this is purely a status monitoring problem or part of a broader connectivity issue"
+      },
+      {
+        "step": 2,
+        "action": "Open the Epson Status Monitor's port or printer monitoring configuration and check the IP address it is configured to look for",
+        "reason": "Reveals whether the utility is trying to reach an outdated address"
+      },
+      {
+        "step": 3,
+        "action": "Update the monitored IP address in the utility's settings to match the printer's current address",
+        "reason": "Directly resolves an address mismatch between the utility and the printer's actual location"
+      },
+      {
+        "step": 4,
+        "action": "Reinstall the Epson Status Monitor or full driver package if the configuration cannot be easily corrected",
+        "reason": "Provides a clean, freshly configured utility installation"
+      },
+      {
+        "step": 5,
+        "action": "Check firewall settings for any rule blocking the specific ports Epson's status monitoring uses, adjusting as needed",
+        "reason": "Security software occasionally blocks this specific type of status traffic while still allowing standard printing"
+      }
+    ],
+    "possible_solutions": [
+      "Update the monitored IP address in the Epson Status Monitor settings",
+      "Reinstall the Epson Status Monitor or full driver package",
+      "Adjust firewall settings blocking status monitoring ports",
+      "Assign a static IP to the printer to prevent future mismatches"
+    ],
+    "prevention": [
+      "Assign a static IP or DHCP reservation to the printer",
+      "Keep Epson's utility software updated alongside the driver",
+      "Review firewall rules after security software updates"
+    ],
+    "keywords": [
+      "epson status monitor printer not found",
+      "epson utility cant find printer ip",
+      "epson status monitor offline"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "PRN-047",
+      "PRN-030"
+    ]
+  },
+  {
+    "id": "PRN-050",
+    "category": "Printer",
+    "subcategory": "Epson Network Printer",
+    "problem": "Epson Static IP Configuration via Web Config Not Saving",
+    "description": "An attempt to configure a static IP address on an Epson network printer through its Web Config browser-based interface does not save, and the printer reverts to its previous or a DHCP-assigned address.",
+    "symptoms": [
+      "Static IP entered in Web Config appears to save successfully but the printer reverts to a different address after a restart",
+      "Printer's control panel still shows DHCP as the active mode despite the change in Web Config",
+      "Changes to other network settings in Web Config may also fail to persist"
+    ],
+    "possible_causes": [
+      "Changes submitted in Web Config but not properly applied due to a browser or session issue",
+      "Printer's control panel network mode setting still set to DHCP/Auto, overriding the Web Config static IP entry",
+      "Administrator password or session timeout interrupting the save process",
+      "Firmware bug on certain versions affecting settings persistence"
+    ],
+    "diagnostic_questions": [
+      "After entering the static IP in Web Config, did you see a confirmation that settings were applied, possibly requiring a printer restart?",
+      "Does the printer's own physical control panel show its network mode set to DHCP or Auto, which could override the Web Config setting?",
+      "Were you logged into Web Config with the correct administrator credentials when making the change?",
+      "Is the printer's firmware up to date, in case this is a known bug in an older version?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Log into Web Config with the correct administrator credentials and navigate to the network settings section again",
+        "reason": "Ensures the change is being made with proper permissions, since unauthenticated or improperly authenticated changes may silently fail to save"
+      },
+      {
+        "step": 2,
+        "action": "Check the printer's own physical control panel for a network mode setting, such as DHCP versus Manual/Static, and set it to Manual if a static IP is intended",
+        "reason": "On many Epson models, the control panel's own network mode setting takes precedence over what is entered in Web Config, and both need to agree"
+      },
+      {
+        "step": 3,
+        "action": "Re-enter the desired static IP, subnet mask, and gateway values in Web Config and explicitly apply/save the changes",
+        "reason": "Ensures the values are freshly submitted after correcting the control panel's mode setting"
+      },
+      {
+        "step": 4,
+        "action": "Restart the printer after saving to ensure the new static configuration is fully applied",
+        "reason": "Some Epson models require a restart for network configuration changes to take full effect"
+      },
+      {
+        "step": 5,
+        "action": "Update the printer's firmware if this specific version is known to have settings persistence issues, based on Epson's support site or release notes",
+        "reason": "Resolves the issue at its root if this is a documented firmware bug for this model"
+      }
+    ],
+    "possible_solutions": [
+      "Set the printer's control panel network mode to Manual/Static before configuring via Web Config",
+      "Re-enter and save the static IP settings in Web Config",
+      "Restart the printer after saving network changes",
+      "Update firmware if a known persistence bug affects this version"
+    ],
+    "prevention": [
+      "Always check both the control panel and Web Config agree on network mode when configuring a static IP",
+      "Document the intended static IP configuration for reference",
+      "Keep printer firmware updated"
+    ],
+    "keywords": [
+      "epson web config static ip not saving",
+      "epson printer reverts to dhcp",
+      "epson network settings wont save"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-036",
+      "PRN-044"
+    ]
+  },
+  {
+    "id": "PRN-051",
+    "category": "Printer",
+    "subcategory": "Epson Network Printer",
+    "problem": "Epson Imaging/Drum Unit Near End of Life Warning",
+    "description": "An Epson toner-based printer displays a warning that the imaging unit or drum unit is nearing the end of its rated life, distinct from a toner-low warning, and print quality may begin to degrade.",
+    "symptoms": [
+      "Warning message specifically references the imaging unit or drum unit rather than the toner cartridge",
+      "Print quality may show spots, streaking, or inconsistent density as the warning progresses",
+      "Printer may continue to function normally for some time after the warning first appears"
+    ],
+    "possible_causes": [
+      "Imaging/drum unit has genuinely reached or is approaching its rated page life",
+      "Warning appearing earlier than expected due to a high volume of small print jobs, which wears components faster than fewer large jobs",
+      "Confusion between the toner cartridge and the separate imaging/drum unit, since Epson toner-based models often have both as distinct replaceable parts"
+    ],
+    "diagnostic_questions": [
+      "Does the warning specifically reference the imaging unit/drum unit, as distinct from the toner cartridge?",
+      "Roughly how many pages has this printer produced since the imaging unit was last replaced, if known?",
+      "Has this printer been used for mostly small, short print jobs rather than longer documents, which can wear the imaging unit faster per page?",
+      "Is current print quality still acceptable, or has it begun to visibly degrade?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the warning is specifically about the imaging/drum unit and not the separate toner cartridge, since Epson toner-based printers typically treat these as distinct components with separate warnings",
+        "reason": "Avoids replacing the wrong part based on a misread warning message"
+      },
+      {
+        "step": 2,
+        "action": "Check current print quality for early signs of imaging unit wear, such as spotting, streaking, or uneven density",
+        "reason": "Helps gauge how urgently the imaging unit genuinely needs replacement versus simply monitoring for now"
+      },
+      {
+        "step": 3,
+        "action": "Order the correct imaging/drum unit part number for this specific printer model, since it is a separate consumable from the toner cartridge",
+        "reason": "Ensures the correct replacement part is obtained, avoiding confusion with toner cartridge part numbers"
+      },
+      {
+        "step": 4,
+        "action": "Replace the imaging/drum unit following the manufacturer's specific instructions for this model once print quality genuinely degrades or the warning becomes critical",
+        "reason": "Restores full print quality and clears the warning"
+      },
+      {
+        "step": 5,
+        "action": "Monitor page count and usage patterns going forward to better anticipate the next imaging unit replacement",
+        "reason": "Helps plan for future replacements proactively rather than reactively"
+      }
+    ],
+    "possible_solutions": [
+      "Continue monitoring print quality if the warning is still early stage",
+      "Order and install the correct imaging/drum unit part for this model",
+      "Replace the imaging unit following manufacturer instructions once quality degrades"
+    ],
+    "prevention": [
+      "Keep a spare imaging/drum unit on hand for high-volume printers",
+      "Monitor print quality trends rather than relying solely on the warning light",
+      "Track approximate page counts to anticipate replacement needs"
+    ],
+    "keywords": [
+      "epson imaging unit near end of life",
+      "epson drum unit warning toner printer",
+      "epson replace imaging unit soon"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "PRN-027",
+      "PRN-019"
+    ]
+  },
+  {
+    "id": "PRN-052",
+    "category": "Printer",
+    "subcategory": "Epson Network Printer",
+    "problem": "Epson Network Scan Setup Wizard Cannot Find Printer",
+    "description": "Epson's network scan configuration wizard or utility fails to locate a toner-based network printer during setup, preventing the scan-to-computer or scan-to-folder feature from being configured.",
+    "symptoms": [
+      "Setup wizard shows no printers found, or times out during the search step",
+      "Printer itself shows normal network connectivity for printing purposes",
+      "Wizard previously worked, or this is a first-time setup attempt"
+    ],
+    "possible_causes": [
+      "Computer and printer are on different networks or WiFi bands, preventing discovery",
+      "Firewall blocking the discovery protocol used by the setup wizard",
+      "Printer's scan-related network feature not enabled in its own settings menu",
+      "Network discovery turned off in the operating system's network settings"
+    ],
+    "diagnostic_questions": [
+      "Are the computer and printer confirmed to be on the exact same network and WiFi band?",
+      "Is Network Discovery turned on in the operating system's network and sharing settings?",
+      "Does the printer have a specific setting to enable network scanning that may not be turned on?",
+      "Is any firewall or security software active that might be blocking the discovery broadcast used by the setup wizard?"
+    ],
+    "commands": [
+      {
+        "command": "ping <printer_ip>",
+        "purpose": "Confirm basic network connectivity between the computer and printer before troubleshooting the discovery-specific issue",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout indicates a more fundamental connectivity problem beyond just the scan setup wizard"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the computer and printer are on the exact same network and, if applicable, the same WiFi band",
+        "reason": "Discovery protocols generally do not work across different networks or isolated WiFi bands"
+      },
+      {
+        "step": 2,
+        "action": "Check the printer's own control panel for a setting that enables network scanning or scan-to-computer functionality",
+        "reason": "Some Epson models require this feature to be explicitly enabled before it becomes discoverable for scan setup"
+      },
+      {
+        "step": 3,
+        "action": "Ensure Network Discovery is turned on in the computer's network and sharing settings",
+        "reason": "Operating systems often need this explicitly enabled to allow discovery-based setup wizards to find devices"
+      },
+      {
+        "step": 4,
+        "action": "Temporarily disable the computer's firewall to test whether it is blocking the discovery broadcast used during setup",
+        "reason": "Security software can silently block the specific traffic type used for this kind of automatic device discovery"
+      },
+      {
+        "step": 5,
+        "action": "If automatic discovery continues to fail, check whether the setup utility offers a manual option to add the printer by directly entering its IP address",
+        "reason": "Bypasses discovery entirely as a reliable alternative when automatic detection is not working"
+      }
+    ],
+    "possible_solutions": [
+      "Ensure the printer's network scan feature is enabled on the device itself",
+      "Turn on Network Discovery in the operating system",
+      "Temporarily disable the firewall to test for blocking",
+      "Manually enter the printer's IP address in the setup wizard if available as an option"
+    ],
+    "prevention": [
+      "Keep network scan features enabled if regularly used",
+      "Document the printer's IP address for manual setup as a fallback",
+      "Review firewall rules after security software updates"
+    ],
+    "keywords": [
+      "epson scan setup wizard cant find printer",
+      "epson network scan configuration failed",
+      "epson scan to computer setup not finding device"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "PRN-024",
+      "PRN-025"
+    ]
+  },
+  {
+    "id": "PRN-053",
+    "category": "Printer",
+    "subcategory": "Epson Network Printer",
+    "problem": "Epson Toner Low Bypass to Continue Printing",
+    "description": "An Epson toner-based printer refuses to print or repeatedly interrupts jobs due to a toner-low warning, even though the user wants to continue printing until the toner is fully exhausted rather than replacing it immediately.",
+    "symptoms": [
+      "Printer pauses or refuses new jobs specifically due to a toner-low status, not a toner-empty status",
+      "User has a replacement cartridge on hand but wants to use the remaining toner first",
+      "Print quality may still be acceptable despite the warning"
+    ],
+    "possible_causes": [
+      "Printer's default behavior set to stop rather than continue when toner is low",
+      "Setting to allow continued printing despite low toner not yet enabled in the printer or driver settings",
+      "Confusion between a genuine toner-empty stop and a more conservative low-toner warning"
+    ],
+    "diagnostic_questions": [
+      "Does the printer explicitly say the toner is 'low' or 'ends soon' rather than fully 'empty' or 'depleted'?",
+      "Is there a specific setting, either on the printer's control panel or in the driver, to allow continued printing despite a low toner warning?",
+      "Is current print quality still acceptable to the user despite the warning?",
+      "Does the user have a replacement cartridge ready for when the toner is genuinely exhausted?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the exact wording of the warning to distinguish a low-toner advisory from a genuine empty/depleted stop condition",
+        "reason": "Only a low-toner advisory can typically be bypassed; a genuine empty condition usually cannot be overridden since no toner remains to produce output"
+      },
+      {
+        "step": 2,
+        "action": "Check the printer's control panel settings for an option related to continuing printing when toner is low, sometimes labeled something like 'Continue' or 'Ignore Toner Low'",
+        "reason": "Many Epson toner-based models include this specific setting for users who want to maximize cartridge usage"
+      },
+      {
+        "step": 3,
+        "action": "Check the printer driver's properties on the computer for a similar setting related to low toner behavior",
+        "reason": "Some models control this behavior through driver settings rather than, or in addition to, the printer's own control panel"
+      },
+      {
+        "step": 4,
+        "action": "Enable the appropriate setting to allow continued printing, and monitor print quality closely as the toner continues to deplete",
+        "reason": "Allows the user to extract maximum value from the current cartridge while being aware quality may eventually degrade"
+      },
+      {
+        "step": 5,
+        "action": "Keep the replacement cartridge readily available and swap it in once print quality becomes unacceptable or the printer reaches a genuine empty state",
+        "reason": "Ensures a smooth transition without unexpected extended downtime once the current cartridge is truly exhausted"
+      }
+    ],
+    "possible_solutions": [
+      "Enable the 'continue printing despite low toner' setting on the printer or in the driver if available",
+      "Monitor print quality closely once this setting is enabled",
+      "Keep a replacement cartridge ready for when toner is genuinely exhausted"
+    ],
+    "prevention": [
+      "Understand the difference between low-toner and empty-toner states for this printer model",
+      "Keep replacement cartridges in stock proactively rather than waiting for a full stop",
+      "Review print quality periodically when running a cartridge past the initial low warning"
+    ],
+    "keywords": [
+      "epson continue printing low toner",
+      "epson bypass toner low warning",
+      "epson ignore toner low setting"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": [
+      "PRN-016",
+      "PRN-019"
+    ]
+  },
+  {
+    "id": "PRN-054",
+    "category": "Printer",
+    "subcategory": "Epson Network Printer",
+    "problem": "Epson Printer IP Address Conflict After Network Change",
+    "description": "An Epson network printer stops being reachable after a router replacement, firmware update, or other network change, because its IP address now conflicts with another device or falls outside the current network range.",
+    "symptoms": [
+      "Printer becomes unreachable after a router replacement or major network reconfiguration",
+      "Windows may show an IP address conflict warning if a computer happens to share the same address as the printer",
+      "Printer's control panel may show an IP address that no longer matches the new network's addressing scheme"
+    ],
+    "possible_causes": [
+      "Printer retained an old static IP address that does not fit the new router's network range",
+      "New router's DHCP pool overlaps with the printer's previously assigned static address",
+      "Two devices, including possibly the printer, ended up with the same address during the network transition"
+    ],
+    "diagnostic_questions": [
+      "Was a router recently replaced or significantly reconfigured?",
+      "Does the printer's current IP address, as shown on its control panel, fall within the new network's valid address range?",
+      "Has Windows or any device shown a specific IP address conflict warning mentioning this printer's address?",
+      "Was the printer using a static IP configured for the old network setup?"
+    ],
+    "commands": [
+      {
+        "command": "ping <printer_ip>",
+        "purpose": "Test whether the printer is reachable at its currently configured address on the new network",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout or a conflict warning confirms the address is no longer valid or is being used by another device"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the printer's currently configured IP address against the new router's actual network range, such as confirming both start with the same first three octets",
+        "reason": "A static IP configured for an old network will very often fall completely outside a new router's valid range"
+      },
+      {
+        "step": 2,
+        "action": "Change the printer's network mode to DHCP temporarily to obtain a valid address automatically from the new router",
+        "reason": "Provides an immediate, simple way to restore connectivity by letting the new router assign a compatible address"
+      },
+      {
+        "step": 3,
+        "action": "Once connectivity is restored via DHCP, decide whether to keep DHCP or reconfigure a new static IP that is valid for the new network's range",
+        "reason": "Allows a considered choice between simplicity (DHCP) and consistency (static) going forward rather than reusing an invalid old address"
+      },
+      {
+        "step": 4,
+        "action": "If choosing static addressing again, set a DHCP reservation on the new router instead of a manually configured static IP on the printer",
+        "reason": "A DHCP reservation is centrally managed and automatically avoids conflicts, unlike a printer-side static IP that must be manually kept in sync with the network"
+      },
+      {
+        "step": 5,
+        "action": "Update the printer port's IP address on all computers that print to this device to reflect its new, correct address",
+        "reason": "Ensures all computers can find and print to the printer at its current, valid address on the new network"
+      }
+    ],
+    "possible_solutions": [
+      "Switch the printer to DHCP to get a valid address automatically",
+      "Reconfigure a new static IP appropriate for the new network's range",
+      "Set a DHCP reservation on the new router for the printer",
+      "Update the printer port's IP address on all connected computers"
+    ],
+    "prevention": [
+      "Document network addressing schemes and update printer configurations promptly after any router replacement",
+      "Use DHCP reservations rather than printer-side static IPs where possible for easier transitions",
+      "Verify all networked printers after any major network infrastructure change"
+    ],
+    "keywords": [
+      "epson printer ip conflict after router change",
+      "epson printer unreachable new router",
+      "epson static ip wrong network range"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-035",
+      "NET-039"
+    ]
+  },
+  {
+    "id": "PRN-055",
+    "category": "Printer",
+    "subcategory": "Epson Network Printer",
+    "problem": "Epson Firmware Update Fails via Web Config",
+    "description": "An attempt to update an Epson toner-based network printer's firmware through its Web Config browser interface fails partway through or does not complete successfully.",
+    "symptoms": [
+      "Firmware update progress in Web Config stalls, shows an error, or the browser session times out",
+      "Printer may become unresponsive or show an error after the failed attempt",
+      "Printer may still function on its previous firmware version if the update failed before actually applying"
+    ],
+    "possible_causes": [
+      "Network connection between the computer and printer dropped during the update transfer",
+      "Incorrect or corrupted firmware file used for this specific printer model",
+      "Printer lost power during the update process",
+      "Browser session timing out before a large firmware file finished uploading"
+    ],
+    "diagnostic_questions": [
+      "Did the network connection to the printer remain stable throughout the entire update attempt?",
+      "Was the firmware file downloaded directly from Epson's official support site for this exact printer model?",
+      "Did the printer lose power at any point during the update?",
+      "Does the printer still appear to function normally, suggesting the update failed safely before actually being applied?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check whether the printer is still responsive and appears to be running on its previous firmware version, indicating a safe failure before the update was actually applied",
+        "reason": "Distinguishes a safely failed attempt, which can simply be retried, from a potentially more serious partial update situation"
+      },
+      {
+        "step": 2,
+        "action": "Confirm a stable, ideally wired, network connection between the computer and printer before retrying the update",
+        "reason": "An unstable connection, especially over WiFi, is a common cause of interrupted firmware transfers"
+      },
+      {
+        "step": 3,
+        "action": "Re-download the firmware file directly from Epson's official support site for this exact model to rule out a corrupted or incorrect file",
+        "reason": "Ensures the retry uses a clean, correct, and complete firmware file"
+      },
+      {
+        "step": 4,
+        "action": "Retry the update through Web Config, avoiding any interruption such as closing the browser or navigating away during the process",
+        "reason": "Gives the update the best chance of completing successfully on this attempt"
+      },
+      {
+        "step": 5,
+        "action": "If the printer becomes unresponsive after a failed update, consult Epson's specific firmware recovery procedure for this model, or contact Epson support for further guidance",
+        "reason": "Manufacturers often have documented recovery procedures for printers that become unresponsive after an interrupted firmware update"
+      }
+    ],
+    "possible_solutions": [
+      "Retry the update with a stable wired network connection",
+      "Re-download the firmware file from Epson's official site",
+      "Avoid interrupting the browser session during the update",
+      "Follow Epson's firmware recovery procedure if the printer becomes unresponsive"
+    ],
+    "prevention": [
+      "Always use a stable, ideally wired, connection for firmware updates",
+      "Only download firmware from Epson's official support site",
+      "Avoid performing firmware updates during times when network instability is likely"
+    ],
+    "keywords": [
+      "epson firmware update failed web config",
+      "epson printer firmware update error",
+      "epson printer unresponsive after firmware update"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "PRN-031",
+      "PRN-050"
+    ]
+  },
+  {
+    "id": "PRN-056",
+    "category": "Printer",
+    "subcategory": "Epson Network Printer",
+    "problem": "Epson AirPrint/IPP Printing Fails for Networked Toner Printer",
+    "description": "Attempting to print to a networked Epson toner-based printer using AirPrint from an iOS/macOS device, or another IPP-based printing method, fails even though standard driver-based printing from Windows works fine.",
+    "symptoms": [
+      "iOS or macOS device cannot find the printer through AirPrint, or the print job fails to complete",
+      "Standard Windows printing to the same printer over the network works normally",
+      "Printer may or may not appear in the AirPrint/IPP device list depending on the specific issue"
+    ],
+    "possible_causes": [
+      "AirPrint/IPP printing feature not enabled in the printer's own network settings",
+      "mDNS/Bonjour discovery traffic blocked by network equipment or settings, preventing AirPrint discovery",
+      "Apple device and printer on different networks or WiFi bands",
+      "Router or switch blocking multicast traffic required for AirPrint/Bonjour discovery"
+    ],
+    "diagnostic_questions": [
+      "Does standard driver-based printing from a Windows computer work fine over the same network?",
+      "Is AirPrint or IPP printing specifically enabled in the printer's own network configuration settings?",
+      "Are the Apple device and the printer confirmed to be on the exact same WiFi network and band?",
+      "Does the network use any equipment or settings known to block mDNS/Bonjour or multicast traffic, such as certain enterprise WiFi configurations or VLAN separation?"
+    ],
+    "commands": [
+      {
+        "command": "ping <printer_ip>",
+        "purpose": "Confirm basic network connectivity to the printer from a computer on the same network as the Apple device",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout suggests a more fundamental network reachability issue affecting the Apple device's ability to discover or reach the printer as well"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm that standard printing from another device type works normally, isolating the issue specifically to AirPrint/IPP",
+        "reason": "Establishes that the printer and general network connectivity are otherwise healthy, narrowing the focus to the AirPrint-specific path"
+      },
+      {
+        "step": 2,
+        "action": "Check the printer's own network settings menu for an AirPrint or IPP printing option and confirm it is enabled",
+        "reason": "Some Epson models have this feature available but not enabled by default"
+      },
+      {
+        "step": 3,
+        "action": "Confirm the Apple device and printer are on the exact same WiFi network and band, not a guest network or a different band with a similar name",
+        "reason": "AirPrint discovery relies on both devices being on the same local network segment"
+      },
+      {
+        "step": 4,
+        "action": "Check whether the network's WiFi equipment has any settings related to blocking multicast or Bonjour/mDNS traffic, particularly on business-grade or enterprise WiFi systems",
+        "reason": "Certain network configurations intentionally or unintentionally block the multicast traffic AirPrint relies on for device discovery"
+      },
+      {
+        "step": 5,
+        "action": "As a workaround, add the printer manually using its IP address directly in the iOS/macOS print dialog if available, bypassing automatic AirPrint discovery",
+        "reason": "Provides a functional alternative when automatic discovery cannot be resolved due to network-level restrictions"
+      }
+    ],
+    "possible_solutions": [
+      "Enable AirPrint/IPP printing in the printer's network settings",
+      "Confirm the Apple device and printer share the same network and WiFi band",
+      "Adjust network equipment settings blocking multicast/Bonjour traffic if identified",
+      "Add the printer manually by IP as a workaround if automatic discovery remains blocked"
+    ],
+    "prevention": [
+      "Keep AirPrint/IPP enabled on the printer if regularly used by Apple devices",
+      "Avoid placing printers and Apple devices on separate guest or isolated networks",
+      "Review enterprise WiFi multicast settings if AirPrint is a required feature"
+    ],
+    "keywords": [
+      "epson airprint not working",
+      "epson ipp printing fails iphone ipad",
+      "epson printer not found airprint"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": [
+      "NET-030",
+      "PRN-006"
+    ]
+  }
+]

@@ -1,0 +1,1742 @@
+[
+  {
+    "id": "NET-111",
+    "category": "Networking",
+    "subcategory": "VPN Problems",
+    "problem": "VPN Cannot Connect",
+    "description": "The VPN client fails to establish a connection at all, showing an error or hanging indefinitely before the underlying internet connection is even a factor.",
+    "symptoms": [
+      "VPN client shows 'Cannot connect' or a generic connection failure error immediately",
+      "Connection attempt hangs on 'Connecting...' before timing out",
+      "Regular internet access works fine without the VPN active"
+    ],
+    "possible_causes": [
+      "VPN server address entered incorrectly",
+      "VPN client software outdated or corrupted",
+      "Firewall on the local computer or network blocking the VPN protocol entirely",
+      "VPN server itself is down or unreachable",
+      "Local network blocks VPN traffic, common on some public or restrictive WiFi"
+    ],
+    "diagnostic_questions": [
+      "Is the exact VPN server address correct and current?",
+      "Does the regular internet connection work normally without the VPN?",
+      "Have you connected successfully to this VPN before from this exact network?",
+      "Is this a public or restrictive WiFi network (hotel, airport, school) that might block VPN protocols?"
+    ],
+    "commands": [
+      {
+        "command": "ping <vpn_server_address>",
+        "purpose": "Test basic reachability to the VPN server before the VPN protocol itself is involved",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout suggests the server is unreachable or the network is blocking traffic to it entirely"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the regular internet connection works normally without the VPN enabled",
+        "reason": "A VPN cannot connect at all without a working underlying internet connection"
+      },
+      {
+        "step": 2,
+        "action": "Double-check the VPN server address and any port/protocol settings against the values provided by the VPN administrator",
+        "reason": "A simple typo in the server address is a very common cause of an immediate connection failure"
+      },
+      {
+        "step": 3,
+        "action": "Try connecting from a different network, such as mobile data, to see if the current network is blocking VPN traffic",
+        "reason": "Some restrictive networks, like hotel or airport WiFi, intentionally block VPN protocols"
+      },
+      {
+        "step": 4,
+        "action": "Temporarily disable the local firewall or antivirus to test if it is blocking the VPN client entirely",
+        "reason": "Security software can block VPN connections outright, especially after a fresh install"
+      },
+      {
+        "step": 5,
+        "action": "Update the VPN client software to the latest version",
+        "reason": "Outdated VPN clients can lose compatibility with current server configurations"
+      },
+      {
+        "step": 6,
+        "action": "Contact the VPN administrator to confirm the server is currently online and check if other users are affected",
+        "reason": "Rules out a server-side outage as the root cause"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the VPN server address or connection settings",
+      "Try connecting from a different, less restrictive network",
+      "Temporarily disable firewall/antivirus to confirm it as the cause, then add a proper exception",
+      "Update the VPN client software",
+      "Confirm server status with the VPN administrator"
+    ],
+    "prevention": [
+      "Keep VPN client software updated",
+      "Document correct server addresses and settings for reference",
+      "Test VPN connectivity before relying on it while traveling"
+    ],
+    "keywords": [
+      "vpn cannot connect",
+      "vpn connection failed immediately",
+      "vpn wont connect at all"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "GRN-024",
+      "NET-112"
+    ]
+  },
+  {
+    "id": "NET-112",
+    "category": "Networking",
+    "subcategory": "VPN Problems",
+    "problem": "VPN Authentication Failed",
+    "description": "The VPN client reaches the server and begins the connection process, but is rejected specifically during authentication, distinct from a complete connection failure.",
+    "symptoms": [
+      "Error specifically mentions authentication failure, invalid credentials, or access denied",
+      "Connection progresses further than an immediate failure before being rejected",
+      "Other users may or may not be experiencing the same authentication issue"
+    ],
+    "possible_causes": [
+      "Incorrect username or password entered",
+      "Account locked, expired, or disabled on the VPN server side",
+      "Multi-factor authentication (MFA) code expired or not entered in time",
+      "Client certificate missing, expired, or not properly installed",
+      "VPN account permissions not yet provisioned for this user"
+    ],
+    "diagnostic_questions": [
+      "Are you certain the username and password are correct and current?",
+      "Does this VPN require multi-factor authentication, and was the code entered before it expired?",
+      "Does this account use a certificate for authentication, and if so, is it installed and valid?",
+      "Have you successfully authenticated to this VPN before, or is this a new account?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Carefully re-enter the username and password, checking for typos and case sensitivity",
+        "reason": "Simple credential entry mistakes are the most common cause of authentication failure"
+      },
+      {
+        "step": 2,
+        "action": "If multi-factor authentication is required, ensure the code is entered promptly, since these codes typically expire within 30-60 seconds",
+        "reason": "A delayed MFA code is a common and easily overlooked cause of authentication rejection"
+      },
+      {
+        "step": 3,
+        "action": "Check with the VPN administrator whether the account is locked, expired, or not yet fully provisioned for VPN access",
+        "reason": "Account-level issues on the server side cannot be resolved by the end user and require administrator action"
+      },
+      {
+        "step": 4,
+        "action": "For certificate-based authentication, confirm the required client certificate is installed and has not expired",
+        "reason": "An expired or missing certificate will cause authentication to fail even with a correct password"
+      },
+      {
+        "step": 5,
+        "action": "Try resetting the VPN account password if repeated failures occur despite confidence in the credentials",
+        "reason": "Rules out a server-side password mismatch that the user may not be aware of"
+      }
+    ],
+    "possible_solutions": [
+      "Re-enter credentials carefully, checking for typos",
+      "Enter MFA codes promptly before they expire",
+      "Have an administrator check and unlock or provision the account if needed",
+      "Install or renew a required client certificate",
+      "Reset the VPN password if authentication continues to fail"
+    ],
+    "prevention": [
+      "Use a password manager to avoid credential entry errors",
+      "Keep MFA apps and devices synced and accessible",
+      "Track certificate expiration dates for certificate-based VPN accounts"
+    ],
+    "keywords": [
+      "vpn authentication failed",
+      "vpn invalid credentials",
+      "vpn access denied login"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": [
+      "NET-111",
+      "GRN-024"
+    ]
+  },
+  {
+    "id": "NET-113",
+    "category": "Networking",
+    "subcategory": "VPN Problems",
+    "problem": "VPN Disconnects Frequently",
+    "description": "The VPN connection establishes successfully but drops repeatedly during use, requiring frequent reconnection and interrupting work.",
+    "symptoms": [
+      "VPN shows connected, then disconnects after a period of time, ranging from minutes to hours",
+      "Reconnecting temporarily restores the connection until it drops again",
+      "May correlate with network changes, such as switching WiFi networks or the computer sleeping"
+    ],
+    "possible_causes": [
+      "Underlying internet connection itself is unstable",
+      "VPN client's keep-alive settings not configured aggressively enough for this network",
+      "Computer's power-saving settings disconnecting the network adapter periodically",
+      "VPN server session timeout configured shorter than expected",
+      "Firewall or network equipment interrupting the long-lived VPN connection"
+    ],
+    "diagnostic_questions": [
+      "Does the underlying internet connection stay stable, or does it also drop around the same time as the VPN?",
+      "How long does the VPN typically stay connected before dropping?",
+      "Does this happen more when the computer is idle, or during active use?",
+      "Have you checked the VPN client's connection/keep-alive settings?"
+    ],
+    "commands": [
+      {
+        "command": "ping -t <vpn_server_address>",
+        "purpose": "Continuously monitor the connection to the VPN server to correlate drops with the VPN client's disconnect events",
+        "expected_result": "Continuous replies with no gaps",
+        "abnormal_result": "Periodic timeouts matching when the VPN disconnects, suggesting an underlying network instability rather than a VPN client issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether the underlying internet connection remains stable during VPN disconnects, using a continuous ping test",
+        "reason": "Separates a genuine VPN-specific problem from a broader network instability issue that would affect the VPN as a symptom"
+      },
+      {
+        "step": 2,
+        "action": "Check the computer's power management settings and disable network adapter power saving",
+        "reason": "Aggressive power saving can briefly disconnect the network adapter, breaking the VPN tunnel"
+      },
+      {
+        "step": 3,
+        "action": "Check the VPN client's settings for a keep-alive or reconnect option and enable/adjust it if available",
+        "reason": "More frequent keep-alive signals can prevent the connection from being dropped by network equipment that closes idle connections"
+      },
+      {
+        "step": 4,
+        "action": "Check with the VPN administrator about the configured session timeout on the server side",
+        "reason": "A short server-side timeout will disconnect the client regardless of local settings"
+      },
+      {
+        "step": 5,
+        "action": "Update the VPN client software to the latest version",
+        "reason": "Connection stability bugs are commonly addressed in newer client releases"
+      },
+      {
+        "step": 6,
+        "action": "Try switching networks, such as from WiFi to a wired connection, to see if the instability follows the network rather than the VPN",
+        "reason": "Helps isolate whether the specific network connection is contributing to the drops"
+      }
+    ],
+    "possible_solutions": [
+      "Disable network adapter power saving",
+      "Enable or adjust VPN client keep-alive settings",
+      "Request a longer session timeout from the VPN administrator",
+      "Update the VPN client software",
+      "Use a more stable network connection, such as wired instead of WiFi"
+    ],
+    "prevention": [
+      "Keep VPN client software updated",
+      "Disable power-saving features on the network adapter for devices regularly using VPN",
+      "Use wired connections for long VPN sessions when possible"
+    ],
+    "keywords": [
+      "vpn keeps disconnecting",
+      "vpn drops connection frequently",
+      "vpn unstable connection"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-111",
+      "NET-005"
+    ]
+  },
+  {
+    "id": "NET-114",
+    "category": "Networking",
+    "subcategory": "VPN Problems",
+    "problem": "VPN Slow Connection",
+    "description": "The VPN connects successfully and stays connected, but internet speed and responsiveness are significantly worse while connected compared to browsing without the VPN.",
+    "symptoms": [
+      "Web pages, file transfers, and video calls are noticeably slower while connected to the VPN",
+      "Speed tests show a large drop in speed compared to the connection without VPN active",
+      "High latency or lag specifically while the VPN is active"
+    ],
+    "possible_causes": [
+      "VPN server is geographically distant, adding natural latency",
+      "VPN server is overloaded with too many simultaneous users",
+      "VPN encryption overhead is significant on lower-powered hardware",
+      "Local internet connection itself is the bottleneck, not the VPN",
+      "Split tunneling not configured, routing all traffic unnecessarily through the VPN"
+    ],
+    "diagnostic_questions": [
+      "How does speed compare with and without the VPN connected, ideally tested back-to-back?",
+      "Is the VPN server geographically close to your actual location, or very far away?",
+      "Does the VPN client offer a choice of different server locations to test?",
+      "Is split tunneling available and configured, so only necessary traffic goes through the VPN?"
+    ],
+    "commands": [
+      {
+        "command": "ping <vpn_server_address> -n 20",
+        "purpose": "Measure baseline latency to the VPN server itself",
+        "expected_result": "Reasonably low latency appropriate for the server's geographic distance",
+        "abnormal_result": "Very high latency, suggesting the server's location or path is contributing significantly to the slowdown"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Run a speed test with the VPN connected, then disconnect and run the same test again for direct comparison",
+        "reason": "Quantifies exactly how much the VPN is impacting speed, providing a baseline to work from"
+      },
+      {
+        "step": 2,
+        "action": "Try a different VPN server location if the client offers multiple options, choosing one geographically closer",
+        "reason": "Distance to the VPN server directly affects latency and can significantly impact perceived speed"
+      },
+      {
+        "step": 3,
+        "action": "Check if the VPN client supports split tunneling, and configure it so only traffic that actually needs the VPN uses it",
+        "reason": "Routing all traffic through the VPN unnecessarily adds overhead to activities that do not require it"
+      },
+      {
+        "step": 4,
+        "action": "Try a different VPN protocol if the client offers options, since some protocols have less encryption overhead than others",
+        "reason": "Certain protocols are faster at the cost of some security trade-offs, which may be an acceptable trade for the use case"
+      },
+      {
+        "step": 5,
+        "action": "Contact the VPN administrator to check if the server is currently overloaded with many simultaneous users",
+        "reason": "A server nearing its capacity will provide degraded performance to all connected users"
+      }
+    ],
+    "possible_solutions": [
+      "Switch to a geographically closer VPN server",
+      "Enable split tunneling if available and appropriate",
+      "Try a different, faster VPN protocol if offered",
+      "Report server overload to the VPN administrator",
+      "Verify the underlying internet connection is not the actual bottleneck"
+    ],
+    "prevention": [
+      "Choose VPN server locations close to actual usage location when possible",
+      "Use split tunneling for traffic that does not require VPN protection",
+      "Monitor VPN server load if administering the infrastructure"
+    ],
+    "keywords": [
+      "vpn slow speed",
+      "vpn making internet slow",
+      "vpn high latency"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "NET-007",
+      "NET-004"
+    ]
+  },
+  {
+    "id": "NET-115",
+    "category": "Networking",
+    "subcategory": "VPN Problems",
+    "problem": "VPN Tunnel Failed",
+    "description": "The VPN client authenticates successfully but the secure tunnel itself fails to establish, so no traffic actually passes through the VPN despite an apparent successful login.",
+    "symptoms": [
+      "VPN client shows 'connected' status but no internet traffic actually flows, or only local network traffic works",
+      "Error specifically mentions tunnel establishment failure rather than authentication",
+      "Websites and applications behave as if there is no internet connection at all while the VPN shows connected"
+    ],
+    "possible_causes": [
+      "Firewall blocking the specific VPN tunneling protocol (such as IPsec, OpenVPN, or WireGuard) after authentication succeeds",
+      "Routing table not properly updated after the tunnel attempts to establish",
+      "MTU (maximum transmission unit) size mismatch causing packets to be dropped silently",
+      "Conflicting network adapter or VPN software creating a routing conflict"
+    ],
+    "diagnostic_questions": [
+      "Does the VPN client show as fully connected, but no actual internet traffic works?",
+      "What specific VPN protocol is being used, such as IPsec, OpenVPN, SSL, or WireGuard?",
+      "Has this exact VPN connection worked before from this network, or is this a new setup?",
+      "Is any other VPN software or virtual network adapter installed that might conflict?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check whether a VPN virtual network adapter appears with a valid IP address after the tunnel attempt",
+        "expected_result": "VPN adapter present with a valid assigned IP address",
+        "abnormal_result": "No VPN adapter appears, or it has no valid IP, confirming the tunnel did not actually establish despite a 'connected' status"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check ipconfig /all for a VPN virtual adapter and confirm whether it received a valid IP address",
+        "reason": "Confirms whether the tunnel genuinely established at the network level, regardless of what the client's status indicator shows"
+      },
+      {
+        "step": 2,
+        "action": "Check firewall settings for rules that might specifically block the VPN's tunneling protocol, such as IPsec (UDP 500/4500) or OpenVPN's configured port",
+        "reason": "A firewall can allow the initial authentication handshake while still blocking the actual tunnel protocol traffic"
+      },
+      {
+        "step": 3,
+        "action": "Try lowering the MTU setting in the VPN client's advanced settings, if available",
+        "reason": "An MTU mismatch can cause larger packets to be silently dropped, breaking the tunnel's actual data flow even after a successful handshake"
+      },
+      {
+        "step": 4,
+        "action": "Check for and temporarily disable any other VPN software or virtual network adapters that might be conflicting",
+        "reason": "Multiple VPN or virtual networking tools can create routing conflicts that prevent a new tunnel from properly taking over traffic"
+      },
+      {
+        "step": 5,
+        "action": "Restart the computer to clear any stuck network adapter or routing table state from a previous failed attempt",
+        "reason": "Clears leftover configuration from prior connection attempts that could be interfering with a fresh tunnel"
+      },
+      {
+        "step": 6,
+        "action": "Try a different VPN protocol if the client and server support more than one option",
+        "reason": "Some protocols are more likely to be blocked by certain firewalls or networks than others"
+      }
+    ],
+    "possible_solutions": [
+      "Adjust firewall rules to allow the specific VPN tunneling protocol and ports",
+      "Lower the MTU setting in VPN client advanced settings",
+      "Disable conflicting VPN or virtual networking software",
+      "Restart the computer to clear stuck network state",
+      "Try a different VPN protocol if available"
+    ],
+    "prevention": [
+      "Document the specific ports and protocols required by the VPN for firewall configuration",
+      "Avoid running multiple VPN clients or virtual networking tools simultaneously",
+      "Test VPN tunnel functionality after any firewall changes"
+    ],
+    "keywords": [
+      "vpn connected but no internet",
+      "vpn tunnel not working",
+      "vpn shows connected no traffic"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": [
+      "NET-111",
+      "NET-099"
+    ]
+  },
+  {
+    "id": "NET-116",
+    "category": "Networking",
+    "subcategory": "VPN Problems",
+    "problem": "VPN DNS Issues",
+    "description": "The VPN connects and internet traffic flows, but DNS name resolution behaves incorrectly, either failing entirely, leaking outside the VPN, or resolving internal company names incorrectly.",
+    "symptoms": [
+      "Websites fail to load by name while connected to the VPN, though pinging IP addresses works fine",
+      "Internal company resources, like internal websites or file servers, cannot be reached by name while on VPN",
+      "DNS leak tests show the ISP's DNS server is being used instead of the VPN's DNS server"
+    ],
+    "possible_causes": [
+      "VPN client not configured to use the VPN's designated DNS server",
+      "Split tunneling configuration excluding DNS traffic from the tunnel unintentionally",
+      "Local DNS cache holding outdated entries from before connecting to the VPN",
+      "Operating system DNS settings conflicting with those pushed by the VPN"
+    ],
+    "diagnostic_questions": [
+      "Do regular public websites work fine using their IP address, but fail by name while on VPN?",
+      "Are internal company resources specifically failing to resolve by name while others work?",
+      "Has a DNS leak test been run to check which DNS server is actually being used while connected?",
+      "Is split tunneling enabled, and could it be unintentionally excluding DNS traffic from the VPN tunnel?"
+    ],
+    "commands": [
+      {
+        "command": "nslookup <internal_or_external_domain>",
+        "purpose": "Check which DNS server responds and whether it resolves the domain correctly while connected to the VPN",
+        "expected_result": "Resolves correctly using the VPN's intended DNS server",
+        "abnormal_result": "Fails to resolve, or resolves using an unexpected DNS server, such as the ISP's instead of the VPN's"
+      },
+      {
+        "command": "ipconfig /flushdns",
+        "purpose": "Clear the local DNS cache which may hold outdated entries from before the VPN connected",
+        "expected_result": "Cache successfully flushed",
+        "abnormal_result": "N/A - this is a corrective action"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Flush the local DNS cache after connecting to the VPN using ipconfig /flushdns",
+        "reason": "Clears any entries cached before the VPN connected, which could otherwise continue to be used incorrectly"
+      },
+      {
+        "step": 2,
+        "action": "Run nslookup on both an internal company domain and a public domain to see exactly which DNS server is responding and whether resolution succeeds",
+        "reason": "Pinpoints whether the issue is with DNS server selection, internal-only records, or a broader failure"
+      },
+      {
+        "step": 3,
+        "action": "Check the VPN client's settings for a DNS configuration option, ensuring it is set to use the VPN-provided DNS server rather than the local network's",
+        "reason": "Some VPN clients require this to be explicitly configured, especially for accessing internal-only company resources"
+      },
+      {
+        "step": 4,
+        "action": "If split tunneling is enabled, check whether it is unintentionally excluding DNS traffic from the tunnel",
+        "reason": "DNS queries need to go through the VPN tunnel specifically when resolving internal, VPN-only resources"
+      },
+      {
+        "step": 5,
+        "action": "Restart the VPN connection after making DNS configuration changes to ensure they are fully applied",
+        "reason": "DNS settings are often only fully applied at the time the tunnel is established"
+      }
+    ],
+    "possible_solutions": [
+      "Flush the DNS cache after connecting to the VPN",
+      "Configure the VPN client to use the VPN-provided DNS server",
+      "Adjust split tunneling settings to include DNS traffic",
+      "Restart the VPN connection after DNS configuration changes"
+    ],
+    "prevention": [
+      "Configure DNS settings correctly as part of initial VPN client setup",
+      "Periodically run DNS leak tests on security-sensitive VPN connections",
+      "Document required DNS configuration for accessing internal company resources"
+    ],
+    "keywords": [
+      "vpn dns not working",
+      "vpn cannot resolve internal names",
+      "vpn dns leak"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-051",
+      "NET-056"
+    ]
+  },
+  {
+    "id": "NET-117",
+    "category": "Networking",
+    "subcategory": "Proxy Problems",
+    "problem": "Proxy Server Unreachable",
+    "description": "The computer is configured to use a proxy server for internet access, but that proxy server cannot be reached, resulting in a complete loss of internet access through the browser and any proxy-aware applications.",
+    "symptoms": [
+      "Browser shows an error such as 'Unable to connect to the proxy server'",
+      "No websites load in any browser or application configured to use the proxy",
+      "Applications not using the proxy, if any, may still work normally"
+    ],
+    "possible_causes": [
+      "Proxy server is down or has crashed",
+      "Incorrect proxy server address or port configured",
+      "Network path to the proxy server is blocked or broken",
+      "Proxy server overloaded and not responding to new connections"
+    ],
+    "diagnostic_questions": [
+      "What is the configured proxy server address and port, and is it correct?",
+      "Is the proxy server on the local network, or hosted elsewhere?",
+      "Do other users on the same network also have proxy connectivity issues right now?",
+      "Does disabling the proxy temporarily restore direct internet access, confirming the proxy itself is the point of failure?"
+    ],
+    "commands": [
+      {
+        "command": "ping <proxy_server_address>",
+        "purpose": "Test basic network reachability to the configured proxy server",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout confirms the proxy server is unreachable at the network level"
+      },
+      {
+        "command": "telnet <proxy_server_address> <proxy_port>",
+        "purpose": "Test if the specific proxy port is open and accepting connections",
+        "expected_result": "Connection succeeds",
+        "abnormal_result": "Connection refused or times out, indicating the proxy service itself is not listening or is blocked"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the exact proxy server address and port currently configured on the computer",
+        "reason": "Ensures troubleshooting is directed at the correct, actual configured server rather than an assumption"
+      },
+      {
+        "step": 2,
+        "action": "Ping the proxy server address to test basic network reachability",
+        "reason": "Determines if the problem is a network path issue or specifically the proxy service itself"
+      },
+      {
+        "step": 3,
+        "action": "Test the specific proxy port using telnet to see if the proxy service is actually listening and accepting connections",
+        "reason": "A server can be reachable via ping while the specific proxy service on it has crashed or stopped"
+      },
+      {
+        "step": 4,
+        "action": "Check with other users or the network administrator whether the proxy server is known to be down for everyone",
+        "reason": "Determines if this is a widespread outage requiring administrator action, rather than a local configuration issue"
+      },
+      {
+        "step": 5,
+        "action": "Temporarily disable the proxy setting to confirm that direct internet access works, isolating the proxy itself as the specific point of failure",
+        "reason": "Confirms the underlying internet connection is fine and the proxy server is genuinely the blocking factor"
+      }
+    ],
+    "possible_solutions": [
+      "Wait for the proxy server to be restored if it is confirmed down administrator-side",
+      "Correct the proxy server address or port if misconfigured",
+      "Temporarily disable the proxy setting if direct access is acceptable and permitted",
+      "Escalate to the network administrator if the proxy server itself has failed"
+    ],
+    "prevention": [
+      "Monitor proxy server uptime and health on the administrator side",
+      "Document the correct proxy configuration for end users",
+      "Consider a backup or redundant proxy server for critical environments"
+    ],
+    "keywords": [
+      "proxy server unreachable",
+      "cannot connect to proxy server",
+      "proxy not responding"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "NET-118",
+      "NET-001"
+    ]
+  },
+  {
+    "id": "NET-118",
+    "category": "Networking",
+    "subcategory": "Proxy Problems",
+    "problem": "Incorrect Proxy Configuration",
+    "description": "The proxy settings configured on a computer or in a browser are wrong, causing internet access to fail or behave unexpectedly even though the actual proxy server, if reached, may be working fine.",
+    "symptoms": [
+      "Browser shows a proxy-related error even though the proxy server itself is confirmed to be online",
+      "Internet access works with the proxy disabled, but fails with it enabled using current settings",
+      "Websites load slowly, inconsistently, or with certificate warnings due to proxy misconfiguration"
+    ],
+    "possible_causes": [
+      "Wrong proxy server address or port entered",
+      "Proxy configured for the wrong protocol, such as HTTP settings applied where HTTPS or SOCKS is required",
+      "Automatic proxy configuration (PAC) script URL incorrect or unreachable",
+      "Proxy exceptions list not configured correctly, causing internal sites to also route through the proxy unnecessarily"
+    ],
+    "diagnostic_questions": [
+      "What proxy address, port, and protocol type are currently configured, and do they match what the administrator provided?",
+      "Is the proxy configured manually, or through an automatic configuration script (PAC file)?",
+      "Are there any exceptions configured, and are internal/local sites included in those exceptions appropriately?",
+      "Has the correct proxy configuration information been provided by the network administrator recently?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Obtain the correct, current proxy configuration details directly from the network administrator or official documentation",
+        "reason": "Ensures troubleshooting is working toward the actual correct target configuration rather than guessing"
+      },
+      {
+        "step": 2,
+        "action": "Compare the currently configured proxy address, port, and protocol against the correct values",
+        "reason": "Identifies the specific discrepancy causing the misconfiguration"
+      },
+      {
+        "step": 3,
+        "action": "If using an automatic configuration (PAC) script, verify the PAC file URL is correct and accessible",
+        "reason": "An incorrect or unreachable PAC file will prevent proper automatic proxy configuration from loading at all"
+      },
+      {
+        "step": 4,
+        "action": "Correct the proxy settings in the operating system's network settings and confirm the browser is set to use system proxy settings, or configure the browser directly if it manages its own settings separately",
+        "reason": "Ensures consistency between the operating system and browser configurations, avoiding a mismatch"
+      },
+      {
+        "step": 5,
+        "action": "Review and correct the proxy exceptions list to ensure internal/local resources are appropriately excluded from proxying if required",
+        "reason": "Prevents internal-only resources from failing due to being unnecessarily routed through an external-facing proxy"
+      },
+      {
+        "step": 6,
+        "action": "Restart the browser after making changes to ensure the new configuration is fully applied",
+        "reason": "Browsers often cache proxy settings and require a restart to pick up changes reliably"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the proxy server address, port, and protocol type",
+      "Fix an incorrect or unreachable PAC file URL",
+      "Update the proxy exceptions list appropriately",
+      "Ensure browser and system proxy settings are consistent",
+      "Restart the browser after making changes"
+    ],
+    "prevention": [
+      "Document correct proxy configuration details clearly for end users",
+      "Test proxy configuration changes on a single machine before wide deployment",
+      "Keep PAC file URLs stable and monitored for availability"
+    ],
+    "keywords": [
+      "incorrect proxy settings",
+      "proxy configuration wrong",
+      "wrong proxy address port"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-117",
+      "NET-120"
+    ]
+  },
+  {
+    "id": "NET-119",
+    "category": "Networking",
+    "subcategory": "Proxy Problems",
+    "problem": "Proxy Authentication Failed",
+    "description": "The proxy server requires a username and password to use it, but authentication is being rejected, preventing internet access even though the proxy server itself is reachable.",
+    "symptoms": [
+      "Browser repeatedly prompts for a proxy username and password, rejecting what is entered",
+      "Error message specifically mentions proxy authentication required or failed",
+      "Internet access fails specifically at the authentication step, not at basic connectivity"
+    ],
+    "possible_causes": [
+      "Incorrect username or password entered for the proxy",
+      "Account credentials expired or changed on the server side",
+      "Browser or application not properly passing saved credentials to the proxy on each request",
+      "Proxy authentication method not supported by the specific browser or application being used"
+    ],
+    "diagnostic_questions": [
+      "Are you certain the username and password being entered for the proxy are correct and current?",
+      "Have these credentials worked before, or is this a new proxy setup?",
+      "Does this happen in all browsers/applications, or just one specific one?",
+      "Has your account password been changed recently, which might not yet be reflected in saved proxy credentials?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Carefully re-enter the proxy username and password, checking for typos and case sensitivity",
+        "reason": "Simple credential entry errors are a common cause of repeated authentication rejection"
+      },
+      {
+        "step": 2,
+        "action": "Clear any saved/cached proxy credentials in the browser and enter them fresh when prompted",
+        "reason": "Outdated cached credentials, especially after a recent password change, will continue to fail until refreshed"
+      },
+      {
+        "step": 3,
+        "action": "Confirm with the network administrator whether the proxy account is active, unlocked, and using the expected authentication method",
+        "reason": "Account-level issues on the server side require administrator intervention and cannot be resolved by re-entering the same credentials"
+      },
+      {
+        "step": 4,
+        "action": "Test the same credentials in a different browser or application to determine if the issue is specific to one program's handling of proxy authentication",
+        "reason": "Some applications handle proxy authentication differently, and isolating this helps determine the true scope of the problem"
+      },
+      {
+        "step": 5,
+        "action": "Check if the proxy uses a specific authentication method, such as NTLM or Basic, and confirm the browser or application supports it",
+        "reason": "A mismatch in supported authentication methods will cause every attempt to fail regardless of how correct the credentials are"
+      }
+    ],
+    "possible_solutions": [
+      "Re-enter proxy credentials carefully",
+      "Clear cached proxy credentials and re-enter fresh",
+      "Confirm account status with the network administrator",
+      "Verify the browser/application supports the proxy's authentication method"
+    ],
+    "prevention": [
+      "Use a password manager to reduce credential entry errors",
+      "Update saved proxy credentials promptly after any password change",
+      "Document the proxy's required authentication method for reference"
+    ],
+    "keywords": [
+      "proxy authentication failed",
+      "proxy username password rejected",
+      "proxy login required error"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-117",
+      "NET-025"
+    ]
+  },
+  {
+    "id": "NET-120",
+    "category": "Networking",
+    "subcategory": "Proxy Problems",
+    "problem": "Browser Using Wrong Proxy",
+    "description": "A web browser is using an unintended or outdated proxy configuration, different from what the operating system or the user actually intends, causing inconsistent or failed internet access specifically in that browser.",
+    "symptoms": [
+      "One specific browser fails to access the internet or behaves differently, while other browsers or applications work normally",
+      "Browser's own proxy settings differ from the operating system's configured proxy",
+      "Websites that should be excluded via proxy exceptions still route through the proxy in this specific browser"
+    ],
+    "possible_causes": [
+      "Browser configured to use its own manual proxy settings instead of the system's settings",
+      "Browser extension silently changing or overriding proxy configuration",
+      "Old proxy settings cached in the browser from a previous network or job",
+      "Browser profile corruption affecting stored network settings"
+    ],
+    "diagnostic_questions": [
+      "Does this specific browser have its own separate proxy settings, distinct from the operating system's configuration?",
+      "Are any browser extensions installed that could affect network or proxy settings, such as ad blockers or VPN-related extensions?",
+      "Does the problem follow this specific browser even when tested on a different network?",
+      "Have you recently changed networks or jobs, potentially leaving behind an outdated proxy configuration in this browser?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the specific browser's own network/proxy settings and compare them against the operating system's configured proxy",
+        "reason": "Reveals whether the browser is using its own separate, possibly outdated, configuration instead of following the system settings"
+      },
+      {
+        "step": 2,
+        "action": "Set the browser to use the system's proxy settings if it offers this option, rather than maintaining a separate manual configuration",
+        "reason": "Ensures consistency and reduces the chance of the browser drifting out of sync with the correct, current proxy configuration"
+      },
+      {
+        "step": 3,
+        "action": "Check installed browser extensions for anything that could be modifying proxy or network settings, and disable them one at a time to test",
+        "reason": "Some extensions, particularly those related to privacy, ad blocking, or VPN services, can silently override proxy configuration"
+      },
+      {
+        "step": 4,
+        "action": "Clear the browser's cached network configuration or reset browser settings to default, then reconfigure the correct proxy settings fresh",
+        "reason": "Removes any lingering incorrect configuration from a previous network or job that may still be cached"
+      },
+      {
+        "step": 5,
+        "action": "Test in a new browser profile to rule out a corrupted profile as the source of the incorrect proxy behavior",
+        "reason": "A damaged profile can retain incorrect settings even after attempts to change them through the normal settings interface"
+      }
+    ],
+    "possible_solutions": [
+      "Set the browser to use system proxy settings rather than its own separate configuration",
+      "Disable browser extensions that may be overriding proxy settings",
+      "Reset browser network settings to default and reconfigure correctly",
+      "Create a new browser profile to rule out profile corruption"
+    ],
+    "prevention": [
+      "Prefer system-wide proxy configuration over per-browser settings where possible",
+      "Review browser extensions periodically for unintended network behavior changes",
+      "Update browser proxy settings promptly after any network or job change"
+    ],
+    "keywords": [
+      "browser wrong proxy settings",
+      "browser not using system proxy",
+      "one browser proxy issue"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-118",
+      "NET-054"
+    ]
+  },
+  {
+    "id": "NET-121",
+    "category": "Networking",
+    "subcategory": "Shared Folder Problems",
+    "problem": "Network Path Not Found",
+    "description": "Attempting to access a shared folder by its network path results in a specific 'network path was not found' error, distinct from a permissions-related access denial.",
+    "symptoms": [
+      "Error message specifically states 'The network path was not found'",
+      "Typing the path manually, such as \\\\ComputerName\\ShareName, fails immediately",
+      "The folder does not appear when browsing network locations either"
+    ],
+    "possible_causes": [
+      "The host computer sharing the folder is turned off, asleep, or disconnected from the network",
+      "The computer name in the path is incorrect or cannot be resolved",
+      "The specific folder is no longer being shared, even if the computer itself is online",
+      "Name resolution (NetBIOS or DNS) is not working for the host computer's name"
+    ],
+    "diagnostic_questions": [
+      "Is the host computer confirmed to be powered on and connected to the network right now?",
+      "Is the exact computer name in the path spelled correctly, and does it still match the host computer's actual current name?",
+      "Does using the host computer's IP address instead of its name make any difference?",
+      "Was this share working before, and did anything change, such as the host computer being renamed or reinstalled?"
+    ],
+    "commands": [
+      {
+        "command": "ping <host_computer_name>",
+        "purpose": "Test whether the host computer's name resolves to an IP address and responds",
+        "expected_result": "Replies received, confirming the name resolves and the computer is reachable",
+        "abnormal_result": "'Ping request could not find host' indicates a name resolution failure, while a timeout after resolving suggests the computer itself is unreachable"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the host computer is powered on, awake, and connected to the network",
+        "reason": "A shared folder is completely unavailable while the hosting computer is off, asleep, or disconnected"
+      },
+      {
+        "step": 2,
+        "action": "Ping the host computer's name to test whether the name resolves and the computer responds",
+        "reason": "Distinguishes between a name resolution problem and the computer genuinely being unreachable"
+      },
+      {
+        "step": 3,
+        "action": "Try accessing the share using the host computer's IP address instead of its name, such as \\\\192.168.1.50\\ShareName",
+        "reason": "If this works while the name-based path fails, the problem is specifically with name resolution rather than the share itself"
+      },
+      {
+        "step": 4,
+        "action": "On the host computer, confirm the specific folder is still actively shared and has not been un-shared or moved",
+        "reason": "A folder can stop being shared even while the host computer itself remains online and reachable"
+      },
+      {
+        "step": 5,
+        "action": "If name resolution is confirmed as the issue, check DNS settings or consider adding a manual host entry as a workaround",
+        "reason": "Resolves the underlying name resolution failure so the path can be used normally going forward"
+      }
+    ],
+    "possible_solutions": [
+      "Confirm the host computer is on and connected",
+      "Access the share using its IP address instead of computer name if name resolution fails",
+      "Re-share the folder on the host computer if it is no longer shared",
+      "Fix DNS or add a manual host entry to resolve a name resolution failure"
+    ],
+    "prevention": [
+      "Keep host computers awake and connected during business hours if shares are regularly needed",
+      "Use consistent, documented computer names for shared resources",
+      "Consider DHCP reservations or static IPs for frequently accessed file-sharing computers"
+    ],
+    "keywords": [
+      "network path not found error",
+      "cannot find shared computer",
+      "unc path not found"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "GRN-012",
+      "NET-124"
+    ]
+  },
+  {
+    "id": "NET-122",
+    "category": "Networking",
+    "subcategory": "Shared Folder Problems",
+    "problem": "Permission Denied Accessing Shared Folder",
+    "description": "The shared folder is found and the host computer is reachable, but the specific user account does not have sufficient permission to open, read, or write to it.",
+    "symptoms": [
+      "Error message specifically states 'Permission denied' or similar wording distinct from 'Access is denied'",
+      "The folder or computer is reachable and visible, but its contents cannot be opened",
+      "Some files or subfolders within the share may be accessible while others are not"
+    ],
+    "possible_causes": [
+      "User account not included in the folder's NTFS or share-level permissions",
+      "Permissions were changed or removed since the user last accessed the folder",
+      "User is logged in with a different account than the one granted access",
+      "Permission inheritance broken on a specific subfolder within the share"
+    ],
+    "diagnostic_questions": [
+      "What exact permission level does the error suggest is missing, such as read versus write access?",
+      "Is the user logged in with the same account that was originally granted access to this folder?",
+      "Have folder permissions been recently changed by an administrator?",
+      "Does the problem affect the entire share, or only specific subfolders or files within it?"
+    ],
+    "commands": [
+      {
+        "command": "net use \\\\<computer_name>\\<share_name>",
+        "purpose": "Attempt to connect to the shared folder directly to see a more detailed permissions-related error",
+        "expected_result": "Connects successfully",
+        "abnormal_result": "A specific system error number is returned, which can be looked up for more precise detail on the permission problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the user is logged in with the correct account that was intended to have access to this specific folder",
+        "reason": "Users are sometimes logged in with a different account than expected, especially on shared or multi-user computers"
+      },
+      {
+        "step": 2,
+        "action": "On the host computer, check both the share-level permissions and the underlying NTFS folder permissions for the affected user or group",
+        "reason": "Windows uses two separate permission layers for shared folders, and both must allow the required access; the more restrictive of the two always wins"
+      },
+      {
+        "step": 3,
+        "action": "Add or correct the user's permission level on whichever layer is found to be insufficient",
+        "reason": "Directly grants the access the user actually needs"
+      },
+      {
+        "step": 4,
+        "action": "Check for broken permission inheritance on specific subfolders if only part of the share is inaccessible",
+        "reason": "A subfolder can have its own separate, more restrictive permissions that override the parent folder's settings"
+      },
+      {
+        "step": 5,
+        "action": "Have the user disconnect and reconnect to the share, or restart their computer, after permissions are corrected",
+        "reason": "Cached credentials or connection state can sometimes prevent newly granted permissions from being immediately recognized"
+      }
+    ],
+    "possible_solutions": [
+      "Add the user to the folder's share and NTFS permissions with the appropriate access level",
+      "Correct broken permission inheritance on specific subfolders",
+      "Have the user log in with the correct, authorized account",
+      "Reconnect to the share after permissions are updated"
+    ],
+    "prevention": [
+      "Document required permissions for each shared folder clearly",
+      "Use security groups rather than individual user permissions for easier management",
+      "Regularly audit shared folder permissions for accuracy"
+    ],
+    "keywords": [
+      "permission denied shared folder",
+      "insufficient permissions network share",
+      "cannot open shared folder access"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "GRN-012",
+      "NET-123"
+    ]
+  },
+  {
+    "id": "NET-123",
+    "category": "Networking",
+    "subcategory": "Shared Folder Problems",
+    "problem": "Access Denied to Shared Folder",
+    "description": "A general 'Access is denied' error appears when trying to reach a shared folder, which can stem from several different underlying causes beyond simple file permissions.",
+    "symptoms": [
+      "Error message specifically states 'Access is denied'",
+      "May occur immediately when trying to open the share, or when authenticating to it",
+      "Different from a 'network path not found' error, since the computer/share is at least being reached"
+    ],
+    "possible_causes": [
+      "File and printer sharing disabled entirely on the host computer",
+      "Firewall blocking the SMB/file sharing protocol between the two computers",
+      "Incorrect credentials cached from a previous, different account",
+      "Security policy restrictions, such as guest access being disabled, blocking anonymous or guest-level connections"
+    ],
+    "diagnostic_questions": [
+      "Does the error appear immediately, or after attempting to enter credentials?",
+      "Is file and printer sharing confirmed to be turned on in the host computer's network settings?",
+      "Could there be cached credentials from a different account causing an automatic, incorrect login attempt?",
+      "Is guest or anonymous access being attempted, and is that type of access allowed on the host computer?"
+    ],
+    "commands": [
+      {
+        "command": "net use \\\\<computer_name>\\<share_name> /user:<username>",
+        "purpose": "Attempt to connect while explicitly specifying credentials, bypassing any incorrect cached ones",
+        "expected_result": "Prompts for a password and connects successfully",
+        "abnormal_result": "Still returns access denied even with fresh, correct credentials specified, pointing to a sharing or firewall configuration issue rather than a credentials problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "On the host computer, confirm that file and printer sharing is turned on in the network and sharing settings",
+        "reason": "If sharing is disabled at this system-wide level, no folder on that computer can be accessed regardless of individual folder permissions"
+      },
+      {
+        "step": 2,
+        "action": "Clear any cached credentials for the host computer using Credential Manager, then try connecting again with fresh credentials",
+        "reason": "Windows can automatically attempt a login with outdated cached credentials from a different account, causing a denial before the correct credentials are even tried"
+      },
+      {
+        "step": 3,
+        "action": "Check both computers' firewalls to confirm the 'File and Printer Sharing' rule is allowed",
+        "reason": "A firewall silently blocking SMB traffic will produce an access denied type error even though the share itself is properly configured"
+      },
+      {
+        "step": 4,
+        "action": "Check the host computer's local security policy for any restrictions on guest access if the share is intended to allow anonymous connections",
+        "reason": "Modern Windows versions restrict guest access by default, which can cause access denied errors for shares that rely on it"
+      },
+      {
+        "step": 5,
+        "action": "Try connecting using net use with explicit credentials specified, to rule out cached credential interference",
+        "reason": "Provides a clean test that bypasses any automatically attempted, potentially incorrect cached login"
+      }
+    ],
+    "possible_solutions": [
+      "Enable file and printer sharing on the host computer",
+      "Clear cached credentials in Credential Manager and reconnect fresh",
+      "Allow File and Printer Sharing through both computers' firewalls",
+      "Adjust guest access security policy if anonymous access is intended",
+      "Connect using explicit credentials to bypass cached ones"
+    ],
+    "prevention": [
+      "Keep file and printer sharing consistently enabled on hosts with active shares",
+      "Avoid relying on guest/anonymous access for shared folders when possible",
+      "Periodically clear outdated cached credentials on frequently used computers"
+    ],
+    "keywords": [
+      "access is denied shared folder error",
+      "cannot access network share denied",
+      "smb access denied"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-122",
+      "GRN-012"
+    ]
+  },
+  {
+    "id": "NET-124",
+    "category": "Networking",
+    "subcategory": "Shared Folder Problems",
+    "problem": "Shared Folder Offline",
+    "description": "A previously mapped or bookmarked shared folder shows as 'offline' or unavailable, typically because the host computer is currently unreachable, distinct from a permissions or configuration problem.",
+    "symptoms": [
+      "Mapped network drive shows a red X or 'disconnected' icon in File Explorer",
+      "Folder was accessible before but now shows as offline",
+      "Attempting to open it results in a message about the location being unavailable"
+    ],
+    "possible_causes": [
+      "Host computer is turned off, asleep, or has been disconnected from the network",
+      "Host computer's IP address changed and the mapped drive is still pointing to the old address",
+      "Network path between the two computers is currently broken",
+      "Offline Files feature caching an older, disconnected state"
+    ],
+    "diagnostic_questions": [
+      "Is the host computer confirmed to be powered on and connected to the network right now?",
+      "Was this shared folder accessed successfully recently, or has it been offline for an extended period?",
+      "Does the host computer use a static IP, or could its address have changed?",
+      "Is the Offline Files feature enabled for this network location?"
+    ],
+    "commands": [
+      {
+        "command": "ping <host_computer_name_or_ip>",
+        "purpose": "Test whether the host computer is currently reachable on the network",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout confirms the host computer is currently unreachable, explaining the offline status"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the host computer is powered on, awake, and connected to the network",
+        "reason": "This is the most common and straightforward cause of a shared folder showing as offline"
+      },
+      {
+        "step": 2,
+        "action": "Ping the host computer to confirm current reachability",
+        "reason": "Provides a definitive, quick test of whether the host is currently available on the network"
+      },
+      {
+        "step": 3,
+        "action": "If the host computer's IP address may have changed, remap the network drive using its current address or, preferably, its computer name",
+        "reason": "A mapped drive pointing to an outdated IP address will show offline even though the host computer itself is fine"
+      },
+      {
+        "step": 4,
+        "action": "Right-click the offline mapped drive and try to reconnect or refresh it",
+        "reason": "Sometimes a simple reconnect attempt resolves a temporary offline state without further troubleshooting"
+      },
+      {
+        "step": 5,
+        "action": "Check if the Offline Files feature is enabled and review its sync status, since this feature can sometimes keep showing a stale offline state",
+        "reason": "Offline Files is designed to cache content for use without a connection, but its sync status can become confusing if not properly understood or configured"
+      }
+    ],
+    "possible_solutions": [
+      "Confirm the host computer is on and connected, then reconnect",
+      "Remap the drive using the host's current IP address or, preferably, its computer name",
+      "Right-click and attempt to reconnect the offline mapped drive",
+      "Review Offline Files sync settings if that feature is in use"
+    ],
+    "prevention": [
+      "Use computer names rather than static IP addresses when mapping drives, to be resilient to IP changes",
+      "Keep frequently used host computers powered on during business hours",
+      "Periodically verify mapped drives are still pointing to valid, current locations"
+    ],
+    "keywords": [
+      "mapped drive shows offline",
+      "shared folder unavailable offline",
+      "network drive disconnected icon"
+    ],
+    "difficulty": "Beginner to Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-121",
+      "NET-125"
+    ]
+  },
+  {
+    "id": "NET-125",
+    "category": "Networking",
+    "subcategory": "Shared Folder Problems",
+    "problem": "Drive Mapping Failed",
+    "description": "An attempt to map a network drive to a shared folder fails with an error, so the drive letter is never successfully created or connected.",
+    "symptoms": [
+      "Error appears immediately when attempting to map the network drive",
+      "The drive letter either does not appear at all, or appears with a disconnected/error icon",
+      "Manually browsing to the same shared folder path may or may not work"
+    ],
+    "possible_causes": [
+      "Incorrect network path entered during the mapping process",
+      "Drive letter already in use by another mapped drive or device",
+      "Credentials required for the share were not provided or were incorrect during mapping",
+      "Group Policy restricting the ability to map network drives on this computer"
+    ],
+    "diagnostic_questions": [
+      "What exact error message or code appears when attempting to map the drive?",
+      "Is the network path being used exactly correct, including the correct computer name and share name?",
+      "Is the chosen drive letter already in use by something else?",
+      "Is this a personal computer, or a managed work/school computer that might have restrictions on drive mapping?"
+    ],
+    "commands": [
+      {
+        "command": "net use Z: \\\\<computer_name>\\<share_name> /persistent:yes",
+        "purpose": "Attempt to map the drive manually via command line to see a more detailed error message",
+        "expected_result": "Command completes successfully, confirming the drive is mapped",
+        "abnormal_result": "A specific system error number is returned, providing more detail than the graphical mapping tool typically shows"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Verify the exact network path being used is correct, including precise computer and share names",
+        "reason": "A typo in the path is a very common and simple cause of a failed mapping attempt"
+      },
+      {
+        "step": 2,
+        "action": "Try a different, unused drive letter if the chosen one might already be in use",
+        "reason": "Windows cannot map a drive to a letter that is already assigned to something else"
+      },
+      {
+        "step": 3,
+        "action": "Use the net use command with explicit credentials to attempt the mapping and view a more detailed error message",
+        "reason": "The command line often provides more specific error information than the graphical 'Map Network Drive' dialog"
+      },
+      {
+        "step": 4,
+        "action": "Confirm basic connectivity and permissions to the target share work when accessed directly via its path, separate from the mapping process itself",
+        "reason": "Isolates whether the problem is specifically with the mapping process or with reaching/accessing the share at all"
+      },
+      {
+        "step": 5,
+        "action": "On managed work or school computers, check with IT whether Group Policy restricts drive mapping",
+        "reason": "Some organizations intentionally restrict this capability, which would explain a consistent failure regardless of correct technical configuration"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the network path used for mapping",
+      "Choose a different, unused drive letter",
+      "Use net use with explicit credentials for a more detailed error and successful mapping",
+      "Confirm with IT whether Group Policy is restricting drive mapping on a managed device"
+    ],
+    "prevention": [
+      "Double-check paths and drive letters before attempting to map",
+      "Document standard drive mappings for consistency across an office",
+      "Check Group Policy restrictions before troubleshooting further on managed devices"
+    ],
+    "keywords": [
+      "map network drive failed",
+      "cannot map network drive error",
+      "drive mapping not working"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-124",
+      "NET-123"
+    ]
+  },
+  {
+    "id": "NET-126",
+    "category": "Networking",
+    "subcategory": "Shared Folder Problems",
+    "problem": "Shared Folder Requires Credentials Repeatedly",
+    "description": "Windows repeatedly prompts for a username and password every time a shared folder is accessed, even after successfully entering correct credentials, instead of remembering them as expected.",
+    "symptoms": [
+      "Login prompt for the shared folder reappears every session, or even multiple times within the same session",
+      "Checking 'Remember my credentials' does not appear to have any lasting effect",
+      "Credentials that are entered are accepted, but are not retained for next time"
+    ],
+    "possible_causes": [
+      "'Remember my credentials' option not properly saving due to a Group Policy restriction",
+      "Credential Manager entry for this computer is corrupted or conflicting with a newer entry",
+      "The host computer's account password has changed, invalidating the previously saved credentials each time",
+      "Network sign-in options or security policy preventing credential persistence for network resources"
+    ],
+    "diagnostic_questions": [
+      "Is the 'Remember my credentials' checkbox being selected when entering the login details?",
+      "Has the account password on the host computer's side changed recently?",
+      "Is this a personal or a managed work/school computer that might have policies affecting credential saving?",
+      "Does checking Credential Manager show an existing, possibly outdated, entry for this specific host computer?"
+    ],
+    "commands": [
+      {
+        "command": "control /name Microsoft.CredentialManager",
+        "purpose": "Open Credential Manager to view and manage saved credentials for network resources",
+        "expected_result": "Shows a valid, current saved credential entry for the host computer",
+        "abnormal_result": "Shows no entry, or an entry that appears outdated, explaining why credentials are not being remembered correctly"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Credential Manager and check for an existing entry related to the host computer",
+        "reason": "Reveals whether a saved credential exists at all, and whether it might be outdated or corrupted"
+      },
+      {
+        "step": 2,
+        "action": "Remove any existing, potentially outdated entry for this host computer from Credential Manager",
+        "reason": "Clears a stale or corrupted entry that may be silently failing and causing the repeated prompts"
+      },
+      {
+        "step": 3,
+        "action": "Reconnect to the shared folder, carefully entering the current correct credentials and ensuring 'Remember my credentials' is checked",
+        "reason": "Creates a fresh, correct credential entry going forward"
+      },
+      {
+        "step": 4,
+        "action": "Confirm the account password on the host computer's side has not changed without the saved credentials being updated to match",
+        "reason": "A password change on the host side will invalidate previously saved credentials, causing them to fail silently and prompt again each time"
+      },
+      {
+        "step": 5,
+        "action": "On managed work or school computers, check with IT whether a security policy is intentionally preventing credential persistence for network resources",
+        "reason": "Some organizations enforce this behavior deliberately for security reasons, which would explain the behavior even with correct technical steps"
+      }
+    ],
+    "possible_solutions": [
+      "Remove the outdated Credential Manager entry and reconnect with fresh credentials",
+      "Ensure 'Remember my credentials' is checked when connecting",
+      "Update saved credentials if the host account's password has changed",
+      "Check with IT about credential persistence policies on managed devices"
+    ],
+    "prevention": [
+      "Keep saved network credentials updated promptly after any password change",
+      "Periodically review Credential Manager for outdated entries",
+      "Document any organizational policies affecting credential saving for shared resources"
+    ],
+    "keywords": [
+      "shared folder keeps asking for password",
+      "remember credentials not working windows",
+      "network share login prompt every time"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-122",
+      "NET-123"
+    ]
+  },
+  {
+    "id": "NET-127",
+    "category": "Networking",
+    "subcategory": "File Server Problems",
+    "problem": "Cannot Connect to File Server",
+    "description": "Users across the organization, or a specific department, cannot connect to a dedicated file server at all, distinct from an individual user's single shared folder issue on a regular workstation.",
+    "symptoms": [
+      "Multiple users report being unable to reach the file server simultaneously",
+      "Error appears when trying to access any share hosted on the file server, not just one specific folder",
+      "Server may or may not respond to basic network tests like ping"
+    ],
+    "possible_causes": [
+      "File server is powered off, crashed, or rebooting",
+      "File server's network connection has failed",
+      "File sharing service (such as the Server service on Windows Server) has stopped on the file server",
+      "Network switch or cabling issue between users and the file server",
+      "File server has reached its maximum concurrent connection limit"
+    ],
+    "diagnostic_questions": [
+      "Are multiple users affected, or just one, which would suggest an individual workstation issue instead?",
+      "Does the file server respond to a basic ping test?",
+      "Can the file server's own local console be accessed to check its status directly?",
+      "Has any maintenance, update, or configuration change been performed on the file server recently?"
+    ],
+    "commands": [
+      {
+        "command": "ping <file_server_address>",
+        "purpose": "Test basic network reachability to the file server",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout suggests the server is powered off, crashed, or has a network connectivity problem"
+      },
+      {
+        "command": "net view \\\\<file_server_name>",
+        "purpose": "List available shares on the file server to test SMB-level connectivity beyond basic ping",
+        "expected_result": "Shows a list of available shared folders",
+        "abnormal_result": "Error returned even though ping succeeds, suggesting the file sharing service itself has an issue on the server"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether multiple users across different workstations are affected, establishing this as a server-wide issue rather than an individual workstation problem",
+        "reason": "Directs troubleshooting effort appropriately toward the server itself rather than individual client configurations"
+      },
+      {
+        "step": 2,
+        "action": "Ping the file server to test basic network reachability",
+        "reason": "Quickly determines whether the server is even reachable on the network at the most basic level"
+      },
+      {
+        "step": 3,
+        "action": "If reachable via ping, test SMB-level connectivity specifically using net view to see if the file sharing service itself is responding",
+        "reason": "A server can respond to ping while its actual file sharing service has stopped or become unresponsive"
+      },
+      {
+        "step": 4,
+        "action": "If possible, check the file server's local console directly for any error messages, resource exhaustion, or service status",
+        "reason": "Provides the most direct and detailed information about what is actually happening on the server itself"
+      },
+      {
+        "step": 5,
+        "action": "Restart the file sharing service on the server if it is found to be stopped, or restart the server entirely if it is unresponsive at the console",
+        "reason": "Resolves the immediate outage, restoring access for all affected users"
+      },
+      {
+        "step": 6,
+        "action": "Check network switch and cabling between the server and the rest of the network if the server itself appears healthy but remains unreachable",
+        "reason": "Isolates a network infrastructure problem as distinct from an issue with the server itself"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the file sharing service on the server",
+      "Restart the file server if it is unresponsive",
+      "Check and repair network connectivity between the server and the network",
+      "Investigate and resolve resource exhaustion or connection limits on the server"
+    ],
+    "prevention": [
+      "Monitor file server health and service uptime proactively",
+      "Keep the file server's network connection on reliable, high-quality equipment",
+      "Plan maintenance windows for file server updates to minimize user impact"
+    ],
+    "keywords": [
+      "cannot connect to file server",
+      "file server unreachable all users",
+      "file server down"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "NET-128",
+      "GRN-012"
+    ]
+  },
+  {
+    "id": "NET-128",
+    "category": "Networking",
+    "subcategory": "File Server Problems",
+    "problem": "File Server Offline",
+    "description": "The dedicated file server itself is confirmed to be completely offline, not merely experiencing a service-level issue, requiring investigation into why the physical or virtual server is down.",
+    "symptoms": [
+      "File server does not respond to ping at all",
+      "Server's own console, if physically or remotely accessible, shows it is powered off or not booting",
+      "All file sharing, and potentially other services hosted on the same server, are simultaneously unavailable"
+    ],
+    "possible_causes": [
+      "Server lost power or experienced a hardware failure",
+      "Server crashed and failed to boot back up automatically",
+      "Virtual machine host issue, if the file server is virtualized, causing the VM itself to be down",
+      "Scheduled maintenance or an update that failed to complete properly, leaving the server in a down state"
+    ],
+    "diagnostic_questions": [
+      "Is this a physical server or a virtual machine, and if virtual, is the underlying host healthy?",
+      "Was any maintenance, patching, or update scheduled around the time the server went offline?",
+      "Can the server be reached through an out-of-band management tool, such as iDRAC, iLO, or a hypervisor console?",
+      "Did the server lose power, or is there any indication of a hardware fault?"
+    ],
+    "commands": [
+      {
+        "command": "ping <file_server_address>",
+        "purpose": "Confirm the server is indeed completely unreachable at the network level",
+        "expected_result": "Replies received",
+        "abnormal_result": "Complete timeout, confirming the server is offline rather than experiencing a more limited service-level issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Attempt to reach the server through an out-of-band management interface, such as a hypervisor console for a virtual machine, or a hardware management card for a physical server",
+        "reason": "Provides visibility into the server's actual power and boot state, even when standard network access has failed"
+      },
+      {
+        "step": 2,
+        "action": "Check for any scheduled maintenance, patching, or updates that were occurring around the time the server went offline",
+        "reason": "Identifies whether this is related to a planned but failed maintenance activity rather than an unexpected failure"
+      },
+      {
+        "step": 3,
+        "action": "For a virtual machine, confirm the underlying virtualization host is healthy and the VM itself has not been accidentally powered off or is stuck in an error state",
+        "reason": "A virtual file server's availability depends entirely on the health of its underlying host and hypervisor"
+      },
+      {
+        "step": 4,
+        "action": "For a physical server, check for any visible hardware fault indicators, such as error lights, and confirm it is receiving power",
+        "reason": "Identifies whether this is a straightforward power issue or a more serious hardware failure"
+      },
+      {
+        "step": 5,
+        "action": "Power the server back on through the appropriate management interface, and closely monitor the boot process for any errors",
+        "reason": "Attempts to restore service while gathering information about what caused the outage in the first place"
+      },
+      {
+        "step": 6,
+        "action": "Once back online, review server logs for the time period leading up to the outage to determine the root cause",
+        "reason": "Helps prevent a recurrence by identifying whether this was a one-time event or an indication of a developing hardware or software problem"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the server through its management console",
+      "Resolve underlying hypervisor or virtualization host issues for virtual file servers",
+      "Address any hardware faults found on physical servers",
+      "Complete or roll back a failed maintenance update"
+    ],
+    "prevention": [
+      "Use a UPS to protect file servers from power-related outages",
+      "Monitor server health and hardware status proactively with alerting",
+      "Schedule and communicate maintenance windows clearly to avoid confusion during planned outages"
+    ],
+    "keywords": [
+      "file server completely offline",
+      "file server not booting",
+      "file server down for maintenance"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-90 minutes",
+    "related_problems": [
+      "NET-127",
+      "HW-001"
+    ]
+  },
+  {
+    "id": "NET-129",
+    "category": "Networking",
+    "subcategory": "File Server Problems",
+    "problem": "File Server Slow",
+    "description": "The file server is online and accessible, but file transfers, folder browsing, and file operations are all noticeably slower than normal, affecting multiple users.",
+    "symptoms": [
+      "Copying or opening files from the server takes much longer than usual",
+      "Browsing folders on the server feels sluggish or delayed",
+      "Multiple users report the same slowness at the same time, ruling out an individual workstation issue"
+    ],
+    "possible_causes": [
+      "File server's storage (disk array) is under heavy load or nearing capacity",
+      "Network link between the server and the switch is saturated or degraded",
+      "Server itself is under heavy CPU or memory load from other processes",
+      "Antivirus scanning on the server scanning files in real time, adding significant overhead",
+      "Too many simultaneous users or large file transfers competing for the same resources"
+    ],
+    "diagnostic_questions": [
+      "Are multiple users experiencing the slowness at the same time, or is this isolated to one person?",
+      "Does the slowness affect all shares on the server, or just a specific one?",
+      "Is there a specific time of day when this is worse, such as during backups or peak usage hours?",
+      "Has the server's storage or network connection been checked for current utilization levels?"
+    ],
+    "commands": [
+      {
+        "command": "ping <file_server_address> -n 20",
+        "purpose": "Check for elevated latency to the server itself, which could indicate network-level congestion",
+        "expected_result": "Consistent, low latency",
+        "abnormal_result": "Elevated or inconsistent latency, suggesting network congestion between clients and the server"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether multiple users are affected at the same time to establish this as a server or network-wide issue rather than an individual client problem",
+        "reason": "Directs troubleshooting toward the server or shared network infrastructure rather than a single workstation"
+      },
+      {
+        "step": 2,
+        "action": "Check the file server's current CPU, memory, and disk utilization directly on the server if possible",
+        "reason": "Identifies whether the server itself is under heavy load, which would explain widespread slowness"
+      },
+      {
+        "step": 3,
+        "action": "Check whether a backup job, antivirus scan, or other scheduled task is currently running on the server",
+        "reason": "Resource-intensive scheduled tasks are a very common and often overlooked cause of temporary server-wide slowness"
+      },
+      {
+        "step": 4,
+        "action": "Check the network link utilization between the server and the core switch for signs of saturation",
+        "reason": "A saturated network link will cause slowness for all users regardless of how well the server itself is performing internally"
+      },
+      {
+        "step": 5,
+        "action": "Review antivirus real-time scanning configuration on the server to confirm it is not scanning every file access unnecessarily on high-traffic data volumes",
+        "reason": "Real-time scanning of file server data can add significant overhead to every single file operation if not properly configured with appropriate exclusions"
+      },
+      {
+        "step": 6,
+        "action": "If the server is consistently near capacity rather than just temporarily busy, plan for a storage, network, or hardware upgrade, or redistribute shares across additional servers",
+        "reason": "Addresses a genuine, ongoing capacity problem that temporary fixes cannot resolve long-term"
+      }
+    ],
+    "possible_solutions": [
+      "Investigate and address high resource utilization on the file server",
+      "Schedule resource-intensive tasks like backups outside of peak usage hours",
+      "Adjust antivirus real-time scanning exclusions for the file server's data volumes",
+      "Upgrade server storage or networking if consistently saturated",
+      "Balance user/share load across multiple servers if a single server is overloaded"
+    ],
+    "prevention": [
+      "Monitor file server performance metrics proactively",
+      "Schedule backups and maintenance during off-peak hours",
+      "Plan server capacity with growth in mind",
+      "Configure antivirus exclusions appropriately for file server workloads"
+    ],
+    "keywords": [
+      "file server slow performance",
+      "slow file transfers from server",
+      "file server sluggish multiple users"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "NET-127",
+      "NET-004"
+    ]
+  },
+  {
+    "id": "NET-130",
+    "category": "Networking",
+    "subcategory": "File Server Problems",
+    "problem": "SMB Authentication Failed",
+    "description": "Users cannot authenticate to the file server's SMB (Server Message Block) shares, receiving an authentication error even though basic network connectivity to the server is confirmed working.",
+    "symptoms": [
+      "Error specifically mentions authentication failure when connecting to file server shares",
+      "Basic connectivity to the server, such as ping, works fine",
+      "May affect one user, a specific group, or many users depending on the underlying cause"
+    ],
+    "possible_causes": [
+      "User account credentials incorrect, expired, or locked out",
+      "SMB protocol version mismatch between client and server, particularly with older or newer SMB versions being disabled for security",
+      "Domain trust or connectivity issue preventing proper authentication against a domain controller",
+      "NTLM authentication disabled or restricted on the server for security reasons, affecting non-domain or older clients"
+    ],
+    "diagnostic_questions": [
+      "Does this affect one specific user, a group of users, or everyone trying to connect?",
+      "Are affected client computers domain-joined, or are they connecting from outside the domain?",
+      "Has the server's SMB configuration been recently changed, such as disabling older SMB versions or NTLM?",
+      "Can affected users successfully authenticate to other domain resources, ruling out a broader account issue?"
+    ],
+    "commands": [
+      {
+        "command": "nltest /sc_query:<domain_name>",
+        "purpose": "Check the secure channel status between an affected client computer and the domain, if this is a domain environment",
+        "expected_result": "Trust test completes successfully",
+        "abnormal_result": "Failure indicates a broken trust relationship that would also explain SMB authentication failures for that specific computer"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the scope of the problem, whether it affects one user, a specific group, or everyone attempting to connect",
+        "reason": "Narrows down whether this is an individual account issue or a broader server-side configuration problem"
+      },
+      {
+        "step": 2,
+        "action": "For an individual user, verify their account is not locked, expired, or using an outdated cached password",
+        "reason": "Account-level issues are the most common cause of authentication failure for a single affected user"
+      },
+      {
+        "step": 3,
+        "action": "Check whether the server's SMB configuration was recently changed, such as disabling SMBv1 or restricting NTLM authentication",
+        "reason": "Security hardening changes on the server can break authentication for clients that only support older protocols, which is a common and often unexpected side effect"
+      },
+      {
+        "step": 4,
+        "action": "For domain-joined clients, check the computer's trust relationship with the domain, since a broken trust will also cause SMB authentication failures alongside regular domain login issues",
+        "reason": "A single underlying trust problem can manifest as authentication failures across multiple different services, including file shares"
+      },
+      {
+        "step": 5,
+        "action": "Review server-side security logs for the specific reason authentication is being rejected for the affected connections",
+        "reason": "Server logs often provide much more specific detail about the exact cause than the generic client-side error message"
+      }
+    ],
+    "possible_solutions": [
+      "Unlock, reset, or refresh credentials for affected user accounts",
+      "Re-enable a needed SMB version or authentication method if a recent security change broke compatibility for certain clients",
+      "Repair a broken domain trust relationship on affected client computers",
+      "Review server security logs to identify the precise rejection reason"
+    ],
+    "prevention": [
+      "Test SMB security hardening changes on a small group before wide deployment",
+      "Keep client operating systems updated to support current SMB security standards",
+      "Document SMB and authentication requirements clearly for the environment"
+    ],
+    "keywords": [
+      "smb authentication failed file server",
+      "cannot authenticate to file share",
+      "smb protocol version mismatch"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": [
+      "NET-127",
+      "GRN-013"
+    ]
+  },
+  {
+    "id": "NET-131",
+    "category": "Networking",
+    "subcategory": "File Server Problems",
+    "problem": "File Lock Error",
+    "description": "A user attempts to open or save a file on the file server but receives an error indicating the file is locked or already in use by another user or process, even when no one else appears to actually be using it.",
+    "symptoms": [
+      "Error message such as 'The file is locked for editing by another user' or 'File in use'",
+      "The file appears to genuinely not be open by anyone else currently",
+      "Problem may resolve on its own after some time, or may persist indefinitely"
+    ],
+    "possible_causes": [
+      "Another user genuinely does have the file open, even if not immediately obvious",
+      "A previous session crashed or disconnected improperly, leaving a stale lock file behind",
+      "Application-level lock file (such as a hidden ~$ file for Office documents) was not properly cleaned up",
+      "Antivirus or backup software briefly locking the file during a scan or backup operation"
+    ],
+    "diagnostic_questions": [
+      "Is there a chance another user genuinely has this file open, even in a background window they forgot about?",
+      "Does the folder contain a hidden temporary lock file associated with this document, such as one starting with ~$?",
+      "Did anyone recently experience a crash or improper disconnection while this file may have been open?",
+      "Is a backup or antivirus scan currently running that might be temporarily accessing the file?"
+    ],
+    "commands": [
+      {
+        "command": "openfiles /query",
+        "purpose": "On the file server itself, list currently open files and which user/computer has them open (requires appropriate permissions and configuration)",
+        "expected_result": "Shows the specific user and computer currently holding the file open, if any",
+        "abnormal_result": "Shows no one currently has the file open, indicating a stale lock rather than genuine concurrent use"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check with other team members to confirm whether anyone genuinely has the file open currently, even unintentionally in a background window",
+        "reason": "The simplest explanation is sometimes correct, and confirming this first avoids unnecessary further troubleshooting"
+      },
+      {
+        "step": 2,
+        "action": "On the file server, use a tool to query currently open files and identify if a lock is genuinely active or appears stale",
+        "reason": "Provides definitive, server-side confirmation of whether the lock is real or left over from a previous session"
+      },
+      {
+        "step": 3,
+        "action": "Check the folder for a hidden temporary lock file associated with the document, such as a file starting with ~$ for Microsoft Office documents, and remove it if the original owning session is confirmed closed",
+        "reason": "These temporary files are normally cleaned up automatically when a document closes properly, but can be left behind after a crash"
+      },
+      {
+        "step": 4,
+        "action": "If the lock is confirmed stale and tied to a specific disconnected session, an administrator can forcibly close that open file handle on the server",
+        "reason": "Directly clears a lock left behind by a session that never properly closed the file"
+      },
+      {
+        "step": 5,
+        "action": "Check if backup or antivirus software is currently running against this file's location, and wait for it to complete if so",
+        "reason": "Some backup and security software briefly locks files during their operation, which resolves on its own shortly after"
+      }
+    ],
+    "possible_solutions": [
+      "Confirm and wait if another user genuinely has the file open",
+      "Remove a stale hidden lock file after confirming the original session is closed",
+      "Have an administrator forcibly close a stale open file handle on the server",
+      "Wait for backup/antivirus software to complete its current operation"
+    ],
+    "prevention": [
+      "Encourage users to properly close files and log off rather than abruptly disconnecting",
+      "Schedule backups and antivirus scans during lower-usage periods where practical",
+      "Train users on how to recognize and report suspected stale locks rather than repeatedly retrying"
+    ],
+    "keywords": [
+      "file locked for editing error",
+      "file in use by another user server",
+      "stale file lock network share"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": [
+      "NET-127"
+    ]
+  }
+]

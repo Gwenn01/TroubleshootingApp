@@ -1,0 +1,2526 @@
+[
+  {
+    "id": "SW-002",
+    "category": "Business Software",
+    "subcategory": "Application Startup",
+    "problem": "Application will not open",
+    "description": "The user double-clicks or launches a software program, but it does not open at all, showing no window, no error, and no visible sign of starting.",
+    "symptoms": [
+      "Clicking the program icon produces no visible response",
+      "A loading cursor briefly appears then disappears",
+      "The program may appear briefly in Task Manager before disappearing",
+      "No error message is shown at all"
+    ],
+    "possible_causes": [
+      "The program's installation has become corrupted",
+      "A required background process or service failed to start",
+      "Conflicting software, such as antivirus, is silently blocking the launch",
+      "Insufficient system resources are preventing the program from starting",
+      "A stuck process from a previous session is blocking a new instance from opening"
+    ],
+    "diagnostic_questions": [
+      "Does this happen every time, or only sometimes?",
+      "Does the program appear at all in Task Manager after trying to open it?",
+      "Did this start after a recent update, reinstall, or Windows update?",
+      "Do other programs open normally on this computer?"
+    ],
+    "commands": [
+      {
+        "command": "tasklist | findstr [program name]",
+        "purpose": "Check if the program is already running as a stuck background process",
+        "expected_result": "No matching process found, or the expected process is running normally",
+        "abnormal_result": "A stuck process is found that never produces a visible window"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Task Manager for any existing process related to this program and end it if found stuck",
+        "reason": "A stuck background process from a previous crash can silently block a new instance from opening"
+      },
+      {
+        "step": 2,
+        "action": "Restart the computer completely and try opening the program again",
+        "reason": "This clears temporary memory or file lock issues that a simple retry would not resolve"
+      },
+      {
+        "step": 3,
+        "action": "Try running the program as an administrator by right-clicking its icon and selecting 'Run as administrator'",
+        "reason": "Some programs fail to start silently when they lack the permissions needed for certain startup tasks"
+      },
+      {
+        "step": 4,
+        "action": "Temporarily disable antivirus or security software and attempt to open the program again",
+        "reason": "Security software occasionally blocks a program's startup process without displaying a visible warning to the user"
+      },
+      {
+        "step": 5,
+        "action": "Check available free disk space and system memory, freeing up resources if either is very low",
+        "reason": "Insufficient resources can prevent a program from completing its startup process"
+      },
+      {
+        "step": 6,
+        "action": "Use the program's built-in repair option, if available through Control Panel's Programs list, or reinstall the application completely",
+        "reason": "This replaces any corrupted installation files that may be silently preventing the program from launching"
+      },
+      {
+        "step": 7,
+        "action": "Check Windows Event Viewer under Application logs for any error entries recorded at the exact time you tried to open the program",
+        "reason": "This can reveal a specific technical reason for the silent failure that is not visible to the user directly"
+      }
+    ],
+    "possible_solutions": [
+      "End a stuck background process and try again",
+      "Run the program as administrator",
+      "Temporarily disable antivirus software to test",
+      "Free up disk space and memory",
+      "Repair or reinstall the application"
+    ],
+    "prevention": [
+      "Keep the application updated to its latest stable version",
+      "Avoid force-closing the application improperly",
+      "Keep antivirus exclusions properly configured for trusted business software"
+    ],
+    "keywords": ["application will not open", "program not launching", "software does not start", "app icon does nothing"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Application crashes on startup", "Application not responding", "Missing DLL or dependency"]
+  },
+
+  {
+    "id": "SW-003",
+    "category": "Business Software",
+    "subcategory": "Application Startup",
+    "problem": "Application crashes immediately on startup",
+    "description": "The user launches a software program, and it briefly opens or flashes on screen before closing completely, sometimes showing a crash report, preventing the user from ever reaching the main interface.",
+    "symptoms": [
+      "The program window flashes briefly then closes",
+      "A Windows error report or crash dialog appears",
+      "The program never fully loads to a usable state",
+      "This happens consistently every time the program is launched"
+    ],
+    "possible_causes": [
+      "A corrupted configuration or settings file loaded at startup",
+      "A missing or incompatible required file, such as a DLL",
+      "A conflicting add-in or plugin loading automatically at startup",
+      "Corrupted installation files",
+      "Incompatibility with a recent Windows update"
+    ],
+    "diagnostic_questions": [
+      "Does the crash happen every single time, or only occasionally?",
+      "Did this start after a specific event, such as an update or a Windows change?",
+      "Does the program offer a Safe Mode or similar startup option?",
+      "Does a specific error message or code appear in the crash report?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if the crash report provides any specific error message, code, or the name of a related file",
+        "reason": "This detail often points directly toward the specific cause, such as a particular missing file or component"
+      },
+      {
+        "step": 2,
+        "action": "If the program has a Safe Mode or similar startup option, often triggered by holding a key like Ctrl while opening it, try launching it this way",
+        "reason": "Safe Mode typically disables add-ins and custom settings, which helps determine if one of these is causing the crash"
+      },
+      {
+        "step": 3,
+        "action": "If Safe Mode allows the program to open, disable recently added add-ins or plugins from within the program's settings",
+        "reason": "This isolates and removes a specific add-in that may be causing the crash during normal startup"
+      },
+      {
+        "step": 4,
+        "action": "Rename or temporarily move the program's local user settings or configuration folder, allowing it to generate a fresh default configuration",
+        "reason": "A corrupted local settings file is a common cause of a program crashing immediately, and starting fresh often resolves it"
+      },
+      {
+        "step": 5,
+        "action": "Check for and install any pending updates for the program",
+        "reason": "Known startup crash bugs are often addressed in subsequent official updates"
+      },
+      {
+        "step": 6,
+        "action": "Use the program's repair option through Control Panel, or completely uninstall and reinstall it",
+        "reason": "This replaces potentially corrupted or incomplete installation files that could be causing the immediate crash"
+      },
+      {
+        "step": 7,
+        "action": "Check Windows Event Viewer's Application log for a detailed crash entry corresponding to the exact time of the failure",
+        "reason": "This often reveals the specific technical fault, such as a missing dependency, that caused the crash"
+      }
+    ],
+    "possible_solutions": [
+      "Reset a corrupted local configuration file to defaults",
+      "Disable a problematic add-in using Safe Mode",
+      "Install pending updates for the program",
+      "Repair or completely reinstall the application"
+    ],
+    "prevention": [
+      "Keep the application updated",
+      "Only use trusted, necessary add-ins",
+      "Back up configuration settings periodically for critical software"
+    ],
+    "keywords": ["application crashes on startup", "program closes immediately", "crash report on launch", "software crashes opening"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Application will not open", "Missing DLL or dependency", "Application configuration error"]
+  },
+
+  {
+    "id": "SW-004",
+    "category": "Business Software",
+    "subcategory": "Application Stability",
+    "problem": "Application is not responding",
+    "description": "While the user is actively working within a software program, it stops responding to any clicks or keyboard input, with the window frozen and often labeled 'Not Responding' in its title bar.",
+    "symptoms": [
+      "Window title shows '(Not Responding)'",
+      "Clicking anywhere within the program has no effect",
+      "The screen may appear greyed out or frozen in place",
+      "May happen during a specific action, such as saving or loading data"
+    ],
+    "possible_causes": [
+      "A large or complex operation taking longer than expected",
+      "Insufficient system memory for the current task",
+      "A stuck background process related to the program",
+      "A network delay if the program is waiting on a server response",
+      "A bug in the software triggered by a specific action"
+    ],
+    "diagnostic_questions": [
+      "Does this happen during a specific action, such as saving, loading, or printing?",
+      "How long does the unresponsive state typically last?",
+      "Have you noticed this happen with a particular file or dataset?",
+      "Is the computer generally low on available memory?"
+    ],
+    "commands": [
+      {
+        "command": "taskmgr",
+        "purpose": "Check the program's CPU and memory usage while it appears frozen, to determine if it is genuinely stuck or working intensively",
+        "expected_result": "High CPU usage suggests active processing, while 0% usage over time suggests a true freeze",
+        "abnormal_result": "The program remains at 0% CPU usage for an extended period with no progress, indicating a genuine freeze"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Task Manager to see if the program is using high CPU, suggesting it is still actively processing rather than truly frozen",
+        "reason": "This helps decide whether to keep waiting for a legitimate operation to finish, or consider it a genuine freeze"
+      },
+      {
+        "step": 2,
+        "action": "If a large operation, such as opening a big file or generating a report, was just triggered, allow extra time for it to complete",
+        "reason": "Some legitimate operations can genuinely take a long time and only appear frozen while working correctly in the background"
+      },
+      {
+        "step": 3,
+        "action": "If the program does recover, save your work immediately and consider restarting the program for a fresh session",
+        "reason": "This protects recent work and reduces the chance the same freeze will happen again during the current session"
+      },
+      {
+        "step": 4,
+        "action": "If the freeze consistently happens with a specific file or dataset, note this pattern and avoid it temporarily while investigating further",
+        "reason": "This isolates the cause to a specific file rather than the software in general, helping direct further troubleshooting"
+      },
+      {
+        "step": 5,
+        "action": "Close other unnecessary programs to free up system memory",
+        "reason": "Insufficient available memory is a common contributor to programs becoming unresponsive, especially during memory-intensive tasks"
+      },
+      {
+        "step": 6,
+        "action": "If the program does not recover after a reasonable wait, end the task through Task Manager and reopen the program",
+        "reason": "This allows you to resume work in a fresh session when the original one cannot be recovered"
+      },
+      {
+        "step": 7,
+        "action": "Check for and install any pending software updates, since known freezing bugs are often addressed in newer releases",
+        "reason": "Keeping software current resolves many known stability issues that cause unresponsiveness"
+      }
+    ],
+    "possible_solutions": [
+      "Wait for a large legitimate operation to complete",
+      "Restart the program for a fresh session after recovery",
+      "Free up system memory by closing other programs",
+      "End the unresponsive task and reopen the program",
+      "Install pending software updates"
+    ],
+    "prevention": [
+      "Save work frequently while using the software",
+      "Keep the software updated to its latest version",
+      "Avoid running too many memory-intensive programs at once"
+    ],
+    "keywords": ["application not responding", "program frozen", "software hangs", "not responding title bar"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Software freezes while in use", "Software runs very slowly", "Application crashes on startup"]
+  },
+
+  {
+    "id": "SW-005",
+    "category": "Business Software",
+    "subcategory": "Application Stability",
+    "problem": "Software freezes while in use",
+    "description": "During normal use, well after successfully opening, the software suddenly stops responding to input, with the freeze happening mid-task rather than at startup, sometimes recovering after a wait and sometimes requiring a forced restart.",
+    "symptoms": [
+      "The program becomes unresponsive partway through active use",
+      "The freeze may happen randomly or during a specific repeated action",
+      "The mouse cursor may still move but clicks have no effect within the program",
+      "The freeze may resolve after a long wait or require closing the program"
+    ],
+    "possible_causes": [
+      "A memory leak causing gradually increasing resource usage over a long session",
+      "A specific feature or function within the software triggering a bug",
+      "Background processes competing for system resources",
+      "An outdated graphics or other driver affecting the software's stability",
+      "A large or growing file the software is working with"
+    ],
+    "diagnostic_questions": [
+      "Does the freeze happen randomly, or during a specific repeated action?",
+      "Does this happen more often the longer the program has been open?",
+      "Have you noticed the program's memory usage climbing steadily in Task Manager?",
+      "Has this become more frequent recently, or has it always happened occasionally?"
+    ],
+    "commands": [
+      {
+        "command": "taskmgr",
+        "purpose": "Monitor the program's memory usage over time to check for a steadily increasing pattern suggesting a memory leak",
+        "expected_result": "Memory usage remains relatively stable during normal use",
+        "abnormal_result": "Memory usage climbs continuously without leveling off, suggesting a memory leak contributing to the freeze"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note whether the freeze happens randomly, or specifically after performing a certain repeated action within the software",
+        "reason": "A specific, repeatable trigger points toward a bug in that particular feature, while a freeze that worsens over time points toward a memory leak"
+      },
+      {
+        "step": 2,
+        "action": "Monitor the program's memory usage in Task Manager over an extended working session to check for a steadily increasing pattern",
+        "reason": "A memory leak is confirmed by memory usage that continuously climbs without releasing, eventually leading to a freeze once resources are exhausted"
+      },
+      {
+        "step": 3,
+        "action": "If a memory leak is suspected, periodically save your work and restart the program during long sessions rather than leaving it open indefinitely",
+        "reason": "Restarting the program releases leaked memory, providing a practical workaround while a permanent fix is pursued"
+      },
+      {
+        "step": 4,
+        "action": "Check for and install any pending updates for the software, since memory leaks and specific bugs are commonly addressed in updates",
+        "reason": "Software vendors frequently release updates that fix known memory leak and stability issues"
+      },
+      {
+        "step": 5,
+        "action": "Update your graphics driver and other relevant drivers, since outdated drivers can contribute to instability in software that relies on them for rendering",
+        "reason": "Driver-related instability is a common but often overlooked contributor to software freezing during use"
+      },
+      {
+        "step": 6,
+        "action": "Close unnecessary background programs to reduce competition for system resources",
+        "reason": "This frees up memory and processing power, reducing the likelihood of a resource-related freeze"
+      },
+      {
+        "step": 7,
+        "action": "If the freeze is tied to a specific large or growing file, consider whether that file needs to be optimized, split, or cleaned up",
+        "reason": "An excessively large or complex file can push the software beyond its comfortable performance limits, leading to freezing"
+      },
+      {
+        "step": 8,
+        "action": "Report the specific pattern, including the trigger and frequency, to the software vendor's support team if the issue continues despite updates",
+        "reason": "Detailed information helps the vendor diagnose and address the underlying bug in a future release"
+      }
+    ],
+    "possible_solutions": [
+      "Periodically restart the program during long sessions to release leaked memory",
+      "Install pending software updates addressing known stability issues",
+      "Update graphics and other relevant drivers",
+      "Close unnecessary background programs to free resources",
+      "Optimize or reduce the size of an overly large working file"
+    ],
+    "prevention": [
+      "Save work frequently and restart the program periodically during long sessions",
+      "Keep the software and drivers updated",
+      "Avoid working with excessively large files without periodic cleanup"
+    ],
+    "keywords": ["software freezes during use", "program stops responding mid task", "memory leak application", "software hangs randomly"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Application not responding", "Software runs very slowly", "System running slowly"]
+  },
+
+  {
+    "id": "SW-006",
+    "category": "Business Software",
+    "subcategory": "Performance",
+    "problem": "Software runs very slowly",
+    "description": "The software opens and functions, but performs noticeably slower than expected, with delays when navigating menus, loading data, or performing routine actions, without necessarily freezing completely.",
+    "symptoms": [
+      "Noticeable delay between clicking and the software responding",
+      "Menus, screens, or reports take longer than usual to load",
+      "Typing or data entry feels laggy",
+      "Performance may degrade further the longer the program stays open"
+    ],
+    "possible_causes": [
+      "Insufficient system resources, such as RAM or CPU, for the software's demands",
+      "A very large database or data file the software is working with",
+      "Background processes competing for system resources",
+      "Outdated software lacking recent performance improvements",
+      "Network latency if the software depends on a remote server or database"
+    ],
+    "diagnostic_questions": [
+      "Does this slowness happen consistently, or does it build up the longer the software runs?",
+      "Are you working with an unusually large file, database, or dataset?",
+      "Does the software rely on a network or server connection for its data?",
+      "How much RAM and what type of processor does this computer have?"
+    ],
+    "commands": [
+      {
+        "command": "taskmgr",
+        "purpose": "Check the software's CPU and memory usage during normal use to identify resource bottlenecks",
+        "expected_result": "Reasonable resource usage consistent with normal operation",
+        "abnormal_result": "Consistently very high CPU or memory usage, pointing to a resource constraint contributing to the slowness"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Open Task Manager and observe the software's CPU and memory usage during typical slow operations",
+        "reason": "This helps identify whether the slowness is related to a genuine resource bottleneck on this specific computer"
+      },
+      {
+        "step": 2,
+        "action": "Close unnecessary other programs and browser tabs to free up system resources",
+        "reason": "Reducing competition for CPU and memory can directly improve the performance of the software you are actively using"
+      },
+      {
+        "step": 3,
+        "action": "If working with an unusually large file or database, consider whether it can be archived, split, or optimized to reduce its size",
+        "reason": "Extremely large working files place a much greater processing burden on the software, directly slowing down routine operations"
+      },
+      {
+        "step": 4,
+        "action": "If the software depends on a network or server connection, check your network connection speed and stability",
+        "reason": "Network latency can significantly slow down software that regularly communicates with a remote server or database"
+      },
+      {
+        "step": 5,
+        "action": "Check for and install any pending updates for the software, since performance improvements are commonly included in updates",
+        "reason": "Vendors frequently optimize performance in newer releases, sometimes substantially"
+      },
+      {
+        "step": 6,
+        "action": "Check with other users of the same software, especially if it connects to a shared server or database, to see if they experience similar slowness",
+        "reason": "This helps determine if the issue is specific to your computer, or reflects a broader server or database performance problem"
+      },
+      {
+        "step": 7,
+        "action": "Consider whether the computer's hardware, particularly RAM and processor, meets the software's recommended (not just minimum) system requirements",
+        "reason": "Software running on hardware that only meets minimum requirements often performs sluggishly, and an upgrade may be the most effective long-term solution"
+      },
+      {
+        "step": 8,
+        "action": "If performance issues are widespread among users of a shared, server-connected software system, report the pattern to the system administrator",
+        "reason": "This helps identify and address a potential server-side or database performance bottleneck affecting everyone"
+      }
+    ],
+    "possible_solutions": [
+      "Close unnecessary programs to free system resources",
+      "Archive or optimize an oversized working file or database",
+      "Improve network connection quality if the software is server-dependent",
+      "Install pending software updates with performance improvements",
+      "Upgrade computer hardware if it only meets minimum requirements"
+    ],
+    "prevention": [
+      "Keep working files and databases reasonably sized through regular maintenance",
+      "Keep the software updated",
+      "Ensure computer hardware meets recommended system requirements"
+    ],
+    "keywords": ["software runs slowly", "program lagging", "slow performance application", "software sluggish"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["System running slowly", "Software freezes while in use", "Network timeout"]
+  },
+
+  {
+    "id": "SW-007",
+    "category": "Business Software",
+    "subcategory": "Installation",
+    "problem": "Cannot install software",
+    "description": "The user tries to install a new piece of software, but the installation process will not start at all, or is blocked before any files begin copying, preventing the program from being installed.",
+    "symptoms": [
+      "Double-clicking the installer produces no response",
+      "An error appears immediately when trying to run the installer",
+      "The installer window opens but closes immediately without proceeding",
+      "A security warning blocks the installer from running"
+    ],
+    "possible_causes": [
+      "Insufficient administrator permissions to run the installer",
+      "The installer file itself is corrupted or incomplete",
+      "Antivirus or security software is blocking the installer",
+      "A company security policy restricts installing new software",
+      "The installer is incompatible with the current Windows version"
+    ],
+    "diagnostic_questions": [
+      "Does any error message or security warning appear when trying to run the installer?",
+      "Do you have administrator rights on this computer?",
+      "Is this a personal computer or a company-managed one with possible installation restrictions?",
+      "Where did you obtain this installer file from?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Right-click the installer file and select 'Run as administrator'",
+        "reason": "Many installers require administrator-level permissions to begin the installation process, and lacking this can cause a silent failure to start"
+      },
+      {
+        "step": 2,
+        "action": "Check for any security warning or notification, such as from Windows SmartScreen or antivirus software, that might be blocking the installer",
+        "reason": "Security software sometimes blocks installers from unfamiliar or unverified sources without a very obvious error message"
+      },
+      {
+        "step": 3,
+        "action": "If a security warning appears and you trust the source of the installer, choose to allow it to proceed",
+        "reason": "This directly addresses a security block once you have confirmed the installer is from a legitimate, trusted source"
+      },
+      {
+        "step": 4,
+        "action": "Delete the current installer file and download a fresh copy from the official source",
+        "reason": "This rules out a corrupted or incomplete download as the cause of the installation failing to start"
+      },
+      {
+        "step": 5,
+        "action": "On a company-managed computer, check with the IT department about whether software installation is intentionally restricted by policy",
+        "reason": "Many organizations restrict the ability to install new software for security reasons, which would explain the installer being blocked regardless of other troubleshooting"
+      },
+      {
+        "step": 6,
+        "action": "Confirm the installer is compatible with your specific version of Windows, checking the software's system requirements",
+        "reason": "An installer designed for a different, incompatible Windows version may fail to run at all"
+      },
+      {
+        "step": 7,
+        "action": "Temporarily disable antivirus software and attempt the installation again, remembering to re-enable it afterward",
+        "reason": "This tests whether antivirus software is specifically responsible for blocking the installer"
+      }
+    ],
+    "possible_solutions": [
+      "Run the installer as administrator",
+      "Allow a security warning if the source is trusted",
+      "Redownload the installer to rule out a corrupted file",
+      "Request IT approval if installation is restricted by company policy",
+      "Confirm compatibility with your Windows version"
+    ],
+    "prevention": [
+      "Only download installers from official, trusted sources",
+      "Understand your organization's software installation policy",
+      "Run installers as administrator when required"
+    ],
+    "keywords": ["cannot install software", "installer will not run", "installation blocked", "installer does nothing"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Installation failed", "Software update failed", "Access denied"]
+  },
+
+  {
+    "id": "SW-008",
+    "category": "Business Software",
+    "subcategory": "Installation",
+    "problem": "Installation failed partway through",
+    "description": "The installation process for a piece of software begins and progresses partway, but then stops with an error message, leaving the software either not installed at all or only partially installed.",
+    "symptoms": [
+      "Error message appears during the installation progress bar",
+      "The installer rolls back its changes after the failure",
+      "The program may appear installed but not function correctly",
+      "A specific error code is often shown with the failure message"
+    ],
+    "possible_causes": [
+      "Insufficient disk space to complete the installation",
+      "A conflicting older version of the software is still partially installed",
+      "The installer encountered a corrupted or missing component",
+      "Antivirus software interrupted the installation partway through",
+      "A required system component or prerequisite is missing"
+    ],
+    "diagnostic_questions": [
+      "What is the exact error message or code shown when the installation fails?",
+      "How much free disk space is currently available on the installation drive?",
+      "Is there an older version of this software already installed, even partially?",
+      "Does the software require any specific prerequisites, such as a particular runtime component?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message or code shown when the installation fails",
+        "reason": "Specific error codes often point directly to a known, documented cause with a corresponding solution"
+      },
+      {
+        "step": 2,
+        "action": "Check available free disk space on the installation drive, freeing up space if it is low",
+        "reason": "Insufficient disk space is a very common cause of an installation failing partway through"
+      },
+      {
+        "step": 3,
+        "action": "Completely uninstall any existing, even partial, version of this software before attempting to reinstall",
+        "reason": "A conflicting or incomplete previous installation can interfere with a fresh installation attempt"
+      },
+      {
+        "step": 4,
+        "action": "Restart the computer after uninstalling any previous version, then attempt the installation again",
+        "reason": "This clears any lingering file locks or registry entries from the previous installation attempt"
+      },
+      {
+        "step": 5,
+        "action": "Check the software's system requirements for any specific prerequisites, such as a particular runtime or framework, and install those first if missing",
+        "reason": "Some software installations fail if a required underlying component is not already present on the system"
+      },
+      {
+        "step": 6,
+        "action": "Temporarily disable antivirus software and attempt the installation again",
+        "reason": "Antivirus software sometimes interrupts installations partway through, mistaking legitimate installer actions for suspicious activity"
+      },
+      {
+        "step": 7,
+        "action": "Redownload the installer file in case the original download was corrupted or incomplete",
+        "reason": "A corrupted installer file can cause the installation to fail at a specific, consistent point"
+      },
+      {
+        "step": 8,
+        "action": "If the installation continues to fail, check the software vendor's support resources for the specific error code encountered",
+        "reason": "Vendors often maintain documentation for specific known installation error codes with targeted solutions"
+      }
+    ],
+    "possible_solutions": [
+      "Free up disk space before attempting installation",
+      "Completely remove any previous version before reinstalling",
+      "Install missing prerequisite components first",
+      "Temporarily disable antivirus during installation",
+      "Redownload a fresh copy of the installer"
+    ],
+    "prevention": [
+      "Maintain adequate free disk space",
+      "Fully uninstall old software versions before installing updates",
+      "Check prerequisites before beginning an installation"
+    ],
+    "keywords": ["installation failed", "install stopped partway", "installer error during setup", "setup failed error code"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Cannot install software", "Cannot uninstall software", "Missing DLL or dependency"]
+  },
+
+  {
+    "id": "SW-009",
+    "category": "Business Software",
+    "subcategory": "Updates",
+    "problem": "Software update failed",
+    "description": "The user tries to update an existing piece of software to a newer version, but the update process fails, showing an error or leaving the software at its previous version despite the attempt.",
+    "symptoms": [
+      "Error message during the update process",
+      "The software version remains unchanged after the update attempt",
+      "The software may become unstable or fail to open after a failed update",
+      "The update download may stall or fail to complete"
+    ],
+    "possible_causes": [
+      "A network interruption occurred during the update download",
+      "Insufficient disk space for the update to complete",
+      "A conflict with the currently installed version",
+      "The update server is temporarily unavailable",
+      "Antivirus software blocking parts of the update process"
+    ],
+    "diagnostic_questions": [
+      "Did you have a stable internet connection throughout the update attempt?",
+      "How much free disk space is currently available?",
+      "Does the software still function normally at its current, older version?",
+      "What exact error message, if any, appears during the failed update?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the software still functions normally at its current version, even though the update failed",
+        "reason": "This establishes whether there is an immediate functional problem or just an update that has not yet succeeded"
+      },
+      {
+        "step": 2,
+        "action": "Check your internet connection stability, then retry the update",
+        "reason": "A network interruption is a common and simple cause of a failed update download"
+      },
+      {
+        "step": 3,
+        "action": "Check available disk space and free up space if it is low",
+        "reason": "Updates often require significant temporary space to download and apply, and insufficient space will cause the process to fail"
+      },
+      {
+        "step": 4,
+        "action": "Close the software completely before attempting the update, if it was left running",
+        "reason": "Some updates cannot apply properly while the software itself is actively running and has files open"
+      },
+      {
+        "step": 5,
+        "action": "Temporarily disable antivirus software and attempt the update again",
+        "reason": "Antivirus software occasionally blocks or interferes with legitimate update processes"
+      },
+      {
+        "step": 6,
+        "action": "If the update continues to fail, download the latest full installer directly from the vendor's website rather than relying on the in-app update mechanism",
+        "reason": "A full reinstallation using the latest complete installer often succeeds where an incremental update mechanism fails"
+      },
+      {
+        "step": 7,
+        "action": "Check the vendor's status page or support resources for any known issues with the specific update or update servers",
+        "reason": "Sometimes update failures are caused by a temporary problem on the vendor's end rather than anything on the user's computer"
+      }
+    ],
+    "possible_solutions": [
+      "Ensure a stable internet connection and retry",
+      "Free up disk space before attempting the update",
+      "Close the software completely before updating",
+      "Download and run the latest full installer directly from the vendor",
+      "Check for known vendor-side update issues"
+    ],
+    "prevention": [
+      "Maintain a stable internet connection during updates",
+      "Keep adequate free disk space available",
+      "Close the software before applying updates"
+    ],
+    "keywords": ["software update failed", "cannot update program", "update error software", "update stuck downloading"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Installation failed", "Cannot install software", "Application configuration error"]
+  },
+
+  {
+    "id": "SW-010",
+    "category": "Business Software",
+    "subcategory": "Uninstallation",
+    "problem": "Cannot uninstall software",
+    "description": "The user tries to remove a piece of software using the normal uninstall process, but the uninstallation fails, hangs, or the program remains listed as installed even after the process appears to complete.",
+    "symptoms": [
+      "The uninstaller shows an error and stops partway through",
+      "The uninstall process hangs indefinitely",
+      "The program still appears in the installed programs list after uninstalling",
+      "Program files or folders remain on the disk after uninstallation"
+    ],
+    "possible_causes": [
+      "A file needed for uninstallation is missing or corrupted",
+      "The program or a related process is currently running and locking files",
+      "Insufficient administrator permissions to complete the removal",
+      "The uninstaller itself has a bug or was not properly included with the installation",
+      "Leftover registry entries from a previous incomplete removal"
+    ],
+    "diagnostic_questions": [
+      "What exact error message, if any, appears during the failed uninstallation?",
+      "Is the program or any related background process currently running?",
+      "Do you have administrator rights on this computer?",
+      "Has this program been partially uninstalled or reinstalled before?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Close the program completely, along with any related background processes, before attempting to uninstall",
+        "reason": "A running program or its background processes can lock files needed for a clean uninstallation"
+      },
+      {
+        "step": 2,
+        "action": "Right-click the uninstaller and select 'Run as administrator' if not already doing so",
+        "reason": "Uninstallation often requires administrator-level permissions to remove all program files and registry entries"
+      },
+      {
+        "step": 3,
+        "action": "Restart the computer and immediately attempt the uninstallation again before opening any other programs",
+        "reason": "This ensures no related processes are running and no files are locked when the uninstall attempt begins"
+      },
+      {
+        "step": 4,
+        "action": "Use the official vendor's dedicated removal tool, if one is provided, since many software vendors offer a specific tool designed to fully remove stubborn installations",
+        "reason": "These specialized tools are designed to handle exactly this type of situation more thoroughly than the standard uninstaller"
+      },
+      {
+        "step": 5,
+        "action": "If the program still appears in the installed programs list after an apparently successful uninstall, use the Windows built-in 'Fix problems that block programs from being installed or removed' troubleshooter",
+        "reason": "This official Microsoft tool is specifically designed to clean up stuck or incomplete program listings that a normal uninstall could not fully resolve"
+      },
+      {
+        "step": 6,
+        "action": "Manually delete any remaining program folders from Program Files after the uninstaller has run, if files are confirmed to be leftover",
+        "reason": "This removes any lingering files that the uninstaller failed to clean up completely"
+      },
+      {
+        "step": 7,
+        "action": "As a more advanced step, and with appropriate caution, remove any obviously related leftover registry entries, or seek assistance if not comfortable doing this yourself",
+        "reason": "Leftover registry entries can sometimes interfere with future reinstallation attempts, though registry editing carries some risk if done incorrectly"
+      }
+    ],
+    "possible_solutions": [
+      "Close the program and related processes before uninstalling",
+      "Run the uninstaller as administrator",
+      "Use the vendor's official dedicated removal tool",
+      "Use the Windows program install/uninstall troubleshooter",
+      "Manually remove leftover files after the uninstaller runs"
+    ],
+    "prevention": [
+      "Always close a program completely before attempting to uninstall it",
+      "Use official vendor removal tools when available",
+      "Avoid manually deleting program files instead of using the proper uninstaller"
+    ],
+    "keywords": ["cannot uninstall software", "uninstall failed error", "program still shows installed", "uninstaller hangs"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Installation failed", "Application configuration error", "Cannot install software"]
+  },
+
+  {
+    "id": "SW-011",
+    "category": "Business Software",
+    "subcategory": "Login and Authentication",
+    "problem": "Invalid username or password when logging into software",
+    "description": "The user enters their credentials to log in to a software application, but receives a specific error stating the username or password is invalid, even though they believe their credentials are correct.",
+    "symptoms": [
+      "Specific error message stating 'Invalid username or password'",
+      "The error appears immediately after submitting the login form",
+      "Message does not specify which part is incorrect",
+      "May happen consistently or only occasionally"
+    ],
+    "possible_causes": [
+      "The username or password was typed incorrectly, including Caps Lock being on",
+      "The password was recently changed and the old one is being used",
+      "The account uses a different username format than what is being entered",
+      "The account does not exist or was never properly set up in this system",
+      "A trailing space or hidden character was accidentally included"
+    ],
+    "diagnostic_questions": [
+      "Are you certain of the exact username format expected, such as email versus a short username?",
+      "Was your password changed recently, either by you or an administrator?",
+      "Is Caps Lock currently on?",
+      "Are you copying and pasting the password, or typing it manually?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if Caps Lock or Num Lock is currently on before retyping the credentials",
+        "reason": "An accidentally enabled Caps Lock is one of the most common reasons correct credentials appear to be rejected"
+      },
+      {
+        "step": 2,
+        "action": "Carefully retype both the username and password directly, rather than relying on autofill",
+        "reason": "Browser or system autofill can sometimes store an outdated or incorrect version of credentials"
+      },
+      {
+        "step": 3,
+        "action": "Confirm the correct username format expected by this specific software, such as a full email versus a short account name",
+        "reason": "Different applications expect different username formats, and using the wrong format will always result in this error"
+      },
+      {
+        "step": 4,
+        "action": "If copying and pasting the password, first paste it into a plain text field to check for accidental extra spaces or hidden characters",
+        "reason": "Copying from certain sources can accidentally include invisible characters that cause the password to not match"
+      },
+      {
+        "step": 5,
+        "action": "Confirm whether the password was recently changed, and ensure you are using the most current version",
+        "reason": "Using an old, previously valid password after a change is a common and simple explanation for this error"
+      },
+      {
+        "step": 6,
+        "action": "Use the software's official password reset option if available, to set a fresh, known password",
+        "reason": "This provides a definitive way to rule out any uncertainty about the current correct password"
+      },
+      {
+        "step": 7,
+        "action": "If the reset process indicates no account exists for the given username, contact the system administrator to confirm the account was properly created and is active",
+        "reason": "In some cases, the underlying account itself may not exist or was never fully set up, requiring administrator involvement"
+      }
+    ],
+    "possible_solutions": [
+      "Turn off Caps Lock and retype credentials carefully",
+      "Confirm and use the correct username format",
+      "Remove hidden characters when pasting a password",
+      "Use the most recently updated password",
+      "Use the official password reset option"
+    ],
+    "prevention": [
+      "Use a password manager to store credentials accurately",
+      "Update saved passwords promptly after any change",
+      "Be aware of the specific username format required by each application"
+    ],
+    "keywords": ["invalid username or password software", "login credentials rejected application", "incorrect password error", "cannot login software"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-20 minutes",
+    "related_problems": ["Cannot login to application", "User account locked", "License expired"]
+  },
+
+  {
+    "id": "SW-012",
+    "category": "Business Software",
+    "subcategory": "Login and Authentication",
+    "problem": "Cannot login to the application",
+    "description": "The user tries to log in to a software application, but the login process fails generally, without a highly specific error, or gets stuck without completing successfully.",
+    "symptoms": [
+      "Login screen rejects credentials or shows a generic error",
+      "The login button appears to do nothing when clicked",
+      "The login page reloads back to itself after submitting",
+      "The login process gets stuck loading indefinitely"
+    ],
+    "possible_causes": [
+      "Incorrect username or password",
+      "The application's login server is down or unreachable",
+      "The user's account has been locked or disabled",
+      "A network connectivity problem preventing the login request from completing",
+      "A software bug or corrupted local cache affecting the login process"
+    ],
+    "diagnostic_questions": [
+      "What exact message or behavior happens when you try to log in?",
+      "Have you logged in successfully before, or is this your first attempt?",
+      "Are other users able to log in right now?",
+      "Are you connected to the correct network or VPN required for this software?"
+    ],
+    "commands": [
+      {
+        "command": "ping [application server address]",
+        "purpose": "Check if the computer can reach the server the software authenticates against",
+        "expected_result": "Replies received from the server",
+        "abnormal_result": "Request timed out, meaning the server cannot be reached, which would prevent login"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the exact username and password are being entered correctly, checking for Caps Lock and typing mistakes",
+        "reason": "Simple credential entry errors are the most common cause of login failures and should be ruled out first"
+      },
+      {
+        "step": 2,
+        "action": "Check with other users to see if they are able to log in to the same application right now",
+        "reason": "This quickly determines if the problem is isolated to your account or computer, or affects the application more broadly"
+      },
+      {
+        "step": 3,
+        "action": "Confirm the computer has a working network connection, connected to any required VPN if the software is only accessible internally",
+        "reason": "Without the correct network path, the login request may never actually reach the authentication server"
+      },
+      {
+        "step": 4,
+        "action": "Clear the software's local cache or temporary files, if this option is available within its settings",
+        "reason": "A corrupted local cache can sometimes interfere with the login process even when credentials are entered correctly"
+      },
+      {
+        "step": 5,
+        "action": "Restart the software completely, or restart the computer, then attempt to log in again",
+        "reason": "This clears any temporary session state issues that could be interfering with a successful login"
+      },
+      {
+        "step": 6,
+        "action": "If the problem affects multiple users, check the software vendor's status page or contact the system administrator about a possible outage",
+        "reason": "A widespread login failure often points to a server-side outage rather than an individual account or computer problem"
+      },
+      {
+        "step": 7,
+        "action": "If only this one user is affected, contact the system administrator to check if the account has been locked, disabled, or needs a password reset",
+        "reason": "Account-specific restrictions require administrator access to review and correct"
+      }
+    ],
+    "possible_solutions": [
+      "Correct mistyped username or password",
+      "Reconnect to the required network or VPN",
+      "Clear the software's local cache",
+      "Restart the software or computer",
+      "Have the administrator unlock or reset the affected account"
+    ],
+    "prevention": [
+      "Use a password manager to avoid credential entry mistakes",
+      "Keep track of VPN requirements for internal software",
+      "Report suspected outages promptly"
+    ],
+    "keywords": ["cannot login to application", "login failed software", "cannot access application", "login stuck loading"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Invalid username or password", "User account locked", "Cannot connect to server"]
+  },
+
+  {
+    "id": "SW-013",
+    "category": "Business Software",
+    "subcategory": "Login and Authentication",
+    "problem": "User account is locked",
+    "description": "The user tries to log in to a software application, but instead of a normal password prompt or error, receives a message specifically indicating the account has been locked, usually after several failed login attempts.",
+    "symptoms": [
+      "Message specifically stating the account is locked",
+      "Login is blocked entirely, even with the correct password",
+      "Message may mention a lockout duration or instructions to contact an administrator",
+      "May follow a series of recent failed login attempts"
+    ],
+    "possible_causes": [
+      "Too many incorrect password attempts triggered an automatic security lockout",
+      "An administrator manually locked the account for security or policy reasons",
+      "Suspicious login activity was detected, triggering an automatic protective lockout",
+      "The account was locked as part of an offboarding or role change process"
+    ],
+    "diagnostic_questions": [
+      "Do you recall making several incorrect password attempts recently?",
+      "Does the lockout message mention a specific wait time before automatic unlock?",
+      "Have you contacted your IT department about this account recently for any other reason?",
+      "Is there any chance someone else may have attempted to log in to your account unsuccessfully?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Read the lockout message carefully to see if it specifies an automatic unlock time or specific instructions",
+        "reason": "Many lockout policies are temporary and will resolve automatically after a set waiting period, which the message may clearly state"
+      },
+      {
+        "step": 2,
+        "action": "If an automatic unlock time is mentioned, wait for that period to pass before attempting to log in again",
+        "reason": "Attempting to log in repeatedly during an active lockout period can sometimes extend the lockout duration further"
+      },
+      {
+        "step": 3,
+        "action": "Avoid making further login attempts while investigating the cause, since additional failed attempts can worsen the situation",
+        "reason": "Continuing to guess at the password or retry repeatedly can trigger longer or more severe lockout periods on some systems"
+      },
+      {
+        "step": 4,
+        "action": "Contact the system administrator or IT help desk to confirm the reason for the lockout and request it be lifted if needed",
+        "reason": "Administrators can typically see the specific reason for a lockout and can manually unlock the account if appropriate"
+      },
+      {
+        "step": 5,
+        "action": "If the lockout was triggered by forgetting the correct password, use this opportunity to also reset the password through the official process once unlocked",
+        "reason": "This prevents a repeat lockout from continuing to use an uncertain or forgotten password"
+      },
+      {
+        "step": 6,
+        "action": "If suspicious login activity is suspected as the cause, inform the IT security team so they can investigate whether the account may have been targeted",
+        "reason": "A security-related lockout may indicate an attempted unauthorized access, which should be properly investigated rather than simply unlocked and ignored"
+      },
+      {
+        "step": 7,
+        "action": "Once access is restored, confirm normal login works correctly with the current password",
+        "reason": "This verifies the lockout has been fully resolved and access is genuinely restored"
+      }
+    ],
+    "possible_solutions": [
+      "Wait for an automatic lockout period to expire",
+      "Contact the administrator to manually unlock the account",
+      "Reset the password after unlocking if it was the original cause",
+      "Report suspected suspicious activity to the IT security team"
+    ],
+    "prevention": [
+      "Use a password manager to avoid repeated incorrect password attempts",
+      "Report forgotten passwords early rather than repeatedly guessing",
+      "Enable multi-factor authentication where available"
+    ],
+    "keywords": ["user account locked software", "account locked out application", "too many failed login attempts", "account lockout policy"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes (may depend on lockout duration)",
+    "related_problems": ["Cannot login to application", "Invalid username or password", "Access denied"]
+  },
+
+  {
+    "id": "SW-014",
+    "category": "Business Software",
+    "subcategory": "Access Permissions",
+    "problem": "Access denied within the application",
+    "description": "The user tries to access a specific area, feature, or record within the software, but is met with an error stating access is denied, preventing them from proceeding despite being logged in successfully.",
+    "symptoms": [
+      "Error message stating 'Access denied' or 'You do not have permission'",
+      "Certain menu options or buttons are missing or greyed out",
+      "Access works for some areas of the software but not others",
+      "Problem may follow a role change or new task assignment"
+    ],
+    "possible_causes": [
+      "The user's account role does not have the required permissions for this specific area or action",
+      "A recent change to the user's role or group membership reduced their access",
+      "The specific record or area has additional restrictions beyond general application access",
+      "The user is trying to access a feature not licensed or enabled for their account type"
+    ],
+    "diagnostic_questions": [
+      "What specific area, feature, or record were you trying to access when this error appeared?",
+      "Have you had successful access to this same area before, or is this your first attempt?",
+      "Do you know if your role or job responsibilities have changed recently?",
+      "Are other users with a similar role able to access this same area successfully?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact area, feature, or record you were trying to access, along with the exact error message",
+        "reason": "This specific detail is essential for the administrator to properly review and correct the relevant permissions"
+      },
+      {
+        "step": 2,
+        "action": "Confirm whether you have successfully accessed this same area before, or if this is a new task or responsibility",
+        "reason": "This helps distinguish between a genuine, unexpected loss of previously working access, versus a new access requirement that has simply never been granted"
+      },
+      {
+        "step": 3,
+        "action": "Check with colleagues in a similar role to see if they can access this same area successfully",
+        "reason": "This helps determine if the issue is specific to your individual account, or reflects a broader role-based access configuration that may need updating"
+      },
+      {
+        "step": 4,
+        "action": "Log out and log back in to the application, since some permission changes require a fresh session to take full effect",
+        "reason": "Newly granted permissions sometimes do not apply to an already active session until it is refreshed"
+      },
+      {
+        "step": 5,
+        "action": "Contact the system administrator or your manager to request the appropriate access, providing the specific area or feature needed and the business reason",
+        "reason": "This directly addresses the root cause by ensuring the correct permissions are properly granted through the appropriate approval process"
+      },
+      {
+        "step": 6,
+        "action": "Once updated access is confirmed, log out and log back in again, then verify the previously denied area is now accessible",
+        "reason": "This confirms the access change has been fully and correctly applied"
+      }
+    ],
+    "possible_solutions": [
+      "Log out and log back in after a permissions change",
+      "Request appropriate access from the administrator or manager with business justification",
+      "Confirm the correct role-based permissions with colleagues in similar positions",
+      "Report an unexpected loss of previously working access to the administrator"
+    ],
+    "prevention": [
+      "Request necessary access proactively when taking on new responsibilities",
+      "Understand your role's expected access scope within the application",
+      "Report unexpected access changes to the administrator promptly"
+    ],
+    "keywords": ["access denied application", "permission denied error software", "cannot access feature", "insufficient permissions system"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Permission denied", "Cannot login to application", "User account locked"]
+  },
+
+  {
+    "id": "SW-015",
+    "category": "Business Software",
+    "subcategory": "Access Permissions",
+    "problem": "Permission denied for a specific action within the software",
+    "description": "The user can access a general area of the software, but when trying to perform a specific action, such as editing, deleting, or approving, they receive an error stating they do not have permission for that particular action.",
+    "symptoms": [
+      "Error message such as 'Permission denied' when attempting a specific action",
+      "Can view content but cannot edit, delete, or approve it",
+      "Certain action buttons are greyed out or missing",
+      "Permission works for some records but not others of the same type"
+    ],
+    "possible_causes": [
+      "The user's role allows viewing but not the specific action being attempted, such as editing or approving",
+      "The specific record has additional ownership or approval-level restrictions",
+      "A workflow or approval process requires a different, more senior role to perform this action",
+      "The user's permissions were recently and intentionally scoped down for this type of action"
+    ],
+    "diagnostic_questions": [
+      "What specific action were you trying to perform, such as editing, deleting, or approving?",
+      "Have you been able to perform this same action successfully before on other records?",
+      "Do you know if this specific action is meant to be restricted to certain roles, such as managers or approvers?",
+      "Does this happen with all records, or just specific ones?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact action being attempted and the exact wording of the permission denied message",
+        "reason": "This helps distinguish between a general access restriction and one specific to a particular action, such as approval rights"
+      },
+      {
+        "step": 2,
+        "action": "Consider whether this specific action is a business process intentionally restricted to certain roles, such as managers or designated approvers",
+        "reason": "Some actions are deliberately limited by business rule, and understanding this context helps determine if the restriction is actually expected rather than a technical error"
+      },
+      {
+        "step": 3,
+        "action": "Check if this happens with all records of this type, or just specific ones, which might indicate an ownership-based restriction",
+        "reason": "Some systems restrict certain actions only to the original creator or assigned owner of a specific record, rather than applying a blanket restriction"
+      },
+      {
+        "step": 4,
+        "action": "If you believe you should have this permission based on your role or responsibilities, contact your manager or the system administrator to confirm and request the correct access level",
+        "reason": "This ensures the request goes through the appropriate approval process if the restriction does need to be adjusted for your role"
+      },
+      {
+        "step": 5,
+        "action": "If the action needs to be performed but is correctly restricted to a different role, identify and coordinate with the appropriate person, such as a manager or approver, to complete the action instead",
+        "reason": "This provides a practical way to get the necessary action completed while respecting appropriate business controls"
+      },
+      {
+        "step": 6,
+        "action": "Once any permission change is confirmed and applied, log out and log back in to ensure the update is properly recognized",
+        "reason": "This ensures the newly granted permission is correctly reflected in your active session"
+      }
+    ],
+    "possible_solutions": [
+      "Confirm whether the restriction is an intentional business rule",
+      "Request an appropriate permission update from the administrator or manager if warranted",
+      "Coordinate with the correctly authorized person to complete a restricted action",
+      "Log out and back in after any permission change is applied"
+    ],
+    "prevention": [
+      "Understand which actions are intentionally restricted by role within the software",
+      "Request necessary permissions proactively for new responsibilities",
+      "Communicate with the administrator about expected access needs for your position"
+    ],
+    "keywords": ["permission denied software action", "cannot approve record permission", "cannot delete permission error", "restricted action application"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["Access denied", "Cannot save file", "User account locked"]
+  },
+
+  {
+    "id": "SW-016",
+    "category": "Business Software",
+    "subcategory": "Licensing",
+    "problem": "License has expired",
+    "description": "The user tries to use a piece of software, but is met with a message stating the license has expired, restricting access to some or all features until the license is renewed.",
+    "symptoms": [
+      "Message specifically stating the license has expired",
+      "The software may open in a limited or read-only mode",
+      "Certain features are unavailable with a notice about license status",
+      "The software may refuse to open entirely, showing only the license message"
+    ],
+    "possible_causes": [
+      "The subscription or license term has genuinely reached its end date",
+      "A renewal payment failed to process successfully",
+      "The license server cannot be reached to verify a currently valid license",
+      "An administrator has not yet renewed or reassigned the license",
+      "The computer's date and time are set incorrectly, causing a valid license to appear expired"
+    ],
+    "diagnostic_questions": [
+      "Do you know when this software's license or subscription was last renewed?",
+      "Is your computer's date and time set correctly?",
+      "Are other users of the same software experiencing the same expired license message?",
+      "Is this software licensed individually to you, or centrally managed by your organization?"
+    ],
+    "commands": [
+      {
+        "command": "date /t",
+        "purpose": "Check the computer's currently set date to rule out an incorrect system clock causing a false expiration",
+        "expected_result": "Shows the correct, current date",
+        "abnormal_result": "Shows an incorrect date, which could cause a valid license to be mistakenly evaluated as expired"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check your computer's date and time settings to confirm they are accurate",
+        "reason": "An incorrect system clock can cause software to mistakenly evaluate a genuinely valid license as expired"
+      },
+      {
+        "step": 2,
+        "action": "Check with other users of the same software to see if they are also experiencing the same expired license message",
+        "reason": "This helps determine if this is an individual license issue, or a broader organizational licensing problem affecting everyone"
+      },
+      {
+        "step": 3,
+        "action": "If this is an individually purchased license, check your account or billing information to confirm whether a renewal payment was processed successfully",
+        "reason": "A failed renewal payment is a common and straightforward cause of an unexpectedly expired license"
+      },
+      {
+        "step": 4,
+        "action": "If this is a centrally managed, organization-licensed software, contact your IT department or software administrator to confirm the organization's license status",
+        "reason": "Organizational licenses are typically managed centrally, and individual users generally cannot renew or resolve this themselves"
+      },
+      {
+        "step": 5,
+        "action": "Confirm your computer has an internet connection if the software needs to reach a license verification server",
+        "reason": "Without internet access, the software may be unable to verify a genuinely valid license, causing it to appear expired"
+      },
+      {
+        "step": 6,
+        "action": "If a payment or renewal issue is identified, complete the renewal process through the official vendor channel",
+        "reason": "This directly resolves the issue by properly renewing the license, restoring full access to the software"
+      },
+      {
+        "step": 7,
+        "action": "After renewal, restart the software, and if necessary, the computer, to ensure the updated license status is properly recognized",
+        "reason": "This ensures the software fully reflects the renewed license Instead of continuing to reference cached expired status information"
+      }
+    ],
+    "possible_solutions": [
+      "Correct an inaccurate system clock",
+      "Complete a failed renewal payment through the vendor",
+      "Contact IT to renew or reassign an organizational license",
+      "Ensure internet connectivity for license verification",
+      "Restart the software after renewal to refresh license status"
+    ],
+    "prevention": [
+      "Keep the computer's date and time accurate",
+      "Set reminders for license or subscription renewal dates",
+      "Monitor organizational license status proactively as an administrator"
+    ],
+    "keywords": ["license expired software", "subscription expired application", "license renewal failed", "software license status"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Product activation failed", "Cannot login to application", "Application configuration error"]
+  },
+
+  {
+    "id": "SW-017",
+    "category": "Business Software",
+    "subcategory": "Licensing",
+    "problem": "Product activation failed",
+    "description": "After installing software, the user tries to activate it using a product key or account credentials, but the activation process fails, leaving the software in a trial, limited, or unactivated state.",
+    "symptoms": [
+      "Error message during the activation attempt",
+      "The software remains in trial or limited mode despite entering a valid key",
+      "A message states the product key is invalid or already in use",
+      "Activation appears to hang without completing"
+    ],
+    "possible_causes": [
+      "The product key was entered incorrectly",
+      "The product key has already reached its maximum number of allowed activations",
+      "No internet connection is available for online activation verification",
+      "The activation server is temporarily unavailable",
+      "The software was installed using media or a version that does not match the product key"
+    ],
+    "diagnostic_questions": [
+      "Have you double-checked the product key for typing mistakes?",
+      "Do you have an active internet connection for online activation?",
+      "Has this product key been used to activate this software on another computer before?",
+      "Does the installed software version match what the product key is intended for?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Carefully re-enter the product key, checking closely for commonly confused characters such as 'O' and '0', or 'I' and '1'",
+        "reason": "Simple typing mistakes when entering a long product key are a very common cause of activation failure"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the computer has an active, stable internet connection, since most modern activation processes require online verification",
+        "reason": "Without internet access, the activation server cannot be reached to verify and process the product key"
+      },
+      {
+        "step": 3,
+        "action": "Confirm the product key is intended for the specific version and edition of the software you have installed",
+        "reason": "A product key for a different edition or version will not successfully activate software that does not match it"
+      },
+      {
+        "step": 4,
+        "action": "If the key may have already been used on another computer, check whether it has reached its maximum allowed number of activations",
+        "reason": "Many product keys are limited to a specific number of simultaneous activations, and exceeding this will cause new activation attempts to fail"
+      },
+      {
+        "step": 5,
+        "action": "If a previous installation using this key is no longer in use, deactivate or transfer the license from that computer if the vendor provides a way to do so",
+        "reason": "This frees up an activation slot, allowing the key to be successfully used on the current computer"
+      },
+      {
+        "step": 6,
+        "action": "Try activation again after waiting a short period, in case the activation server was temporarily unavailable",
+        "reason": "Some activation failures are caused by brief server-side issues that resolve on a subsequent attempt"
+      },
+      {
+        "step": 7,
+        "action": "Contact the software vendor's support team if activation continues to fail despite a correct key and stable internet connection, providing the exact error message received",
+        "reason": "The vendor can verify the key's status and assist with activation issues that cannot be resolved through standard troubleshooting"
+      }
+    ],
+    "possible_solutions": [
+      "Carefully re-enter the product key to correct typing mistakes",
+      "Ensure a stable internet connection for online activation",
+      "Confirm the key matches the installed software version and edition",
+      "Deactivate the key from a previous computer if no longer in use",
+      "Contact vendor support if activation continues to fail"
+    ],
+    "prevention": [
+      "Keep product keys stored securely and accurately recorded",
+      "Deactivate licenses from old computers before decommissioning them",
+      "Confirm software version compatibility before purchasing a product key"
+    ],
+    "keywords": ["product activation failed", "activation error software", "invalid product key", "cannot activate license"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["License expired", "Cannot connect to server", "Application configuration error"]
+  },
+
+  {
+    "id": "SW-018",
+    "category": "Business Software",
+    "subcategory": "Server Connectivity",
+    "problem": "Cannot connect to the server",
+    "description": "The software requires a connection to a server to function fully, but repeatedly fails to establish this connection, displaying an error and preventing server-dependent features from working.",
+    "symptoms": [
+      "Error message such as 'Cannot connect to server' or 'Connection failed'",
+      "The software's basic interface may load, but no server-dependent data appears",
+      "All server-dependent features are unavailable",
+      "May happen for one user or many at the same time"
+    ],
+    "possible_causes": [
+      "No active internet or network connection on the user's computer",
+      "The software's server is down or restarting",
+      "A required VPN connection is not active for internal software",
+      "A firewall or network configuration is blocking the connection",
+      "Incorrect server address configured in the software's settings"
+    ],
+    "diagnostic_questions": [
+      "Are you connected to the correct network or VPN required for this software?",
+      "Are other users able to connect to the server right now?",
+      "Does your computer have a working internet or network connection overall?",
+      "Has this software worked correctly before on this same network connection?"
+    ],
+    "commands": [
+      {
+        "command": "ping [software server address]",
+        "purpose": "Test basic network connectivity to the software's server",
+        "expected_result": "Replies received from the server, confirming a network path exists",
+        "abnormal_result": "Request timed out, meaning the server cannot be reached from this network location"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the computer has a working internet or network connection independent of this specific software",
+        "reason": "This determines if the problem is specific to reaching this software's server, or a broader network issue affecting everything"
+      },
+      {
+        "step": 2,
+        "action": "If the software requires a VPN connection, confirm the VPN is currently active and stable",
+        "reason": "Many internal business applications are only reachable through a company VPN, and without it, connection attempts will always fail"
+      },
+      {
+        "step": 3,
+        "action": "Ping the software's server address to test basic network reachability",
+        "reason": "This directly confirms whether a network path currently exists to the server from this specific computer"
+      },
+      {
+        "step": 4,
+        "action": "Check with other users to see if they are experiencing the same connection failure right now",
+        "reason": "This quickly indicates whether the problem is isolated to this one user or represents a broader server outage"
+      },
+      {
+        "step": 5,
+        "action": "Restart the software, or refresh the connection, to rule out a temporary connection state issue",
+        "reason": "A fresh restart can resolve connection problems caused by a stuck or corrupted session on the client side"
+      },
+      {
+        "step": 6,
+        "action": "Check the software's configured server address, if accessible in its settings, to confirm it has not been accidentally changed or is outdated",
+        "reason": "An incorrect server address will prevent the software from ever finding the correct server, regardless of network health"
+      },
+      {
+        "step": 7,
+        "action": "If the problem affects multiple users, contact the system administrator immediately, since this likely indicates a server outage or network infrastructure issue",
+        "reason": "A widespread connectivity issue requires administrator-level investigation into the server and network infrastructure itself"
+      }
+    ],
+    "possible_solutions": [
+      "Restore a working internet or network connection",
+      "Reconnect the VPN if required for this software",
+      "Restart the software or refresh the connection",
+      "Correct an incorrect server address in software settings",
+      "Report a widespread outage to the system administrator"
+    ],
+    "prevention": [
+      "Maintain a stable VPN connection when required",
+      "Keep server settings correctly configured",
+      "Stay informed of scheduled server maintenance windows"
+    ],
+    "keywords": ["cannot connect to server software", "connection failed application", "server unreachable software", "vpn required software"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Server unavailable", "Database connection failed", "Network timeout"]
+  },
+
+  {
+    "id": "SW-019",
+    "category": "Business Software",
+    "subcategory": "Server Connectivity",
+    "problem": "Server is unavailable",
+    "description": "The user tries to access the software and receives a specific message stating the server is unavailable, distinct from a generic connection failure, suggesting the server itself is not currently operational.",
+    "symptoms": [
+      "Specific error message stating 'Server unavailable' or 'Service unavailable'",
+      "May include an HTTP error code such as 503",
+      "Problem persists across multiple attempts and refreshes",
+      "May affect one specific application or an entire suite of related systems"
+    ],
+    "possible_causes": [
+      "The server is undergoing scheduled maintenance",
+      "The server has crashed or stopped responding due to an unexpected error",
+      "The server is overloaded with too many requests at once",
+      "A recent deployment or update to the software caused the server to fail to start correctly"
+    ],
+    "diagnostic_questions": [
+      "Does the error include a specific code, such as 503 Service Unavailable?",
+      "Have you received any communication about scheduled maintenance for this system?",
+      "Are other users also seeing this same unavailable message right now?",
+      "Has this been happening consistently, or did it start very recently?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message and any accompanying error code shown",
+        "reason": "Specific codes, such as 503, help confirm the nature of the problem and provide useful information for the administrator"
+      },
+      {
+        "step": 2,
+        "action": "Check for any recent communication from IT about planned maintenance for this software or related systems",
+        "reason": "Scheduled maintenance is a very common and expected cause of temporary server unavailability"
+      },
+      {
+        "step": 3,
+        "action": "Check with other users to confirm whether they are also seeing the same unavailable message",
+        "reason": "This quickly establishes whether the problem is a genuine server-wide outage or possibly isolated to this one connection"
+      },
+      {
+        "step": 4,
+        "action": "Wait a reasonable amount of time, such as 10 to 15 minutes, and try again, in case this is a brief, temporary server issue",
+        "reason": "Servers sometimes recover automatically from temporary overload or brief internal errors within a short period"
+      },
+      {
+        "step": 5,
+        "action": "Check the software's official status page, if one is provided by the vendor or organization, for official updates on the outage",
+        "reason": "Many organizations and vendors maintain a status page specifically to communicate known outages and estimated resolution times"
+      },
+      {
+        "step": 6,
+        "action": "If the problem persists beyond a reasonable wait time, report it immediately to the system administrator, providing the exact error message, code, and time it started",
+        "reason": "Detailed, specific information significantly speeds up the administrator's ability to diagnose and address the outage"
+      },
+      {
+        "step": 7,
+        "action": "Avoid repeatedly refreshing or retrying excessively while waiting, since this can add unnecessary additional load to an already struggling server",
+        "reason": "Excessive retry attempts can worsen an already overloaded server situation for all affected users"
+      }
+    ],
+    "possible_solutions": [
+      "Wait out scheduled maintenance",
+      "Wait for a brief, temporary server issue to resolve on its own",
+      "Check the official status page for outage updates",
+      "Report the outage promptly to the system administrator with specific details",
+      "Avoid excessive retry attempts that could add load to a struggling server"
+    ],
+    "prevention": [
+      "Stay informed of scheduled maintenance communications",
+      "Check the status page before assuming a widespread issue",
+      "Report outages promptly with specific details to help administrators respond quickly"
+    ],
+    "keywords": ["server unavailable software", "service unavailable error software", "503 error application", "server down message software"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-45 minutes (may depend on server status)",
+    "related_problems": ["Cannot connect to server", "Network timeout", "Database connection failed"]
+  },
+
+  {
+    "id": "SW-020",
+    "category": "Business Software",
+    "subcategory": "Database Connectivity",
+    "problem": "Database connection failed",
+    "description": "The user tries to perform an action in the software that requires retrieving or saving data, but the application shows a specific error indicating it could not connect to its underlying database.",
+    "symptoms": [
+      "Error message specifically mentioning 'Database connection failed' or similar",
+      "The software's basic interface may load, but no data can be retrieved or saved",
+      "Error may include a technical code or reference number",
+      "Problem may affect one specific feature or the entire application"
+    ],
+    "possible_causes": [
+      "The database server is down or restarting",
+      "The database server has reached its maximum number of allowed connections",
+      "A network problem between the application server and the database server",
+      "Database server maintenance is currently in progress",
+      "A configuration issue in the software preventing it from properly reaching the database"
+    ],
+    "diagnostic_questions": [
+      "Does the error include any specific technical code or reference number?",
+      "Are other users experiencing the same database connection error right now?",
+      "Have you received any communication about scheduled database maintenance?",
+      "Does this error happen with all actions, or specific ones involving data retrieval or saving?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message and any technical code or reference number shown",
+        "reason": "This detailed information is essential for the system administrator or database team to quickly diagnose the specific cause"
+      },
+      {
+        "step": 2,
+        "action": "Check with other users to confirm whether they are also experiencing the same database connection error",
+        "reason": "This is a database-level, typically server-side issue, and confirming its scope with others is important initial diagnostic information"
+      },
+      {
+        "step": 3,
+        "action": "Check for any recent communication from IT about scheduled database maintenance",
+        "reason": "Planned database maintenance is a common and expected cause of temporary connection failures"
+      },
+      {
+        "step": 4,
+        "action": "Wait a short period, such as 5 to 10 minutes, and try the action again, in case this is a brief, temporary database connectivity issue",
+        "reason": "Database connections can sometimes recover automatically from brief spikes in load or temporary internal issues"
+      },
+      {
+        "step": 5,
+        "action": "This type of error is generally not something an end user can resolve directly, since it relates to backend server infrastructure",
+        "reason": "Database connectivity is managed at the server and infrastructure level, well beyond typical end-user troubleshooting capabilities"
+      },
+      {
+        "step": 6,
+        "action": "Report the issue promptly to the system administrator or database team, including the exact error message, code, and the specific time it started occurring",
+        "reason": "This is a critical, backend infrastructure issue that requires immediate administrator attention, and detailed reporting speeds up resolution significantly"
+      },
+      {
+        "step": 7,
+        "action": "Avoid repeatedly retrying the same failed action many times while waiting for the issue to be resolved",
+        "reason": "Repeated attempts can add unnecessary additional load to an already struggling database connection pool, potentially worsening the situation for all users"
+      }
+    ],
+    "possible_solutions": [
+      "Wait out scheduled database maintenance",
+      "Wait for a brief, temporary connectivity issue to resolve",
+      "Report the issue immediately to the system administrator or database team with specific details",
+      "Avoid excessive retry attempts that could add load to the database"
+    ],
+    "prevention": [
+      "Stay informed of scheduled database maintenance windows",
+      "Report database connection errors promptly with specific details",
+      "Avoid excessive simultaneous requests during known high-load periods"
+    ],
+    "keywords": ["database connection failed software", "database error application", "cannot connect database", "database unavailable error"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-60 minutes (typically requires administrator involvement)",
+    "related_problems": ["Cannot connect to server", "Server unavailable", "Network timeout"]
+  },
+
+  {
+    "id": "SW-021",
+    "category": "Business Software",
+    "subcategory": "Network Connectivity",
+    "problem": "Network timeout error in the application",
+    "description": "The user attempts an action within the software, such as loading data or saving a record, but after waiting, receives a specific error stating the connection timed out, rather than a successful response.",
+    "symptoms": [
+      "Error message specifically mentioning 'Network timeout' or 'Request timed out'",
+      "The action seems to be attempted but never completes within the expected time",
+      "May happen with all actions, or specifically slow or large operations",
+      "Problem may be intermittent or consistent"
+    ],
+    "possible_causes": [
+      "A slow or unstable network connection",
+      "The server is taking longer than the allowed time limit to process the request",
+      "A very large operation exceeding normal timeout thresholds",
+      "Network congestion between the user's location and the server",
+      "A firewall or proxy interrupting the connection before it can complete"
+    ],
+    "diagnostic_questions": [
+      "Does this happen with all actions, or specifically larger or more complex operations?",
+      "Is your network connection currently stable and reasonably fast?",
+      "Are other users experiencing similar timeout errors right now?",
+      "Does this happen consistently, or only occasionally?"
+    ],
+    "commands": [
+      {
+        "command": "ping [application server address]",
+        "purpose": "Check network response time and stability to the application server",
+        "expected_result": "Consistent, reasonably fast reply times with no lost packets",
+        "abnormal_result": "Slow, inconsistent replies or significant packet loss, indicating network instability contributing to the timeout"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check your network connection stability and speed, since a poor connection is a very common cause of timeout errors",
+        "reason": "Timeouts often occur when data cannot be transmitted quickly or reliably enough to complete a request within the allowed time"
+      },
+      {
+        "step": 2,
+        "action": "Retry the same action to see if the timeout was a one-time, temporary occurrence",
+        "reason": "Some timeouts are caused by brief network hiccups that do not repeat on a subsequent attempt"
+      },
+      {
+        "step": 3,
+        "action": "If the timeout happens specifically with a large operation, such as a big report or file, try breaking it into smaller parts",
+        "reason": "This reduces the processing time needed, helping the operation complete within the allowed timeout period"
+      },
+      {
+        "step": 4,
+        "action": "Check with other users to see if they are experiencing similar timeout errors with the same or similar actions",
+        "reason": "This helps determine if the problem is related to your specific network connection, or a broader server-side performance issue"
+      },
+      {
+        "step": 5,
+        "action": "If working remotely, check the stability of your VPN connection specifically, since VPN connections can sometimes introduce additional latency contributing to timeouts",
+        "reason": "VPN connections add an extra layer of network complexity that can sometimes be a source of instability or slowdown"
+      },
+      {
+        "step": 6,
+        "action": "If timeouts happen consistently with specific types of actions, report this pattern to the system administrator",
+        "reason": "Consistent, predictable timeout patterns provide valuable diagnostic information that can lead to a proper server-side fix"
+      },
+      {
+        "step": 7,
+        "action": "As a temporary workaround for known slow operations, try performing them during off-peak hours when server load may be lower",
+        "reason": "Reduced overall server load during quieter periods can sometimes allow operations to complete within the timeout limit"
+      }
+    ],
+    "possible_solutions": [
+      "Improve or stabilize the network connection",
+      "Retry the action after a brief pause",
+      "Break large operations into smaller parts",
+      "Ensure a stable VPN connection when working remotely",
+      "Report consistent timeout patterns to the system administrator"
+    ],
+    "prevention": [
+      "Maintain a stable, reasonably fast network connection",
+      "Avoid requesting excessively large operations when smaller ones would suffice",
+      "Report recurring timeout patterns to help administrators adjust server settings"
+    ],
+    "keywords": ["network timeout software", "request timeout error application", "connection timed out software", "action timed out server"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Cannot connect to server", "Server unavailable", "Software runs very slowly"]
+  },
+
+  {
+    "id": "SW-022",
+    "category": "Business Software",
+    "subcategory": "File Operations",
+    "problem": "Cannot save a file within the application",
+    "description": "The user tries to save their work within a software application, but the save action fails, either producing an error or simply not completing, risking loss of recent work.",
+    "symptoms": [
+      "Error message when clicking save",
+      "The save appears to complete but changes are not actually saved",
+      "Error mentioning permission or access when saving",
+      "Saving to a specific location fails while saving elsewhere works"
+    ],
+    "possible_causes": [
+      "The file or its destination is set to read-only",
+      "Insufficient permissions to save to the chosen location",
+      "The destination drive or folder is full or disconnected",
+      "The file name contains characters not allowed by the system",
+      "A network connection was lost while saving to a network location"
+    ],
+    "diagnostic_questions": [
+      "What exact error message appears when trying to save?",
+      "Where are you trying to save the file, such as locally, on a USB drive, or a network location?",
+      "Does saving with a different file name or in a different location work?",
+      "Is this file shared with or currently open by another person?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Read the exact error message shown when the save fails",
+        "reason": "The specific wording often points directly to the cause, such as a permissions or naming issue"
+      },
+      {
+        "step": 2,
+        "action": "Try saving to a different location, such as the Desktop, to determine if the problem is with the specific destination",
+        "reason": "This helps determine if the problem is with the specific destination or the file itself"
+      },
+      {
+        "step": 3,
+        "action": "Check if the file is marked as read-only, and remove this attribute if present",
+        "reason": "A read-only file cannot be saved over until this attribute is removed"
+      },
+      {
+        "step": 4,
+        "action": "Check available storage space on the destination drive",
+        "reason": "A completely full drive will prevent any new save operations from completing"
+      },
+      {
+        "step": 5,
+        "action": "If saving to a network or shared drive, confirm the network connection is currently working",
+        "reason": "A dropped network connection during saving is a common cause of save failures in shared environments"
+      },
+      {
+        "step": 6,
+        "action": "Check if the file name contains special characters that are not allowed by the system",
+        "reason": "Restricted characters in file names will cause save errors if used"
+      },
+      {
+        "step": 7,
+        "action": "If working in a shared environment, check if someone else has the file open, which can lock it from being saved by others",
+        "reason": "Simultaneous access without proper co-authoring features can cause save conflicts"
+      },
+      {
+        "step": 8,
+        "action": "As a safety measure, save a copy of your work under a completely new file name if the original consistently fails to save",
+        "reason": "This preserves your work using a fresh file, bypassing whatever specific issue affects the original"
+      }
+    ],
+    "possible_solutions": [
+      "Remove the read-only attribute from the file",
+      "Save to a different location to confirm the file works",
+      "Free up space on the destination drive",
+      "Fix or wait for the network connection to a shared drive",
+      "Rename the file to remove invalid characters"
+    ],
+    "prevention": [
+      "Regularly check available storage space",
+      "Avoid special characters in file names",
+      "Use a stable network connection when saving to shared drives"
+    ],
+    "keywords": ["cannot save file application", "save error software", "file is read only save", "permission denied saving file"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["File is locked by another user", "Cannot open file", "Access denied"]
+  },
+
+  {
+    "id": "SW-023",
+    "category": "Business Software",
+    "subcategory": "File Operations",
+    "problem": "Cannot open a file within the application",
+    "description": "The user tries to open an existing file using the software, but the file fails to open, showing an error message, or the software simply does not respond to the attempt.",
+    "symptoms": [
+      "Error message when trying to open the file",
+      "The software attempts to open the file but never completes",
+      "A blank or empty document opens instead of the expected content",
+      "The file opens correctly on other computers but not this one"
+    ],
+    "possible_causes": [
+      "The file itself is corrupted",
+      "The file was created in a newer version of the software that this version does not support",
+      "Insufficient permissions to access the file",
+      "The file is currently open and locked by another user",
+      "The file path is broken, such as if the file was moved or is on an inaccessible network drive"
+    ],
+    "diagnostic_questions": [
+      "What exact error message, if any, appears when trying to open the file?",
+      "Does this file open correctly on a different computer?",
+      "Do you know what version of the software was used to originally create this file?",
+      "Is this file stored locally, or on a network or shared location?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Try opening a different, known-working file in the same software to confirm the software itself is functioning normally",
+        "reason": "This helps determine if the problem is specific to this one file, or reflects a broader issue with the software"
+      },
+      {
+        "step": 2,
+        "action": "Try opening the specific file on a different computer, if available",
+        "reason": "This helps determine if the file itself is corrupted, or if the problem is specific to this computer's software installation"
+      },
+      {
+        "step": 3,
+        "action": "Confirm you have the correct permissions to access this specific file, especially if it is on a shared or network location",
+        "reason": "Insufficient permissions can sometimes present as a generic 'cannot open' error rather than a clear access denied message"
+      },
+      {
+        "step": 4,
+        "action": "Check if the file might currently be open by another user, which could be preventing you from opening it as well",
+        "reason": "Some files become locked or restricted while another user has them open, depending on the software's collaboration features"
+      },
+      {
+        "step": 5,
+        "action": "If the file was created in a newer version of the software, check if an update is available for your version, or if the file can be saved in a more compatible format by whoever created it",
+        "reason": "Version incompatibility is a common reason a file will not open correctly in an older version of the same software"
+      },
+      {
+        "step": 6,
+        "action": "If the file is on a network location, confirm you can reach that location normally, and that the file has not been moved or renamed",
+        "reason": "A broken network path or a moved file will prevent the software from successfully locating and opening it"
+      },
+      {
+        "step": 7,
+        "action": "If corruption is suspected, check if a backup or earlier version of the file is available to use instead",
+        "reason": "A backup copy avoids the need to repair a corrupted file and ensures access to at least a recent version of the content"
+      },
+      {
+        "step": 8,
+        "action": "If the software includes a file repair feature, attempt to use it on the problematic file",
+        "reason": "Many business applications include built-in repair tools specifically designed to recover content from damaged files"
+      }
+    ],
+    "possible_solutions": [
+      "Confirm the software itself works with other files",
+      "Test opening the file on a different computer",
+      "Request appropriate permissions if access is restricted",
+      "Update the software if the file was created in a newer version",
+      "Restore from a backup if the file is corrupted",
+      "Use a built-in file repair feature if available"
+    ],
+    "prevention": [
+      "Keep the software updated to maintain file format compatibility",
+      "Regularly back up important files",
+      "Confirm appropriate permissions when sharing files"
+    ],
+    "keywords": ["cannot open file application", "file will not open software", "file open error", "file version incompatible"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["File is corrupted", "File is locked by another user", "Cannot save file"]
+  },
+
+  {
+    "id": "SW-024",
+    "category": "Business Software",
+    "subcategory": "File Operations",
+    "problem": "File is corrupted",
+    "description": "The user tries to open a file, but receives an error message saying the file is corrupted or unreadable, or the file opens showing garbled content, missing data, or unexpected errors.",
+    "symptoms": [
+      "Error message stating the file is corrupted or unreadable",
+      "The file opens but shows garbled text, missing sections, or broken formatting",
+      "The software crashes specifically when trying to open this file",
+      "The file size appears unusually small or large compared to what is expected"
+    ],
+    "possible_causes": [
+      "The file was not saved completely due to a crash or power loss",
+      "The file was copied or transferred incorrectly, causing data corruption",
+      "A virus or malware damaged the file",
+      "The storage device experienced an error while saving or transferring the file",
+      "The file extension does not match the actual file format"
+    ],
+    "diagnostic_questions": [
+      "Did the computer crash, lose power, or close unexpectedly while this file was open or being saved?",
+      "Where is the file stored, such as locally, on a USB drive, or a network location?",
+      "Was this file copied, emailed, or transferred from another location recently?",
+      "Do you have a recent backup or an earlier saved version of this file?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "If the software offers a built-in repair option when opening the corrupted file, use it",
+        "reason": "Many business applications have a repair feature specifically designed to recover as much content as possible from a damaged file"
+      },
+      {
+        "step": 2,
+        "action": "Check for any automatically saved recovery version of the file, if the software has an auto-save or auto-recovery feature",
+        "reason": "Recovery copies may be more recent or less damaged than the main corrupted file"
+      },
+      {
+        "step": 3,
+        "action": "Check if a backup copy exists, such as in cloud storage version history, a previous email attachment, or a separate backup location",
+        "reason": "A backup copy avoids the need for repair entirely and guarantees complete, undamaged content"
+      },
+      {
+        "step": 4,
+        "action": "Try opening the file on a different computer or with a different compatible program",
+        "reason": "This helps determine if the corruption is truly in the file itself, or related to a problem with this specific computer's software installation"
+      },
+      {
+        "step": 5,
+        "action": "If partial content can be recovered, extract what is usable and manually recreate any missing portions if feasible",
+        "reason": "This salvages as much of the original work as possible even when a full recovery is not achievable"
+      },
+      {
+        "step": 6,
+        "action": "Run a malware scan if the corruption happened without a clear explanation like a crash or transfer error",
+        "reason": "Unexplained file corruption can sometimes be caused by malware damaging files on the system"
+      },
+      {
+        "step": 7,
+        "action": "Check the health of the storage device where the file was located, since a failing drive can be an underlying cause of file corruption",
+        "reason": "If the storage itself is failing, other files may also be at risk, making this an important root cause to investigate"
+      }
+    ],
+    "possible_solutions": [
+      "Use the software's built-in repair feature",
+      "Recover a version from an auto-save or recovery folder",
+      "Restore from a cloud or manual backup",
+      "Extract and salvage any partially recoverable content",
+      "Remove malware if it may have caused the corruption",
+      "Check and repair the underlying storage device"
+    ],
+    "prevention": [
+      "Save work frequently while working",
+      "Use cloud storage with version history for important files",
+      "Use a UPS to avoid power loss during saving",
+      "Keep antivirus software active and updated"
+    ],
+    "keywords": ["file corrupted software", "file unreadable error", "cannot open corrupted file", "repair corrupted document"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Cannot open file", "Cannot save file", "Import failed"]
+  },
+
+  {
+    "id": "SW-025",
+    "category": "Business Software",
+    "subcategory": "File Operations",
+    "problem": "File is locked by another user",
+    "description": "The user tries to open or edit a shared file, but receives a message indicating it is currently locked or in use by another person, preventing them from making changes until it becomes available.",
+    "symptoms": [
+      "Message stating the file is 'locked for editing' by a specific user",
+      "The file opens in read-only mode with a notice about another user editing it",
+      "The lock persists even though the other user believes they closed the file",
+      "The problem resolves once the other user properly closes the file"
+    ],
+    "possible_causes": [
+      "Another user genuinely has the file open at the same time",
+      "The other user's session crashed or closed improperly, leaving a stale lock behind",
+      "A background sync or backup process has the file temporarily locked",
+      "The file was left open on a computer that has since gone to sleep or lost its network connection without properly releasing the lock"
+    ],
+    "diagnostic_questions": [
+      "Does the lock notice specify which user currently has the file open?",
+      "Can you confirm with that specific person whether they genuinely still have it open?",
+      "Has this lock persisted for an unusually long time, suggesting it might be stale?",
+      "Is this a one-time occurrence, or does this happen frequently with this file?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the lock notification for the name of the user who currently has the file open",
+        "reason": "This is usually displayed directly and provides the most direct path to resolving the situation quickly"
+      },
+      {
+        "step": 2,
+        "action": "Contact that specific user to confirm whether they genuinely still have the file open, and ask them to close it if they are finished",
+        "reason": "In many cases, the lock is genuine and simply resolves once the other person properly closes their session with the file"
+      },
+      {
+        "step": 3,
+        "action": "If the identified user confirms they do not currently have the file open, this suggests a stale lock left over from a crash, improper closure, or a computer that went to sleep",
+        "reason": "This distinguishes between a genuine active lock and a leftover technical artifact that needs to be manually cleared"
+      },
+      {
+        "step": 4,
+        "action": "If a stale lock is suspected, wait a short period, since some systems automatically clear locks after a period of inactivity or a timeout",
+        "reason": "Many file locking systems have a built-in mechanism to eventually release locks that were not properly closed"
+      },
+      {
+        "step": 5,
+        "action": "If the lock persists and is confirmed to be stale, contact the file server or system administrator, who can typically identify and manually clear the specific lock from the server side",
+        "reason": "Administrators often have tools to view and release file locks directly on the server, which is not something a general user can do themselves"
+      },
+      {
+        "step": 6,
+        "action": "Once the lock is cleared, confirm you can now open and edit the file normally",
+        "reason": "This verifies the issue has been fully resolved before continuing with your intended work"
+      }
+    ],
+    "possible_solutions": [
+      "Wait for the identified user to close the file",
+      "Wait for a stale lock to automatically clear after a timeout period",
+      "Have the administrator manually clear a persistent stale lock",
+      "Encourage proper file closing practices to prevent future stale locks"
+    ],
+    "prevention": [
+      "Properly close shared files rather than leaving them open when stepping away",
+      "Avoid letting computers go to sleep with important shared files still open",
+      "Communicate with colleagues when working on the same shared documents"
+    ],
+    "keywords": ["file locked by another user software", "file currently in use application", "locked for editing message", "stale file lock"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["Cannot save file", "Cannot open file", "Access denied"]
+  },
+
+  {
+    "id": "SW-026",
+    "category": "Business Software",
+    "subcategory": "Data Operations",
+    "problem": "Import failed",
+    "description": "The user tries to import data from an external file, such as a spreadsheet or CSV file, into the software, but the import process fails, shows an error, or completes with missing or incorrect data.",
+    "symptoms": [
+      "Error message during the import process",
+      "The import completes but shows fewer records than expected",
+      "Certain fields or columns are missing or incorrectly mapped after import",
+      "The import process stalls without completing"
+    ],
+    "possible_causes": [
+      "The source file's format does not match what the software expects for import",
+      "Required fields in the source file are missing or improperly formatted",
+      "The source file contains characters or data that the import process cannot handle",
+      "The file is too large, exceeding the import feature's size limits",
+      "A mismatch between the source file's columns and the destination's expected fields"
+    ],
+    "diagnostic_questions": [
+      "What exact error message, if any, appears during the failed import?",
+      "What file format are you trying to import, such as CSV or Excel?",
+      "Have you successfully imported similar files before?",
+      "Roughly how many records or rows does the source file contain?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message shown during the failed import, if any",
+        "reason": "Specific error details often point directly to the exact row, column, or formatting issue causing the failure"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the source file is in the exact format expected by the software's import feature, such as CSV versus Excel",
+        "reason": "An incorrect file format is a very common and straightforward cause of import failures"
+      },
+      {
+        "step": 3,
+        "action": "Check the source file for any missing required fields, referring to the software's documented import requirements",
+        "reason": "Missing required data is a common reason certain records fail to import correctly, or the entire process is rejected"
+      },
+      {
+        "step": 4,
+        "action": "Check for and remove any unusual characters or formatting in the source file that might not be properly handled by the import process",
+        "reason": "Special characters, unexpected line breaks, or inconsistent formatting can disrupt the import parsing process"
+      },
+      {
+        "step": 5,
+        "action": "If the source file is very large, try splitting it into smaller batches and importing them separately",
+        "reason": "Some import features have size limits, and breaking a large file into smaller pieces can help it stay within those limits"
+      },
+      {
+        "step": 6,
+        "action": "Carefully review and correct the field mapping between the source file's columns and the software's expected destination fields",
+        "reason": "Incorrect mapping can cause data to import into the wrong fields, or be rejected entirely if required fields are not properly matched"
+      },
+      {
+        "step": 7,
+        "action": "Test the import process with a small sample of just a few records first, before attempting the full dataset",
+        "reason": "This helps identify and correct formatting or mapping issues on a small scale before committing to importing the entire large dataset"
+      },
+      {
+        "step": 8,
+        "action": "If the import continues to fail despite these checks, consult the software's specific import documentation or contact support for guidance on the exact required format",
+        "reason": "Some software has very specific, sometimes undocumented import requirements that support resources can clarify"
+      }
+    ],
+    "possible_solutions": [
+      "Convert the source file to the exact expected format",
+      "Complete any missing required fields in the source file",
+      "Remove problematic special characters or formatting",
+      "Split a very large file into smaller batches",
+      "Correct the field mapping between source and destination",
+      "Test with a small sample before importing the full dataset"
+    ],
+    "prevention": [
+      "Follow the software's documented import format requirements closely",
+      "Test imports with small samples before large-scale imports",
+      "Keep source data clean and consistently formatted"
+    ],
+    "keywords": ["import failed software", "data import error", "csv import failed", "import field mapping error"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["Export failed", "File is corrupted", "Cannot open file"]
+  },
+
+  {
+    "id": "SW-027",
+    "category": "Business Software",
+    "subcategory": "Data Operations",
+    "problem": "Export failed",
+    "description": "The user tries to export data from the software to an external file format, but the export process fails, shows an error, or produces a file that is incomplete or will not open correctly.",
+    "symptoms": [
+      "Error message when attempting to export",
+      "The export appears to start but the file never downloads or completes",
+      "The exported file will not open, or opens with an error",
+      "The exported file is missing expected data or records"
+    ],
+    "possible_causes": [
+      "The amount of data being exported is too large, exceeding export limits",
+      "A browser or system setting is blocking the file download",
+      "A temporary issue during the export generation process",
+      "The exported file has become corrupted during the download or save process",
+      "Insufficient permissions to access all the data included in the export"
+    ],
+    "diagnostic_questions": [
+      "Does an error appear immediately, or does the export seem to start but never finish?",
+      "Roughly how much data were you trying to export, such as number of rows or records?",
+      "Have you successfully exported data from this software before?",
+      "Does the exported file fail to open, or does it open but appear empty or incomplete?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check if the amount of data being exported is unusually large, and if so, try narrowing it with filters before exporting again",
+        "reason": "Exports of extremely large datasets can fail or produce incomplete files if they exceed reasonable size or row limits"
+      },
+      {
+        "step": 2,
+        "action": "Check the browser or system's download settings and notification area to confirm the file download was not silently blocked",
+        "reason": "Security settings sometimes block file downloads without a clearly visible error, especially for certain file types"
+      },
+      {
+        "step": 3,
+        "action": "Try the export again after waiting a short period, in case this was a brief, temporary issue during file generation",
+        "reason": "Some export failures are caused by momentary system load issues that resolve on a subsequent attempt"
+      },
+      {
+        "step": 4,
+        "action": "If the file downloads but will not open correctly, try opening it on a different computer or with different, updated software",
+        "reason": "This helps determine if the problem is with the exported file itself, or specific to the software on the original computer"
+      },
+      {
+        "step": 5,
+        "action": "Try exporting a smaller subset of the same data, such as a shorter date range, to see if a reduced export completes successfully",
+        "reason": "This helps confirm whether data volume specifically is the underlying cause of the export failure"
+      },
+      {
+        "step": 6,
+        "action": "Confirm you have the correct permissions to access all the data categories included in this specific export",
+        "reason": "Insufficient permissions to certain underlying data can sometimes cause an export to fail rather than simply excluding that portion"
+      },
+      {
+        "step": 7,
+        "action": "Check with other users to see if they experience the same export failure with similar amounts of data",
+        "reason": "This helps determine if the problem is isolated to your account, computer, or browser, or reflects a broader export feature issue"
+      },
+      {
+        "step": 8,
+        "action": "Report persistent export failures to the system administrator, including the approximate data size and any error messages encountered",
+        "reason": "This information helps the administrator determine if an export size limit needs adjustment or if there is an underlying export feature bug"
+      }
+    ],
+    "possible_solutions": [
+      "Narrow the data being exported to a smaller, more manageable size",
+      "Check and adjust download settings blocking the export",
+      "Retry the export after a brief pause",
+      "Confirm correct permissions for all data included in the export",
+      "Report persistent export failures to the system administrator"
+    ],
+    "prevention": [
+      "Avoid exporting excessively large datasets when a filtered, smaller export would suffice",
+      "Confirm download settings allow expected file types",
+      "Report export limitations to help administrators adjust system limits appropriately"
+    ],
+    "keywords": ["export failed software", "cannot export data application", "exported file corrupted", "export error application"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Import failed", "Cannot save file", "System running slowly"]
+  },
+
+  {
+    "id": "SW-028",
+    "category": "Business Software",
+    "subcategory": "Printing",
+    "problem": "Print from application failed",
+    "description": "The user tries to print a document or report generated within the software, but the print process fails, produces a blank or incorrectly formatted page, or the print dialog does not appear at all.",
+    "symptoms": [
+      "Clicking print does nothing, or no print dialog appears",
+      "Print dialog appears but the printed page is blank",
+      "Printed output is missing content or shows incorrect formatting",
+      "Print works for other documents but not this specific software"
+    ],
+    "possible_causes": [
+      "The printer is offline, out of paper, or has another physical issue",
+      "The wrong printer is selected in the print settings",
+      "The print spooler service has stopped",
+      "An outdated or corrupted printer driver",
+      "The specific document or report is formatted in a way that does not translate well to a printed page"
+    ],
+    "diagnostic_questions": [
+      "Can you print a test page or a document from another program?",
+      "Is the correct printer selected in the print dialog?",
+      "Does the printer show as online and ready?",
+      "Does an error message appear, or does nothing happen at all when printing?"
+    ],
+    "commands": [
+      {
+        "command": "services.msc",
+        "purpose": "Check if the Print Spooler service is running",
+        "expected_result": "Print Spooler service shows status 'Running'",
+        "abnormal_result": "Service is stopped, which prevents all printing until it is restarted"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Try printing a simple test document from another program, such as Notepad",
+        "reason": "This determines if the problem is specific to this software, or affects printing across the whole computer"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the correct printer is selected in the print dialog before printing",
+        "reason": "It is common to accidentally have a different printer, such as a 'Print to PDF' option, selected instead of the intended physical printer"
+      },
+      {
+        "step": 3,
+        "action": "Check the printer itself for basic issues, such as being powered on, connected, having paper, and not showing an error on its display",
+        "reason": "Physical printer issues are one of the most common and simplest causes of failed print jobs"
+      },
+      {
+        "step": 4,
+        "action": "Check the print queue for stuck jobs and cancel any that are stuck, then try printing again",
+        "reason": "A stuck job can block all new print jobs from processing until it is cleared"
+      },
+      {
+        "step": 5,
+        "action": "Restart the Print Spooler service using services.msc",
+        "reason": "This service manages all print jobs, and restarting it can clear many temporary printing problems"
+      },
+      {
+        "step": 6,
+        "action": "Update or reinstall the printer driver",
+        "reason": "An outdated or corrupted driver can cause print jobs to fail specifically or inconsistently"
+      },
+      {
+        "step": 7,
+        "action": "If the software offers a print preview or PDF export option, use that first to check the formatting before actually printing",
+        "reason": "This helps isolate whether the problem is with the software's printing process or a broader printer configuration issue"
+      },
+      {
+        "step": 8,
+        "action": "Check if the specific document or report has unusual formatting, very large images, or an unusual page size that could be causing a compatibility issue with the printer",
+        "reason": "Some complex or unusually formatted content can cause specific printers to fail or produce blank pages"
+      }
+    ],
+    "possible_solutions": [
+      "Select the correct printer before printing",
+      "Fix physical printer issues like paper or connection problems",
+      "Clear stuck print jobs from the queue",
+      "Restart the Print Spooler service",
+      "Update or reinstall the printer driver",
+      "Print as PDF first to isolate the cause"
+    ],
+    "prevention": [
+      "Keep printer drivers updated",
+      "Regularly clear old stuck print jobs",
+      "Check printer status before large print jobs"
+    ],
+    "keywords": ["print from application failed", "cannot print software", "print job stuck application", "printer offline software"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Printer shows offline", "Print jobs stuck in queue", "Driver problems"]
+  },
+
+  {
+    "id": "SW-029",
+    "category": "Business Software",
+    "subcategory": "Email Integration",
+    "problem": "Email sending failed from within the application",
+    "description": "The software has a built-in feature to send emails directly, such as sending a report or notification, but the email fails to send, showing an error or simply not reaching the intended recipient.",
+    "symptoms": [
+      "Error message when the software attempts to send an email",
+      "The email appears to send successfully within the software, but the recipient never receives it",
+      "A delivery failure notice is received back",
+      "Sending works for some recipients but not others"
+    ],
+    "possible_causes": [
+      "The software's email server or SMTP settings are misconfigured",
+      "No active network connection at the time of sending",
+      "The recipient's email address is entered incorrectly",
+      "The email server used by the software is temporarily down",
+      "The software's outgoing email is being blocked by the recipient's spam filter"
+    ],
+    "diagnostic_questions": [
+      "What exact error message, if any, appears when the email fails to send?",
+      "Are you currently connected to the network required for this software to send email?",
+      "Is the recipient's email address definitely correct?",
+      "Does this happen with all email attempts, or specific recipients?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message shown when the email fails to send",
+        "reason": "Specific error details often point directly to whether the issue is a configuration, connectivity, or delivery problem"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the computer has a working network connection at the time of sending",
+        "reason": "The software cannot send email without a working connection to its configured email server"
+      },
+      {
+        "step": 3,
+        "action": "Double-check the recipient's email address for typing mistakes",
+        "reason": "An incorrectly typed address is one of the most common reasons an email fails to reach its intended recipient"
+      },
+      {
+        "step": 4,
+        "action": "Check with other users of the same software to see if they are also experiencing email sending failures",
+        "reason": "This helps determine if the problem is isolated to your account, or reflects a broader configuration or server issue affecting everyone"
+      },
+      {
+        "step": 5,
+        "action": "If the software's email settings, such as SMTP server details, are accessible to you, confirm they match what is officially documented as correct",
+        "reason": "Misconfigured email server settings will prevent the software from successfully sending any email"
+      },
+      {
+        "step": 6,
+        "action": "Ask the intended recipient to check their junk or spam folder for the missing email",
+        "reason": "Automated emails sent from business software are sometimes filtered as spam by the recipient's email provider, even though the software reports successful sending"
+      },
+      {
+        "step": 7,
+        "action": "If the email settings appear correct and connectivity is confirmed, report the issue to the system administrator, since it may indicate a problem with the configured email server itself",
+        "reason": "Server-side email configuration and delivery issues typically require administrator-level access to properly diagnose and fix"
+      }
+    ],
+    "possible_solutions": [
+      "Restore network connectivity before sending",
+      "Correct a mistyped recipient email address",
+      "Verify and correct the software's email server configuration",
+      "Ask the recipient to check their spam folder",
+      "Report a suspected server-side email issue to the administrator"
+    ],
+    "prevention": [
+      "Keep the software's email server settings correctly configured",
+      "Double-check recipient addresses before sending important emails",
+      "Maintain a stable network connection when sending automated emails"
+    ],
+    "keywords": ["email sending failed application", "cannot send email software", "automated email not sending", "smtp error application"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["Cannot connect to server", "Application configuration error", "Network timeout"]
+  },
+
+  {
+    "id": "SW-030",
+    "category": "Business Software",
+    "subcategory": "Configuration",
+    "problem": "Application configuration error",
+    "description": "The software displays an error specifically related to its configuration or settings, preventing it from functioning correctly, often appearing at startup or when a specific misconfigured feature is used.",
+    "symptoms": [
+      "Error message specifically mentioning configuration, settings, or setup",
+      "The software may partially function while a specific feature fails",
+      "The error may appear consistently at every startup",
+      "A specific configuration file or setting is referenced in the error"
+    ],
+    "possible_causes": [
+      "A configuration file has become corrupted or contains invalid values",
+      "A recent change to settings introduced an incompatible or incorrect configuration",
+      "A required configuration value, such as a server address, is missing",
+      "An update to the software changed configuration requirements without properly migrating old settings",
+      "Manual editing of a configuration file introduced a syntax error"
+    ],
+    "diagnostic_questions": [
+      "What exact error message appears, and does it reference a specific setting or file?",
+      "Did this start after a recent update, or after changing any settings?",
+      "Has anyone manually edited the software's configuration files recently?",
+      "Does the error happen at every startup, or only when using a specific feature?"
+    ],
+    "commands": [],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message and any specific setting, file, or value it references",
+        "reason": "Specific error details help pinpoint exactly which configuration element is causing the problem"
+      },
+      {
+        "step": 2,
+        "action": "Consider whether this started after a recent update, or after any manual changes to the software's settings",
+        "reason": "This timing correlation helps identify what specifically triggered the configuration error"
+      },
+      {
+        "step": 3,
+        "action": "If a specific setting was recently changed, try reverting it back to its previous, working value",
+        "reason": "This directly undoes a change that may have introduced the incompatible or incorrect configuration"
+      },
+      {
+        "step": 4,
+        "action": "Check if the software offers a 'Reset to defaults' option for its configuration",
+        "reason": "This provides a clean, known-good starting configuration, which can resolve issues caused by an accumulation of problematic custom settings"
+      },
+      {
+        "step": 5,
+        "action": "If a configuration file was manually edited, carefully review it for syntax errors, such as missing commas, brackets, or quotation marks",
+        "reason": "Manual configuration file edits are a common source of syntax errors that can break the entire configuration"
+      },
+      {
+        "step": 6,
+        "action": "If a backup copy of a previously working configuration file exists, restore it",
+        "reason": "This directly replaces the problematic configuration with a known working version"
+      },
+      {
+        "step": 7,
+        "action": "Check the software vendor's documentation or support resources for the specific error message, since configuration requirements and known issues are often documented",
+        "reason": "Vendor documentation can provide precise guidance on required configuration values and common configuration-related errors"
+      },
+      {
+        "step": 8,
+        "action": "If the error persists and cannot be resolved through configuration review, consider reinstalling the software, which will typically reset the configuration to its default state",
+        "reason": "This provides a fresh, clean configuration when other troubleshooting steps cannot resolve the underlying issue"
+      }
+    ],
+    "possible_solutions": [
+      "Revert a recently changed setting to its previous value",
+      "Reset the software's configuration to defaults",
+      "Correct a syntax error in a manually edited configuration file",
+      "Restore a backup copy of a previously working configuration",
+      "Reinstall the software to reset the configuration"
+    ],
+    "prevention": [
+      "Back up configuration files before making manual changes",
+      "Document configuration changes as they are made",
+      "Test configuration changes in a non-production environment when possible"
+    ],
+    "keywords": ["application configuration error", "software settings error", "configuration file corrupted", "invalid configuration value"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-50 minutes",
+    "related_problems": ["Application crashes on startup", "Missing DLL or dependency", "Software update failed"]
+  },
+
+  {
+    "id": "SW-031",
+    "category": "Business Software",
+    "subcategory": "Dependencies",
+    "problem": "Missing DLL or other required dependency",
+    "description": "The software shows an error stating a specific DLL file or other required software component is missing, preventing the program from opening or a specific feature from functioning.",
+    "symptoms": [
+      "Error message such as 'xxxxx.dll is missing from your computer'",
+      "The affected software or feature will not open or function at all",
+      "The error may appear right when the computer starts if the program runs at startup",
+      "Other software may continue to work normally"
+    ],
+    "possible_causes": [
+      "The required file was accidentally deleted or moved",
+      "A malware scan removed the file, mistaking it for a threat",
+      "The software itself is corrupted or was not installed completely",
+      "A required software package, like a runtime or framework, is missing",
+      "The dependency exists but is registered incorrectly"
+    ],
+    "diagnostic_questions": [
+      "What is the exact name of the missing file or component mentioned in the error?",
+      "Does this happen with one specific program, or many programs?",
+      "Did this start after a Windows update, antivirus scan, or manually deleting files?",
+      "Was this program working correctly before, or is this a fresh install?"
+    ],
+    "commands": [
+      {
+        "command": "sfc /scannow",
+        "purpose": "Scan and repair missing or corrupted Windows system files, which sometimes includes shared components",
+        "expected_result": "No integrity violations found, or issues found and repaired",
+        "abnormal_result": "Corrupt files found that could not be repaired automatically"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact name of the missing file or dependency from the error message",
+        "reason": "This tells you whether it is a common shared system component or something specific to this particular software"
+      },
+      {
+        "step": 2,
+        "action": "Check if this happens with just one program or several, which helps identify whether the missing component is shared or program-specific",
+        "reason": "A dependency missing across many programs usually points to a shared system component problem, while one affecting only one program points to that program's installation"
+      },
+      {
+        "step": 3,
+        "action": "Reinstall the affected software completely, uninstalling it first and downloading a fresh copy from the official source",
+        "reason": "This restores any missing files that were part of the original software installation"
+      },
+      {
+        "step": 4,
+        "action": "If the missing dependency is a known common runtime or framework, download and install the latest version from its official source",
+        "reason": "Many programs rely on these shared packages, and a missing or outdated version causes this type of error across multiple programs"
+      },
+      {
+        "step": 5,
+        "action": "Run sfc /scannow to check for and repair missing or corrupted Windows system files",
+        "reason": "This can restore shared system components that may have been accidentally deleted or damaged"
+      },
+      {
+        "step": 6,
+        "action": "Check antivirus quarantine or history logs to see if the missing file was removed as a false positive",
+        "reason": "Antivirus software sometimes mistakenly flags legitimate program files as threats and removes them"
+      },
+      {
+        "step": 7,
+        "action": "Avoid downloading individual files from random websites, and instead reinstall the source program or required component from its official source",
+        "reason": "Files from unofficial sources can be outdated, incompatible, or contain malware"
+      }
+    ],
+    "possible_solutions": [
+      "Reinstall the affected software",
+      "Install or repair the required runtime or framework component",
+      "Repair Windows system files using sfc /scannow",
+      "Restore a falsely quarantined file from antivirus history",
+      "Reinstall the related component from its official source"
+    ],
+    "prevention": [
+      "Avoid manually deleting files from program installation folders",
+      "Keep antivirus software properly configured to avoid false positives",
+      "Install software only from official, trusted sources",
+      "Keep required runtime components updated"
+    ],
+    "keywords": ["missing dll file software", "dll not found error application", "missing dependency application", "runtime component missing"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["Application will not open", "Application crashes on startup", "Cannot install software"]
+  }
+]

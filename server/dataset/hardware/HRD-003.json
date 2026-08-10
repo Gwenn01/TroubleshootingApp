@@ -1,0 +1,1667 @@
+[
+  {
+    "id": "HW-046",
+    "category": "Hardware",
+    "subcategory": "BIOS/UEFI Configuration",
+    "problem": "BIOS Cannot Detect SSD/HDD",
+    "description": "The system BIOS/UEFI does not show a connected SSD or HDD in the storage device list, preventing the operating system from being installed or booted from that drive.",
+    "symptoms": [
+      "Drive is missing entirely from the BIOS storage/boot device list",
+      "Operating system installer cannot find any drive to install to",
+      "Drive was previously detected and has now disappeared from BIOS",
+      "Drive is detected in a different system but not this one"
+    ],
+    "possible_causes": [
+      "Loose or faulty SATA or power cable connection",
+      "SATA port disabled in BIOS settings",
+      "Drive controller mode (AHCI/RAID/IDE) mismatch preventing detection",
+      "Drive itself has failed or is not receiving power",
+      "M.2 slot conflict disabling a SATA port sharing the same lane"
+    ],
+    "diagnostic_questions": [
+      "Is the drive connected via SATA or M.2/NVMe?",
+      "Have the cables been reseated or swapped to rule out a bad cable?",
+      "Was the drive working before, or is this a first-time installation?",
+      "Are there other M.2 drives installed that might share and disable this SATA port?"
+    ],
+    "commands": [
+      {
+        "command": "BIOS Setup > Storage Configuration",
+        "purpose": "View the list of detected storage devices and current controller mode within BIOS/UEFI",
+        "expected_result": "Drive appears listed with its correct model and capacity",
+        "abnormal_result": "Drive does not appear at all, confirming a detection-level problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Reseat or replace the SATA data and power cables, or reseat the M.2 drive in its slot.",
+        "reason": "Loose or faulty cables/connections are the most common cause of a drive not being detected."
+      },
+      {
+        "step": 2,
+        "action": "Confirm the relevant SATA port or M.2 slot is enabled in BIOS storage configuration settings.",
+        "reason": "Ports and slots can be disabled intentionally or accidentally, hiding the drive from detection entirely."
+      },
+      {
+        "step": 3,
+        "action": "Check whether an installed M.2 drive is sharing lanes with and disabling the SATA port in question, per the motherboard manual.",
+        "reason": "Many motherboards disable specific SATA ports automatically when certain M.2 slots are populated."
+      },
+      {
+        "step": 4,
+        "action": "Test the drive in another system or with another cable to determine if the drive itself has failed.",
+        "reason": "Isolates whether the problem is the drive hardware or this system's connections/configuration."
+      },
+      {
+        "step": 5,
+        "action": "Update the motherboard BIOS to the latest version if the drive is a newer model that may not be recognized by an older BIOS.",
+        "reason": "Older BIOS versions sometimes lack support for newer drive controllers or larger capacities."
+      }
+    ],
+    "possible_solutions": [
+      "Reseat or replace SATA/power cables or the M.2 module",
+      "Enable the disabled SATA port or M.2 slot in BIOS",
+      "Move the drive to a SATA port not shared with an occupied M.2 slot",
+      "Update the motherboard BIOS/UEFI firmware",
+      "Replace the drive if confirmed failed on another system"
+    ],
+    "prevention": [
+      "Consult the motherboard manual for M.2/SATA lane sharing before installing multiple drives",
+      "Use quality, properly seated SATA cables",
+      "Keep BIOS/UEFI firmware reasonably up to date",
+      "Handle drives carefully to avoid connector damage"
+    ],
+    "keywords": ["bios cannot detect ssd", "hard drive not detected bios", "m.2 not showing in bios", "sata drive missing bios"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["HW-050", "HW-053"]
+  },
+  {
+    "id": "HW-047",
+    "category": "Hardware",
+    "subcategory": "BIOS/UEFI Configuration",
+    "problem": "BIOS Settings Reset After Shutdown",
+    "description": "Custom BIOS/UEFI settings, such as boot order, fan curves, or overclocking profiles, revert to default values every time the system is fully powered off and turned back on.",
+    "symptoms": [
+      "Custom BIOS settings do not persist after a full shutdown",
+      "System clock/date also resets along with other settings",
+      "Settings persist through restarts but not full power-offs",
+      "Issue may be constant or worsen over time"
+    ],
+    "possible_causes": [
+      "CMOS battery is depleted or failing",
+      "CMOS battery is improperly seated",
+      "Motherboard fault affecting the CMOS memory circuit",
+      "Settings were not properly saved (Exit without Save used instead of Save & Exit)"
+    ],
+    "diagnostic_questions": [
+      "Does the system clock/date also reset along with other settings?",
+      "How old is the system, and has the CMOS battery ever been replaced?",
+      "Are settings being saved correctly with F10 or the Save & Exit option before leaving BIOS?",
+      "Does the issue happen after every shutdown or only after being unplugged for extended periods?"
+    ],
+    "commands": [
+      {
+        "command": "BIOS Setup > Save & Exit",
+        "purpose": "Verify the correct save method is being used when exiting BIOS after making changes",
+        "expected_result": "Settings persist correctly after using Save & Exit",
+        "abnormal_result": "Settings still reset even after properly saving, pointing to a CMOS battery or hardware issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm settings are being saved using F10 or the Save & Exit option rather than exiting without saving.",
+        "reason": "Rules out simple user error as the cause before investigating hardware."
+      },
+      {
+        "step": 2,
+        "action": "Check whether the system clock also resets, which strongly indicates a CMOS battery issue.",
+        "reason": "The CMOS battery powers both the clock and saved settings memory when the system is unplugged."
+      },
+      {
+        "step": 3,
+        "action": "Replace the CMOS battery (typically a CR2032 coin cell) on the motherboard.",
+        "reason": "A depleted or failing CMOS battery is the most common cause of settings not persisting."
+      },
+      {
+        "step": 4,
+        "action": "Reconfigure BIOS settings and save after replacing the battery, then test through a full shutdown cycle.",
+        "reason": "Confirms whether the battery replacement resolved the issue."
+      },
+      {
+        "step": 5,
+        "action": "If the issue persists after a battery replacement, have the motherboard inspected for a fault in the CMOS circuit.",
+        "reason": "A persistent issue after battery replacement suggests a deeper motherboard-level hardware fault."
+      }
+    ],
+    "possible_solutions": [
+      "Replace the CMOS battery",
+      "Ensure settings are properly saved before exiting BIOS",
+      "Reseat the CMOS battery if it was improperly installed",
+      "Have the motherboard inspected if the issue persists after battery replacement"
+    ],
+    "prevention": [
+      "Replace the CMOS battery proactively every few years",
+      "Always use Save & Exit when changing BIOS settings",
+      "Avoid leaving the system fully unpowered for extremely long periods without occasional use"
+    ],
+    "keywords": ["bios settings reset after shutdown", "cmos battery dead", "bios does not save settings", "clock resets every reboot"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["HW-048", "HW-049"]
+  },
+  {
+    "id": "HW-048",
+    "category": "Hardware",
+    "subcategory": "BIOS/UEFI Configuration",
+    "problem": "CMOS Battery Failure",
+    "description": "The small coin-cell battery on the motherboard that maintains BIOS settings and system time has failed or is critically low, causing configuration loss and possible startup warnings.",
+    "symptoms": [
+      "System clock resets to a default past date on every boot",
+      "Warning message such as 'CMOS battery low' or 'CMOS checksum error' at startup",
+      "BIOS settings revert to defaults after each shutdown",
+      "System occasionally fails to boot until settings are reconfigured"
+    ],
+    "possible_causes": [
+      "CMOS battery has naturally depleted over years of use",
+      "Battery was of poor quality or defective from installation",
+      "System has been stored unpowered for an extended period",
+      "Battery contacts are corroded or making poor contact"
+    ],
+    "diagnostic_questions": [
+      "How old is the system and has the CMOS battery ever been replaced?",
+      "Does the system consistently show a CMOS-related warning at startup?",
+      "Does the clock reset every time, or only after extended power-off periods?",
+      "Is there any visible corrosion or damage around the battery socket?"
+    ],
+    "commands": [
+      {
+        "command": "BIOS Setup > Main (date/time check)",
+        "purpose": "Check whether the system date/time has reset to a default value, a strong indicator of CMOS battery failure",
+        "expected_result": "Date and time are correct and current",
+        "abnormal_result": "Date/time has reset to a default such as January 1 of a past year, confirming battery failure"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Power off the system completely and unplug it from the wall outlet.",
+        "reason": "Ensures safety before opening the case and handling the motherboard."
+      },
+      {
+        "step": 2,
+        "action": "Locate the CMOS battery on the motherboard (typically a CR2032 coin cell) and remove it carefully.",
+        "reason": "Provides access to replace the depleted battery."
+      },
+      {
+        "step": 3,
+        "action": "Inspect the battery socket for corrosion or debris and clean if necessary.",
+        "reason": "Corrosion can prevent even a fresh battery from making proper contact."
+      },
+      {
+        "step": 4,
+        "action": "Install a new CR2032 battery, ensuring correct polarity orientation.",
+        "reason": "A properly installed fresh battery resolves the underlying power issue causing settings loss."
+      },
+      {
+        "step": 5,
+        "action": "Power on the system, enter BIOS, reconfigure the date/time and any custom settings, then save.",
+        "reason": "Confirms the fix and restores normal system configuration."
+      }
+    ],
+    "possible_solutions": [
+      "Replace the CMOS battery with a new CR2032 cell",
+      "Clean corroded battery contacts",
+      "Reconfigure BIOS settings after replacement",
+      "Replace the motherboard if the battery socket itself is damaged"
+    ],
+    "prevention": [
+      "Replace the CMOS battery proactively every 3-5 years",
+      "Keep systems powered on or plugged in periodically if stored long-term",
+      "Use quality replacement batteries from reputable sources"
+    ],
+    "keywords": ["cmos battery failure", "cmos battery low warning", "replace cmos battery motherboard", "bios date resets battery dead"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["HW-047", "HW-049"]
+  },
+  {
+    "id": "HW-049",
+    "category": "Hardware",
+    "subcategory": "BIOS/UEFI Configuration",
+    "problem": "CMOS Checksum Error",
+    "description": "The system displays a CMOS checksum error message during POST, indicating the stored BIOS configuration data is invalid or corrupted, and may load default settings or halt startup.",
+    "symptoms": [
+      "Error message 'CMOS checksum error, defaults loaded' during startup",
+      "System boots but with BIOS settings reset to defaults",
+      "Error appears intermittently or on every boot",
+      "May be accompanied by other CMOS-related warnings"
+    ],
+    "possible_causes": [
+      "CMOS battery is failing or depleted",
+      "BIOS settings were corrupted by an improper shutdown or power interruption during a save",
+      "A failed BIOS update left configuration data in an inconsistent state",
+      "Physical damage or a fault in the CMOS memory chip on the motherboard"
+    ],
+    "diagnostic_questions": [
+      "Does the error appear on every boot or only occasionally?",
+      "Was there a recent power interruption, improper shutdown, or BIOS update?",
+      "How old is the CMOS battery, and has it been replaced recently?",
+      "Does entering BIOS, saving settings, and rebooting resolve the error temporarily?"
+    ],
+    "commands": [
+      {
+        "command": "BIOS Setup > Load Optimized Defaults, then Save & Exit",
+        "purpose": "Reset BIOS to a known-good default configuration and save it cleanly to clear the checksum error",
+        "expected_result": "System boots normally afterward without the checksum error",
+        "abnormal_result": "Error persists or recurs quickly, indicating a CMOS battery or hardware issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Enter BIOS, load optimized/default settings, and save before exiting.",
+        "reason": "Establishes a clean, valid configuration to clear the immediate checksum error."
+      },
+      {
+        "step": 2,
+        "action": "Check whether the error recurs on the next boot after reconfiguring and saving.",
+        "reason": "Recurrence indicates the underlying cause has not been resolved, most likely the CMOS battery."
+      },
+      {
+        "step": 3,
+        "action": "Replace the CMOS battery if the error recurs or the battery has not been replaced in several years.",
+        "reason": "A failing battery is the most common root cause of recurring checksum errors."
+      },
+      {
+        "step": 4,
+        "action": "If a recent BIOS update coincided with the error, consider re-flashing the BIOS following manufacturer instructions.",
+        "reason": "An interrupted or failed BIOS update can leave configuration data corrupted, requiring a clean re-flash."
+      },
+      {
+        "step": 5,
+        "action": "If the error persists after battery replacement and a clean BIOS flash, have the motherboard inspected for a hardware fault.",
+        "reason": "Persistent checksum errors despite these fixes suggest a deeper motherboard-level issue."
+      }
+    ],
+    "possible_solutions": [
+      "Load default BIOS settings and save cleanly",
+      "Replace the CMOS battery",
+      "Re-flash the BIOS if a failed update is suspected",
+      "Have the motherboard inspected for a hardware fault if the issue persists"
+    ],
+    "prevention": [
+      "Avoid interrupting power during BIOS updates or saves",
+      "Replace the CMOS battery proactively on aging systems",
+      "Use a UPS to prevent power interruptions during critical operations"
+    ],
+    "keywords": ["cmos checksum error", "defaults loaded bios error", "cmos checksum error press f1", "bios corrupted checksum"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["HW-048", "HW-047"]
+  },
+  {
+    "id": "HW-050",
+    "category": "Hardware",
+    "subcategory": "BIOS/UEFI Configuration",
+    "problem": "BIOS Update Failed",
+    "description": "An attempt to update or flash the motherboard's BIOS/UEFI firmware fails partway through, is interrupted, or results in the system failing to boot afterward.",
+    "symptoms": [
+      "BIOS update utility reports an error or failure during the flashing process",
+      "System fails to POST or boot after the update attempt",
+      "No display output and no fan/LED activity change after a failed flash",
+      "Update utility hangs indefinitely without completing"
+    ],
+    "possible_causes": [
+      "Power interruption during the flashing process",
+      "Incorrect or corrupted BIOS firmware file used for the update",
+      "Incompatible firmware version for the specific motherboard revision",
+      "USB drive used for flashing was improperly formatted or prepared"
+    ],
+    "diagnostic_questions": [
+      "Was power interrupted at any point during the update process?",
+      "Was the firmware file downloaded directly from the motherboard manufacturer's official support page for the exact model and revision?",
+      "Does the motherboard support a BIOS recovery or dual-BIOS feature?",
+      "Is there any activity at all, such as fans spinning or LEDs lighting, after the failed update?"
+    ],
+    "commands": [
+      {
+        "command": "Motherboard BIOS Flashback/Recovery procedure (varies by manufacturer)",
+        "purpose": "Attempt to recover the BIOS using the motherboard's built-in flashback or dual-BIOS recovery feature, if available",
+        "expected_result": "System recovers a working BIOS and boots to POST",
+        "abnormal_result": "No recovery feature available or recovery attempt also fails, requiring further hardware-level intervention"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check whether the motherboard has a BIOS flashback, dual-BIOS, or recovery feature and follow the manufacturer's documented recovery procedure.",
+        "reason": "Many modern motherboards include a dedicated recovery mechanism specifically for failed BIOS updates."
+      },
+      {
+        "step": 2,
+        "action": "Verify the firmware file used was the correct one for the exact motherboard model and revision, downloaded from the official manufacturer site.",
+        "reason": "Using an incorrect or corrupted firmware file is a common root cause of failed updates."
+      },
+      {
+        "step": 3,
+        "action": "If a recovery feature is unavailable, check for signs of life such as fan spin-up, which may indicate the system is attempting a recovery boot.",
+        "reason": "Some systems automatically attempt recovery from a backup BIOS chip or USB drive without an obvious recovery procedure."
+      },
+      {
+        "step": 4,
+        "action": "If no recovery is possible and the motherboard has a socketed BIOS chip, consider a pre-programmed replacement chip or professional reflashing service.",
+        "reason": "A bricked BIOS chip that cannot self-recover may require external reprogramming or physical replacement."
+      }
+    ],
+    "possible_solutions": [
+      "Use the motherboard's built-in BIOS flashback or dual-BIOS recovery feature",
+      "Re-flash using the correct firmware file for the exact board revision",
+      "Send the motherboard for professional BIOS chip reprogramming",
+      "Replace the BIOS chip if socketed and a pre-programmed replacement is available"
+    ],
+    "prevention": [
+      "Use a UPS to prevent power interruption during BIOS updates",
+      "Always download firmware directly from the manufacturer's official support page for the exact model/revision",
+      "Read the manufacturer's update instructions fully before starting",
+      "Avoid updating BIOS unless a specific fix or feature is needed"
+    ],
+    "keywords": ["bios update failed", "bios flash failed no boot", "bricked motherboard bios", "bios flashback recovery"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-90 minutes",
+    "related_problems": ["HW-046", "HW-053"]
+  },
+  {
+    "id": "HW-051",
+    "category": "Hardware",
+    "subcategory": "BIOS/UEFI Configuration",
+    "problem": "BIOS Password Forgotten",
+    "description": "A user or administrator cannot access BIOS/UEFI settings because a previously set supervisor or system password has been forgotten, blocking configuration changes or boot device selection.",
+    "symptoms": [
+      "Password prompt appears when attempting to enter BIOS setup",
+      "Entered password is rejected repeatedly",
+      "System may still boot to the operating system, but BIOS access is blocked",
+      "In some cases, the system itself will not boot without the password"
+    ],
+    "possible_causes": [
+      "Password was set by a previous user or administrator and not documented",
+      "Password was changed and the new one was forgotten or mistyped when set",
+      "Default or vendor-set password no longer matches documentation",
+      "Malicious or unauthorized password change by another party"
+    ],
+    "diagnostic_questions": [
+      "Was this password set intentionally by the current organization, or is its origin unknown?",
+      "Does the system still boot to the operating system despite BIOS being locked?",
+      "Is there any documentation or password manager record of the intended BIOS password?",
+      "Is this a laptop or desktop, as the reset procedure differs significantly between them?"
+    ],
+    "commands": [
+      {
+        "command": "Manufacturer BIOS password reset/backdoor procedure (model-specific)",
+        "purpose": "Check if the manufacturer provides a documented backdoor or reset code procedure for this specific model",
+        "expected_result": "A valid manufacturer-provided procedure grants access without hardware modification",
+        "abnormal_result": "No such procedure exists or it fails, requiring a hardware-level CMOS reset instead"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the manufacturer's support documentation for a model-specific password reset or backdoor procedure.",
+        "reason": "Some manufacturers provide a legitimate way to reset or bypass the password without opening the case."
+      },
+      {
+        "step": 2,
+        "action": "On a desktop, power off, unplug, open the case, and remove the CMOS battery for several minutes before reinserting.",
+        "reason": "Removing power from the CMOS memory clears the stored password along with other BIOS settings."
+      },
+      {
+        "step": 3,
+        "action": "Alternatively, locate and use the motherboard's CLEAR CMOS jumper if present, following the motherboard manual.",
+        "reason": "The clear CMOS jumper provides a faster, documented method to reset BIOS settings including passwords."
+      },
+      {
+        "step": 4,
+        "action": "For laptops, where CMOS battery access is often difficult, contact the manufacturer's support for a proper reset procedure, as forcibly bypassing may void warranty.",
+        "reason": "Laptops often integrate the password differently, and improper attempts can cause further issues or void support."
+      },
+      {
+        "step": 5,
+        "action": "After resetting, reconfigure BIOS settings and set a new password if desired, storing it securely this time.",
+        "reason": "Restores normal access and prevents a repeat of the same issue in the future."
+      }
+    ],
+    "possible_solutions": [
+      "Use a manufacturer-documented password reset procedure",
+      "Remove and reinsert the CMOS battery to clear the password (desktop)",
+      "Use the Clear CMOS jumper on the motherboard (desktop)",
+      "Contact manufacturer support for laptop-specific reset procedures"
+    ],
+    "prevention": [
+      "Document any BIOS passwords securely in a password manager",
+      "Limit who has authority to set BIOS passwords",
+      "Use a consistent, documented password policy for BIOS/UEFI across the organization"
+    ],
+    "keywords": ["bios password forgotten", "cannot access bios locked out", "clear cmos jumper reset password", "bios supervisor password reset"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["HW-052", "HW-048"]
+  },
+  {
+    "id": "HW-052",
+    "category": "Hardware",
+    "subcategory": "BIOS/UEFI Configuration",
+    "problem": "Cannot Enter BIOS",
+    "description": "The system does not respond to the usual key press (such as Del, F2, or Esc) intended to enter BIOS/UEFI setup during startup, booting directly into the operating system or displaying nothing.",
+    "symptoms": [
+      "Pressing the BIOS entry key repeatedly has no effect",
+      "System boots directly to the operating system every time",
+      "No POST screen or manufacturer logo is visible to time the key press",
+      "BIOS entry worked previously and has since stopped"
+    ],
+    "possible_causes": [
+      "Fast Boot or Fast Startup is enabled, skipping the window to enter BIOS",
+      "Key press timing is off due to a very fast POST sequence",
+      "Keyboard is not being recognized early enough in the boot process (common with some USB keyboards)",
+      "BIOS entry key is genuinely different from what is being tried for this specific system"
+    ],
+    "diagnostic_questions": [
+      "Is Fast Boot or a similar quick-startup feature known to be enabled on this system?",
+      "Is a USB keyboard being used, and has a PS/2 keyboard been tried if available?",
+      "Has the correct BIOS entry key for this specific manufacturer and model been confirmed?",
+      "Did BIOS entry work previously, or has it never worked on this system?"
+    ],
+    "commands": [
+      {
+        "command": "Windows Settings > Recovery > Advanced startup > Restart now, then UEFI Firmware Settings",
+        "purpose": "Use the Windows-based method to reboot directly into BIOS/UEFI, bypassing the need to time a key press",
+        "expected_result": "System restarts directly into BIOS/UEFI setup",
+        "abnormal_result": "Option is unavailable or fails, indicating a deeper Fast Boot or firmware access issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Use the Windows Advanced Startup option to restart directly into UEFI firmware settings, bypassing key timing entirely.",
+        "reason": "This method reliably reaches BIOS/UEFI on modern systems regardless of Fast Boot or POST speed issues."
+      },
+      {
+        "step": 2,
+        "action": "If the Windows method is unavailable, try repeatedly tapping the entry key immediately from the moment power is applied, rather than waiting for a logo screen.",
+        "reason": "Fast POST sequences on modern systems can pass the entry window before a logo or prompt is even visible."
+      },
+      {
+        "step": 3,
+        "action": "Disable Fast Startup in Windows Power Options if the system is fully shutting down and Fast Boot may be interfering.",
+        "reason": "Fast Startup can affect how the system initializes on the next power-on, sometimes reducing the BIOS entry window."
+      },
+      {
+        "step": 4,
+        "action": "Try a different keyboard, particularly a PS/2 keyboard if available, or a different USB port.",
+        "reason": "Some systems have inconsistent USB keyboard initialization timing during early boot, especially on certain ports."
+      },
+      {
+        "step": 5,
+        "action": "Confirm the correct BIOS entry key for the specific manufacturer and model via official documentation.",
+        "reason": "Entry keys vary between manufacturers (Del, F2, F10, Esc), and using the wrong key will never succeed."
+      }
+    ],
+    "possible_solutions": [
+      "Use Windows Advanced Startup to reboot directly into UEFI settings",
+      "Disable Fast Startup in Windows Power Options",
+      "Try a different keyboard or USB port",
+      "Confirm and use the correct manufacturer-specific BIOS entry key"
+    ],
+    "prevention": [
+      "Document the correct BIOS entry key and method for each system model",
+      "Prefer the Windows-based UEFI entry method on modern systems for reliability",
+      "Keep a wired, simple keyboard available for troubleshooting boot issues"
+    ],
+    "keywords": ["cannot enter bios", "bios key not working", "boots straight to windows no bios", "fast boot skip bios entry"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["HW-051", "HW-053"]
+  },
+  {
+    "id": "HW-053",
+    "category": "Hardware",
+    "subcategory": "BIOS/UEFI Configuration",
+    "problem": "Secure Boot Configuration Issue",
+    "description": "The system fails to boot, displays a security violation error, or cannot install certain operating systems due to a Secure Boot setting mismatch or configuration problem in BIOS/UEFI.",
+    "symptoms": [
+      "Error message referencing a security policy violation or unsigned bootloader",
+      "Operating system installer refuses to proceed due to Secure Boot status",
+      "System that previously booted fine now shows a Secure Boot related error",
+      "Certain bootable USB drives or alternate operating systems fail to boot"
+    ],
+    "possible_causes": [
+      "Secure Boot is enabled but the operating system or bootloader is not properly signed for it",
+      "Secure Boot keys have become corrupted or were reset unexpectedly",
+      "A dual-boot or alternate OS setup conflicts with Secure Boot requirements",
+      "BIOS update reset Secure Boot settings to an incompatible default state"
+    ],
+    "diagnostic_questions": [
+      "What is the exact error message shown, and does it reference Secure Boot specifically?",
+      "Is the operating system or boot media designed to support Secure Boot, or does it require it disabled?",
+      "Was a BIOS update or reset performed recently before this issue began?",
+      "Is this a dual-boot system where one OS requires Secure Boot disabled?"
+    ],
+    "commands": [
+      {
+        "command": "BIOS Setup > Security > Secure Boot",
+        "purpose": "View and adjust the current Secure Boot enable/disable state and key configuration",
+        "expected_result": "Secure Boot state matches what the intended operating system or boot media requires",
+        "abnormal_result": "Secure Boot state conflicts with OS requirements, explaining the boot failure"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Identify the exact error message and confirm it relates specifically to Secure Boot.",
+        "reason": "Ensures troubleshooting effort is correctly focused rather than addressing an unrelated boot issue."
+      },
+      {
+        "step": 2,
+        "action": "Determine whether the target operating system or boot media requires Secure Boot enabled or disabled.",
+        "reason": "Different operating systems and bootable tools have different Secure Boot requirements, and mismatches cause this exact error."
+      },
+      {
+        "step": 3,
+        "action": "Adjust the Secure Boot setting in BIOS to match the requirement of the operating system being used.",
+        "reason": "Directly resolves the configuration mismatch causing the boot failure."
+      },
+      {
+        "step": 4,
+        "action": "If Secure Boot keys appear corrupted, use the BIOS option to restore factory default Secure Boot keys.",
+        "reason": "Corrupted or missing keys prevent proper signature verification even with Secure Boot correctly enabled."
+      },
+      {
+        "step": 5,
+        "action": "For dual-boot systems, research the specific Secure Boot requirements of each installed OS before finalizing the setting.",
+        "reason": "Ensures the chosen configuration does not break boot capability for the other installed operating system."
+      }
+    ],
+    "possible_solutions": [
+      "Enable or disable Secure Boot to match the OS/boot media requirement",
+      "Restore factory default Secure Boot keys in BIOS",
+      "Update the bootloader or OS to a Secure Boot compatible version",
+      "Reconfigure dual-boot setup with Secure Boot considerations for both operating systems"
+    ],
+    "prevention": [
+      "Verify Secure Boot requirements before installing new operating systems or boot tools",
+      "Document Secure Boot settings changes for future reference",
+      "Test boot behavior after any BIOS update that may reset security settings"
+    ],
+    "keywords": ["secure boot configuration issue", "secure boot violation error", "cannot install os secure boot", "secure boot keys corrupted"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["HW-050", "HW-052"]
+  },
+  {
+    "id": "HW-054",
+    "category": "Hardware",
+    "subcategory": "Component Detection",
+    "problem": "RAM Not Detected",
+    "description": "The system fails to recognize some or all installed RAM modules, showing a lower total memory capacity than expected, a memory error at POST, or failing to boot entirely.",
+    "symptoms": [
+      "System reports less total RAM than what is physically installed",
+      "POST beep codes or error messages related to memory",
+      "System fails to boot with certain RAM modules installed",
+      "RAM works in one slot but not another"
+    ],
+    "possible_causes": [
+      "RAM module not fully seated in its slot",
+      "Incompatible RAM speed, type, or capacity for the motherboard",
+      "Faulty or damaged RAM module",
+      "Faulty or damaged RAM slot on the motherboard",
+      "RAM modules not installed in the correct slot configuration (dual/quad channel)"
+    ],
+    "diagnostic_questions": [
+      "Was this RAM recently installed, or did it work before and stop being detected?",
+      "Is the RAM confirmed compatible with the motherboard per the manufacturer's QVL (Qualified Vendor List)?",
+      "Does moving the RAM to a different slot change the behavior?",
+      "Are there any POST beep codes or on-screen error messages accompanying the issue?"
+    ],
+    "commands": [
+      {
+        "command": "BIOS Setup > Main/System Information",
+        "purpose": "Check the total detected memory and per-slot population as reported by BIOS",
+        "expected_result": "All installed RAM modules are detected with correct total capacity",
+        "abnormal_result": "Detected capacity is lower than expected, or specific slots show as empty despite a module being installed"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Power off, unplug, and reseat each RAM module firmly in its slot, ensuring the retention clips fully engage.",
+        "reason": "Improperly seated RAM is one of the most common and simplest causes of detection failure."
+      },
+      {
+        "step": 2,
+        "action": "Test each RAM module individually in a single known-good slot to identify if a specific module is faulty.",
+        "reason": "Isolates whether the issue lies with a specific module rather than the system as a whole."
+      },
+      {
+        "step": 3,
+        "action": "Test the same module in different slots to determine if a specific slot is faulty.",
+        "reason": "Isolates whether the issue lies with the motherboard slot rather than the RAM module itself."
+      },
+      {
+        "step": 4,
+        "action": "Verify the RAM's speed, type, and capacity are compatible with the motherboard's specifications and QVL list.",
+        "reason": "Incompatible RAM may fail to be detected or cause instability even if physically installed correctly."
+      },
+      {
+        "step": 5,
+        "action": "Update the motherboard BIOS if using newer or higher-capacity RAM modules that may need updated support.",
+        "reason": "Older BIOS versions sometimes lack proper support for newer memory modules."
+      }
+    ],
+    "possible_solutions": [
+      "Reseat the RAM modules firmly",
+      "Replace a faulty RAM module identified through isolation testing",
+      "Use a different, functional RAM slot",
+      "Update the BIOS for better memory compatibility",
+      "Replace the motherboard if a slot is confirmed physically damaged"
+    ],
+    "prevention": [
+      "Verify RAM compatibility against the motherboard's QVL before purchase",
+      "Handle RAM modules carefully, avoiding static discharge",
+      "Ensure RAM is properly seated during any hardware installation or maintenance"
+    ],
+    "keywords": ["ram not detected", "memory not showing full capacity", "ram slot not working bios", "system shows less ram than installed"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["HW-061", "HW-055"]
+  },
+  {
+    "id": "HW-055",
+    "category": "Hardware",
+    "subcategory": "Component Detection",
+    "problem": "CPU Not Detected",
+    "description": "The system fails to POST or shows an error indicating no CPU is detected, despite a processor being physically installed in the socket.",
+    "symptoms": [
+      "System powers on but does not POST, with a CPU-related error LED or beep code",
+      "Motherboard CPU error LED remains lit continuously",
+      "No display output at all, with fans and lights active but no boot progress",
+      "System previously worked and stopped detecting the CPU after reseating or an upgrade"
+    ],
+    "possible_causes": [
+      "CPU is not fully or correctly seated in its socket",
+      "Bent or damaged pins on the CPU or socket (pin-based sockets)",
+      "CPU is incompatible with the current motherboard BIOS version, particularly for newer CPUs on older boards",
+      "Insufficient or improperly connected CPU power cable (8-pin/4-pin EPS)",
+      "Faulty CPU or motherboard socket"
+    ],
+    "diagnostic_questions": [
+      "Was the CPU recently installed, reseated, or upgraded before this issue began?",
+      "Is the motherboard's BIOS version confirmed to support this specific CPU model?",
+      "Is the CPU power connector (separate from the main 24-pin) fully and correctly connected?",
+      "Are there any visible bent pins on the CPU or in the socket?"
+    ],
+    "commands": [
+      {
+        "command": "Motherboard Debug LED/Q-Code Display Check",
+        "purpose": "Read the motherboard's onboard debug LED or Q-code display, if present, to identify the specific stage of POST failure",
+        "expected_result": "Debug code progresses normally through POST stages",
+        "abnormal_result": "Debug code remains stuck at a CPU-related stage, confirming a CPU detection issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Power off, unplug, and visually inspect the CPU and socket for any bent or damaged pins.",
+        "reason": "Bent pins are a common and serious cause of CPU detection failure, especially after installation or reseating."
+      },
+      {
+        "step": 2,
+        "action": "Confirm the CPU power connector (EPS 8-pin/4-pin) near the top of the motherboard is fully and correctly seated.",
+        "reason": "This separate power connector is easy to overlook and is required for the CPU to receive power, distinct from the main 24-pin connector."
+      },
+      {
+        "step": 3,
+        "action": "Reseat the CPU carefully following the motherboard manufacturer's installation guide, ensuring proper alignment.",
+        "reason": "An improperly seated CPU, even without visible damage, can fail to establish proper electrical contact."
+      },
+      {
+        "step": 4,
+        "action": "Check the motherboard manufacturer's CPU support list to confirm the current BIOS version supports this specific CPU model.",
+        "reason": "Newer CPUs on older motherboards sometimes require a BIOS update before the CPU is recognized at all, which can create a chicken-and-egg situation requiring a boot-compatible older CPU or a BIOS flashback feature."
+      },
+      {
+        "step": 5,
+        "action": "If available, use the motherboard's debug LED or Q-code display to pinpoint the exact POST failure stage.",
+        "reason": "Provides more specific diagnostic information than a generic 'no boot' symptom."
+      }
+    ],
+    "possible_solutions": [
+      "Reseat the CPU correctly in its socket",
+      "Properly connect the CPU power connector",
+      "Update the motherboard BIOS using flashback if supported, using a compatible CPU or USB method",
+      "Replace the CPU if bent pins or damage are confirmed",
+      "Replace the motherboard if the socket itself is damaged"
+    ],
+    "prevention": [
+      "Handle CPUs carefully to avoid pin damage during installation",
+      "Verify CPU/motherboard BIOS compatibility before purchasing a new CPU",
+      "Always connect both the main and CPU power connectors during builds",
+      "Follow manufacturer installation guides precisely"
+    ],
+    "keywords": ["cpu not detected", "no boot cpu error led", "cpu power connector not connected", "bent pins cpu socket"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": ["HW-054", "HW-059"]
+  },
+  {
+    "id": "HW-056",
+    "category": "Hardware",
+    "subcategory": "Component Detection",
+    "problem": "Graphics Card Not Detected",
+    "description": "The system does not recognize an installed discrete graphics card, either showing no display output through the card's ports or failing to list it in Device Manager or BIOS.",
+    "symptoms": [
+      "No display output when connected to the graphics card's video ports",
+      "Display works when connected to the motherboard's onboard video output instead",
+      "Graphics card does not appear in Device Manager or BIOS device lists",
+      "System boots but with reduced performance consistent with using integrated graphics"
+    ],
+    "possible_causes": [
+      "Graphics card not fully seated in its PCIe slot",
+      "Insufficient or improperly connected PCIe power connectors to the card",
+      "Monitor cable connected to the motherboard's onboard video output instead of the graphics card",
+      "Primary display output not set correctly in BIOS when both onboard and discrete graphics are present",
+      "Faulty graphics card or PCIe slot"
+    ],
+    "diagnostic_questions": [
+      "Is the monitor cable connected to the graphics card's ports specifically, not the motherboard's onboard video output?",
+      "Are all required PCIe power connectors (6-pin/8-pin) from the power supply connected to the card?",
+      "Is the graphics card fully seated and its retention clip engaged in the PCIe slot?",
+      "Does the BIOS have a setting for primary display adapter that might need adjustment?"
+    ],
+    "commands": [
+      {
+        "command": "Device Manager > Display Adapters",
+        "purpose": "Check whether Windows detects the graphics card as an installed display adapter",
+        "expected_result": "Graphics card is listed and functioning without errors",
+        "abnormal_result": "Graphics card is missing entirely, or shown with a warning icon indicating a driver or detection problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the monitor cable is connected to the graphics card's video output ports, not the motherboard's onboard ports.",
+        "reason": "This simple mix-up is one of the most common reasons a graphics card appears completely undetected."
+      },
+      {
+        "step": 2,
+        "action": "Power off, unplug, and reseat the graphics card firmly in its PCIe slot, ensuring the retention clip engages.",
+        "reason": "An improperly seated card can fail to establish a proper connection despite appearing installed."
+      },
+      {
+        "step": 3,
+        "action": "Verify all required PCIe power connectors from the power supply are firmly connected to the card.",
+        "reason": "Modern graphics cards require dedicated power beyond what the PCIe slot alone provides, and missing connections can prevent the card from initializing."
+      },
+      {
+        "step": 4,
+        "action": "Check BIOS settings for a primary display/graphics adapter option and set it to the discrete PCIe card if both onboard and discrete options exist.",
+        "reason": "Some systems default to onboard graphics unless explicitly configured to prioritize the discrete card."
+      },
+      {
+        "step": 5,
+        "action": "Test the graphics card in another system, or test another known-good card in this system, to isolate whether the card or the slot is at fault.",
+        "reason": "Determines definitively whether the problem is the card itself or the motherboard's PCIe slot."
+      }
+    ],
+    "possible_solutions": [
+      "Connect the monitor to the graphics card's output, not the motherboard",
+      "Reseat the graphics card firmly in its PCIe slot",
+      "Connect all required PCIe power connectors",
+      "Set the correct primary display adapter in BIOS",
+      "Replace the graphics card or use a different PCIe slot if hardware failure is confirmed"
+    ],
+    "prevention": [
+      "Always connect the monitor to the discrete card when one is installed",
+      "Ensure adequate power supply capacity and connectors for the graphics card",
+      "Double-check BIOS display priority settings after installing a new graphics card"
+    ],
+    "keywords": ["graphics card not detected", "gpu no display output", "graphics card not showing device manager", "pcie power connector gpu"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["HW-057", "HW-060"]
+  },
+  {
+    "id": "HW-057",
+    "category": "Hardware",
+    "subcategory": "Component Detection",
+    "problem": "PCIe Device Not Detected",
+    "description": "A PCIe expansion card, such as a capture card, sound card, or network adapter, is not recognized by the system, either failing to appear in Device Manager or causing boot issues.",
+    "symptoms": [
+      "PCIe device does not appear in Device Manager or BIOS PCIe device list",
+      "Device's expected functionality (capture, audio, networking) is completely unavailable",
+      "System may exhibit longer POST times or boot issues with the card installed",
+      "Device worked previously and stopped being detected"
+    ],
+    "possible_causes": [
+      "Card not fully seated in its PCIe slot",
+      "PCIe slot itself is disabled in BIOS or non-functional",
+      "Driver for the device is missing, outdated, or incompatible",
+      "Card requires supplemental power that has not been connected",
+      "PCIe lane conflict with another installed device, such as an M.2 drive"
+    ],
+    "diagnostic_questions": [
+      "Is the card fully seated with its retention clip engaged in the PCIe slot?",
+      "Does the card require supplemental power, and if so, is it connected?",
+      "Has the correct, current driver for this device been installed?",
+      "Could another installed device, such as an M.2 SSD, be sharing and consuming the same PCIe lanes?"
+    ],
+    "commands": [
+      {
+        "command": "Device Manager > (relevant device category, or Other devices)",
+        "purpose": "Check whether Windows detects the PCIe device at all, even without a proper driver installed",
+        "expected_result": "Device appears listed, possibly under 'Other devices' if drivers are missing, but is at least detected",
+        "abnormal_result": "Device does not appear anywhere in Device Manager, indicating a detection-level rather than driver-level issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Power off, unplug, and reseat the PCIe card firmly in its slot, ensuring the retention clip is engaged.",
+        "reason": "An improperly seated card is a common and simple cause of complete non-detection."
+      },
+      {
+        "step": 2,
+        "action": "Verify any required supplemental power connectors for the card are properly connected.",
+        "reason": "Some PCIe cards require additional power beyond the slot itself and will not initialize without it."
+      },
+      {
+        "step": 3,
+        "action": "Check Device Manager to see if the device appears at all, even as an unknown or unconfigured device.",
+        "reason": "Distinguishes between a hardware detection failure and a driver-only issue."
+      },
+      {
+        "step": 4,
+        "action": "Consult the motherboard manual for PCIe lane sharing that might disable or limit the slot when other devices, like M.2 drives, are populated.",
+        "reason": "Many motherboards share PCIe lanes between certain slots and M.2 connectors, silently disabling one when the other is used."
+      },
+      {
+        "step": 5,
+        "action": "Install or update the correct driver for the device once hardware detection is confirmed.",
+        "reason": "Even properly detected hardware requires a correct driver to function as intended."
+      }
+    ],
+    "possible_solutions": [
+      "Reseat the PCIe card firmly in its slot",
+      "Connect any required supplemental power for the card",
+      "Move the card to a PCIe slot not sharing lanes with an occupied M.2 slot",
+      "Install or update the correct device driver",
+      "Test the card in another system to isolate a hardware fault"
+    ],
+    "prevention": [
+      "Review the motherboard manual for PCIe lane sharing before installing multiple expansion devices",
+      "Ensure all required power connectors are used for power-hungry expansion cards",
+      "Keep drivers updated for installed PCIe devices"
+    ],
+    "keywords": ["pcie device not detected", "expansion card not showing", "pcie lane sharing conflict", "capture card not detected"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["HW-056", "HW-060"]
+  },
+  {
+    "id": "HW-058",
+    "category": "Hardware",
+    "subcategory": "Component Detection",
+    "problem": "M.2 SSD Not Detected",
+    "description": "An installed M.2 SSD does not appear in BIOS or the operating system, preventing it from being used for installation, storage, or boot purposes.",
+    "symptoms": [
+      "M.2 SSD does not appear in BIOS storage device list",
+      "Drive does not appear in Disk Management or the OS installer",
+      "System may fail to boot if the M.2 drive was intended as the boot device",
+      "Drive was previously detected and has since disappeared"
+    ],
+    "possible_causes": [
+      "M.2 drive not fully seated or the retention screw not properly secured",
+      "M.2 slot configured for a different key type or protocol (SATA vs NVMe) than the drive supports",
+      "M.2 slot is disabled or shares lanes with a populated SATA port or PCIe slot",
+      "Drive itself has failed",
+      "BIOS does not support the specific M.2 drive without an update"
+    ],
+    "diagnostic_questions": [
+      "Is this a first-time installation, or did the drive work before and stop being detected?",
+      "Is the M.2 slot confirmed compatible with this drive's key type and protocol (SATA or NVMe)?",
+      "Is the M.2 retention screw properly securing the drive at the correct angle?",
+      "Are there other SATA or PCIe devices installed that might share and disable this M.2 slot's lanes?"
+    ],
+    "commands": [
+      {
+        "command": "BIOS Setup > Storage Configuration",
+        "purpose": "Check whether the M.2 drive appears in the BIOS storage device list and review M.2 slot configuration options",
+        "expected_result": "Drive is listed with correct model and capacity",
+        "abnormal_result": "Drive does not appear, confirming a detection-level issue requiring further investigation"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Power off, unplug, and reseat the M.2 drive, ensuring it sits at the correct angle and the retention screw is properly secured.",
+        "reason": "An improperly seated or unsecured M.2 drive can fail to make a reliable connection."
+      },
+      {
+        "step": 2,
+        "action": "Confirm the M.2 slot supports the drive's specific key type (B-key, M-key) and protocol (SATA or NVMe).",
+        "reason": "A physical or protocol mismatch between the drive and slot will prevent detection even if physically installed."
+      },
+      {
+        "step": 3,
+        "action": "Consult the motherboard manual for PCIe/SATA lane sharing that could disable this M.2 slot when other devices are installed.",
+        "reason": "Populating certain SATA ports or PCIe slots can automatically disable specific M.2 slots on many motherboards."
+      },
+      {
+        "step": 4,
+        "action": "Test the M.2 drive in a different compatible slot or another system if available.",
+        "reason": "Helps isolate whether the issue is the drive itself, the specific slot, or a lane-sharing conflict."
+      },
+      {
+        "step": 5,
+        "action": "Update the motherboard BIOS if using a newer or higher-capacity M.2 drive that may require updated support.",
+        "reason": "Older BIOS versions sometimes lack proper support for newer M.2 drive models or capacities."
+      }
+    ],
+    "possible_solutions": [
+      "Reseat the M.2 drive and properly secure the retention screw",
+      "Use a slot matching the drive's key type and protocol",
+      "Move conflicting SATA/PCIe devices to resolve lane sharing conflicts",
+      "Update the motherboard BIOS for better M.2 support",
+      "Replace the drive if confirmed failed via testing in another system"
+    ],
+    "prevention": [
+      "Review motherboard M.2 slot specifications and lane sharing before purchase and installation",
+      "Ensure the M.2 drive is properly secured with its retention screw",
+      "Keep BIOS firmware updated for newer drive compatibility"
+    ],
+    "keywords": ["m.2 ssd not detected", "nvme drive not showing bios", "m.2 slot lane sharing conflict", "m.2 not recognized"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["HW-046", "HW-059"]
+  },
+  {
+    "id": "HW-059",
+    "category": "Hardware",
+    "subcategory": "Component Detection",
+    "problem": "SATA Device Not Detected",
+    "description": "A drive or optical device connected via SATA is not recognized by the system in BIOS or the operating system, despite being properly connected.",
+    "symptoms": [
+      "SATA drive or optical device does not appear in BIOS storage list",
+      "Device does not appear in Disk Management or File Explorer",
+      "Device was previously working and stopped being detected",
+      "Device works when connected to a different SATA port"
+    ],
+    "possible_causes": [
+      "Loose or faulty SATA data or power cable",
+      "SATA port disabled in BIOS or shared/disabled due to M.2 slot usage",
+      "SATA controller mode mismatch (AHCI/RAID/IDE)",
+      "Faulty SATA port on the motherboard",
+      "Device itself has failed"
+    ],
+    "diagnostic_questions": [
+      "Have the SATA data and power cables been reseated or swapped to rule out a bad cable?",
+      "Does the device work when connected to a different SATA port?",
+      "Is an M.2 drive installed that might be sharing and disabling this SATA port?",
+      "Was the SATA controller mode recently changed in BIOS?"
+    ],
+    "commands": [
+      {
+        "command": "BIOS Setup > Storage Configuration",
+        "purpose": "Check whether the SATA device is detected and review current SATA controller mode settings",
+        "expected_result": "Device is listed correctly under the appropriate SATA port",
+        "abnormal_result": "Device does not appear, confirming a detection issue requiring cable, port, or configuration troubleshooting"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Reseat or replace the SATA data and power cables connected to the device.",
+        "reason": "Loose or faulty cables are the most common and easily resolved cause of SATA detection failure."
+      },
+      {
+        "step": 2,
+        "action": "Move the device to a different SATA port on the motherboard.",
+        "reason": "Isolates whether the issue is a specific faulty port versus the device or cable itself."
+      },
+      {
+        "step": 3,
+        "action": "Check whether an installed M.2 drive is sharing and disabling this particular SATA port, per the motherboard manual.",
+        "reason": "Many motherboards disable specific SATA ports when certain M.2 slots are populated."
+      },
+      {
+        "step": 4,
+        "action": "Confirm the SATA controller mode in BIOS matches what the operating system expects (typically AHCI for modern systems).",
+        "reason": "A mismatched controller mode can prevent devices from being properly recognized or cause the OS to fail to boot."
+      },
+      {
+        "step": 5,
+        "action": "Test the device in another system, or test a known-good device in this system, to isolate a hardware fault.",
+        "reason": "Definitively determines whether the device or the motherboard port is at fault."
+      }
+    ],
+    "possible_solutions": [
+      "Reseat or replace SATA data and power cables",
+      "Use a different SATA port on the motherboard",
+      "Resolve M.2/SATA lane sharing conflicts",
+      "Correct the SATA controller mode in BIOS",
+      "Replace the device or motherboard port if confirmed faulty"
+    ],
+    "prevention": [
+      "Use quality, properly seated SATA cables",
+      "Review motherboard SATA/M.2 lane sharing documentation before installing multiple drives",
+      "Avoid changing SATA controller mode after an OS is already installed without reconfiguring the OS accordingly"
+    ],
+    "keywords": ["sata device not detected", "sata drive not showing bios", "sata port not working", "hard drive not recognized sata"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["HW-046", "HW-063"]
+  },
+  {
+    "id": "HW-060",
+    "category": "Hardware",
+    "subcategory": "Slot & Port Failures",
+    "problem": "PCIe Slot Not Working",
+    "description": "A specific PCIe slot on the motherboard fails to recognize any card installed in it, while other slots function normally, indicating a slot-specific rather than card-specific issue.",
+    "symptoms": [
+      "No card is ever detected when installed in this specific slot",
+      "Multiple different, known-good cards fail to work in this slot",
+      "The same card works normally when moved to a different slot",
+      "Physical damage or discoloration may be visible on the slot itself"
+    ],
+    "possible_causes": [
+      "Physical damage to the PCIe slot, such as bent or broken pins",
+      "Slot is disabled in BIOS, whether intentionally or due to lane sharing with another device",
+      "Motherboard trace or solder joint failure affecting that specific slot",
+      "Slot is a lower-bandwidth or chipset-limited slot not intended for the type of card being tested"
+    ],
+    "diagnostic_questions": [
+      "Does the issue occur with multiple different cards, or just one specific card?",
+      "Does the same card work correctly when moved to a different PCIe slot?",
+      "Is there any visible physical damage to the slot itself?",
+      "Could this slot be sharing lanes with another populated device, such as an M.2 drive, per the motherboard manual?"
+    ],
+    "commands": [
+      {
+        "command": "BIOS Setup > Advanced > PCIe Configuration",
+        "purpose": "Check whether the specific PCIe slot is enabled and view its current lane allocation status",
+        "expected_result": "Slot is shown as enabled with appropriate lane allocation",
+        "abnormal_result": "Slot shows as disabled or with reduced/no lane allocation, explaining the detection failure"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Test a different, known-good card in the problematic slot to confirm the issue is slot-specific.",
+        "reason": "Rules out the possibility that the original card, rather than the slot, is actually at fault."
+      },
+      {
+        "step": 2,
+        "action": "Test the original card in a different, known-good PCIe slot.",
+        "reason": "Further confirms whether the card itself works fine elsewhere, isolating the fault to the specific slot."
+      },
+      {
+        "step": 3,
+        "action": "Visually inspect the slot for any physical damage, bent pins, or debris.",
+        "reason": "Physical damage is a straightforward and visible cause of a completely non-functional slot."
+      },
+      {
+        "step": 4,
+        "action": "Check BIOS PCIe configuration settings to confirm the slot is enabled and review its lane allocation.",
+        "reason": "The slot may be intentionally or automatically disabled due to lane sharing with another populated device."
+      },
+      {
+        "step": 5,
+        "action": "If the slot is confirmed physically damaged or has a motherboard-level fault, plan for motherboard replacement or use of a different slot going forward.",
+        "reason": "A genuinely faulty slot at the hardware level typically cannot be repaired without replacing the motherboard."
+      }
+    ],
+    "possible_solutions": [
+      "Use a different, confirmed-working PCIe slot for the card",
+      "Enable the slot in BIOS if it was disabled due to configuration",
+      "Resolve lane sharing conflicts with other installed devices",
+      "Replace the motherboard if the slot is confirmed physically or electrically damaged"
+    ],
+    "prevention": [
+      "Handle cards carefully during installation to avoid slot damage",
+      "Review motherboard lane sharing documentation before populating multiple slots",
+      "Avoid applying excessive force when installing or removing PCIe cards"
+    ],
+    "keywords": ["pcie slot not working", "specific pcie slot dead", "pcie slot disabled bios", "graphics card slot not detecting"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-50 minutes",
+    "related_problems": ["HW-056", "HW-057"]
+  },
+  {
+    "id": "HW-061",
+    "category": "Hardware",
+    "subcategory": "Slot & Port Failures",
+    "problem": "RAM Slot Not Working",
+    "description": "A specific RAM slot on the motherboard fails to recognize any memory module installed in it, while other slots function normally, indicating a slot-specific fault.",
+    "symptoms": [
+      "No memory is detected when a module is installed only in this specific slot",
+      "Multiple different, known-good RAM modules fail in this slot",
+      "The same module works correctly when moved to a different slot",
+      "System may fail to boot or show reduced memory capacity depending on configuration"
+    ],
+    "possible_causes": [
+      "Physical damage to the RAM slot, such as bent or broken pins",
+      "Debris or foreign material lodged in the slot",
+      "Motherboard trace or solder joint failure affecting that specific slot",
+      "Retention clip on the slot is damaged, preventing proper module seating"
+    ],
+    "diagnostic_questions": [
+      "Does the issue occur with multiple different RAM modules, or just one specific module?",
+      "Does the same module work correctly when moved to a different RAM slot?",
+      "Is there any visible physical damage or debris in the slot?",
+      "Are the retention clips on this slot functioning and fully engaging the module?"
+    ],
+    "commands": [
+      {
+        "command": "BIOS Setup > Main/System Information",
+        "purpose": "Check whether memory installed specifically in the suspected faulty slot is detected",
+        "expected_result": "Memory in the slot is detected and included in total capacity",
+        "abnormal_result": "Memory in that specific slot is not detected, confirming a slot-specific issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Test a different, known-good RAM module in the problematic slot.",
+        "reason": "Rules out the possibility that the original module, rather than the slot, is actually at fault."
+      },
+      {
+        "step": 2,
+        "action": "Test the original RAM module in a different, known-good slot.",
+        "reason": "Confirms whether the module itself works fine elsewhere, isolating the fault to the specific slot."
+      },
+      {
+        "step": 3,
+        "action": "Visually inspect the slot for physical damage, bent pins, or debris, and clean gently if needed with compressed air.",
+        "reason": "Debris or minor physical obstruction can sometimes be resolved without requiring hardware replacement."
+      },
+      {
+        "step": 4,
+        "action": "Check that the slot's retention clips are functioning properly and fully engaging when a module is installed.",
+        "reason": "Damaged retention clips can prevent a module from seating deeply enough to make proper contact."
+      },
+      {
+        "step": 5,
+        "action": "If the slot is confirmed physically or electrically faulty, plan to use only functional slots and consider motherboard replacement if full capacity is needed.",
+        "reason": "A genuinely faulty slot typically cannot be repaired without replacing the motherboard."
+      }
+    ],
+    "possible_solutions": [
+      "Use only confirmed-working RAM slots",
+      "Clean debris from the slot with compressed air if that was the cause",
+      "Replace the motherboard if the slot is confirmed physically or electrically damaged",
+      "Reconfigure RAM installation to only use functional slots while maintaining proper channel configuration"
+    ],
+    "prevention": [
+      "Handle RAM modules carefully during installation to avoid slot damage",
+      "Keep the system interior reasonably free of dust and debris",
+      "Avoid applying excessive force when installing or removing RAM modules"
+    ],
+    "keywords": ["ram slot not working", "specific memory slot dead", "ram slot no detection", "memory slot damaged motherboard"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["HW-054", "HW-060"]
+  },
+  {
+    "id": "HW-062",
+    "category": "Hardware",
+    "subcategory": "Slot & Port Failures",
+    "problem": "M.2 Slot Not Working",
+    "description": "A specific M.2 slot on the motherboard fails to recognize any drive installed in it, while the drive works correctly in other compatible slots or systems, indicating a slot-specific fault.",
+    "symptoms": [
+      "No M.2 drive is ever detected when installed in this specific slot",
+      "Multiple different, known-good M.2 drives fail in this slot",
+      "The same drive works correctly when moved to a different M.2 slot",
+      "Slot may show physical signs of damage or discoloration"
+    ],
+    "possible_causes": [
+      "Physical damage to the M.2 slot connector",
+      "Slot is disabled in BIOS or automatically disabled due to lane sharing with another populated device",
+      "Retention screw or standoff for this slot is missing or improperly positioned",
+      "Motherboard trace or connector failure specific to this slot"
+    ],
+    "diagnostic_questions": [
+      "Does the issue occur with multiple different M.2 drives, or just one specific drive?",
+      "Does the same drive work correctly when moved to a different M.2 slot?",
+      "Is the correct standoff screw present and positioned at the right length for this drive's form factor?",
+      "Could this slot be automatically disabled due to another populated SATA port or PCIe slot sharing its lanes?"
+    ],
+    "commands": [
+      {
+        "command": "BIOS Setup > Storage Configuration",
+        "purpose": "Check whether a drive installed in the specific suspected slot is detected and review its enable/disable status",
+        "expected_result": "Drive is detected when installed in this slot",
+        "abnormal_result": "Drive is not detected in this specific slot despite working elsewhere, confirming a slot-specific issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Test a different, known-good M.2 drive in the problematic slot.",
+        "reason": "Rules out the possibility that the original drive, rather than the slot, is actually at fault."
+      },
+      {
+        "step": 2,
+        "action": "Test the original drive in a different, known-good M.2 slot or another system.",
+        "reason": "Confirms whether the drive itself works fine elsewhere, isolating the fault to the specific slot."
+      },
+      {
+        "step": 3,
+        "action": "Confirm the correct standoff screw is present and positioned at the proper length for the drive's form factor (2280, 2260, etc.).",
+        "reason": "An incorrect or missing standoff can prevent the drive from seating and connecting properly."
+      },
+      {
+        "step": 4,
+        "action": "Check BIOS storage configuration to see if this specific slot is disabled, whether intentionally or due to lane sharing with another populated device.",
+        "reason": "Many motherboards automatically disable certain M.2 slots when specific SATA ports or PCIe slots are also populated."
+      },
+      {
+        "step": 5,
+        "action": "If the slot is confirmed physically or electrically faulty, plan to use only functional slots and consider motherboard replacement if needed.",
+        "reason": "A genuinely faulty M.2 slot typically cannot be repaired without replacing the motherboard."
+      }
+    ],
+    "possible_solutions": [
+      "Use only confirmed-working M.2 slots",
+      "Install the correct standoff screw for the drive's form factor",
+      "Resolve lane sharing conflicts disabling the slot",
+      "Replace the motherboard if the slot is confirmed physically or electrically damaged"
+    ],
+    "prevention": [
+      "Review motherboard M.2 slot documentation for lane sharing before installation",
+      "Use the correct standoff screws for each drive's form factor",
+      "Handle drives and slots carefully during installation"
+    ],
+    "keywords": ["m.2 slot not working", "specific m.2 slot dead", "m.2 slot disabled lane sharing", "nvme slot no detection"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-50 minutes",
+    "related_problems": ["HW-058", "HW-063"]
+  },
+  {
+    "id": "HW-063",
+    "category": "Hardware",
+    "subcategory": "Slot & Port Failures",
+    "problem": "SATA Port Not Working",
+    "description": "A specific SATA port on the motherboard fails to recognize any device connected to it, while other ports function normally, indicating a port-specific rather than device-specific fault.",
+    "symptoms": [
+      "No device is detected when connected specifically to this SATA port",
+      "Multiple different, known-good devices fail when connected to this port",
+      "The same device works correctly when connected to a different SATA port",
+      "Port may show visible physical damage"
+    ],
+    "possible_causes": [
+      "Physical damage to the SATA port connector",
+      "Port is disabled in BIOS or automatically disabled due to M.2 slot lane sharing",
+      "Motherboard trace or solder joint failure specific to this port",
+      "Port is part of a secondary or add-in controller that is malfunctioning"
+    ],
+    "diagnostic_questions": [
+      "Does the issue occur with multiple different devices, or just one specific device?",
+      "Does the same device work correctly when connected to a different SATA port?",
+      "Is there any visible physical damage to the port itself?",
+      "Could an installed M.2 drive be sharing and disabling this specific SATA port?"
+    ],
+    "commands": [
+      {
+        "command": "BIOS Setup > Storage Configuration",
+        "purpose": "Check whether a device connected to the specific suspected port is detected and review port enable/disable status",
+        "expected_result": "Device is detected when connected to this port",
+        "abnormal_result": "Device is not detected on this specific port despite working elsewhere, confirming a port-specific issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Test a different, known-good device connected to the problematic port.",
+        "reason": "Rules out the possibility that the original device, rather than the port, is actually at fault."
+      },
+      {
+        "step": 2,
+        "action": "Test the original device connected to a different, known-good SATA port.",
+        "reason": "Confirms whether the device itself works fine elsewhere, isolating the fault to the specific port."
+      },
+      {
+        "step": 3,
+        "action": "Visually inspect the port for physical damage or debris.",
+        "reason": "Physical damage is a straightforward and visible cause of a completely non-functional port."
+      },
+      {
+        "step": 4,
+        "action": "Check BIOS storage configuration to see if this specific port is disabled, whether intentionally or due to M.2 lane sharing.",
+        "reason": "Many motherboards automatically disable specific SATA ports when certain M.2 slots are populated."
+      },
+      {
+        "step": 5,
+        "action": "If the port is part of a secondary controller, check if a driver or firmware update for that controller resolves the issue.",
+        "reason": "Some motherboards use additional chipsets for extra SATA ports that may need separate driver support."
+      }
+    ],
+    "possible_solutions": [
+      "Use a different, confirmed-working SATA port",
+      "Resolve M.2 lane sharing conflicts disabling the port",
+      "Update drivers/firmware for a secondary SATA controller if applicable",
+      "Replace the motherboard if the port is confirmed physically or electrically damaged"
+    ],
+    "prevention": [
+      "Review motherboard SATA/M.2 lane sharing documentation before installing multiple drives",
+      "Handle SATA cables and connectors carefully to avoid port damage",
+      "Keep secondary storage controller drivers updated"
+    ],
+    "keywords": ["sata port not working", "specific sata port dead", "sata port disabled lane sharing", "sata port no detection"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["HW-059", "HW-062"]
+  },
+  {
+    "id": "HW-064",
+    "category": "Hardware",
+    "subcategory": "Cooling & Fan Issues",
+    "problem": "CPU Fan Header Not Working",
+    "description": "The motherboard's CPU fan header does not provide power or control signal to a connected fan, resulting in the CPU cooler fan not spinning or not being recognized for speed monitoring.",
+    "symptoms": [
+      "CPU fan does not spin at all when connected to the CPU_FAN header",
+      "System may show a CPU fan error or refuse to boot due to fan failure detection",
+      "Fan speed shows as 0 RPM in BIOS or monitoring software despite being connected",
+      "Fan spins normally when connected to a different header"
+    ],
+    "possible_causes": [
+      "Fan connector not fully seated in the header",
+      "CPU fan header itself has failed on the motherboard",
+      "BIOS fan control settings are misconfigured, such as an overly aggressive fan curve stopping the fan at low temperatures",
+      "Fan itself has failed and is not the header at fault"
+    ],
+    "diagnostic_questions": [
+      "Is the fan connector fully and correctly seated in the CPU_FAN header, matching the correct pin orientation?",
+      "Does the fan spin when connected to a different fan header on the motherboard?",
+      "Does a different, known-good fan also fail to spin when connected to this specific header?",
+      "Are BIOS fan control settings configured with a very low minimum speed or aggressive stop-at-low-temp curve?"
+    ],
+    "commands": [
+      {
+        "command": "BIOS Setup > Hardware Monitor/Fan Control",
+        "purpose": "Check the reported RPM and configured fan curve for the CPU_FAN header",
+        "expected_result": "Fan shows a nonzero RPM reading consistent with normal operation",
+        "abnormal_result": "Fan shows 0 RPM despite being connected, confirming a header, fan, or configuration issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Power off, unplug, and confirm the fan connector is fully and correctly seated in the CPU_FAN header.",
+        "reason": "An improperly seated connector is a simple and common cause of a fan not receiving power."
+      },
+      {
+        "step": 2,
+        "action": "Connect a different, known-good fan to the CPU_FAN header to test.",
+        "reason": "Isolates whether the header itself is the problem or the original fan has failed."
+      },
+      {
+        "step": 3,
+        "action": "Connect the original fan to a different fan header on the motherboard, such as a system fan header, to test.",
+        "reason": "Further confirms whether the fan itself works, pointing definitively to the CPU_FAN header if it spins elsewhere."
+      },
+      {
+        "step": 4,
+        "action": "Check BIOS fan control settings for an aggressive curve that might be intentionally keeping the fan off or very slow at idle temperatures.",
+        "reason": "Some fan curves are configured to stop the fan entirely below a certain temperature threshold, which can appear as a hardware failure."
+      },
+      {
+        "step": 5,
+        "action": "If the header is confirmed faulty, use a different available header temporarily and consider motherboard replacement or repair if the CPU_FAN header specifically is required for boot fan-detection.",
+        "reason": "Some motherboards require a functioning CPU_FAN header specifically to avoid a fan failure warning at boot."
+      }
+    ],
+    "possible_solutions": [
+      "Reseat the fan connector fully in the header",
+      "Adjust an overly aggressive BIOS fan curve",
+      "Use a different fan header if the CPU_FAN header is confirmed faulty",
+      "Replace a failed fan if confirmed via testing",
+      "Replace the motherboard if the header itself is confirmed damaged"
+    ],
+    "prevention": [
+      "Ensure fan connectors are fully seated during any build or maintenance",
+      "Set reasonable minimum fan speeds in BIOS to avoid stalling at low temperatures",
+      "Periodically check fan operation as part of routine maintenance"
+    ],
+    "keywords": ["cpu fan header not working", "cpu fan not spinning", "cpu fan error boot", "cpu_fan header 0 rpm"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["HW-065", "HW-067"]
+  },
+  {
+    "id": "HW-065",
+    "category": "Hardware",
+    "subcategory": "Cooling & Fan Issues",
+    "problem": "System Fan Header Not Working",
+    "description": "A motherboard's system/case fan header does not provide power or control signal to a connected fan, resulting in that specific case fan not spinning or not being monitored correctly.",
+    "symptoms": [
+      "A specific case fan does not spin when connected to a particular system fan header",
+      "Fan speed shows as 0 RPM in BIOS or monitoring software for that header",
+      "Fan spins normally when connected to a different header",
+      "Other fans connected to other system fan headers work normally"
+    ],
+    "possible_causes": [
+      "Fan connector not fully seated in the header",
+      "The specific system fan header has failed on the motherboard",
+      "BIOS fan control settings for that header are misconfigured with too low a minimum speed",
+      "Fan itself has failed rather than the header"
+    ],
+    "diagnostic_questions": [
+      "Is the fan connector fully and correctly seated in the specific system fan header?",
+      "Does the fan spin when connected to a different system fan header?",
+      "Does a different, known-good fan also fail to spin on this specific header?",
+      "Are BIOS fan control settings for this specific header configured with a very low or zero minimum speed?"
+    ],
+    "commands": [
+      {
+        "command": "BIOS Setup > Hardware Monitor/Fan Control",
+        "purpose": "Check the reported RPM and configured fan curve for the specific system fan header in question",
+        "expected_result": "Fan shows a nonzero RPM reading consistent with normal operation",
+        "abnormal_result": "Fan shows 0 RPM on this specific header despite being connected, confirming a header, fan, or configuration issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Power off, unplug, and confirm the fan connector is fully and correctly seated in the specific system fan header.",
+        "reason": "An improperly seated connector is a simple and common cause of a fan not receiving power."
+      },
+      {
+        "step": 2,
+        "action": "Connect a different, known-good fan to the suspected faulty header to test.",
+        "reason": "Isolates whether the header itself is the problem or the original fan has failed."
+      },
+      {
+        "step": 3,
+        "action": "Connect the original fan to a different system fan header to test.",
+        "reason": "Further confirms whether the fan itself works, pointing definitively to the specific header if it spins elsewhere."
+      },
+      {
+        "step": 4,
+        "action": "Check BIOS fan control settings specific to this header for an overly aggressive curve or zero minimum speed setting.",
+        "reason": "Some headers may be intentionally or accidentally configured to allow the fan to stop entirely at low temperatures."
+      },
+      {
+        "step": 5,
+        "action": "If the header is confirmed faulty, use a fan splitter from a working header or a different available header as a workaround.",
+        "reason": "Provides a practical solution to power the fan even if the specific header cannot be repaired without motherboard replacement."
+      }
+    ],
+    "possible_solutions": [
+      "Reseat the fan connector fully in the header",
+      "Adjust an overly aggressive BIOS fan curve for that header",
+      "Use a fan splitter from a working header as a workaround",
+      "Replace a failed fan if confirmed via testing",
+      "Replace the motherboard if the header itself is confirmed damaged"
+    ],
+    "prevention": [
+      "Ensure fan connectors are fully seated during any build or maintenance",
+      "Set reasonable minimum fan speeds in BIOS for all headers",
+      "Periodically check all case fan operation as part of routine maintenance"
+    ],
+    "keywords": ["system fan header not working", "case fan not spinning", "sys_fan header 0 rpm", "motherboard fan header dead"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["HW-064", "HW-067"]
+  },
+  {
+    "id": "HW-066",
+    "category": "Hardware",
+    "subcategory": "Cooling & Fan Issues",
+    "problem": "Fan Always Runs at Maximum Speed",
+    "description": "One or more system fans run continuously at full speed regardless of actual system temperature, causing excessive noise even when the system is idle or under light load.",
+    "symptoms": [
+      "Fan noise is consistently loud, even when the system is idle",
+      "Fan speed does not decrease even as temperatures drop after heavy use",
+      "Issue may affect one specific fan or all fans on the system",
+      "Fan speed control options in BIOS appear to have no effect"
+    ],
+    "possible_causes": [
+      "Fan is connected to a header without PWM/voltage control, such as a header wired for full power only",
+      "BIOS fan curve is misconfigured to run at 100% regardless of temperature",
+      "Fan itself is a non-PWM (3-pin/2-pin) fan connected expecting PWM control it cannot use",
+      "A temperature sensor reading is stuck high, causing the fan curve to always respond as if at maximum temperature",
+      "Motherboard fan control software conflict, such as competing BIOS and third-party utility settings"
+    ],
+    "diagnostic_questions": [
+      "Does this affect one specific fan or all fans in the system?",
+      "Is the affected fan a PWM (4-pin) or voltage-controlled (3-pin) fan, and does it match the header's control type?",
+      "Have BIOS fan curve settings been reviewed and configured intentionally, or left at a default that may run fans at maximum?",
+      "Is any third-party fan control software installed that might conflict with BIOS settings?"
+    ],
+    "commands": [
+      {
+        "command": "BIOS Setup > Hardware Monitor/Fan Control",
+        "purpose": "Review the current fan curve configuration and reported temperature readings driving fan speed",
+        "expected_result": "Fan curve is configured reasonably, ramping with temperature rather than running at maximum constantly",
+        "abnormal_result": "Fan curve shows 100% duty cycle across all temperatures, or a temperature reading appears abnormally stuck high"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check BIOS fan control settings for the affected fan header and review the configured fan curve.",
+        "reason": "An intentionally or accidentally configured 100% curve is a very common and simple cause of this symptom."
+      },
+      {
+        "step": 2,
+        "action": "Confirm whether the fan is PWM (4-pin) or voltage-controlled (3-pin) and matches the header's control type in BIOS.",
+        "reason": "A mismatch between fan type and header control mode can cause the fan to default to running at full speed."
+      },
+      {
+        "step": 3,
+        "action": "Check for any third-party fan control software that might be overriding or conflicting with BIOS fan curve settings.",
+        "reason": "Competing software and BIOS control can cause unpredictable behavior, including fans defaulting to maximum speed."
+      },
+      {
+        "step": 4,
+        "action": "Verify the temperature sensor associated with the fan curve is reporting reasonable values, not a stuck or clearly incorrect high reading.",
+        "reason": "A faulty sensor reading can cause the fan curve logic to always respond as though at maximum temperature."
+      },
+      {
+        "step": 5,
+        "action": "Reconfigure the fan curve to a reasonable profile that ramps gradually with temperature.",
+        "reason": "Directly resolves the excessive noise issue while maintaining adequate cooling as temperatures actually rise."
+      }
+    ],
+    "possible_solutions": [
+      "Reconfigure the BIOS fan curve to ramp gradually with temperature",
+      "Match the fan type (PWM/voltage) to the correct header control mode",
+      "Remove or reconfigure conflicting third-party fan control software",
+      "Replace a faulty temperature sensor if confirmed as the cause"
+    ],
+    "prevention": [
+      "Configure reasonable fan curves during initial system setup",
+      "Use consistent fan types matching header control modes throughout the build",
+      "Avoid running multiple conflicting fan control utilities simultaneously"
+    ],
+    "keywords": ["fan always runs at maximum speed", "case fan too loud always on", "pwm fan curve not working", "fan 100 percent constantly"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["HW-067", "HW-064"]
+  },
+  {
+    "id": "HW-067",
+    "category": "Hardware",
+    "subcategory": "Cooling & Fan Issues",
+    "problem": "Fan Speed Not Detected",
+    "description": "A connected fan spins normally and provides cooling, but the system, BIOS, or monitoring software reports its speed as 0 RPM or shows no reading at all.",
+    "symptoms": [
+      "Fan visibly spins and provides airflow, but shows 0 RPM in BIOS or software",
+      "System may falsely trigger a fan failure warning despite the fan working",
+      "Speed reading is missing entirely rather than showing zero",
+      "Other fans on different headers report speed correctly"
+    ],
+    "possible_causes": [
+      "Fan is a 2-pin or basic 3-pin fan lacking a tachometer wire needed for speed reporting",
+      "Tachometer wire connection at the header is loose or improperly seated",
+      "Fan's tachometer signal wire has failed internally",
+      "Header itself is not properly reading the tachometer signal despite power being supplied correctly"
+    ],
+    "diagnostic_questions": [
+      "Is the fan confirmed to have a tachometer wire (typically a 3-pin or 4-pin fan, not a basic 2-pin)?",
+      "Is the fan connector fully and correctly seated in the header?",
+      "Does a different, known-good fan report speed correctly when connected to this same header?",
+      "Does this fan report speed correctly when connected to a different header?"
+    ],
+    "commands": [
+      {
+        "command": "BIOS Setup > Hardware Monitor/Fan Control",
+        "purpose": "Check the reported RPM for the specific fan header in question while the fan is visibly spinning",
+        "expected_result": "RPM reading matches the fan's actual visible spin rate",
+        "abnormal_result": "RPM reads 0 or is missing despite the fan visibly spinning, confirming a tachometer signal issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the fan has a tachometer wire by checking its pin count (2-pin fans typically lack this feature).",
+        "reason": "A 2-pin fan without a tachometer wire will never report speed, which is expected rather than a fault."
+      },
+      {
+        "step": 2,
+        "action": "Power off, unplug, and confirm the fan connector is fully and correctly seated in the header.",
+        "reason": "A loose connection can specifically affect the thinner tachometer signal wire even while power still reaches the fan."
+      },
+      {
+        "step": 3,
+        "action": "Connect a different, known-good fan with a tachometer wire to the same header to test.",
+        "reason": "Isolates whether the header can correctly read tachometer signals at all."
+      },
+      {
+        "step": 4,
+        "action": "Connect the original fan to a different header known to correctly report fan speed.",
+        "reason": "Determines whether the issue lies with the fan's tachometer wire or the specific header."
+      },
+      {
+        "step": 5,
+        "action": "If the fan lacks a tachometer wire and speed monitoring is important, replace it with a 3-pin or 4-pin fan that includes one.",
+        "reason": "Directly resolves the reporting gap for cases where the fan hardware itself is the limitation."
+      }
+    ],
+    "possible_solutions": [
+      "Reseat the fan connector to ensure proper tachometer wire contact",
+      "Replace a 2-pin fan with a 3-pin or 4-pin fan if speed monitoring is needed",
+      "Use a different, confirmed-working header for accurate speed reporting",
+      "Disable false fan failure warnings in BIOS if the fan is confirmed working despite no speed reading"
+    ],
+    "prevention": [
+      "Use fans with tachometer wires (3-pin or 4-pin) where speed monitoring matters",
+      "Ensure fan connectors are fully seated during any build or maintenance",
+      "Periodically verify fan speed readings match actual observed fan operation"
+    ],
+    "keywords": ["fan speed not detected", "fan shows 0 rpm but spinning", "tachometer wire not reading", "false fan failure warning"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["HW-064", "HW-065"]
+  }
+]

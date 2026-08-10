@@ -1,0 +1,2498 @@
+[
+  {
+    "id": "HW-068",
+    "category": "Hardware",
+    "subcategory": "Power Supply Issues",
+    "problem": "Power Supply Not Turning On",
+    "description": "The desktop power supply unit (PSU) shows no signs of activity when the system is powered on, with no fan spin, no lights, and no response from the system at all.",
+    "symptoms": [
+      "No fan spin, LEDs, or any activity from the PSU when powering on",
+      "System is completely unresponsive to the power button",
+      "PSU worked previously and stopped suddenly",
+      "No activity even when testing the PSU standalone"
+    ],
+    "possible_causes": [
+      "PSU switch on the rear of the unit is set to off",
+      "Wall outlet or power strip is not providing power",
+      "PSU has failed internally",
+      "Power cable is damaged or not fully seated",
+      "Motherboard short circuit preventing the PSU from starting"
+    ],
+    "diagnostic_questions": [
+      "Is the physical switch on the back of the PSU set to the on position?",
+      "Has the outlet or power strip been confirmed to have power using another device?",
+      "Does the PSU show any activity when tested standalone using a paperclip test?",
+      "Was there any recent event, such as a power surge, before this started?"
+    ],
+    "commands": [
+      {
+        "command": "PSU paperclip test (jump the green wire to a black ground wire on the 24-pin connector, PSU disconnected from motherboard)",
+        "purpose": "Test whether the PSU itself can power on independently of the rest of the system",
+        "expected_result": "PSU fan spins up, indicating the PSU itself is functional",
+        "abnormal_result": "PSU shows no activity at all, confirming a PSU-level failure"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the rear PSU switch is set to on and the outlet/power strip is confirmed working with another device.",
+        "reason": "Rules out the simplest causes before further diagnosis."
+      },
+      {
+        "step": 2,
+        "action": "Reseat the power cable at both the wall and PSU ends, or try a different cable.",
+        "reason": "A damaged or loose power cable can prevent the PSU from receiving power at all."
+      },
+      {
+        "step": 3,
+        "action": "Disconnect the PSU from the motherboard and perform a paperclip test to check for standalone activity.",
+        "reason": "Isolates whether the PSU itself is at fault versus a short elsewhere in the system preventing startup."
+      },
+      {
+        "step": 4,
+        "action": "If the PSU shows no activity even standalone, replace the PSU.",
+        "reason": "Confirms internal PSU failure that cannot be repaired by the end user."
+      },
+      {
+        "step": 5,
+        "action": "If the PSU passes the standalone test but the system still will not power on, investigate a possible short circuit on the motherboard.",
+        "reason": "A properly functioning PSU that still fails to start the system points to a fault elsewhere in the build."
+      }
+    ],
+    "possible_solutions": [
+      "Turn on the PSU's rear power switch",
+      "Replace a damaged power cable",
+      "Replace a failed PSU",
+      "Investigate and resolve a motherboard short circuit"
+    ],
+    "prevention": [
+      "Use a surge protector to guard against power surges",
+      "Periodically inspect power cables for damage",
+      "Choose a reputable PSU brand with adequate wattage headroom"
+    ],
+    "keywords": ["power supply not turning on", "psu no power at all", "system completely dead no lights", "paperclip test psu"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["HW-072", "HW-073"]
+  },
+  {
+    "id": "HW-069",
+    "category": "Hardware",
+    "subcategory": "Power Supply Issues",
+    "problem": "Power Supply Fan Not Spinning",
+    "description": "The system powers on and runs normally, but the fan inside the power supply unit does not spin, raising concerns about PSU cooling and longevity.",
+    "symptoms": [
+      "PSU fan remains still while the system is powered on and running",
+      "System otherwise functions normally with no crashes",
+      "PSU may feel warmer than usual to the touch",
+      "Other case fans and components spin normally"
+    ],
+    "possible_causes": [
+      "PSU uses a semi-passive or zero-RPM mode that keeps the fan off under low load",
+      "Fan bearing has failed or seized",
+      "Dust buildup has jammed the fan blades",
+      "Internal fan control circuitry has failed"
+    ],
+    "diagnostic_questions": [
+      "Does the PSU specification mention a semi-passive or zero-RPM fan mode?",
+      "Does the fan remain still even under heavy system load and high temperatures?",
+      "Is there visible dust buildup around the PSU fan grille?",
+      "How old is the PSU, and has the fan ever spun normally before?"
+    ],
+    "commands": [
+      {
+        "command": "Monitor PSU temperature and fan behavior under sustained heavy load (e.g., stress test)",
+        "purpose": "Determine whether the fan spins up under high load, which would confirm normal semi-passive operation",
+        "expected_result": "Fan spins up as load and temperature increase",
+        "abnormal_result": "Fan remains still even under sustained heavy load, indicating a genuine fan failure"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the PSU's specifications to determine if it includes a semi-passive or zero-RPM fan mode.",
+        "reason": "Many modern PSUs intentionally keep the fan off at low loads, which is expected behavior, not a fault."
+      },
+      {
+        "step": 2,
+        "action": "Run the system under heavy sustained load, such as a stress test, and observe whether the fan spins up.",
+        "reason": "Confirms whether the semi-passive threshold is simply not being reached, or the fan genuinely fails to respond to heat."
+      },
+      {
+        "step": 3,
+        "action": "Power off, unplug, and visually inspect the fan for dust buildup or visible obstruction through the vents.",
+        "reason": "Dust accumulation can physically prevent the fan from spinning even when commanded to."
+      },
+      {
+        "step": 4,
+        "action": "If the fan remains still under heavy load with no semi-passive mode present, replace the PSU rather than attempting to open and repair it.",
+        "reason": "PSUs contain dangerous stored electrical charge and should not be opened by untrained users; replacement is the safe resolution."
+      }
+    ],
+    "possible_solutions": [
+      "Confirm semi-passive operation is expected and not a fault",
+      "Clean external dust from the PSU vents carefully without opening the unit",
+      "Replace the PSU if the fan fails to respond even under heavy load"
+    ],
+    "prevention": [
+      "Keep the system environment reasonably dust-free",
+      "Understand and verify the PSU's fan behavior specifications at purchase",
+      "Avoid placing the system in an enclosed, poorly ventilated space"
+    ],
+    "keywords": ["power supply fan not spinning", "psu fan not working", "semi-passive psu fan off", "psu fan dust stopped"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["HW-068", "HW-071"]
+  },
+  {
+    "id": "HW-070",
+    "category": "Hardware",
+    "subcategory": "Power Supply Issues",
+    "problem": "System Randomly Shuts Down",
+    "description": "The system unexpectedly powers off completely during normal use, without displaying an error message, often suspected to be related to power delivery rather than overheating or software.",
+    "symptoms": [
+      "System powers off abruptly with no warning or blue screen",
+      "Shutdown may occur under load, at idle, or seemingly at random",
+      "System restarts normally afterward as if nothing happened",
+      "No consistent pattern tied to a specific application or task"
+    ],
+    "possible_causes": [
+      "Power supply unit is failing or insufficient for the system's power draw under load",
+      "Overheating triggering a thermal protection shutdown",
+      "Faulty wall outlet or power strip causing intermittent power loss",
+      "A failing component, such as RAM or the motherboard, causing a protective shutdown",
+      "Windows Fast Startup or power settings causing unexpected sleep/shutdown behavior"
+    ],
+    "diagnostic_questions": [
+      "Does the shutdown happen more often under heavy load, such as gaming, or does it seem random?",
+      "Has the system's power draw increased recently, such as through a new graphics card?",
+      "Has overheating been ruled out as a cause?",
+      "Is the system connected to a reliable, tested power outlet or power strip?"
+    ],
+    "commands": [
+      {
+        "command": "Event Viewer > Windows Logs > System (filter for Kernel-Power event ID 41)",
+        "purpose": "Check Windows event logs for a Kernel-Power critical error indicating an unexpected power loss",
+        "expected_result": "No unexpected power loss events, or events correlate with known planned shutdowns",
+        "abnormal_result": "Repeated Kernel-Power Event ID 41 entries with no planned cause, confirming unexpected power loss consistent with a hardware issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check Event Viewer for Kernel-Power Event ID 41 entries corresponding to the shutdown times.",
+        "reason": "This specific event confirms an unexpected loss of power rather than a controlled shutdown or software crash."
+      },
+      {
+        "step": 2,
+        "action": "Rule out overheating by monitoring CPU and GPU temperatures during normal use leading up to a shutdown.",
+        "reason": "Thermal protection shutdowns can present identically to power-related shutdowns without careful monitoring."
+      },
+      {
+        "step": 3,
+        "action": "Test the system connected to a different, confirmed-reliable wall outlet.",
+        "reason": "An intermittently faulty outlet or power strip can cause exactly this symptom."
+      },
+      {
+        "step": 4,
+        "action": "Calculate the system's total power draw under load and compare it against the PSU's rated wattage and connector capacity.",
+        "reason": "An insufficient or aging PSU unable to meet peak load demand is a very common cause of random shutdowns, especially after a hardware upgrade."
+      },
+      {
+        "step": 5,
+        "action": "If a spare, known-good PSU of adequate wattage is available, swap it in to test.",
+        "reason": "The most reliable way to confirm or rule out the PSU as the root cause."
+      }
+    ],
+    "possible_solutions": [
+      "Replace an insufficient or failing PSU with an adequately rated unit",
+      "Resolve underlying overheating issues if identified as the actual cause",
+      "Use a different, reliable power outlet or power strip",
+      "Replace a failing component identified through further isolation testing"
+    ],
+    "prevention": [
+      "Choose a PSU with adequate wattage headroom for the system's components",
+      "Maintain good system cooling to prevent thermal shutdowns",
+      "Use a surge protector or UPS for stable power delivery",
+      "Recalculate power needs after any significant hardware upgrade"
+    ],
+    "keywords": ["system randomly shuts down", "computer turns off unexpectedly", "kernel power event 41", "psu insufficient wattage shutdown"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "25-50 minutes",
+    "related_problems": ["HW-068", "HW-045"]
+  },
+  {
+    "id": "HW-071",
+    "category": "Hardware",
+    "subcategory": "Power Supply Issues",
+    "problem": "Power Supply Making Buzzing Noise",
+    "description": "The power supply unit emits an audible buzzing, whining, or coil-whine-like noise during system operation, particularly noticeable under certain loads or in quiet environments.",
+    "symptoms": [
+      "High-pitched buzzing or whining noise coming from the PSU area",
+      "Noise may intensify under higher system load or specific frame rates in games",
+      "Noise may be constant or only present under certain conditions",
+      "System otherwise operates normally without crashes or instability"
+    ],
+    "possible_causes": [
+      "Coil whine, a common and generally harmless electrical noise from PSU or GPU components under load",
+      "PSU fan bearing wear causing a buzzing or grinding sound",
+      "Loose internal component within the PSU vibrating against the case",
+      "PSU nearing end of life with degrading internal capacitors"
+    ],
+    "diagnostic_questions": [
+      "Does the noise change in pitch or intensity based on system load or frame rate?",
+      "Is the noise coming specifically from the PSU, or could it be coil whine from the graphics card instead?",
+      "Does the system otherwise operate stably with no crashes or errors?",
+      "How old is the PSU, and has this noise developed gradually or suddenly?"
+    ],
+    "commands": [
+      {
+        "command": "Isolate noise source by testing components individually or listening closely near each component during load",
+        "purpose": "Determine whether the buzzing noise originates from the PSU specifically or another component like the GPU",
+        "expected_result": "Noise source is clearly identified as coming from the PSU",
+        "abnormal_result": "Noise appears to originate from a different component, redirecting troubleshooting accordingly"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Carefully listen near each major component (PSU, GPU) during load to confirm the noise is specifically coming from the PSU.",
+        "reason": "Coil whine from a graphics card is often mistaken for PSU noise and requires different troubleshooting."
+      },
+      {
+        "step": 2,
+        "action": "Determine if the noise correlates with load changes, which is characteristic of typical, generally harmless coil whine.",
+        "reason": "Load-correlated electrical noise is common and usually not a sign of impending failure, providing reassurance if system stability is otherwise fine."
+      },
+      {
+        "step": 3,
+        "action": "Check whether the noise sounds like a mechanical grinding or bearing issue rather than an electrical whine, which would point to the fan instead.",
+        "reason": "Distinguishes between benign electrical coil whine and a potentially failing PSU fan bearing."
+      },
+      {
+        "step": 4,
+        "action": "If the PSU is older and the noise has developed gradually alongside any signs of instability, consider proactive replacement.",
+        "reason": "Aging PSUs with degrading components can develop noise as an early warning sign before more serious failure."
+      },
+      {
+        "step": 5,
+        "action": "If the noise is purely electrical coil whine with no instability, no action may be necessary beyond monitoring.",
+        "reason": "Coil whine, while sometimes annoying, is generally not harmful to the system and does not always require replacement."
+      }
+    ],
+    "possible_solutions": [
+      "No action needed if it is confirmed benign coil whine with a stable system",
+      "Replace the PSU fan if a mechanical bearing issue is identified",
+      "Replace the PSU proactively if age and other symptoms suggest degrading internal components",
+      "Address a mistaken GPU coil whine source separately if that is where the noise actually originates"
+    ],
+    "prevention": [
+      "Choose a reputable PSU brand known for quieter electrical components",
+      "Monitor aging PSUs for developing noise or instability",
+      "Ensure adequate PSU wattage headroom, as noise can sometimes worsen when a PSU runs near its capacity limit"
+    ],
+    "keywords": ["power supply buzzing noise", "psu coil whine", "psu whining sound under load", "power supply noise humming"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["HW-069", "HW-070"]
+  },
+  {
+    "id": "HW-072",
+    "category": "Hardware",
+    "subcategory": "Power Supply Issues",
+    "problem": "Power Button Not Working",
+    "description": "Pressing the case power button produces no response from the system, with no fans, lights, or any indication the system is attempting to start.",
+    "symptoms": [
+      "Pressing the power button has no effect whatsoever",
+      "No fans, lights, or beep codes occur when the button is pressed",
+      "System can sometimes be started using a different method, such as a motherboard power button",
+      "Power button previously worked and stopped functioning"
+    ],
+    "possible_causes": [
+      "Power button cable is disconnected or improperly connected to the motherboard front panel header",
+      "The power button switch itself has failed",
+      "Front panel header pins on the motherboard are bent or damaged",
+      "PSU itself is not supplying power at all, unrelated to the button"
+    ],
+    "diagnostic_questions": [
+      "Is the front panel power button cable confirmed connected to the correct pins on the motherboard?",
+      "Does the system start using a different method, such as directly shorting the power pins with a screwdriver?",
+      "Has any recent case or motherboard work been performed that might have disturbed this connection?",
+      "Is there any other sign of power reaching the system at all, such as motherboard debug LEDs?"
+    ],
+    "commands": [
+      {
+        "command": "Momentarily short the front panel POWER_SW pins on the motherboard using a screwdriver (with system plugged in)",
+        "purpose": "Test whether the system starts when bypassing the case power button entirely",
+        "expected_result": "System powers on successfully when the pins are shorted directly",
+        "abnormal_result": "System still does not respond, indicating the issue lies elsewhere, such as the PSU or motherboard, rather than the button itself"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the power button's cable is properly connected to the correct front panel header pins on the motherboard per the manual.",
+        "reason": "A disconnected or incorrectly placed connector is the most common and simple cause of a non-functional power button."
+      },
+      {
+        "step": 2,
+        "action": "Momentarily short the POWER_SW pins directly with a screwdriver to test if the system starts, bypassing the case button and cable entirely.",
+        "reason": "Isolates whether the issue is the button/cable itself or a deeper problem with the motherboard or PSU."
+      },
+      {
+        "step": 3,
+        "action": "If the system starts via the direct short, inspect and test the case power button and its cable for damage or a worn-out switch.",
+        "reason": "Confirms the fault lies specifically with the physical button or its cable, which can often be replaced independently of the case."
+      },
+      {
+        "step": 4,
+        "action": "If the system does not start even with a direct short, investigate the PSU and motherboard for a power delivery issue.",
+        "reason": "Indicates the root cause is unrelated to the power button and lies elsewhere in the power chain."
+      }
+    ],
+    "possible_solutions": [
+      "Properly reconnect the front panel power button cable",
+      "Replace a failed power button switch",
+      "Use the direct pin-short method as a temporary workaround",
+      "Investigate PSU or motherboard issues if the direct short also fails"
+    ],
+    "prevention": [
+      "Handle front panel connectors carefully during any case or motherboard work",
+      "Document front panel pin layouts for future reference",
+      "Test power button function immediately after any hardware changes"
+    ],
+    "keywords": ["power button not working", "case power button no response", "front panel header power switch", "short power pins motherboard test"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["HW-068", "HW-073"]
+  },
+  {
+    "id": "HW-073",
+    "category": "Hardware",
+    "subcategory": "Power Supply Issues",
+    "problem": "No Power At All (Dead System)",
+    "description": "The system shows absolutely no signs of life when the power button is pressed, with no fans, lights, sounds, or any indication of power reaching any component.",
+    "symptoms": [
+      "Complete absence of fan spin, LED lights, or sound when powering on",
+      "No response from motherboard debug LEDs or Q-code displays",
+      "Power button and cable have been ruled out as the direct cause",
+      "System previously worked normally and stopped suddenly"
+    ],
+    "possible_causes": [
+      "PSU has failed completely",
+      "Power cable or wall outlet is not delivering power",
+      "Motherboard has failed or has a short circuit preventing startup",
+      "A component short, such as a failed capacitor, is preventing the PSU from starting"
+    ],
+    "diagnostic_questions": [
+      "Has the wall outlet and power cable been confirmed working with another device?",
+      "Has the power button and its connection been ruled out as the cause?",
+      "Does the PSU show any activity when tested standalone with a paperclip test?",
+      "Was there any recent event, such as a power surge or new hardware installation, before this occurred?"
+    ],
+    "commands": [
+      {
+        "command": "PSU paperclip test (disconnected from motherboard)",
+        "purpose": "Determine whether the PSU itself is capable of powering on independently",
+        "expected_result": "PSU fan spins, confirming the PSU itself is functional",
+        "abnormal_result": "PSU shows no activity, confirming a PSU-level failure as at least part of the cause"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the wall outlet and power cable are functional using another known-good device.",
+        "reason": "Rules out the simplest possible cause before deeper hardware diagnosis."
+      },
+      {
+        "step": 2,
+        "action": "Rule out the power button itself by directly shorting the POWER_SW pins on the motherboard.",
+        "reason": "Ensures the issue is not simply a disconnected or faulty power button rather than a genuinely dead system."
+      },
+      {
+        "step": 3,
+        "action": "Disconnect the PSU from the motherboard and perform a standalone paperclip test.",
+        "reason": "Isolates whether the PSU itself is functional, separate from any potential motherboard fault."
+      },
+      {
+        "step": 4,
+        "action": "If the PSU passes the standalone test, perform a breadboard test by removing the motherboard from the case and testing with minimal components outside the chassis.",
+        "reason": "Rules out a case-related short circuit, such as a stray standoff, causing the apparent dead system."
+      },
+      {
+        "step": 5,
+        "action": "If the system still shows no life during a breadboard test with a known-good PSU, the motherboard or CPU is likely at fault and should be tested individually or replaced.",
+        "reason": "Systematically narrows down the failure to the remaining core components once PSU and case-related causes are ruled out."
+      }
+    ],
+    "possible_solutions": [
+      "Replace a confirmed-failed PSU",
+      "Replace a damaged power cable",
+      "Resolve a case-related short circuit found during a breadboard test",
+      "Replace a failed motherboard or CPU identified through systematic isolation"
+    ],
+    "prevention": [
+      "Use a surge protector or UPS to protect against power events",
+      "Handle installation and case work carefully to avoid shorts from stray standoffs or screws",
+      "Test major components individually when building or upgrading a system"
+    ],
+    "keywords": ["no power at all dead system", "computer completely dead no lights fans", "breadboard test motherboard", "system will not turn on at all"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-90 minutes",
+    "related_problems": ["HW-068", "HW-072"]
+  },
+  {
+    "id": "HW-074",
+    "category": "Hardware",
+    "subcategory": "Display & Monitor Issues",
+    "problem": "No Display Output (Blank Screen)",
+    "description": "The system appears to power on normally, with fans spinning and lights active, but no image appears on the connected monitor at any point, including during POST.",
+    "symptoms": [
+      "Monitor remains blank or shows a 'no signal' message",
+      "System fans and lights indicate the system is powered on",
+      "No POST screen, manufacturer logo, or any video output appears",
+      "Monitor works fine when tested with a different source device"
+    ],
+    "possible_causes": [
+      "Video cable is loose, damaged, or connected to the wrong port",
+      "Monitor is set to the wrong input source",
+      "Graphics card is not properly seated or has failed",
+      "RAM is not properly seated, preventing successful POST",
+      "Onboard versus discrete graphics output confusion when both are present"
+    ],
+    "diagnostic_questions": [
+      "Has the monitor been confirmed working with another source device?",
+      "Is the monitor set to the correct input source matching the connected cable?",
+      "Is the cable connected to the graphics card's output specifically, if a discrete card is installed?",
+      "Are there any beep codes or debug LED indications suggesting a specific POST failure?"
+    ],
+    "commands": [
+      {
+        "command": "Motherboard Debug LED/Q-Code Display Check",
+        "purpose": "Read any onboard debug indicators to identify the specific stage of POST failure preventing video output",
+        "expected_result": "Debug code indicates successful progress through POST toward video initialization",
+        "abnormal_result": "Debug code is stuck at an early stage, such as memory or CPU initialization, indicating the video failure is a symptom of an earlier POST failure"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the monitor works with another source device and is set to the correct input.",
+        "reason": "Rules out the monitor itself and simple configuration issues before deeper system troubleshooting."
+      },
+      {
+        "step": 2,
+        "action": "Reseat the video cable at both ends, or try a different cable and port.",
+        "reason": "Loose or damaged cables are a common and simple cause of no display output."
+      },
+      {
+        "step": 3,
+        "action": "If a discrete graphics card is installed, confirm the cable is connected to it rather than the motherboard's onboard video output.",
+        "reason": "This common mix-up produces exactly this symptom when onboard video is disabled or not the active output."
+      },
+      {
+        "step": 4,
+        "action": "Reseat the RAM modules and graphics card to ensure proper contact.",
+        "reason": "A POST failure due to improperly seated RAM or a graphics card will prevent any video output from occurring at all."
+      },
+      {
+        "step": 5,
+        "action": "Check for beep codes or motherboard debug LED indicators to identify the specific stage of failure.",
+        "reason": "Provides a more targeted diagnosis than the generic blank screen symptom alone."
+      }
+    ],
+    "possible_solutions": [
+      "Reseat or replace the video cable",
+      "Connect to the correct output (discrete card vs onboard)",
+      "Reseat RAM and graphics card",
+      "Address the underlying POST failure identified via beep codes or debug LEDs",
+      "Test with a different graphics card if the current one is suspected faulty"
+    ],
+    "prevention": [
+      "Use quality, properly seated video cables",
+      "Label or note correct output ports when both onboard and discrete graphics are present",
+      "Ensure proper seating of all components during any hardware maintenance"
+    ],
+    "keywords": ["no display output blank screen", "monitor no signal computer on", "no video pc powers on", "black screen no boot display"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["HW-056", "HW-054"]
+  },
+  {
+    "id": "HW-075",
+    "category": "Hardware",
+    "subcategory": "Display & Monitor Issues",
+    "problem": "Monitor Flickering",
+    "description": "The connected monitor's image flickers intermittently, ranging from occasional brief flashes to constant rapid flickering, disrupting normal use of the display.",
+    "symptoms": [
+      "Screen flickers or flashes intermittently during normal use",
+      "Flickering may worsen under certain conditions, such as specific refresh rates or applications",
+      "Issue may affect the entire screen or only parts of it",
+      "Flickering persists across different applications and even at the desktop"
+    ],
+    "possible_causes": [
+      "Loose or damaged video cable connection",
+      "Outdated, corrupted, or incompatible graphics driver",
+      "Monitor refresh rate set higher than the cable or monitor can reliably support",
+      "Failing monitor backlight or internal component",
+      "Graphics card issue, such as overheating or driver instability"
+    ],
+    "diagnostic_questions": [
+      "Does the flickering occur with a different cable or connected to a different device?",
+      "Was a graphics driver recently updated or changed before the flickering began?",
+      "What refresh rate is currently configured, and does lowering it reduce or eliminate the flickering?",
+      "Does the flickering happen consistently across all applications, or only in specific ones?"
+    ],
+    "commands": [
+      {
+        "command": "Display Settings > Advanced Display > Display Adapter Properties (check current refresh rate)",
+        "purpose": "Review and test adjusting the currently configured refresh rate as a potential cause",
+        "expected_result": "Flickering resolves at a standard, cable-supported refresh rate",
+        "abnormal_result": "Flickering persists even at a standard refresh rate, pointing to a cable, driver, or hardware cause instead"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Reseat the video cable at both ends, or test with a different cable.",
+        "reason": "A loose or degraded cable connection is one of the most common causes of intermittent flickering."
+      },
+      {
+        "step": 2,
+        "action": "Test the monitor connected to a different device, such as a laptop, to isolate whether the monitor itself is at fault.",
+        "reason": "Determines whether the flickering follows the monitor or is specific to the original system."
+      },
+      {
+        "step": 3,
+        "action": "Update or reinstall the graphics driver to the latest stable version from the manufacturer.",
+        "reason": "Driver issues are a common software-level cause of display flickering that mimics a hardware problem."
+      },
+      {
+        "step": 4,
+        "action": "Lower the display refresh rate to a standard value, such as 60Hz, to test if flickering resolves.",
+        "reason": "Some cable and monitor combinations cannot reliably sustain higher refresh rates, causing intermittent flickering."
+      },
+      {
+        "step": 5,
+        "action": "If flickering persists across different cables, devices, and refresh rates, consider the monitor's backlight or internal components as failing.",
+        "reason": "Rules out external causes and points toward a genuine monitor hardware failure requiring repair or replacement."
+      }
+    ],
+    "possible_solutions": [
+      "Reseat or replace the video cable",
+      "Update or reinstall the graphics driver",
+      "Lower the display refresh rate to a stable, supported value",
+      "Replace the monitor if a hardware failure is confirmed"
+    ],
+    "prevention": [
+      "Use quality video cables rated for the intended resolution and refresh rate",
+      "Keep graphics drivers reasonably up to date",
+      "Choose refresh rates that are reliably supported by both the cable and monitor"
+    ],
+    "keywords": ["monitor flickering", "screen flashing intermittently", "display flicker refresh rate", "monitor flicker driver issue"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["HW-074", "HW-079"]
+  },
+  {
+    "id": "HW-076",
+    "category": "Hardware",
+    "subcategory": "Display & Monitor Issues",
+    "problem": "Dead Pixels on Monitor",
+    "description": "One or more pixels on the monitor display remain permanently a single color (typically black, white, or a bright color) regardless of what content is being shown, indicating a physical panel defect.",
+    "symptoms": [
+      "A specific point on the screen remains the same color across all content",
+      "Dead pixel is more noticeable against certain background colors",
+      "Number of affected pixels may be a single pixel or a small cluster",
+      "Issue is purely visual with no impact on overall monitor function"
+    ],
+    "possible_causes": [
+      "A physical defect in the LCD panel present since manufacturing",
+      "Pixel damage caused by physical pressure or impact on the screen",
+      "A 'stuck' pixel that is misfiring rather than truly dead, which may be recoverable",
+      "Panel degradation over the monitor's lifespan"
+    ],
+    "diagnostic_questions": [
+      "Is the affected pixel always the same color regardless of what is displayed (dead), or does it flicker between colors (stuck)?",
+      "How long has the monitor been in use, and is it still within warranty?",
+      "Was there any recent physical impact or pressure applied to the screen?",
+      "How many pixels are affected, and where are they located on the screen?"
+    ],
+    "commands": [
+      {
+        "command": "Full-screen solid color test pattern (red, green, blue, black, white displayed individually)",
+        "purpose": "Clearly identify and confirm the location and behavior of the affected pixel(s) against different backgrounds",
+        "expected_result": "No inconsistent pixels are visible across all solid color tests",
+        "abnormal_result": "One or more pixels remain a fixed color inconsistent with the displayed background, confirming a dead or stuck pixel"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Display a series of full-screen solid colors to clearly identify whether the pixel is truly dead (always the same color) or stuck (cycling between colors).",
+        "reason": "This distinction determines whether pixel-fixing techniques have any chance of resolving the issue."
+      },
+      {
+        "step": 2,
+        "action": "If the pixel appears stuck rather than truly dead, try gentle pixel-massage techniques or dedicated stuck-pixel-fixing software that rapidly cycles colors.",
+        "reason": "Stuck pixels, unlike truly dead ones, can sometimes be resolved by encouraging the sub-pixel to reset properly."
+      },
+      {
+        "step": 3,
+        "action": "Check the monitor manufacturer's dead pixel policy and warranty status.",
+        "reason": "Many manufacturers have specific policies about how many dead pixels qualify for a warranty replacement."
+      },
+      {
+        "step": 4,
+        "action": "If within warranty and the pixel count meets the manufacturer's replacement threshold, initiate a warranty claim.",
+        "reason": "Provides a path to resolution without cost if the monitor qualifies under the manufacturer's policy."
+      },
+      {
+        "step": 5,
+        "action": "If out of warranty and pixel-fixing techniques do not help, the monitor may need to be lived with or replaced, as true dead pixels are a permanent hardware defect.",
+        "reason": "Genuinely dead pixels are a hardware-level display panel defect that cannot be repaired through software or user-level intervention."
+      }
+    ],
+    "possible_solutions": [
+      "Attempt stuck-pixel fixing techniques if the pixel is not truly dead",
+      "File a warranty claim if the monitor qualifies under the manufacturer's dead pixel policy",
+      "Replace the monitor if out of warranty and the defect is significant",
+      "Accept minor, isolated dead pixels if they do not significantly impact usability"
+    ],
+    "prevention": [
+      "Handle and transport monitors carefully to avoid panel impact",
+      "Check dead pixel policies before purchasing a monitor",
+      "Inspect new monitors promptly upon purchase to catch defects within the return window"
+    ],
+    "keywords": ["dead pixel monitor", "stuck pixel screen", "monitor pixel not working", "dead pixel warranty policy"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["HW-075", "HW-080"]
+  },
+  {
+    "id": "HW-077",
+    "category": "Hardware",
+    "subcategory": "Display & Monitor Issues",
+    "problem": "Monitor Resolution Not Detected Correctly",
+    "description": "The system fails to detect or offer the monitor's native or full range of supported resolutions, defaulting to a lower resolution or an incorrect aspect ratio.",
+    "symptoms": [
+      "Available resolution options in display settings do not include the monitor's native resolution",
+      "Display appears stretched, blurry, or has incorrect proportions",
+      "Only a generic or limited set of resolutions is offered",
+      "Issue may have started after a driver update, cable change, or new monitor connection"
+    ],
+    "possible_causes": [
+      "Graphics driver is outdated, generic, or not properly installed",
+      "Video cable or connection type does not support the monitor's full resolution and refresh rate",
+      "Windows is using a generic display driver rather than the monitor's specific EDID information",
+      "Monitor's EDID data is not being read correctly by the system"
+    ],
+    "diagnostic_questions": [
+      "What is the monitor's actual native resolution according to its specifications?",
+      "What resolutions are currently being offered in the display settings?",
+      "What type of cable and port is being used to connect the monitor?",
+      "Is a proper manufacturer graphics driver installed, or a generic Windows driver?"
+    ],
+    "commands": [
+      {
+        "command": "Display Settings > Advanced Display Settings > Display Information",
+        "purpose": "Check what resolution and refresh rate options the system currently detects for the monitor",
+        "expected_result": "Monitor's full native resolution and refresh rate options are available",
+        "abnormal_result": "Only limited or lower resolution options are shown, confirming a detection issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the monitor's actual native resolution from its specifications or manual.",
+        "reason": "Establishes the correct target resolution the system should be detecting and offering."
+      },
+      {
+        "step": 2,
+        "action": "Update the graphics driver to the latest version directly from the manufacturer rather than relying on a generic Windows driver.",
+        "reason": "Proper manufacturer drivers include more complete EDID handling and resolution support than generic drivers."
+      },
+      {
+        "step": 3,
+        "action": "Test a different video cable or port type, such as switching from HDMI to DisplayPort if available.",
+        "reason": "Some cable types or older cable versions may not support the bandwidth needed for higher resolutions or refresh rates."
+      },
+      {
+        "step": 4,
+        "action": "Reinstall the monitor by removing it from Device Manager (under Monitors) and allowing Windows to redetect it.",
+        "reason": "Forces Windows to re-read the monitor's EDID data, which may resolve a corrupted or incomplete initial detection."
+      },
+      {
+        "step": 5,
+        "action": "If the correct resolution still cannot be selected, manually create a custom resolution matching the monitor's native specifications using the graphics driver's control panel.",
+        "reason": "Provides a workaround when automatic detection continues to fail despite other troubleshooting."
+      }
+    ],
+    "possible_solutions": [
+      "Update to the proper manufacturer graphics driver",
+      "Use a different cable or port type with adequate bandwidth",
+      "Remove and let Windows redetect the monitor",
+      "Manually create a custom resolution matching the monitor's native specs"
+    ],
+    "prevention": [
+      "Use manufacturer-specific graphics drivers rather than generic ones",
+      "Use appropriate cable types for the desired resolution and refresh rate",
+      "Verify monitor detection after any cable, driver, or connection changes"
+    ],
+    "keywords": ["monitor resolution not detected", "wrong resolution options display", "native resolution missing", "edid not detected monitor"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["HW-078", "HW-074"]
+  },
+  {
+    "id": "HW-078",
+    "category": "Hardware",
+    "subcategory": "Display & Monitor Issues",
+    "problem": "External Monitor Not Detected",
+    "description": "A laptop or desktop system fails to recognize an externally connected monitor, either showing nothing on the external display or failing to list it as an available display option.",
+    "symptoms": [
+      "External monitor remains blank while the primary display works normally",
+      "Display settings do not list the external monitor as detected",
+      "External monitor was previously detected and has stopped being recognized",
+      "Issue may occur with one specific port or cable type but not others"
+    ],
+    "possible_causes": [
+      "Video cable is loose, damaged, or connected to a non-functional port",
+      "Laptop's display output mode has not been switched to include the external monitor",
+      "Graphics driver issue preventing proper external display detection",
+      "Docking station or adapter (for laptops using USB-C/Thunderbolt) is faulty or improperly configured"
+    ],
+    "diagnostic_questions": [
+      "Has the external monitor been confirmed working with another source device?",
+      "Has the display mode/output key combination (often Windows key + P) been used to select an extended or duplicated display?",
+      "Is a docking station, hub, or adapter involved, and has it been tested with a direct connection instead?",
+      "Does the issue occur with all ports/cables, or only a specific one?"
+    ],
+    "commands": [
+      {
+        "command": "Windows key + P (Project menu)",
+        "purpose": "Quickly check and select the correct display output mode to include the external monitor",
+        "expected_result": "External monitor becomes active when an extend or duplicate mode is selected",
+        "abnormal_result": "External monitor remains undetected even after selecting an appropriate display mode"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Press Windows key + P and select Extend or Duplicate to ensure the external monitor output is enabled.",
+        "reason": "The system may simply be configured to show the display only on the primary screen, which resembles a detection failure."
+      },
+      {
+        "step": 2,
+        "action": "Reseat the video cable at both ends, or test with a different cable and port.",
+        "reason": "A loose or faulty cable connection is a common and simple cause of external monitor detection failure."
+      },
+      {
+        "step": 3,
+        "action": "If using a docking station, hub, or adapter, test connecting the monitor directly to the laptop's video output instead.",
+        "reason": "Isolates whether the intermediate device is the source of the problem rather than the monitor or laptop itself."
+      },
+      {
+        "step": 4,
+        "action": "Update the graphics driver to the latest version from the manufacturer.",
+        "reason": "Outdated or corrupted drivers can specifically affect external display detection while leaving the primary display unaffected."
+      },
+      {
+        "step": 5,
+        "action": "Test the external monitor with a different source device to rule out a fault with the monitor itself.",
+        "reason": "Confirms whether the monitor is genuinely functional before further troubleshooting the source system."
+      }
+    ],
+    "possible_solutions": [
+      "Select the correct display mode using Windows key + P",
+      "Reseat or replace the video cable",
+      "Connect directly, bypassing a faulty docking station or adapter",
+      "Update the graphics driver",
+      "Replace a confirmed-faulty monitor or adapter"
+    ],
+    "prevention": [
+      "Use quality cables and adapters rated for the intended resolution",
+      "Keep graphics drivers updated, especially after Windows updates",
+      "Test external display setups after any driver or Windows update"
+    ],
+    "keywords": ["external monitor not detected", "second monitor not working laptop", "extend display not working", "docking station monitor not detected"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["HW-077", "HW-074"]
+  },
+  {
+    "id": "HW-079",
+    "category": "Hardware",
+    "subcategory": "Display & Monitor Issues",
+    "problem": "Screen Tearing",
+    "description": "The monitor displays visible horizontal lines or a split appearance during motion, particularly noticeable in fast-moving content like games or video, indicating a synchronization issue between the graphics card and monitor.",
+    "symptoms": [
+      "Horizontal 'tear' lines visible during fast on-screen motion",
+      "Effect is most noticeable in games and fast-motion video content",
+      "Tearing may worsen at higher or uncapped frame rates",
+      "Issue occurs regardless of the specific application in severe cases"
+    ],
+    "possible_causes": [
+      "Vertical sync (V-Sync) is disabled, allowing the graphics card to update the frame buffer out of sync with the monitor's refresh cycle",
+      "Frame rate significantly exceeds the monitor's refresh rate without frame rate limiting",
+      "Adaptive sync technology (G-Sync/FreeSync) is not enabled despite being supported",
+      "Graphics driver settings are not properly configured for synchronization"
+    ],
+    "diagnostic_questions": [
+      "Is V-Sync currently enabled or disabled in the affected application or graphics driver settings?",
+      "Does the monitor support adaptive sync technology such as G-Sync or FreeSync, and is it enabled?",
+      "What frame rate is the application achieving compared to the monitor's refresh rate?",
+      "Does the tearing occur in all applications, or only specific ones?"
+    ],
+    "commands": [
+      {
+        "command": "Graphics driver control panel (NVIDIA Control Panel / AMD Software) > Display/Sync settings",
+        "purpose": "Review and configure V-Sync and adaptive sync settings globally or per-application",
+        "expected_result": "Sync settings are properly configured and screen tearing is eliminated or significantly reduced",
+        "abnormal_result": "Tearing persists even with sync settings enabled, suggesting a monitor capability or cable limitation"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Enable V-Sync within the affected application's graphics settings, if available.",
+        "reason": "V-Sync directly addresses screen tearing by synchronizing frame delivery with the monitor's refresh cycle."
+      },
+      {
+        "step": 2,
+        "action": "Check the graphics driver control panel for global or application-specific V-Sync and adaptive sync settings.",
+        "reason": "Driver-level settings can override or supplement in-application settings and may need to be configured separately."
+      },
+      {
+        "step": 3,
+        "action": "If the monitor supports G-Sync or FreeSync, ensure the feature is enabled in both the monitor's own settings and the graphics driver.",
+        "reason": "Adaptive sync technologies directly solve tearing by dynamically matching the monitor's refresh rate to the frame rate."
+      },
+      {
+        "step": 4,
+        "action": "Cap the frame rate at or below the monitor's refresh rate if adaptive sync is not available.",
+        "reason": "Reduces the mismatch between frame delivery and display refresh that causes tearing, even without full V-Sync."
+      },
+      {
+        "step": 5,
+        "action": "Verify the cable type and connection supports the necessary bandwidth for adaptive sync features if being used.",
+        "reason": "Some older cable types or connections may not properly support adaptive sync signaling even if both the GPU and monitor support it."
+      }
+    ],
+    "possible_solutions": [
+      "Enable V-Sync in-application or via the graphics driver",
+      "Enable G-Sync/FreeSync if supported by the monitor and graphics card",
+      "Cap the frame rate at or below the monitor's refresh rate",
+      "Use a cable type that properly supports adaptive sync signaling"
+    ],
+    "prevention": [
+      "Configure sync settings appropriately when setting up a new monitor or graphics card",
+      "Use adaptive sync technology where supported for the smoothest experience",
+      "Choose appropriate cable types for the monitor's full feature set"
+    ],
+    "keywords": ["screen tearing", "v-sync not working", "gsync freesync not enabled", "horizontal tear lines gaming"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["HW-075", "HW-077"]
+  },
+  {
+    "id": "HW-080",
+    "category": "Hardware",
+    "subcategory": "Display & Monitor Issues",
+    "problem": "Monitor Color Distortion",
+    "description": "The monitor displays colors that appear noticeably incorrect, such as an overall tint, washed-out appearance, or specific colors rendering improperly, differing from expected accurate color reproduction.",
+    "symptoms": [
+      "Overall image has an unexpected color tint, such as pink, green, or yellow",
+      "Colors appear washed out, oversaturated, or generally inaccurate",
+      "Distortion may affect the entire screen or only certain areas",
+      "Issue may be constant or intermittent"
+    ],
+    "possible_causes": [
+      "Video cable is damaged or not fully seated, affecting specific color signal pins",
+      "Monitor color settings, such as color temperature or calibration, have been altered",
+      "Graphics driver color settings are misconfigured",
+      "Monitor's internal color processing hardware has degraded or failed",
+      "External interference or magnetic issue affecting an older CRT-style display (less common with modern LCDs)"
+    ],
+    "diagnostic_questions": [
+      "Does the color distortion persist when the monitor is connected to a different source device?",
+      "Have any recent changes been made to monitor settings, graphics driver settings, or color profiles?",
+      "Does reseating or replacing the video cable have any effect on the distortion?",
+      "Is the distortion consistent across the entire screen, or localized to specific areas?"
+    ],
+    "commands": [
+      {
+        "command": "Monitor On-Screen Display (OSD) menu > Factory Reset / Color Settings",
+        "purpose": "Reset the monitor's color settings to factory defaults to rule out a manual misconfiguration",
+        "expected_result": "Colors return to accurate, expected appearance after reset",
+        "abnormal_result": "Color distortion persists even after a factory reset, pointing to a cable, source, or hardware issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Access the monitor's on-screen display menu and reset color settings to factory defaults.",
+        "reason": "Rules out manual or accidental misconfiguration of the monitor's own color settings as the cause."
+      },
+      {
+        "step": 2,
+        "action": "Reseat the video cable at both ends, or test with a different cable.",
+        "reason": "Damaged cables can specifically affect certain color signal pins, causing a consistent color tint or distortion."
+      },
+      {
+        "step": 3,
+        "action": "Test the monitor connected to a different source device to isolate whether the issue follows the monitor.",
+        "reason": "Determines whether the distortion is a monitor hardware issue or specific to the original source system's settings or output."
+      },
+      {
+        "step": 4,
+        "action": "Check and reset any custom color profiles or graphics driver color settings on the source system.",
+        "reason": "Custom color management profiles or driver-level adjustments can cause color distortion independent of the monitor itself."
+      },
+      {
+        "step": 5,
+        "action": "If distortion persists across cables, sources, and after a factory reset, the monitor's internal color processing hardware is likely failing.",
+        "reason": "Indicates a genuine hardware fault requiring monitor repair or replacement rather than further configuration changes."
+      }
+    ],
+    "possible_solutions": [
+      "Reset the monitor's color settings to factory defaults",
+      "Reseat or replace the video cable",
+      "Reset graphics driver or system color profile settings",
+      "Replace the monitor if a hardware failure is confirmed"
+    ],
+    "prevention": [
+      "Avoid unnecessary manual adjustments to monitor color settings without documentation",
+      "Use quality video cables to prevent signal degradation",
+      "Periodically calibrate displays using proper calibration tools for consistent accuracy"
+    ],
+    "keywords": ["monitor color distortion", "screen color tint wrong", "display colors washed out", "monitor color reset factory"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["HW-076", "HW-075"]
+  },
+  {
+    "id": "HW-081",
+    "category": "Hardware",
+    "subcategory": "Keyboard & Input Devices",
+    "problem": "Keyboard Keys Not Responding",
+    "description": "One or more keys on a keyboard, either built-in or external, fail to register any input when pressed, while other keys continue to function normally.",
+    "symptoms": [
+      "Specific keys produce no character or action when pressed",
+      "Issue may affect a single key, a cluster of keys, or an entire row/column",
+      "Other keys on the keyboard continue to work normally",
+      "Issue may be intermittent or completely consistent"
+    ],
+    "possible_causes": [
+      "Debris or dirt lodged under the affected key(s)",
+      "Liquid spill damage affecting the keyboard membrane or circuit",
+      "Physical damage to the key switch or underlying membrane",
+      "Driver or software issue causing the OS to ignore specific key input",
+      "A pattern of affected keys suggesting a specific row/column circuit failure on the keyboard matrix"
+    ],
+    "diagnostic_questions": [
+      "Does the issue affect a single key, or a pattern such as an entire row or column?",
+      "Has there been any recent liquid spill or visible debris near the affected keys?",
+      "Does the issue occur consistently, or only intermittently?",
+      "Does an external USB keyboard also show the same issue, which would point to a software cause instead?"
+    ],
+    "commands": [
+      {
+        "command": "On-Screen Keyboard test (Windows) or online keyboard tester tool",
+        "purpose": "Test each key individually to precisely map which keys are affected and identify any pattern",
+        "expected_result": "All keys register correctly when pressed",
+        "abnormal_result": "Specific keys fail to register, and any pattern (row/column) becomes clear, helping narrow the cause"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Use an online keyboard tester or Windows' On-Screen Keyboard to precisely identify which keys are unresponsive and note any pattern.",
+        "reason": "A clear pattern, such as an entire row failing, strongly suggests a specific matrix circuit issue rather than random individual key damage."
+      },
+      {
+        "step": 2,
+        "action": "Power off the device and carefully clean under and around the affected keys using compressed air or, for removable keycaps, gentle removal and cleaning.",
+        "reason": "Debris is a very common and easily resolved cause of individual key failures."
+      },
+      {
+        "step": 3,
+        "action": "Test with an external USB keyboard if the affected keyboard is built into a laptop.",
+        "reason": "If the external keyboard works fine for those same keys, this points to a hardware issue specific to the built-in keyboard rather than a software or driver problem."
+      },
+      {
+        "step": 4,
+        "action": "Check Device Manager for the keyboard and update or reinstall its driver.",
+        "reason": "Rules out a software or driver-level cause, particularly if all keys on an external keyboard are affected uniformly."
+      },
+      {
+        "step": 5,
+        "action": "If debris cleaning does not resolve the issue and a clear pattern suggests matrix failure or spill damage is suspected, the keyboard likely requires professional repair or replacement.",
+        "reason": "Membrane or matrix-level damage typically cannot be resolved through cleaning alone and requires physical repair."
+      }
+    ],
+    "possible_solutions": [
+      "Clean debris from under the affected keys",
+      "Update or reinstall the keyboard driver",
+      "Replace a built-in laptop keyboard if physical damage is confirmed",
+      "Use an external keyboard as an immediate workaround while repair is arranged"
+    ],
+    "prevention": [
+      "Keep liquids away from keyboards",
+      "Clean keyboards periodically with compressed air",
+      "Use keyboard covers in environments prone to spills or debris"
+    ],
+    "keywords": ["keyboard keys not responding", "specific keys not working", "keyboard row not working", "laptop keyboard key stopped working"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["HW-082", "HW-083"]
+  },
+  {
+    "id": "HW-082",
+    "category": "Hardware",
+    "subcategory": "Keyboard & Input Devices",
+    "problem": "Keyboard Typing Wrong Characters",
+    "description": "Pressing keys on the keyboard produces characters or symbols different from what is printed on the keycap, such as pressing 'Y' and getting 'Z', often due to a language or layout mismatch.",
+    "symptoms": [
+      "Pressed key produces a different, unexpected character",
+      "Symbols and punctuation may appear especially incorrect",
+      "Issue is consistent across all applications",
+      "Physical keyboard layout may not match the printed keycaps"
+    ],
+    "possible_causes": [
+      "Windows keyboard input language or layout is set incorrectly, such as QWERTY vs QWERTZ or AZERTY",
+      "A regional keyboard layout does not match the physical keyboard's printed layout",
+      "Sticky Keys, Filter Keys, or another accessibility feature is altering input unexpectedly",
+      "A stuck modifier key (Shift, Ctrl, Alt) is being held down, altering character output"
+    ],
+    "diagnostic_questions": [
+      "What operating system language and keyboard layout is currently configured?",
+      "Does the physical keyboard's printed layout match the region it was purchased for?",
+      "Are any accessibility features like Sticky Keys or Filter Keys currently enabled?",
+      "Does the issue occur only with certain keys, such as those affected by punctuation differences between layouts?"
+    ],
+    "commands": [
+      {
+        "command": "Settings > Time & Language > Language & region > Keyboard (Windows)",
+        "purpose": "Review and correct the currently configured keyboard input language and layout",
+        "expected_result": "Correct layout matching the physical keyboard is selected and active",
+        "abnormal_result": "An incorrect or unexpected layout is active, explaining the mismatched character output"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the currently active keyboard layout in Windows language settings and compare it to the physical keyboard's actual layout.",
+        "reason": "A mismatched layout, such as QWERTY selected for a QWERTZ physical keyboard, is the most common cause of this exact symptom."
+      },
+      {
+        "step": 2,
+        "action": "Change the keyboard layout setting to match the physical keyboard, or add and switch to the correct layout if not already installed.",
+        "reason": "Directly resolves the mismatch by aligning software input mapping with the physical keys."
+      },
+      {
+        "step": 3,
+        "action": "Check for and disable Sticky Keys, Filter Keys, or other accessibility features that may be altering input unexpectedly.",
+        "reason": "These features can sometimes cause unexpected character behavior that resembles a layout mismatch."
+      },
+      {
+        "step": 4,
+        "action": "Test pressing each modifier key individually to check for a physically stuck Shift, Ctrl, or Alt key.",
+        "reason": "A stuck modifier key held down can alter character output in ways that mimic a layout issue."
+      },
+      {
+        "step": 5,
+        "action": "Test with a different keyboard to rule out a hardware-specific fault causing incorrect key mapping.",
+        "reason": "Helps confirm whether the issue is purely software/layout related or involves a hardware fault with the specific keyboard."
+      }
+    ],
+    "possible_solutions": [
+      "Correct the keyboard layout setting to match the physical keyboard",
+      "Disable interfering accessibility features",
+      "Clean or repair a physically stuck modifier key",
+      "Replace the keyboard if a hardware mapping fault is confirmed"
+    ],
+    "prevention": [
+      "Verify keyboard layout settings match the physical keyboard when setting up a new system",
+      "Be cautious when installing additional language/keyboard layouts to avoid accidental switching",
+      "Keep keyboards clean to prevent stuck modifier keys"
+    ],
+    "keywords": ["keyboard typing wrong characters", "keyboard layout mismatch", "qwerty qwertz wrong letters", "wrong symbols keyboard"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": ["HW-081", "HW-084"]
+  },
+  {
+    "id": "HW-083",
+    "category": "Hardware",
+    "subcategory": "Keyboard & Input Devices",
+    "problem": "Sticky or Stuck Keys",
+    "description": "One or more physical keys on the keyboard feel stiff, slow to return, or remain physically depressed after being pressed, causing repeated characters or missed keystrokes.",
+    "symptoms": [
+      "A key feels noticeably stiffer or slower to return than other keys",
+      "Key remains physically depressed after release in severe cases",
+      "Repeated or duplicate characters appear when the affected key is pressed",
+      "Physical resistance or a grinding feeling when pressing the key"
+    ],
+    "possible_causes": [
+      "Liquid spill residue causing the key mechanism to stick",
+      "Dust, debris, or crumbs lodged under or around the key",
+      "Physical wear or damage to the key's internal switch mechanism",
+      "The keycap itself is misaligned or not properly seated on its stem"
+    ],
+    "diagnostic_questions": [
+      "Was there any recent liquid spill or food debris near the affected key?",
+      "Does the key feel physically different (stiffer, slower) compared to unaffected keys, or does it register but produce wrong output?",
+      "Is this an isolated single key issue, or are multiple keys affected similarly?",
+      "Has the keycap been recently removed and reinstalled, possibly misaligned?"
+    ],
+    "commands": [
+      {
+        "command": "Physical inspection and manual key press test",
+        "purpose": "Directly observe the affected key's physical movement and resistance compared to unaffected keys",
+        "expected_result": "Key moves freely and returns immediately like other keys",
+        "abnormal_result": "Key shows noticeable resistance, slow return, or remains partially depressed, confirming a mechanical sticking issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Power off the device and carefully remove the affected keycap, if it is a removable type, following proper technique to avoid damaging the retention clips.",
+        "reason": "Provides access to clean and inspect the underlying key mechanism directly."
+      },
+      {
+        "step": 2,
+        "action": "Clean the exposed key switch and surrounding area using compressed air and, if needed, a small amount of isopropyl alcohol on a cotton swab for sticky residue.",
+        "reason": "Removes debris or dried liquid residue that is likely causing the mechanical resistance."
+      },
+      {
+        "step": 3,
+        "action": "Allow the area to fully dry before reinstalling the keycap, ensuring it is properly aligned with its stem.",
+        "reason": "A misaligned keycap reinstallation can itself cause a sticking sensation even after successful cleaning."
+      },
+      {
+        "step": 4,
+        "action": "Test the key's movement and responsiveness after reinstallation.",
+        "reason": "Confirms whether the cleaning and realignment resolved the physical sticking issue."
+      },
+      {
+        "step": 5,
+        "action": "If the key remains stuck or sticky after cleaning, the internal switch mechanism may be damaged and require replacement of that key switch or the keyboard itself.",
+        "reason": "Persistent mechanical issues despite cleaning indicate a deeper physical failure of the switch itself."
+      }
+    ],
+    "possible_solutions": [
+      "Clean the key switch and surrounding area of debris or residue",
+      "Properly realign a misaligned keycap",
+      "Replace an individual key switch if repairable (mechanical keyboards)",
+      "Replace the keyboard if damage is severe or unrepairable"
+    ],
+    "prevention": [
+      "Keep liquids and food away from keyboards",
+      "Clean keyboards regularly with compressed air",
+      "Handle keycaps carefully during any removal or cleaning"
+    ],
+    "keywords": ["sticky keys keyboard", "stuck key not returning", "key feels stiff keyboard", "keyboard key repeated characters"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["HW-081", "HW-082"]
+  },
+  {
+    "id": "HW-084",
+    "category": "Hardware",
+    "subcategory": "Keyboard & Input Devices",
+    "problem": "External Keyboard Not Detected",
+    "description": "An externally connected keyboard, whether wired or wireless, is not recognized by the system, producing no input response despite being properly connected or paired.",
+    "symptoms": [
+      "No response from the system when typing on the external keyboard",
+      "Keyboard's LED indicators, if present, may or may not light up",
+      "Keyboard does not appear in Device Manager",
+      "Issue may be specific to one USB port or occur across all ports"
+    ],
+    "possible_causes": [
+      "USB connection is loose, damaged, or connected to a non-functional port",
+      "Wireless keyboard's receiver dongle is not properly connected or paired",
+      "Wireless keyboard batteries are depleted",
+      "Driver issue preventing the keyboard from being recognized",
+      "Keyboard itself has failed"
+    ],
+    "diagnostic_questions": [
+      "Is this a wired or wireless keyboard, and if wireless, are the batteries confirmed fresh?",
+      "Does the keyboard work when tested on a different system?",
+      "Does switching to a different USB port change the behavior?",
+      "For wireless keyboards, is the USB receiver dongle properly connected, and has re-pairing been attempted?"
+    ],
+    "commands": [
+      {
+        "command": "Device Manager > Keyboards",
+        "purpose": "Check whether Windows detects the external keyboard as connected hardware, even if it is not functioning correctly",
+        "expected_result": "Keyboard is listed with an 'OK' status",
+        "abnormal_result": "Keyboard is missing entirely or shown with an error status, indicating a detection or driver-level problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "For wired keyboards, reseat the USB connection or try a different USB port and cable if possible.",
+        "reason": "A loose or faulty USB connection is the most common and simple cause of a wired keyboard not being detected."
+      },
+      {
+        "step": 2,
+        "action": "For wireless keyboards, replace the batteries and confirm the USB receiver dongle is properly and fully connected.",
+        "reason": "Depleted batteries or a loose receiver are very common causes of wireless keyboard detection failure."
+      },
+      {
+        "step": 3,
+        "action": "Attempt to re-pair the wireless keyboard with its receiver following the manufacturer's pairing procedure.",
+        "reason": "Resolves cases where the pairing connection has been lost or corrupted."
+      },
+      {
+        "step": 4,
+        "action": "Check Device Manager to see if the keyboard is detected at all, even without full functionality.",
+        "reason": "Distinguishes between a complete hardware detection failure and a driver-level issue."
+      },
+      {
+        "step": 5,
+        "action": "Test the keyboard on a different system to determine if the keyboard itself is faulty versus an issue specific to the original system.",
+        "reason": "Definitively isolates whether the keyboard hardware or the original system is the source of the problem."
+      }
+    ],
+    "possible_solutions": [
+      "Reseat or replace the USB cable/connection",
+      "Replace batteries in a wireless keyboard",
+      "Re-pair the wireless keyboard with its receiver",
+      "Update or reinstall the keyboard driver",
+      "Replace the keyboard if confirmed faulty via testing on another system"
+    ],
+    "prevention": [
+      "Keep spare batteries on hand for wireless keyboards",
+      "Use quality USB cables and avoid excessive strain on connectors",
+      "Periodically check wireless pairing stability"
+    ],
+    "keywords": ["external keyboard not detected", "usb keyboard not working", "wireless keyboard not connecting", "keyboard not recognized device manager"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["HW-081", "HW-089"]
+  },
+  {
+    "id": "HW-085",
+    "category": "Hardware",
+    "subcategory": "Audio Hardware Issues",
+    "problem": "No Sound Output",
+    "description": "The system produces no audio at all through any connected speakers or headphones, despite the operating system appearing to function normally otherwise.",
+    "symptoms": [
+      "No sound plays through speakers or headphones from any application",
+      "Volume controls appear to function but produce no audible result",
+      "System volume icon may show as muted or at an unusually low level",
+      "Sound worked previously and stopped suddenly, or has never worked on a fresh setup"
+    ],
+    "possible_causes": [
+      "System volume is muted or set very low",
+      "Incorrect audio output device is selected as default",
+      "Audio driver is missing, outdated, or corrupted",
+      "Physical connection issue with speakers or headphones",
+      "Audio hardware itself has failed"
+    ],
+    "diagnostic_questions": [
+      "Is the system volume confirmed unmuted and set to an audible level?",
+      "Is the correct output device selected as the default playback device?",
+      "Does the issue affect all audio output devices, or only a specific one such as headphones?",
+      "Did this begin after any recent Windows update, driver change, or hardware change?"
+    ],
+    "commands": [
+      {
+        "command": "Settings > System > Sound (check output device and volume)",
+        "purpose": "Confirm the correct output device is selected and volume is properly configured",
+        "expected_result": "Correct device is selected with appropriate volume, and a test sound plays audibly",
+        "abnormal_result": "Wrong device is selected, or volume is muted/very low, or the test sound still fails to play"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm system volume is unmuted and at an audible level, and test using the built-in sound test.",
+        "reason": "Rules out the simplest and most common causes before deeper investigation."
+      },
+      {
+        "step": 2,
+        "action": "Verify the correct audio output device is selected as the default playback device in sound settings.",
+        "reason": "Audio may be playing correctly but routed to an unexpected or disconnected output device."
+      },
+      {
+        "step": 3,
+        "action": "Check physical connections for wired speakers or headphones, ensuring cables are fully seated in the correct ports.",
+        "reason": "A loose or incorrect physical connection is a common and simple cause of no audio output."
+      },
+      {
+        "step": 4,
+        "action": "Update or reinstall the audio driver from the manufacturer's official source.",
+        "reason": "A missing, outdated, or corrupted audio driver is a frequent cause of complete audio failure."
+      },
+      {
+        "step": 5,
+        "action": "Run the Windows built-in audio troubleshooter for additional automated diagnostics and fixes.",
+        "reason": "Can catch and resolve common configuration issues not immediately obvious through manual inspection."
+      }
+    ],
+    "possible_solutions": [
+      "Unmute and adjust system volume appropriately",
+      "Select the correct default audio output device",
+      "Reseat or replace speaker/headphone connections",
+      "Update or reinstall the audio driver",
+      "Replace failed audio hardware if confirmed through testing"
+    ],
+    "prevention": [
+      "Check audio settings after Windows updates or driver changes",
+      "Keep audio drivers reasonably up to date",
+      "Handle audio cables and connectors carefully to avoid damage"
+    ],
+    "keywords": ["no sound output", "no audio computer speakers", "sound not working windows", "headphones no sound"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["HW-087", "HW-086"]
+  },
+  {
+    "id": "HW-086",
+    "category": "Hardware",
+    "subcategory": "Audio Hardware Issues",
+    "problem": "Microphone Not Working",
+    "description": "A connected or built-in microphone fails to pick up audio, either not being detected at all or producing no audible input during calls, recordings, or voice applications.",
+    "symptoms": [
+      "Other participants in a call report they cannot hear the user at all",
+      "Recording or voice applications show no input level activity",
+      "Microphone does not appear in the list of available input devices",
+      "Microphone worked previously and stopped functioning"
+    ],
+    "possible_causes": [
+      "Microphone is muted at the system, application, or physical hardware level",
+      "Incorrect input device is selected as the default microphone",
+      "Microphone privacy/permission settings are blocking application access",
+      "Driver issue preventing proper microphone detection or function",
+      "Physical connection issue or hardware failure"
+    ],
+    "diagnostic_questions": [
+      "Is the microphone confirmed unmuted at the system, application, and any physical mute switch level?",
+      "Is the correct microphone selected as the default input device?",
+      "Have microphone privacy/permission settings been checked for the affected application?",
+      "Does the microphone work in one application but not another, suggesting an app-specific permission issue?"
+    ],
+    "commands": [
+      {
+        "command": "Settings > Privacy & Security > Microphone (Windows)",
+        "purpose": "Check whether microphone access is enabled system-wide and for the specific application experiencing issues",
+        "expected_result": "Microphone access is enabled for the system and the relevant application",
+        "abnormal_result": "Microphone access is disabled for the system or specific application, explaining the lack of input"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the microphone is not muted at the system level, within the specific application, and via any physical mute switch or button.",
+        "reason": "Muting can occur at multiple levels, and any one of them being active will fully block audio input."
+      },
+      {
+        "step": 2,
+        "action": "Verify the correct microphone is selected as the default input device in system sound settings.",
+        "reason": "Multiple audio input devices being present can lead to the wrong one being selected, especially after connecting new hardware."
+      },
+      {
+        "step": 3,
+        "action": "Check microphone privacy settings to ensure both the system and the specific application have been granted access.",
+        "reason": "Modern operating systems require explicit permission for applications to access the microphone, which is easy to overlook."
+      },
+      {
+        "step": 4,
+        "action": "Test the microphone input level directly in system sound settings while speaking to confirm whether any signal is being received at all.",
+        "reason": "Determines whether the issue is a detection/permission problem or the microphone genuinely is not picking up any audio."
+      },
+      {
+        "step": 5,
+        "action": "Update or reinstall the audio driver, and test the microphone on a different system if a hardware fault is suspected.",
+        "reason": "Addresses driver-level causes and helps isolate a genuine hardware failure from a software configuration issue."
+      }
+    ],
+    "possible_solutions": [
+      "Unmute the microphone at all relevant levels",
+      "Select the correct default input device",
+      "Grant microphone access in privacy settings for the system and application",
+      "Update or reinstall the audio driver",
+      "Replace the microphone if a hardware fault is confirmed"
+    ],
+    "prevention": [
+      "Review microphone privacy settings after major OS updates",
+      "Label or note physical mute switches on external microphones",
+      "Test microphone function before important calls or recordings"
+    ],
+    "keywords": ["microphone not working", "no audio input mic", "mic not detected windows", "microphone permission blocked"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["HW-085", "HW-088"]
+  },
+  {
+    "id": "HW-087",
+    "category": "Hardware",
+    "subcategory": "Audio Hardware Issues",
+    "problem": "Audio Crackling or Distorted Sound",
+    "description": "Audio output through speakers or headphones is accompanied by crackling, popping, static, or general distortion, degrading the listening experience even though sound is otherwise present.",
+    "symptoms": [
+      "Audible crackling, popping, or static noise mixed with normal audio",
+      "Sound may cut in and out or stutter intermittently",
+      "Distortion may worsen at higher volumes or during specific types of audio",
+      "Issue may be constant or intermittent"
+    ],
+    "possible_causes": [
+      "Audio driver issue or outdated driver causing processing glitches",
+      "Loose or damaged audio cable connection",
+      "Audio enhancements or effects causing processing artifacts",
+      "System resource strain causing audio buffer underruns",
+      "Failing audio hardware, such as a degrading DAC or speaker driver"
+    ],
+    "diagnostic_questions": [
+      "Does the crackling occur with all audio sources and applications, or only specific ones?",
+      "Does the issue persist when using a different set of speakers or headphones?",
+      "Are any audio enhancements or effects currently enabled in sound settings?",
+      "Does the crackling correlate with high system resource usage, such as during heavy multitasking?"
+    ],
+    "commands": [
+      {
+        "command": "Sound Control Panel > Playback Device Properties > Enhancements tab",
+        "purpose": "Check whether audio enhancements are enabled, which can sometimes cause processing artifacts",
+        "expected_result": "Enhancements are disabled or not causing any distortion",
+        "abnormal_result": "Enhancements are enabled and disabling them improves or resolves the crackling"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Test with a different set of speakers or headphones to determine if the issue follows the original output device.",
+        "reason": "Isolates whether the problem lies with the specific audio output hardware or elsewhere in the system."
+      },
+      {
+        "step": 2,
+        "action": "Disable audio enhancements and effects in the playback device properties.",
+        "reason": "Enhancement processing can sometimes introduce artifacts, especially with certain driver versions or hardware combinations."
+      },
+      {
+        "step": 3,
+        "action": "Update or reinstall the audio driver to the latest stable version.",
+        "reason": "Driver bugs are a common cause of audio processing glitches that manifest as crackling or distortion."
+      },
+      {
+        "step": 4,
+        "action": "Check system resource usage during audio playback to see if high CPU load correlates with the crackling.",
+        "reason": "Resource-starved audio processing can cause buffer underruns that produce exactly this kind of intermittent distortion."
+      },
+      {
+        "step": 5,
+        "action": "Reseat or replace the audio cable connection, and test with a different port if available.",
+        "reason": "Physical cable or connection issues can introduce interference or signal degradation resulting in crackling."
+      }
+    ],
+    "possible_solutions": [
+      "Disable audio enhancements causing artifacts",
+      "Update or reinstall the audio driver",
+      "Address high system resource usage during audio playback",
+      "Reseat or replace the audio cable connection",
+      "Replace failing audio hardware if confirmed via testing"
+    ],
+    "prevention": [
+      "Keep audio drivers updated to stable, tested versions",
+      "Avoid unnecessary audio enhancement processing unless specifically desired",
+      "Monitor system resource usage during audio-intensive tasks"
+    ],
+    "keywords": ["audio crackling distorted sound", "speaker popping static noise", "audio stuttering windows", "sound distortion driver issue"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["HW-085", "HW-086"]
+  },
+  {
+    "id": "HW-088",
+    "category": "Hardware",
+    "subcategory": "Audio Hardware Issues",
+    "problem": "Bluetooth Audio Device Not Connecting",
+    "description": "A Bluetooth speaker, headphone, or headset fails to pair or maintain a connection with the system, either failing initial pairing or repeatedly disconnecting during use.",
+    "symptoms": [
+      "Bluetooth device does not appear in the list of available devices during pairing",
+      "Pairing attempt fails or times out",
+      "Device pairs successfully but disconnects frequently during use",
+      "Audio device connects but no sound routes through it"
+    ],
+    "possible_causes": [
+      "Bluetooth is disabled on the system",
+      "Device is not in pairing mode or has a stale pairing record needing removal",
+      "Bluetooth driver is outdated or malfunctioning",
+      "Interference from other wireless devices affecting connection stability",
+      "Audio device battery is low, causing connection instability"
+    ],
+    "diagnostic_questions": [
+      "Is Bluetooth confirmed enabled on the system?",
+      "Has the audio device been placed in pairing mode correctly per its manual?",
+      "Is there an existing, possibly corrupted pairing record for this device that should be removed and re-paired?",
+      "Is the audio device's battery confirmed to be adequately charged?"
+    ],
+    "commands": [
+      {
+        "command": "Settings > Bluetooth & devices",
+        "purpose": "Check Bluetooth status and manage existing device pairings, including removing stale entries",
+        "expected_result": "Bluetooth is enabled and the device can be successfully paired or reconnected",
+        "abnormal_result": "Bluetooth is disabled, or the device fails to pair/connect even after troubleshooting steps"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm Bluetooth is enabled on the system and the audio device is charged and in proper pairing mode.",
+        "reason": "Addresses the most basic and common prerequisites for a successful Bluetooth connection."
+      },
+      {
+        "step": 2,
+        "action": "Remove any existing pairing record for the device from Bluetooth settings, then attempt to re-pair from scratch.",
+        "reason": "A stale or corrupted pairing record is a common cause of connection failures even when the device appears in range."
+      },
+      {
+        "step": 3,
+        "action": "Move the device closer to the system and away from other wireless devices or sources of interference.",
+        "reason": "Distance and interference from other 2.4GHz devices can prevent successful pairing or cause connection instability."
+      },
+      {
+        "step": 4,
+        "action": "Update the system's Bluetooth driver to the latest version from the manufacturer.",
+        "reason": "Outdated or buggy Bluetooth drivers are a frequent cause of pairing and connection stability issues."
+      },
+      {
+        "step": 5,
+        "action": "Test the audio device pairing with a different system to determine if the device itself is at fault.",
+        "reason": "Isolates whether the problem lies with the audio device or is specific to the original system's Bluetooth hardware or software."
+      }
+    ],
+    "possible_solutions": [
+      "Enable Bluetooth and ensure the device is properly in pairing mode",
+      "Remove the stale pairing and re-pair from scratch",
+      "Reduce distance and interference during pairing",
+      "Update the Bluetooth driver",
+      "Replace the audio device if confirmed faulty via testing on another system"
+    ],
+    "prevention": [
+      "Keep Bluetooth drivers updated",
+      "Periodically clear unused or old Bluetooth pairings",
+      "Keep audio devices adequately charged"
+    ],
+    "keywords": ["bluetooth audio not connecting", "bluetooth headphones pairing failed", "bluetooth speaker disconnecting", "bluetooth driver issue audio"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["HW-085", "HW-086"]
+  },
+  {
+    "id": "HW-089",
+    "category": "Hardware",
+    "subcategory": "USB & Peripheral Ports",
+    "problem": "USB Port Not Working",
+    "description": "A specific USB port on the system fails to recognize any connected device, while other USB ports on the same system function normally.",
+    "symptoms": [
+      "No devices are ever detected when connected to this specific port",
+      "Multiple different, known-good devices fail when connected to this port",
+      "The same devices work correctly when connected to a different USB port",
+      "Port may show no power indication, such as not charging a phone"
+    ],
+    "possible_causes": [
+      "Physical damage to the USB port connector",
+      "Port is disabled in BIOS or Device Manager",
+      "Internal USB header connection (for front-panel ports) is loose or disconnected",
+      "USB controller driver issue affecting that specific port or header",
+      "Motherboard-level USB port or controller failure"
+    ],
+    "diagnostic_questions": [
+      "Does the issue occur with multiple different devices, or just one specific device?",
+      "Does the same device work correctly when connected to a different USB port?",
+      "Is this a front-panel port that connects via an internal header, and has that header connection been checked?",
+      "Is there any visible physical damage to the port itself?"
+    ],
+    "commands": [
+      {
+        "command": "Device Manager > Universal Serial Bus controllers",
+        "purpose": "Check for any USB controllers or hubs showing errors that might correspond to the affected port",
+        "expected_result": "All USB controllers are listed without warning icons or errors",
+        "abnormal_result": "A specific USB controller or hub shows an error, potentially corresponding to the affected port"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Test a different, known-good device in the problematic port to confirm the issue is port-specific.",
+        "reason": "Rules out the possibility that the original device, rather than the port, is actually at fault."
+      },
+      {
+        "step": 2,
+        "action": "Test the original device in a different, known-good USB port.",
+        "reason": "Confirms whether the device itself works fine elsewhere, isolating the fault to the specific port."
+      },
+      {
+        "step": 3,
+        "action": "For front-panel ports, open the case and confirm the internal USB header cable is fully and correctly connected to the motherboard.",
+        "reason": "A loose or disconnected internal header is a very common cause of front-panel USB ports failing while rear ports work fine."
+      },
+      {
+        "step": 4,
+        "action": "Check Device Manager for USB controller errors and update or reinstall USB controller drivers.",
+        "reason": "Driver-level issues can affect specific ports or hubs while leaving others functional."
+      },
+      {
+        "step": 5,
+        "action": "If the port is confirmed physically or electrically faulty at the motherboard level, use a different port and consider this port permanently unavailable unless the motherboard is replaced.",
+        "reason": "A genuinely faulty onboard USB port typically cannot be repaired without motherboard-level intervention."
+      }
+    ],
+    "possible_solutions": [
+      "Reconnect a loose internal USB header cable for front-panel ports",
+      "Use a different, confirmed-working USB port",
+      "Update or reinstall USB controller drivers",
+      "Enable the port in BIOS if found disabled",
+      "Replace the motherboard if the port is confirmed physically or electrically damaged"
+    ],
+    "prevention": [
+      "Handle USB connections carefully to avoid port damage",
+      "Ensure internal USB headers are properly connected during any case or motherboard work",
+      "Keep USB controller drivers updated"
+    ],
+    "keywords": ["usb port not working", "specific usb port dead", "front panel usb not working", "usb header not connected"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["HW-090", "HW-091"]
+  },
+  {
+    "id": "HW-090",
+    "category": "Hardware",
+    "subcategory": "USB & Peripheral Ports",
+    "problem": "USB Device Not Recognized",
+    "description": "A USB device connected to the system triggers a 'USB Device Not Recognized' error, or the device otherwise fails to be properly identified despite the port itself functioning for other devices.",
+    "symptoms": [
+      "Windows displays a 'USB Device Not Recognized' notification",
+      "Device does not appear properly in Device Manager, or appears as an unknown device",
+      "Other devices work fine in the same port, isolating the issue to this specific device",
+      "Issue may be intermittent or fully consistent"
+    ],
+    "possible_causes": [
+      "Device driver is missing, outdated, or incompatible",
+      "USB device itself has a fault or has begun to fail",
+      "Insufficient power being supplied to a power-hungry device through this port or an unpowered hub",
+      "USB cable connecting the device is damaged or of poor quality",
+      "USB controller experiencing a temporary glitch requiring a driver or system reset"
+    ],
+    "diagnostic_questions": [
+      "Does this specific device fail consistently, or only intermittently?",
+      "Does the device work correctly when connected to a different port or system?",
+      "Is the device connected directly, or through an unpowered USB hub that might not provide sufficient power?",
+      "Has this device required a specific driver that may not be installed or may need updating?"
+    ],
+    "commands": [
+      {
+        "command": "Device Manager > (locate device, likely under 'Other devices' or 'Universal Serial Bus controllers' with a warning icon)",
+        "purpose": "Identify how the device is being detected and what specific error or status it shows",
+        "expected_result": "Device is properly identified and functioning without warning icons",
+        "abnormal_result": "Device appears as unknown or with an error/warning icon, confirming a recognition problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Disconnect the device, wait several seconds, and reconnect it, ideally to a different USB port.",
+        "reason": "A simple reconnect, especially to a different port, resolves many transient USB recognition glitches."
+      },
+      {
+        "step": 2,
+        "action": "If connected through an unpowered USB hub, connect the device directly to the system instead.",
+        "reason": "Insufficient power delivery through an unpowered hub is a common cause of recognition failures for power-hungry devices."
+      },
+      {
+        "step": 3,
+        "action": "Check Device Manager for the device's status and install or update its specific driver if available and needed.",
+        "reason": "A missing or outdated driver is a frequent cause of a device failing to be properly recognized despite being detected at a basic USB level."
+      },
+      {
+        "step": 4,
+        "action": "Test the device with a different, known-good USB cable if the connection uses a separate cable.",
+        "reason": "A damaged or poor-quality cable can cause intermittent or complete recognition failures."
+      },
+      {
+        "step": 5,
+        "action": "Test the device on a different system to determine if the device itself is faulty.",
+        "reason": "Definitively isolates whether the issue lies with the specific device or the original system."
+      }
+    ],
+    "possible_solutions": [
+      "Reconnect the device to a different USB port",
+      "Connect directly rather than through an unpowered hub",
+      "Install or update the device's specific driver",
+      "Use a different, known-good USB cable",
+      "Replace the device if confirmed faulty via testing on another system"
+    ],
+    "prevention": [
+      "Use powered USB hubs for power-hungry devices",
+      "Keep device-specific drivers updated",
+      "Use quality USB cables and avoid excessive cable length"
+    ],
+    "keywords": ["usb device not recognized", "unknown usb device error", "usb device malfunctioned", "usb driver not installed"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-30 minutes",
+    "related_problems": ["HW-089", "HW-091"]
+  },
+  {
+    "id": "HW-091",
+    "category": "Hardware",
+    "subcategory": "USB & Peripheral Ports",
+    "problem": "USB Port Power Overload Shutdown",
+    "description": "The system displays a 'USB Power Surge/Overload' warning and disables one or more USB ports after a connected device draws more power than the port or hub can safely supply.",
+    "symptoms": [
+      "Error notification specifically mentioning a USB power surge or overload",
+      "Affected USB port(s) stop providing power or data to any device until resolved",
+      "Issue occurs consistently when a specific device is connected",
+      "Other USB ports on the system continue to function normally"
+    ],
+    "possible_causes": [
+      "A connected device draws more current than the port is rated to safely supply",
+      "Multiple power-hungry devices connected through an unpowered hub exceed its total power capacity",
+      "A short circuit or fault within the connected device or its cable",
+      "A genuine fault in the port's power delivery circuitry"
+    ],
+    "diagnostic_questions": [
+      "Which specific device was connected when the overload warning appeared?",
+      "Is the device connected directly, or through an unpowered hub alongside other devices?",
+      "Does the same overload occur with other devices in this port, or only with this specific one?",
+      "Does the port return to normal function after a system restart, or does the issue persist?"
+    ],
+    "commands": [
+      {
+        "command": "Restart the system after disconnecting the device that triggered the overload",
+        "purpose": "Attempt to reset the port's power state after removing the triggering device",
+        "expected_result": "Port returns to normal function after restart with the problematic device disconnected",
+        "abnormal_result": "Port remains disabled or the overload recurs immediately upon reconnecting any device, suggesting a deeper port or device fault"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Disconnect the device that was connected when the overload warning appeared.",
+        "reason": "Removes the immediate trigger and allows assessment of whether the port itself can recover."
+      },
+      {
+        "step": 2,
+        "action": "Restart the system to attempt to reset the affected port's power delivery state.",
+        "reason": "USB power overload protection sometimes requires a full restart to fully reset and restore normal port function."
+      },
+      {
+        "step": 3,
+        "action": "If using an unpowered hub, connect the device directly to the system instead, or use a powered hub with adequate capacity.",
+        "reason": "Unpowered hubs distributing insufficient power among multiple devices is a very common cause of overload warnings."
+      },
+      {
+        "step": 4,
+        "action": "Test the same device in a different USB port to see if the overload recurs there as well.",
+        "reason": "Helps determine whether the issue is specific to the original port or is caused by the device itself drawing excessive current."
+      },
+      {
+        "step": 5,
+        "action": "If the overload recurs consistently with this device regardless of port, the device itself likely has a fault and should not be used until repaired or replaced.",
+        "reason": "Protects the system from potential damage by identifying and removing a genuinely faulty device from use."
+      }
+    ],
+    "possible_solutions": [
+      "Disconnect the triggering device and restart the system",
+      "Use a powered USB hub for power-hungry devices",
+      "Connect the device directly rather than through an unpowered hub",
+      "Replace a device confirmed to have a power fault"
+    ],
+    "prevention": [
+      "Use powered hubs for multiple or power-hungry USB devices",
+      "Avoid connecting devices with known power draw issues",
+      "Inspect USB cables and devices periodically for damage"
+    ],
+    "keywords": ["usb power surge warning", "usb port overload disabled", "usb power overload shutdown", "usb port disabled restart"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["HW-089", "HW-090"]
+  },
+  {
+    "id": "HW-092",
+    "category": "Hardware",
+    "subcategory": "Laptop Battery & Charging",
+    "problem": "Laptop Battery Not Charging",
+    "description": "A laptop connected to its charger shows no increase in battery percentage, or Windows indicates the battery is 'plugged in, not charging' despite the charger being connected.",
+    "symptoms": [
+      "Battery percentage does not increase while connected to the charger",
+      "System tray shows 'Plugged in, not charging' status",
+      "Charger's indicator light, if present, shows no charging activity",
+      "Laptop may still run normally on AC power despite the battery not charging"
+    ],
+    "possible_causes": [
+      "Charger or power adapter has failed or is not delivering proper power",
+      "Charging port on the laptop is damaged or has debris preventing a proper connection",
+      "Battery itself has failed or reached end of life",
+      "A software or firmware setting is intentionally limiting charging, such as a battery health/longevity feature",
+      "Loose internal battery connection (removable battery laptops)"
+    ],
+    "diagnostic_questions": [
+      "Does the charger's indicator light, if present, show any activity when connected?",
+      "Has the charger been tested on another compatible laptop, or a different charger tested on this laptop?",
+      "Is there any battery longevity or charge threshold feature enabled in the manufacturer's software?",
+      "Is there any visible damage or debris in the charging port?"
+    ],
+    "commands": [
+      {
+        "command": "powercfg /batteryreport",
+        "purpose": "Generate a detailed battery report including charge capacity and charging history for further diagnosis",
+        "expected_result": "Report shows a battery with reasonable design vs. full charge capacity and normal charging patterns",
+        "abnormal_result": "Report shows significantly degraded battery capacity or charging anomalies, pointing toward battery health as the cause"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Test the charger on another compatible laptop, or test a different known-good charger on this laptop.",
+        "reason": "Isolates whether the charger itself or the laptop's charging circuitry is the source of the problem."
+      },
+      {
+        "step": 2,
+        "action": "Inspect the charging port for visible damage, bent pins, or debris, and clean gently if needed.",
+        "reason": "A damaged or obstructed port can prevent proper power delivery despite the charger being functional."
+      },
+      {
+        "step": 3,
+        "action": "Check the manufacturer's battery management software for any charge threshold or battery longevity feature that may be intentionally limiting charging.",
+        "reason": "Many laptops include features that cap charging at a certain percentage to preserve long-term battery health, which can appear as a charging failure."
+      },
+      {
+        "step": 4,
+        "action": "Generate a battery report using powercfg /batteryreport to review the battery's actual health and capacity.",
+        "reason": "Provides objective data on whether the battery itself has degraded significantly, which would explain charging issues."
+      },
+      {
+        "step": 5,
+        "action": "For laptops with a removable battery, remove and reseat the battery to ensure a proper connection.",
+        "reason": "A loose battery connection can prevent proper charging despite an otherwise functional system and charger."
+      }
+    ],
+    "possible_solutions": [
+      "Replace a failed charger or power adapter",
+      "Clean or repair a damaged charging port",
+      "Adjust or disable a battery charge threshold feature if unintentionally limiting charging",
+      "Reseat a removable battery",
+      "Replace the battery if confirmed to have failed or significantly degraded"
+    ],
+    "prevention": [
+      "Use only manufacturer-recommended or high-quality compatible chargers",
+      "Handle the charging port and cable connection carefully",
+      "Understand and intentionally configure any battery longevity features rather than leaving them as a mystery"
+    ],
+    "keywords": ["laptop battery not charging", "plugged in not charging", "charger not working laptop", "battery stuck percentage"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-40 minutes",
+    "related_problems": ["HW-093", "HW-095"]
+  },
+  {
+    "id": "HW-093",
+    "category": "Hardware",
+    "subcategory": "Laptop Battery & Charging",
+    "problem": "Laptop Battery Drained Will Not Power On",
+    "description": "A laptop with a fully depleted battery does not power on at all, even when the charger is connected, failing to show any signs of charging or startup activity.",
+    "symptoms": [
+      "Laptop shows no response to the power button when the battery is fully depleted",
+      "No charging light or indicator activates when the charger is connected",
+      "Laptop eventually powers on after an extended period connected to the charger, or does not respond at all",
+      "Issue occurs specifically after the laptop has been unused or the battery fully drained"
+    ],
+    "possible_causes": [
+      "Battery has drained to a level requiring an extended initial charging period before the system can respond",
+      "Charger or power adapter has failed and is providing no power at all",
+      "Charging port is damaged or obstructed, preventing any power delivery",
+      "Battery itself has failed completely and cannot hold or accept a charge",
+      "A deeper hardware fault unrelated to the battery is preventing power-on"
+    ],
+    "diagnostic_questions": [
+      "Has the laptop been connected to a confirmed-working charger and left for at least 30-60 minutes before attempting to power on?",
+      "Does the charger's indicator light, if present, show any activity when connected?",
+      "Has a different, known-good charger been tested with this laptop?",
+      "If the battery is removable, does the laptop power on when running on AC power alone with the battery removed?"
+    ],
+    "commands": [
+      {
+        "command": "Connect charger and wait 30-60 minutes before retesting power-on",
+        "purpose": "Allow time for a deeply discharged battery to reach a minimum charge threshold required for the system to respond",
+        "expected_result": "Laptop successfully powers on after the extended charging period",
+        "abnormal_result": "Laptop still fails to power on even after an extended charging period, pointing to a charger, port, or battery hardware fault"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Connect the laptop to a confirmed-working charger and leave it connected for 30-60 minutes without attempting to power on, then retry.",
+        "reason": "A deeply discharged battery sometimes requires a minimum charge level before the system will respond to the power button at all."
+      },
+      {
+        "step": 2,
+        "action": "Test with a different, known-good charger to rule out a failed original charger or power adapter.",
+        "reason": "A completely non-functional charger would explain both the lack of charging indication and the failure to power on."
+      },
+      {
+        "step": 3,
+        "action": "Inspect the charging port for visible damage or debris that might be preventing any power delivery.",
+        "reason": "A damaged or obstructed port can prevent charging entirely, regardless of a functional charger."
+      },
+      {
+        "step": 4,
+        "action": "For laptops with a removable battery, remove the battery and attempt to power on using AC power alone.",
+        "reason": "If the laptop powers on with the battery removed, this strongly points to a failed battery as the root cause rather than a broader system fault."
+      },
+      {
+        "step": 5,
+        "action": "If the laptop still does not respond after extended charging with a confirmed-good charger, seek professional diagnosis for a potential deeper hardware fault.",
+        "reason": "Rules out battery and charger as the sole causes, indicating the issue may lie with the motherboard or power circuitry."
+      }
+    ],
+    "possible_solutions": [
+      "Allow extended charging time before retrying power-on",
+      "Replace a confirmed-failed charger",
+      "Clean or repair a damaged charging port",
+      "Replace a battery confirmed to have failed completely",
+      "Seek professional repair if a deeper hardware fault is suspected"
+    ],
+    "prevention": [
+      "Avoid letting the laptop battery fully deplete for extended periods",
+      "Charge the laptop periodically even during storage",
+      "Use only manufacturer-recommended or high-quality compatible chargers"
+    ],
+    "keywords": ["laptop wont turn on dead battery", "laptop no response charger connected", "battery fully drained wont start", "laptop black screen no power"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-70 minutes",
+    "related_problems": ["HW-092", "HW-095"]
+  },
+  {
+    "id": "HW-094",
+    "category": "Hardware",
+    "subcategory": "Laptop Battery & Charging",
+    "problem": "Battery Draining Too Fast",
+    "description": "A laptop's battery depletes significantly faster than expected during normal use, resulting in much shorter usable time away from the charger than the system should reasonably provide.",
+    "symptoms": [
+      "Battery percentage drops noticeably faster than in the past or than expected for the system's specifications",
+      "Estimated remaining battery time shown by the OS is very short",
+      "Battery may deplete quickly even during light use or when the laptop is idle",
+      "Issue may have developed gradually over time or started suddenly"
+    ],
+    "possible_causes": [
+      "Battery has degraded significantly due to age and charge cycle count",
+      "Background applications or processes are consuming excessive power",
+      "Display brightness or power-hungry settings are set higher than necessary",
+      "Power plan settings are not optimized for battery conservation",
+      "A specific piece of hardware, such as a failing fan or drive, is drawing excessive power"
+    ],
+    "diagnostic_questions": [
+      "How old is the laptop and battery, and has this been a gradual or sudden change?",
+      "Are there any known power-hungry applications or processes running in the background?",
+      "What display brightness and power plan settings are currently configured?",
+      "Does the drain rate change significantly between idle and active use?"
+    ],
+    "commands": [
+      {
+        "command": "powercfg /batteryreport",
+        "purpose": "Generate a detailed report showing battery capacity degradation and recent usage/drain patterns",
+        "expected_result": "Battery's full charge capacity is close to its original design capacity, and drain patterns appear normal",
+        "abnormal_result": "Full charge capacity has degraded significantly compared to design capacity, or drain patterns show unusually high consumption"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Generate a battery report using powercfg /batteryreport to compare the battery's current full charge capacity against its original design capacity.",
+        "reason": "Provides objective data on whether battery degradation is the primary cause of the faster drain."
+      },
+      {
+        "step": 2,
+        "action": "Check Task Manager for any applications or background processes consuming unusually high CPU or power resources.",
+        "reason": "Runaway or resource-heavy background processes can significantly accelerate battery drain even during apparently light use."
+      },
+      {
+        "step": 3,
+        "action": "Review and reduce display brightness, and switch to a battery-optimized power plan.",
+        "reason": "Display brightness and power plan settings have a significant direct impact on battery consumption rates."
+      },
+      {
+        "step": 4,
+        "action": "Check Device Manager and system monitoring tools for any hardware component, such as a fan running constantly at high speed, that might indicate excessive power draw.",
+        "reason": "A malfunctioning component running harder than necessary can noticeably accelerate battery drain."
+      },
+      {
+        "step": 5,
+        "action": "If the battery report confirms significant capacity degradation consistent with age, consider battery replacement as the appropriate solution.",
+        "reason": "Batteries naturally lose capacity over charge cycles and time, and replacement is the standard fix once degradation is confirmed significant."
+      }
+    ],
+    "possible_solutions": [
+      "Close or manage resource-heavy background applications",
+      "Reduce display brightness and use a battery-optimized power plan",
+      "Address a malfunctioning component causing excessive power draw",
+      "Replace the battery if significant capacity degradation is confirmed"
+    ],
+    "prevention": [
+      "Periodically review running background applications for excessive resource use",
+      "Use battery-conscious power plan settings",
+      "Monitor battery health periodically using built-in reporting tools"
+    ],
+    "keywords": ["battery draining too fast", "laptop battery life short", "battery degraded capacity", "battery drain background apps"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["HW-092", "HW-045"]
+  },
+  {
+    "id": "HW-095",
+    "category": "Hardware",
+    "subcategory": "Laptop Battery & Charging",
+    "problem": "Laptop Charger Not Working",
+    "description": "A laptop's power adapter/charger fails to provide any power to the laptop, showing no indicator light activity and providing no charging or power delivery when connected.",
+    "symptoms": [
+      "Charger's indicator light, if present, does not illuminate when plugged in",
+      "Laptop shows no response whatsoever when connected to the charger",
+      "Charger cable may show visible physical damage",
+      "Charger worked previously and stopped functioning suddenly"
+    ],
+    "possible_causes": [
+      "Charger's internal components have failed",
+      "Power cable or brick has physical damage, such as a frayed cord",
+      "Wall outlet or power strip being used is not providing power",
+      "Connector tip is damaged or has debris preventing a proper connection",
+      "Laptop's charging port itself, rather than the charger, is the actual point of failure"
+    ],
+    "diagnostic_questions": [
+      "Has the wall outlet been confirmed working with another device?",
+      "Is there any visible damage to the charger cable, brick, or connector tip?",
+      "Has this charger been tested on another compatible laptop, or a different charger tested on this laptop?",
+      "Does the charger's indicator light, if present, show any activity at all when plugged into a wall outlet alone, before connecting to the laptop?"
+    ],
+    "commands": [
+      {
+        "command": "Multimeter voltage test on charger output (if available and comfortable performing safely)",
+        "purpose": "Directly measure whether the charger is outputting the correct voltage at its connector tip",
+        "expected_result": "Charger outputs the correct rated voltage as specified on its label",
+        "abnormal_result": "Charger outputs no voltage or significantly incorrect voltage, confirming charger failure"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the wall outlet or power strip is functional using another known-good device.",
+        "reason": "Rules out the simplest possible cause before further diagnosis of the charger itself."
+      },
+      {
+        "step": 2,
+        "action": "Visually inspect the entire charger cable, brick, and connector tip for any visible damage, fraying, or bending.",
+        "reason": "Physical damage is a common and visible cause of charger failure, particularly at stress points near the connectors."
+      },
+      {
+        "step": 3,
+        "action": "Test the charger on another compatible laptop, or test a different known-good charger on this laptop.",
+        "reason": "Definitively isolates whether the charger itself or the laptop's charging circuitry is at fault."
+      },
+      {
+        "step": 4,
+        "action": "Clean the connector tip and charging port of any debris that might be preventing a proper connection.",
+        "reason": "Debris buildup can sometimes mimic a complete charger failure by preventing proper electrical contact."
+      },
+      {
+        "step": 5,
+        "action": "If confirmed faulty through cross-testing, replace the charger with a manufacturer-recommended or certified compatible replacement.",
+        "reason": "A confirmed failed charger cannot be repaired by the end user and requires replacement with a properly rated unit."
+      }
+    ],
+    "possible_solutions": [
+      "Replace a confirmed-failed charger",
+      "Use a different, confirmed-working wall outlet",
+      "Clean debris from the connector tip and charging port",
+      "Address the laptop's charging port instead if testing points there rather than the charger"
+    ],
+    "prevention": [
+      "Handle charger cables carefully, avoiding sharp bends near connectors",
+      "Use only manufacturer-recommended or certified compatible chargers",
+      "Avoid wrapping cables tightly around the charger brick, which can cause internal wire fatigue"
+    ],
+    "keywords": ["laptop charger not working", "power adapter no light no charge", "charger dead laptop", "charger cable damaged"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["HW-092", "HW-093"]
+  },
+  {
+    "id": "HW-096",
+    "category": "Hardware",
+    "subcategory": "Physical Drive Issues",
+    "problem": "Hard Drive Making Clicking Noise",
+    "description": "A mechanical hard disk drive (HDD) emits a repeated clicking or ticking noise during operation, a sound often associated with imminent or active drive failure.",
+    "symptoms": [
+      "Repeated clicking, ticking, or grinding noise coming from the drive",
+      "Noise may be constant or occur intermittently during use",
+      "System may become slow, freeze, or fail to recognize the drive alongside the noise",
+      "Data on the drive may become inaccessible or corrupted"
+    ],
+    "possible_causes": [
+      "Read/write head failure, unable to properly park or access data tracks",
+      "Physical damage to the drive from a shock or drop",
+      "Drive has reached end of life due to normal mechanical wear",
+      "Power delivery issue causing the drive to repeatedly attempt to spin up and fail"
+    ],
+    "diagnostic_questions": [
+      "Is this a mechanical hard disk drive (HDD), not an SSD, since SSDs have no moving parts and cannot produce this noise?",
+      "Has the drive or system experienced any recent physical shock, drop, or impact?",
+      "Is critical data on this drive currently backed up elsewhere?",
+      "Does the system still recognize the drive despite the noise, or has it become inaccessible?"
+    ],
+    "commands": [
+      {
+        "command": "wmic diskdrive get status",
+        "purpose": "Check the basic reported status of the drive from Windows, though this may not fully capture mechanical failure severity",
+        "expected_result": "Drive reports an 'OK' status, though this does not rule out an impending mechanical failure",
+        "abnormal_result": "Drive reports an error status, or does not appear at all, confirming a serious problem consistent with the clicking noise"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Immediately prioritize backing up any critical, accessible data from the drive to a different storage location.",
+        "reason": "Clicking noises from an HDD strongly indicate a high risk of imminent complete failure and data loss, making backup the urgent first priority over diagnosis."
+      },
+      {
+        "step": 2,
+        "action": "Avoid powering the drive on and off repeatedly, and minimize its use beyond what is necessary for data recovery.",
+        "reason": "Repeated power cycling and continued use of a mechanically failing drive can accelerate the failure and reduce chances of successful data recovery."
+      },
+      {
+        "step": 3,
+        "action": "If data has not been fully backed up and the drive is critical, consider professional data recovery services rather than continuing to run diagnostic tools on the drive.",
+        "reason": "DIY diagnostic or repair attempts on a clicking drive can worsen physical damage and reduce professional recovery success rates."
+      },
+      {
+        "step": 4,
+        "action": "Once data is secured, plan to replace the failing drive entirely, as clicking noise typically indicates a mechanical fault that cannot be repaired.",
+        "reason": "This type of failure is a hardware-level mechanical issue that generally cannot be fixed through software or user intervention."
+      }
+    ],
+    "possible_solutions": [
+      "Immediately back up accessible critical data",
+      "Use professional data recovery services for critical unbacked-up data",
+      "Replace the failing hard drive entirely",
+      "Minimize further use of the drive to reduce risk of complete failure"
+    ],
+    "prevention": [
+      "Maintain regular backups of important data to a separate drive or cloud storage",
+      "Handle drives carefully to avoid physical shock, especially while powered on",
+      "Monitor drive health using S.M.A.R.T. monitoring tools for early warning signs",
+      "Replace aging drives proactively before they reach critical failure"
+    ],
+    "keywords": ["hard drive clicking noise", "hdd clicking sound failing", "drive making ticking noise", "hard drive failure sound"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-90 minutes",
+    "related_problems": ["HW-097", "NET-132"]
+  },
+  {
+    "id": "HW-097",
+    "category": "Hardware",
+    "subcategory": "Physical Drive Issues",
+    "problem": "External Hard Drive Not Recognized",
+    "description": "An external hard drive connected via USB does not appear in File Explorer, Disk Management, or the system's storage device list, despite being properly connected.",
+    "symptoms": [
+      "External drive does not appear in File Explorer",
+      "Drive does not appear in Disk Management, even as an uninitialized disk",
+      "Drive's activity light, if present, may or may not indicate any activity",
+      "Drive works correctly when connected to a different system"
+    ],
+    "possible_causes": [
+      "USB cable or port issue preventing proper connection",
+      "Drive is not receiving sufficient power, particularly for larger drives requiring more current",
+      "Drive letter conflict or missing drive letter assignment",
+      "Drive's file system is corrupted or in an unrecognized format",
+      "Drive itself has suffered a hardware failure"
+    ],
+    "diagnostic_questions": [
+      "Does the drive's activity light, if present, indicate any power or activity when connected?",
+      "Has a different USB cable and port been tested?",
+      "Does the drive appear in Disk Management even if not in File Explorer, which would indicate a drive letter or file system issue rather than a detection failure?",
+      "Does the drive work correctly when tested on a different system?"
+    ],
+    "commands": [
+      {
+        "command": "diskmgmt.msc",
+        "purpose": "Check Disk Management to see if the drive is detected at a lower level even if not visible in File Explorer",
+        "expected_result": "Drive appears in Disk Management with a proper drive letter and recognized file system",
+        "abnormal_result": "Drive does not appear at all, or appears as uninitialized/unallocated/RAW, indicating a deeper detection or file system issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Test a different USB cable and port for the external drive connection.",
+        "reason": "Cable or port issues are a common and simple cause of external drive detection failure."
+      },
+      {
+        "step": 2,
+        "action": "For drives requiring more power, such as larger desktop external drives, ensure they are connected to their own power adapter if applicable, rather than relying solely on USB bus power.",
+        "reason": "Insufficient power delivery is a common cause of detection failure, particularly for drives that require more current than a single USB port can provide."
+      },
+      {
+        "step": 3,
+        "action": "Check Disk Management to see if the drive appears there even if not visible in File Explorer.",
+        "reason": "Distinguishes between a complete hardware detection failure and a drive letter or file system-level issue that Disk Management can help resolve."
+      },
+      {
+        "step": 4,
+        "action": "If the drive appears in Disk Management without a drive letter, assign one manually.",
+        "reason": "A missing drive letter assignment will prevent the drive from appearing in File Explorer despite being properly detected at the hardware level."
+      },
+      {
+        "step": 5,
+        "action": "Test the drive on a different system to determine if the drive itself has failed or if the issue is specific to the original system.",
+        "reason": "Definitively isolates whether the problem lies with the drive or the original system's USB/storage handling."
+      }
+    ],
+    "possible_solutions": [
+      "Use a different USB cable and port",
+      "Ensure adequate power delivery, using a powered connection if needed",
+      "Assign a missing drive letter via Disk Management",
+      "Repair the file system if corrupted, using appropriate data recovery caution",
+      "Replace the drive if confirmed failed via testing on another system"
+    ],
+    "prevention": [
+      "Use adequately powered connections for larger external drives",
+      "Safely eject external drives before disconnecting to prevent corruption",
+      "Use quality USB cables for external storage connections"
+    ],
+    "keywords": ["external hard drive not recognized", "external drive not showing up", "usb drive not detected", "external hdd disk management"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["HW-096", "HW-089"]
+  },
+  {
+    "id": "HW-098",
+    "category": "Hardware",
+    "subcategory": "Physical Drive Issues",
+    "problem": "Optical Drive Not Reading Discs",
+    "description": "A CD, DVD, or Blu-ray optical drive fails to read inserted discs, either not recognizing that a disc is present or repeatedly failing to access its contents.",
+    "symptoms": [
+      "Drive does not recognize that a disc has been inserted",
+      "Drive spins the disc but never successfully reads its contents",
+      "Error message when attempting to access the disc's contents",
+      "Some discs read successfully while others fail consistently"
+    ],
+    "possible_causes": [
+      "Disc itself is dirty, scratched, or otherwise damaged",
+      "Optical drive's laser lens is dirty or has degraded over time",
+      "Disc format is incompatible with the specific drive's capabilities",
+      "Drive itself has failed mechanically or electronically",
+      "Driver or connection issue preventing proper communication with the drive"
+    ],
+    "diagnostic_questions": [
+      "Does the issue occur with all discs, or only specific ones that might be damaged or an incompatible format?",
+      "Has the disc been inspected for visible scratches, smudges, or damage?",
+      "How old is the optical drive, and has it read discs successfully in the past?",
+      "Does the drive appear properly in Device Manager without errors?"
+    ],
+    "commands": [
+      {
+        "command": "Device Manager > DVD/CD-ROM drives",
+        "purpose": "Confirm the optical drive is detected by the system and check for any driver-related errors",
+        "expected_result": "Drive is listed without warning icons or errors",
+        "abnormal_result": "Drive is missing or shows an error, indicating a detection or driver issue separate from the disc-reading problem itself"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Inspect the disc for visible dirt, smudges, or scratches, and clean gently with a soft cloth from center to edge if needed.",
+        "reason": "A dirty or damaged disc is one of the most common and simple causes of read failures."
+      },
+      {
+        "step": 2,
+        "action": "Test a different disc, ideally a known-good one of a similar format, in the drive.",
+        "reason": "Determines whether the issue is specific to certain discs or affects the drive's ability to read any disc at all."
+      },
+      {
+        "step": 3,
+        "action": "Confirm the drive is properly detected in Device Manager without any error indicators.",
+        "reason": "Distinguishes between a physical disc-reading issue and a deeper detection or driver-level problem."
+      },
+      {
+        "step": 4,
+        "action": "If available, use a lens cleaning disc designed for optical drives to clean the laser lens.",
+        "reason": "A dirty laser lens, accumulated over time, can significantly degrade or prevent successful disc reading."
+      },
+      {
+        "step": 5,
+        "action": "If the drive still fails to read multiple confirmed-good discs after cleaning, the drive's laser or mechanical components have likely failed and require replacement.",
+        "reason": "Optical drives are relatively inexpensive and typically not economical to repair once the laser or mechanism itself has failed."
+      }
+    ],
+    "possible_solutions": [
+      "Clean the disc gently before reinserting",
+      "Clean the drive's laser lens using a lens cleaning disc",
+      "Test with known-good, compatible format discs",
+      "Replace the optical drive if confirmed failed"
+    ],
+    "prevention": [
+      "Handle and store discs carefully to avoid scratches and dirt",
+      "Periodically clean the optical drive's lens if heavily used",
+      "Use appropriate disc formats compatible with the specific drive"
+    ],
+    "keywords": ["optical drive not reading discs", "dvd drive not recognizing disc", "cd drive wont read", "disc not detected drive"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["HW-096", "HW-097"]
+  },
+  {
+    "id": "HW-099",
+    "category": "Hardware",
+    "subcategory": "System Stability Issues",
+    "problem": "System Randomly Reboots",
+    "description": "The system unexpectedly restarts on its own during normal use, without user action, often accompanied by no error message or only a brief blue screen before the restart.",
+    "symptoms": [
+      "System restarts abruptly without warning during normal use",
+      "May be preceded by a brief blue screen that disappears too quickly to read",
+      "Reboots may occur under load, at idle, or seemingly at random",
+      "System returns to a normal login screen after the unexpected restart"
+    ],
+    "possible_causes": [
+      "Windows is configured to automatically restart on system errors, hiding the underlying blue screen cause",
+      "Overheating triggering a protective restart",
+      "Faulty or insufficient power supply unable to maintain stable power under certain conditions",
+      "Failing or incompatible RAM causing system instability",
+      "A driver conflict or corrupted system file causing crashes that trigger automatic restarts"
+    ],
+    "diagnostic_questions": [
+      "Is Windows configured to automatically restart on system failure, potentially hiding a blue screen error?",
+      "Does the reboot correlate with specific activities, such as gaming or heavy multitasking?",
+      "Has overheating been ruled out as a potential cause?",
+      "Were any new hardware components, drivers, or RAM recently installed before this began?"
+    ],
+    "commands": [
+      {
+        "command": "Event Viewer > Windows Logs > System (look for Event ID 41 or 1001 BugCheck entries)",
+        "purpose": "Identify specific error codes and timestamps associated with the unexpected restarts",
+        "expected_result": "No unexpected critical errors, or clear diagnostic information is found pointing to a specific cause",
+        "abnormal_result": "Repeated critical error events with specific bug check codes, providing a starting point for targeted troubleshooting"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Disable automatic restart on system failure in Advanced System Settings to allow any blue screen error to remain visible for diagnosis.",
+        "reason": "This reveals the actual stop code and error information that automatic restart would otherwise hide, providing crucial diagnostic detail."
+      },
+      {
+        "step": 2,
+        "action": "Review Event Viewer for BugCheck or Kernel-Power events correlating with the restart times, noting any specific error codes.",
+        "reason": "Specific bug check codes can point directly to a driver, hardware, or memory-related cause."
+      },
+      {
+        "step": 3,
+        "action": "Run a memory diagnostic test, such as Windows Memory Diagnostic or MemTest86, to rule out faulty RAM.",
+        "reason": "Faulty RAM is a very common cause of random reboots and system instability that can be definitively tested."
+      },
+      {
+        "step": 4,
+        "action": "Monitor system temperatures during normal use to rule out overheating as the trigger for protective restarts.",
+        "reason": "Thermal protection restarts can present identically to other causes of random rebooting."
+      },
+      {
+        "step": 5,
+        "action": "If recent driver or hardware changes preceded the issue, roll back or remove the specific change to test if it resolves the instability.",
+        "reason": "Directly tests whether a recent change is the root cause through a controlled reversal."
+      }
+    ],
+    "possible_solutions": [
+      "Identify and address the specific cause revealed by disabling auto-restart and reviewing error codes",
+      "Replace faulty RAM identified through memory diagnostic testing",
+      "Resolve underlying overheating issues",
+      "Roll back a recent driver or hardware change found to correlate with the instability",
+      "Replace an insufficient or failing power supply if identified as the cause"
+    ],
+    "prevention": [
+      "Keep drivers and system files updated and stable",
+      "Ensure adequate cooling and power supply capacity for the system's components",
+      "Test new RAM or hardware thoroughly after installation",
+      "Review Event Viewer periodically for early warning signs of instability"
+    ],
+    "keywords": ["system randomly reboots", "computer restarts unexpectedly", "random reboot no bsod visible", "windows auto restart hiding error"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-70 minutes",
+    "related_problems": ["HW-070", "HW-054"]
+  },
+  {
+    "id": "HW-100",
+    "category": "Hardware",
+    "subcategory": "System Stability Issues",
+    "problem": "Motherboard Beep Codes (No POST)",
+    "description": "The system emits a series of audible beeps from the motherboard speaker during startup and fails to POST or display any video output, with the beep pattern indicating a specific hardware fault.",
+    "symptoms": [
+      "System emits a specific pattern of beeps instead of booting normally",
+      "No video output accompanies the beep code",
+      "Fans and lights may indicate power is present despite the failed POST",
+      "Beep pattern may be a single long beep, a series of short beeps, or a specific combination"
+    ],
+    "possible_causes": [
+      "RAM is not properly seated, missing, or faulty",
+      "Graphics card is not properly seated, missing, or faulty (on systems requiring discrete graphics)",
+      "CPU is not properly seated or has failed",
+      "A short circuit or other critical hardware fault detected during POST",
+      "Motherboard itself has failed"
+    ],
+    "diagnostic_questions": [
+      "What is the exact pattern of the beep code, such as the number and length of beeps?",
+      "What motherboard or BIOS brand is being used, as beep code meanings vary between manufacturers (AMI, Award, Phoenix)?",
+      "Was any hardware recently installed, removed, or reseated before this began?",
+      "Does the motherboard have a debug LED or Q-code display that provides additional detail alongside the beeps?"
+    ],
+    "commands": [
+      {
+        "command": "Reference motherboard/BIOS manufacturer's beep code chart for the exact pattern heard",
+        "purpose": "Translate the specific beep pattern into its documented meaning for this particular BIOS brand",
+        "expected_result": "Beep code chart clearly identifies the likely faulty component category, such as RAM or graphics",
+        "abnormal_result": "N/A - this step is a reference lookup rather than a pass/fail diagnostic"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Carefully note the exact beep pattern, including the number, length, and spacing of beeps.",
+        "reason": "The specific pattern is the key diagnostic clue and must be accurately captured before consulting reference documentation."
+      },
+      {
+        "step": 2,
+        "action": "Identify the motherboard's BIOS brand (AMI, Award/Phoenix, or other) and consult its specific beep code chart to interpret the pattern.",
+        "reason": "Beep code meanings differ significantly between BIOS manufacturers, so using the correct reference is essential for accurate diagnosis."
+      },
+      {
+        "step": 3,
+        "action": "Based on the interpreted beep code, power off, unplug, and reseat the specific component indicated, such as RAM or the graphics card.",
+        "reason": "Reseating the specific component identified by the beep code resolves the majority of cases, which are often simply due to a loose connection."
+      },
+      {
+        "step": 4,
+        "action": "If reseating does not resolve the issue, test with a single, known-good module of the indicated component type (e.g., a single stick of known-good RAM).",
+        "reason": "Isolates whether the specific component itself has failed, once a simple seating issue has been ruled out."
+      },
+      {
+        "step": 5,
+        "action": "If the beep code points to a critical fault like a CPU or motherboard issue, or if component swapping does not resolve it, further hardware-level diagnosis or professional repair may be needed.",
+        "reason": "Some beep codes indicate serious faults that require more advanced diagnosis beyond simple reseating or component swapping."
+      }
+    ],
+    "possible_solutions": [
+      "Reseat the specific component indicated by the beep code",
+      "Replace a faulty RAM module, graphics card, or CPU identified through isolation testing",
+      "Consult professional repair services for beep codes indicating critical motherboard or CPU faults",
+      "Update BIOS if a known compatibility issue with the beep code component is documented"
+    ],
+    "prevention": [
+      "Handle and seat all components carefully during any hardware installation or maintenance",
+      "Keep the motherboard manual and its beep code chart accessible for quick reference",
+      "Test components individually when building or upgrading a system"
+    ],
+    "keywords": ["motherboard beep codes", "no post beeping", "bios beep code chart", "computer beeps no display"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-60 minutes",
+    "related_problems": ["HW-054", "HW-055", "HW-074"]
+  }
+]

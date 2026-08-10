@@ -1,0 +1,2450 @@
+[
+  {
+    "id": "NOTES-061",
+    "category": "Lotus Notes",
+    "subcategory": "Application Design & Documents",
+    "problem": "Form Not Displaying Correctly",
+    "description": "A form within a Notes application renders incorrectly, showing missing fields, overlapping elements, incorrect layout, or fields in the wrong tab or section compared to its intended design.",
+    "symptoms": [
+      "Fields appear missing, out of order, or overlapping on the form",
+      "Layout regions, tabs, or subforms do not render as designed",
+      "Form displays correctly for some users but not others",
+      "Issue appeared after a design change or template update"
+    ],
+    "possible_causes": [
+      "Local design cache is outdated compared to the server design",
+      "Corrupted design element within the form itself",
+      "Conflicting subform or shared field referenced by the form is broken",
+      "Client display/rendering settings or screen resolution causing layout issues"
+    ],
+    "diagnostic_questions": [
+      "Does the form display incorrectly for all users or only specific ones?",
+      "Was a design change or template update made recently?",
+      "Does the issue persist after refreshing the local design?",
+      "Are any embedded subforms or shared fields involved in the affected form?"
+    ],
+    "commands": [
+      {
+        "command": "load design <databasename>.nsf",
+        "purpose": "Refresh the local/server design of the database from its template to correct outdated or corrupted form elements",
+        "expected_result": "Design refresh completes and the form renders correctly afterward",
+        "abnormal_result": "Form still displays incorrectly after refresh, indicating a genuine design defect rather than a cache issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether the issue affects all users or only specific ones.",
+        "reason": "Helps distinguish between a server-side design defect and a local client cache or display issue."
+      },
+      {
+        "step": 2,
+        "action": "Refresh the local design cache by closing and reopening the database, or running a design refresh.",
+        "reason": "Resolves cases where the client is using an outdated cached copy of the form design."
+      },
+      {
+        "step": 3,
+        "action": "Open the form in Domino Designer to check for broken subforms, shared fields, or layout regions.",
+        "reason": "Identifies specific corrupted or misconfigured design elements causing the display issue."
+      },
+      {
+        "step": 4,
+        "action": "Test the form on a different workstation or screen resolution.",
+        "reason": "Rules out a local display or resolution-related rendering issue rather than a design defect."
+      }
+    ],
+    "possible_solutions": [
+      "Refresh the database design from the template",
+      "Repair broken subforms or shared fields in Designer",
+      "Republish the corrected template and refresh affected databases",
+      "Adjust the user's display settings if resolution-related"
+    ],
+    "prevention": [
+      "Test form changes across multiple resolutions before deployment",
+      "Use version control for design changes",
+      "Validate subform and shared field references after edits",
+      "Schedule regular design refreshes for widely used applications"
+    ],
+    "keywords": ["notes form not displaying correctly", "form layout broken notes", "fields missing on form lotus notes", "form design refresh notes"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-062", "NOTES-069"]
+  },
+  {
+    "id": "NOTES-062",
+    "category": "Lotus Notes",
+    "subcategory": "Application Design & Documents",
+    "problem": "View Not Refreshing",
+    "description": "A view within a Notes application does not update to show new, modified, or deleted documents, displaying outdated data even after documents are known to have changed.",
+    "symptoms": [
+      "Newly created documents do not appear in the view",
+      "Deleted documents still appear in the view listing",
+      "Modified document values are not reflected in view columns",
+      "Manually pressing F9 or Refresh does not resolve the issue"
+    ],
+    "possible_causes": [
+      "View index has not been rebuilt since the underlying data changed",
+      "View is set to manual refresh rather than automatic",
+      "Corrupted view index requiring a full rebuild",
+      "Replication has not yet delivered the underlying document changes"
+    ],
+    "diagnostic_questions": [
+      "Does pressing F9 (Refresh) resolve the issue, even temporarily?",
+      "Is the view configured for automatic or manual refresh?",
+      "Does this affect one specific view, or all views in the database?",
+      "Could replication delay explain why changes are not yet visible?"
+    ],
+    "commands": [
+      {
+        "command": "load updall -R <databasename>.nsf",
+        "purpose": "Force a rebuild of all view indexes in the specified database from the server console",
+        "expected_result": "View indexes rebuild successfully and the view reflects current data",
+        "abnormal_result": "View still fails to refresh after rebuild, suggesting index corruption requiring deeper repair"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Manually refresh the view using F9 or the Refresh option.",
+        "reason": "Confirms whether this is a simple refresh timing issue versus a deeper index problem."
+      },
+      {
+        "step": 2,
+        "action": "Check the view's properties for its refresh mode, such as manual, automatic, or scheduled.",
+        "reason": "A view set to manual refresh will not update automatically, which may explain the perceived issue."
+      },
+      {
+        "step": 3,
+        "action": "Run updall -R against the database from the server console to rebuild view indexes.",
+        "reason": "Rebuilding the index resolves cases where the existing index has become out of sync with the data."
+      },
+      {
+        "step": 4,
+        "action": "If only one specific view is affected, delete and recreate its index definition in Designer.",
+        "reason": "Isolated view corruption may require rebuilding that specific view rather than the whole database."
+      }
+    ],
+    "possible_solutions": [
+      "Change the view's refresh mode to automatic if appropriate",
+      "Rebuild view indexes using updall -R",
+      "Recreate a specific corrupted view definition",
+      "Wait for or force replication if the delay is due to unsynced changes"
+    ],
+    "prevention": [
+      "Schedule regular view index maintenance for high-traffic databases",
+      "Set appropriate refresh modes based on how views are used",
+      "Monitor for index corruption after server crashes",
+      "Educate users on manual refresh options for views set that way intentionally"
+    ],
+    "keywords": ["notes view not refreshing", "view not updating lotus notes", "new documents not showing view", "view index refresh notes"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["NOTES-063", "NOTES-061"]
+  },
+  {
+    "id": "NOTES-063",
+    "category": "Lotus Notes",
+    "subcategory": "Application Design & Documents",
+    "problem": "View Index Corrupted",
+    "description": "A view's underlying index becomes corrupted, causing incorrect document counts, missing documents, errors when opening the view, or repeated failures even after refresh attempts.",
+    "symptoms": [
+      "Error message when attempting to open a specific view",
+      "View shows an incorrect or clearly wrong document count",
+      "Documents known to exist do not appear despite refreshing",
+      "View crashes the client or causes it to become unresponsive when opened"
+    ],
+    "possible_causes": [
+      "Improper server or client shutdown while the view index was being updated",
+      "Underlying database corruption affecting the view index structure",
+      "A very large or complex view formula causing indexing failures",
+      "Disk-level errors affecting the database file containing the index"
+    ],
+    "diagnostic_questions": [
+      "Does the error occur consistently every time this specific view is opened?",
+      "Was there a recent server crash or improper shutdown?",
+      "Do other views in the same database work correctly?",
+      "Has database maintenance such as compact or fixup been run recently?"
+    ],
+    "commands": [
+      {
+        "command": "load updall -R <databasename>.nsf",
+        "purpose": "Force a full rebuild of all view indexes to attempt to resolve corruption",
+        "expected_result": "Indexes rebuild successfully and the view opens and displays correctly",
+        "abnormal_result": "Rebuild fails or the view remains broken, indicating underlying database corruption requiring Fixup or Compact"
+      },
+      {
+        "command": "load fixup <databasename>.nsf",
+        "purpose": "Repair structural corruption in the database that may be affecting the view index",
+        "expected_result": "Fixup completes and reports the database has been repaired",
+        "abnormal_result": "Fixup reports unresolved corruption, requiring restoration from backup"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Attempt to rebuild the view index using load updall -R against the database.",
+        "reason": "This is the standard first step to resolve most view index corruption without deeper database repair."
+      },
+      {
+        "step": 2,
+        "action": "If the view still fails, run Fixup against the database to check for and repair structural corruption.",
+        "reason": "Fixup addresses corruption at the database level that a simple index rebuild cannot fix."
+      },
+      {
+        "step": 3,
+        "action": "Run Compact on the database after Fixup completes successfully.",
+        "reason": "Compact reclaims space and can resolve additional issues left after structural repair."
+      },
+      {
+        "step": 4,
+        "action": "If corruption persists, restore the database from the most recent clean backup.",
+        "reason": "Severe corruption that Fixup cannot resolve typically requires restoring a known-good copy."
+      }
+    ],
+    "possible_solutions": [
+      "Rebuild view indexes with updall -R",
+      "Run Fixup and Compact on the affected database",
+      "Simplify an overly complex view formula if identified as a factor",
+      "Restore the database from backup if corruption is unresolved"
+    ],
+    "prevention": [
+      "Ensure clean server and client shutdowns whenever possible",
+      "Schedule regular Fixup and Compact maintenance tasks",
+      "Monitor disk health on servers hosting critical databases",
+      "Avoid overly complex view selection formulas where simpler alternatives exist"
+    ],
+    "keywords": ["view index corrupted notes", "view error opening notes", "rebuild view index domino", "view corruption fixup compact"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": ["NOTES-062", "NOTES-040"]
+  },
+  {
+    "id": "NOTES-064",
+    "category": "Lotus Notes",
+    "subcategory": "Application Design & Documents",
+    "problem": "Agent Failed to Run",
+    "description": "An agent within a Notes application fails to execute when triggered manually or automatically, producing an error or simply not performing its intended action.",
+    "symptoms": [
+      "Error message when manually running the agent",
+      "Agent's expected output or document changes do not occur",
+      "Agent log shows a failure or exception",
+      "Agent appears to run but completes with no effect"
+    ],
+    "possible_causes": [
+      "Agent has insufficient execution rights (signer's access level too low)",
+      "Agent code contains a runtime error, such as a null object reference",
+      "Agent's signer ID has expired or lacks necessary server access",
+      "Server security settings restrict the agent from running (restricted/unrestricted agent list)"
+    ],
+    "diagnostic_questions": [
+      "Does the agent fail every time, or only under certain conditions?",
+      "What does the agent log show when the failure occurs?",
+      "Is the agent signed by a user or ID with adequate access rights on the server?",
+      "Has the server's agent security list (restricted/unrestricted) been recently modified?"
+    ],
+    "commands": [
+      {
+        "command": "tell amgr schedule",
+        "purpose": "Display the current agent manager schedule from the server console to confirm the agent is queued to run",
+        "expected_result": "Agent appears correctly scheduled",
+        "abnormal_result": "Agent does not appear in the schedule, indicating a scheduling or security configuration issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the agent log for specific error details from the failed run.",
+        "reason": "The log typically provides the exact line or reason for failure, focusing troubleshooting efforts."
+      },
+      {
+        "step": 2,
+        "action": "Verify the agent's signer has sufficient access rights on the server, particularly for restricted operations.",
+        "reason": "Agents run with the rights of their signer, and insufficient rights are a common cause of silent or explicit failures."
+      },
+      {
+        "step": 3,
+        "action": "Check the server's Security document to confirm the signer is on the appropriate restricted or unrestricted agent list.",
+        "reason": "Server security settings can block agents from running certain operations even with a valid signer."
+      },
+      {
+        "step": 4,
+        "action": "Review the agent's code for runtime errors, such as referencing a document field that may not exist.",
+        "reason": "Code-level bugs are a frequent cause of agents failing partway through execution."
+      }
+    ],
+    "possible_solutions": [
+      "Re-sign the agent with an ID that has sufficient rights",
+      "Add the signer to the appropriate server agent security list",
+      "Fix the underlying code error causing the runtime failure",
+      "Adjust agent trigger settings if scheduling is the root cause"
+    ],
+    "prevention": [
+      "Test agents thoroughly in a non-production environment before deployment",
+      "Maintain proper signer ID management and renewal schedules",
+      "Document required server security settings for critical agents",
+      "Review agent logs periodically even when agents appear to be working"
+    ],
+    "keywords": ["notes agent failed to run", "domino agent error", "agent signer access rights", "agent log error notes"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-50 minutes",
+    "related_problems": ["NOTES-065", "NOTES-079"]
+  },
+  {
+    "id": "NOTES-065",
+    "category": "Lotus Notes",
+    "subcategory": "Application Design & Documents",
+    "problem": "Scheduled Agent Not Running",
+    "description": "An agent configured to run on a schedule, such as hourly or daily, does not execute at its expected time, leaving its intended automation unperformed.",
+    "symptoms": [
+      "Agent's scheduled actions never occur at the expected time",
+      "Agent log shows no recent execution entries",
+      "Agent manager statistics show the agent as disabled or not scheduled",
+      "Manually running the agent works fine, but the schedule does not trigger it"
+    ],
+    "possible_causes": [
+      "Agent Manager task is not running on the server",
+      "Agent's schedule setting was disabled or misconfigured",
+      "Server's agent execution time window excludes the agent's scheduled time",
+      "Database containing the agent is not enabled for scheduled agent execution on this server"
+    ],
+    "diagnostic_questions": [
+      "Is the Agent Manager (amgr) task currently running on the server?",
+      "What schedule is configured for the agent, and does it match expectations?",
+      "Are there server-level restrictions on agent execution time windows?",
+      "Is the database's server correctly set to allow scheduled agents to run?"
+    ],
+    "commands": [
+      {
+        "command": "tell amgr schedule",
+        "purpose": "View the current schedule of agents managed by the Agent Manager task",
+        "expected_result": "The agent appears in the schedule with the expected next run time",
+        "abnormal_result": "The agent is missing from the schedule, indicating a configuration or Agent Manager issue"
+      },
+      {
+        "command": "show tasks",
+        "purpose": "Confirm the Agent Manager (AMgr) task is currently running on the server",
+        "expected_result": "AMgr is listed as an active task",
+        "abnormal_result": "AMgr is not listed, meaning no scheduled agents will execute until it is restarted"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the Agent Manager task is running on the server using show tasks.",
+        "reason": "No scheduled agents can run at all if the Agent Manager task itself is not active."
+      },
+      {
+        "step": 2,
+        "action": "Check the agent's schedule settings in Designer to confirm they match the intended trigger time and frequency.",
+        "reason": "An incorrectly configured schedule will simply never trigger the agent as expected."
+      },
+      {
+        "step": 3,
+        "action": "Review the server document for any agent execution time restrictions that might exclude the scheduled time.",
+        "reason": "Some servers restrict scheduled agent execution to specific windows, which can silently prevent agents from running."
+      },
+      {
+        "step": 4,
+        "action": "Verify the database is hosted on a server enabled for running scheduled agents.",
+        "reason": "Some servers are configured to disallow scheduled agent execution entirely for performance or policy reasons."
+      }
+    ],
+    "possible_solutions": [
+      "Restart the Agent Manager task if it is not running",
+      "Correct the agent's schedule configuration",
+      "Adjust server-level agent execution time restrictions",
+      "Move the database to a server that supports scheduled agent execution"
+    ],
+    "prevention": [
+      "Monitor Agent Manager task status with automated alerts",
+      "Document expected agent schedules for reference during troubleshooting",
+      "Review server agent restrictions periodically",
+      "Test scheduled agents after any server migration or reconfiguration"
+    ],
+    "keywords": ["scheduled agent not running notes", "agent manager not triggering", "amgr task domino", "scheduled agent never fires"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-45 minutes",
+    "related_problems": ["NOTES-064", "NOTES-038"]
+  },
+  {
+    "id": "NOTES-066",
+    "category": "Lotus Notes",
+    "subcategory": "Application Design & Documents",
+    "problem": "Button Action Not Working",
+    "description": "A button on a form or view in a Notes application does not perform its intended action when clicked, either doing nothing, throwing an error, or performing the wrong action.",
+    "symptoms": [
+      "Clicking the button produces no visible effect",
+      "An error message appears when the button is clicked",
+      "Button performs an unexpected or outdated action",
+      "Button works for some users but not others"
+    ],
+    "possible_causes": [
+      "Button's underlying formula or script contains an error",
+      "User lacks sufficient access rights for the action the button performs",
+      "Local design cache is outdated, running an old version of the button code",
+      "Button relies on a field, agent, or other design element that has since changed or been removed"
+    ],
+    "diagnostic_questions": [
+      "Does the button fail for all users or only specific ones?",
+      "Is there an error message, and if so, what does it say exactly?",
+      "Was the button's code recently modified?",
+      "Does the affected user have appropriate ACL access for the intended action?"
+    ],
+    "commands": [
+      {
+        "command": "load design <databasename>.nsf",
+        "purpose": "Refresh the database design to ensure the button is running its current, intended code",
+        "expected_result": "Button behavior matches the current design after refresh",
+        "abnormal_result": "Button still fails after refresh, pointing to a genuine code or access rights issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact error message, if any, when the button is clicked.",
+        "reason": "Specific error text often points directly to the failing line of formula or script."
+      },
+      {
+        "step": 2,
+        "action": "Refresh the local design cache by closing and reopening the database.",
+        "reason": "Resolves cases where the client is running an outdated cached version of the button's code."
+      },
+      {
+        "step": 3,
+        "action": "Check the affected user's ACL access level against what the button's action requires.",
+        "reason": "Insufficient access rights will cause certain button actions, such as document creation or field updates, to silently fail."
+      },
+      {
+        "step": 4,
+        "action": "Open the button in Designer and review its formula or script for errors or outdated references.",
+        "reason": "Directly identifies bugs or broken references to other design elements that may have changed."
+      }
+    ],
+    "possible_solutions": [
+      "Fix the underlying formula or script error in the button",
+      "Adjust the user's ACL access level appropriately",
+      "Refresh local design caches for affected users",
+      "Update the button to reference current, valid design elements"
+    ],
+    "prevention": [
+      "Test button actions across different user access levels before deployment",
+      "Use version control and testing for design changes",
+      "Document required ACL levels for key application actions",
+      "Refresh design caches after significant application updates"
+    ],
+    "keywords": ["notes button not working", "button click no action notes", "button formula error lotus notes", "button script fails notes"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["NOTES-067", "NOTES-070"]
+  },
+  {
+    "id": "NOTES-067",
+    "category": "Lotus Notes",
+    "subcategory": "Application Design & Documents",
+    "problem": "Document Cannot Be Saved",
+    "description": "A user attempts to save a document in a Notes application, but the save fails, either silently, with an error message, or by reverting to the previous state after appearing to save.",
+    "symptoms": [
+      "Error message indicating the document could not be saved",
+      "Save appears to complete but changes are not actually persisted",
+      "Document reverts to its prior state after closing and reopening",
+      "Issue occurs consistently for one user or one specific document"
+    ],
+    "possible_causes": [
+      "User does not have sufficient ACL access (at least Author rights) to save the document",
+      "A validation formula on the form is silently blocking the save",
+      "The document is locked by another user or process",
+      "Insufficient disk space on the server hosting the database"
+    ],
+    "diagnostic_questions": [
+      "Does the user have at least Author access with Create/Edit rights in the database ACL?",
+      "Is there an error message, or does the save simply appear to have no effect?",
+      "Could a required field be failing validation without a clear error shown?",
+      "Is there sufficient free disk space on the server hosting this database?"
+    ],
+    "commands": [
+      {
+        "command": "File > Application > Access Control (Notes client, if administrator)",
+        "purpose": "Check the user's current access level in the database ACL",
+        "expected_result": "User has Author access or higher with appropriate create/edit rights",
+        "abnormal_result": "User has Reader access or lower, explaining why the save is blocked"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the database ACL to confirm the user has sufficient access to create or edit documents.",
+        "reason": "Insufficient ACL access is one of the most common causes of a document failing to save."
+      },
+      {
+        "step": 2,
+        "action": "Review the form for validation formulas that might be silently preventing the save.",
+        "reason": "A validation formula failing without a clear message can appear as if the save simply is not working."
+      },
+      {
+        "step": 3,
+        "action": "Check whether the document is currently locked by another user or session.",
+        "reason": "Document locking, if enabled, will prevent saves from other users while the lock is active."
+      },
+      {
+        "step": 4,
+        "action": "Verify sufficient free disk space on the server hosting the database.",
+        "reason": "A server with no free disk space cannot write new or updated documents to the database."
+      }
+    ],
+    "possible_solutions": [
+      "Adjust the user's ACL access level appropriately",
+      "Fix or clarify the validation formula blocking the save",
+      "Release the document lock held by another user or session",
+      "Free up disk space on the hosting server"
+    ],
+    "prevention": [
+      "Set ACL access levels appropriately based on user roles",
+      "Provide clear error messages for validation formula failures",
+      "Monitor server disk space proactively",
+      "Educate users on document locking behavior where enabled"
+    ],
+    "keywords": ["notes document cannot be saved", "save failed lotus notes", "document not saving error", "acl access save document notes"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-35 minutes",
+    "related_problems": ["NOTES-068", "NOTES-070"]
+  },
+  {
+    "id": "NOTES-068",
+    "category": "Lotus Notes",
+    "subcategory": "Application Design & Documents",
+    "problem": "Document Locked by Another User",
+    "description": "A user attempts to open or edit a document but is informed it is currently locked by another user, preventing edits even though the other user may no longer actually be working on it.",
+    "symptoms": [
+      "Error message stating the document is locked by another user",
+      "User can view but not edit the document",
+      "Lock persists even after the other user has closed the document or logged off",
+      "Multiple users report being unable to edit the same document over time"
+    ],
+    "possible_causes": [
+      "Document locking is enabled and another user genuinely has the document open for editing",
+      "A stale lock remains after the other user's session crashed or disconnected improperly",
+      "Document locking settings are misconfigured, causing locks to persist longer than intended",
+      "Replication conflict created an unexpected lock state"
+    ],
+    "diagnostic_questions": [
+      "Is document locking intentionally enabled for this application?",
+      "Is the user who allegedly holds the lock currently active, or did their session end abnormally?",
+      "How long has the lock been in place?",
+      "Does this happen with one specific document or across many documents in the database?"
+    ],
+    "commands": [
+      {
+        "command": "load design <databasename>.nsf",
+        "purpose": "Refresh the database design in case a locking-related design element needs updating (used alongside manual lock review)",
+        "expected_result": "No direct effect on locks, but confirms design is current before further troubleshooting",
+        "abnormal_result": "N/A - this step is primarily precautionary before manual lock investigation"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether the user holding the lock is still actively working on the document.",
+        "reason": "If they are genuinely editing, the lock is functioning as intended and should not be forcibly removed."
+      },
+      {
+        "step": 2,
+        "action": "Check how long the lock has been active and whether the locking user's session ended abnormally.",
+        "reason": "A stale lock from a crashed session is the most common cause of a lock persisting incorrectly."
+      },
+      {
+        "step": 3,
+        "action": "As an administrator, manually clear the document lock using administration tools if confirmed stale.",
+        "reason": "Removing a confirmed stale lock restores normal editing access without waiting for automatic expiration."
+      },
+      {
+        "step": 4,
+        "action": "Review the database's document locking configuration if this occurs frequently.",
+        "reason": "Frequent stale locks may indicate a configuration issue, such as too long a lock timeout setting."
+      }
+    ],
+    "possible_solutions": [
+      "Wait for the legitimate lock holder to finish and release it",
+      "Manually clear a confirmed stale lock as an administrator",
+      "Adjust document locking timeout settings if stale locks recur often",
+      "Disable document locking for the application if it is not actually needed"
+    ],
+    "prevention": [
+      "Set reasonable lock timeout values for locking-enabled applications",
+      "Encourage users to close documents properly rather than force-closing sessions",
+      "Only enable document locking where genuinely necessary",
+      "Monitor for recurring stale lock patterns"
+    ],
+    "keywords": ["document locked by another user notes", "stale document lock domino", "cannot edit document locked notes", "clear document lock notes"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": ["NOTES-067", "NOTES-030"]
+  },
+  {
+    "id": "NOTES-069",
+    "category": "Lotus Notes",
+    "subcategory": "Application Design & Documents",
+    "problem": "Computed Field Displaying Incorrect Value",
+    "description": "A computed field on a form shows an incorrect, outdated, or unexpected value rather than the result its formula should logically produce based on current document data.",
+    "symptoms": [
+      "Computed field shows a value that does not match its formula logic",
+      "Field value does not update when related fields change",
+      "Field shows blank or an error indicator instead of a computed value",
+      "Issue appears only on certain documents, not all"
+    ],
+    "possible_causes": [
+      "Field is set to compute only on document creation rather than recalculate on edit",
+      "Formula references a field that has been renamed, removed, or is empty",
+      "Local design cache is outdated, using a previous version of the formula",
+      "Circular or conflicting formula logic between multiple computed fields"
+    ],
+    "diagnostic_questions": [
+      "Is the field set to 'Computed', 'Computed for display', or 'Computed when composed'?",
+      "Does the formula reference any fields that might be missing or renamed?",
+      "Does refreshing the document or design resolve the incorrect value?",
+      "Are there other computed fields whose formulas might interact with this one unexpectedly?"
+    ],
+    "commands": [
+      {
+        "command": "load design <databasename>.nsf",
+        "purpose": "Refresh the database design to ensure the computed field is using its current formula",
+        "expected_result": "Field displays the correct computed value after refresh",
+        "abnormal_result": "Field still shows an incorrect value, pointing to a genuine formula logic issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the field's compute type, such as Computed, Computed for display, or Computed when composed.",
+        "reason": "The compute type determines when the formula runs, and a mismatch with expectations explains many apparent bugs."
+      },
+      {
+        "step": 2,
+        "action": "Review the field's formula for references to other fields that may be missing, renamed, or blank.",
+        "reason": "A formula referencing an invalid or empty field will often produce blank or incorrect results."
+      },
+      {
+        "step": 3,
+        "action": "Refresh the local design cache and reopen the affected document.",
+        "reason": "Resolves cases where the client is displaying results based on an outdated cached formula."
+      },
+      {
+        "step": 4,
+        "action": "Test the formula in isolation using Designer's formula debugging tools if available.",
+        "reason": "Helps pinpoint exactly where the formula logic diverges from the expected result."
+      }
+    ],
+    "possible_solutions": [
+      "Change the field's compute type to match the intended behavior",
+      "Fix formula references to renamed or missing fields",
+      "Refresh design caches for affected users",
+      "Resolve conflicting logic between interacting computed fields"
+    ],
+    "prevention": [
+      "Document field compute types and dependencies during design",
+      "Test formulas thoroughly after renaming or removing fields",
+      "Use consistent naming conventions to avoid broken references",
+      "Review computed field logic when making related design changes"
+    ],
+    "keywords": ["computed field wrong value notes", "field not updating lotus notes", "formula error computed field", "computed for display issue notes"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-061", "NOTES-070"]
+  },
+  {
+    "id": "NOTES-070",
+    "category": "Lotus Notes",
+    "subcategory": "Application Design & Documents",
+    "problem": "Validation Formula Preventing Save",
+    "description": "A document fails to save because a validation formula on the form determines that required conditions are not met, but the resulting error message is unclear or the condition itself may be incorrectly configured.",
+    "symptoms": [
+      "Error message referencing a validation failure when attempting to save",
+      "User cannot identify which field or condition is causing the validation to fail",
+      "Validation blocks save even though the document appears correctly filled out",
+      "Issue occurs consistently for specific documents or field combinations"
+    ],
+    "possible_causes": [
+      "Validation formula logic contains an error causing it to fail incorrectly",
+      "Required field referenced by the validation formula is blank or improperly formatted",
+      "Validation formula was recently changed and is stricter than intended",
+      "Hidden or computed fields involved in validation are not populating as expected"
+    ],
+    "diagnostic_questions": [
+      "What exact validation error message is displayed?",
+      "Which field or fields does the validation formula check?",
+      "Was the validation formula recently added or modified?",
+      "Does the issue occur only with certain data entered, or in all cases?"
+    ],
+    "commands": [
+      {
+        "command": "load design <databasename>.nsf",
+        "purpose": "Refresh the database design to ensure the form is using its current validation formula",
+        "expected_result": "Validation behaves as expected after refresh if the issue was cache-related",
+        "abnormal_result": "Validation still incorrectly blocks the save, indicating a genuine formula logic issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Note the exact validation error message and which field it references.",
+        "reason": "Pinpoints exactly which condition in the formula is failing, focusing further investigation."
+      },
+      {
+        "step": 2,
+        "action": "Open the form in Designer and review the validation formula logic for the referenced field.",
+        "reason": "Allows direct inspection of whether the logic itself is correct or overly strict."
+      },
+      {
+        "step": 3,
+        "action": "Test saving the document with different sample data to isolate the exact triggering condition.",
+        "reason": "Helps confirm whether the validation is working as intended but simply needs correct data, or is genuinely broken."
+      },
+      {
+        "step": 4,
+        "action": "Correct the validation formula logic if it is found to be inaccurate or overly restrictive.",
+        "reason": "Directly resolves the issue by aligning the validation with its intended business rule."
+      }
+    ],
+    "possible_solutions": [
+      "Correct the underlying validation formula logic",
+      "Ensure referenced fields are properly populated before save",
+      "Improve the validation error message for clarity",
+      "Refresh design caches if the issue was due to an outdated formula version"
+    ],
+    "prevention": [
+      "Write clear, specific error messages for validation formulas",
+      "Test validation formulas thoroughly with various data scenarios",
+      "Document the business rules behind each validation condition",
+      "Review validation logic when related fields are changed"
+    ],
+    "keywords": ["validation formula preventing save notes", "cannot save validation error", "form validation blocking save", "notes required field validation"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-067", "NOTES-069"]
+  },
+  {
+    "id": "NOTES-071",
+    "category": "Lotus Notes",
+    "subcategory": "Server Administration",
+    "problem": "Domino Server Service Stopped",
+    "description": "The Domino server service or process is not running on the host machine, making all databases, mail routing, and directory services on that server completely unavailable.",
+    "symptoms": [
+      "Users cannot connect to the server at all",
+      "Server does not respond to console commands or remote administration",
+      "Operating system service manager shows the Domino service as stopped",
+      "No server activity visible in logs since the stop occurred"
+    ],
+    "possible_causes": [
+      "Service was manually stopped for maintenance and not restarted",
+      "Server crashed due to an unhandled error or resource exhaustion",
+      "Operating system-level issue prevented the service from continuing to run",
+      "Scheduled maintenance or patching process stopped the service unexpectedly"
+    ],
+    "diagnostic_questions": [
+      "Was any planned maintenance or patching scheduled around the time the service stopped?",
+      "Does the operating system event log show any errors related to the Domino service?",
+      "Can the server be reached at the operating system level, such as via remote desktop or SSH?",
+      "Has this happened before, suggesting a recurring stability issue?"
+    ],
+    "commands": [
+      {
+        "command": "net start \"Lotus Domino Server\"",
+        "purpose": "Attempt to manually start the Domino server service on Windows",
+        "expected_result": "Service starts successfully and the server becomes reachable",
+        "abnormal_result": "Service fails to start, requiring review of the operating system and Domino logs for the underlying cause"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm at the operating system level whether the Domino service is stopped or crashed.",
+        "reason": "Establishes the exact current state before attempting any restart."
+      },
+      {
+        "step": 2,
+        "action": "Review operating system and Domino server logs for errors around the time the service stopped.",
+        "reason": "Log entries often reveal the specific cause, such as a crash, resource exhaustion, or manual stop."
+      },
+      {
+        "step": 3,
+        "action": "Attempt to manually start the Domino service.",
+        "reason": "Determines whether the service can start cleanly now that the immediate cause may have passed."
+      },
+      {
+        "step": 4,
+        "action": "If the service fails to start, investigate underlying operating system issues such as disk space, memory, or corrupted files.",
+        "reason": "A failure to start often points to a deeper system-level problem that must be resolved first."
+      }
+    ],
+    "possible_solutions": [
+      "Manually restart the Domino server service",
+      "Resolve underlying operating system issues preventing startup",
+      "Free up system resources if exhaustion caused the crash",
+      "Escalate to the server or infrastructure team for persistent instability"
+    ],
+    "prevention": [
+      "Set up service monitoring and automated alerts for the Domino service",
+      "Schedule and communicate planned maintenance clearly",
+      "Maintain adequate system resources on the server",
+      "Configure automatic service restart on failure where appropriate"
+    ],
+    "keywords": ["domino server service stopped", "domino server down", "server not responding notes", "restart domino service"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["NOTES-072", "NOTES-077"]
+  },
+  {
+    "id": "NOTES-072",
+    "category": "Lotus Notes",
+    "subcategory": "Server Administration",
+    "problem": "Domino Server Startup Failed",
+    "description": "An attempt to start the Domino server fails, with the process terminating shortly after launch or reporting a startup error before reaching a normal operating state.",
+    "symptoms": [
+      "Server process starts and then immediately terminates",
+      "Startup error message referencing a specific database, port, or configuration issue",
+      "Server console shows startup halting partway through initialization",
+      "Service remains in a stopped or failed state after each startup attempt"
+    ],
+    "possible_causes": [
+      "Corrupted or locked system database, such as names.nsf or log.nsf, preventing startup",
+      "Port conflict with another process using the same network port",
+      "Server ID file is missing, corrupted, or password-protected without the password available",
+      "NOTES.INI misconfiguration introduced by a recent manual edit"
+    ],
+    "diagnostic_questions": [
+      "What specific error message or log entry appears at the point startup fails?",
+      "Was any change made to NOTES.INI or system databases recently?",
+      "Is another process potentially using the same network port as Domino?",
+      "Is the server ID file present, accessible, and does its password (if any) match what is expected?"
+    ],
+    "commands": [
+      {
+        "command": "load fixup log.nsf",
+        "purpose": "Attempt to repair a corrupted log.nsf that may be preventing server startup",
+        "expected_result": "Fixup completes and the server can subsequently start normally",
+        "abnormal_result": "Fixup fails or the server still cannot start, pointing to a different underlying cause"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Review the exact startup error message or console output at the point of failure.",
+        "reason": "Startup failures typically report a specific reason, which directs the rest of the troubleshooting."
+      },
+      {
+        "step": 2,
+        "action": "Check for recent changes to NOTES.INI and review them for errors.",
+        "reason": "Manual configuration changes are a common and easily overlooked cause of startup failures."
+      },
+      {
+        "step": 3,
+        "action": "Verify no other process is using the same network ports required by Domino.",
+        "reason": "Port conflicts will prevent the server from binding and completing startup."
+      },
+      {
+        "step": 4,
+        "action": "Confirm the server ID file is present, valid, and its password is correctly configured if required.",
+        "reason": "A missing, corrupted, or inaccessible server ID will halt startup very early in the process."
+      },
+      {
+        "step": 5,
+        "action": "Run Fixup against critical system databases such as log.nsf if corruption is suspected.",
+        "reason": "Corrupted system databases required during initialization can prevent successful startup."
+      }
+    ],
+    "possible_solutions": [
+      "Correct NOTES.INI misconfiguration",
+      "Resolve port conflicts with other processes",
+      "Restore or reconfigure a valid server ID file",
+      "Repair corrupted system databases with Fixup"
+    ],
+    "prevention": [
+      "Back up NOTES.INI before making manual changes",
+      "Document and test configuration changes in a non-production environment first",
+      "Maintain secure, accessible backups of server ID files",
+      "Monitor for port conflicts when deploying new services on the same host"
+    ],
+    "keywords": ["domino server startup failed", "notes server will not start", "domino startup error console", "server id startup failure notes"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": ["NOTES-071", "NOTES-079"]
+  },
+  {
+    "id": "NOTES-073",
+    "category": "Lotus Notes",
+    "subcategory": "Server Administration",
+    "problem": "Domino Server High CPU Usage",
+    "description": "The Domino server consistently shows very high CPU utilization, causing slow response times for users and potentially triggering performance alerts, without a clear single cause immediately apparent.",
+    "symptoms": [
+      "Server CPU usage consistently at or near 100%",
+      "Users experience slow response times across mail and applications",
+      "Specific server tasks show unusually high processing activity",
+      "High CPU usage may be constant or occur in recurring spikes"
+    ],
+    "possible_causes": [
+      "A runaway or inefficient agent consuming excessive CPU",
+      "Full-text indexing or a large view rebuild running during peak hours",
+      "Excessive replication activity from too many concurrent replicas",
+      "A stuck or looping server task consuming CPU without completing"
+    ],
+    "diagnostic_questions": [
+      "Which specific server task or process is consuming the most CPU?",
+      "Does high usage correlate with a specific time of day or recurring scheduled task?",
+      "Have any new agents or applications been deployed recently?",
+      "Is the high usage constant, or does it spike and then subside?"
+    ],
+    "commands": [
+      {
+        "command": "show tasks",
+        "purpose": "List currently running server tasks to identify which one may be consuming excessive CPU",
+        "expected_result": "Tasks are shown with normal, expected activity levels",
+        "abnormal_result": "A specific task shows unusually long-running or repeated activity, pointing to the source of high CPU usage"
+      },
+      {
+        "command": "show stat platform.cpu.busypercent",
+        "purpose": "Display current CPU utilization statistics from the server console",
+        "expected_result": "CPU usage within normal operating range",
+        "abnormal_result": "CPU usage consistently very high, confirming the reported performance issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Use show tasks to identify which server task is most active during the high CPU period.",
+        "reason": "Isolates the specific process responsible rather than treating the server as a whole black box."
+      },
+      {
+        "step": 2,
+        "action": "Check if high CPU correlates with scheduled agents, indexing, or replication activity.",
+        "reason": "Many high CPU incidents are tied to identifiable scheduled processes rather than random spikes."
+      },
+      {
+        "step": 3,
+        "action": "Review recently deployed agents or applications for inefficient loops or excessive processing.",
+        "reason": "New or modified code is a common source of unexpected CPU consumption."
+      },
+      {
+        "step": 4,
+        "action": "Adjust scheduling of resource-intensive tasks, such as indexing or large agents, to off-peak hours.",
+        "reason": "Redistributing load away from peak usage times reduces user-facing impact even if total CPU work is unchanged."
+      }
+    ],
+    "possible_solutions": [
+      "Fix or disable an inefficient runaway agent",
+      "Reschedule resource-intensive tasks to off-peak hours",
+      "Reduce unnecessary concurrent replication activity",
+      "Add server resources if sustained legitimate load has grown"
+    ],
+    "prevention": [
+      "Monitor CPU usage trends and set proactive alerts",
+      "Review new agents for performance impact before production deployment",
+      "Schedule maintenance-heavy tasks during low-usage windows",
+      "Periodically review and optimize high-traffic applications"
+    ],
+    "keywords": ["domino server high cpu", "notes server slow cpu usage", "server performance cpu spike", "domino task consuming cpu"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": ["NOTES-074", "NOTES-030"]
+  },
+  {
+    "id": "NOTES-074",
+    "category": "Lotus Notes",
+    "subcategory": "Server Administration",
+    "problem": "Domino Server High Memory Usage",
+    "description": "The Domino server consumes an unusually high or steadily increasing amount of system memory, potentially leading to slowdowns, swapping, or eventual crashes if left unaddressed.",
+    "symptoms": [
+      "Server memory usage steadily climbs over time without leveling off",
+      "System begins swapping to disk, causing broader performance degradation",
+      "Server or specific tasks crash with out-of-memory related errors",
+      "Memory usage remains high even during periods of low user activity"
+    ],
+    "possible_causes": [
+      "A memory leak in a specific server task, add-in, or agent",
+      "Excessive number of concurrent user sessions or open databases",
+      "NSD (Notes Shared Database) or cache settings configured too large for available hardware",
+      "A stuck process failing to release memory after completing its work"
+    ],
+    "diagnostic_questions": [
+      "Does memory usage climb steadily over time, or spike suddenly?",
+      "Is the increase tied to a specific task, add-in, or time of day?",
+      "How does current memory usage compare to the server's total available memory?",
+      "Have any third-party add-ins been recently installed or updated?"
+    ],
+    "commands": [
+      {
+        "command": "show stat platform.system.MemFree",
+        "purpose": "Check current free memory statistics from the Domino server console",
+        "expected_result": "Adequate free memory remains available for normal operation",
+        "abnormal_result": "Free memory is critically low, confirming the reported high usage issue"
+      },
+      {
+        "command": "show tasks",
+        "purpose": "Identify which server tasks are currently running and potentially consuming excessive memory",
+        "expected_result": "Tasks show normal, expected memory footprints",
+        "abnormal_result": "A specific task appears to be consuming disproportionate resources, warranting further investigation"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Monitor memory usage over time to determine if it climbs steadily or spikes suddenly.",
+        "reason": "A steady climb suggests a memory leak, while sudden spikes suggest a specific triggering event or task."
+      },
+      {
+        "step": 2,
+        "action": "Identify any recently installed or updated add-ins or agents that coincide with the memory increase.",
+        "reason": "Third-party or custom code is a common source of memory leaks not present in the base Domino server."
+      },
+      {
+        "step": 3,
+        "action": "Restart the specific task or add-in suspected of leaking memory, if it can be isolated.",
+        "reason": "A targeted restart can free leaked memory without requiring a full server restart, minimizing disruption."
+      },
+      {
+        "step": 4,
+        "action": "If the cause cannot be isolated, schedule a full server restart to clear accumulated memory usage.",
+        "reason": "A full restart provides immediate relief while further root-cause investigation continues."
+      }
+    ],
+    "possible_solutions": [
+      "Restart the specific leaking task, add-in, or agent",
+      "Update or remove a problematic third-party add-in",
+      "Schedule regular server restarts if a root cause cannot be immediately resolved",
+      "Increase server memory if legitimate load has genuinely grown"
+    ],
+    "prevention": [
+      "Monitor memory usage trends with proactive alerting",
+      "Test third-party add-ins for memory stability before production use",
+      "Schedule periodic preventive server restarts for known leak-prone environments",
+      "Keep server software and add-ins updated to current stable versions"
+    ],
+    "keywords": ["domino server high memory usage", "notes server memory leak", "server memory climbing domino", "domino out of memory error"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": ["NOTES-073", "NOTES-075"]
+  },
+  {
+    "id": "NOTES-075",
+    "category": "Lotus Notes",
+    "subcategory": "Server Administration",
+    "problem": "Domino Server Disk Full",
+    "description": "The disk volume hosting the Domino server's data directory has run out of free space, preventing databases from growing, mail from routing, and potentially causing the server to become unstable.",
+    "symptoms": [
+      "Error messages referencing insufficient disk space",
+      "Mail routing halts and databases fail to accept new documents",
+      "Server console shows warnings about low or no free disk space",
+      "Server may become unresponsive or crash if the condition is severe"
+    ],
+    "possible_causes": [
+      "Transaction logs have grown very large without being archived or purged",
+      "Large mail files or databases have not been archived or cleaned up",
+      "Log.nsf or other system databases have grown unusually large",
+      "Backup or temporary files were not cleaned up after a previous maintenance operation"
+    ],
+    "diagnostic_questions": [
+      "How much free space remains on the affected volume?",
+      "Are transaction logs configured to archive or purge automatically?",
+      "Are there any unusually large databases or log files that could be cleaned up or moved?",
+      "Was a backup or maintenance operation recently run that may have left temporary files behind?"
+    ],
+    "commands": [
+      {
+        "command": "show disk",
+        "purpose": "Display current disk space usage for volumes used by the Domino server",
+        "expected_result": "Adequate free space remains on all relevant volumes",
+        "abnormal_result": "One or more volumes show critically low or zero free space, confirming the disk full condition"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check current free disk space on the volume hosting the Domino data directory.",
+        "reason": "Confirms the severity of the issue and which specific volume is affected."
+      },
+      {
+        "step": 2,
+        "action": "Identify the largest files and databases consuming space, including transaction logs.",
+        "reason": "Pinpoints where space can be most effectively reclaimed."
+      },
+      {
+        "step": 3,
+        "action": "Archive or purge old transaction logs according to the server's backup and logging configuration.",
+        "reason": "Transaction logs are a common and often overlooked source of disk space consumption."
+      },
+      {
+        "step": 4,
+        "action": "Move or delete unnecessary large files, backups, or temporary data no longer needed.",
+        "reason": "Directly frees space to restore normal server operation."
+      },
+      {
+        "step": 5,
+        "action": "Once space is freed, verify mail routing and database operations have resumed normally.",
+        "reason": "Confirms the underlying disk space issue was indeed the root cause of the reported symptoms."
+      }
+    ],
+    "possible_solutions": [
+      "Archive or purge old transaction logs",
+      "Remove unnecessary temporary or backup files",
+      "Archive large mail files and databases",
+      "Add additional disk capacity if space needs have genuinely grown"
+    ],
+    "prevention": [
+      "Monitor disk space with proactive alerts at multiple thresholds",
+      "Configure automatic transaction log archiving and purging",
+      "Schedule regular archiving of large mail files and databases",
+      "Clean up temporary and backup files as part of routine maintenance"
+    ],
+    "keywords": ["domino server disk full", "notes server out of disk space", "transaction log disk space domino", "server disk space warning notes"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": ["NOTES-076", "NOTES-039"]
+  },
+  {
+    "id": "NOTES-076",
+    "category": "Lotus Notes",
+    "subcategory": "Server Administration",
+    "problem": "Domino Transaction Logging Error",
+    "description": "The Domino server's transaction logging system reports an error, such as being unable to write to the log, a corrupted log file, or logging being disabled unexpectedly, affecting database recovery capability.",
+    "symptoms": [
+      "Server console shows errors referencing transaction logging",
+      "Databases using transaction logging fail to open or recover properly after a crash",
+      "Logging status shows as disabled or in an error state",
+      "Backup processes relying on transaction logs report failures"
+    ],
+    "possible_causes": [
+      "Transaction log volume has run out of disk space",
+      "Log files have become corrupted due to improper shutdown or disk error",
+      "Transaction logging configuration was changed or disabled unintentionally",
+      "Underlying disk or file system issue affecting the log volume"
+    ],
+    "diagnostic_questions": [
+      "What specific error message appears related to transaction logging?",
+      "Is there sufficient free disk space on the volume hosting transaction logs?",
+      "Was the server recently shut down improperly or did it crash?",
+      "Has the transaction logging configuration been reviewed or changed recently?"
+    ],
+    "commands": [
+      {
+        "command": "show logs",
+        "purpose": "Display current transaction logging status and configuration from the server console",
+        "expected_result": "Logging shows as enabled and functioning normally",
+        "abnormal_result": "Logging shows errors, disabled status, or space warnings, confirming the reported issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the transaction logging status and any specific error using show logs on the server console.",
+        "reason": "Provides the current state and specific error details needed to guide further troubleshooting."
+      },
+      {
+        "step": 2,
+        "action": "Verify sufficient free disk space on the volume hosting the transaction logs.",
+        "reason": "Insufficient space is one of the most common causes of transaction logging errors."
+      },
+      {
+        "step": 3,
+        "action": "If log corruption is suspected, follow Domino's documented process for rebuilding or archiving the log to a fresh state.",
+        "reason": "Corrupted logs generally require a controlled reset rather than attempting to repair them in place."
+      },
+      {
+        "step": 4,
+        "action": "Confirm transaction logging configuration settings match the intended setup for the server.",
+        "reason": "Verifies that logging has not been unintentionally disabled or misconfigured."
+      }
+    ],
+    "possible_solutions": [
+      "Free up disk space on the transaction log volume",
+      "Rebuild or reset a corrupted transaction log following Domino's documented process",
+      "Restore correct transaction logging configuration settings",
+      "Address underlying disk or file system issues affecting the log volume"
+    ],
+    "prevention": [
+      "Monitor transaction log disk space with proactive alerts",
+      "Ensure clean server shutdowns whenever possible",
+      "Review transaction logging configuration after any major server change",
+      "Maintain healthy disk infrastructure for log volumes"
+    ],
+    "keywords": ["domino transaction logging error", "transaction log corrupted domino", "database recovery logging error", "domino logging disabled"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": ["NOTES-075", "NOTES-040"]
+  },
+  {
+    "id": "NOTES-077",
+    "category": "Lotus Notes",
+    "subcategory": "Server Administration",
+    "problem": "Server Console Not Responding",
+    "description": "The Domino server console, used by administrators to enter commands and monitor server activity, becomes unresponsive, failing to accept new commands or display current output.",
+    "symptoms": [
+      "Console window is open but does not respond to typed commands",
+      "No new log output appears in the console despite ongoing server activity",
+      "Remote console access also fails to respond",
+      "Server may still be processing user requests despite the console being unresponsive"
+    ],
+    "possible_causes": [
+      "A specific server task has hung and is blocking console processing",
+      "Server is under extremely high load, delaying console responsiveness",
+      "Console log file has grown extremely large, slowing display and input processing",
+      "Underlying operating system resource exhaustion affecting the console process"
+    ],
+    "diagnostic_questions": [
+      "Are users still able to access mail and applications despite the console being unresponsive?",
+      "Has any specific administrative command been entered just before the console became unresponsive?",
+      "How large has the console log file grown, and when was it last cleared or rotated?",
+      "Are there signs of high CPU or memory usage on the server at the operating system level?"
+    ],
+    "commands": [
+      {
+        "command": "show tasks",
+        "purpose": "Attempt to list running tasks, which may still succeed even if other console commands appear unresponsive",
+        "expected_result": "Task list displays normally, indicating the console can still process some commands",
+        "abnormal_result": "No response at all, confirming a more severe console or server hang"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether users can still access mail and applications despite the console appearing unresponsive.",
+        "reason": "Determines whether this is purely a console display issue or indicates a broader server hang."
+      },
+      {
+        "step": 2,
+        "action": "Attempt a simple command such as show tasks to see if the console responds at all.",
+        "reason": "Distinguishes between a fully hung console and one that is simply slow or partially responsive."
+      },
+      {
+        "step": 3,
+        "action": "Check operating system-level resource usage (CPU, memory) on the server.",
+        "reason": "Severe resource exhaustion at the OS level can make the console appear frozen even if the server process is technically alive."
+      },
+      {
+        "step": 4,
+        "action": "If the console remains fully unresponsive and users are also affected, plan a controlled server restart.",
+        "reason": "A restart is often necessary to recover from a genuinely hung server process when other remedies fail."
+      }
+    ],
+    "possible_solutions": [
+      "Wait for a temporary high-load condition to subside if users are unaffected",
+      "Clear or rotate an oversized console log file",
+      "Restart the specific hung task if it can be identified and safely stopped",
+      "Perform a controlled server restart if the hang is severe and widespread"
+    ],
+    "prevention": [
+      "Monitor console responsiveness alongside other server health metrics",
+      "Configure console log rotation to prevent excessive file growth",
+      "Investigate recurring console hangs for a specific root cause task",
+      "Maintain adequate server resources to avoid load-related console delays"
+    ],
+    "keywords": ["domino console not responding", "server console frozen notes", "console hang domino server", "unresponsive server console"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": ["NOTES-071", "NOTES-078"]
+  },
+  {
+    "id": "NOTES-078",
+    "category": "Lotus Notes",
+    "subcategory": "Server Administration",
+    "problem": "Server Task Crashed",
+    "description": "A specific Domino server task, such as the Router, Agent Manager, or a database task, crashes unexpectedly, terminating its activity and potentially generating a crash report (NSD) on the server.",
+    "symptoms": [
+      "A specific task is missing from the active task list after previously running normally",
+      "Server generates a crash diagnostic file (NSD) around the time of the failure",
+      "Functionality dependent on the crashed task stops working, such as mail routing or agent execution",
+      "Server console log shows a panic or termination message referencing the specific task"
+    ],
+    "possible_causes": [
+      "A bug in the specific task triggered by unusual data or a rare edge case",
+      "Resource exhaustion causing the task to crash under load",
+      "Corruption in a database the task was actively processing",
+      "Incompatibility introduced by a recent server patch or third-party add-in"
+    ],
+    "diagnostic_questions": [
+      "Which specific task crashed, and was an NSD crash file generated?",
+      "Was the task processing any unusual or particularly large data at the time of the crash?",
+      "Has this specific task crashed before, suggesting a recurring issue?",
+      "Was any patch, update, or add-in recently installed before the crash occurred?"
+    ],
+    "commands": [
+      {
+        "command": "load <taskname>",
+        "purpose": "Manually restart the specific crashed task from the server console",
+        "expected_result": "Task restarts successfully and resumes normal operation",
+        "abnormal_result": "Task fails to restart or crashes again immediately, indicating a persistent underlying issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Identify the specific task that crashed and check whether an NSD crash file was generated.",
+        "reason": "The NSD file contains detailed diagnostic information useful for identifying the root cause."
+      },
+      {
+        "step": 2,
+        "action": "Review the server console log around the time of the crash for related error messages.",
+        "reason": "Log context often reveals what the task was doing immediately before it failed."
+      },
+      {
+        "step": 3,
+        "action": "Attempt to manually restart the crashed task.",
+        "reason": "Restores functionality quickly while further root-cause investigation continues in parallel."
+      },
+      {
+        "step": 4,
+        "action": "If the task crashes repeatedly, review recent patches or add-ins for known compatibility issues.",
+        "reason": "Recurring crashes often point to a specific software change rather than a one-time random event."
+      }
+    ],
+    "possible_solutions": [
+      "Restart the crashed task manually",
+      "Apply a vendor patch if a known bug is identified via the NSD report",
+      "Remove or update an incompatible add-in causing repeated crashes",
+      "Escalate to support with the NSD file if the cause cannot be determined internally"
+    ],
+    "prevention": [
+      "Monitor for and promptly review any NSD crash files generated",
+      "Test patches and add-ins in a staging environment before production deployment",
+      "Keep the server appropriately resourced to avoid load-related crashes",
+      "Maintain a record of recurring task crashes for pattern identification"
+    ],
+    "keywords": ["domino server task crashed", "nsd crash file domino", "task terminated notes server", "domino server panic log"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-50 minutes",
+    "related_problems": ["NOTES-077", "NOTES-071"]
+  },
+  {
+    "id": "NOTES-079",
+    "category": "Lotus Notes",
+    "subcategory": "Server Administration",
+    "problem": "Server ID Expired",
+    "description": "The Domino server's ID file has passed its expiration date, causing the server to fail authentication, refuse connections, or be unable to start or communicate with other servers.",
+    "symptoms": [
+      "Error message referencing an expired ID during server startup or connection attempts",
+      "Server-to-server communication, such as replication or mail routing, fails with authentication errors",
+      "Administrators cannot authenticate to the server using the expired ID",
+      "Client connections to the server are rejected"
+    ],
+    "possible_causes": [
+      "The server ID's certificate expiration date was reached without renewal",
+      "Certificate renewal process was not completed or scheduled in advance",
+      "ID recertification was attempted but not properly applied to the running server",
+      "Clock or date misconfiguration on the server causing a false expiration reading"
+    ],
+    "diagnostic_questions": [
+      "What is the exact expiration date shown for the server ID, and does it match the current date?",
+      "Was a certificate renewal process previously scheduled or attempted for this server?",
+      "Is the server's system clock and date set correctly?",
+      "Does this affect only this server, or multiple servers under the same certifier?"
+    ],
+    "commands": [
+      {
+        "command": "load certtool",
+        "purpose": "Launch the certificate tool on the server to review and manage ID expiration and recertification",
+        "expected_result": "Tool displays current certificate status and allows recertification",
+        "abnormal_result": "Tool confirms the ID has expired and requires immediate recertification"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the server's system date and time are set correctly.",
+        "reason": "An incorrect system clock can cause a valid ID to appear expired incorrectly."
+      },
+      {
+        "step": 2,
+        "action": "Verify the actual expiration date of the server ID using administration tools.",
+        "reason": "Confirms whether the ID has genuinely expired or the issue lies elsewhere."
+      },
+      {
+        "step": 3,
+        "action": "Recertify the server ID using the appropriate certifier ID or Certificate Authority process.",
+        "reason": "Recertification extends the ID's validity and is the standard resolution for an expired server ID."
+      },
+      {
+        "step": 4,
+        "action": "Restart the Domino server after recertification to ensure the updated ID is fully in effect.",
+        "reason": "Some authentication states are only refreshed after a server restart following recertification."
+      }
+    ],
+    "possible_solutions": [
+      "Recertify the server ID using the organization's certifier",
+      "Correct the server's system date if it was the cause of a false expiration reading",
+      "Restart the server after applying the renewed certificate",
+      "Review and fix the certificate renewal process to prevent recurrence"
+    ],
+    "prevention": [
+      "Set up alerts well in advance of ID and certificate expiration dates",
+      "Maintain a documented schedule for periodic ID recertification",
+      "Automate certificate renewal processes where supported",
+      "Regularly audit expiration dates for all server and user IDs"
+    ],
+    "keywords": ["domino server id expired", "server certificate expired notes", "recertify server id domino", "server authentication expired error"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-45 minutes",
+    "related_problems": ["NOTES-080", "NOTES-072"]
+  },
+  {
+    "id": "NOTES-080",
+    "category": "Lotus Notes",
+    "subcategory": "Server Administration",
+    "problem": "Server Certificate Expired",
+    "description": "The certificate used by the Domino server for secure communications, such as SSL/TLS for web or internet protocols, has expired, causing secure connections to fail or display warnings.",
+    "symptoms": [
+      "Browsers or clients show a certificate expired warning when connecting securely",
+      "Secure protocols such as HTTPS or secure LDAP fail to establish connections",
+      "Internal applications relying on server certificates report trust or validation errors",
+      "Certificate details show an expiration date in the past when reviewed"
+    ],
+    "possible_causes": [
+      "The SSL/TLS certificate's validity period simply expired without renewal",
+      "Certificate renewal was completed but not properly installed or activated on the server",
+      "Certificate Authority chain issue causing validation failure alongside expiration",
+      "Server was not monitored for upcoming certificate expiration"
+    ],
+    "diagnostic_questions": [
+      "What is the exact expiration date of the certificate currently in use?",
+      "Was a renewed certificate already obtained but perhaps not yet installed?",
+      "Which specific services or protocols are affected by this expired certificate?",
+      "Is there a documented process for certificate renewal that was missed?"
+    ],
+    "commands": [
+      {
+        "command": "load certtool",
+        "purpose": "Launch the Domino certificate tool to review current certificate status and manage renewal",
+        "expected_result": "Tool displays certificate details and allows import of a renewed certificate",
+        "abnormal_result": "Tool confirms the certificate has expired and requires immediate replacement"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the exact expiration date and which services are affected by the expired certificate.",
+        "reason": "Establishes the scope and urgency of the issue before proceeding with renewal."
+      },
+      {
+        "step": 2,
+        "action": "Obtain or locate a renewed certificate from the appropriate Certificate Authority.",
+        "reason": "A valid renewed certificate is required to replace the expired one and restore secure connections."
+      },
+      {
+        "step": 3,
+        "action": "Install and activate the renewed certificate on the Domino server using the certificate tool.",
+        "reason": "Properly installing the new certificate resolves the expiration and restores trusted secure connections."
+      },
+      {
+        "step": 4,
+        "action": "Restart affected services, such as the HTTP task, to ensure the new certificate is fully in use.",
+        "reason": "Some services cache certificate information and require a restart to recognize the update."
+      }
+    ],
+    "possible_solutions": [
+      "Renew and install a new SSL/TLS certificate",
+      "Restart affected server tasks after certificate installation",
+      "Correct the Certificate Authority chain if validation issues persist",
+      "Implement expiration monitoring to prevent recurrence"
+    ],
+    "prevention": [
+      "Set up automated alerts well before certificate expiration dates",
+      "Maintain a documented certificate renewal schedule and process",
+      "Use certificate management tools that support automatic renewal where possible",
+      "Regularly audit all server certificates across the environment"
+    ],
+    "keywords": ["domino server certificate expired", "ssl certificate expired notes server", "https certificate warning domino", "renew server certificate domino"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-45 minutes",
+    "related_problems": ["NOTES-079", "NOTES-072"]
+  },
+  {
+    "id": "NOTES-081",
+    "category": "Lotus Notes",
+    "subcategory": "Mail Addressing & Directory",
+    "problem": "Ambiguous User Name",
+    "description": "When addressing mail or looking up a name, Notes reports that the name is ambiguous, presenting multiple matching entries and preventing automatic resolution to a single recipient.",
+    "symptoms": [
+      "Error or prompt indicating the name is ambiguous when addressing mail",
+      "Multiple similar entries appear in a name resolution dialog",
+      "Mail fails to send until the correct specific recipient is manually selected",
+      "Issue occurs consistently for names shared by multiple users"
+    ],
+    "possible_causes": [
+      "Multiple users share the same or very similar display name",
+      "Duplicate Person documents exist for the same individual",
+      "Directory contains both an internal user and an external contact with matching names",
+      "Multiple directories (via Directory Assistance) return overlapping name matches"
+    ],
+    "diagnostic_questions": [
+      "How many matching entries appear when the ambiguous name prompt is shown?",
+      "Are the matches genuinely different people, or duplicate entries for the same person?",
+      "Is the ambiguity occurring within a single directory or across multiple directories via Directory Assistance?",
+      "Has this name always been ambiguous, or did it start recently after a directory change?"
+    ],
+    "commands": [
+      {
+        "command": "People (Domino Directory search)",
+        "purpose": "Search the Domino Directory directly for all entries matching the ambiguous name to review details",
+        "expected_result": "Search reveals distinct, legitimate entries or duplicate entries needing cleanup",
+        "abnormal_result": "Search reveals unexpected duplicate Person documents for the same individual"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Review all matching entries shown in the ambiguous name dialog for their distinguishing details, such as department or email address.",
+        "reason": "Determines whether the matches are legitimately different people or accidental duplicates."
+      },
+      {
+        "step": 2,
+        "action": "Search the Domino Directory directly for the name to confirm how many Person documents exist.",
+        "reason": "Provides a clearer view than the abbreviated ambiguous name prompt, confirming duplicate entries if present."
+      },
+      {
+        "step": 3,
+        "action": "If duplicate Person documents are found for the same individual, remove or merge the incorrect one.",
+        "reason": "Eliminates the root cause of the ambiguity going forward."
+      },
+      {
+        "step": 4,
+        "action": "If the matches are legitimately different people, advise users to select the correct one carefully or use unique identifiers like email address when addressing mail.",
+        "reason": "Provides a practical workaround when the ambiguity reflects a genuine naming coincidence rather than an error."
+      }
+    ],
+    "possible_solutions": [
+      "Remove or merge duplicate Person documents",
+      "Advise users to select the correct match carefully when genuinely ambiguous",
+      "Encourage use of full email addresses for addressing when names conflict",
+      "Review Directory Assistance configuration if cross-directory duplicates are the cause"
+    ],
+    "prevention": [
+      "Establish a process to check for duplicate names before creating new Person documents",
+      "Periodically audit the directory for duplicate or near-duplicate entries",
+      "Use unique display name conventions where naming conflicts are common",
+      "Review Directory Assistance configuration for unintended overlaps"
+    ],
+    "keywords": ["ambiguous name notes", "ambiguous user name lotus notes", "multiple name matches domino", "duplicate person document ambiguous"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["NOTES-087", "NOTES-082"]
+  },
+  {
+    "id": "NOTES-082",
+    "category": "Lotus Notes",
+    "subcategory": "Mail Addressing & Directory",
+    "problem": "Recipient Not Found",
+    "description": "When addressing mail, Notes cannot find a match for the intended recipient's name, showing an error or leaving the name unresolved (typically underlined in red) instead of resolving it to a valid address.",
+    "symptoms": [
+      "Recipient name remains underlined in red after addressing an email",
+      "Error message stating the recipient could not be found when sending",
+      "Type-ahead does not suggest the expected recipient while typing",
+      "Recipient exists but under a different name format than expected"
+    ],
+    "possible_causes": [
+      "Recipient's Person document does not exist or has not replicated to this server yet",
+      "User is searching only the local address book, which is out of date",
+      "Recipient's actual name differs from what is being typed, such as a nickname or alternate name",
+      "Directory Assistance is not properly configured to search a secondary directory containing the recipient"
+    ],
+    "diagnostic_questions": [
+      "Is the recipient definitely a valid user, and do they exist in the Domino Directory?",
+      "Has the local address book (names.nsf) been recently refreshed or replicated?",
+      "Could the recipient's actual name differ from what is being entered?",
+      "Is Directory Assistance configured if the recipient is expected to come from another directory?"
+    ],
+    "commands": [
+      {
+        "command": "File > Replication > Replicate Now (Notes client)",
+        "purpose": "Manually replicate the local address book to pick up any recent directory changes",
+        "expected_result": "Local address book updates and the recipient becomes resolvable",
+        "abnormal_result": "Recipient still cannot be found after replication, indicating a deeper directory or configuration issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the recipient exists as a valid entry in the Domino Directory.",
+        "reason": "Establishes whether the issue is a lookup problem or the recipient genuinely does not have an account."
+      },
+      {
+        "step": 2,
+        "action": "Replicate the user's local address book to ensure it has the latest directory data.",
+        "reason": "An outdated local address book is a common and easily resolved cause of failed name resolution."
+      },
+      {
+        "step": 3,
+        "action": "Try searching for the recipient using an alternate name format, such as first name only or email address.",
+        "reason": "Helps rule out simple naming mismatches rather than a genuine directory issue."
+      },
+      {
+        "step": 4,
+        "action": "Check Directory Assistance configuration if the recipient is expected to come from a secondary directory.",
+        "reason": "Misconfigured Directory Assistance will prevent valid recipients in another directory from being found."
+      }
+    ],
+    "possible_solutions": [
+      "Replicate the local address book to get current directory data",
+      "Use an alternate name format or the recipient's email address directly",
+      "Correct Directory Assistance configuration for secondary directories",
+      "Create the missing Person document if the recipient genuinely lacks one"
+    ],
+    "prevention": [
+      "Schedule regular local address book replication",
+      "Train users to use type-ahead and verify recipients before sending",
+      "Maintain accurate and complete Directory Assistance configuration",
+      "Ensure new users are fully registered before expecting others to mail them"
+    ],
+    "keywords": ["recipient not found notes", "name not resolved lotus notes", "cannot find recipient email", "type ahead not finding user notes"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["NOTES-083", "NOTES-084"]
+  },
+  {
+    "id": "NOTES-083",
+    "category": "Lotus Notes",
+    "subcategory": "Mail Addressing & Directory",
+    "problem": "Internet Address Not Resolving",
+    "description": "Mail addressed to an external internet email address fails to resolve or send correctly, with Notes either failing to recognize it as a valid address or the message bouncing after sending.",
+    "symptoms": [
+      "Internet email address is not recognized as valid when addressing mail",
+      "Message bounces back with a delivery failure notice after sending",
+      "Address shows correctly formatted but is still flagged as unresolved",
+      "Issue affects only certain domains or address formats"
+    ],
+    "possible_causes": [
+      "Typo or invalid formatting in the internet address itself",
+      "Server's DNS configuration cannot resolve the recipient's domain",
+      "Outbound internet mail routing is misconfigured on the Domino server",
+      "Recipient's mail server is rejecting messages due to spam filtering or blacklisting"
+    ],
+    "diagnostic_questions": [
+      "Is the internet address correctly formatted with no typos?",
+      "Does the bounce message, if any, indicate a specific reason for failure?",
+      "Can the Domino server successfully resolve DNS for the recipient's domain?",
+      "Does this affect all internet addresses, or only specific domains?"
+    ],
+    "commands": [
+      {
+        "command": "nslookup <recipient domain>",
+        "purpose": "Verify that the Domino server can resolve DNS for the recipient's email domain",
+        "expected_result": "DNS resolves successfully to valid mail server records",
+        "abnormal_result": "DNS resolution fails, indicating a DNS configuration issue affecting outbound mail"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Double-check the internet address for typos or formatting errors.",
+        "reason": "Simple address errors are a common and easily overlooked cause of resolution failures."
+      },
+      {
+        "step": 2,
+        "action": "Review any bounce-back message for a specific delivery failure reason.",
+        "reason": "Bounce messages often clearly state whether the issue is DNS, routing, or recipient-side rejection."
+      },
+      {
+        "step": 3,
+        "action": "Test DNS resolution for the recipient's domain from the Domino server.",
+        "reason": "Confirms whether the server can locate the recipient's mail servers at all."
+      },
+      {
+        "step": 4,
+        "action": "Check the Domino server's outbound internet mail routing (SMTP) configuration.",
+        "reason": "Misconfigured outbound routing can prevent otherwise valid internet addresses from being processed correctly."
+      }
+    ],
+    "possible_solutions": [
+      "Correct typos or formatting in the internet address",
+      "Resolve DNS configuration issues on the server",
+      "Fix outbound SMTP routing configuration",
+      "Work with the recipient's mail administrator if their server is rejecting messages"
+    ],
+    "prevention": [
+      "Encourage careful address verification before sending",
+      "Monitor DNS health for outbound mail servers",
+      "Regularly test outbound internet mail routing",
+      "Maintain good sender reputation to avoid recipient-side rejections"
+    ],
+    "keywords": ["internet address not resolving notes", "external email not sending domino", "smtp routing error notes", "email bounce internet address"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-082", "NOTES-036"]
+  },
+  {
+    "id": "NOTES-084",
+    "category": "Lotus Notes",
+    "subcategory": "Mail Addressing & Directory",
+    "problem": "Local Address Book Out of Date",
+    "description": "A user's local replica of the address book (names.nsf) has not synchronized recent changes from the server, causing outdated names, missing new users, or incorrect information when addressing mail.",
+    "symptoms": [
+      "Recently added users do not appear in local lookups",
+      "Recently updated information, such as a changed mail server, does not reflect locally",
+      "Users no longer with the organization still appear as valid recipients locally",
+      "Type-ahead suggests outdated or incorrect information"
+    ],
+    "possible_causes": [
+      "Local replication schedule has not run recently or has failed silently",
+      "Replication is disabled or misconfigured for the local address book",
+      "User has been working offline or disconnected for an extended period",
+      "Local replica has a stuck or failed replication conflict"
+    ],
+    "diagnostic_questions": [
+      "When was the local address book last successfully replicated?",
+      "Is the user's Notes client configured for scheduled replication, and is it functioning?",
+      "Has the user been working offline or away from the network for an extended time?",
+      "Are there any replication error messages in the user's client replication history?"
+    ],
+    "commands": [
+      {
+        "command": "File > Replication > Replicate Now (Notes client)",
+        "purpose": "Manually force replication of the local address book with the server",
+        "expected_result": "Replication completes and the local address book reflects current server data",
+        "abnormal_result": "Replication fails or reports errors, indicating a deeper connectivity or configuration issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the replication history for the local address book to see when it last succeeded.",
+        "reason": "Establishes how far out of date the local copy actually is and whether replication has been failing."
+      },
+      {
+        "step": 2,
+        "action": "Manually trigger replication using File > Replication > Replicate Now.",
+        "reason": "Provides an immediate update and reveals any errors preventing normal scheduled replication."
+      },
+      {
+        "step": 3,
+        "action": "Review the client's scheduled replication settings to confirm the address book is included and enabled.",
+        "reason": "A misconfigured or disabled replication schedule will cause the local copy to fall permanently behind."
+      },
+      {
+        "step": 4,
+        "action": "Resolve any reported replication errors, such as connectivity or access issues, found during manual replication.",
+        "reason": "Addressing the underlying error ensures future scheduled replications succeed as well."
+      }
+    ],
+    "possible_solutions": [
+      "Manually replicate the local address book",
+      "Correct scheduled replication settings to include the address book",
+      "Resolve underlying connectivity issues preventing replication",
+      "Recreate the local replica if persistent replication errors cannot be resolved"
+    ],
+    "prevention": [
+      "Ensure scheduled replication is properly configured for all users",
+      "Encourage regular network connectivity for laptop and remote users",
+      "Monitor for replication failures across the user base",
+      "Educate users on manually replicating before extended offline periods"
+    ],
+    "keywords": ["local address book out of date notes", "names.nsf not replicating", "outdated local directory notes", "replicate address book notes"],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": ["NOTES-082", "NOTES-085"]
+  },
+  {
+    "id": "NOTES-085",
+    "category": "Lotus Notes",
+    "subcategory": "Mail Addressing & Directory",
+    "problem": "Domino Directory Inaccessible",
+    "description": "The Domino Directory (names.nsf) on the server cannot be accessed at all, either by administrators or the server itself, preventing lookups, authentication, and mail routing.",
+    "symptoms": [
+      "Error message stating names.nsf cannot be opened or accessed",
+      "All directory-dependent functions fail, including authentication and mail routing",
+      "Server console shows errors related to accessing the Domino Directory",
+      "Administrator cannot open the directory even locally on the server console"
+    ],
+    "possible_causes": [
+      "Corruption in the names.nsf database file",
+      "File-level lock or permissions issue preventing access",
+      "Disk or file system error affecting the volume hosting names.nsf",
+      "ACL misconfiguration inadvertently blocking all access, including administrators"
+    ],
+    "diagnostic_questions": [
+      "What exact error appears when attempting to access the Domino Directory?",
+      "Can any user or administrator, even locally on the server, open names.nsf?",
+      "Are there signs of disk or file system errors on the volume hosting the directory?",
+      "Was any recent change made to the directory's ACL or file permissions?"
+    ],
+    "commands": [
+      {
+        "command": "load fixup names.nsf",
+        "purpose": "Attempt to repair structural corruption in the Domino Directory database",
+        "expected_result": "Fixup completes and the directory becomes accessible again",
+        "abnormal_result": "Fixup fails or the directory remains inaccessible, requiring restoration from backup"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Attempt to access names.nsf directly from the server console.",
+        "reason": "Confirms whether the issue is server-wide or specific to certain users or access methods."
+      },
+      {
+        "step": 2,
+        "action": "Check the file system permissions and any file locks on names.nsf at the operating system level.",
+        "reason": "A file-level permissions or lock issue outside of Domino's own ACL can block all access."
+      },
+      {
+        "step": 3,
+        "action": "Run Fixup against names.nsf to check for and repair database corruption.",
+        "reason": "Corruption is a common cause of a database becoming completely inaccessible."
+      },
+      {
+        "step": 4,
+        "action": "If Fixup cannot resolve the issue, restore names.nsf from the most recent clean backup.",
+        "reason": "Severe corruption preventing all access typically requires restoring a known-good copy to restore service quickly."
+      }
+    ],
+    "possible_solutions": [
+      "Repair corruption in names.nsf using Fixup and Compact",
+      "Correct file system-level permissions or locks",
+      "Restore names.nsf from a recent backup if repair is unsuccessful",
+      "Review and correct any ACL misconfiguration once access is restored"
+    ],
+    "prevention": [
+      "Maintain regular, verified backups of the Domino Directory",
+      "Monitor disk health on servers hosting critical system databases",
+      "Restrict and audit changes to the Domino Directory ACL",
+      "Ensure clean server shutdowns to reduce corruption risk"
+    ],
+    "keywords": ["domino directory inaccessible", "names.nsf cannot be opened", "directory corruption domino", "restore names.nsf backup"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": ["NOTES-042", "NOTES-084"]
+  },
+  {
+    "id": "NOTES-086",
+    "category": "Lotus Notes",
+    "subcategory": "Mail Addressing & Directory",
+    "problem": "Directory Catalog Outdated",
+    "description": "The Directory Catalog, used to provide a lightweight, fast-searching combined view of directory entries for client type-ahead, is out of date and does not reflect recently added or changed users.",
+    "symptoms": [
+      "Recently added users do not appear in client type-ahead lookups",
+      "Directory Catalog entries reflect outdated names, titles, or mail server information",
+      "Full Domino Directory search finds users that the catalog does not",
+      "Users report inconsistent lookup results between type-ahead and full directory search"
+    ],
+    "possible_causes": [
+      "Directory Catalog generation agent has not run recently or has failed",
+      "Scheduled Directory Catalog update interval is too infrequent for the rate of directory changes",
+      "The catalog's source directories are not fully included in its configuration",
+      "Replication of the catalog to client machines has not occurred recently"
+    ],
+    "diagnostic_questions": [
+      "When was the Directory Catalog last regenerated or updated?",
+      "Is the catalog generation agent running successfully on its configured schedule?",
+      "Does the catalog configuration include all relevant source Domino Directories?",
+      "Has the updated catalog replicated out to affected client machines?"
+    ],
+    "commands": [
+      {
+        "command": "tell amgr schedule",
+        "purpose": "Confirm the Directory Catalog generation agent is scheduled and running as expected",
+        "expected_result": "Agent appears scheduled and has recent successful run history",
+        "abnormal_result": "Agent is missing from the schedule or shows failed run history, explaining the outdated catalog"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check when the Directory Catalog was last successfully regenerated.",
+        "reason": "Establishes how outdated the catalog actually is and whether generation has stopped entirely."
+      },
+      {
+        "step": 2,
+        "action": "Verify the catalog generation agent is running successfully on its configured schedule.",
+        "reason": "A failed or disabled generation agent is the most direct cause of an outdated catalog."
+      },
+      {
+        "step": 3,
+        "action": "Review the catalog's configuration to confirm all relevant source directories are included.",
+        "reason": "Missing source directories will cause certain users to never appear, even with regular regeneration."
+      },
+      {
+        "step": 4,
+        "action": "Confirm the updated catalog has replicated to affected client machines.",
+        "reason": "A correctly regenerated server-side catalog will not help users whose local replicas have not synced."
+      }
+    ],
+    "possible_solutions": [
+      "Restart or reschedule the catalog generation agent",
+      "Adjust the catalog's source directory configuration",
+      "Increase the frequency of catalog regeneration if changes occur often",
+      "Force replication of the updated catalog to affected clients"
+    ],
+    "prevention": [
+      "Monitor Directory Catalog generation agent success regularly",
+      "Set an appropriate regeneration frequency based on organizational change rate",
+      "Review catalog configuration whenever new directories are added",
+      "Include catalog replication in standard client synchronization schedules"
+    ],
+    "keywords": ["directory catalog outdated notes", "type-ahead not finding new user", "directory catalog agent failed", "domino directory catalog update"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-084", "NOTES-082"]
+  },
+  {
+    "id": "NOTES-087",
+    "category": "Lotus Notes",
+    "subcategory": "Mail Addressing & Directory",
+    "problem": "Duplicate Person Documents",
+    "description": "More than one Person document exists in the Domino Directory for the same individual, causing ambiguous name resolution, inconsistent access rights, or confusion during administration.",
+    "symptoms": [
+      "Ambiguous name prompts appear when addressing mail to the affected user",
+      "Different Person documents show conflicting information, such as different mail servers",
+      "Group memberships or ACL entries reference the wrong duplicate document",
+      "Administrator finds two or more entries for what should be a single user"
+    ],
+    "possible_causes": [
+      "User was registered more than once, possibly on different servers",
+      "A rename or migration process created a new document without removing the old one",
+      "Manual directory entry errors introduced a duplicate",
+      "Import or bulk update process created duplicates due to mismatched matching criteria"
+    ],
+    "diagnostic_questions": [
+      "How many Person documents exist for this individual, and what are the differences between them?",
+      "Which document is the current, authoritative one that should be retained?",
+      "Are any groups, ACLs, or mail-in databases referencing the incorrect duplicate?",
+      "Was this user recently renamed, migrated, or re-registered?"
+    ],
+    "commands": [
+      {
+        "command": "People (Domino Directory search)",
+        "purpose": "Search the Domino Directory to locate and compare all duplicate Person documents for the individual",
+        "expected_result": "Search clearly shows the duplicate entries and their differing details",
+        "abnormal_result": "N/A - this is a diagnostic search rather than a pass/fail check"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Search the Domino Directory to locate all Person documents for the individual and compare their details.",
+        "reason": "Establishes exactly how many duplicates exist and which one is the correct, current record."
+      },
+      {
+        "step": 2,
+        "action": "Determine which document is authoritative based on current mail server, department, and other accurate details.",
+        "reason": "Ensures the correct document is retained while the incorrect one is removed."
+      },
+      {
+        "step": 3,
+        "action": "Update any groups, ACLs, or mail-in database references pointing to the incorrect duplicate.",
+        "reason": "Prevents access or mail issues after the duplicate document is removed."
+      },
+      {
+        "step": 4,
+        "action": "Delete the incorrect duplicate Person document and force directory replication.",
+        "reason": "Removes the source of ambiguity and ensures the correction propagates to all servers."
+      }
+    ],
+    "possible_solutions": [
+      "Identify and retain the correct, authoritative Person document",
+      "Update group and ACL references to the correct document",
+      "Delete the duplicate Person document",
+      "Force directory replication after cleanup"
+    ],
+    "prevention": [
+      "Check for existing Person documents before registering a user",
+      "Follow proper rename and migration procedures that avoid creating duplicates",
+      "Use matching criteria carefully during bulk directory imports",
+      "Periodically audit the directory for duplicate entries"
+    ],
+    "keywords": ["duplicate person documents domino", "duplicate user directory notes", "ambiguous name duplicate entry", "clean up domino directory duplicates"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-081", "NOTES-046"]
+  },
+  {
+    "id": "NOTES-088",
+    "category": "Lotus Notes",
+    "subcategory": "Mail Addressing & Directory",
+    "problem": "Incorrect Canonical Name",
+    "description": "A user's canonical name in the Domino Directory is malformed or incorrect, such as having the wrong organizational unit, misspelled components, or an improperly formatted hierarchy, causing authentication or addressing issues.",
+    "symptoms": [
+      "Authentication failures referencing the user's distinguished name",
+      "Mail addressing or ACL entries fail to match the user correctly",
+      "Canonical name displayed in Person document does not match expected organizational hierarchy",
+      "Errors referencing name normalization or hierarchy mismatches"
+    ],
+    "possible_causes": [
+      "Data entry error when the Person document was originally created",
+      "User was registered under an incorrect organizational unit certifier",
+      "A directory import process introduced malformed canonical name data",
+      "Organizational restructuring was not properly reflected in the user's registration"
+    ],
+    "diagnostic_questions": [
+      "What is the current canonical name shown in the Person document, and how does it differ from what is expected?",
+      "Was the user registered under the correct organizational unit certifier?",
+      "Does the issue affect authentication, addressing, or both?",
+      "Has the organization's naming hierarchy changed since this user was registered?"
+    ],
+    "commands": [
+      {
+        "command": "People (Domino Directory search)",
+        "purpose": "Open the user's Person document to review the exact current canonical name value",
+        "expected_result": "Canonical name matches the expected, correct organizational hierarchy",
+        "abnormal_result": "Canonical name shows an incorrect or malformed hierarchy, confirming the reported issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Review the user's current canonical name in their Person document.",
+        "reason": "Establishes the exact incorrect value that needs to be corrected."
+      },
+      {
+        "step": 2,
+        "action": "Determine the correct canonical name based on the user's actual organizational unit and certifier.",
+        "reason": "Provides the accurate target value needed to properly fix the record."
+      },
+      {
+        "step": 3,
+        "action": "If the correction requires a change in certifier or organizational unit, use the appropriate Domino Administrator rename or move process rather than a manual edit.",
+        "reason": "Manual edits to canonical name fields can cause further inconsistencies; the proper administrative process ensures related certificates and IDs stay in sync."
+      },
+      {
+        "step": 4,
+        "action": "Verify the user's Notes ID file also reflects the corrected canonical name after the change.",
+        "reason": "A mismatch between the directory entry and the ID file will continue to cause authentication problems."
+      }
+    ],
+    "possible_solutions": [
+      "Use Domino Administrator's proper rename/move process to correct the canonical name",
+      "Update the user's Notes ID file to match the corrected name",
+      "Re-certify the user under the correct organizational unit if needed",
+      "Force directory replication after correction"
+    ],
+    "prevention": [
+      "Use standardized registration procedures with correct organizational unit selection",
+      "Validate canonical name data during any bulk import process",
+      "Review naming hierarchy consistency during organizational changes",
+      "Train administrators on proper rename/move procedures rather than manual edits"
+    ],
+    "keywords": ["incorrect canonical name notes", "distinguished name error domino", "wrong organizational unit user", "canonical name mismatch authentication"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-50 minutes",
+    "related_problems": ["NOTES-089", "NOTES-046"]
+  },
+  {
+    "id": "NOTES-089",
+    "category": "Lotus Notes",
+    "subcategory": "Mail Addressing & Directory",
+    "problem": "Address Resolution Failed",
+    "description": "Notes fails to resolve an entered name or address to a valid recipient during addressing, despite the recipient appearing to be a legitimate, existing user or contact.",
+    "symptoms": [
+      "Generic address resolution failure error when sending mail",
+      "Name appears correctly typed but is still flagged as unresolved",
+      "Issue occurs intermittently rather than consistently for the same recipient",
+      "Resolution works from one client or location but not another for the same user"
+    ],
+    "possible_causes": [
+      "Temporary directory replication delay between servers",
+      "Client's local address book or Directory Catalog is out of sync",
+      "Network connectivity issue preventing the lookup from completing",
+      "Multiple directory sources (via Directory Assistance) returning inconsistent results"
+    ],
+    "diagnostic_questions": [
+      "Does the resolution failure happen consistently, or only sometimes for this recipient?",
+      "Does it happen from all client locations, or only specific ones?",
+      "Has directory replication completed recently across all relevant servers?",
+      "Is Directory Assistance involved, and could it be returning conflicting results?"
+    ],
+    "commands": [
+      {
+        "command": "File > Replication > Replicate Now (Notes client)",
+        "purpose": "Force replication of the local address book to rule out a synchronization delay as the cause",
+        "expected_result": "Address resolves successfully after replication",
+        "abnormal_result": "Resolution still fails after replication, pointing to a network or directory configuration issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Determine whether the failure is consistent or intermittent, and whether it is isolated to specific clients or locations.",
+        "reason": "Helps distinguish between a systemic directory issue and a localized client or network problem."
+      },
+      {
+        "step": 2,
+        "action": "Force replication of the local address book and Directory Catalog if used.",
+        "reason": "Resolves cases where the failure is simply due to outdated local directory data."
+      },
+      {
+        "step": 3,
+        "action": "Check network connectivity from the affected client to the directory server.",
+        "reason": "Intermittent network issues can cause lookups to fail even when the underlying directory data is correct."
+      },
+      {
+        "step": 4,
+        "action": "If Directory Assistance is involved, review its configuration for consistency across the servers being used.",
+        "reason": "Conflicting or misconfigured secondary directory sources can cause inconsistent resolution results."
+      }
+    ],
+    "possible_solutions": [
+      "Replicate local directory data to resolve synchronization delays",
+      "Resolve underlying network connectivity issues",
+      "Correct Directory Assistance configuration inconsistencies",
+      "Escalate to the directory replication topology for a systemic fix if widespread"
+    ],
+    "prevention": [
+      "Maintain healthy, regular directory replication schedules",
+      "Monitor network stability between clients and directory servers",
+      "Keep Directory Assistance configuration consistent across all servers",
+      "Periodically audit address resolution behavior organization-wide"
+    ],
+    "keywords": ["address resolution failed notes", "name lookup intermittent failure", "directory assistance inconsistent notes", "cannot resolve recipient address"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-082", "NOTES-086"]
+  },
+  {
+    "id": "NOTES-090",
+    "category": "Lotus Notes",
+    "subcategory": "ID Vault & Security",
+    "problem": "Cannot Download ID from ID Vault",
+    "description": "A user attempting to retrieve their Notes ID file from the ID Vault, such as when setting up a new device or recovering from a lost ID, is unable to successfully download it.",
+    "symptoms": [
+      "Error message when attempting to download the ID from the vault",
+      "Download process appears to start but never completes",
+      "User is prompted for credentials that are then rejected",
+      "ID download works for some users but not others on the same vault"
+    ],
+    "possible_causes": [
+      "User's ID is not actually stored in the configured ID Vault",
+      "Vault policy does not grant the user download or reset rights",
+      "Network connectivity issue between the client and the vault server",
+      "ID Vault database itself has a corruption or access issue"
+    ],
+    "diagnostic_questions": [
+      "Is the user's ID confirmed to be stored in the ID Vault according to administration tools?",
+      "Does the user's security/ID Vault policy grant them rights to download their own ID?",
+      "Can the client reach the vault server over the network without issues?",
+      "Does this issue affect only this user, or multiple users on the same vault?"
+    ],
+    "commands": [
+      {
+        "command": "tell vault status",
+        "purpose": "Check the current status and health of the ID Vault from the server console",
+        "expected_result": "Vault shows as healthy and operational",
+        "abnormal_result": "Vault reports errors or an unhealthy status, explaining the download failure"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the user's ID is actually present in the ID Vault using Domino Administrator's vault management tools.",
+        "reason": "Establishes whether the ID genuinely exists in the vault before troubleshooting the download process itself."
+      },
+      {
+        "step": 2,
+        "action": "Review the applicable security policy to confirm the user has rights to download their ID.",
+        "reason": "Policy settings control who can retrieve IDs from the vault, and restrictive settings can block legitimate downloads."
+      },
+      {
+        "step": 3,
+        "action": "Test network connectivity from the client to the ID Vault server.",
+        "reason": "Connectivity issues can cause the download process to fail or hang without a clear error."
+      },
+      {
+        "step": 4,
+        "action": "Check the overall health of the ID Vault database itself using tell vault status.",
+        "reason": "A vault-wide issue affecting multiple users points to a server-side problem rather than a single account issue."
+      }
+    ],
+    "possible_solutions": [
+      "Correct the user's security policy to allow ID download",
+      "Resolve network connectivity issues between client and vault server",
+      "Repair or investigate ID Vault database health if widespread",
+      "Re-add the user's ID to the vault if it is confirmed missing"
+    ],
+    "prevention": [
+      "Regularly audit ID Vault policy assignments",
+      "Monitor ID Vault server health proactively",
+      "Test ID download procedures periodically as part of disaster recovery drills",
+      "Maintain stable network connectivity to vault servers"
+    ],
+    "keywords": ["cannot download id from vault", "id vault download failed notes", "vault policy id download rights", "id vault error notes"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-091", "NOTES-093"]
+  },
+  {
+    "id": "NOTES-091",
+    "category": "Lotus Notes",
+    "subcategory": "ID Vault & Security",
+    "problem": "Cannot Upload ID to ID Vault",
+    "description": "An attempt to upload or store a user's Notes ID into the ID Vault fails, such as during initial vault enrollment or after a manual ID change, preventing the vault copy from being current.",
+    "symptoms": [
+      "Error message when the client attempts to sync or upload the ID to the vault",
+      "Vault enrollment process for a new user does not complete successfully",
+      "Vault copy of the ID remains outdated compared to the local ID after a change",
+      "Upload fails specifically after a password change or ID recovery"
+    ],
+    "possible_causes": [
+      "User's security policy does not include ID Vault enrollment settings",
+      "Network connectivity issue between client and vault server during upload",
+      "Vault database has reached a size or configuration limit",
+      "Local ID file has an issue, such as corruption, preventing it from being read for upload"
+    ],
+    "diagnostic_questions": [
+      "Is the user's security policy correctly configured to include ID Vault settings?",
+      "Did this begin after a specific event, such as a password change or ID recovery attempt?",
+      "Can the client reach the vault server without network issues?",
+      "Is there any indication the local ID file itself may be corrupted?"
+    ],
+    "commands": [
+      {
+        "command": "tell vault status",
+        "purpose": "Check the ID Vault's current status and any size or configuration limits from the server console",
+        "expected_result": "Vault reports healthy status with no capacity or configuration issues",
+        "abnormal_result": "Vault reports a problem, such as being near capacity or misconfigured, explaining the upload failure"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Verify the user's security policy correctly includes ID Vault enrollment and upload settings.",
+        "reason": "An incorrectly assigned policy is a common reason a user's ID never gets uploaded to the vault."
+      },
+      {
+        "step": 2,
+        "action": "Test network connectivity from the client to the ID Vault server.",
+        "reason": "Upload failures are frequently caused by connectivity interruptions during the sync process."
+      },
+      {
+        "step": 3,
+        "action": "Check the vault's overall status and any configured size or capacity limits.",
+        "reason": "A vault nearing capacity or otherwise misconfigured can reject new or updated ID uploads."
+      },
+      {
+        "step": 4,
+        "action": "If corruption in the local ID file is suspected, verify the file's integrity or use a known-good backup copy.",
+        "reason": "A corrupted local ID cannot be properly read and uploaded to the vault."
+      }
+    ],
+    "possible_solutions": [
+      "Correct the user's security policy for ID Vault enrollment",
+      "Resolve network connectivity issues during upload",
+      "Address vault capacity or configuration limits",
+      "Replace a corrupted local ID file before retrying the upload"
+    ],
+    "prevention": [
+      "Regularly audit security policy assignments for ID Vault settings",
+      "Monitor ID Vault capacity and configuration proactively",
+      "Maintain stable network connectivity for enrollment and sync operations",
+      "Periodically verify ID Vault synchronization status for all enrolled users"
+    ],
+    "keywords": ["cannot upload id to vault", "id vault sync failed notes", "vault enrollment failed domino", "id vault upload error"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-090", "NOTES-092"]
+  },
+  {
+    "id": "NOTES-092",
+    "category": "Lotus Notes",
+    "subcategory": "ID Vault & Security",
+    "problem": "ID Vault Synchronization Failed",
+    "description": "The ongoing synchronization between a user's client ID and their copy stored in the ID Vault fails, causing the vault copy to become outdated or inconsistent with the client's actual ID state.",
+    "symptoms": [
+      "Synchronization error messages appear periodically or on client startup",
+      "Vault copy does not reflect recent password changes made on the client",
+      "Client warns that it cannot synchronize with the ID Vault",
+      "Sync failures logged repeatedly without resolving on their own"
+    ],
+    "possible_causes": [
+      "Network connectivity issues intermittently preventing sync completion",
+      "Vault server is under heavy load or temporarily unavailable",
+      "Client-side ID Vault configuration is outdated or incorrect",
+      "A conflict exists between the client ID state and the vault's recorded state"
+    ],
+    "diagnostic_questions": [
+      "Does the synchronization failure happen consistently, or only intermittently?",
+      "Is the vault server itself healthy and reachable from other clients?",
+      "Has the client's ID Vault configuration been reviewed for accuracy?",
+      "Could a recent password change or ID event have created a state conflict?"
+    ],
+    "commands": [
+      {
+        "command": "tell vault status",
+        "purpose": "Check overall ID Vault server health to rule out a server-side cause for widespread sync failures",
+        "expected_result": "Vault reports healthy and operational status",
+        "abnormal_result": "Vault reports issues affecting synchronization broadly across users"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Determine whether the sync failure affects only this user or multiple users on the same vault.",
+        "reason": "Distinguishes between a client-specific issue and a broader server-side vault problem."
+      },
+      {
+        "step": 2,
+        "action": "Check the ID Vault server's overall health and load using tell vault status.",
+        "reason": "A struggling or overloaded vault server can cause synchronization failures across many clients."
+      },
+      {
+        "step": 3,
+        "action": "Review the client's ID Vault configuration settings for accuracy.",
+        "reason": "Incorrect client-side configuration can prevent successful synchronization even when the server is healthy."
+      },
+      {
+        "step": 4,
+        "action": "If a state conflict is suspected, work with the administrator to reconcile the client ID against the vault's recorded state.",
+        "reason": "Conflicting states typically require administrative intervention to safely resolve without risking ID integrity."
+      }
+    ],
+    "possible_solutions": [
+      "Resolve underlying network connectivity issues",
+      "Address vault server load or availability problems",
+      "Correct client-side ID Vault configuration",
+      "Reconcile client and vault ID state conflicts with administrator assistance"
+    ],
+    "prevention": [
+      "Monitor ID Vault server health and load proactively",
+      "Ensure client configurations are deployed consistently",
+      "Maintain stable network connectivity for vault synchronization",
+      "Educate users to report recurring sync errors promptly rather than ignoring them"
+    ],
+    "keywords": ["id vault synchronization failed", "vault sync error notes", "id vault out of sync", "domino id vault client sync"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "25-45 minutes",
+    "related_problems": ["NOTES-090", "NOTES-091"]
+  },
+  {
+    "id": "NOTES-093",
+    "category": "Lotus Notes",
+    "subcategory": "ID Vault & Security",
+    "problem": "ID Recovery Failed",
+    "description": "An administrator's attempt to recover a user's lost or corrupted Notes ID from the ID Vault fails, leaving the user unable to regain access to their account through the standard recovery process.",
+    "symptoms": [
+      "Error message during the ID recovery process in Domino Administrator",
+      "Recovery process appears to complete but the resulting ID does not work for the user",
+      "Administrator cannot locate the user's ID in the vault to begin recovery",
+      "Recovery fails specifically for users under a certain organizational unit or certifier"
+    ],
+    "possible_causes": [
+      "User's ID was never actually stored in the vault, so no recovery source exists",
+      "Administrator performing the recovery lacks sufficient rights in the vault's ACL",
+      "Vault database corruption affecting the specific stored ID copy",
+      "Recovery process was interrupted by a network or server issue partway through"
+    ],
+    "diagnostic_questions": [
+      "Is the user's ID confirmed to exist in the vault before attempting recovery?",
+      "Does the administrator performing the recovery have appropriate ACL rights on the vault?",
+      "Was the recovery process interrupted by any network or server issue?",
+      "Does recovery fail for all users, or only specific ones or organizational units?"
+    ],
+    "commands": [
+      {
+        "command": "tell vault status",
+        "purpose": "Check overall ID Vault health before troubleshooting a specific recovery failure",
+        "expected_result": "Vault reports healthy status, ruling out a server-wide issue",
+        "abnormal_result": "Vault reports a problem that could be affecting recovery attempts broadly"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the user's ID is actually present and healthy in the ID Vault before attempting recovery.",
+        "reason": "Recovery cannot succeed if no valid stored copy exists for the user in question."
+      },
+      {
+        "step": 2,
+        "action": "Verify the administrator performing the recovery has sufficient rights in the vault's ACL.",
+        "reason": "Insufficient administrative rights will block the recovery process regardless of the vault's health."
+      },
+      {
+        "step": 3,
+        "action": "Check the overall ID Vault database health for corruption affecting specific entries.",
+        "reason": "Corruption isolated to certain records can cause recovery to fail for specific users while working for others."
+      },
+      {
+        "step": 4,
+        "action": "Retry the recovery process, ensuring stable network connectivity throughout.",
+        "reason": "A previous interruption may have caused the failure, and a stable retry can succeed once connectivity is assured."
+      }
+    ],
+    "possible_solutions": [
+      "Ensure the administrator has proper vault ACL rights before retrying",
+      "Repair vault database corruption affecting the specific ID entry",
+      "Retry the recovery process with stable connectivity",
+      "Manually reissue a new ID for the user if recovery cannot be completed"
+    ],
+    "prevention": [
+      "Verify ID Vault enrollment status for all users before it is needed for recovery",
+      "Maintain proper administrator ACL rights on the vault",
+      "Monitor vault database health regularly",
+      "Test the ID recovery process periodically as part of disaster recovery planning"
+    ],
+    "keywords": ["id recovery failed notes", "domino id vault recovery error", "cannot recover user id", "vault acl rights recovery"],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-50 minutes",
+    "related_problems": ["NOTES-090", "NOTES-094"]
+  },
+  {
+    "id": "NOTES-094",
+    "category": "Lotus Notes",
+    "subcategory": "ID Vault & Security",
+    "problem": "Vault Password Reset Failed",
+    "description": "A user or administrator attempts to reset the password on a Notes ID using the ID Vault's self-service or administrative reset feature, but the reset process fails to complete successfully.",
+    "symptoms": [
+      "Error message during the password reset process",
+      "Reset appears to succeed but the new password does not work",
+      "Self-service reset option is unavailable or fails for the user",
+      "Administrator-initiated reset fails with an access or policy error"
+    ],
+    "possible_causes": [
+      "User's security policy does not enable self-service password reset via the vault",
+      "New password entered does not meet configured password strength requirements",
+      "Vault synchronization has not completed, so the reset does not propagate correctly",
+      "Administrator lacks sufficient rights to perform the reset on the user's behalf"
+    ],
+    "diagnostic_questions": [
+      "Is self-service password reset enabled in the user's applicable security policy?",
+      "Does the new password meet the organization's configured complexity requirements?",
+      "Has the ID Vault fully synchronized since the reset attempt?",
+      "If administrator-initiated, does the administrator have sufficient rights on the vault?"
+    ],
+    "commands": [
+      {
+        "command": "tell vault status",
+        "purpose": "Check overall ID Vault health and synchronization status relevant to the password reset process",
+        "expected_result": "Vault reports healthy status with synchronization functioning normally",
+        "abnormal_result": "Vault reports sync or health issues that could be preventing successful password resets"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the applicable security policy enables self-service password reset for this user, if that method was used.",
+        "reason": "The feature must be explicitly enabled in policy for self-service reset to function at all."
+      },
+      {
+        "step": 2,
+        "action": "Verify the new password meets the organization's configured complexity and length requirements.",
+        "reason": "A reset can silently fail or be rejected if the new password does not satisfy policy rules."
+      },
+      {
+        "step": 3,
+        "action": "Check ID Vault synchronization status to ensure the reset can properly propagate.",
+        "reason": "A vault with synchronization issues may accept the reset locally but fail to properly update the stored ID."
+      },
+      {
+        "step": 4,
+        "action": "If administrator-initiated, confirm the administrator has sufficient rights on the vault to perform password resets.",
+        "reason": "Insufficient administrative rights will block the reset regardless of other factors being correct."
+      }
+    ],
+    "possible_solutions": [
+      "Enable self-service password reset in the relevant security policy",
+      "Ensure the new password meets complexity requirements",
+      "Resolve vault synchronization issues before retrying",
+      "Grant the administrator sufficient rights to perform the reset"
+    ],
+    "prevention": [
+      "Clearly document password complexity requirements for users",
+      "Regularly audit security policy settings for password reset features",
+      "Monitor ID Vault synchronization health proactively",
+      "Maintain proper administrator rights documentation for vault operations"
+    ],
+    "keywords": ["vault password reset failed", "self service password reset notes", "id vault password policy error", "cannot reset notes password vault"],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": ["NOTES-092", "NOTES-093"]
+  }
+]

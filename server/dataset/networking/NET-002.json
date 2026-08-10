@@ -1,0 +1,2453 @@
+[
+  {
+    "id": "NET-043",
+    "category": "Networking",
+    "subcategory": "DHCP Problems",
+    "problem": "DHCP Server Not Responding",
+    "description": "Devices requesting an IP address receive no response at all from the DHCP server, leaving them without network configuration.",
+    "symptoms": [
+      "Devices fail to get an IP and fall back to an APIPA (169.254.x.x) address",
+      "ipconfig /renew hangs or times out",
+      "Multiple new devices joining the network are all affected"
+    ],
+    "possible_causes": [
+      "DHCP service on the router or server has crashed or stopped",
+      "DHCP server is unreachable due to a network path problem",
+      "DHCP relay agent misconfigured on a multi-subnet network",
+      "Router/server overloaded or out of resources"
+    ],
+    "diagnostic_questions": [
+      "Is this affecting one device or all new devices joining the network?",
+      "Is the DHCP server a router, or a dedicated server (Windows Server, Linux, etc.)?",
+      "Has anything changed recently, like a router replacement or firmware update?",
+      "Can you reach the DHCP server's management interface at all?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /renew",
+        "purpose": "Attempt to get a response from the DHCP server",
+        "expected_result": "A valid IP address is returned",
+        "abnormal_result": "Request times out or fails, confirming no response from the DHCP server"
+      },
+      {
+        "command": "ping <dhcp_server_ip>",
+        "purpose": "Check if the DHCP server itself is reachable on the network",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout suggests the server is down or unreachable, not just its DHCP service"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether multiple devices are affected, indicating a server-wide problem rather than one device",
+        "reason": "Narrows the scope of troubleshooting significantly"
+      },
+      {
+        "step": 2,
+        "action": "Check if the DHCP server (router or dedicated server) is powered on and reachable via ping",
+        "reason": "Rules out a complete outage of the device hosting DHCP"
+      },
+      {
+        "step": 3,
+        "action": "On a router, log into its admin page and confirm the DHCP server feature is enabled",
+        "reason": "DHCP can sometimes be accidentally disabled during other configuration changes"
+      },
+      {
+        "step": 4,
+        "action": "On a dedicated DHCP server, check that the DHCP service is running (services.msc on Windows, or systemctl status isc-dhcp-server on Linux)",
+        "reason": "Confirms whether the service itself has stopped"
+      },
+      {
+        "step": 5,
+        "action": "Restart the DHCP service or the device hosting it",
+        "reason": "Resolves most temporary crashes or hangs"
+      },
+      {
+        "step": 6,
+        "action": "Check for a full DHCP scope (address pool) if the service is running but still not responding to new requests",
+        "reason": "A depleted address pool can cause the server to effectively stop answering new clients"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the DHCP service or the router/server hosting it",
+      "Confirm DHCP is enabled in router/server settings",
+      "Increase the DHCP scope size if depleted",
+      "Check network path to the DHCP server for connectivity issues"
+    ],
+    "prevention": [
+      "Monitor DHCP service uptime on critical infrastructure",
+      "Keep router/server firmware and OS updated",
+      "Set up alerts for DHCP scope utilization nearing capacity"
+    ],
+    "keywords": [
+      "dhcp server not responding",
+      "dhcp server down",
+      "no response from dhcp server"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-034",
+      "NET-047"
+    ]
+  },
+  {
+    "id": "NET-044",
+    "category": "Networking",
+    "subcategory": "DHCP Problems",
+    "problem": "DHCP Failed",
+    "description": "The DHCP process fails outright on a client device, shown as an explicit 'DHCP failed' or similar error rather than a silent timeout.",
+    "symptoms": [
+      "Explicit error such as 'DHCP is not enabled for this adapter' or 'DHCP failed'",
+      "Adapter shows no valid IP configuration",
+      "Error appears in Windows Event Viewer network diagnostics"
+    ],
+    "possible_causes": [
+      "DHCP disabled on the network adapter itself (manually set to static previously without full configuration)",
+      "Corrupted TCP/IP stack on the client",
+      "DHCP Client service stopped on the computer",
+      "Group Policy or software disabling automatic IP configuration"
+    ],
+    "diagnostic_questions": [
+      "Is the adapter set to obtain an IP address automatically, or is it manually configured?",
+      "Is the DHCP Client Windows service running?",
+      "Does this happen on this device only, or across the network?",
+      "Has any recent software or policy change affected network settings?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check whether the adapter is configured for DHCP or has a static configuration",
+        "expected_result": "Shows 'DHCP Enabled: Yes' with a valid assigned address",
+        "abnormal_result": "Shows 'DHCP Enabled: No', confirming the adapter is set to static rather than automatic"
+      },
+      {
+        "command": "services.msc",
+        "purpose": "Check whether the DHCP Client service is running on this computer",
+        "expected_result": "Service status is 'Running'",
+        "abnormal_result": "Service is stopped, which will prevent DHCP configuration entirely"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the adapter's IP settings to confirm 'Obtain an IP address automatically' is selected",
+        "reason": "A manually configured static IP will show DHCP as disabled, which is expected behavior in that case, not a fault"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the DHCP Client service is running in Windows Services",
+        "reason": "This core service is required for any DHCP-based configuration to succeed"
+      },
+      {
+        "step": 3,
+        "action": "Start the DHCP Client service if stopped and set it to automatic",
+        "reason": "Directly resolves the issue if this specific service was the cause"
+      },
+      {
+        "step": 4,
+        "action": "Run netsh int ip reset to reset the TCP/IP stack if the adapter still fails after confirming DHCP is enabled and the service is running",
+        "reason": "Resolves deeper corruption preventing DHCP negotiation"
+      },
+      {
+        "step": 5,
+        "action": "Check Group Policy settings on managed/work computers for any restriction on automatic IP configuration",
+        "reason": "Administrators sometimes intentionally enforce static IPs via policy"
+      }
+    ],
+    "possible_solutions": [
+      "Set the adapter to obtain an IP address automatically",
+      "Start and enable the DHCP Client service",
+      "Reset the TCP/IP stack with netsh int ip reset",
+      "Check Group Policy for IP configuration restrictions on managed devices"
+    ],
+    "prevention": [
+      "Avoid manually disabling the DHCP Client service",
+      "Keep TCP/IP stack healthy with periodic system maintenance",
+      "Document any intentional static IP policies for managed devices"
+    ],
+    "keywords": [
+      "dhcp failed error",
+      "dhcp not enabled for adapter",
+      "dhcp client service stopped"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-033",
+      "NET-040"
+    ]
+  },
+  {
+    "id": "NET-045",
+    "category": "Networking",
+    "subcategory": "DHCP Problems",
+    "problem": "Cannot Obtain IP Address (DHCP-side)",
+    "description": "From the network administrator's perspective, one or more clients cannot obtain an IP address, and the cause needs to be found on the DHCP server side rather than the client.",
+    "symptoms": [
+      "Multiple clients report no internet or an APIPA address",
+      "DHCP server logs show failed or declined requests",
+      "New devices in particular are affected more than existing ones"
+    ],
+    "possible_causes": [
+      "DHCP scope (address pool) is full",
+      "DHCP server has a misconfigured scope, such as a wrong range or exclusions",
+      "DHCP relay agent not forwarding requests correctly across VLANs/subnets",
+      "Rogue or unauthorized DHCP server on the network interfering"
+    ],
+    "diagnostic_questions": [
+      "How many clients are affected, and are they all on the same subnet or VLAN?",
+      "Is the DHCP scope size sufficient for the number of devices on the network?",
+      "Is there any possibility of a second, unauthorized DHCP server on the network?",
+      "Are affected clients on a different subnet from the DHCP server, requiring a relay agent?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all (on an affected client)",
+        "purpose": "Confirm the client's current failed state to correlate with server-side logs",
+        "expected_result": "Shows the DHCP server address the client attempted to contact",
+        "abnormal_result": "No DHCP server address recorded at all, suggesting the request never reached any server"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the DHCP server's scope statistics for current utilization versus total pool size",
+        "reason": "A nearly or fully exhausted scope is one of the most common administrative causes"
+      },
+      {
+        "step": 2,
+        "action": "Review the DHCP server logs for declined or failed lease requests and their reasons",
+        "reason": "Provides specific technical detail on why requests are failing"
+      },
+      {
+        "step": 3,
+        "action": "Check for the presence of a second, unauthorized DHCP server using a tool or by reviewing switch port/device inventory",
+        "reason": "A rogue DHCP server can hand out conflicting or invalid configurations, causing seemingly random failures"
+      },
+      {
+        "step": 4,
+        "action": "Verify DHCP relay agent configuration on routers/switches if affected clients are on a different subnet than the DHCP server",
+        "reason": "Without proper relay configuration, DHCP broadcasts never reach a server on another subnet"
+      },
+      {
+        "step": 5,
+        "action": "Expand the DHCP scope or adjust exclusions if the pool is genuinely undersized for the network",
+        "reason": "Provides enough addresses for all current and near-future devices"
+      }
+    ],
+    "possible_solutions": [
+      "Expand the DHCP scope size",
+      "Correct DHCP relay agent configuration for multi-subnet networks",
+      "Locate and disable any unauthorized/rogue DHCP server",
+      "Review and correct scope exclusions or reservations causing address shortages"
+    ],
+    "prevention": [
+      "Regularly monitor DHCP scope utilization",
+      "Restrict who can connect unauthorized routers/servers to the network",
+      "Document DHCP relay configuration for all subnets/VLANs"
+    ],
+    "keywords": [
+      "dhcp scope full clients cant connect",
+      "rogue dhcp server",
+      "dhcp relay not working"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": [
+      "NET-043",
+      "NET-046"
+    ]
+  },
+  {
+    "id": "NET-046",
+    "category": "Networking",
+    "subcategory": "DHCP Problems",
+    "problem": "DHCP Scope Full",
+    "description": "The DHCP server's pool of available IP addresses has been completely used up, so no new devices can receive an address.",
+    "symptoms": [
+      "New devices cannot get an IP address, while existing connected devices continue to work fine",
+      "DHCP server admin console shows scope utilization at or near 100%",
+      "Error logs show 'No addresses available' or similar"
+    ],
+    "possible_causes": [
+      "More devices connected to the network than the scope was originally sized for",
+      "Old, disconnected devices still holding leases that have not expired",
+      "Scope range configured too small for the network's needs",
+      "Excessive DHCP reservations reducing the available dynamic pool"
+    ],
+    "diagnostic_questions": [
+      "How many devices are typically connected, versus the total size of the DHCP scope?",
+      "Have many new devices, like phones or IoT devices, been added recently?",
+      "What is the current DHCP lease time, and could expired but unreleased leases be a factor?",
+      "Are there many static reservations reducing the usable dynamic range?"
+    ],
+    "commands": [
+      {
+        "command": "netsh dhcp server <server> show scope",
+        "purpose": "View DHCP scope details and utilization on a Windows DHCP server",
+        "expected_result": "Shows the scope range and number of addresses in use versus available",
+        "abnormal_result": "Available addresses at or near zero, confirming the scope is full"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the current DHCP scope utilization statistics on the server or router",
+        "reason": "Confirms the scope is genuinely full rather than another DHCP problem"
+      },
+      {
+        "step": 2,
+        "action": "Review and remove old, stale, or duplicate leases for devices no longer on the network",
+        "reason": "Frees up addresses that are being unnecessarily held"
+      },
+      {
+        "step": 3,
+        "action": "Expand the DHCP scope range if the network's device count has grown beyond the original sizing",
+        "reason": "Directly increases the number of available addresses for new devices"
+      },
+      {
+        "step": 4,
+        "action": "Reduce the DHCP lease time if addresses are being held longer than necessary by inactive devices",
+        "reason": "Shorter leases free up unused addresses more quickly for reassignment"
+      },
+      {
+        "step": 5,
+        "action": "Review static reservations and exclusions to ensure they are not unnecessarily reducing the dynamic pool",
+        "reason": "Reservations should only be used for devices that genuinely need a fixed address"
+      }
+    ],
+    "possible_solutions": [
+      "Expand the DHCP scope range",
+      "Clear stale or expired leases manually",
+      "Reduce the DHCP lease time to free addresses faster",
+      "Review and minimize unnecessary static reservations/exclusions"
+    ],
+    "prevention": [
+      "Size DHCP scopes with future growth in mind",
+      "Periodically audit and clean up old leases and reservations",
+      "Monitor scope utilization trends over time to anticipate exhaustion"
+    ],
+    "keywords": [
+      "dhcp scope full",
+      "no addresses available dhcp",
+      "dhcp pool exhausted"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-045",
+      "NET-041"
+    ]
+  },
+  {
+    "id": "NET-047",
+    "category": "Networking",
+    "subcategory": "DHCP Problems",
+    "problem": "DHCP Lease Expired (Server-Side)",
+    "description": "From an administrative view, many client leases are expiring around the same time and failing to renew properly, causing widespread but temporary connectivity loss.",
+    "symptoms": [
+      "Multiple devices lose connectivity around the same time of day",
+      "DHCP server logs show many leases expiring in a short window",
+      "Devices recover on their own or after a manual renew/reconnect"
+    ],
+    "possible_causes": [
+      "DHCP lease time configured too short for the environment's usage pattern",
+      "DHCP server was briefly unavailable during a mass renewal window",
+      "Network outage coincided with a renewal window, causing widespread failures",
+      "Server resource exhaustion when handling many simultaneous renewal requests"
+    ],
+    "diagnostic_questions": [
+      "What is the currently configured DHCP lease time?",
+      "Do the affected devices' leases appear to have started/renewed around the same time originally, causing them to expire in a batch?",
+      "Was the DHCP server or network down at all during the affected time window?",
+      "Does this happen predictably, such as every morning when devices wake up together?"
+    ],
+    "commands": [
+      {
+        "command": "netsh dhcp server <server> show scope",
+        "purpose": "Review lease times and current lease statistics for the scope",
+        "expected_result": "Lease times and renewal patterns appear reasonable and staggered",
+        "abnormal_result": "A large cluster of leases expiring at the same time, suggesting a synchronized renewal problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Review DHCP server logs for the time window when multiple devices lost connectivity",
+        "reason": "Confirms whether this is indeed a mass lease expiration event rather than unrelated individual issues"
+      },
+      {
+        "step": 2,
+        "action": "Check if the DHCP server experienced any downtime or resource strain during that window",
+        "reason": "A server that was briefly unavailable during a renewal spike would explain the widespread failure"
+      },
+      {
+        "step": 3,
+        "action": "Review the configured DHCP lease time and consider adjusting it to better suit the environment, such as longer leases for stable networks",
+        "reason": "An appropriately sized lease time reduces the frequency and clustering of renewal events"
+      },
+      {
+        "step": 4,
+        "action": "Ensure the DHCP server has adequate resources (CPU, memory, network capacity) to handle simultaneous renewal bursts",
+        "reason": "Prevents server overload from causing a cascading mass failure"
+      },
+      {
+        "step": 5,
+        "action": "Monitor for recurrence at the same time of day and correlate with any other scheduled network events, such as backups or maintenance windows",
+        "reason": "Identifies if another process is interfering with the DHCP server during that time"
+      }
+    ],
+    "possible_solutions": [
+      "Adjust DHCP lease time to reduce clustering of renewal events",
+      "Ensure the DHCP server has sufficient resources for peak renewal load",
+      "Investigate and resolve any recurring server downtime during renewal windows",
+      "Stagger device connection patterns where feasible"
+    ],
+    "prevention": [
+      "Choose lease times appropriate for the network's stability and device count",
+      "Monitor DHCP server performance and resource usage",
+      "Schedule maintenance windows to avoid peak renewal times"
+    ],
+    "keywords": [
+      "mass dhcp lease expiration",
+      "many devices lose connection same time",
+      "dhcp renewal storm"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "30-60 minutes",
+    "related_problems": [
+      "NET-041",
+      "NET-043"
+    ]
+  },
+  {
+    "id": "NET-048",
+    "category": "Networking",
+    "subcategory": "DHCP Problems",
+    "problem": "DHCP Service Stopped",
+    "description": "The DHCP server software or service has stopped running entirely, whether on a router or a dedicated server, halting all new address assignments network-wide.",
+    "symptoms": [
+      "No new devices can obtain an IP address anywhere on the network",
+      "DHCP service explicitly shows as 'Stopped' in service management tools",
+      "Existing devices with unexpired leases may continue working temporarily"
+    ],
+    "possible_causes": [
+      "Service crashed due to a software bug or resource exhaustion",
+      "Service was manually or accidentally stopped by an administrator",
+      "Dependent service (like a database backend for enterprise DHCP) failed",
+      "Server or router experienced a reboot and the service did not auto-start"
+    ],
+    "diagnostic_questions": [
+      "Is this a router-based or dedicated server-based DHCP service?",
+      "Was any recent maintenance, update, or configuration change performed?",
+      "Does the DHCP service show as stopped, or is it running but unresponsive?",
+      "Are existing connected devices still working, suggesting only new leases are affected?"
+    ],
+    "commands": [
+      {
+        "command": "systemctl status isc-dhcp-server",
+        "purpose": "Check DHCP service status on a Linux-based DHCP server",
+        "expected_result": "Shows 'active (running)'",
+        "abnormal_result": "Shows 'inactive (dead)' or 'failed', confirming the service is stopped"
+      },
+      {
+        "command": "services.msc (DHCP Server service, on Windows Server)",
+        "purpose": "Check DHCP service status on a Windows Server DHCP role",
+        "expected_result": "Status is 'Running'",
+        "abnormal_result": "Status is 'Stopped', confirming the service needs to be restarted"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the DHCP service status using the appropriate command or tool for the platform (Windows Services or systemctl on Linux)",
+        "reason": "Confirms definitively whether the service is stopped versus another underlying issue"
+      },
+      {
+        "step": 2,
+        "action": "Attempt to start the DHCP service",
+        "reason": "Directly resolves the immediate outage if the service simply stopped"
+      },
+      {
+        "step": 3,
+        "action": "Check system/service logs for the reason the service stopped, such as a crash or resource error",
+        "reason": "Identifies the root cause to prevent recurrence"
+      },
+      {
+        "step": 4,
+        "action": "Set the DHCP service to start automatically on boot if it is not already configured that way",
+        "reason": "Prevents the service from staying down after a server or router reboot"
+      },
+      {
+        "step": 5,
+        "action": "Check for and resolve any underlying resource issues (disk space, memory) on the server if the service crashed due to resource exhaustion",
+        "reason": "Addresses the root cause rather than just restarting the symptom"
+      }
+    ],
+    "possible_solutions": [
+      "Start the DHCP service",
+      "Set the service to start automatically on boot",
+      "Investigate and resolve logged errors causing the crash",
+      "Free up server resources if exhaustion caused the crash"
+    ],
+    "prevention": [
+      "Set critical services to automatic startup",
+      "Monitor DHCP service uptime with alerting",
+      "Perform regular maintenance and resource monitoring on DHCP servers"
+    ],
+    "keywords": [
+      "dhcp service stopped",
+      "dhcp server not running",
+      "restart dhcp service"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-043",
+      "NET-047"
+    ]
+  },
+  {
+    "id": "NET-049",
+    "category": "Networking",
+    "subcategory": "DHCP Problems",
+    "problem": "Incorrect DHCP Configuration",
+    "description": "The DHCP server is running and assigning addresses, but the configuration values it hands out (gateway, DNS, subnet, etc.) are wrong, causing widespread connectivity issues for clients.",
+    "symptoms": [
+      "All or most clients on the network have connectivity problems despite receiving an IP address",
+      "Clients report wrong gateway, DNS, or subnet values in their configuration",
+      "Problem appeared after a change to the DHCP server's scope options"
+    ],
+    "possible_causes": [
+      "Wrong default gateway configured in the DHCP scope options",
+      "Wrong DNS server addresses configured in the scope options",
+      "Incorrect subnet mask or address range configured in the scope",
+      "Scope options recently changed incorrectly during maintenance"
+    ],
+    "diagnostic_questions": [
+      "What scope options are currently configured on the DHCP server, especially gateway and DNS?",
+      "Did anyone recently change the DHCP server or scope configuration?",
+      "Are all affected clients receiving the same incorrect values?",
+      "What are the correct values that should be configured?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all (on an affected client)",
+        "purpose": "See exactly what configuration values the client received from DHCP",
+        "expected_result": "Correct gateway, DNS, and subnet values matching the real network",
+        "abnormal_result": "Incorrect values matching a misconfigured scope, confirming the server-side configuration is at fault"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check an affected client's received configuration with ipconfig /all to see the exact incorrect values",
+        "reason": "Confirms precisely what is wrong and needs correcting on the server"
+      },
+      {
+        "step": 2,
+        "action": "Log into the DHCP server or router admin interface and review the scope options for gateway, DNS, and subnet",
+        "reason": "Identifies the specific misconfigured setting"
+      },
+      {
+        "step": 3,
+        "action": "Correct the scope options to match the actual, correct network values",
+        "reason": "Directly fixes what all future DHCP clients will receive"
+      },
+      {
+        "step": 4,
+        "action": "Have affected clients release and renew their IP address to pick up the corrected configuration",
+        "reason": "Existing clients will not get the corrected settings until their next renewal"
+      },
+      {
+        "step": 5,
+        "action": "Document the corrected configuration to prevent the same mistake in future changes",
+        "reason": "Reduces the risk of this recurring during future maintenance"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the DHCP scope options (gateway, DNS, subnet) to the proper values",
+      "Have clients release and renew to receive the corrected configuration",
+      "Document the correct configuration for future reference"
+    ],
+    "prevention": [
+      "Test DHCP scope changes on a single device before wide rollout",
+      "Maintain clear documentation of intended DHCP scope settings",
+      "Use change control processes for DHCP server modifications"
+    ],
+    "keywords": [
+      "wrong dhcp scope options",
+      "incorrect gateway dns from dhcp",
+      "dhcp configuration error"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-40 minutes",
+    "related_problems": [
+      "NET-038",
+      "NET-045"
+    ]
+  },
+  {
+    "id": "NET-050",
+    "category": "Networking",
+    "subcategory": "DHCP Problems",
+    "problem": "Reserved IP Not Assigned",
+    "description": "A device that should receive a specific reserved (fixed) IP address through a DHCP reservation instead receives a different, dynamic address.",
+    "symptoms": [
+      "Device with a known DHCP reservation gets a different IP address than expected",
+      "Reservation appears configured correctly in the DHCP server settings",
+      "May cause issues for services expecting the device at its reserved address, like port forwarding or a printer setup"
+    ],
+    "possible_causes": [
+      "Reservation configured with an incorrect MAC address",
+      "Device's actual MAC address changed, such as after a network card replacement or virtual machine reconfiguration",
+      "Reservation address falls outside the active DHCP scope range",
+      "DHCP server has not yet applied or synchronized the reservation"
+    ],
+    "diagnostic_questions": [
+      "What MAC address is configured in the reservation, and does it match the device's actual current MAC address?",
+      "Is the reserved IP address within the DHCP server's active scope range?",
+      "Has the device's network hardware been replaced or reconfigured recently, such as a new network card or VM network adapter?",
+      "Has the device been rebooted or had its IP released and renewed since the reservation was created?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all (on the affected device)",
+        "purpose": "Check the device's actual current MAC address and assigned IP",
+        "expected_result": "MAC address matches what is configured in the DHCP reservation",
+        "abnormal_result": "MAC address differs from the reservation, explaining why the reserved IP was not assigned"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the device's actual current MAC address using ipconfig /all",
+        "reason": "Provides the ground truth to compare against the reservation's configured MAC address"
+      },
+      {
+        "step": 2,
+        "action": "Compare this to the MAC address entered in the DHCP server's reservation settings",
+        "reason": "A mismatch is the most common cause of a reservation not being honored"
+      },
+      {
+        "step": 3,
+        "action": "Correct the MAC address in the reservation if it does not match",
+        "reason": "Ensures the DHCP server can correctly identify this specific device for the reservation"
+      },
+      {
+        "step": 4,
+        "action": "Confirm the reserved IP address falls within the DHCP server's active scope range",
+        "reason": "A reservation outside the active range will not be properly applied"
+      },
+      {
+        "step": 5,
+        "action": "Release and renew the IP address on the device after correcting the reservation",
+        "reason": "Forces the device to request a new address, which should now honor the corrected reservation"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the MAC address in the DHCP reservation",
+      "Ensure the reserved IP falls within the active DHCP scope",
+      "Release and renew the device's IP address after correcting the reservation"
+    ],
+    "prevention": [
+      "Document reservations with device names and MAC addresses clearly",
+      "Update reservations promptly after hardware changes",
+      "Periodically audit reservations against actual connected devices"
+    ],
+    "keywords": [
+      "dhcp reservation not working",
+      "reserved ip not assigned",
+      "static dhcp reservation wrong ip"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-035",
+      "NET-036"
+    ]
+  },
+  {
+    "id": "NET-051",
+    "category": "Networking",
+    "subcategory": "DNS Problems",
+    "problem": "DNS Server Not Responding",
+    "description": "The configured DNS server does not respond to lookup requests, so domain names cannot be translated into IP addresses even though the network connection itself works.",
+    "symptoms": [
+      "Browser shows 'DNS server not responding' or similar error",
+      "Websites fail to load by name, but pinging a raw IP address works fine",
+      "Problem may affect one or all devices on the network"
+    ],
+    "possible_causes": [
+      "DNS server (often the router or ISP's DNS) is down or unreachable",
+      "Network connectivity issue preventing DNS queries from reaching the server",
+      "Firewall blocking DNS traffic (port 53)",
+      "Misconfigured DNS server address on the device"
+    ],
+    "diagnostic_questions": [
+      "Does pinging a known IP address like 8.8.8.8 work, even though website names do not load?",
+      "Are you using the router's default DNS, or a custom DNS server like Google or Cloudflare?",
+      "Does this affect all devices on the network or just one?",
+      "Has the DNS server address configuration changed recently?"
+    ],
+    "commands": [
+      {
+        "command": "nslookup google.com",
+        "purpose": "Directly query the configured DNS server for a domain lookup",
+        "expected_result": "Returns a valid IP address for the domain",
+        "abnormal_result": "'DNS request timed out' or 'No response from server' confirms the DNS server is not responding"
+      },
+      {
+        "command": "ping 8.8.8.8",
+        "purpose": "Confirm general internet connectivity is fine, isolating the problem to DNS specifically",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout would indicate a broader connectivity problem, not just DNS"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Ping a known public IP address to confirm general internet connectivity works",
+        "reason": "Isolates whether this is truly a DNS-specific problem or a broader connectivity issue"
+      },
+      {
+        "step": 2,
+        "action": "Run nslookup on a well-known domain to directly test the configured DNS server",
+        "reason": "Confirms the DNS server itself is not responding to queries"
+      },
+      {
+        "step": 3,
+        "action": "Switch the DNS server setting to a reliable public DNS like 8.8.8.8 or 1.1.1.1",
+        "reason": "Bypasses a malfunctioning or unreachable DNS server"
+      },
+      {
+        "step": 4,
+        "action": "Restart the router if it also acts as the local DNS server/forwarder",
+        "reason": "Resolves a temporary crash or hang in the router's DNS service"
+      },
+      {
+        "step": 5,
+        "action": "Check firewall settings for any rule blocking DNS traffic on port 53",
+        "reason": "A firewall blocking this specific port would prevent all DNS queries from succeeding"
+      }
+    ],
+    "possible_solutions": [
+      "Switch to a reliable public DNS server like 8.8.8.8 or 1.1.1.1",
+      "Restart the router if it handles local DNS",
+      "Check and correct firewall rules blocking port 53",
+      "Contact the ISP if their DNS servers are confirmed down"
+    ],
+    "prevention": [
+      "Configure a reliable secondary DNS server as a backup",
+      "Keep router firmware updated for DNS service stability",
+      "Periodically verify DNS server responsiveness on critical systems"
+    ],
+    "keywords": [
+      "dns server not responding",
+      "dns not working",
+      "cant resolve domain names"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-001",
+      "NET-002"
+    ]
+  },
+  {
+    "id": "NET-052",
+    "category": "Networking",
+    "subcategory": "DNS Problems",
+    "problem": "Cannot Resolve Domain Name",
+    "description": "A specific domain name, or all domain names, cannot be translated into an IP address, resulting in failed website loads despite a working internet connection.",
+    "symptoms": [
+      "Browser error such as 'DNS_PROBE_FINISHED_NXDOMAIN' or 'Server not found'",
+      "Pinging the domain name fails, but pinging its IP address directly (if known) works",
+      "May affect one domain or all domains depending on the cause"
+    ],
+    "possible_causes": [
+      "DNS server has no record or an outdated record for the domain",
+      "Domain itself may have DNS configuration issues (if it's a custom/internal domain)",
+      "Local DNS cache holding a bad or outdated entry",
+      "Typo in the domain name being entered"
+    ],
+    "diagnostic_questions": [
+      "Is this happening with one specific domain or website names in general?",
+      "Have you tried a different DNS server to see if resolution works there instead?",
+      "Is this a public website or an internal company domain?",
+      "Have you double-checked the domain name is spelled correctly?"
+    ],
+    "commands": [
+      {
+        "command": "nslookup <domain_name>",
+        "purpose": "Directly test resolution of the specific domain in question",
+        "expected_result": "Returns a valid IP address for the domain",
+        "abnormal_result": "'Non-existent domain' or no answer confirms a resolution failure for this specific name"
+      },
+      {
+        "command": "ipconfig /flushdns",
+        "purpose": "Clear the local DNS resolver cache of any outdated entries",
+        "expected_result": "Cache successfully flushed",
+        "abnormal_result": "N/A - this is a corrective action, not a diagnostic result"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Double-check the domain name is typed correctly, without typos",
+        "reason": "A simple typo is a surprisingly common cause of resolution failures"
+      },
+      {
+        "step": 2,
+        "action": "Run nslookup directly against the domain to see the exact DNS response",
+        "reason": "Confirms whether this is a genuine DNS resolution failure and what the server is actually returning"
+      },
+      {
+        "step": 3,
+        "action": "Flush the local DNS cache with ipconfig /flushdns",
+        "reason": "Clears any stale or corrupted cached entry for this domain"
+      },
+      {
+        "step": 4,
+        "action": "Try resolving the domain using a different DNS server, such as 8.8.8.8",
+        "reason": "Determines if the issue is specific to the currently configured DNS server"
+      },
+      {
+        "step": 5,
+        "action": "For internal/custom domains, check with the domain administrator whether the DNS record exists and is correctly configured",
+        "reason": "Internal domains depend on proper internal DNS zone configuration, which may need admin correction"
+      }
+    ],
+    "possible_solutions": [
+      "Flush the DNS cache",
+      "Try a different DNS server",
+      "Verify the domain name is spelled correctly",
+      "Contact the domain's DNS administrator for internal/custom domains"
+    ],
+    "prevention": [
+      "Keep DNS records properly maintained and documented for internal domains",
+      "Periodically flush DNS cache as routine maintenance",
+      "Double-check domain spelling before troubleshooting further"
+    ],
+    "keywords": [
+      "cannot resolve domain name",
+      "dns_probe_finished_nxdomain",
+      "server not found dns error"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-009",
+      "NET-055"
+    ]
+  },
+  {
+    "id": "NET-053",
+    "category": "Networking",
+    "subcategory": "DNS Problems",
+    "problem": "DNS Lookup Failed",
+    "description": "A general DNS lookup failure occurs, often shown as a generic error during nslookup or in application logs, without loading any website.",
+    "symptoms": [
+      "nslookup or dig commands return timeout or failure errors",
+      "Applications relying on DNS fail to connect to their servers",
+      "Error may mention 'DNS lookup failed' or 'Could not resolve host'"
+    ],
+    "possible_causes": [
+      "DNS server unreachable or not responding",
+      "Local network adapter DNS settings misconfigured",
+      "Firewall or security software blocking DNS queries",
+      "Corrupted DNS resolver cache or Windows DNS Client service issue"
+    ],
+    "diagnostic_questions": [
+      "What specific error message appears during the failed lookup?",
+      "Are you able to reach the DNS server via ping, if its IP is known?",
+      "Does this affect all lookups or specific domains only?",
+      "Has this device's DNS configuration been checked recently?"
+    ],
+    "commands": [
+      {
+        "command": "nslookup google.com",
+        "purpose": "Perform a basic DNS lookup test to observe the exact failure",
+        "expected_result": "Returns a valid IP address",
+        "abnormal_result": "Timeout or error message provides detail on the specific type of DNS failure"
+      },
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check what DNS server addresses are currently configured",
+        "expected_result": "Valid, reachable DNS server addresses listed",
+        "abnormal_result": "Missing, blank, or incorrect DNS server entries explain the lookup failures"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the currently configured DNS server addresses with ipconfig /all",
+        "reason": "Confirms whether the device even has valid DNS servers configured to query"
+      },
+      {
+        "step": 2,
+        "action": "Test connectivity to the configured DNS server with ping",
+        "reason": "Determines if the DNS server itself is reachable on the network"
+      },
+      {
+        "step": 3,
+        "action": "Restart the DNS Client service in Windows Services (or the equivalent resolver service on other operating systems)",
+        "reason": "Resolves a stuck or corrupted local DNS resolver service"
+      },
+      {
+        "step": 4,
+        "action": "Switch to a known reliable public DNS server temporarily to test if the issue is server-specific",
+        "reason": "Isolates whether the problem lies with the specific configured DNS server or something more local"
+      },
+      {
+        "step": 5,
+        "action": "Check firewall or security software for rules blocking DNS traffic (UDP/TCP port 53)",
+        "reason": "Security software occasionally blocks DNS queries, especially after a recent update or policy change"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the DNS Client/resolver service",
+      "Switch to a different, reliable DNS server",
+      "Adjust firewall rules blocking DNS traffic",
+      "Correct DNS server configuration on the adapter"
+    ],
+    "prevention": [
+      "Keep DNS resolver services running and set to automatic startup",
+      "Regularly verify DNS configuration on critical systems",
+      "Review firewall rules after updates for unintended DNS blocking"
+    ],
+    "keywords": [
+      "dns lookup failed error",
+      "could not resolve host",
+      "generic dns failure"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-051",
+      "NET-052"
+    ]
+  },
+  {
+    "id": "NET-054",
+    "category": "Networking",
+    "subcategory": "DNS Problems",
+    "problem": "Incorrect DNS Server",
+    "description": "The device is configured to use a DNS server that is wrong, outdated, or no longer appropriate, causing resolution failures or unexpected results.",
+    "symptoms": [
+      "Websites fail to load, load slowly, or resolve to unexpected addresses",
+      "DNS server address in network settings does not match what is expected",
+      "May cause security or filtering inconsistencies if using an unintended DNS server"
+    ],
+    "possible_causes": [
+      "Manually configured DNS server address is outdated or incorrect",
+      "VPN or other software silently changed the DNS server setting",
+      "ISP or router's default DNS server was changed without updating documentation",
+      "Leftover DNS configuration from a previous network environment"
+    ],
+    "diagnostic_questions": [
+      "What DNS server address is currently configured on this device?",
+      "Should this device be using automatic (router-provided) DNS, or a specific manually configured one?",
+      "Has any VPN or security software been installed recently that might change DNS settings?",
+      "Was this device recently moved from a different network without updating its DNS configuration?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check the currently configured DNS server addresses",
+        "expected_result": "DNS servers match the intended, correct configuration for this network",
+        "abnormal_result": "Unexpected, outdated, or incorrect DNS server addresses listed"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check the currently configured DNS server addresses using ipconfig /all",
+        "reason": "Establishes exactly what is currently set, which may differ from what is assumed"
+      },
+      {
+        "step": 2,
+        "action": "Determine what the correct DNS server should be, whether automatic from the router or a specific manual choice",
+        "reason": "Provides the target configuration to fix towards"
+      },
+      {
+        "step": 3,
+        "action": "Update the DNS server setting to the correct value, or set it to obtain DNS automatically",
+        "reason": "Directly resolves the misconfiguration"
+      },
+      {
+        "step": 4,
+        "action": "Check for VPN or security software that may be overriding DNS settings, and adjust its configuration if needed",
+        "reason": "Some software silently redirects DNS traffic, which can look like a manual misconfiguration"
+      },
+      {
+        "step": 5,
+        "action": "Flush the DNS cache after making changes to ensure old cached results do not linger",
+        "reason": "Prevents confusion from stale results cached under the old DNS configuration"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the DNS server address to the intended value",
+      "Set the adapter to obtain DNS automatically if manual configuration is not needed",
+      "Check VPN/security software for DNS override settings",
+      "Flush the DNS cache after changes"
+    ],
+    "prevention": [
+      "Document intended DNS configuration for company devices",
+      "Regularly audit DNS settings on critical systems",
+      "Review VPN/security software DNS behavior before deployment"
+    ],
+    "keywords": [
+      "wrong dns server configured",
+      "incorrect dns settings",
+      "dns server address wrong"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-15 minutes",
+    "related_problems": [
+      "NET-051",
+      "NET-002"
+    ]
+  },
+  {
+    "id": "NET-055",
+    "category": "Networking",
+    "subcategory": "DNS Problems",
+    "problem": "Slow DNS Resolution",
+    "description": "Websites eventually load, but there is a noticeable delay specifically during the domain name lookup phase before the page begins loading.",
+    "symptoms": [
+      "Noticeable pause before a webpage starts loading, especially on first visit to a site",
+      "Subsequent visits to the same site may load faster due to caching",
+      "Ping to the domain shows a delay before resolving, though the ping itself may be fast once resolved"
+    ],
+    "possible_causes": [
+      "Slow or overloaded DNS server",
+      "Geographically distant DNS server increasing round-trip time",
+      "ISP's DNS infrastructure experiencing performance issues",
+      "DNS server configured with multiple hops or forwarding chains adding delay"
+    ],
+    "diagnostic_questions": [
+      "Does the delay happen on every website, or mainly on first visits to new sites?",
+      "What DNS server is currently being used, the router's default, the ISP's, or a public one?",
+      "Have you tried switching to a different public DNS server to compare speed?",
+      "Does the delay happen consistently, or only at certain times of day?"
+    ],
+    "commands": [
+      {
+        "command": "nslookup google.com",
+        "purpose": "Manually time how long a DNS lookup takes using the current DNS server",
+        "expected_result": "Fast response, typically well under a second",
+        "abnormal_result": "Noticeably slow response confirms the DNS server itself is responding slowly"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Time DNS lookups using nslookup against the current DNS server for a few different domains",
+        "reason": "Establishes a baseline of how slow the current resolution really is"
+      },
+      {
+        "step": 2,
+        "action": "Switch to a fast, well-known public DNS server like 1.1.1.1 (Cloudflare) or 8.8.8.8 (Google) and re-test",
+        "reason": "These providers are generally optimized for low-latency responses and serve as a good comparison"
+      },
+      {
+        "step": 3,
+        "action": "Check if the current DNS server is geographically distant or part of a slow ISP infrastructure",
+        "reason": "Physical distance and server load both directly affect DNS response time"
+      },
+      {
+        "step": 4,
+        "action": "Consider using a DNS provider with built-in caching and performance optimization if the ISP's DNS remains slow",
+        "reason": "Provides consistently faster resolution going forward"
+      },
+      {
+        "step": 5,
+        "action": "Clear the DNS cache and monitor if performance improves over time as new fast entries are cached",
+        "reason": "A cache full of stale or slow-to-verify entries can also contribute to perceived slowness"
+      }
+    ],
+    "possible_solutions": [
+      "Switch to a faster public DNS server like 1.1.1.1 or 8.8.8.8",
+      "Flush the DNS cache",
+      "Choose a DNS provider with good performance and low latency for your region"
+    ],
+    "prevention": [
+      "Regularly benchmark DNS performance if speed is a priority",
+      "Use reputable, well-provisioned DNS providers",
+      "Keep router firmware updated if it handles local DNS forwarding"
+    ],
+    "keywords": [
+      "slow dns resolution",
+      "dns lookup delay",
+      "websites slow to start loading"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-15 minutes",
+    "related_problems": [
+      "NET-004",
+      "NET-051"
+    ]
+  },
+  {
+    "id": "NET-056",
+    "category": "Networking",
+    "subcategory": "DNS Problems",
+    "problem": "Internal DNS Not Working",
+    "description": "A company's internal DNS server, used for resolving internal resource names like file servers or intranet sites, is not resolving those names correctly for users.",
+    "symptoms": [
+      "Internal resources like \\\\fileserver or intranet.company.local fail to resolve",
+      "External/public websites may still work fine, showing the problem is isolated to internal DNS",
+      "May affect all users or just those on certain subnets/VLANs"
+    ],
+    "possible_causes": [
+      "Internal DNS server (often a domain controller) service stopped or crashed",
+      "DNS zone records missing, incorrect, or not replicated",
+      "Client pointed to the wrong DNS server, such as a public DNS instead of the internal one",
+      "Internal DNS server unreachable due to network segmentation issues"
+    ],
+    "diagnostic_questions": [
+      "Are external/public websites still working, isolating this to internal name resolution?",
+      "What DNS server address are affected clients configured to use?",
+      "Is the internal DNS server (such as a domain controller) currently running and reachable?",
+      "Does this affect all users, or only certain subnets, VLANs, or office locations?"
+    ],
+    "commands": [
+      {
+        "command": "nslookup <internal_hostname> <internal_dns_server_ip>",
+        "purpose": "Directly query the internal DNS server for an internal resource name",
+        "expected_result": "Returns the correct internal IP address for the resource",
+        "abnormal_result": "No response or an error indicates a problem with the internal DNS server or its records"
+      },
+      {
+        "command": "ping <internal_dns_server_ip>",
+        "purpose": "Confirm the internal DNS server itself is reachable on the network",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout suggests the internal DNS server is down or a network path issue exists"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm external websites still resolve normally to isolate the issue to internal DNS specifically",
+        "reason": "Narrows the problem scope and rules out a general DNS or connectivity failure"
+      },
+      {
+        "step": 2,
+        "action": "Check that affected clients are pointed to the correct internal DNS server address",
+        "reason": "Clients accidentally using a public DNS server will never resolve internal-only names"
+      },
+      {
+        "step": 3,
+        "action": "Verify the internal DNS server (often a domain controller) is powered on and its DNS service is running",
+        "reason": "A stopped service or offline server explains a total internal resolution failure"
+      },
+      {
+        "step": 4,
+        "action": "Check the relevant DNS zone for missing or incorrect records for the affected resource",
+        "reason": "Confirms whether this is a specific record issue rather than a server-wide outage"
+      },
+      {
+        "step": 5,
+        "action": "Check network connectivity and any relevant VLAN/subnet routing between affected clients and the internal DNS server",
+        "reason": "Segmented networks require proper routing for clients to reach the internal DNS server at all"
+      }
+    ],
+    "possible_solutions": [
+      "Point affected clients to the correct internal DNS server",
+      "Restart the internal DNS service if stopped",
+      "Correct or recreate missing/incorrect DNS zone records",
+      "Fix network routing between affected subnets and the DNS server"
+    ],
+    "prevention": [
+      "Use DHCP to consistently distribute the correct internal DNS server to all clients",
+      "Regularly back up and audit internal DNS zone records",
+      "Monitor internal DNS server health and service uptime"
+    ],
+    "keywords": [
+      "internal dns not resolving",
+      "company intranet dns not working",
+      "cannot resolve internal hostname"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "NET-059",
+      "NET-060"
+    ]
+  },
+  {
+    "id": "NET-057",
+    "category": "Networking",
+    "subcategory": "DNS Problems",
+    "problem": "Public DNS Not Working",
+    "description": "A publicly used DNS server, such as Google's 8.8.8.8 or Cloudflare's 1.1.1.1, appears to not be working from the current network, even though it usually works fine.",
+    "symptoms": [
+      "Manually configured public DNS server fails to resolve any domains",
+      "Switching back to the router's default DNS resolves the issue",
+      "May coincide with certain firewall or network configurations blocking external DNS"
+    ],
+    "possible_causes": [
+      "ISP or router blocking outbound DNS traffic to servers other than their own",
+      "Firewall rule blocking specific public DNS server IP addresses or DNS ports",
+      "Temporary outage or issue with the specific public DNS provider (rare but possible)",
+      "Router's DNS settings overriding client-configured DNS servers"
+    ],
+    "diagnostic_questions": [
+      "Does switching back to the router's automatic/default DNS resolve the issue?",
+      "Is there any firewall, parental control, or ISP-level restriction that might block third-party DNS servers?",
+      "Have you tried a different public DNS provider to see if the problem is specific to just one?",
+      "Is this a public network, like at a school, hotel, or workplace, that might intentionally restrict DNS choices?"
+    ],
+    "commands": [
+      {
+        "command": "nslookup google.com 8.8.8.8",
+        "purpose": "Directly test if the public DNS server responds when explicitly queried",
+        "expected_result": "Returns a valid response",
+        "abnormal_result": "Timeout or no response suggests the network is blocking traffic to this specific DNS server"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Test the public DNS server directly using nslookup with its address explicitly specified",
+        "reason": "Confirms whether the server itself is reachable and responding from this specific network"
+      },
+      {
+        "step": 2,
+        "action": "Try switching back to the router's default/automatic DNS server to confirm normal DNS resolution otherwise works",
+        "reason": "Establishes that the problem is specific to using an alternate public DNS server, not general connectivity"
+      },
+      {
+        "step": 3,
+        "action": "Check if this is a public, restricted, or managed network (school, workplace, hotel) that may intentionally block third-party DNS servers",
+        "reason": "Some networks deliberately force all DNS traffic through their own servers for content filtering or security"
+      },
+      {
+        "step": 4,
+        "action": "Try a different public DNS provider, such as switching from Google's 8.8.8.8 to Cloudflare's 1.1.1.1",
+        "reason": "Helps determine if the block is specific to one provider's servers or DNS traffic to outside servers in general"
+      },
+      {
+        "step": 5,
+        "action": "Use the network's provided/default DNS server if third-party DNS is confirmed to be blocked and cannot be changed",
+        "reason": "Restores working DNS resolution within the network's restrictions"
+      }
+    ],
+    "possible_solutions": [
+      "Revert to the router's default/automatic DNS server if third-party DNS is blocked",
+      "Try a different public DNS provider",
+      "Contact the network administrator if a specific public DNS server needs to be allowed"
+    ],
+    "prevention": [
+      "Understand network DNS policies before configuring custom DNS servers on managed networks",
+      "Keep a fallback DNS configuration in mind for restricted networks",
+      "Document which networks intentionally restrict DNS choices"
+    ],
+    "keywords": [
+      "public dns not working 8.8.8.8",
+      "cloudflare dns not working",
+      "custom dns blocked network"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-051",
+      "NET-054"
+    ]
+  },
+  {
+    "id": "NET-058",
+    "category": "Networking",
+    "subcategory": "DNS Problems",
+    "problem": "Cached DNS Problems",
+    "description": "An outdated or incorrect DNS entry remains stored in the local DNS cache, causing a website or service to fail to load or resolve to the wrong address even after the actual DNS record has been corrected.",
+    "symptoms": [
+      "A website resolves to an old, incorrect, or non-existent IP address",
+      "The problem persists even though the DNS record has been confirmed correct elsewhere",
+      "Other devices, or the same device using a different DNS cache, resolve the site correctly"
+    ],
+    "possible_causes": [
+      "Local DNS resolver cache holding an old entry from before a recent DNS record change",
+      "Browser-level DNS cache separate from the operating system's cache",
+      "Router's own DNS cache holding outdated information for connected devices",
+      "Cached negative result (a previous failed lookup) preventing a fresh attempt"
+    ],
+    "diagnostic_questions": [
+      "Was there a recent change to this specific domain's DNS records, such as moving to a new server?",
+      "How long ago was the DNS change made, and has enough time passed for normal propagation?",
+      "Have you tried a completely different device or network to see if the site resolves correctly there?",
+      "Have you tried flushing the DNS cache on both the operating system and the browser?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /flushdns",
+        "purpose": "Clear the Windows operating system's local DNS resolver cache",
+        "expected_result": "'Successfully flushed the DNS Resolver Cache'",
+        "abnormal_result": "An error message, though this is uncommon; the command should generally succeed"
+      },
+      {
+        "command": "nslookup <domain_name>",
+        "purpose": "Perform a fresh lookup after flushing to see if a new, correct result is returned",
+        "expected_result": "Returns the correct, updated IP address",
+        "abnormal_result": "Still returns the old, incorrect address, suggesting the outdated entry is cached elsewhere, such as at the router or ISP level"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Flush the local operating system DNS cache using ipconfig /flushdns",
+        "reason": "Clears the most common source of a stale cached entry on this specific device"
+      },
+      {
+        "step": 2,
+        "action": "Clear the browser's own DNS cache or fully restart the browser",
+        "reason": "Many browsers maintain a separate internal DNS cache independent of the operating system"
+      },
+      {
+        "step": 3,
+        "action": "Restart the router if it also caches DNS results for connected devices",
+        "reason": "Router-level caching can continue to serve an old result even after the OS and browser caches are cleared"
+      },
+      {
+        "step": 4,
+        "action": "Test resolution from a completely different network, such as mobile data, to check if the correct new record has propagated more broadly",
+        "reason": "Helps distinguish between a local caching issue and normal, still-in-progress DNS propagation across the internet"
+      },
+      {
+        "step": 5,
+        "action": "Wait for the record's TTL (time to live) to naturally expire if propagation is still in progress elsewhere",
+        "reason": "DNS changes take time to propagate globally, and forcing a local flush cannot speed up caches on other networks/ISPs"
+      }
+    ],
+    "possible_solutions": [
+      "Flush the local OS DNS cache",
+      "Clear the browser's DNS cache or restart the browser",
+      "Restart the router to clear its DNS cache",
+      "Wait for normal DNS propagation if the change is very recent"
+    ],
+    "prevention": [
+      "Set reasonable TTL values on DNS records before making changes, especially ahead of planned migrations",
+      "Flush caches proactively after known DNS record changes",
+      "Communicate DNS change timelines to affected users in advance"
+    ],
+    "keywords": [
+      "dns cache old ip address",
+      "cached dns not updating",
+      "website resolves to wrong ip"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "5-15 minutes",
+    "related_problems": [
+      "NET-052",
+      "NET-055"
+    ]
+  },
+  {
+    "id": "NET-059",
+    "category": "Networking",
+    "subcategory": "Gateway Problems",
+    "problem": "Default Gateway Not Available",
+    "description": "The device shows no default gateway configured at all, or Windows reports the gateway as unavailable, preventing any traffic from leaving the local network.",
+    "symptoms": [
+      "ipconfig shows no default gateway listed, or 'Default Gateway Not Available' in network diagnostics",
+      "Local network devices may be reachable, but internet access fails completely",
+      "Windows Network Troubleshooter specifically flags this as the issue"
+    ],
+    "possible_causes": [
+      "DHCP server did not provide a gateway address",
+      "Static IP configuration is missing the gateway field",
+      "Router is powered off or has crashed, so it is not responding to identify itself as the gateway",
+      "Network adapter driver issue preventing proper gateway detection"
+    ],
+    "diagnostic_questions": [
+      "Is this device using DHCP (automatic) or a static IP configuration?",
+      "Is the router powered on and functioning normally for other devices?",
+      "Does ipconfig show a blank or missing gateway field?",
+      "Does releasing and renewing the IP address resolve the issue?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check whether a default gateway address is present in the configuration",
+        "expected_result": "A valid gateway address is listed, matching the router's IP",
+        "abnormal_result": "Gateway field is blank or missing entirely"
+      },
+      {
+        "command": "ipconfig /release && ipconfig /renew",
+        "purpose": "Request a fresh, complete configuration including the gateway",
+        "expected_result": "A complete configuration including a valid gateway is received",
+        "abnormal_result": "The gateway remains missing after renewal, pointing to a router or DHCP-side issue"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check ipconfig /all to confirm whether the gateway field is genuinely blank",
+        "reason": "Confirms this is truly a missing gateway issue rather than an unrelated internet problem"
+      },
+      {
+        "step": 2,
+        "action": "For DHCP-based devices, release and renew the IP address to request a complete configuration again",
+        "reason": "Often resolves a one-time failure to receive the gateway value during the initial request"
+      },
+      {
+        "step": 3,
+        "action": "For statically configured devices, check and correct the manually entered gateway field",
+        "reason": "An incomplete static configuration will never include a valid gateway on its own"
+      },
+      {
+        "step": 4,
+        "action": "Confirm the router is powered on and responding, since it is typically also the source of the gateway address via DHCP",
+        "reason": "A router that is off or crashed cannot provide gateway information to any device"
+      },
+      {
+        "step": 5,
+        "action": "Restart the router if it is on but not properly responding to DHCP requests, including the gateway field",
+        "reason": "Resolves a partial service failure where the router is up but not fully functioning"
+      }
+    ],
+    "possible_solutions": [
+      "Release and renew the IP address for DHCP clients",
+      "Manually correct the gateway field for static IP configurations",
+      "Restart the router if it is not properly providing gateway information",
+      "Update the network adapter driver if the problem persists on one device only"
+    ],
+    "prevention": [
+      "Ensure DHCP scope configuration always includes a valid gateway option",
+      "Document required static configuration values, including the gateway, for reference",
+      "Regularly verify router health and DHCP service functionality"
+    ],
+    "keywords": [
+      "default gateway not available",
+      "no gateway configured",
+      "gateway missing ipconfig"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-038",
+      "NET-033"
+    ]
+  },
+  {
+    "id": "NET-060",
+    "category": "Networking",
+    "subcategory": "Gateway Problems",
+    "problem": "Gateway Unreachable",
+    "description": "The default gateway address is properly configured, but the device cannot actually reach or communicate with it, blocking all traffic beyond the local segment.",
+    "symptoms": [
+      "ipconfig shows a valid gateway address, but pinging it fails",
+      "Local network devices on the same subnet may or may not be reachable depending on the exact cause",
+      "No internet or outside network access as a direct result"
+    ],
+    "possible_causes": [
+      "Router is powered off, crashed, or rebooting",
+      "Physical or wireless connection to the router is down or unstable",
+      "Device and gateway are actually on different, non-communicating network segments despite appearing configured correctly",
+      "Switch or cabling issue between the device and the router"
+    ],
+    "diagnostic_questions": [
+      "Can you ping the configured gateway address at all?",
+      "Is the router visibly powered on with normal status lights?",
+      "Are other devices on the same network able to reach the gateway successfully?",
+      "Is there any switch or additional networking equipment between this device and the router that could be at fault?"
+    ],
+    "commands": [
+      {
+        "command": "ping <gateway_ip>",
+        "purpose": "Directly test connectivity to the configured gateway address",
+        "expected_result": "Replies received",
+        "abnormal_result": "Request timed out, confirming the gateway is unreachable despite being correctly configured"
+      },
+      {
+        "command": "tracert <gateway_ip>",
+        "purpose": "Trace the path to the gateway to see how far traffic gets before failing",
+        "expected_result": "Reaches the gateway in a single hop",
+        "abnormal_result": "Fails immediately at the first hop, confirming a direct local connectivity problem to the gateway"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Ping the configured gateway address to confirm it is indeed unreachable",
+        "reason": "Verifies the problem precisely before investigating further"
+      },
+      {
+        "step": 2,
+        "action": "Check if the router is powered on and showing normal status lights",
+        "reason": "A router that is off or has crashed will obviously be unreachable as a gateway"
+      },
+      {
+        "step": 3,
+        "action": "Check the physical or wireless connection between the device and the router, including any intermediate switches",
+        "reason": "A broken link anywhere along this path will prevent reaching the gateway"
+      },
+      {
+        "step": 4,
+        "action": "Test from another device on the same network to see if the gateway is reachable from there",
+        "reason": "Determines if this is isolated to one device or affects the whole local segment"
+      },
+      {
+        "step": 5,
+        "action": "Restart the router and, if applicable, any intermediate switches",
+        "reason": "Resolves temporary crashes or hangs preventing the router from responding as expected"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the router if it is unresponsive",
+      "Check and repair the physical or wireless connection to the router",
+      "Check and restart any intermediate switches between the device and router",
+      "Verify the correct gateway address is configured if reachability issues persist"
+    ],
+    "prevention": [
+      "Use quality, well-maintained cabling and switches between devices and the router",
+      "Keep router firmware updated for stability",
+      "Monitor router uptime and responsiveness on critical networks"
+    ],
+    "keywords": [
+      "cannot ping gateway",
+      "gateway unreachable timeout",
+      "default gateway not responding"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": [
+      "NET-013",
+      "NET-026"
+    ]
+  },
+  {
+    "id": "NET-061",
+    "category": "Networking",
+    "subcategory": "Gateway Problems",
+    "problem": "Incorrect Gateway Configuration (Network-Wide)",
+    "description": "Multiple devices across the network have an incorrect default gateway configuration, typically due to a router change or a DHCP server handing out the wrong value to everyone.",
+    "symptoms": [
+      "Many or all devices on the network lose internet access at the same time",
+      "Devices show a gateway address that does not match the router's actual current IP",
+      "Problem started right after a router replacement, firmware update, or IP address change"
+    ],
+    "possible_causes": [
+      "Router's IP address was changed, but DHCP scope options were not updated to match",
+      "Router was replaced with a new device using a different default IP",
+      "DHCP server configuration manually set with an outdated or incorrect gateway value",
+      "Static IP devices across the network were configured with an old gateway value that is no longer correct"
+    ],
+    "diagnostic_questions": [
+      "Did the router get replaced, reset, or have its IP address changed recently?",
+      "Are multiple devices affected, or just one, which would suggest a device-specific rather than network-wide issue?",
+      "What gateway value are affected devices currently showing, and does it match the router's actual current IP?",
+      "Are the affected devices using DHCP, static IPs, or a mix of both?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all (on multiple affected devices)",
+        "purpose": "Confirm that multiple devices share the same incorrect gateway value",
+        "expected_result": "N/A - this simply confirms the scope of the issue across devices",
+        "abnormal_result": "Consistent incorrect gateway value across many devices strongly suggests a network-wide DHCP misconfiguration rather than isolated device issues"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the router's actual current IP address from its own administration interface or physical label",
+        "reason": "Establishes the correct value that all devices should be using as their gateway"
+      },
+      {
+        "step": 2,
+        "action": "Check the DHCP server's scope options for the gateway value being distributed to clients",
+        "reason": "Identifies whether the DHCP server itself is the source of the incorrect network-wide configuration"
+      },
+      {
+        "step": 3,
+        "action": "Correct the DHCP scope's gateway option to match the router's actual current IP address",
+        "reason": "Ensures all future DHCP clients receive the correct value automatically"
+      },
+      {
+        "step": 4,
+        "action": "Have all affected DHCP-based devices release and renew their IP address to pick up the corrected gateway",
+        "reason": "Existing devices will not automatically receive the fix until their next renewal"
+      },
+      {
+        "step": 5,
+        "action": "Manually correct the gateway on any statically configured devices, since these will not be fixed by the DHCP correction",
+        "reason": "Static devices require individual manual updates since they do not use DHCP"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the DHCP scope's gateway option to match the router's actual IP",
+      "Have DHCP clients release and renew to receive the corrected gateway",
+      "Manually update the gateway on any statically configured devices",
+      "Document the router's IP address clearly after any changes"
+    ],
+    "prevention": [
+      "Update DHCP scope options immediately whenever the router's IP address changes",
+      "Maintain a checklist for router replacement or reconfiguration procedures",
+      "Regularly audit static IP device configurations for accuracy"
+    ],
+    "keywords": [
+      "network wide gateway wrong",
+      "all devices lost internet after router change",
+      "dhcp gateway option incorrect"
+    ],
+    "difficulty": "Advanced",
+    "estimated_fix_time": "20-45 minutes",
+    "related_problems": [
+      "NET-038",
+      "NET-049"
+    ]
+  },
+  {
+    "id": "NET-062",
+    "category": "Networking",
+    "subcategory": "Gateway Problems",
+    "problem": "Gateway Timeout",
+    "description": "Requests to the gateway or through it to reach external destinations take an unusually long time and eventually time out, rather than failing immediately or succeeding normally.",
+    "symptoms": [
+      "Web browsers show a '504 Gateway Timeout' error or similar",
+      "Ping to the gateway itself may succeed, but requests passing through it to reach further destinations time out",
+      "Problem may be intermittent rather than constant"
+    ],
+    "possible_causes": [
+      "Router or gateway device is overloaded and slow to process traffic",
+      "Upstream connection (to the ISP) beyond the gateway is degraded or intermittent",
+      "Gateway device is experiencing a hardware or software issue causing slow processing",
+      "Excessive traffic or a misbehaving device on the network overwhelming the gateway"
+    ],
+    "diagnostic_questions": [
+      "Does the timeout happen consistently or only intermittently?",
+      "Is the gateway (router) itself reachable via ping, even if traffic through it times out?",
+      "Are there any devices on the network generating unusually high traffic, such as large downloads or a misbehaving application?",
+      "Does restarting the router temporarily resolve the timeouts?"
+    ],
+    "commands": [
+      {
+        "command": "ping <gateway_ip> -n 20",
+        "purpose": "Check if the gateway itself responds consistently, even if traffic through it is slow",
+        "expected_result": "Consistent, timely replies from the gateway",
+        "abnormal_result": "Slow or inconsistent replies suggest the gateway device itself is under strain"
+      },
+      {
+        "command": "tracert 8.8.8.8",
+        "purpose": "See where along the path beyond the gateway delays or failures begin",
+        "expected_result": "Reasonable response times at each hop",
+        "abnormal_result": "Significant delay or failure starting right at or just after the gateway hop"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Ping the gateway repeatedly to check if it responds consistently and quickly on its own",
+        "reason": "Determines if the gateway device itself is struggling versus the issue being further upstream"
+      },
+      {
+        "step": 2,
+        "action": "Run tracert to a public destination to see exactly where delays begin along the path",
+        "reason": "Helps pinpoint whether the problem is at the gateway itself or beyond it toward the ISP"
+      },
+      {
+        "step": 3,
+        "action": "Check for devices on the network consuming excessive bandwidth or generating heavy traffic",
+        "reason": "An overloaded gateway from heavy local traffic can cause timeouts for other devices' requests"
+      },
+      {
+        "step": 4,
+        "action": "Restart the gateway/router device to clear any temporary processing overload or software issue",
+        "reason": "Resolves many temporary performance problems causing timeouts"
+      },
+      {
+        "step": 5,
+        "action": "Contact the ISP if delays are confirmed to begin just beyond the gateway, indicating an upstream issue",
+        "reason": "The problem may be outside the local network and require ISP-side investigation"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the gateway/router device",
+      "Identify and manage devices consuming excessive bandwidth",
+      "Contact the ISP if upstream delays are confirmed beyond the gateway",
+      "Consider upgrading gateway hardware if it is consistently overloaded"
+    ],
+    "prevention": [
+      "Monitor gateway device performance and traffic load periodically",
+      "Keep gateway/router firmware updated",
+      "Set up bandwidth management or quality of service rules for critical traffic"
+    ],
+    "keywords": [
+      "gateway timeout error",
+      "504 gateway timeout",
+      "router slow to respond timeout"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-007",
+      "NET-060"
+    ]
+  },
+  {
+    "id": "NET-063",
+    "category": "Networking",
+    "subcategory": "Gateway Problems",
+    "problem": "Gateway Packet Loss",
+    "description": "Some packets sent to or through the gateway are lost, causing intermittent connectivity issues, choppy calls, or unreliable access to anything beyond the local network.",
+    "symptoms": [
+      "Ping tests to the gateway show a percentage of lost packets rather than a complete failure",
+      "Intermittent connectivity issues affecting real-time applications like calls or games",
+      "Local network access to other devices may be unaffected, isolating the issue to the gateway specifically"
+    ],
+    "possible_causes": [
+      "Gateway device is overloaded and dropping packets under load",
+      "Faulty cable or port connecting the device to the gateway",
+      "WiFi interference if connected wirelessly to the gateway",
+      "Gateway hardware beginning to fail"
+    ],
+    "diagnostic_questions": [
+      "What percentage of packet loss are you seeing when pinging the gateway directly?",
+      "Is the connection to the gateway wired or wireless?",
+      "Does packet loss happen consistently or only during periods of heavy network use?",
+      "Have you tried a different cable or port when connecting to the gateway?"
+    ],
+    "commands": [
+      {
+        "command": "ping <gateway_ip> -n 50",
+        "purpose": "Send many pings to the gateway to calculate an accurate packet loss percentage",
+        "expected_result": "0% or very minimal packet loss",
+        "abnormal_result": "Noticeable packet loss percentage, confirming a real problem specifically with reaching the gateway"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Run an extended ping test directly to the gateway and note the packet loss percentage",
+        "reason": "Quantifies the severity and confirms the problem is specifically between this device and the gateway"
+      },
+      {
+        "step": 2,
+        "action": "If wired, replace the cable and try a different port on the gateway device",
+        "reason": "A damaged cable or failing port is a common physical cause of packet loss to the gateway"
+      },
+      {
+        "step": 3,
+        "action": "If wireless, check for interference and consider moving closer to the gateway or switching to a wired connection for testing",
+        "reason": "WiFi issues are a very common source of loss specifically on the hop closest to the gateway"
+      },
+      {
+        "step": 4,
+        "action": "Check if packet loss correlates with periods of heavy network usage by other devices",
+        "reason": "An overloaded gateway may only drop packets under load, pointing to a capacity issue rather than a hardware fault"
+      },
+      {
+        "step": 5,
+        "action": "Restart the gateway device to rule out a temporary software issue, and consider hardware replacement if loss continues consistently",
+        "reason": "Persistent packet loss even when idle and after a restart suggests a genuine hardware problem with the gateway"
+      }
+    ],
+    "possible_solutions": [
+      "Replace cables or try different ports on the gateway",
+      "Reduce WiFi interference or switch to a wired connection for testing",
+      "Restart the gateway device",
+      "Consider gateway hardware replacement if packet loss persists after other fixes"
+    ],
+    "prevention": [
+      "Use quality cables and connections to the gateway",
+      "Monitor gateway performance and packet loss trends over time",
+      "Avoid overloading gateway devices with excessive simultaneous traffic"
+    ],
+    "keywords": [
+      "packet loss to gateway",
+      "router dropping packets",
+      "gateway connection unreliable"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-008",
+      "NET-060"
+    ]
+  },
+  {
+    "id": "NET-064",
+    "category": "Networking",
+    "subcategory": "Ping Problems",
+    "problem": "Cannot Ping Gateway",
+    "description": "Pinging the network's default gateway (usually the router) fails, which is a fundamental sign that the device cannot reach even the first step of its network path.",
+    "symptoms": [
+      "ping <gateway_ip> returns 'Request timed out' or 'Destination host unreachable'",
+      "No internet or outside network access as a direct consequence",
+      "Local device-to-device communication may still work depending on the exact cause"
+    ],
+    "possible_causes": [
+      "Physical or wireless connection between the device and the router is down",
+      "Router is powered off or has crashed",
+      "Incorrect gateway address configured on the device",
+      "Firewall on the device blocking outbound ping (ICMP) traffic"
+    ],
+    "diagnostic_questions": [
+      "Is the physical cable connected, or is WiFi showing as connected?",
+      "Is the router powered on with normal status lights?",
+      "Is the gateway address configured on this device actually correct?",
+      "Have you tried pinging the gateway from another device on the same network?"
+    ],
+    "commands": [
+      {
+        "command": "ping <gateway_ip>",
+        "purpose": "Directly test connectivity to the configured gateway",
+        "expected_result": "Replies received with reasonable response times",
+        "abnormal_result": "Request timed out, confirming the gateway cannot be reached"
+      },
+      {
+        "command": "ipconfig",
+        "purpose": "Confirm the exact gateway address currently configured",
+        "expected_result": "A gateway address matching the router's actual IP",
+        "abnormal_result": "Missing or incorrect gateway address explains the ping failure"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the physical or wireless connection to the network is actually established",
+        "reason": "No connection at all will naturally prevent reaching any destination, including the gateway"
+      },
+      {
+        "step": 2,
+        "action": "Verify the gateway address shown by ipconfig matches the router's actual current IP address",
+        "reason": "An incorrect gateway address will always fail to respond, since it may not correspond to any real device"
+      },
+      {
+        "step": 3,
+        "action": "Check that the router is powered on and displaying normal status lights",
+        "reason": "An offline or crashed router obviously cannot respond to any ping requests"
+      },
+      {
+        "step": 4,
+        "action": "Test pinging the gateway from a different device on the same network",
+        "reason": "Determines whether the problem is isolated to this one device or affects the whole network"
+      },
+      {
+        "step": 5,
+        "action": "Check the device's firewall settings for any rule blocking outbound ICMP (ping) traffic",
+        "reason": "Some firewalls block ping specifically while still allowing other types of traffic, which can be misleading"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the router if it is unresponsive",
+      "Correct the gateway address if misconfigured",
+      "Check and repair the physical or wireless connection",
+      "Adjust firewall settings if blocking ICMP traffic"
+    ],
+    "prevention": [
+      "Regularly verify gateway configuration matches the router's actual address",
+      "Keep router firmware updated for reliability",
+      "Document firewall rules affecting ICMP traffic for troubleshooting reference"
+    ],
+    "keywords": [
+      "cannot ping gateway router",
+      "ping gateway timeout",
+      "gateway not responding to ping"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-059",
+      "NET-060"
+    ]
+  },
+  {
+    "id": "NET-065",
+    "category": "Networking",
+    "subcategory": "Ping Problems",
+    "problem": "Cannot Ping Local Device",
+    "description": "Pinging another device on the same local network fails, even though both devices appear to have valid IP addresses and are connected to the same network.",
+    "symptoms": [
+      "ping <local_device_ip> returns 'Request timed out' or 'Destination host unreachable'",
+      "Both devices can typically reach the internet fine, isolating the issue to communication between them specifically",
+      "May affect only certain device pairs while others communicate normally"
+    ],
+    "possible_causes": [
+      "Devices are actually on different subnets or VLANs despite appearing to be on the same network",
+      "Firewall on the target device blocking incoming ping requests",
+      "Client isolation or AP isolation enabled on the router/access point",
+      "Target device is asleep, in low-power mode, or has its network adapter disabled"
+    ],
+    "diagnostic_questions": [
+      "Are both devices confirmed to be on the exact same subnet, based on their IP addresses and subnet masks?",
+      "Is the target device powered on and awake, not in sleep or hibernation?",
+      "Does the target device's firewall typically allow ping (ICMP) requests?",
+      "Is this a WiFi network with client/AP isolation potentially enabled?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig (on both devices)",
+        "purpose": "Compare IP addresses and subnet masks to confirm both devices are truly on the same logical network",
+        "expected_result": "Both devices share the same subnet based on their IP and mask",
+        "abnormal_result": "Devices are actually on different subnets despite being on the same physical WiFi/network, explaining the failure"
+      },
+      {
+        "command": "ping <local_device_ip>",
+        "purpose": "Test direct connectivity between the two local devices",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout confirms the two devices cannot communicate directly"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Compare the IP address and subnet mask of both devices to confirm they are genuinely on the same logical subnet",
+        "reason": "Devices that only appear to be on the same network but are actually on different subnets or VLANs cannot communicate directly without a router"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the target device is powered on and not in sleep or hibernation mode",
+        "reason": "Many devices stop responding to network requests, including ping, while asleep"
+      },
+      {
+        "step": 3,
+        "action": "Check the target device's firewall settings to confirm it allows incoming ICMP (ping) requests",
+        "reason": "Many firewalls block ping by default even while allowing normal application traffic, which can be misleading during troubleshooting"
+      },
+      {
+        "step": 4,
+        "action": "Check the router or access point for client isolation or AP isolation settings, which intentionally prevent connected devices from communicating with each other",
+        "reason": "This is a common and often overlooked router security feature that blocks exactly this kind of local device-to-device communication"
+      },
+      {
+        "step": 5,
+        "action": "Disable client/AP isolation temporarily to test if that resolves the issue, then decide if it should stay off",
+        "reason": "Confirms this specific setting as the cause before making a permanent change"
+      }
+    ],
+    "possible_solutions": [
+      "Confirm both devices are on the same subnet",
+      "Wake the target device from sleep/hibernation",
+      "Adjust the target device's firewall to allow ICMP if appropriate",
+      "Disable client/AP isolation on the router if it is blocking local communication"
+    ],
+    "prevention": [
+      "Document router isolation settings and their intended purpose",
+      "Keep devices on the same subnet when local communication is required",
+      "Configure firewalls thoughtfully to allow necessary local traffic"
+    ],
+    "keywords": [
+      "cannot ping local device",
+      "ping local network timeout",
+      "devices cant see each other same network"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-035",
+      "NET-037"
+    ]
+  },
+  {
+    "id": "NET-066",
+    "category": "Networking",
+    "subcategory": "Ping Problems",
+    "problem": "Cannot Ping Server",
+    "description": "Pinging a specific server, whether local or remote, fails, preventing basic connectivity testing and likely also blocking the actual service the server provides.",
+    "symptoms": [
+      "ping <server_address> returns 'Request timed out' or similar failure",
+      "The service hosted on that server (website, application, file share) is also inaccessible",
+      "Other servers or destinations may still be reachable normally"
+    ],
+    "possible_causes": [
+      "Server itself is down or unreachable",
+      "Firewall on the server or along the network path blocking ICMP specifically while still allowing the actual service traffic",
+      "Incorrect server address or DNS resolution issue if using a hostname",
+      "Network routing issue between the client and the server's network"
+    ],
+    "diagnostic_questions": [
+      "Are you pinging the server by IP address or by hostname?",
+      "Is the actual service on the server (website, application) also failing, or does ping fail while the service still works?",
+      "Is this server on the local network or accessed remotely over the internet?",
+      "Have other users or devices reported the same issue reaching this server?"
+    ],
+    "commands": [
+      {
+        "command": "ping <server_ip_or_hostname>",
+        "purpose": "Test basic reachability to the server",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout, though note that many servers intentionally block ICMP for security while the actual service still works fine"
+      },
+      {
+        "command": "tracert <server_ip_or_hostname>",
+        "purpose": "Trace the network path to the server to identify where connectivity fails",
+        "expected_result": "Path completes to the server",
+        "abnormal_result": "Path stops at a specific hop, indicating where along the route the connection breaks"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm whether the actual service on the server (like a website or application) works despite ping failing",
+        "reason": "Many servers deliberately block ICMP ping for security reasons while their actual services function normally; this is not a real problem if the service itself works"
+      },
+      {
+        "step": 2,
+        "action": "If the actual service also fails, run tracert to see how far along the path traffic gets before failing",
+        "reason": "Identifies whether the failure is local, at an intermediate network point, or right at the server itself"
+      },
+      {
+        "step": 3,
+        "action": "Verify the server address is correct, especially if using a hostname that depends on DNS resolution",
+        "reason": "An incorrect address or failed DNS lookup would explain a failure that has nothing to do with the server's actual availability"
+      },
+      {
+        "step": 4,
+        "action": "Check with other users or from a different network to see if the server is reachable elsewhere",
+        "reason": "Helps determine if the issue is specific to your network path or affects everyone trying to reach the server"
+      },
+      {
+        "step": 5,
+        "action": "Contact the server administrator or hosting provider if the server appears down or unreachable from multiple locations",
+        "reason": "Confirms and escalates a genuine server-side outage that is outside local control"
+      }
+    ],
+    "possible_solutions": [
+      "Confirm if the actual service works despite ping being blocked, which requires no fix",
+      "Verify the correct server address/hostname is being used",
+      "Test connectivity from a different network to isolate the problem's location",
+      "Contact the server administrator if the server is confirmed down"
+    ],
+    "prevention": [
+      "Understand that ping being blocked does not always indicate a real problem",
+      "Keep server addresses and access documentation up to date",
+      "Test critical server connectivity from multiple network locations periodically"
+    ],
+    "keywords": [
+      "cannot ping server",
+      "server not responding to ping",
+      "ping fails but website works"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "15-30 minutes",
+    "related_problems": [
+      "NET-009",
+      "NET-062"
+    ]
+  },
+  {
+    "id": "NET-067",
+    "category": "Networking",
+    "subcategory": "Ping Problems",
+    "problem": "Cannot Ping Internet",
+    "description": "Pinging any destination beyond the local network, such as a public IP address or website, consistently fails, even though local devices may be reachable normally.",
+    "symptoms": [
+      "ping 8.8.8.8 or any public address returns 'Request timed out'",
+      "Local network devices, including the gateway, may still be pingable",
+      "No internet access as a direct result across possibly all applications"
+    ],
+    "possible_causes": [
+      "Router has no internet connection from the ISP (WAN down)",
+      "DNS issue if pinging by hostname rather than a raw IP address",
+      "Firewall blocking outbound internet traffic specifically",
+      "ISP outage affecting the connection beyond the local network"
+    ],
+    "diagnostic_questions": [
+      "Can you successfully ping the local gateway/router, even though pinging the internet fails?",
+      "Are you pinging by IP address (like 8.8.8.8) or by a hostname (like google.com)?",
+      "Does the router's WAN/internet status light look normal?",
+      "Do other devices on the same network also fail to reach the internet?"
+    ],
+    "commands": [
+      {
+        "command": "ping <gateway_ip>",
+        "purpose": "Confirm whether the local network segment works before testing further out",
+        "expected_result": "Replies received from the gateway",
+        "abnormal_result": "If this also fails, the problem is local connectivity, not specifically an internet/WAN issue"
+      },
+      {
+        "command": "ping 8.8.8.8",
+        "purpose": "Test connectivity to a known public IP address beyond the local network",
+        "expected_result": "Replies received",
+        "abnormal_result": "Timeout while the gateway ping succeeds confirms the router has no working internet connection"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Ping the local gateway first to confirm the local network segment itself is working",
+        "reason": "Establishes whether the problem is purely about reaching beyond the local network or a broader local issue"
+      },
+      {
+        "step": 2,
+        "action": "Ping a known public IP address like 8.8.8.8 directly, bypassing DNS, to test raw internet reachability",
+        "reason": "Isolates whether this is a pure connectivity problem versus a DNS-specific issue if a hostname was used instead"
+      },
+      {
+        "step": 3,
+        "action": "Check the router's WAN/internet status light and admin interface for a connected status",
+        "reason": "Confirms whether the router itself has lost its connection to the ISP"
+      },
+      {
+        "step": 4,
+        "action": "Restart the modem and router to resolve temporary WAN connectivity issues",
+        "reason": "Addresses the majority of common causes for a router losing its internet connection"
+      },
+      {
+        "step": 5,
+        "action": "Contact the ISP if the WAN remains down after a restart and the outage is confirmed to be beyond the local network",
+        "reason": "Indicates a genuine outage or line problem outside local control"
+      }
+    ],
+    "possible_solutions": [
+      "Restart the modem and router to restore the WAN connection",
+      "Verify the issue is not DNS-related by testing with a raw IP address",
+      "Contact the ISP if the outage is confirmed on their end"
+    ],
+    "prevention": [
+      "Monitor router WAN status periodically",
+      "Keep modem and router firmware updated",
+      "Use a UPS to protect against power-related WAN drops"
+    ],
+    "keywords": [
+      "cannot ping internet",
+      "ping 8.8.8.8 fails",
+      "no internet ping timeout"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-25 minutes",
+    "related_problems": [
+      "NET-001",
+      "NET-013"
+    ]
+  },
+  {
+    "id": "NET-068",
+    "category": "Networking",
+    "subcategory": "Ping Problems",
+    "problem": "Ping Request Timed Out",
+    "description": "A ping attempt to any destination results in the specific message 'Request timed out', indicating the request was sent but no response was received within the expected time.",
+    "symptoms": [
+      "Output specifically shows 'Request timed out' rather than an immediate error",
+      "May happen for some pings in a sequence while others succeed, or consistently for all",
+      "Applies to local devices, the gateway, or internet destinations depending on the situation"
+    ],
+    "possible_causes": [
+      "Target device or destination is unreachable, offline, or not responding",
+      "Firewall on the target or along the path silently dropping ICMP requests",
+      "Network congestion causing the response to arrive too late or be lost",
+      "Incorrect IP address or destination being pinged"
+    ],
+    "diagnostic_questions": [
+      "Is the timeout happening for all destinations you try to ping, or just specific ones?",
+      "Is the target device or server confirmed to be powered on and connected?",
+      "Does this happen consistently, or only intermittently for the same destination?",
+      "Have you double-checked the IP address or hostname being pinged for accuracy?"
+    ],
+    "commands": [
+      {
+        "command": "ping <destination> -n 10",
+        "purpose": "Send multiple ping attempts to see if timeouts happen consistently or only some of the time",
+        "expected_result": "Consistent replies with no timeouts",
+        "abnormal_result": "A pattern of some or all requests timing out, helping to characterize the severity of the problem"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm the exact IP address or hostname being pinged is correct",
+        "reason": "A simple typo or wrong address will naturally result in every request timing out"
+      },
+      {
+        "step": 2,
+        "action": "Send several ping attempts in a row to see if timeouts happen consistently or only intermittently",
+        "reason": "Consistent timeouts suggest the destination is truly unreachable, while intermittent ones suggest congestion or instability"
+      },
+      {
+        "step": 3,
+        "action": "Check if the specific target's firewall may be blocking or dropping ICMP echo requests silently",
+        "reason": "This is extremely common and does not necessarily indicate the target device or service is actually broken"
+      },
+      {
+        "step": 4,
+        "action": "Try pinging a different, known-reliable destination to compare results",
+        "reason": "Helps determine if the timeout issue is specific to this one destination or reflects a broader network problem"
+      },
+      {
+        "step": 5,
+        "action": "Investigate network path and equipment (cables, router, switch) if timeouts happen for multiple different destinations",
+        "reason": "Points toward a local network issue rather than a problem with any single specific destination"
+      }
+    ],
+    "possible_solutions": [
+      "Confirm the correct destination address is being used",
+      "Determine if ICMP is simply being blocked, which may not indicate a real problem",
+      "Investigate local network equipment if timeouts affect multiple destinations",
+      "Test alternate destinations to isolate the scope of the issue"
+    ],
+    "prevention": [
+      "Understand that timeouts to specific destinations may be normal due to firewall policy",
+      "Keep a list of known-good destinations for baseline network testing",
+      "Document any destinations known to intentionally block ICMP"
+    ],
+    "keywords": [
+      "ping request timed out",
+      "request timed out meaning",
+      "ping timeout troubleshooting"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "10-15 minutes",
+    "related_problems": [
+      "NET-064",
+      "NET-069"
+    ]
+  },
+  {
+    "id": "NET-069",
+    "category": "Networking",
+    "subcategory": "Ping Problems",
+    "problem": "Destination Host Unreachable",
+    "description": "A ping attempt returns the specific message 'Destination host unreachable', which differs from a timeout and indicates the local network stack could not even find a route to the destination.",
+    "symptoms": [
+      "Output specifically shows 'Destination host unreachable' rather than 'Request timed out'",
+      "Often happens immediately rather than after waiting for a timeout period",
+      "Usually points to a routing or local network configuration problem rather than the target simply not responding"
+    ],
+    "possible_causes": [
+      "No valid route exists to the destination network from this device",
+      "Device is not connected to any network at all",
+      "Incorrect subnet mask causing the device to misunderstand which network the destination is on",
+      "Gateway is down or unreachable, so there is no way to route traffic onward"
+    ],
+    "diagnostic_questions": [
+      "Is the device connected to a network at all, wired or wireless?",
+      "Is this happening for one specific destination or many/all destinations?",
+      "What does ipconfig show for the current IP configuration, particularly the subnet mask and gateway?",
+      "Can you successfully ping the local gateway, even though this specific destination fails?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Review the current network configuration for routing-related issues",
+        "expected_result": "Valid IP, subnet mask, and gateway matching the network",
+        "abnormal_result": "Missing or incorrect values, particularly the subnet mask or gateway, which would explain routing failures"
+      },
+      {
+        "command": "route print",
+        "purpose": "View the device's current routing table to see how it would attempt to reach the destination",
+        "expected_result": "A default route (0.0.0.0) pointing to the correct gateway is present",
+        "abnormal_result": "Missing default route entry, explaining why the device has no path to reach any destination outside its immediate subnet"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Confirm this specific error, 'Destination host unreachable', rather than a generic timeout, since it points specifically to a local routing issue",
+        "reason": "This distinct error message is a strong clue that the problem lies in how this device is trying to route traffic, not necessarily with the destination itself"
+      },
+      {
+        "step": 2,
+        "action": "Check ipconfig /all for a valid IP address, subnet mask, and gateway",
+        "reason": "An incorrect subnet mask in particular can cause the device to incorrectly determine whether a destination is local or requires routing through the gateway"
+      },
+      {
+        "step": 3,
+        "action": "Check the device's routing table with route print for a valid default route",
+        "reason": "Confirms whether the device even has a configured path for reaching destinations outside its own subnet"
+      },
+      {
+        "step": 4,
+        "action": "Verify the gateway itself is reachable with a direct ping",
+        "reason": "If the gateway is also unreachable, the device has no way to route any outbound traffic, explaining the error for all external destinations"
+      },
+      {
+        "step": 5,
+        "action": "Correct the subnet mask, gateway, or routing configuration as needed based on findings, or release/renew the IP address if using DHCP",
+        "reason": "Directly resolves the underlying local routing misconfiguration causing this specific error"
+      }
+    ],
+    "possible_solutions": [
+      "Correct the subnet mask if misconfigured",
+      "Correct or restore the default gateway configuration",
+      "Release and renew the IP address for DHCP clients",
+      "Verify and correct the local routing table if needed"
+    ],
+    "prevention": [
+      "Regularly verify subnet mask and gateway configuration accuracy",
+      "Understand the difference between 'timed out' and 'unreachable' errors for faster diagnosis",
+      "Keep routing configuration documented for statically configured devices"
+    ],
+    "keywords": [
+      "destination host unreachable error",
+      "ping unreachable vs timeout",
+      "local routing error ping"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-037",
+      "NET-059"
+    ]
+  },
+  {
+    "id": "NET-070",
+    "category": "Networking",
+    "subcategory": "Ping Problems",
+    "problem": "General Failure",
+    "description": "A ping attempt returns the specific error 'General failure' rather than a timeout or unreachable message, usually indicating a problem with the local network adapter or configuration itself rather than the destination.",
+    "symptoms": [
+      "Output specifically shows 'PING: transmit failed. General failure.'",
+      "Happens for every destination attempted, including the local gateway",
+      "Often accompanied by other signs of a broken local network configuration"
+    ],
+    "possible_causes": [
+      "Network adapter has no valid IP address at all",
+      "Network adapter is disabled or malfunctioning",
+      "Corrupted TCP/IP stack on the local device",
+      "Network cable disconnected or WiFi not actually connected despite appearing to be"
+    ],
+    "diagnostic_questions": [
+      "Does this 'General failure' message appear for every destination you try to ping, including the local gateway?",
+      "What does ipconfig show for this adapter, particularly whether it has a valid IP address at all?",
+      "Is the physical cable connected, or is WiFi genuinely connected and not just appearing to be?",
+      "Has the network adapter been recently disabled, reconfigured, or experienced a driver issue?"
+    ],
+    "commands": [
+      {
+        "command": "ipconfig /all",
+        "purpose": "Check whether the adapter has any valid IP configuration at all",
+        "expected_result": "A valid IP address, subnet mask, and gateway are present",
+        "abnormal_result": "No IP address at all, or the adapter shows as disconnected, which directly explains the general failure"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Check ipconfig /all to see if the network adapter has any valid IP address at all",
+        "reason": "A 'General failure' on ping very often means there is no usable network configuration to even attempt sending the request"
+      },
+      {
+        "step": 2,
+        "action": "Confirm the physical cable is properly connected, or that WiFi is genuinely connected and not just appearing to be in a stuck state",
+        "reason": "A device with no actual physical or wireless link cannot transmit any packets, resulting in this local-level failure"
+      },
+      {
+        "step": 3,
+        "action": "Check Device Manager to confirm the network adapter is enabled and has no error indicators",
+        "reason": "A disabled or malfunctioning adapter cannot transmit ping requests at all, producing exactly this type of error"
+      },
+      {
+        "step": 4,
+        "action": "Release and renew the IP address, or restart the network adapter, to attempt to restore a valid configuration",
+        "reason": "Often resolves the underlying missing or corrupted configuration causing the transmit failure"
+      },
+      {
+        "step": 5,
+        "action": "Run netsh int ip reset and netsh winsock reset, then restart the computer, if the adapter appears otherwise healthy but the error persists",
+        "reason": "Resolves deeper corruption in the TCP/IP stack that simpler fixes cannot address"
+      }
+    ],
+    "possible_solutions": [
+      "Restore a valid IP configuration through release/renew or by fixing static settings",
+      "Confirm physical or wireless connection is genuinely active",
+      "Enable the network adapter if disabled",
+      "Reset the TCP/IP stack if the problem persists after basic checks"
+    ],
+    "prevention": [
+      "Regularly verify network adapter status and configuration on critical systems",
+      "Keep network drivers updated and functioning correctly",
+      "Address 'General failure' promptly since it typically indicates a fundamental local configuration problem"
+    ],
+    "keywords": [
+      "ping general failure error",
+      "transmit failed general failure",
+      "ping cannot send packets"
+    ],
+    "difficulty": "Intermediate",
+    "estimated_fix_time": "10-20 minutes",
+    "related_problems": [
+      "NET-033",
+      "NET-021"
+    ]
+  },
+  {
+    "id": "NET-071",
+    "category": "Networking",
+    "subcategory": "Ping Problems",
+    "problem": "High Ping Response Time",
+    "description": "Ping requests succeed and receive replies, but the response time (latency) shown is much higher than expected for the type of connection and destination being tested.",
+    "symptoms": [
+      "Ping replies are received, but with high millisecond values, such as several hundred ms where under 50ms would normally be expected",
+      "Real-time applications like games or calls show noticeable lag corresponding to the high ping",
+      "May be consistent or may vary significantly between individual ping attempts"
+    ],
+    "possible_causes": [
+      "Distance to the destination server is genuinely far, making some latency expected and normal",
+      "Network congestion from other devices or applications competing for bandwidth",
+      "WiFi connection instead of wired, adding extra latency",
+      "Router or ISP-level routing inefficiency taking a longer-than-necessary path"
+    ],
+    "diagnostic_questions": [
+      "What response time are you seeing, and what would be reasonable to expect for this specific destination?",
+      "Is this on WiFi or a wired connection?",
+      "Are other devices or applications on the network using significant bandwidth at the same time?",
+      "Does the high ping happen to one specific destination, or to everything you test?"
+    ],
+    "commands": [
+      {
+        "command": "ping <destination> -n 20",
+        "purpose": "Gather multiple response time samples to establish a reliable average and check for consistency",
+        "expected_result": "Consistently low response times appropriate for the destination and connection type",
+        "abnormal_result": "Consistently high or highly variable response times confirm a real latency problem worth investigating further"
+      },
+      {
+        "command": "tracert <destination>",
+        "purpose": "See the response time at each hop along the path to identify where the delay is introduced",
+        "expected_result": "Latency increases gradually and reasonably at each hop toward the destination",
+        "abnormal_result": "A specific hop shows a large, disproportionate jump in latency, pinpointing where the delay originates"
+      }
+    ],
+    "troubleshooting_steps": [
+      {
+        "step": 1,
+        "action": "Gather multiple ping samples to a specific destination to establish a reliable average response time",
+        "reason": "A single ping result can be misleading; multiple samples give a more accurate picture of typical performance"
+      },
+      {
+        "step": 2,
+        "action": "Compare the response time to a reasonable expectation for the destination's actual geographic and network distance",
+        "reason": "Some latency is normal and expected for genuinely distant servers, so context matters before assuming something is wrong"
+      },
+      {
+        "step": 3,
+        "action": "Switch from WiFi to a wired connection if possible and re-test",
+        "reason": "WiFi consistently adds some amount of latency compared to a direct wired connection"
+      },
+      {
+        "step": 4,
+        "action": "Check for other devices or applications using significant bandwidth at the same time, and reduce usage during testing",
+        "reason": "Network congestion from competing traffic directly increases response times for all users"
+      },
+      {
+        "step": 5,
+        "action": "Run tracert to identify exactly where along the path the latency is being introduced",
+        "reason": "Helps determine if the delay is local, at the router, or further along the path toward the destination, guiding where to focus further troubleshooting"
+      }
+    ],
+    "possible_solutions": [
+      "Switch to a wired connection to reduce latency",
+      "Reduce competing bandwidth usage during latency-sensitive tasks",
+      "Choose geographically closer servers or destinations where possible",
+      "Contact the ISP if tracert confirms the delay originates outside the local network"
+    ],
+    "prevention": [
+      "Use wired connections for latency-sensitive activities",
+      "Understand baseline expected latency for common destinations to quickly spot real problems",
+      "Avoid heavy background usage during important real-time sessions"
+    ],
+    "keywords": [
+      "high ping response time",
+      "ping ms too high",
+      "latency test high ping"
+    ],
+    "difficulty": "Beginner",
+    "estimated_fix_time": "15-25 minutes",
+    "related_problems": [
+      "NET-007",
+      "NET-029"
+    ]
+  }
+]
