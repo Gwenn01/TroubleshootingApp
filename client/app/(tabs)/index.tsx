@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { KeyboardAvoidingView, Platform } from "react-native";
 import { ChatHeader } from "../../components/tabs/home/Chatheader";
 import { MessageList } from "../../components/tabs/home/Messagelist";
 import { QuickSuggestions } from "../../components/tabs/home/Quicksuggestions";
 import { ChatInput } from "../../components/tabs/home/Chatinput";
+import { computeDatasetStats } from "../../components/tabs/home/Datasetstats";
+import type { TroubleshootingRecord } from "../../services/DatasetLoader";
 import type { Message } from "../../types/chat";
+
+// Built by `npx tsx scripts/buildDataset.ts` — re-run after editing the KB.
+// Requires "resolveJsonModule": true in tsconfig (on by default in Expo).
+// run this to generate dataset
+// npx tsx scripts/buildDataset.ts ./Dataset ./assets/dataset.json
+import datasetRecords from "../../assets/dataset.json";
 
 const INITIAL_MESSAGES: Message[] = [
   {
@@ -25,6 +33,11 @@ export default function HomeScreen() {
   const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [input, setInput] = useState("");
   const [isAssistantTyping, setIsAssistantTyping] = useState(false);
+
+  const datasetStats = useMemo(
+    () => computeDatasetStats(datasetRecords as TroubleshootingRecord[]),
+    [],
+  );
 
   const handleSend = () => {
     const trimmed = input.trim();
@@ -65,7 +78,10 @@ export default function HomeScreen() {
       behavior={Platform.OS === "ios" ? "padding" : undefined}
       keyboardVerticalOffset={Platform.OS === "ios" ? 0 : 0}
     >
-      <ChatHeader />
+      <ChatHeader
+        totalRecords={datasetStats.totalRecords}
+        categoriesLoaded={datasetStats.categoriesLoaded}
+      />
 
       <MessageList messages={messages} isAssistantTyping={isAssistantTyping} />
 
