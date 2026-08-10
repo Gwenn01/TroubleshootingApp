@@ -23,9 +23,8 @@ export function ChatHeader({ totalRecords, categoriesLoaded }: Props) {
           <Text className="text-xl font-bold text-slate-900">IT Assistant</Text>
 
           <View className="mt-0.5 flex-row items-center gap-1.5">
-            <View className="h-2 w-2 rounded-full bg-emerald-500" />
             <Text className="text-xs text-slate-500">
-              Troubleshooting Assistant · Online
+              Troubleshooting Assistant
             </Text>
           </View>
         </View>

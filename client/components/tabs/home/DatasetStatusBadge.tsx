@@ -1,5 +1,12 @@
 import { useState } from "react";
-import { Modal, Pressable, ScrollView, Text, View } from "react-native";
+import {
+  Modal,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 type Props = {
@@ -22,7 +29,7 @@ export function DatasetStatusBadge({ totalRecords, categoriesLoaded }: Props) {
       >
         <Ionicons name="server-outline" size={13} color="#2563EB" />
         <Text className="text-xs font-semibold text-blue-700">
-          {totalRecords.toLocaleString()} entries loaded
+          {String(totalRecords)} entries loaded
         </Text>
         <Ionicons name="chevron-down" size={12} color="#2563EB" />
       </Pressable>
@@ -33,19 +40,20 @@ export function DatasetStatusBadge({ totalRecords, categoriesLoaded }: Props) {
         transparent
         onRequestClose={() => setIsOpen(false)}
       >
-        <Pressable
-          className="flex-1 justify-end bg-black/40"
-          onPress={() => setIsOpen(false)}
-        >
-          {/* Stop propagation so tapping inside the sheet doesn't close it */}
+        <View className="flex-1 justify-end">
           <Pressable
-            onPress={(e) => e.stopPropagation()}
-            className="max-h-[70%] rounded-t-3xl bg-white px-5 pb-8 pt-5"
-          >
+            style={StyleSheet.absoluteFillObject}
+            className="bg-black/40"
+            onPress={() => setIsOpen(false)}
+          />
+
+          <View className="rounded-t-3xl bg-white px-5 pb-8 pt-5">
+            {/* Header */}
             <View className="mb-1 flex-row items-center justify-between">
               <Text className="text-lg font-bold text-slate-900">
                 Knowledge Base
               </Text>
+
               <Pressable
                 onPress={() => setIsOpen(false)}
                 className="h-8 w-8 items-center justify-center rounded-full bg-slate-100"
@@ -54,12 +62,20 @@ export function DatasetStatusBadge({ totalRecords, categoriesLoaded }: Props) {
               </Pressable>
             </View>
 
+            {/* Summary */}
             <Text className="mb-4 text-sm text-slate-500">
-              {totalRecords.toLocaleString()} entries across{" "}
-              {categoryEntries.length} categories
+              {String(totalRecords)} entries across {categoryEntries.length}{" "}
+              categories
             </Text>
 
-            <ScrollView showsVerticalScrollIndicator={false}>
+            {/* Category list */}
+            <ScrollView
+              style={{ maxHeight: 450 }}
+              contentContainerStyle={{ paddingBottom: 8 }}
+              showsVerticalScrollIndicator={false}
+              nestedScrollEnabled
+              bounces
+            >
               {categoryEntries.map(([category, count]) => (
                 <View
                   key={category}
@@ -68,6 +84,7 @@ export function DatasetStatusBadge({ totalRecords, categoriesLoaded }: Props) {
                   <Text className="text-sm font-medium text-slate-700">
                     {category}
                   </Text>
+
                   <View className="rounded-full bg-white px-2.5 py-1">
                     <Text className="text-xs font-semibold text-slate-500">
                       {count}
@@ -76,8 +93,8 @@ export function DatasetStatusBadge({ totalRecords, categoriesLoaded }: Props) {
                 </View>
               ))}
             </ScrollView>
-          </Pressable>
-        </Pressable>
+          </View>
+        </View>
       </Modal>
     </>
   );
