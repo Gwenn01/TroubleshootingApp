@@ -1,51 +1,61 @@
+import { useEffect, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import type { TroubleshootingRecord } from "../../../services/DatasetLoader";
+import { buildQuickSuggestions } from "../../../utils/quickSuggestions";
 import type { QuickSuggestion } from "../../../types/chat";
 
-const SUGGESTIONS: QuickSuggestion[] = [
-  {
-    id: "no-internet",
-    label: "No Internet",
-    prompt: "My computer has no internet connection",
-    icon: "wifi-outline",
-  },
-  {
-    id: "printer",
-    label: "Printer Problem",
-    prompt: "My printer is not working",
-    icon: "print-outline",
-  },
-  {
-    id: "shared-folder",
-    label: "Shared Folder",
-    prompt: "I cannot access the shared folder",
-    icon: "folder-open-outline",
-  },
-  {
-    id: "lotus-notes",
-    label: "Lotus Notes",
-    prompt: "Lotus Notes won't open or keeps crashing",
-    icon: "mail-outline",
-  },
-];
-
 type Props = {
+  records: TroubleshootingRecord[];
   onSelect: (prompt: string) => void;
 };
 
-export function QuickSuggestions({ onSelect }: Props) {
+export function QuickSuggestions({ records, onSelect }: Props) {
+  // Suggestions now live in state (not useMemo) because refreshSuggestions()
+  // needs to imperatively regenerate them on button press, not just react
+  // to a prop change.
+  const [suggestions, setSuggestions] = useState<QuickSuggestion[]>(() =>
+    buildQuickSuggestions(records),
+  );
+
+  // If the underlying dataset changes (e.g. dataset.json reloads with new
+  // records), regenerate from scratch with no exclusions.
+  useEffect(() => {
+    setSuggestions(buildQuickSuggestions(records));
+  }, [records]);
+
+  const refreshSuggestions = () => {
+    const currentlyShownIds = new Set(suggestions.map((s) => s.id));
+    setSuggestions(
+      buildQuickSuggestions(records, undefined, currentlyShownIds),
+    );
+  };
+
+  // Nothing loaded yet (e.g. dataset.json is empty/missing) — hide the
+  // whole row rather than show an empty "Common problems" header.
+  if (suggestions.length === 0) return null;
+
   return (
     <View className="border-t border-slate-100 bg-white px-4 pb-2 pt-3">
-      <Text className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
-        Common problems
-      </Text>
+      <View className="mb-2 flex-row items-center justify-between">
+        <Text className="text-xs font-semibold uppercase tracking-wide text-slate-400">
+          Common problems
+        </Text>
+
+        <Pressable
+          onPress={refreshSuggestions}
+          className="h-6 w-6 items-center justify-center rounded-full active:bg-slate-100"
+        >
+          <Ionicons name="refresh-outline" size={14} color="#475569" />
+        </Pressable>
+      </View>
 
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ gap: 8, paddingRight: 8 }}
       >
-        {SUGGESTIONS.map((suggestion) => (
+        {suggestions.map((suggestion) => (
           <Pressable
             key={suggestion.id}
             onPress={() => onSelect(suggestion.prompt)}

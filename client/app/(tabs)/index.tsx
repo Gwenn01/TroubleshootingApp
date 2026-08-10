@@ -4,7 +4,7 @@ import { ChatHeader } from "../../components/tabs/home/Chatheader";
 import { MessageList } from "../../components/tabs/home/Messagelist";
 import { QuickSuggestions } from "../../components/tabs/home/Quicksuggestions";
 import { ChatInput } from "../../components/tabs/home/Chatinput";
-import { computeDatasetStats } from "../../components/tabs/home/Datasetstats";
+import { computeDatasetStats } from "../../utils/Datasetstats";
 import type { TroubleshootingRecord } from "../../services/DatasetLoader";
 import type { Message } from "../../types/chat";
 
@@ -14,23 +14,7 @@ import type { Message } from "../../types/chat";
 // npx tsx scripts/buildDataset.ts ./Dataset ./assets/dataset.json
 import datasetRecords from "../../assets/dataset.json";
 
-const INITIAL_MESSAGES: Message[] = [
-  {
-    id: 1,
-    sender: "assistant",
-    text: "Hello! I'm your IT Troubleshooting Assistant.",
-    timestamp: Date.now(),
-  },
-  {
-    id: 2,
-    sender: "assistant",
-    text: "Tell me what problem you're experiencing and I'll help you troubleshoot it.",
-    timestamp: Date.now(),
-  },
-];
-
 export default function HomeScreen() {
-  const [messages, setMessages] = useState<Message[]>(INITIAL_MESSAGES);
   const [input, setInput] = useState("");
   const [isAssistantTyping, setIsAssistantTyping] = useState(false);
 
@@ -50,7 +34,6 @@ export default function HomeScreen() {
       timestamp: Date.now(),
     };
 
-    setMessages((current) => [...current, userMessage]);
     setInput("");
     setIsAssistantTyping(true);
 
@@ -62,8 +45,6 @@ export default function HomeScreen() {
         text: "I understand. Let me help you troubleshoot that problem.",
         timestamp: Date.now(),
       };
-
-      setMessages((current) => [...current, assistantMessage]);
       setIsAssistantTyping(false);
     }, 900);
   };
@@ -82,10 +63,10 @@ export default function HomeScreen() {
         totalRecords={datasetStats.totalRecords}
         categoriesLoaded={datasetStats.categoriesLoaded}
       />
-
-      <MessageList messages={messages} isAssistantTyping={isAssistantTyping} />
-
-      <QuickSuggestions onSelect={handleSuggestionSelect} />
+      <QuickSuggestions
+        records={datasetRecords as TroubleshootingRecord[]}
+        onSelect={handleSuggestionSelect}
+      />
 
       <ChatInput
         value={input}
