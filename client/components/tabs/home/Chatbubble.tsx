@@ -1,9 +1,11 @@
-import { View, Text } from "react-native";
+import { Pressable, Text, View } from "react-native";
 import { ChatAvatar } from "./Chatavatar";
-import type { Message } from "../../../types/chat";
+import type { Message, MessageOption } from "../../../types/chat";
 
 type Props = {
   message: Message;
+  /** Called when the user taps one of an assistant message's options. */
+  onSelectOption?: (option: MessageOption) => void;
 };
 
 function formatTime(timestamp: number) {
@@ -13,8 +15,9 @@ function formatTime(timestamp: number) {
   });
 }
 
-export function ChatBubble({ message }: Props) {
+export function ChatBubble({ message, onSelectOption }: Props) {
   const isUser = message.sender === "user";
+  const hasOptions = !isUser && !!message.options && message.options.length > 0;
 
   return (
     <View
@@ -55,6 +58,22 @@ export function ChatBubble({ message }: Props) {
             {message.text}
           </Text>
         </View>
+
+        {hasOptions && (
+          <View className="mt-2 w-full gap-2">
+            {message.options!.map((option) => (
+              <Pressable
+                key={option.id}
+                onPress={() => onSelectOption?.(option)}
+                className="rounded-2xl border border-blue-100 bg-blue-50 px-4 py-2.5 active:bg-blue-100"
+              >
+                <Text className="text-sm font-medium text-blue-700">
+                  {option.label}
+                </Text>
+              </Pressable>
+            ))}
+          </View>
+        )}
 
         <Text className="mt-1 px-1 text-[11px] text-slate-400">
           {formatTime(message.timestamp)}
