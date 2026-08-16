@@ -1,35 +1,30 @@
 import { useEffect, useRef } from "react";
-import { Animated, Text, View } from "react-native";
+import { Animated, Easing, Text, View } from "react-native";
 import { ChatAvatar } from "./Chatavatar";
 
-function Dot({ delay }: { delay: number }) {
-  const translateY = useRef(new Animated.Value(0)).current;
+function Dot({ animValue }: { animValue: Animated.Value }) {
+  const translateY = animValue.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -5],
+  });
 
-  useEffect(() => {
-    const loop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(translateY, {
-          toValue: -4,
-          duration: 300,
-          delay,
-          useNativeDriver: true,
-        }),
-        Animated.timing(translateY, {
-          toValue: 0,
-          duration: 300,
-          useNativeDriver: true,
-        }),
-      ]),
-    );
+  const opacity = animValue.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0.4, 1, 0.4],
+  });
 
-    loop.start();
-    return () => loop.stop();
-  }, [delay, translateY]);
+  const scale = animValue.interpolate({
+    inputRange: [0, 0.5, 1],
+    outputRange: [0.85, 1.15, 0.85],
+  });
 
   return (
     <Animated.View
-      style={{ transform: [{ translateY }] }}
-      className="mx-0.5 h-2 w-2 rounded-full bg-slate-400"
+      style={{
+        transform: [{ translateY }, { scale }],
+        opacity,
+      }}
+      className="mx-0.5 h-2 w-2 rounded-full bg-indigo-500"
     />
   );
 }
@@ -40,55 +35,103 @@ type Props = {
 };
 
 export function TypingIndicator({ label }: Props) {
-  // Entrance animation: fades and slides the whole bubble up on mount,
-  // instead of it just popping into place when isAssistantTyping flips
-  // to true. Runs once — this component unmounts/remounts each time it
-  // shows since MessageList only renders it conditionally, so a fresh
-  // "mount" animation happens every time it appears.
-  const opacity = useRef(new Animated.Value(0)).current;
-  const translateY = useRef(new Animated.Value(8)).current;
+  // Container entrance animation
+  const containerOpacity = useRef(new Animated.Value(0)).current;
+  const containerTranslateY = useRef(new Animated.Value(6)).current;
+
+  // Continuous dot bounce state values
+  const dot1 = useRef(new Animated.Value(0)).current;
+  const dot2 = useRef(new Animated.Value(0)).current;
+  const dot3 = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
+    // Entrance animation
     Animated.parallel([
-      Animated.timing(opacity, {
+      Animated.timing(containerOpacity, {
         toValue: 1,
-        duration: 220,
+        duration: 200,
         useNativeDriver: true,
       }),
-      Animated.timing(translateY, {
+      Animated.spring(containerTranslateY, {
         toValue: 0,
-        duration: 220,
+        tension: 80,
+        friction: 8,
         useNativeDriver: true,
       }),
     ]).start();
-  }, [opacity, translateY]);
+
+    // Each dot gets its OWN independent loop, started after a one-time
+    // delay (140ms apart). This is the key change: the previous version
+    // wrapped all three dots in a single Animated.stagger() inside one
+    // Animated.loop() — that resets and restarts ALL three together
+    // every cycle, so the whole group has to wait for dot3 to finish
+    // before dot1 can start again, which reads as a stutter/pause every
+    // ~1s instead of a smooth continuous wave. Giving each dot its own
+    // loop means they run independently forever, with no shared reset
+    // point, so the wave never "catches its breath."
+    const singleBounce = (anim: Animated.Value) =>
+      Animated.sequence([
+        Animated.timing(anim, {
+          toValue: 1,
+          duration: 350,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+        Animated.timing(anim, {
+          toValue: 0,
+          duration: 350,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+      ]);
+
+    const loops = [dot1, dot2, dot3].map((dot, index) =>
+      Animated.sequence([
+        Animated.delay(index * 140), // one-time stagger, not repeated
+        Animated.loop(singleBounce(dot)),
+      ]),
+    );
+
+    loops.forEach((loop) => loop.start());
+
+    return () => {
+      loops.forEach((loop) => loop.stop());
+    };
+  }, [containerOpacity, containerTranslateY, dot1, dot2, dot3]);
 
   return (
     <Animated.View
-      style={{ opacity, transform: [{ translateY }] }}
+      style={{
+        opacity: containerOpacity,
+        transform: [{ translateY: containerTranslateY }],
+      }}
       className="mb-4 flex-row items-end justify-start"
     >
-      <View className="mr-2">
+      <View className="mr-2.5">
         <ChatAvatar sender="assistant" />
       </View>
 
       <View
-        className="flex-row items-center gap-2 rounded-3xl rounded-bl-lg border border-slate-100 bg-white px-4 py-3"
+        className="flex-row items-center gap-2.5 rounded-2xl rounded-bl-sm border border-slate-200/60 bg-white/90 px-4 py-3 shadow-sm backdrop-blur-md dark:border-slate-800 dark:bg-slate-900/90"
         style={{
-          shadowColor: "#0F172A",
-          shadowOpacity: 0.05,
-          shadowRadius: 6,
-          shadowOffset: { width: 0, height: 2 },
-          elevation: 1,
+          shadowColor: "#000",
+          shadowOpacity: 0.04,
+          shadowRadius: 10,
+          shadowOffset: { width: 0, height: 4 },
+          elevation: 2,
         }}
       >
-        <View className="flex-row items-center">
-          <Dot delay={0} />
-          <Dot delay={120} />
-          <Dot delay={240} />
+        <View className="flex-row items-center py-0.5">
+          <Dot animValue={dot1} />
+          <Dot animValue={dot2} />
+          <Dot animValue={dot3} />
         </View>
 
-        {label && <Text className="text-xs text-slate-400">{label}</Text>}
+        {label && (
+          <Text className="text-xs font-medium text-slate-500 dark:text-slate-400">
+            {label}
+          </Text>
+        )}
       </View>
     </Animated.View>
   );

@@ -98,7 +98,7 @@ export default function HomeScreen() {
       const assistantMessage = buildAssistantMessage(outcome);
       setMessages((current) => [...current, assistantMessage]);
       setIsAssistantTyping(false);
-    }, 400);
+    }, 500);
   };
 
   const handleSuggestionSelect = (prompt: string) => {

@@ -12,6 +12,28 @@ function numberedList(items: string[]): string {
 }
 
 /**
+ * Formats each troubleshooting step as a numbered action, with its
+ * `reason` (if present) as an indented "Why:" line underneath — e.g.:
+ *
+ *   1. Check the printer power.
+ *      Why: The printer may be unplugged or switched off.
+ *   2. Restart the Print Spooler service.
+ */
+function numberedStepsWithReasons(
+  steps: TroubleshootingRecord["troubleshootingSteps"],
+): string {
+  return steps
+    .filter((step) => step.action.trim().length > 0)
+    .map((step, index) => {
+      const actionLine = `${index + 1}. ${step.action}`;
+      return step.reason.trim()
+        ? `${actionLine}\n   Why: ${step.reason}`
+        : actionLine;
+    })
+    .join("\n");
+}
+
+/**
  * Formats a TroubleshootingRecord into the multi-section response shown
  * in chat (Problem / Category / Symptoms / Possible Cause / Solution /
  * Prevention). Each section is only included when the underlying field
@@ -40,15 +62,13 @@ export function formatTroubleshootingRecord(
     sections.push(`Possible Cause\n${bulletList(record.possibleCauses)}`);
   }
 
-  // Prefer the structured step-by-step actions if present; fall back to
-  // the flatter possibleSolutions list otherwise. Both come straight
-  // from the existing dataset — nothing invented here.
-  const stepActions = record.troubleshootingSteps
-    .map((step) => step.action)
-    .filter((action) => action.trim().length > 0);
+  // Prefer the structured step-by-step actions (with their reasons) if
+  // present; fall back to the flatter possibleSolutions list otherwise.
+  // Both come straight from the existing dataset — nothing invented here.
+  const stepsText = numberedStepsWithReasons(record.troubleshootingSteps);
 
-  if (stepActions.length > 0) {
-    sections.push(`Solution\n${numberedList(stepActions)}`);
+  if (stepsText.length > 0) {
+    sections.push(`Solution\n${stepsText}`);
   } else if (record.possibleSolutions.length > 0) {
     sections.push(`Solution\n${numberedList(record.possibleSolutions)}`);
   }
