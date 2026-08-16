@@ -1,6 +1,6 @@
 import type { Ionicons } from "@expo/vector-icons";
-import type { TroubleshootingRecord } from "../services/DatasetLoader";
-import type { QuickSuggestion } from "../types/chat";
+import type { TroubleshootingRecord } from "../../services/general/DatasetLoader";
+import type { QuickSuggestion } from "../../types/chat";
 
 // Known dataset folder names -> icon. Anything not listed here falls back
 // to DEFAULT_ICON, so new folders (e.g. an "erp/" you drop in later) still

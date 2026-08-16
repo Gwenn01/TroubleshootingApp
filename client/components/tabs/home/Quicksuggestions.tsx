@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { Pressable, ScrollView, Text, View } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
-import type { TroubleshootingRecord } from "../../../services/DatasetLoader";
-import { buildQuickSuggestions } from "../../../utils/quickSuggestions";
+import type { TroubleshootingRecord } from "../../../services/general/DatasetLoader";
+import { buildQuickSuggestions } from "../../../utils/home/quickSuggestions";
 import type { QuickSuggestion } from "../../../types/chat";
 
 type Props = {

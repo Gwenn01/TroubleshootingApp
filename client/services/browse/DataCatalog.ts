@@ -22,7 +22,11 @@
 
 import fs from "fs";
 import path from "path";
-import { DatasetLoader, Logger, TroubleshootingRecord } from "./DatasetLoader";
+import {
+  DatasetLoader,
+  Logger,
+  TroubleshootingRecord,
+} from "../general/DatasetLoader";
 
 // folder -> category -> subcategory -> records
 type CatalogTree = Record<

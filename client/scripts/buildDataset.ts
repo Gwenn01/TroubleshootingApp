@@ -14,7 +14,7 @@
 
 import fs from "fs";
 import path from "path";
-import { DatasetLoader } from "../services/DatasetLoader";
+import { DatasetLoader } from "../services/general/DatasetLoader";
 
 const datasetDir = path.resolve(process.argv[2] ?? "./dataset");
 const outputFile = path.resolve(process.argv[3] ?? "./assets/dataset.json");

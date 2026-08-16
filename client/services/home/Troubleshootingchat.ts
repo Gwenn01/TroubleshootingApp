@@ -1,7 +1,7 @@
-import { SearchEngine } from "./SearchEngine";
-import type { TroubleshootingRecord } from "./DatasetLoader";
-import type { Message } from "../types/chat";
-import { formatTroubleshootingRecord } from "../utils/formattroubleshootingrecord";
+import { SearchEngine } from "../SearchEngine";
+import type { TroubleshootingRecord } from "../general/DatasetLoader";
+import type { Message } from "../../types/chat";
+import { formatTroubleshootingRecord } from "../../utils/home/formattroubleshootingrecord";
 
 /**
  * How close (in weighted score points) a second-best match needs to be

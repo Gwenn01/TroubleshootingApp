@@ -5,14 +5,14 @@ import { ChatHeader } from "../../components/tabs/home/Chatheader";
 import { MessageList } from "../../components/tabs/home/MessageList";
 import { QuickSuggestions } from "../../components/tabs/home/Quicksuggestions";
 import { ChatInput } from "../../components/tabs/home/Chatinput";
-import { computeDatasetStats } from "../../utils/Datasetstats";
-import { SearchEngine } from "../../services/SearchEngine";
+import { computeDatasetStats } from "../../utils/home/Datasetstats";
+import { SearchEngine } from "../../services/home/SearchEngine";
 import {
   buildAssistantMessage,
   buildRecordDetailMessage,
   resolveSearch,
-} from "../../services/Troubleshootingchat";
-import type { TroubleshootingRecord } from "../../services/DatasetLoader";
+} from "../../services/home/Troubleshootingchat";
+import type { TroubleshootingRecord } from "../../services/general/DatasetLoader";
 import type { Message, MessageOption } from "../../types/chat";
 
 // Built by `npx tsx scripts/buildDataset.ts` — re-run after editing the KB.

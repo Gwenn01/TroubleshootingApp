@@ -1,4 +1,4 @@
-import type { TroubleshootingRecord } from "../services/DatasetLoader";
+import type { TroubleshootingRecord } from "../../services/general/DatasetLoader";
 
 function bulletList(items: string[]): string {
   return items.map((item) => `• ${item}`).join("\n");

@@ -1,4 +1,4 @@
-import type { TroubleshootingRecord } from "../services/DatasetLoader";
+import type { TroubleshootingRecord } from "../../services/general/DatasetLoader";
 
 export type DatasetStats = {
   totalRecords: number;

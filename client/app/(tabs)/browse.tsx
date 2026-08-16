@@ -1,310 +1,325 @@
-import { useState } from "react";
-import { Pressable, ScrollView, Text, View } from "react-native";
+import { useMemo, useState } from "react";
+import { ScrollView, Text, View } from "react-native";
+import type { TroubleshootingRecord } from "../../services/general/DatasetLoader";
+import {
+  buildBrowseCatalog,
+  filterCategories,
+  filterProblems,
+  filterSubcategories,
+  listCategories,
+  listProblems,
+  listSubcategories,
+} from "../../services/browse/Browsecatalog";
+import { displayCategoryName } from "../../utils/browse/Categorymeta";
+import {
+  Breadcrumb,
+  type Crumb,
+} from "../../components/tabs/browse/Breadcrumb";
+import { BrowseSearchBar } from "../../components/tabs/browse/Browsesearchbar";
+import { CategoryCard } from "../../components/tabs/browse/Categorycard";
+import { SubcategoryCard } from "../../components/tabs/browse/Subcategorycard";
+import { ProblemCard } from "../../components/tabs/browse/Problemcard";
+import { ProblemSection } from "../../components/tabs/browse/Problemsection";
+import { TroubleshootingStepItem } from "../../components/tabs/browse/Troubleshootingstepitem";
+import { EmptyState } from "../../components/tabs/browse/Emptystate";
 
-type Topic = {
-  id: number;
-  title: string;
-  description: string;
-  steps: string[];
-};
+// Same bundled dataset the chat/search feature uses — Browse never
+// loads or defines its own copy of the data.
+import datasetRecords from "../../assets/dataset.json";
 
-type Category = {
-  id: number;
-  name: string;
-  icon: string;
-  topics: Topic[];
-};
-
-const categories: Category[] = [
-  {
-    id: 1,
-    name: "Hardware",
-    icon: "💻",
-    topics: [
-      {
-        id: 1,
-        title: "Computer won't turn on",
-        description:
-          "The computer does not power on when you press the power button.",
-        steps: [
-          "Check if the power cable is connected.",
-          "Check the power outlet.",
-          "Check the power supply switch.",
-          "Try another power cable if available.",
-        ],
-      },
-      {
-        id: 2,
-        title: "No display",
-        description:
-          "The computer turns on, but nothing appears on the monitor.",
-        steps: [
-          "Check the monitor power.",
-          "Check the HDMI or DisplayPort cable.",
-          "Make sure the monitor is using the correct input.",
-          "Try another display cable.",
-        ],
-      },
-    ],
-  },
-
-  {
-    id: 2,
-    name: "Networking",
-    icon: "🌐",
-    topics: [
-      {
-        id: 3,
-        title: "No internet connection",
-        description:
-          "The computer is connected to the network but cannot access the internet.",
-        steps: [
-          "Check the Ethernet or Wi-Fi connection.",
-          "Check the IP address using ipconfig.",
-          "Try pinging the default gateway.",
-          "Try pinging a public IP address.",
-          "Check the DNS configuration.",
-        ],
-      },
-      {
-        id: 4,
-        title: "DNS problem",
-        description: "Websites cannot be accessed using their domain names.",
-        steps: [
-          "Check the DNS server configuration.",
-          "Run nslookup.",
-          "Try another DNS server.",
-          "Flush the DNS cache.",
-        ],
-      },
-    ],
-  },
-
-  {
-    id: 3,
-    name: "Windows",
-    icon: "🪟",
-    topics: [
-      {
-        id: 5,
-        title: "Windows is slow",
-        description:
-          "The computer takes a long time to open applications or respond.",
-        steps: [
-          "Check CPU and RAM usage.",
-          "Check available disk space.",
-          "Disable unnecessary startup applications.",
-          "Check for Windows updates.",
-          "Check for malware.",
-        ],
-      },
-    ],
-  },
-
-  {
-    id: 4,
-    name: "Printers",
-    icon: "🖨️",
-    topics: [
-      {
-        id: 6,
-        title: "Printer is offline",
-        description:
-          "The printer appears offline and cannot receive print jobs.",
-        steps: [
-          "Check if the printer is powered on.",
-          "Check the network or USB connection.",
-          "Check the selected printer.",
-          "Restart the printer.",
-          "Restart the print spooler if necessary.",
-        ],
-      },
-    ],
-  },
-];
+type BrowseLevel = "home" | "category" | "subcategory" | "detail";
 
 export default function BrowseScreen() {
-  const [selectedCategory, setSelectedCategory] = useState<Category | null>(
+  const records = datasetRecords as TroubleshootingRecord[];
+  const catalog = useMemo(() => buildBrowseCatalog(records), [records]);
+
+  const [level, setLevel] = useState<BrowseLevel>("home");
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(
     null,
   );
+  const [selectedRecordId, setSelectedRecordId] = useState<string | null>(null);
+  const [query, setQuery] = useState("");
 
-  const [selectedTopic, setSelectedTopic] = useState<Topic | null>(null);
+  const categories = useMemo(
+    () => filterCategories(listCategories(catalog), query),
+    [catalog, query],
+  );
 
-  // --------------------------------
-  // INFORMATION PAGE
-  // --------------------------------
+  const subcategories = useMemo(() => {
+    if (!selectedCategory) return [];
+    return filterSubcategories(
+      listSubcategories(catalog, selectedCategory),
+      query,
+    );
+  }, [catalog, selectedCategory, query]);
 
-  if (selectedTopic) {
+  const problems = useMemo(() => {
+    if (!selectedCategory || !selectedSubcategory) return [];
+    return filterProblems(
+      listProblems(catalog, selectedCategory, selectedSubcategory),
+      query,
+    );
+  }, [catalog, selectedCategory, selectedSubcategory, query]);
+
+  const selectedRecord = useMemo(
+    () => records.find((r) => r.id === selectedRecordId) ?? null,
+    [records, selectedRecordId],
+  );
+
+  const openCategory = (category: string) => {
+    setSelectedCategory(category);
+    setQuery("");
+    setLevel("category");
+  };
+
+  const openSubcategory = (subcategory: string) => {
+    setSelectedSubcategory(subcategory);
+    setQuery("");
+    setLevel("subcategory");
+  };
+
+  const openProblem = (recordId: string) => {
+    setSelectedRecordId(recordId);
+    setLevel("detail");
+  };
+
+  const goHome = () => {
+    setLevel("home");
+    setSelectedCategory(null);
+    setSelectedSubcategory(null);
+    setSelectedRecordId(null);
+    setQuery("");
+  };
+
+  const goToCategory = () => {
+    setLevel("category");
+    setSelectedSubcategory(null);
+    setSelectedRecordId(null);
+    setQuery("");
+  };
+
+  const goToSubcategory = () => {
+    setLevel("subcategory");
+    setSelectedRecordId(null);
+  };
+
+  const breadcrumbItems = useMemo<Crumb[]>(() => {
+    const items: Crumb[] = [
+      { label: "Browse", onPress: level !== "home" ? goHome : undefined },
+    ];
+
+    if (selectedCategory && level !== "home") {
+      items.push({
+        label: displayCategoryName(selectedCategory),
+        onPress: level !== "category" ? goToCategory : undefined,
+      });
+    }
+
+    if (
+      selectedSubcategory &&
+      (level === "subcategory" || level === "detail")
+    ) {
+      items.push({
+        label: displayCategoryName(selectedSubcategory),
+        onPress: level !== "subcategory" ? goToSubcategory : undefined,
+      });
+    }
+
+    return items;
+  }, [level, selectedCategory, selectedSubcategory]);
+
+  // ------------------------------------------------------------------
+  // DETAIL — Problem Details screen
+  // ------------------------------------------------------------------
+  if (level === "detail" && selectedRecord) {
     return (
-      <View className="flex-1 bg-gray-50">
-        {/* Header */}
-        <View className="border-b border-gray-200 bg-white px-5 pb-4 pt-14">
-          <Pressable onPress={() => setSelectedTopic(null)} className="mb-3">
-            <Text className="text-base font-semibold text-blue-600">
-              ← Back
-            </Text>
-          </Pressable>
-
-          <Text className="text-2xl font-bold text-gray-900">
-            {selectedTopic.title}
+      <View className="flex-1 bg-slate-50">
+        <View className="border-b border-slate-100 bg-white px-5 pb-3 pt-14">
+          <Breadcrumb items={breadcrumbItems} />
+          <Text className="mt-1 text-xl font-bold text-slate-900">
+            {selectedRecord.problem}
           </Text>
         </View>
 
         <ScrollView
           className="flex-1 px-5"
-          contentContainerStyle={{
-            paddingTop: 20,
-            paddingBottom: 40,
-          }}
+          contentContainerStyle={{ paddingTop: 16, paddingBottom: 40 }}
+          showsVerticalScrollIndicator={false}
         >
-          {/* Description */}
+          <ProblemSection
+            title="Description"
+            bodyText={selectedRecord.description}
+          />
+          <ProblemSection title="Symptoms" items={selectedRecord.symptoms} />
+          <ProblemSection
+            title="Possible causes"
+            items={selectedRecord.possibleCauses}
+          />
 
-          <View className="mb-5 rounded-2xl bg-white p-5">
-            <Text className="mb-2 text-sm font-semibold uppercase text-gray-400">
-              Problem
-            </Text>
-
-            <Text className="text-base leading-6 text-gray-700">
-              {selectedTopic.description}
-            </Text>
-          </View>
-
-          {/* Troubleshooting Steps */}
-
-          <Text className="mb-3 text-lg font-bold text-gray-900">
-            Troubleshooting Steps
-          </Text>
-
-          {selectedTopic.steps.map((step, index) => (
-            <View
-              key={index}
-              className="mb-3 flex-row rounded-2xl bg-white p-4"
-            >
-              <View className="mr-3 h-8 w-8 items-center justify-center rounded-full bg-blue-100">
-                <Text className="font-bold text-blue-600">{index + 1}</Text>
-              </View>
-
-              <Text className="flex-1 text-base leading-6 text-gray-700">
-                {step}
+          {selectedRecord.troubleshootingSteps.length > 0 && (
+            <View className="mb-4">
+              <Text className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
+                Troubleshooting steps
               </Text>
+              {selectedRecord.troubleshootingSteps.map((step, index) => (
+                <TroubleshootingStepItem
+                  key={index}
+                  step={step}
+                  index={index}
+                />
+              ))}
             </View>
-          ))}
+          )}
+
+          <ProblemSection
+            title="Solution"
+            items={selectedRecord.possibleSolutions}
+          />
+          <ProblemSection
+            title="Prevention"
+            items={selectedRecord.prevention}
+          />
+          <ProblemSection
+            title="Related problems"
+            items={selectedRecord.relatedProblems}
+          />
         </ScrollView>
       </View>
     );
   }
 
-  // --------------------------------
-  // TOPIC LIST
-  // --------------------------------
-
-  if (selectedCategory) {
+  // ------------------------------------------------------------------
+  // SUBCATEGORY — Problem List screen
+  // ------------------------------------------------------------------
+  if (level === "subcategory" && selectedCategory && selectedSubcategory) {
     return (
-      <View className="flex-1 bg-gray-50">
-        {/* Header */}
-
-        <View className="border-b border-gray-200 bg-white px-5 pb-4 pt-14">
-          <Pressable onPress={() => setSelectedCategory(null)} className="mb-3">
-            <Text className="text-base font-semibold text-blue-600">
-              ← Back
-            </Text>
-          </Pressable>
-
-          <Text className="text-2xl font-bold text-gray-900">
-            {selectedCategory.icon} {selectedCategory.name}
+      <View className="flex-1 bg-slate-50">
+        <View className="border-b border-slate-100 bg-white px-5 pb-3 pt-14">
+          <Breadcrumb items={breadcrumbItems} />
+          <Text className="mt-1 text-xl font-bold text-slate-900">
+            {displayCategoryName(selectedSubcategory)}
           </Text>
-
-          <Text className="mt-1 text-sm text-gray-500">
-            Select a troubleshooting topic
-          </Text>
+          <View className="mt-3">
+            <BrowseSearchBar
+              value={query}
+              onChangeText={setQuery}
+              placeholder="Filter guides"
+            />
+          </View>
         </View>
 
         <ScrollView
           className="flex-1 px-5"
-          contentContainerStyle={{
-            paddingTop: 20,
-            paddingBottom: 40,
-          }}
+          contentContainerStyle={{ paddingTop: 16, paddingBottom: 40 }}
+          showsVerticalScrollIndicator={false}
         >
-          {selectedCategory.topics.map((topic) => (
-            <Pressable
-              key={topic.id}
-              onPress={() => setSelectedTopic(topic)}
-              className="mb-3 rounded-2xl border border-gray-200 bg-white p-5"
-            >
-              <Text className="text-base font-bold text-gray-900">
-                {topic.title}
-              </Text>
-
-              <Text className="mt-2 text-sm leading-5 text-gray-500">
-                {topic.description}
-              </Text>
-
-              <Text className="mt-3 text-sm font-semibold text-blue-600">
-                View troubleshooting →
-              </Text>
-            </Pressable>
-          ))}
+          {problems.length === 0 ? (
+            <EmptyState
+              icon="document-text-outline"
+              title="No problems found in this category."
+              description={query ? "Try a different search term." : undefined}
+            />
+          ) : (
+            problems.map((record) => (
+              <ProblemCard
+                key={record.id}
+                record={record}
+                onPress={() => openProblem(record.id)}
+              />
+            ))
+          )}
         </ScrollView>
       </View>
     );
   }
 
-  // --------------------------------
-  // CATEGORY PAGE
-  // --------------------------------
+  // ------------------------------------------------------------------
+  // CATEGORY — Subcategories screen
+  // ------------------------------------------------------------------
+  if (level === "category" && selectedCategory) {
+    return (
+      <View className="flex-1 bg-slate-50">
+        <View className="border-b border-slate-100 bg-white px-5 pb-3 pt-14">
+          <Breadcrumb items={breadcrumbItems} />
+          <Text className="mt-1 text-xl font-bold text-slate-900">
+            {displayCategoryName(selectedCategory)}
+          </Text>
+          <View className="mt-3">
+            <BrowseSearchBar
+              value={query}
+              onChangeText={setQuery}
+              placeholder="Filter subcategories"
+            />
+          </View>
+        </View>
 
-  return (
-    <View className="flex-1 bg-gray-50">
-      {/* Header */}
-
-      <View className="border-b border-gray-200 bg-white px-5 pb-5 pt-14">
-        <Text className="text-3xl font-bold text-gray-900">Browse</Text>
-
-        <Text className="mt-1 text-sm text-gray-500">
-          Select a category to find troubleshooting guides.
-        </Text>
+        <ScrollView
+          className="flex-1 px-5"
+          contentContainerStyle={{ paddingTop: 16, paddingBottom: 40 }}
+          showsVerticalScrollIndicator={false}
+        >
+          {subcategories.length === 0 ? (
+            <EmptyState
+              icon="folder-open-outline"
+              title="No troubleshooting guides available."
+              description={query ? "Try a different search term." : undefined}
+            />
+          ) : (
+            subcategories.map((sub) => (
+              <SubcategoryCard
+                key={sub.name}
+                subcategory={sub.name}
+                guideCount={sub.guideCount}
+                onPress={() => openSubcategory(sub.name)}
+              />
+            ))
+          )}
+        </ScrollView>
       </View>
+    );
+  }
 
-      {/* Categories */}
+  // ------------------------------------------------------------------
+  // HOME — Browse landing screen
+  // ------------------------------------------------------------------
+  return (
+    <View className="flex-1 bg-slate-50">
+      <View className="border-b border-slate-100 bg-white px-5 pb-4 pt-14">
+        <Text className="text-2xl font-bold text-slate-900">Browse</Text>
+        <Text className="mt-1 text-sm text-slate-500">
+          Explore troubleshooting guides by category.
+        </Text>
+        <View className="mt-3">
+          <BrowseSearchBar
+            value={query}
+            onChangeText={setQuery}
+            placeholder="Search categories"
+          />
+        </View>
+      </View>
 
       <ScrollView
         className="flex-1 px-5"
-        contentContainerStyle={{
-          paddingTop: 20,
-          paddingBottom: 40,
-        }}
+        contentContainerStyle={{ paddingTop: 16, paddingBottom: 40 }}
+        showsVerticalScrollIndicator={false}
       >
-        {categories.map((category) => (
-          <Pressable
-            key={category.id}
-            onPress={() => setSelectedCategory(category)}
-            className="mb-4 flex-row items-center rounded-2xl border border-gray-200 bg-white p-5"
-          >
-            {/* Icon */}
-
-            <View className="mr-4 h-14 w-14 items-center justify-center rounded-2xl bg-blue-50">
-              <Text className="text-2xl">{category.icon}</Text>
-            </View>
-
-            {/* Text */}
-
-            <View className="flex-1">
-              <Text className="text-lg font-bold text-gray-900">
-                {category.name}
-              </Text>
-
-              <Text className="mt-1 text-sm text-gray-500">
-                {category.topics.length} troubleshooting topic
-                {category.topics.length !== 1 ? "s" : ""}
-              </Text>
-            </View>
-
-            {/* Arrow */}
-
-            <Text className="text-xl text-gray-400">›</Text>
-          </Pressable>
-        ))}
+        {categories.length === 0 ? (
+          <EmptyState
+            icon="search-outline"
+            title="No results found."
+            description="Try a different search term."
+          />
+        ) : (
+          categories.map((category) => (
+            <CategoryCard
+              key={category.name}
+              category={category.name}
+              guideCount={category.guideCount}
+              onPress={() => openCategory(category.name)}
+            />
+          ))
+        )}
       </ScrollView>
     </View>
   );
