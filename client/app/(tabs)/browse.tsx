@@ -1,21 +1,9 @@
-import { useMemo, useState } from "react";
-import { ScrollView, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import type { TroubleshootingRecord } from "../../services/general/DatasetLoader";
-import {
-  buildBrowseCatalog,
-  filterCategories,
-  filterProblems,
-  filterSubcategories,
-  listCategories,
-  listProblems,
-  listSubcategories,
-} from "../../services/browse/Browsecatalog";
 import { displayCategoryName } from "../../utils/browse/Categorymeta";
-import {
-  Breadcrumb,
-  type Crumb,
-} from "../../components/tabs/browse/Breadcrumb";
-import { BrowseSearchBar } from "../../components/tabs/browse/Browsesearchbar";
+import { useBrowseNavigation } from "../../hooks/browse/useBrowseNavigation";
+import { BrowseHeader } from "../../components/tabs/browse/Browseheader";
+import { BrowseScrollView } from "../../components/tabs/browse/BrowseScrollView";
 import { CategoryCard } from "../../components/tabs/browse/Categorycard";
 import { SubcategoryCard } from "../../components/tabs/browse/Subcategorycard";
 import { ProblemCard } from "../../components/tabs/browse/Problemcard";
@@ -27,107 +15,23 @@ import { EmptyState } from "../../components/tabs/browse/Emptystate";
 // loads or defines its own copy of the data.
 import datasetRecords from "../../assets/dataset.json";
 
-type BrowseLevel = "home" | "category" | "subcategory" | "detail";
-
 export default function BrowseScreen() {
   const records = datasetRecords as TroubleshootingRecord[];
-  const catalog = useMemo(() => buildBrowseCatalog(records), [records]);
-
-  const [level, setLevel] = useState<BrowseLevel>("home");
-  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
-  const [selectedSubcategory, setSelectedSubcategory] = useState<string | null>(
-    null,
-  );
-  const [selectedRecordId, setSelectedRecordId] = useState<string | null>(null);
-  const [query, setQuery] = useState("");
-
-  const categories = useMemo(
-    () => filterCategories(listCategories(catalog), query),
-    [catalog, query],
-  );
-
-  const subcategories = useMemo(() => {
-    if (!selectedCategory) return [];
-    return filterSubcategories(
-      listSubcategories(catalog, selectedCategory),
-      query,
-    );
-  }, [catalog, selectedCategory, query]);
-
-  const problems = useMemo(() => {
-    if (!selectedCategory || !selectedSubcategory) return [];
-    return filterProblems(
-      listProblems(catalog, selectedCategory, selectedSubcategory),
-      query,
-    );
-  }, [catalog, selectedCategory, selectedSubcategory, query]);
-
-  const selectedRecord = useMemo(
-    () => records.find((r) => r.id === selectedRecordId) ?? null,
-    [records, selectedRecordId],
-  );
-
-  const openCategory = (category: string) => {
-    setSelectedCategory(category);
-    setQuery("");
-    setLevel("category");
-  };
-
-  const openSubcategory = (subcategory: string) => {
-    setSelectedSubcategory(subcategory);
-    setQuery("");
-    setLevel("subcategory");
-  };
-
-  const openProblem = (recordId: string) => {
-    setSelectedRecordId(recordId);
-    setLevel("detail");
-  };
-
-  const goHome = () => {
-    setLevel("home");
-    setSelectedCategory(null);
-    setSelectedSubcategory(null);
-    setSelectedRecordId(null);
-    setQuery("");
-  };
-
-  const goToCategory = () => {
-    setLevel("category");
-    setSelectedSubcategory(null);
-    setSelectedRecordId(null);
-    setQuery("");
-  };
-
-  const goToSubcategory = () => {
-    setLevel("subcategory");
-    setSelectedRecordId(null);
-  };
-
-  const breadcrumbItems = useMemo<Crumb[]>(() => {
-    const items: Crumb[] = [
-      { label: "Browse", onPress: level !== "home" ? goHome : undefined },
-    ];
-
-    if (selectedCategory && level !== "home") {
-      items.push({
-        label: displayCategoryName(selectedCategory),
-        onPress: level !== "category" ? goToCategory : undefined,
-      });
-    }
-
-    if (
-      selectedSubcategory &&
-      (level === "subcategory" || level === "detail")
-    ) {
-      items.push({
-        label: displayCategoryName(selectedSubcategory),
-        onPress: level !== "subcategory" ? goToSubcategory : undefined,
-      });
-    }
-
-    return items;
-  }, [level, selectedCategory, selectedSubcategory]);
+  const {
+    level,
+    query,
+    setQuery,
+    selectedCategory,
+    selectedSubcategory,
+    selectedRecord,
+    categories,
+    subcategories,
+    problems,
+    breadcrumbItems,
+    openCategory,
+    openSubcategory,
+    openProblem,
+  } = useBrowseNavigation(records);
 
   // ------------------------------------------------------------------
   // DETAIL — Problem Details screen
@@ -135,18 +39,12 @@ export default function BrowseScreen() {
   if (level === "detail" && selectedRecord) {
     return (
       <View className="flex-1 bg-slate-50">
-        <View className="border-b border-slate-100 bg-white px-5 pb-3 pt-14">
-          <Breadcrumb items={breadcrumbItems} />
-          <Text className="mt-1 text-xl font-bold text-slate-900">
-            {selectedRecord.problem}
-          </Text>
-        </View>
+        <BrowseHeader
+          breadcrumbItems={breadcrumbItems}
+          title={selectedRecord.problem}
+        />
 
-        <ScrollView
-          className="flex-1 px-5"
-          contentContainerStyle={{ paddingTop: 16, paddingBottom: 40 }}
-          showsVerticalScrollIndicator={false}
-        >
+        <BrowseScrollView>
           <ProblemSection
             title="Description"
             bodyText={selectedRecord.description}
@@ -184,7 +82,7 @@ export default function BrowseScreen() {
             title="Related problems"
             items={selectedRecord.relatedProblems}
           />
-        </ScrollView>
+        </BrowseScrollView>
       </View>
     );
   }
@@ -195,25 +93,17 @@ export default function BrowseScreen() {
   if (level === "subcategory" && selectedCategory && selectedSubcategory) {
     return (
       <View className="flex-1 bg-slate-50">
-        <View className="border-b border-slate-100 bg-white px-5 pb-3 pt-14">
-          <Breadcrumb items={breadcrumbItems} />
-          <Text className="mt-1 text-xl font-bold text-slate-900">
-            {displayCategoryName(selectedSubcategory)}
-          </Text>
-          <View className="mt-3">
-            <BrowseSearchBar
-              value={query}
-              onChangeText={setQuery}
-              placeholder="Filter guides"
-            />
-          </View>
-        </View>
+        <BrowseHeader
+          breadcrumbItems={breadcrumbItems}
+          title={displayCategoryName(selectedSubcategory)}
+          search={{
+            value: query,
+            onChangeText: setQuery,
+            placeholder: "Filter guides",
+          }}
+        />
 
-        <ScrollView
-          className="flex-1 px-5"
-          contentContainerStyle={{ paddingTop: 16, paddingBottom: 40 }}
-          showsVerticalScrollIndicator={false}
-        >
+        <BrowseScrollView>
           {problems.length === 0 ? (
             <EmptyState
               icon="document-text-outline"
@@ -229,7 +119,7 @@ export default function BrowseScreen() {
               />
             ))
           )}
-        </ScrollView>
+        </BrowseScrollView>
       </View>
     );
   }
@@ -240,25 +130,17 @@ export default function BrowseScreen() {
   if (level === "category" && selectedCategory) {
     return (
       <View className="flex-1 bg-slate-50">
-        <View className="border-b border-slate-100 bg-white px-5 pb-3 pt-14">
-          <Breadcrumb items={breadcrumbItems} />
-          <Text className="mt-1 text-xl font-bold text-slate-900">
-            {displayCategoryName(selectedCategory)}
-          </Text>
-          <View className="mt-3">
-            <BrowseSearchBar
-              value={query}
-              onChangeText={setQuery}
-              placeholder="Filter subcategories"
-            />
-          </View>
-        </View>
+        <BrowseHeader
+          breadcrumbItems={breadcrumbItems}
+          title={displayCategoryName(selectedCategory)}
+          search={{
+            value: query,
+            onChangeText: setQuery,
+            placeholder: "Filter subcategories",
+          }}
+        />
 
-        <ScrollView
-          className="flex-1 px-5"
-          contentContainerStyle={{ paddingTop: 16, paddingBottom: 40 }}
-          showsVerticalScrollIndicator={false}
-        >
+        <BrowseScrollView>
           {subcategories.length === 0 ? (
             <EmptyState
               icon="folder-open-outline"
@@ -275,7 +157,7 @@ export default function BrowseScreen() {
               />
             ))
           )}
-        </ScrollView>
+        </BrowseScrollView>
       </View>
     );
   }
@@ -285,25 +167,18 @@ export default function BrowseScreen() {
   // ------------------------------------------------------------------
   return (
     <View className="flex-1 bg-slate-50">
-      <View className="border-b border-slate-100 bg-white px-5 pb-4 pt-14">
-        <Text className="text-2xl font-bold text-slate-900">Browse</Text>
-        <Text className="mt-1 text-sm text-slate-500">
-          Explore troubleshooting guides by category.
-        </Text>
-        <View className="mt-3">
-          <BrowseSearchBar
-            value={query}
-            onChangeText={setQuery}
-            placeholder="Search categories"
-          />
-        </View>
-      </View>
+      <BrowseHeader
+        breadcrumbItems={breadcrumbItems}
+        title="Browse"
+        subtitle="Explore troubleshooting guides by category."
+        search={{
+          value: query,
+          onChangeText: setQuery,
+          placeholder: "Search categories",
+        }}
+      />
 
-      <ScrollView
-        className="flex-1 px-5"
-        contentContainerStyle={{ paddingTop: 16, paddingBottom: 40 }}
-        showsVerticalScrollIndicator={false}
-      >
+      <BrowseScrollView>
         {categories.length === 0 ? (
           <EmptyState
             icon="search-outline"
@@ -320,7 +195,7 @@ export default function BrowseScreen() {
             />
           ))
         )}
-      </ScrollView>
+      </BrowseScrollView>
     </View>
   );
 }
