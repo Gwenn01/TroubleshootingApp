@@ -22,16 +22,12 @@ export function BrowseHeader({
   icon = "folder-open-outline",
   search,
 }: BrowseHeaderProps) {
-  const showBreadcrumb = breadcrumbItems.length > 0;
+  // The hook always includes a base "Browse" crumb, so there's nothing
+  // useful to show until we're at least one level deep.
+  const showBreadcrumb = breadcrumbItems.length > 1;
 
   return (
     <View className="border-b border-slate-100 bg-white px-5 pb-4 pt-14">
-      {showBreadcrumb && (
-        <View className="mb-2">
-          <Breadcrumb items={breadcrumbItems} />
-        </View>
-      )}
-
       <View className="flex-row items-center gap-3">
         <View className="h-11 w-11 items-center justify-center rounded-2xl bg-blue-600">
           <Ionicons name={icon} size={22} color="#FFFFFF" />
@@ -51,6 +47,12 @@ export function BrowseHeader({
           )}
         </View>
       </View>
+
+      {showBreadcrumb && (
+        <View className="mt-3">
+          <Breadcrumb items={breadcrumbItems} />
+        </View>
+      )}
 
       {search && (
         <View className="mt-3">
